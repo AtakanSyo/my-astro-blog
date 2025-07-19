@@ -4,14 +4,22 @@ import Layout from '../layouts/Layout.astro';
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const posts = await Astro.glob('./posts/*.md');
 ---
 
-<Layout>
-  <h1>Welcome to Astro Man!</h1>
-  <p>
-	This is your starting point for building a static site with Astro. You can customize this page by editing the <code>index.astro</code> file.
-  </p>
-  <p>
-	For more information on how to use Astro, check out the <a href="https://docs.astro.build" target="_blank">Astro documentation</a>.
-  </p>
+<Layout title="Home">
+  <section class="container">
+    <h1>Latest Posts</h1>
+    <ul class="post-list">
+      {posts.map(({ frontmatter, url }) => (
+        <li class="post-item">
+          <a href={url}>
+            <h2>{frontmatter.title}</h2>
+            <time datetime={frontmatter.pubDate}>{frontmatter.pubDate}</time>
+            <p>{frontmatter.description}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
 </Layout>

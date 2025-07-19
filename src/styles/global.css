@@ -1,0 +1,48 @@
+/* src/styles/global.css */
+
+/* 1. Simple CSS reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 2. Design tokens */
+:root {
+  --font-sans: "Helvetica", Helvetica, Arial, sans-serif;
+  --color-text: #333;
+  --color-primary: #1e3a8a;
+  --spacing: 1rem;
+}
+
+/* 3. Base styles */
+body {
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  color: var(--color-text);
+  background: #fff;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: var(--spacing);
+  margin-bottom: calc(var(--spacing) / 2);
+}
+
+p {
+  margin-bottom: var(--spacing);
+}
+
+/* 4. Utility classes (optional) */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 var(--spacing);
+}
