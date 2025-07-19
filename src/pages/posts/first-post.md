@@ -4,6 +4,8 @@ pubDate: "2025-07-19"
 description: "My first post on Astrosy: why I started this blog and what to expect."
 ---
 
+
+
 # 🚀 Welcome to Astrosy!
 
 Hi there! I’m Atakan, a computer-science major and astronomy enthusiast. This is the very first post on **Astrosy**, my little corner of the internet where I’ll share:

@@ -1,14 +1,15 @@
 ---
 // src/pages/index.astro
 import Layout from '../layouts/Layout.astro';
-
+import '../styles/index.css';    // ← import your page-only CSS
+import { site } from '../config/site.js';
 // Welcome to Astro! …
 const posts = await Astro.glob('./posts/*.{md,mdx}');
 ---
 
 <Layout title="Home">
   <section class="container">
-    <h1>Astrosyo</h1>
+    <h1>{site.name}</h1>
     <img
       src="/images/home_cover.jpeg"
       alt="cover"

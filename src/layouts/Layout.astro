@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';  // ← pulls in your global styles
+import { site } from '../config/site.js';
+
 // any other imports or props…
 ---
 
@@ -16,7 +18,7 @@ import '../styles/global.css';  // ← pulls in your global styles
 	<body>
     <header>
       <nav>
-        <a href="/">Home</a>
+        <a href="/">{site.name}</a>
         <a href="/about/">About</a>
         <a href="/posts/">Posts</a>
       </nav>
