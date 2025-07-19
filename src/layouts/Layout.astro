@@ -21,7 +21,16 @@ import '../styles/global.css';  // ← pulls in your global styles
         <a href="/posts/">Posts</a>
       </nav>
     </header>
-		<slot />
+
+    <main>
+      <slot />
+    </main>
+
+    <!-- footer -->
+    <footer class="site-footer container">
+      <p>© {new Date().getFullYear()} Astrosy.</p>
+    </footer>
+
 	</body>
 </html>
 

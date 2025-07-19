@@ -40,6 +40,20 @@ p {
   margin-bottom: var(--spacing);
 }
 
+header {
+  display: flex;
+  align-items: center; /* vertical */
+  justify-content: center; /* horizontal */
+  width: 100%;
+}
+
+.site-footer {
+  padding: var(--spacing);
+  text-align: center;
+  background-color: black;
+  color:white;
+}
+
 /* 4. Utility classes (optional) */
 .container {
   max-width: 800px;
