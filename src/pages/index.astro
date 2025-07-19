@@ -9,12 +9,18 @@ const posts = await Astro.glob('./posts/*.md');
 
 <Layout title="Home">
   <section class="container">
-    <h1>Latest Posts</h1>
+    <h1>Astrosy</h1>
     <ul class="post-list">
       {posts.map(({ frontmatter, url }) => (
         <li class="post-item">
           <a href={url}>
             <h2>{frontmatter.title}</h2>
+			<img
+  			src="/images/home_cover.jpeg"
+  			alt="cover"
+  			width="800"
+  			height="400" 
+			/>
             <time datetime={frontmatter.pubDate}>{frontmatter.pubDate}</time>
             <p>{frontmatter.description}</p>
           </a>
