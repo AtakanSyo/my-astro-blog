@@ -1,26 +1,25 @@
 ---
-
+// src/pages/index.astro
 import Layout from '../layouts/Layout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
-const posts = await Astro.glob('./posts/*.md');
+// Welcome to Astro! …
+const posts = await Astro.glob('./posts/*.{md,mdx}');
 ---
 
 <Layout title="Home">
   <section class="container">
     <h1>Astrosy</h1>
+    <img
+      src="/images/home_cover.jpeg"
+      alt="cover"
+      width="800"
+      height="400" 
+    />
     <ul class="post-list">
       {posts.map(({ frontmatter, url }) => (
         <li class="post-item">
           <a href={url}>
             <h2>{frontmatter.title}</h2>
-			<img
-  			src="/images/home_cover.jpeg"
-  			alt="cover"
-  			width="800"
-  			height="400" 
-			/>
             <time datetime={frontmatter.pubDate}>{frontmatter.pubDate}</time>
             <p>{frontmatter.description}</p>
           </a>
