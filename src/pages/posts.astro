@@ -9,7 +9,7 @@ posts.sort((a, b) => new Date(b.frontmatter.pubDate) - new Date(a.frontmatter.pu
 ---
 
 <Layout title="All Posts">
-  <section class="container">
+  <section class="container centered_flex">
     <h1>All Posts</h1>
     {posts.length === 0 ? (
       <p>No posts found—stay tuned!</p>

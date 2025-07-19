@@ -24,6 +24,7 @@ body {
   line-height: 1.6;
   color: var(--color-text);
   background: #fff;
+  width: 100%;
 }
 
 a {
@@ -59,7 +60,13 @@ header {
 
 /* 4. Utility classes (optional) */
 .container {
-  max-width: 800px;
   margin: 0 auto;
   padding: 0 var(--spacing);
+}
+
+.centered_flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
