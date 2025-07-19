@@ -70,3 +70,34 @@ header {
   align-items: center;
   flex-direction: column;
 }
+
+.post_link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 1rem;       /* 1rem between each child */
+
+  border-style: solid;
+  border-width: 2px;
+  border-color: #1e3a8a; /* light gray */
+  margin: 1rem;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.post_link p {
+  max-width: 150px;
+}
+
+.post_link:hover {
+  background-color: #f3f4f6; /* light gray */
+}
+
+.small_thumbnail {
+  width: 100px;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
