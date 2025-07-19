@@ -2,9 +2,7 @@
 layout: '../../layouts/PostLayout.astro'
 title: "Orion SkyLine 8 Review"
 brand: "Orion"
-ratings:
-  expert: 9.5
-  enthusiasts: 9.0
+rating: 9.5
 affiliate:
   amazon: "https://amazon.com/example-affiliate-link"
 specs:
@@ -16,7 +14,32 @@ description: "A quick take on the Orion SkyLine 8 Dobsonian."
 
 <img src="/images/OrionSkyline8Inch-Cover.webp" alt="Orion SkyLine 8 Telescope" class="post-starter-image" />
 # {frontmatter.title}
-<h2>{frontmatter.description}</h2>
+<span class="rating centered_flex">{frontmatter.rating}/10</span>
+<h4>{frontmatter.description}</h4>
+
+<div class="pros-cons-box">
+  <div>
+    <h3>Pros</h3>
+    <ul>
+      <li>Great optics</li>
+      <li>Dual-speed focuser</li>
+      <li>Easy collimation</li>
+    </ul>
+  </div>
+  <div>
+    <h3>Cons</h3>
+    <ul>
+      <li>Finderscope a bit tricky</li>
+      <li>Included collimator is unreliable</li>
+      <li>Roller bearing can feel loose</li>
+    </ul>
+  </div>
+</div>
+
+## Specs
+
+- **Aperture:** {frontmatter.specs.aperture}  
+- **Focal Length:** {frontmatter.specs.focalLength}
 
 <div class="highlight">
   The Orion SkyLine 8’s dual-speed focuser makes high-power focusing a breeze—
@@ -31,10 +54,7 @@ incredibly portable for its aperture…
   avoid having to re-collimate.
 </div>
 
-## Specs
 
-- **Aperture:** {frontmatter.specs.aperture}  
-- **Focal Length:** {frontmatter.specs.focalLength}
 
 Your regular paragraphs remain unstyled:
 
