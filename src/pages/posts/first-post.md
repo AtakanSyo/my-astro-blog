@@ -1,5 +1,5 @@
 ---
-title: "Welcome to Astrosy"
+title: "Welcome to Astrosyo"
 pubDate: "2025-07-19"
 description: "My first post on Astrosy: why I started this blog and what to expect."
 ---
