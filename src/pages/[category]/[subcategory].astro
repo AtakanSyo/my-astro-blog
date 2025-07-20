@@ -1,0 +1,46 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+
+// 1) Tell Astro which category/subcategory combos to build
+export async function getStaticPaths() {
+  const allPosts = await Astro.glob('../../posts/*.{md,mdx}', { eager: true });
+  return allPosts.map((p) => ({
+    params: {
+      category: p.frontmatter.category,
+      subcategory: p.frontmatter.subcategory || 'general',
+    },
+  }));
+}
+
+// 2) Grab the params and filter
+const { category, subcategory } = Astro.params;
+const allPosts = await Astro.glob('../../posts/*.{md,mdx}', { eager: true });
+const posts = allPosts.filter(
+  (p) =>
+    p.frontmatter.category === category &&
+    (p.frontmatter.subcategory || 'general') === subcategory
+);
+---
+
+<Layout title={`${category} › ${subcategory}`}>
+  <h1>
+    {category.charAt(0).toUpperCase() + category.slice(1)} › 
+    {subcategory.charAt(0).toUpperCase() + subcategory.slice(1)}
+  </h1>
+
+  {posts.length ? (
+    <div class="post-list">
+      {posts.map(({ frontmatter, url }) => (
+        <a href={url} key={url} class="post_link">
+          <img src={frontmatter.cover_image} alt={frontmatter.title} class="small_thumbnail" />
+          <div>
+            <h2>{frontmatter.title}</h2>
+            <p>{frontmatter.description}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  ) : (
+    <p>No posts found in this category/subcategory.</p>
+  )}
+</Layout>
