@@ -114,7 +114,8 @@ header nav a {
 }
 
 .post_link:hover {
-  background-color: #f3f4f6; /* light gray */
+  opacity: 0.8;
+  text-decoration: none;
 }
 
 .small_thumbnail {

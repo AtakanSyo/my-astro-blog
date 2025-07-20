@@ -1,33 +1,41 @@
 ---
-// src/pages/index.astro
 import Layout from '../layouts/Layout.astro';
-import '../styles/index.css';    // ← import your page-only CSS
+import '../styles/index.css';
 import { site } from '../config/site.js';
-// Welcome to Astro! …
-const posts = await Astro.glob('./posts/*.{md,mdx}');
+
+// 1. Grab *all* your posts
+const allPosts = await Astro.glob('./posts/*.{md,mdx}', { eager: true });
+
+// 2. Sort descending by `pubDate` (newest first)
+allPosts.sort(
+  (a, b) => new Date(b.frontmatter.pubDate) - new Date(a.frontmatter.pubDate)
+);
+
+// 3. Take only the first 4 items
+const posts = allPosts.slice(0, 4);
 ---
 
 <Layout title="Home">
   <section class="container centered_flex">
-    <h1>{site.name}</h1>
     <img
       src="/images/home_cover.jpeg"
       alt="cover"
-	  width="60%"
+      width="30%"
     />
-  <div class="post-list">
-    {posts.map(({ frontmatter, url }) => (
-      <a href={url} class="post_link" key={url}>
-        <img
-          src={frontmatter.image}
-          alt={frontmatter.title}
-          class="small_thumbnail"
-        />
-        <h2>{frontmatter.title}</h2>
-        <p>{frontmatter.description}</p>
-        <p>{frontmatter.date}</p>
-      </a>
-    ))}
-  </div>
+
+    <div class="post-list">
+      {posts.map(({ frontmatter, url }) => (
+        <a href={url} class="post_link">
+          <div class="post-meta">
+            <h2>{frontmatter.title}</h2>
+            <p class="description">{frontmatter.description}</p>
+            <p>{frontmatter.writer}</p>
+            <time datetime={frontmatter.pubDate}>
+              {new Date(frontmatter.pubDate).toLocaleDateString()}
+            </time>
+          </div>
+        </a>
+      ))}
+    </div>
   </section>
 </Layout>
