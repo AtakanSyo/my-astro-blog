@@ -4,12 +4,38 @@ import '../styles/post.css';  // ← pulls in your global styles
 const {
   title,
   description,
+  writer,
+  rating: { overall: ratingValue } = {},
+  pubDate,
 } = Astro.props.frontmatter;
+
+// Build your JSON-LD object:
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Review",
+  "author": {
+    "@type": "Person",
+    "name": writer
+  },
+  "name": title,
+  "datePublished": pubDate,
+  "reviewBody": description,
+  "reviewRating": {
+    "@type": "Rating",
+    "ratingValue": ratingValue,
+    "bestRating": "10",
+    "worstRating": "1"
+  },
+};
 ---
 
 <head>
   <title>{title}</title>
   <meta name="description" content={description} />
+  <!-- JSON-LD markup for Google rich snippets -->
+  <script type="application/ld+json">
+    {JSON.stringify(jsonLd, null, 2)}
+  </script>
 </head>
 
 <Layout title={title}>
