@@ -21,7 +21,12 @@ pubDate: "10-21-2025"
 description: "The Orion SkyLine 6\" is one of the best 6\" Dobsonians out there."
 ---
 
-<img src={frontmatter.cover_image} class="post-starter-image" alt="{frontmatter.title} cover"/>
+<img
+  src={frontmatter.cover_image}
+  class="post-starter-image"
+  alt={frontmatter.title + ' cover'}
+/>
+
 # {frontmatter.title}
 
 <p class="review-description">{frontmatter.description}</p>
