@@ -16,6 +16,7 @@
   --color-text: #333;
   --color-primary: #3C3743;
   --spacing: 1rem;
+  --header-height: 40px;
 }
 
 /* 3. Base styles */
@@ -25,6 +26,7 @@ body {
   color: var(--color-text);
   background: #fff;
   width: 100%;
+  padding-top: var(--header-height); /* Push content below fixed header */
 }
 
 a {
@@ -56,6 +58,7 @@ header {
   right: 0;
   z-index: 1000;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  height: var(--header-height);
 }
 
 header nav {
@@ -69,8 +72,12 @@ header nav {
 
 header nav a {
   color: white;
-  text-decoration: none;
   font-weight: bold;
+}
+
+header nav a:hover {
+  opacity: 0.8;
+  text-decoration: none;
 }
 
 .site-footer {
