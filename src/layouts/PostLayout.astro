@@ -33,9 +33,9 @@ const jsonLd = {
   <title>{title}</title>
   <meta name="description" content={description} />
   <!-- JSON-LD markup for Google rich snippets -->
-  <script type="application/ld+json">
-    {JSON.stringify(jsonLd, null, 2)}
-  </script>
+<script type="application/ld+json" is:inline>
+  {JSON.stringify(jsonLd, null, 2)}
+</script>
 </head>
 
 <Layout title={title}>
