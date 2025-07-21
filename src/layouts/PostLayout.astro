@@ -1,8 +1,16 @@
 ---
 import Layout from './Layout.astro';
-const { title } = Astro.props;
 import '../styles/post.css';  // ← pulls in your global styles
+const {
+  title,
+  description,
+} = Astro.props.frontmatter;
 ---
+
+<head>
+  <title>{title}</title>
+  <meta name="description" content={description} />
+</head>
 
 <Layout title={title}>
   <article class="post container centered_flex">

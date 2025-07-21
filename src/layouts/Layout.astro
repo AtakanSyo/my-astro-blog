@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';  // ← pulls in your global styles
 import { site } from '../config/site.js';
+const site_description = site.description;
 
 // any other imports or props…
 ---
@@ -13,6 +14,7 @@ import { site } from '../config/site.js';
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+    <meta property="og:description" content={site_description} />
 		<title>Astrosyo</title>
 		<script defer src="https://cloud.umami.is/script.js" data-website-id="7f187073-b57a-4268-9c53-94c815af943f"></script>
 	</head>
