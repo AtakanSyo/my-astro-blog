@@ -14,7 +14,7 @@
 :root {
   --font-sans: "Helvetica", Helvetica, Arial, sans-serif;
   --color-text: #333;
-  --color-primary: #1e3a8a;
+  --color-primary: #3C3743;
   --spacing: 1rem;
 }
 
@@ -93,24 +93,53 @@ header nav a {
   flex-direction: column;
 }
 
+.post-list {
+  display: flex;
+  flex-direction: column; /* Stack post links vertically */
+  gap: 1rem; /* Space between post links */
+}
+
 .post_link {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap; /* Allow items to wrap */
+
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
 
   gap: 1rem;       /* 1rem between each child */
 
   border-style: solid;
   border-width: 2px;
-  border-color: #1e3a8a; /* light gray */
+  border-color: #3C3743; /* dark gray */
+
   margin: 1rem;
   border-radius: 8px;
   padding: 1rem;
 }
 
+.post-link-title {
+  width: 100%; /* Force h2 to full width */
+  margin-bottom: 0.5rem; /* Space below title */
+  text-align: center;
+
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  font-weight: bold;
+}
+
+.post-link-writer {
+  font-style: italic;
+  color: #555; /* Slightly lighter color for writer */
+  margin-bottom: 0.5rem; /* Space below writer */
+}
+
 .post_link p {
   max-width: 150px;
+}
+
+.post-link time {
+  font-size: 0.875em;
+  color: #999;
 }
 
 .post_link:hover {
@@ -122,5 +151,4 @@ header nav a {
   width: 100px;
   height: auto;
   border-radius: 8px;
-  object-fit: cover;
 }

@@ -26,14 +26,12 @@ const posts = allPosts.slice(0, 4);
     <div class="post-list">
       {posts.map(({ frontmatter, url }) => (
         <a href={url} class="post_link">
-          <div class="post-meta">
-            <h2>{frontmatter.title}</h2>
-            <p class="description">{frontmatter.description}</p>
-            <p>{frontmatter.writer}</p>
-            <time datetime={frontmatter.pubDate}>
-              {new Date(frontmatter.pubDate).toLocaleDateString()}
-            </time>
-          </div>
+          <div class="post-link-title">{frontmatter.title}</div>
+          <!-- <p class="description">{frontmatter.description}</p> -->
+          <p class="post-link-writer">{frontmatter.writer}</p>
+          <time datetime={frontmatter.pubDate}>
+            {new Date(frontmatter.pubDate).toLocaleDateString()}
+          </time>
         </a>
       ))}
     </div>
