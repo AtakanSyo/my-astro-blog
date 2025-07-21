@@ -30,7 +30,7 @@ const posts = allPosts.slice(0, 4);
           <div class="post-link-title">{frontmatter.title}</div>
           <!-- <p class="description">{frontmatter.description}</p> -->
           <p class="post-link-writer">{frontmatter.writer}</p>
-          <time datetime={frontmatter.pubDate}>
+          <time datetime={frontmatter.puwDate}>
             {new Date(frontmatter.pubDate).toLocaleDateString()}
           </time>
         </a>

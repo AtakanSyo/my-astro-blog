@@ -86,7 +86,7 @@ p {
 .info-tags h3 {
   font-size: 1.25rem;
   margin-bottom: 0.75rem;
-  color: #5e3e9b;
+  color: var(--color-primary);
 }
 
 .info-tags ul {
@@ -251,7 +251,7 @@ p {
 
 .affiliates h3 {
   font-size: 1.5rem;
-  color: #5e3e9b;
+  color: var(--color-primary);
   margin-bottom: 1rem;
 }
 
