@@ -80,6 +80,20 @@ header nav a:hover {
   text-decoration: none;
 }
 
+.logo{
+  position: fixed;
+  left: 1rem;
+  top: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo img {
+    width: 24px;
+    height: auto;
+}
+
 .site-footer {
   padding: var(--spacing);
   text-align: center;
