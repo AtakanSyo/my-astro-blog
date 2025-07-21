@@ -1,10 +1,78 @@
 ---
 import Layout from './Layout.astro';
-const { title } = Astro.props;
 import '../styles/post.css';  // ← pulls in your global styles
----
+const { frontmatter } = Astro.props;
+const {
+  title,
+  writer,
+  rating = {},       // default to empty object
+  pubDate,
+  description,
+  cover_image,
+} = frontmatter;
 
+// build your schema only if you have a rating.overall
+const reviewSchema =
+  rating.overall != null
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Review",
+        itemReviewed: {
+          "@type": "Product",
+          name: title,
+        },
+        author: {
+          "@type": "Person",
+          name: writer,
+        },
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: rating.overall.toString(),
+          bestRating: "10",
+          worstRating: "1",
+        },
+        datePublished: pubDate,
+        reviewBody: description,
+      }
+    : null;
+---
 <Layout title={title}>
+  <!-- fill the named head slot -->
+  <fragment slot="head">
+    <!-- Basic SEO -->
+    <meta name="description" content={description} />
+    <link
+      rel="canonical"
+      href={`${Astro.site}${Astro.request.url.pathname}`}
+    />
+
+    <!-- Open Graph -->
+    <meta property="og:type"        content="article" />
+    <meta property="og:title"       content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image"       content={cover_image} />
+    <meta
+      property="og:url"
+      content={`${Astro.site}${Astro.request.url.pathname}`}
+    />
+    <meta property="og:site_name"   content="AstroSyo" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image"       content={cover_image} />
+    <meta name="twitter:site"        content="@AstroSyo" />
+
+    <!-- JSON-LD for Rich Snippets -->
+    {reviewSchema && (
+      <script type="application/ld+json">
+        {JSON.stringify(reviewSchema)}
+      </script>
+    )}
+  </fragment>
+
+  <!-- your actual post content -->
   <article class="post container centered_flex">
     <slot />
   </article>
