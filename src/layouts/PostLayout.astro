@@ -9,27 +9,27 @@ const {
   pubDate,
 } = Astro.props.frontmatter;
 
-// Build your JSON-LD object:
-const jsonLd = {
+// Build a Product schema embedding your Review
+const jsonLdProduct = {
   "@context": "https://schema.org",
-  "@type": "Review",
-  "author": {
-    "@type": "Person",
-    "name": writer
-  },
+  "@type": "Product",
   "name": title,
-  "itemReviewed": {
-    "@type": "Product",
-    "name": title,
-  },
-  "datePublished": pubDate,
-  "reviewBody": description,
-  "reviewRating": {
-    "@type": "Rating",
-    "ratingValue": ratingValue,
-    "bestRating": "10",
-    "worstRating": "1"
-  },
+  "description": description,
+  "review": {
+    "@type": "Review",
+    "author": {
+      "@type": "Person",
+      "name": writer
+    },
+    "datePublished": pubDate,
+    "reviewBody": description,
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": ratingValue,
+      "bestRating": "10",
+      "worstRating": "1"
+    }
+  }
 };
 ---
 
