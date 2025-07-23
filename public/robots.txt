@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /drafts/
+Disallow: /admin/
+
+Sitemap: https://astrosyo.com/sitemap-index.xml
