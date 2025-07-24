@@ -52,7 +52,7 @@ for (const type of types) {
 
     <!-- “All” group -->
     <div class="post-group" data-type="all">
-      <h2>All Telescopes</h2>
+      <h3>All Telescopes</h3>
       {sortedAll.map(({ frontmatter, url }) => {
         const cleanTitle = frontmatter.title.replace(/ Review$/, '');
         const score = frontmatter.rating?.overall ?? 'N/A';
@@ -68,7 +68,7 @@ for (const type of types) {
     <!-- One group per type -->
     {types.map((t) => (
       <div class="post-group" data-type={t} style="display:none;">
-        <h2>{t} Telescopes</h2>
+        <h3>{t} Telescopes</h3>
         {sortedGrouped[t].map(({ frontmatter, url }) => {
           const cleanTitle = frontmatter.title.replace(/ Review$/, '');
           const score = frontmatter.rating?.overall ?? 'N/A';
