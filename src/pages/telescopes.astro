@@ -1,0 +1,103 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/telescopes.css';
+
+// Grab all your posts
+const allPosts = await Astro.glob('./posts/*.{md,mdx}');
+// Filter only those in the “telescopes” subcategory
+const telescopePosts = allPosts.filter(
+  (p) => p.frontmatter.subcategory === 'telescopes'
+);
+
+// ── SORTED “All” POSTS ──
+const sortedAll = telescopePosts
+  .slice()
+  .sort(
+    (a, b) =>
+      (b.frontmatter.rating?.overall ?? 0) -
+      (a.frontmatter.rating?.overall ?? 0)
+  );
+
+// Group by your `telescopeType` frontmatter
+const grouped = telescopePosts.reduce((acc, post) => {
+  const type = post.frontmatter.telescopeType || 'Other';
+  if (!acc[type]) acc[type] = [];
+  acc[type].push(post);
+  return acc;
+}, {});
+
+// Build an array of types, sorted alphabetically
+const types = Object.keys(grouped).sort();
+
+// ── SORTED GROUPS ──
+const sortedGrouped = {};
+for (const type of types) {
+  sortedGrouped[type] = grouped[type]
+    .slice()
+    .sort(
+      (a, b) =>
+        (b.frontmatter.rating?.overall ?? 0) -
+        (a.frontmatter.rating?.overall ?? 0)
+    );
+}
+---
+<Layout title="Telescope Reviews">
+  <div class="telescopes-toggle-container">
+    <div class="toggle-buttons">
+      <button data-type="all" class="active">All</button>
+      {types.map((t) => (
+        <button data-type={t}>{t}</button>
+      ))}
+    </div>
+
+    <!-- “All” group -->
+    <div class="post-group" data-type="all">
+      {sortedAll.map(({ frontmatter, url }) => {
+        const cleanTitle = frontmatter.title.replace(/ Review$/, '');
+        const score = frontmatter.rating?.overall ?? 'N/A';
+        return (
+          <a href={url}>
+            {cleanTitle} — <strong>{score}/10</strong>
+          </a>
+        );
+      })}
+    </div>
+
+    <!-- One group per type -->
+    {types.map((t) => (
+      <div class="post-group" data-type={t} style="display:none;">
+        <h2>{t} Telescopes</h2>
+        {sortedGrouped[t].map(({ frontmatter, url }) => {
+          const cleanTitle = frontmatter.title.replace(/ Review$/, '');
+          const score = frontmatter.rating?.overall ?? 'N/A';
+          return (
+            <a href={url}>
+              {cleanTitle} — <strong>{score}/10</strong>
+            </a>
+          );
+        })}
+      </div>
+    ))}
+  </div>
+
+  <!-- Client-side toggling logic -->
+  <script type="module" client:load>
+    const buttons = document.querySelectorAll('.toggle-buttons button');
+    const groups = document.querySelectorAll('.post-group');
+
+    function showGroup(type) {
+      groups.forEach((grp) => {
+        grp.style.display =
+          type === 'all' || grp.dataset.type === type ? '' : 'none';
+      });
+    }
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        buttons.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        showGroup(btn.dataset.type);
+      });
+    });
+  </script>
+</Layout>
