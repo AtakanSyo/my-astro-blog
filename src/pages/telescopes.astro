@@ -52,14 +52,16 @@ for (const type of types) {
 
     <!-- “All” group -->
     <div class="post-group" data-type="all">
+      <h2>All Telescopes</h2>
       {sortedAll.map(({ frontmatter, url }) => {
         const cleanTitle = frontmatter.title.replace(/ Review$/, '');
         const score = frontmatter.rating?.overall ?? 'N/A';
-        return (
-          <a href={url}>
-            {cleanTitle} — <strong>{score}/10</strong>
-          </a>
-        );
+          return (
+            <a href={url} class="telescopes-ranking-link">
+              <div class="telescopes-ranking-link-title">{cleanTitle}</div>
+              <div class="telescopes-ranking-link-rating">{score}/10</div>
+            </a>
+          );
       })}
     </div>
 
@@ -71,8 +73,9 @@ for (const type of types) {
           const cleanTitle = frontmatter.title.replace(/ Review$/, '');
           const score = frontmatter.rating?.overall ?? 'N/A';
           return (
-            <a href={url}>
-              {cleanTitle} — <strong>{score}/10</strong>
+            <a href={url} class="telescopes-ranking-link">
+              <div class="telescopes-ranking-link-title">{cleanTitle}</div>
+              <div class="telescopes-ranking-link-rating">{score}/10</div>
             </a>
           );
         })}
@@ -87,8 +90,13 @@ for (const type of types) {
 
     function showGroup(type) {
       groups.forEach((grp) => {
-        grp.style.display =
-          type === 'all' || grp.dataset.type === type ? '' : 'none';
+        if (type === 'all') {
+          // only show the one with data-type="all"
+          grp.style.display = grp.dataset.type === 'all' ? '' : 'none';
+        } else {
+          // show only the matching type
+          grp.style.display = grp.dataset.type === type ? '' : 'none';
+        }
       });
     }
 
