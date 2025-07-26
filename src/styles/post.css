@@ -3,6 +3,7 @@ p {
   max-width: 800px;
 }
 
+
 /* Center any content that uses .centered_flex */
 .centered_flex {
   display: flex;
@@ -39,13 +40,12 @@ p {
 }
 
 .rating {
-    width: 6rem;
-    height: 6rem;
+    width: 8rem;
+    height: 8rem;
     border-radius: 100%;
     font-weight: bold;
     font-style: italic;
-    font-size: 26px;
-
+    font-size: 2rem;
     border-style: solid;
 }
 
@@ -165,6 +165,7 @@ p {
   gap: 2rem;
   margin: 2em 0;
   flex-wrap: wrap;
+  max-width: 800px;
 }
 
 .pros-cons > div {
@@ -265,12 +266,11 @@ p {
 
 .affiliates a {
   display: inline-block;
-  background-color: #48BE85;
+  background-color: #fc8f63;
   color: white;
-  padding: 0.6em 1.2em;
+  padding: 0.7em 1.4em;
   border-radius: 1.5rem;
   font-weight: 500;
-  box-shadow: 2px 2px 2px 0px rgba(72,190,133,1);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 

@@ -17,6 +17,7 @@
   --color-primary: #3C3743;
   --spacing: 1rem;
   --header-height: 40px;
+  --golden-ratio: 1.618; /* Define the multiplier */
 }
 
 /* 3. Base styles */
@@ -147,6 +148,8 @@ header nav a:hover {
   margin: 1rem;
   border-radius: 8px;
   padding: 1rem;
+  
+  max-width: 400px;
 }
 
 .post-link-title {
@@ -154,7 +157,7 @@ header nav a:hover {
   margin-bottom: 0.5rem; /* Space below title */
   text-align: center;
 
-  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  font-size: clamp(1rem, 2.5vw, 1.618rem);
   font-weight: bold;
 }
 

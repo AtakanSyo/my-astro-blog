@@ -1,11 +1,11 @@
 .home-title {
-    font-size: 2.5rem;
+    font-size: calc(var(--golden-ratio) * var(--golden-ratio) * 1rem);
     font-weight: bold;
     margin-bottom: 0.5rem;
 }
 
 .home-description {
-    font-size: 1.2rem;
+    font-size: calc(var(--golden-ratio) * 1rem);
     color: #666;
     margin-bottom: 1rem;
 }
