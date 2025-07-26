@@ -12,6 +12,8 @@
   cursor: pointer;
   border-radius: 4px;
   transition-duration: 0.2s;
+  color: black;
+  font-size: 14px;
 }
 .toggle-buttons button.active {
   background: black;
