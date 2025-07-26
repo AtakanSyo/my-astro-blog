@@ -59,7 +59,7 @@ const jsonLdProduct = {
 
     <h1>{title}</h1>
     <p class="review-description">{description}</p>
-    <p class="writer">{writer}</p>
+    <p class="writer">Written by {writer}</p>
     <span class="rating centered_flex">{rating.overall}/10</span>
     <SocialShare frontmatter={Astro.props.frontmatter} url={url} client:load />
     <slot />

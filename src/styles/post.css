@@ -47,6 +47,10 @@ p {
     border-style: solid;
 }
 
+.writer {
+  font-style: italic;
+}
+
 /* pros/cons container */
 .pros-cons-box {
   display: flex;
