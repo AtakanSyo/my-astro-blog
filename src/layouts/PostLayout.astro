@@ -47,6 +47,11 @@ const jsonLdProduct = {
     type="application/ld+json"
     set:html={JSON.stringify(jsonLdProduct, null, 2)}
   ></script>
+  <link
+    rel="preload"
+    as="image"
+    href={cover_image}
+  />
 </head>
 
 <Layout title={title}>
@@ -55,6 +60,9 @@ const jsonLdProduct = {
       src={cover_image}
       class="post-starter-image"
       alt={title + ' cover'}
+      fetchpriority="high"
+      loading="eager"       
+      decoding="async"      
     />
 
     <h1>{title}</h1>
