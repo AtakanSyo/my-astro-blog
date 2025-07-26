@@ -273,7 +273,7 @@ p {
   background-color: #fc8f63;
   color: white;
   padding: 0.7em 1.4em;
-  border-radius: 1.5rem;
+  border-radius: 8px;
   font-weight: 500;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
