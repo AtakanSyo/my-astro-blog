@@ -25,6 +25,7 @@ const posts = allPosts.slice(0, 10);
     <h1 class="home-title">{site.name}</h1>
     <p class="home-description">{site.description}</p>
     <p class="home-descriptipon-2">Expert written reviews for astronomy equipment, astronomy related posts, and more.</p>
+
     <div class="post-list">
       {posts.map(({ frontmatter, url }) => (
         <a href={url} class="post_link">
@@ -37,5 +38,6 @@ const posts = allPosts.slice(0, 10);
         </a>
       ))}
     </div>
+
   </section>
 </Layout>

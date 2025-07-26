@@ -139,7 +139,7 @@ header nav a:hover {
   align-items: center;
   justify-content: space-around;
 
-  gap: 1rem;       /* 1rem between each child */
+
 
   border-style: solid;
   border-width: 2px;
@@ -147,7 +147,7 @@ header nav a:hover {
 
   margin: 1rem;
   border-radius: 8px;
-  padding: 1rem;
+  padding: 0rem;
   
   max-width: 400px;
 }
@@ -156,15 +156,15 @@ header nav a:hover {
   width: 100%; /* Force h2 to full width */
   margin-bottom: 0.5rem; /* Space below title */
   text-align: center;
-
-  font-size: clamp(1rem, 2.5vw, 1.618rem);
+  padding-top: 1rem;
+  font-size: clamp(1rem, 1.618rem, 1.3rem);
   font-weight: bold;
 }
 
 .post-link-writer {
   font-style: italic;
   color: #555; /* Slightly lighter color for writer */
-  margin-bottom: 0.5rem; /* Space below writer */
+
 }
 
 .post_link p {

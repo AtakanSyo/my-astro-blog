@@ -2,6 +2,11 @@
     font-size: calc(var(--golden-ratio) * var(--golden-ratio) * 1rem);
     font-weight: bold;
     margin-bottom: 0.5rem;
+
+    background: linear-gradient(45deg, #fc8f63, #5d62d2); /* Your colors */
+    -webkit-background-clip: text; /* For Safari */
+    background-clip: text;
+    color: transparent; /* Hide original text color */
 }
 
 .home-description {
