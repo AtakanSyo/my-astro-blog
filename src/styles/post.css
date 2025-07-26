@@ -12,17 +12,18 @@ p {
 }
 
 .post-starter-image {
-    width: 60%;
+    width: 50vw;
     height: auto;
     margin: 1rem 0;
     border-radius: 8px;
-    max-width: 300px;
+    max-width: 500px;
+    min-width: 300px;
 }
 
 /* Highlighted callout paragraphs */
 .highlight {
-  background: rgba(124, 58, 237, 0.1);
-  border-left: 4px solid #7c3aed;
+  background: rgba(232, 232, 232);
+  border-left: 4px solid black;
   padding: 0.75rem 1rem;
   margin: 1.5rem 0;
   width: 100%;
@@ -38,14 +39,14 @@ p {
 }
 
 .rating {
-    width: 80px;
-    height: 80px;
+    width: 6rem;
+    height: 6rem;
     border-radius: 100%;
-    background-color: #4f46e5;
     font-weight: bold;
     font-style: italic;
-    font-size: 20px;
-    color: white;
+    font-size: 26px;
+
+    border-style: solid;
 }
 
 /* pros/cons container */
@@ -81,6 +82,7 @@ p {
 
 .info-tags {
   margin: 1.5em 0;
+  max-width: 800px;
 }
 
 .info-tags h3 {
@@ -99,14 +101,14 @@ p {
 }
 
 .info-tags ul li {
-  background-color: #f2ebfd;
-  border: 1px solid #d8ccef;
+
+  border: 1px solid black;
   padding: 0.5rem 1rem;
   border-radius: 1.5rem;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   font-size: 0.95rem;
-  color: #4a2c7a;
   white-space: nowrap;
+  
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -134,8 +136,7 @@ p {
 }
 
 .rating-card {
-  background-color: #f2ebfd;
-  border: 1px solid #d8ccef;
+  border: 1px solid black;
   border-radius: 0.75rem;
   padding: 0.75rem 1.25rem;
   width: 6.5rem;
@@ -151,14 +152,12 @@ p {
 .rating-card .category {
   display: block;
   font-size: 0.85rem;
-  color: #4a2c7a;
   margin-bottom: 0.25rem;
 }
 
 .rating-card .score {
   font-size: 1.25rem;
   font-weight: bold;
-  color: #2e1a5f;
 }
 
 .pros-cons {
@@ -171,8 +170,7 @@ p {
 .pros-cons > div {
   flex: 1;
   min-width: 200px;
-  background-color: #fff;
-  border: 1px solid #d8ccef;
+  border: 1px solid black;
   border-radius: 0.75rem;
   padding: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
@@ -181,7 +179,6 @@ p {
 .pros-cons h3 {
   font-size: 1.25rem;
   margin-bottom: 0.75rem;
-  color: #5e3e9b;
   text-align: center;
 }
 
@@ -193,7 +190,6 @@ p {
 
 .pros-cons li {
   margin: 0.5em 0;
-  color: #4a2c7a;
   line-height: 1.4;
 }
 
@@ -243,8 +239,6 @@ p {
 .affiliates {
   margin: 2em 0;
   padding: 1.5em;
-  background-color: #faf7ff;
-  border: 1px solid #e4dcf2;
   border-radius: 0.75rem;
   text-align: center;
 }
@@ -271,12 +265,12 @@ p {
 
 .affiliates a {
   display: inline-block;
-  background-color: #f2ebfd;
-  color: #4a2c7a;
+  background-color: #48BE85;
+  color: white;
   padding: 0.6em 1.2em;
   border-radius: 1.5rem;
   font-weight: 500;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: 2px 2px 2px 0px rgba(72,190,133,1);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 

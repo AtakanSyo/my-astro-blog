@@ -1,12 +1,17 @@
 ---
 import Layout from './Layout.astro';
 import '../styles/post.css';  // ← pulls in your global styles
+import SocialShare from '../components/SocialShare.astro';
+
 const {
   title,
   description,
   writer,
   rating: { overall: ratingValue } = {},
   pubDate,
+  url,
+  cover_image,
+  rating,
 } = Astro.props.frontmatter;
 
 // Build a Product schema embedding your Review
@@ -46,6 +51,19 @@ const jsonLdProduct = {
 
 <Layout title={title}>
   <article class="post container centered_flex">
+        <img
+      src={cover_image}
+      class="post-starter-image"
+      alt={title + ' cover'}
+    />
+
+    <h1>{title}</h1>
+    <p class="review-description">{description}</p>
+    <p class="writer">{writer}</p>
+    <span class="rating centered_flex">{rating.overall}/10</span>
+    <SocialShare frontmatter={Astro.props.frontmatter} url={url} client:load />
     <slot />
+
+    
   </article>
 </Layout>
