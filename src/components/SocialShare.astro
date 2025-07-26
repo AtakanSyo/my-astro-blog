@@ -26,15 +26,6 @@ const eTitle = encodeURIComponent(frontmatter.title);
      target="_blank" rel="noopener">
     <Icon name="ion:logo-whatsapp" width="20" height="20" />
   </a>
-  <button class="social-btn" onClick={`
-    if (navigator.share) {
-      navigator.share({ title: "${frontmatter.title}", url: "${fullUrl}" });
-    } else {
-      window.open("https://www.instagram.com/", "_blank");
-    }
-  `}>
-    <Icon name="feather:instagram" width="20" height="20" />
-  </button>
   <button class="social-btn" onClick={`navigator.clipboard.writeText("${fullUrl}")`}>
     <Icon name="bi:link-45deg" width="20" height="20" />
   </button>
