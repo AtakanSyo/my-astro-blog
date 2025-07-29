@@ -17,7 +17,6 @@ export default defineConfig({
         'bi',
         'feather',
         'ion',      // bootstrap-icons (“link-45deg”)
-        'simple-icons'
       ],}),
   ],
 
