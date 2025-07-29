@@ -22,7 +22,7 @@ specs:
 pubDate: "2025-07-21"
 description: "The William Optics RedCat 51 is, to some, barely a telescope at all. In many ways, this telescope has more in common with a telephoto lens than a traditional refracting telescope."
 ---
-
+import Affiliates from '../../components/Affiliates.astro'
 
 <h2>Introduction</h2>
 
@@ -86,31 +86,7 @@ description: "The William Optics RedCat 51 is, to some, barely a telescope at al
   </div>
 </section>
 
-<section class="affiliates">
-  <ul>
-    {frontmatter.affiliate.amazon && (
-      <li>
-        <a class="affiliate-link" href={frontmatter.affiliate.amazon} target="_blank" rel="noopener noreferrer">
-          Buy on Amazon
-        </a>
-      </li>
-    )}
-    {frontmatter.affiliate.highpointscientific && (
-      <li>
-        <a class="affiliate-link" href={frontmatter.affiliate.highpointscientific} target="_blank" rel="noopener noreferrer">
-          Buy at Highpoint Scientific
-        </a>
-      </li>
-    )}
-    {frontmatter.affiliate.astroshop && (
-      <li>
-        <a class="affiliate-link" href={frontmatter.affiliate.astroshop} target="_blank" rel="noopener noreferrer">
-          Buy at AstroShop
-        </a>
-      </li>
-    )}
-  </ul>
-</section>
+<Affiliates affiliate={frontmatter.affiliate} />
 
 <img class="post-image post-image-sm" src="/images/redcat-51-review/optics.webp" alt="Optics"></img>
 <h2>Optics</h2>

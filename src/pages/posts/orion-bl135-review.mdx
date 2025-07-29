@@ -22,8 +22,7 @@ specs:
 pubDate: "2025-07-25"
 description: "Like the smaller BL102, Orion’s SkyScanner BL135 is a generic, low-quality imported product that uses the good reputation of the SkyScanner 100mm reflector and 80mm refractor in an attempt to sell an inferior telescope without anyone noticing."
 ---
-
-
+import Affiliates from '../../components/Affiliates.astro'
 
 <h2>Introduction</h2>
 
@@ -88,31 +87,7 @@ description: "Like the smaller BL102, Orion’s SkyScanner BL135 is a generic, l
   </div>
 </section>
 
-<section class="affiliates">
-  <ul>
-    {frontmatter.affiliate.amazon && (
-      <li>
-        <a class="affiliate-link" href={frontmatter.affiliate.amazon} target="_blank" rel="noopener noreferrer">
-          Buy on Amazon
-        </a>
-      </li>
-    )}
-    {frontmatter.affiliate.highpointscientific && (
-      <li>
-        <a class="affiliate-link" href={frontmatter.affiliate.highpointscientific} target="_blank" rel="noopener noreferrer">
-          Buy at Highpoint Scientific
-        </a>
-      </li>
-    )}
-    {frontmatter.affiliate.astroshop && (
-      <li>
-        <a class="affiliate-link" href={frontmatter.affiliate.astroshop} target="_blank" rel="noopener noreferrer">
-          Buy at AstroShop
-        </a>
-      </li>
-    )}
-  </ul>
-</section>
+<Affiliates affiliate={frontmatter.affiliate} />
 
 <h2>Optics</h2>
 

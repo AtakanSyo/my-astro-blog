@@ -22,6 +22,7 @@ specs:
 pubDate: "2025-07-26"
 description: "The Unistellar eVscope is a product built largely on marketing hype and the laziness of its target demographic, providing lackluster images built on misleading promises and using components that cost roughly one-tenth to buy yourself as what Unistellar tricks you into purchasing."
 ---
+import Affiliates from '../../components/Affiliates.astro'
 
 <h2>Introduction</h2>
 
@@ -79,31 +80,7 @@ description: "The Unistellar eVscope is a product built largely on marketing hyp
   </div>
 </section>
 
-<section class="affiliates">
-  <ul>
-    {frontmatter.affiliate.amazon && (
-      <li>
-        <a class="affiliate-link" href={frontmatter.affiliate.amazon} target="_blank" rel="noopener noreferrer">
-          Buy on Amazon
-        </a>
-      </li>
-    )}
-    {frontmatter.affiliate.highpointscientific && (
-      <li>
-        <a class="affiliate-link" href={frontmatter.affiliate.highpointscientific} target="_blank" rel="noopener noreferrer">
-          Buy at Highpoint Scientific
-        </a>
-      </li>
-    )}
-    {frontmatter.affiliate.astroshop && (
-      <li>
-        <a class="affiliate-link" href={frontmatter.affiliate.astroshop} target="_blank" rel="noopener noreferrer">
-          Buy at AstroShop
-        </a>
-      </li>
-    )}
-  </ul>
-</section>
+<Affiliates affiliate={frontmatter.affiliate} />
 
 <h2>Optics</h2>
 

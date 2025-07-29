@@ -22,6 +22,7 @@ specs:
 pubDate: "2025-07-25"
 description: "Like the smaller RedCat 51, the William Optics RedCat 71 is a high-quality imaging refractor that combines the best aspects of telephoto lenses and traditional astronomical refracting telescopes into a high-quality, well-arranged, and easy-to-use package."
 ---
+import Affiliates from '../../components/Affiliates.astro'
 
 <h2>Introduction</h2>
 
@@ -85,31 +86,7 @@ description: "Like the smaller RedCat 51, the William Optics RedCat 71 is a high
   </div>
 </section>
 
-<section class="affiliates">
-  <ul>
-    {frontmatter.affiliate.amazon && (
-      <li>
-        <a class="affiliate-link" href={frontmatter.affiliate.amazon} target="_blank" rel="noopener noreferrer">
-          Buy on Amazon
-        </a>
-      </li>
-    )}
-    {frontmatter.affiliate.highpointscientific && (
-      <li>
-        <a class="affiliate-link" href={frontmatter.affiliate.highpointscientific} target="_blank" rel="noopener noreferrer">
-          Buy at Highpoint Scientific
-        </a>
-      </li>
-    )}
-    {frontmatter.affiliate.astroshop && (
-      <li>
-        <a class="affiliate-link" href={frontmatter.affiliate.astroshop} target="_blank" rel="noopener noreferrer">
-          Buy at AstroShop
-        </a>
-      </li>
-    )}
-  </ul>
-</section>
+<Affiliates affiliate={frontmatter.affiliate} />
 
 <h2>Optics</h2>
 

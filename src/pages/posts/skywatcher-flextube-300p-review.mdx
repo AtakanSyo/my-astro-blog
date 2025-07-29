@@ -22,6 +22,7 @@ specs:
 pubDate: "2025-07-26"
 description: "Achieving a middle ground between portability and price, the Sky-Watcher 12” FlexTube Dobsonian is a good choice for those interested in a large and capable telescope without a premium price tag."
 ---
+import Affiliates from '../../components/Affiliates.astro'
 
 <h2>Introduction</h2>
 
@@ -95,31 +96,8 @@ in a car. The 12” FlexTube offers some of the advantages of a truss tube Dobso
   </div>
 </section>
 
-<section class="affiliates">
-  <ul>
-    {frontmatter.affiliate.amazon && (
-      <li>
-        <a class="affiliate-link" href={frontmatter.affiliate.amazon} target="_blank" rel="noopener noreferrer">
-          Buy on Amazon
-        </a>
-      </li>
-    )}
-    {frontmatter.affiliate.highpointscientific && (
-      <li>
-        <a class="affiliate-link" href={frontmatter.affiliate.highpointscientific} target="_blank" rel="noopener noreferrer">
-          Buy at Highpoint Scientific
-        </a>
-      </li>
-    )}
-    {frontmatter.affiliate.astroshop && (
-      <li>
-        <a class="affiliate-link" href={frontmatter.affiliate.astroshop} target="_blank" rel="noopener noreferrer">
-          Buy at AstroShop
-        </a>
-      </li>
-    )}
-  </ul>
-</section>
+
+<Affiliates affiliate={frontmatter.affiliate} />
 
 <h2>Optical Tube</h2>
 <p>The 12” FlexTube Dobsonian is a 12” (300mm) Newtonian reflector with an f/5 focal ratio, giving it a focal length of 1500mm. Compared to a 10” reflector, the 12” FlexTube Dobsonian has 44% more light gathering power and 20% more resolution - though the latter is of course limited by your local atmospheric conditions. The 12” FlexTube’s optics are of good quality and theoretically capable of magnifications up to 600x under the best seeing conditions; however, under most circumstances, it will likely have trouble surpassing the resolving power of a typical 8” or 10” telescope, and we’d advise using no more than 300x on most nights, and even then only for bright targets like planets and double stars.

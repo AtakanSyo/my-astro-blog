@@ -22,6 +22,7 @@ specs:
 pubDate: "2025-07-21"
 description: "The Radian Raptor 61 is sold for $1,000 and is advertised as a revolutionary telescope. In reality, it is merely a rebadged copy of the SharpStar 61EDPH."
 ---
+import Affiliates from '../../components/Affiliates.astro'
 
 <h2>Introduction</h2>
 
@@ -84,31 +85,7 @@ description: "The Radian Raptor 61 is sold for $1,000 and is advertised as a rev
   </div>
 </section>
 
-<section class="affiliates">
-  <ul>
-    {frontmatter.affiliate.amazon && (
-      <li>
-        <a class="affiliate-link" href={frontmatter.affiliate.amazon} target="_blank" rel="noopener noreferrer">
-          Buy on Amazon
-        </a>
-      </li>
-    )}
-    {frontmatter.affiliate.highpointscientific && (
-      <li>
-        <a class="affiliate-link" href={frontmatter.affiliate.highpointscientific} target="_blank" rel="noopener noreferrer">
-          Buy at Highpoint Scientific
-        </a>
-      </li>
-    )}
-    {frontmatter.affiliate.astroshop && (
-      <li>
-        <a class="affiliate-link" href={frontmatter.affiliate.astroshop} target="_blank" rel="noopener noreferrer">
-          Buy at AstroShop
-        </a>
-      </li>
-    )}
-  </ul>
-</section>
+<Affiliates affiliate={frontmatter.affiliate} />
 
 <img class="post-image post-image-sm" src="/images/radian_raptor_61_review/optics.webp" alt="Optics"></img>
 <h2>Optics</h2>

@@ -22,6 +22,8 @@ specs:
 pubDate: "2025-07-25"
 description: "The Sky-Watcher Flextube 250P, otherwise known as the 10” Collapsible, is a great scope with a slightly more compact form factor than traditional, solid-tubed Dobsonians of its size."
 ---
+import Affiliates from '../../components/Affiliates.astro'
+
 
 <h2>Introduction</h2>
 
@@ -86,31 +88,8 @@ description: "The Sky-Watcher Flextube 250P, otherwise known as the 10” Collap
   </div>
 </section>
 
-<section class="affiliates">
-  <ul>
-    {frontmatter.affiliate.amazon && (
-      <li>
-        <a class="affiliate-link" href={frontmatter.affiliate.amazon} target="_blank" rel="noopener noreferrer">
-          Buy on Amazon
-        </a>
-      </li>
-    )}
-    {frontmatter.affiliate.highpointscientific && (
-      <li>
-        <a class="affiliate-link" href={frontmatter.affiliate.highpointscientific} target="_blank" rel="noopener noreferrer">
-          Buy at Highpoint Scientific
-        </a>
-      </li>
-    )}
-    {frontmatter.affiliate.astroshop && (
-      <li>
-        <a class="affiliate-link" href={frontmatter.affiliate.astroshop} target="_blank" rel="noopener noreferrer">
-          Buy at AstroShop
-        </a>
-      </li>
-    )}
-  </ul>
-</section>
+
+<Affiliates affiliate={frontmatter.affiliate} />
 
 <h2>Optics</h2>
 
