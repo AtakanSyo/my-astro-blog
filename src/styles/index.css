@@ -7,18 +7,24 @@
     -webkit-background-clip: text; /* For Safari */
     background-clip: text;
     color: transparent; /* Hide original text color */
+
+    text-align: center;
 }
 
 .home-description {
     font-size: calc(var(--golden-ratio) * 1rem);
     color: #666;
     margin-bottom: 1rem;
+
+    text-align: center;
 }
 
 .home-description-2 {
     font-size: 1rem;
     color: #999;
     margin-bottom: 1rem;
+
+    text-align: center;
 }
 
 .home-cover-image {

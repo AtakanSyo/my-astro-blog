@@ -30,6 +30,7 @@ p {
   width: 100%;
 }
 
+
 /* Tip-style italic notes */
 .tip {
   font-style: italic;
@@ -51,6 +52,7 @@ p {
 
 .writer {
   font-style: italic;
+  text-align: center;
 }
 
 /* pros/cons container */
