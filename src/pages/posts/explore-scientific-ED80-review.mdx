@@ -79,26 +79,46 @@ description: "The Explore Scientific ED80 Essentials Triplet is a poor choice fo
   <div class="ratings-grid">
     <div class="rating-card">
       <span class="category">Rating</span>
-      <span class="score">7.5/10</span>
+      <span class="score">{frontmatter.rating.overall}/10</span>
     </div>
     <div class="rating-card">
       <span class="category">Optics</span>
-      <span class="score">8/10</span>
+      <span class="score">{frontmatter.rating.optics}/10</span>
     </div>
     <div class="rating-card">
       <span class="category">Mechanics</span>
-      <span class="score">8/10</span>
+      <span class="score">{frontmatter.rating.mechanics}/10</span>
     </div>
     <div class="rating-card">
       <span class="category">Value</span>
-      <span class="score">7/10</span>
+      <span class="score">{frontmatter.rating.value}/10</span>
     </div>
   </div>
 </section>
 
 <section class="affiliates">
   <ul>
-    <li><a class="affiliate-link" href="https://amzn.to/4faixVE">Buy on Amazon</a></li>
+    {frontmatter.affiliate.amazon && (
+      <li>
+        <a class="affiliate-link" href={frontmatter.affiliate.amazon} target="_blank" rel="noopener noreferrer">
+          Buy on Amazon
+        </a>
+      </li>
+    )}
+    {frontmatter.affiliate.highpointscientific && (
+      <li>
+        <a class="affiliate-link" href={frontmatter.affiliate.highpointscientific} target="_blank" rel="noopener noreferrer">
+          Buy at Highpoint Scientific
+        </a>
+      </li>
+    )}
+    {frontmatter.affiliate.astroshop && (
+      <li>
+        <a class="affiliate-link" href={frontmatter.affiliate.astroshop} target="_blank" rel="noopener noreferrer">
+          Buy at AstroShop
+        </a>
+      </li>
+    )}
   </ul>
 </section>
 

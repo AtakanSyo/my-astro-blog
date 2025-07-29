@@ -23,6 +23,7 @@ pubDate: "2025-07-21"
 description: "The William Optics RedCat 51 is, to some, barely a telescope at all. In many ways, this telescope has more in common with a telephoto lens than a traditional refracting telescope."
 ---
 
+
 <h2>Introduction</h2>
 
 <p class="highlight">The William Optics RedCat 51 is, to some, barely a telescope at all. In many ways, this telescope has more in common with a telephoto lens than a traditional refracting telescope. You can use it on even a small star tracker mount, the focal length is very short, it focuses like a telephoto lens, and it really isn’t designed for looking through with an eyepiece (though you can attach a diagonal that William Optics sells separately to do so if you wish).</p>
@@ -84,16 +85,29 @@ description: "The William Optics RedCat 51 is, to some, barely a telescope at al
     </div>
   </div>
 </section>
+
 <section class="affiliates">
   <ul>
     {frontmatter.affiliate.amazon && (
-      <li><a class="affiliate-link" href={frontmatter.affiliate.amazon}>Buy on Amazon</a></li>
+      <li>
+        <a class="affiliate-link" href={frontmatter.affiliate.amazon} target="_blank" rel="noopener noreferrer">
+          Buy on Amazon
+        </a>
+      </li>
     )}
     {frontmatter.affiliate.highpointscientific && (
-      <li><a class="affiliate-link" href={frontmatter.affiliate.highpointscientific}>Buy at Highpoint Scientific</a></li>
+      <li>
+        <a class="affiliate-link" href={frontmatter.affiliate.highpointscientific} target="_blank" rel="noopener noreferrer">
+          Buy at Highpoint Scientific
+        </a>
+      </li>
     )}
     {frontmatter.affiliate.astroshop && (
-      <li><a class="affiliate-link" href={frontmatter.affiliate.astroshop}>Buy at AstroShop</a></li>
+      <li>
+        <a class="affiliate-link" href={frontmatter.affiliate.astroshop} target="_blank" rel="noopener noreferrer">
+          Buy at AstroShop
+        </a>
+      </li>
     )}
   </ul>
 </section>

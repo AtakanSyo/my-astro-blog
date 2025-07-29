@@ -23,7 +23,6 @@ pubDate: "2025-07-26"
 description: "Achieving a middle ground between portability and price, the Sky-Watcher 12” FlexTube Dobsonian is a good choice for those interested in a large and capable telescope without a premium price tag."
 ---
 
-
 <h2>Introduction</h2>
 
 
@@ -95,16 +94,29 @@ in a car. The 12” FlexTube offers some of the advantages of a truss tube Dobso
     </div>
   </div>
 </section>
+
 <section class="affiliates">
   <ul>
     {frontmatter.affiliate.amazon && (
-      <li><a class="affiliate-link" href={frontmatter.affiliate.amazon}>Buy on Amazon</a></li>
+      <li>
+        <a class="affiliate-link" href={frontmatter.affiliate.amazon} target="_blank" rel="noopener noreferrer">
+          Buy on Amazon
+        </a>
+      </li>
     )}
     {frontmatter.affiliate.highpointscientific && (
-      <li><a class="affiliate-link" href={frontmatter.affiliate.highpointscientific}>Buy at Highpoint Scientific</a></li>
+      <li>
+        <a class="affiliate-link" href={frontmatter.affiliate.highpointscientific} target="_blank" rel="noopener noreferrer">
+          Buy at Highpoint Scientific
+        </a>
+      </li>
     )}
     {frontmatter.affiliate.astroshop && (
-      <li><a class="affiliate-link" href={frontmatter.affiliate.astroshop}>Buy at AstroShop</a></li>
+      <li>
+        <a class="affiliate-link" href={frontmatter.affiliate.astroshop} target="_blank" rel="noopener noreferrer">
+          Buy at AstroShop
+        </a>
+      </li>
     )}
   </ul>
 </section>

@@ -22,6 +22,7 @@ pubDate: "2025-07-21"
 description: "Celestron StarSense Explorer 8” Dobsonian is a good scope, and works exactly as advertised. However, do consider the value for the money."
 ---
 
+
 <h2>Introduction</h2>
 
 <p class="highlight">Celestron’s StarSense Explorer 8” Dobsonian is the latest entrant in the crowded market of beginner Dobsonian telescopes, offering a relatively basic set of features but with the aid of Celestron’s newest software technology to use your smartphone as a pointing device.</p>
@@ -81,16 +82,33 @@ description: "Celestron StarSense Explorer 8” Dobsonian is a good scope, and w
     </div>
   </div>
 </section>
+
 <section class="affiliates">
   <ul>
     {frontmatter.affiliate.amazon && (
-      <li><a class="affiliate-link" href={frontmatter.affiliate.amazon}>Buy on Amazon</a></li>
+      <li>
+        <a class="affiliate-link" href={frontmatter.affiliate.amazon} target="_blank" rel="noopener noreferrer">
+          Buy on Amazon
+        </a>
+      </li>
     )}
     {frontmatter.affiliate.highpointscientific && (
-      <li><a class="affiliate-link" href={frontmatter.affiliate.highpointscientific}>Buy at Highpoint Scientific</a></li>
+      <li>
+        <a class="affiliate-link" href={frontmatter.affiliate.highpointscientific} target="_blank" rel="noopener noreferrer">
+          Buy at Highpoint Scientific
+        </a>
+      </li>
+    )}
+    {frontmatter.affiliate.astroshop && (
+      <li>
+        <a class="affiliate-link" href={frontmatter.affiliate.astroshop} target="_blank" rel="noopener noreferrer">
+          Buy at AstroShop
+        </a>
+      </li>
     )}
   </ul>
 </section>
+
 <img class="post-image post-image-sm" src="/images/celestron-starsense-8-review/optics.webp" alt="Optics"></img>
 <h2>Optics</h2>
 

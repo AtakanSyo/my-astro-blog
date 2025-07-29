@@ -85,20 +85,33 @@ description: "Orion’s SkyScanner BL102 takes advantage of brand and product li
     </div>
   </div>
 </section>
+
 <section class="affiliates">
-  <p class="warning">Warning: Not a recommended product. But still, here are the affiliate links if you are insistent on buying.</p>
   <ul>
     {frontmatter.affiliate.amazon && (
-      <li><a class="affiliate-link" href={frontmatter.affiliate.amazon}>Buy on Amazon</a></li>
+      <li>
+        <a class="affiliate-link" href={frontmatter.affiliate.amazon} target="_blank" rel="noopener noreferrer">
+          Buy on Amazon
+        </a>
+      </li>
     )}
     {frontmatter.affiliate.highpointscientific && (
-      <li><a class="affiliate-link" href={frontmatter.affiliate.highpointscientific}>Buy at Highpoint Scientific</a></li>
+      <li>
+        <a class="affiliate-link" href={frontmatter.affiliate.highpointscientific} target="_blank" rel="noopener noreferrer">
+          Buy at Highpoint Scientific
+        </a>
+      </li>
     )}
     {frontmatter.affiliate.astroshop && (
-      <li><a class="affiliate-link" href={frontmatter.affiliate.astroshop}>Buy at AstroShop</a></li>
+      <li>
+        <a class="affiliate-link" href={frontmatter.affiliate.astroshop} target="_blank" rel="noopener noreferrer">
+          Buy at AstroShop
+        </a>
+      </li>
     )}
   </ul>
 </section>
+
 <img class="post-image post-image-sm" src="/images/orion-bl102-review/optics.webp" alt="Optics"></img>
 <h2>Optics</h2>
 

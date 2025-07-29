@@ -1,0 +1,65 @@
+---
+// src/components/Affiliates.astro
+// Expects to receive an `affiliate` object via props,
+// with optional urls: amazon, highpointscientific, astroshop, etc.
+
+export interface Props {
+  affiliate: {
+    amazon?: string;
+    highpointscientific?: string;
+    astroshop?: string;
+    // add any others…
+  };
+}
+const { affiliate } = Astro.props as Props;
+
+---
+
+<section class="affiliates">
+  <ul>
+    {affiliate.amazon && (
+      <li>
+        <a class="affiliate-link" href={affiliate.amazon} target="_blank" rel="noopener noreferrer">
+          Buy on Amazon
+        </a>
+      </li>
+    )}
+    {affiliate.highpointscientific && (
+      <li>
+        <a class="affiliate-link" href={affiliate.highpointscientific} target="_blank" rel="noopener noreferrer">
+          Buy at Highpoint Scientific
+        </a>
+      </li>
+    )}
+    {affiliate.astroshop && (
+      <li>
+        <a class="affiliate-link" href={affiliate.astroshop} target="_blank" rel="noopener noreferrer">
+          Buy at AstroShop
+        </a>
+      </li>
+    )}
+  </ul>
+</section>
+
+<style>
+  .affiliates {
+    margin: 2rem 0;
+  }
+  .affiliates ul {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+  }
+  .affiliates .affiliate-link {
+    padding: 0.5rem 1rem;
+    background: #1e3a8a;
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .affiliates .affiliate-link:hover {
+    background: #162e6d;
+  }
+</style>

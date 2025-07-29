@@ -22,6 +22,7 @@ specs:
 pubDate: "2025-07-26"
 description: "The Unistellar eVscope is a product built largely on marketing hype and the laziness of its target demographic, providing lackluster images built on misleading promises and using components that cost roughly one-tenth to buy yourself as what Unistellar tricks you into purchasing."
 ---
+
 <h2>Introduction</h2>
 
 <p class="highlight">The Unistellar eVscope is a product built largely on marketing hype and the laziness of its target demographic, providing lackluster images built on misleading promises and using components that cost roughly one-tenth to buy yourself as what Unistellar tricks you into purchasing. It is a scam marginally better than other crowdfunded products like solar roadways or artificial gills, designed to con those with more money than common sense into buying a bloated, barely functional product that rips away the entire point of purchasing a telescope in the first place. A real high-quality telescope is cheaper; a real astrophotography rig is more capable.</p>
@@ -77,19 +78,33 @@ description: "The Unistellar eVscope is a product built largely on marketing hyp
     </div>
   </div>
 </section>
+
 <section class="affiliates">
   <ul>
     {frontmatter.affiliate.amazon && (
-      <li><a class="affiliate-link" href={frontmatter.affiliate.amazon}>Buy on Amazon</a></li>
+      <li>
+        <a class="affiliate-link" href={frontmatter.affiliate.amazon} target="_blank" rel="noopener noreferrer">
+          Buy on Amazon
+        </a>
+      </li>
     )}
     {frontmatter.affiliate.highpointscientific && (
-      <li><a class="affiliate-link" href={frontmatter.affiliate.highpointscientific}>Buy at Highpoint Scientific</a></li>
+      <li>
+        <a class="affiliate-link" href={frontmatter.affiliate.highpointscientific} target="_blank" rel="noopener noreferrer">
+          Buy at Highpoint Scientific
+        </a>
+      </li>
     )}
     {frontmatter.affiliate.astroshop && (
-      <li><a class="affiliate-link" href={frontmatter.affiliate.astroshop}>Buy at AstroShop</a></li>
+      <li>
+        <a class="affiliate-link" href={frontmatter.affiliate.astroshop} target="_blank" rel="noopener noreferrer">
+          Buy at AstroShop
+        </a>
+      </li>
     )}
   </ul>
 </section>
+
 <h2>Optics</h2>
 
 The eVscope is a 114mm f/3.9, using a primary mirror identical to scopes like Orion’s StarBlast or Zhumell’s Z114. The primary mirror focuses light directly onto a Sony IMX224 sensor, an uncooled, small sensor used in the ZWO ASI224MC planetary camera. There is no secondary mirror, focuser, ability to install filters, or any kind of field flattener, derotator, or coma corrector. The sensor feeds the image into an onboard computer, which live stacks a  series of short (under 30 second) exposures - it can’t take longer exposures due to the alt-azimuth design of the scope’s mount - and feeds them either to your phone/tablet or onto a tiny LCD screen and loupe that mimics an eyepiece. Unistellar calls this whole setup “enhanced vision technology” that makes the telescope “more powerful”, but really it’s just a cheap camera sensor and some very basic live stacking and automatic image processing. 
