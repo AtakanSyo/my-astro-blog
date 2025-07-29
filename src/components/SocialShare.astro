@@ -48,6 +48,7 @@ const eTitle = encodeURIComponent(frontmatter.title);
     <button
       id="copy-btn"
       class="social-btn"
+      data-url={fullUrl}
       type="button"
       aria-label="Copy post link"
       title="Copy post link"
@@ -62,8 +63,8 @@ const eTitle = encodeURIComponent(frontmatter.title);
 
 <!-- Client-side logic to handle copy and show toast -->
 <script is:inline client:load>
-  const FULL_URL = "${fullUrl}";
   const copyBtn = document.getElementById('copy-btn');
+  const FULL_URL = copyBtn.dataset.url;
   const toast = document.getElementById('copy-toast');
   copyBtn.addEventListener('click', () => {
     navigator.clipboard.writeText(FULL_URL);

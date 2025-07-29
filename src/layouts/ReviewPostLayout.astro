@@ -3,13 +3,15 @@ import Layout from './Layout.astro';
 import '../styles/reviewPost.css';  // ← pulls in your global styles
 import SocialShare from '../components/SocialShare.astro';
 
+const { url } = Astro.props;               // ← the page’s own URL
+
+
 const {
   title,
   description,
   writer,
   rating: { overall: ratingValue } = {},
   pubDate,
-  url,
   cover_image,
   rating,
 } = Astro.props.frontmatter;

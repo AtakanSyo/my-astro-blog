@@ -1,6 +1,6 @@
 ---
 import Layout from './Layout.astro';
-import '../styles/infoPost.css';  // ← pulls in your global styles
+import '../styles/p5-demo.css';  // ← pulls in your global styles
 import SocialShare from '../components/SocialShare.astro';
 
 const {
@@ -9,7 +9,6 @@ const {
   writer,
   pubDate,
   url,
-  cover_image,
 } = Astro.props.frontmatter;
 
 
@@ -18,26 +17,14 @@ const {
 <head>
   <title>{title}</title>
   <meta name="description" content={description} />
-  <link
-    rel="preload"
-    as="image"
-    href={cover_image}
-  />
+
 </head>
 
 <Layout title={title}>
-  <article class="post centered_flex">
-    <img
-      src={cover_image}
-      class="post-starter-image"
-      alt={title + ' cover'}
-      fetchpriority="high"
-      loading="eager"       
-      decoding="async"      
-    />
+  <article class="post p5-post centered_flex">
 
-    <h1>{title}</h1>
-    <p class="review-description">{description}</p>
+    <h1 class="p5-article-title">{title}</h1>
+    <p class="p5-description">{description}</p>
     <p class="writer">Written by {writer}</p>
     <SocialShare frontmatter={Astro.props.frontmatter} url={url} client:load />
     <slot />

@@ -1,0 +1,115 @@
+---
+layout: '../../layouts/p5Layout.astro'
+title: "How large is the Solar System?"
+writer: "Atakan Saraçyakupoğlu"
+pubDate: "2025-07-29"
+description: "Comprehend the vastness of the Solar System with a 2D simulation."
+---
+
+<div class="p5-container centered_flex">
+<p class="Tool-Explanation">This is a two dimensional simulation of the Solar System. The distances from the Sun are scaled down by 10^3 km. The orbital periods and the planet sizes are based on scientific data.(Courtesy of NASA).</p>
+  <div class="upper-div">
+    <button onclick="zoomButtonFunction()" class="upper-button">Scale Toggle</button>
+    <button onclick="orbitDisplayFunction()" class="upper-button" id="orbitButton">Orbits</button> 
+    <button onclick="distanceDisplayFunction()" class="upper-button" id="distanceButton">Distance</button> 
+    <button onclick="nameDisplayFunction()" class="upper-button" id="nameButton">Name</button>
+    <button onclick="sunScaleFunc()" class="upper-button" id="sunscaleButton">Sun Real Size</button>      
+    <button onclick="toggleSpeed()" class="upper-button" id="scale-button">1x</button>
+  </div>
+  <div class="upper-div">
+  <div class="upper-div" style="flex-direction: column;"><p id="zoom-info" class="Tool-Explanation" style="margin: 5px;">20000km</p><span id="scale-line"></span></div>
+  <p id="time-info" class="Tool-Explanation">0</p>
+</div>
+<div id="sketch-container"></div>
+</div>
+
+<div class="p5-article">
+  <h2>A Guided Tour of Our Solar System</h2>
+  <p>
+    Our Solar System is a vast and dynamic neighborhood bound together by
+    gravity, centered on the Sun and populated by eight diverse planets, their
+    moons, and countless smaller bodies.
+  </p>
+
+  <h3>The Sun: Heart of the System</h3>
+  <p>
+    The Sun contains more than 99.8 % of the entire mass of the Solar System. It
+    is a G-type main-sequence star, powered by nuclear fusion in its core that
+    converts hydrogen into helium, releasing the light and heat that sustain
+    life on Earth.
+  </p>
+
+  <h3>The Inner Rocky Worlds</h3>
+  <ul>
+    <li>
+      <strong>Mercury</strong> – The smallest planet, crater-pocked and
+      airless, orbits at just 0.39 AU (≈ 58 million km). Its temperature swings
+      from –173 °C at night to 427 °C in daytime.
+    </li>
+    <li>
+      <strong>Venus</strong> – A thick carbon-dioxide atmosphere traps heat in
+      a runaway greenhouse effect. With surface pressures 90 times that of
+      Earth, Venus’s clouds hide a scorching 465 °C surface.
+    </li>
+    <li>
+      <strong>Earth</strong> – Our home, at 1 AU (≈ 150 million km), enjoys
+      liquid water, a nitrogen-oxygen atmosphere, and plate tectonics. Its
+      single large moon stabilizes axial tilt and seasons.
+    </li>
+    <li>
+      <strong>Mars</strong> – The “Red Planet” lies at 1.52 AU. With polar ice
+      caps and evidence of ancient rivers, Mars is a prime target for robotic
+      —and eventually human—exploration.
+    </li>
+  </ul>
+
+  <h3>The Gas and Ice Giants</h3>
+  <ul>
+    <li>
+      <strong>Jupiter</strong> – Over 300 times Earth’s mass, Jupiter’s
+      swirling bands and the Great Red Spot showcase powerful storms. Its
+      strong gravity shepherds asteroids and comets.
+    </li>
+    <li>
+      <strong>Saturn</strong> – Famous for its icy rings, Saturn has dozens of
+      moons, including Titan (with a thick nitrogen atmosphere) and Enceladus
+      (which jets water vapor from its south pole).
+    </li>
+    <li>
+      <strong>Uranus</strong> – An “ice giant” tipped on its side, it orbits at
+      19.2 AU. Its faint rings and 27 moons orbit in a plane nearly
+      perpendicular to the ecliptic.
+    </li>
+    <li>
+      <strong>Neptune</strong> – At 30 AU, Neptune is the outermost planet,
+      with supersonic winds that can exceed 2 000 km/h and 14 known moons,
+      including Triton, which may be a captured Kuiper Belt object.
+    </li>
+  </ul>
+
+  <h3>Dwarf Planets and Small Bodies</h3>
+  <p>
+    Beyond Neptune lies the Kuiper Belt, home to dwarf planets like
+    <strong>Pluto</strong>, <strong>Eris</strong>, and <strong>Makemake</strong>.
+    Closer in, the asteroid belt between Mars and Jupiter contains rocky
+    remnants of the early Solar System. Comets from the distant Oort Cloud
+    visit only occasionally, painting iconic tails when they approach the Sun.
+  </p>
+
+  <h3>Why Explore?</h3>
+  <p>
+    Studying other worlds teaches us about planetary formation, climate
+    evolution, and the potential for life elsewhere. Robotic missions—
+    Voyager, Cassini, Perseverance—and telescopic surveys continue to enrich
+    our understanding and inspire future explorers.
+  </p>
+
+  <p>
+    With the interactive simulation above, you can toggle orbits, distances,
+    labels, and speed to see how each planet moves in real time. Enjoy your
+    voyage through our cosmic backyard!
+  </p>
+</div>
+<script is:inline src="/p5/p5.min.js"></script>
+
+<script is:inline src="/p5/demo.js"></script>
