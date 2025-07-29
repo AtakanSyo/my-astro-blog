@@ -2,6 +2,7 @@
 // src/components/Affiliates.astro
 // Expects to receive an `affiliate` object via props,
 // with optional urls: amazon, highpointscientific, astroshop, etc.
+import { Icon } from 'astro-icon/components';
 
 export interface Props {
   affiliate: {
@@ -53,7 +54,7 @@ const { affiliate } = Astro.props as Props;
   }
   .affiliates .affiliate-link {
     padding: 0.5rem 1rem;
-    background: #1e3a8a;
+    background: #fc8f63;
     color: white;
     border-radius: 4px;
     text-decoration: none;
