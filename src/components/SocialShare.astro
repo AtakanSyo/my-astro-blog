@@ -9,53 +9,83 @@ const eUrl = encodeURIComponent(fullUrl);
 const eTitle = encodeURIComponent(frontmatter.title);
 ---
 
+<!-- Container with relative positioning for toast placement -->
+<div class="social-share-container">
+  <div class="social-share">
+    <a
+      class="social-btn"
+      href={`https://www.facebook.com/sharer.php?u=${fullUrl}`}
+      target="_blank"
+      rel="noopener"
+      aria-label="Share on Facebook"
+      title="Share on Facebook"
+    >
+      <Icon name="logos:facebook" width="20" height="20" aria-hidden="true" />
+    </a>
 
-<div class="social-share">
-  <a
-    class="social-btn"
-    href={`https://www.facebook.com/sharer.php?u=${fullUrl}`}
-    target="_blank"
-    rel="noopener"
-    aria-label="Share on Facebook"
-    title="Share on Facebook"
-  >
-    <Icon name="logos:facebook" width="20" height="20" aria-hidden="true" />
-  </a>
+    <a
+      class="social-btn"
+      href={`https://twitter.com/intent/tweet?url=${fullUrl}&text=${eTitle}`}
+      target="_blank"
+      rel="noopener"
+      aria-label="Share on Twitter"
+      title="Share on Twitter"
+    >
+      <Icon name="logos:twitter" width="20" height="20" aria-hidden="true" />
+    </a>
 
-  <a
-    class="social-btn"
-    href={`https://twitter.com/intent/tweet?url=${fullUrl}&text=${eTitle}`}
-    target="_blank"
-    rel="noopener"
-    aria-label="Share on Twitter"
-    title="Share on Twitter"
-  >
-    <Icon name="logos:twitter" width="20" height="20" aria-hidden="true" />
-  </a>
+    <a
+      class="social-btn"
+      href={`https://wa.me/?text=${eTitle}%20${fullUrl}`}
+      target="_blank"
+      rel="noopener"
+      aria-label="Share on WhatsApp"
+      title="Share on WhatsApp"
+    >
+      <Icon name="ion:logo-whatsapp" width="20" height="20" aria-hidden="true" />
+    </a>
 
-  <a
-    class="social-btn"
-    href={`https://wa.me/?text=${eTitle}%20${fullUrl}`}
-    target="_blank"
-    rel="noopener"
-    aria-label="Share on WhatsApp"
-    title="Share on WhatsApp"
-  >
-    <Icon name="ion:logo-whatsapp" width="20" height="20" aria-hidden="true" />
-  </a>
+    <button
+      id="copy-btn"
+      class="social-btn"
+      type="button"
+      aria-label="Copy post link"
+      title="Copy post link"
+    >
+      <Icon name="bi:link-45deg" width="20" height="20" aria-hidden="true" />
+    </button>
+  </div>
 
-  <button
-    class="social-btn"
-    type="button"
-    onClick={`navigator.clipboard.writeText("${fullUrl}")`}
-    aria-label="Copy post link"
-    title="Copy post link"
-  >
-    <Icon name="bi:link-45deg" width="20" height="20" aria-hidden="true" />
-  </button>
+  <!-- Non-intrusive toast notification, positioned relative to the container -->
+  <div id="copy-toast" role="status" class="copy-toast">Link copied!</div>
 </div>
 
+<!-- Client-side logic to handle copy and show toast -->
+<script is:inline client:load>
+  const FULL_URL = "${fullUrl}";
+  const copyBtn = document.getElementById('copy-btn');
+  const toast = document.getElementById('copy-toast');
+  copyBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(FULL_URL);
+    // Position toast next to button
+    const rect = copyBtn.getBoundingClientRect();
+    const containerRect = copyBtn.closest('.social-share-container').getBoundingClientRect();
+    const top = rect.bottom - containerRect.top + 8; // 8px below
+    const left = rect.right - containerRect.left - toast.offsetWidth;
+    toast.style.top = `${top}px`;
+    toast.style.left = `${left}px`;
+
+    toast.classList.add('visible');
+    console.log("hi")
+    setTimeout(() => toast.classList.remove('visible'), 1000);
+  });
+</script>
+
 <style>
+  .social-share-container {
+    position: relative;
+    display: inline-block;
+  }
   .social-share {
     display: flex;
     gap: 0.5rem;
@@ -77,8 +107,24 @@ const eTitle = encodeURIComponent(frontmatter.title);
   .social-share button:hover {
     background: #e0e0e0;
   }
-  .copy-link {
-    font-size: 1rem;
-    line-height: 1;
+  .copy-toast {
+
+    position: absolute;
+
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+
+    font-size: 0.875rem;
+    transform: translateY(0);
+    z-index: 999;
+  }
+  .visible {
+    opacity: 1 !important;
   }
 </style>
