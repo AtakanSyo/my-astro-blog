@@ -81,6 +81,29 @@ p {
 }
 
 
+/* Base class (shared styles) */
 .post-image {
-  max-width: 300px;
+  max-width: 100%;
+  height: auto;
+  padding: 0.5rem;
+  border-radius: 8px;
+}
+
+/* Size variants */
+.post-image-sm { max-width: 300px; }
+.post-image-md { max-width: 600px; }
+.post-image-lg { max-width: 1000px; }
+
+@media (max-width: 768px) {
+  .post-image-lg , .post-image-md{ max-width: 100%; }
+}
+
+figure {
+  padding: 1rem;
+}
+
+figcaption {
+  font-style: italic;
+  text-align: center;
+  margin-top: 8px;
 }
