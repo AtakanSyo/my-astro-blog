@@ -144,11 +144,6 @@ p {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.rating-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-}
-
 .rating-card .category {
   display: block;
   font-size: 0.85rem;
@@ -284,21 +279,43 @@ figcaption {
   gap: 1.5rem;
 }
 
-.affiliates li {
-  /* Keeps list items tight around each link */
-}
 
-.affiliates a {
-  display: inline-block;
-  background-color: #fc8f63;
+
+.affiliate-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 28px;
+  background-color: #5d62d2;
   color: white;
-  padding: 0.7em 1.4em;
+  text-decoration: none;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
   border-radius: 8px;
-  font-weight: 500;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 6px rgba(93, 98, 210, 0.2);
+  position: relative;
+  overflow: hidden;
 }
 
-.affiliates a:hover {
+/* Hover effect - slightly darker & elevate */
+.affiliate-link:hover {
+  background-color: #5156c0;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 12px rgba(93, 98, 210, 0.25);
+}
+
+/* Click effect - subtle push down */
+.affiliate-link:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(93, 98, 210, 0.3);
+}
+
+/* Focus state (accessibility) */
+.affiliate-link:focus-visible {
+  outline: 2px solid #5d62d2;
+  outline-offset: 2px;
 }
