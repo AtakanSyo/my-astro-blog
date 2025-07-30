@@ -168,13 +168,13 @@ header nav a:hover {
 .site-footer {
   width: 100vw;
   padding: var(--spacing);
-  text-align: center;
   background-color: black;
 }
 
 .site-footer p {
   color: white;
   font-size: clamp(0.875rem, 1vw, 1rem); /* responsive font size */
+  text-align: center;
 }
 
 /* 4. Utility classes (optional) */
