@@ -16,7 +16,7 @@ let planetList = [];
 
 const k = 10;
 
-let zoomSwitch = 0;
+let zoomSwitch = 3;
 
 let orbitLineWidth;
 
@@ -36,7 +36,7 @@ let sunScale = 6;
 
 let evenL = [];
 
-let speedToggle = 1;
+let speedToggle = 8;
 
 let scaleArr = [1,2,4,10,20];
 
