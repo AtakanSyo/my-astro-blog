@@ -22,6 +22,8 @@ specs:
 pubDate: "2025-08-01"
 description: ""
 ---
+import Affiliates from '../../components/Affiliates.astro'
+
 <section class="pros-cons">
 <div class="pros-block">
     <h3>Pros</h3>
@@ -46,6 +48,7 @@ description: ""
 </div>
 </section>
 
+<Affiliates affiliate={frontmatter.affiliate} />
 
 <p class="highlight">The StarSense Explorer App is what saves LT 80AZ from the abyss of Celestron's useless, overpriced beginner models.</p>
 <h2>Review</h2>

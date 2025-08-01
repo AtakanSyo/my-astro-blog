@@ -22,6 +22,8 @@ specs:
 pubDate: "2025-08-01"
 description: ""
 ---
+import Affiliates from '../../components/Affiliates.astro'
+
 <section class="pros-cons">
 <div class="pros-block">
     <h3>Pros</h3>
@@ -46,6 +48,8 @@ description: ""
     </ul>
 </div>
 </section>
+
+<Affiliates affiliate={frontmatter.affiliate} />
 
 <h2>Review</h2>
 <p>Before the review, I have to mention that this is a beginner telescope designed for ease of use. Not for experienced or even practiced astronomers. With that in mind, let's start with the review. The optical design of StarSense Explorer DX 130AZ is common and can be found anywhere from any astronomy brand. Polaris 130, NexStar 130SLT, SpaceProbe 130EQ; I could go on and on. This type of optical design is average in quality. (You are paying for technology, not optical power.) What you are paying for is the StarSense Explorer App experience more than the optics. Is the app experience worth the extra cost? Yes, absolutely, without a doubt, and yes. The software is one of the most impressive astro-tech I've ever seen.</p>

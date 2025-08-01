@@ -22,6 +22,8 @@ specs:
 pubDate: "2025-07-31"
 description: "The Celestron NexStar 127SLT isn’t a terrible scope, but is limited for deep-sky viewing and fairly expensive."
 ---
+import Affiliates from '../../components/Affiliates.astro'
+
 <p class="highlight">The Celestron NexStar 127SLT isn’t a terrible scope, but is limited for deep-sky viewing and fairly expensive.</p>
 
 <h2>Introduction</h2>
@@ -85,19 +87,9 @@ description: "The Celestron NexStar 127SLT isn’t a terrible scope, but is limi
     </div>
   </div>
 </section>
-<section class="affiliates">
-  <ul>
-    {frontmatter.affiliate.amazon && (
-      <li><a class="affiliate-link" href={frontmatter.affiliate.amazon}>Buy on Amazon</a></li>
-    )}
-    {frontmatter.affiliate.highpointscientific && (
-      <li><a class="affiliate-link" href={frontmatter.affiliate.highpointscientific}>Buy at Highpoint Scientific</a></li>
-    )}
-    {frontmatter.affiliate.astroshop && (
-      <li><a class="affiliate-link" href={frontmatter.affiliate.astroshop}>Buy at AstroShop</a></li>
-    )}
-  </ul>
-</section>
+
+<Affiliates affiliate={frontmatter.affiliate} />
+
 <h2>The Optical Tube</h2>
 <p>The NexStar 127SLT is nominally a 127mm Maksutov-Cassegrain with a 1500mm focal length and focal ratio of f/12. However, due to the design of the internals and an undersized primary mirror, the 127SLT is actually stopped down to 120mm in aperture, which also slows the scope to f/12.5. All of the “127mm” Maksutov-Cassegrains made by Synta (offered by Celestron, Sky-Watcher, Orion, and a few other companies) suffer from this flaw. The loss of 7mm of aperture is hardly noticeable but is still annoying. However, the optics in the NexStar 127SLT are tack sharp as with most Maksutov-Cassegrains and the telescope does not require collimation. A Maksutov-Cassegrain uses a meniscus corrector lens, spherical primary mirror, and an aspheric secondary mirror (actually just an aluminized portion of the corrector) to achieve sharp images, as well as a long focal length with a very physically short tube.</p>
 <p>As with most catadioptric telescopes, you adjust the focus by turning a knob at the back of the 127SLT to move the primary mirror back and forth inside the tube. Your eyepieces or camera attach to the back. The 127SLT has a proprietary 1.25” visual back which is also threaded for T threads to attach a DSLR or mirrorless camera. The tube attaches to its mount with a Vixen-style dovetail bar, which means you could use the 127SLT on another mount if you wish.</p>

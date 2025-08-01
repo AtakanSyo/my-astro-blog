@@ -22,6 +22,7 @@ specs:
 pubDate: "2025-08-01"
 description: ""
 ---
+import Affiliates from '../../components/Affiliates.astro'
 
 <p class="highlight">The William Optics ZenithStar 73 III is an ideal telescope for wide-field deep-sky astrophotographers, regardless of whether you’re a beginner or an experienced imager.</p>
 <h2>Introduction</h2>
@@ -85,19 +86,8 @@ description: ""
     </div>
   </div>
 </section>
-<section class="affiliates">
-  <ul>
-    {frontmatter.affiliate.amazon && (
-      <li><a class="affiliate-link" href={frontmatter.affiliate.amazon}>Buy on Amazon</a></li>
-    )}
-    {frontmatter.affiliate.highpointscientific && (
-      <li><a class="affiliate-link" href={frontmatter.affiliate.highpointscientific}>Buy at Highpoint Scientific</a></li>
-    )}
-    {frontmatter.affiliate.astroshop && (
-      <li><a class="affiliate-link" href={frontmatter.affiliate.astroshop}>Buy at AstroShop</a></li>
-    )}
-  </ul>
-</section>
+
+<Affiliates affiliate={frontmatter.affiliate} />
 
 <img class="post-image" src="/images/william-optics-zenithstar-73-review/optics.webp" alt="Optics"></img>
 <h2>Optics</h2>

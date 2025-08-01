@@ -22,6 +22,7 @@ specs:
 pubDate: "2025-07-31"
 description: "The Celestron NexStar Evolution 9.25” is a great scope bundled with a great mount and tripod - though it’s less portable than it may appear at first."
 ---
+import Affiliates from '../../components/Affiliates.astro'
 
 <h2>Introduction</h2>
 
@@ -86,19 +87,9 @@ description: "The Celestron NexStar Evolution 9.25” is a great scope bundled w
     </div>
   </div>
 </section>
-<section class="affiliates">
-  <ul>
-    {frontmatter.affiliate.amazon && (
-      <li><a class="affiliate-link" href={frontmatter.affiliate.amazon}>Buy on Amazon</a></li>
-    )}
-    {frontmatter.affiliate.highpointscientific && (
-      <li><a class="affiliate-link" href={frontmatter.affiliate.highpointscientific}>Buy at Highpoint Scientific</a></li>
-    )}
-    {frontmatter.affiliate.astroshop && (
-      <li><a class="affiliate-link" href={frontmatter.affiliate.astroshop}>Buy at AstroShop</a></li>
-    )}
-  </ul>
-</section>
+
+<Affiliates affiliate={frontmatter.affiliate} />
+
 <h2>The C9.25 Optical Tube</h2>
 <p>The C9.25 XLT optical tube supplied with the Evolution 9.25 is a 9.25” (235mm) f/10 Schmidt-Cassegrain telescope (SCT) which uses a pair of spherical mirrors (concave primary, convex secondary) and a Schmidt corrector plate to achieve sharp images. Both mirrors have weaker curvature than is standard for an SCT leading to an abnormally long tube proportionally and slightly easier collimation requirements, along with typical superior optical quality, compared to most other SCT models on average. Quality control is also better too, on account of the rather niche audience of the C9.25.</p>
 <p>As with most Schmidt-Cassegrain and other catadioptric telescopes, the C9.25’s focusing system is based on a sliding rod that moves the primary mirror up and down the tube to adjust the spacing of the optics and thus move the focal plane. Your accessories are fixed to the back of the telescope, and attach via standard SCT threads which allow you to place cameras, visual adapters, or focal reducers on the back. The secondary mirror of the C9.25 can be removed in seconds without any tools to put the Starizona HyperStar corrector lens in its place and convert the C9.25 into a super-fast f/2 (470mm focal length) Schmidt Camera optical system for astrophotography, though this is an expensive upgrade.</p>

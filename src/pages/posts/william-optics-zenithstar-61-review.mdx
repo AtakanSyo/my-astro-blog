@@ -22,6 +22,7 @@ specs:
 pubDate: "2025-08-01"
 description: ""
 ---
+import Affiliates from '../../components/Affiliates.astro'
 
 <p class="highlight">The William Optics ZenithStar 61 is a great starter telescope for deep-sky astrophotography and offers good value for the price.</p>
 <h2>Introduction</h2>
@@ -82,19 +83,8 @@ description: ""
     </div>
   </div>
 </section>
-<section class="affiliates">
-  <ul>
-    {frontmatter.affiliate.amazon && (
-      <li><a class="affiliate-link" href={frontmatter.affiliate.amazon}>Buy on Amazon</a></li>
-    )}
-    {frontmatter.affiliate.highpointscientific && (
-      <li><a class="affiliate-link" href={frontmatter.affiliate.highpointscientific}>Buy at Highpoint Scientific</a></li>
-    )}
-    {frontmatter.affiliate.astroshop && (
-      <li><a class="affiliate-link" href={frontmatter.affiliate.astroshop}>Buy at AstroShop</a></li>
-    )}
-  </ul>
-</section>
+
+<Affiliates affiliate={frontmatter.affiliate} />
 
 <h2>Optics</h2>
 
