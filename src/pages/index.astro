@@ -25,18 +25,36 @@ const posts = allPosts.slice(0, 100);
     <h1 class="home-title">{site.name}</h1>
     <p class="home-description">{site.description}</p>
     <p class="home-description-2">Expert written reviews for astronomy equipment, astronomy related posts, and more.</p>
+    
+    <div class="home-cta-wrapper">
+      <a href="/telescopes" class="home-cta-btn">
+        🔭 Explore All Telescopes
+      </a>
+    </div>
+    
+    <section class="trust-box">
+    <h2>Why trust us?</h2>
+      <p>
+        Astrosyo is an astronomy blog created by experts in software and astronomy.  
+        Our writers <strong>Atakan Saraçyakupoğlu</strong>, <strong>Zane Landers</strong>,  
+        and <strong>Richard J. Bartlett</strong> provide trustworthy recommendations,  
+        reviews, and web tools to help you with your stargazing adventures.
+      </p>
+    </section>
 
-    <div class="post-list">
-      {posts.map(({ frontmatter, url }) => (
-        <a href={url} class="post_link">
-          <div class="post-link-title">{frontmatter.title}</div>
-          <!-- <p class="description">{frontmatter.description}</p> -->
-          <p class="post-link-writer">{frontmatter.writer}</p>
-          <time datetime={frontmatter.puwDate}>
-            {new Date(frontmatter.pubDate).toLocaleDateString()}
-          </time>
-        </a>
-      ))}
+    <div class="latest-section">
+      <h2 class="latest-title">Latest</h2>
+      <div class="post-list">
+        {posts.map(({ frontmatter, url }) => (
+          <a href={url} class="post_link">
+            <div class="post-link-title">{frontmatter.title}</div>
+            <p class="post-link-writer">{frontmatter.writer}</p>
+            <time datetime={frontmatter.pubDate}>
+              {new Date(frontmatter.pubDate).toLocaleDateString()}
+            </time>
+          </a>
+        ))}
+      </div>
     </div>
 
   </section>
