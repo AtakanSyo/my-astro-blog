@@ -1,58 +1,170 @@
+/*─────────────────────────────────────────────────
+  Container & Toggle Buttons
+─────────────────────────────────────────────────*/
+.telescopes-toggle-container {
+  max-width: 1200px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
 
 .toggle-buttons {
   display: flex;
-  gap: 0.5rem;
-  margin: 20px;
   flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
 }
+
 .toggle-buttons button {
   padding: 0.5rem 1rem;
-  border: 1px solid black;
-  background: white;
-  cursor: pointer;
+  border: 1px solid #888;
+  background: #fff;
   border-radius: 4px;
-  transition-duration: 0.2s;
-  color: black;
-  font-size: 14px;
-}
-.toggle-buttons button.active {
-  background: black;
-  color: white;
-  border-color: black;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
 }
 
-.telescopes-toggle-container {
-  margin: 2rem auto;
+.toggle-buttons button:hover,
+.toggle-buttons button.active {
+  background: #5b6ee1;
+  color: #fff;
+  border-color: #5b6ee1;
+}
+
+/*─────────────────────────────────────────────────
+  Type Description (below toggles)
+─────────────────────────────────────────────────*/
+.type-description {
+  text-align: center;
+  max-width: 800px;
+  margin: 0.5rem auto 1.5rem;
+  padding: 0 1rem;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: var(--color-muted);
+}
+
+/*─────────────────────────────────────────────────
+  Grid & Cards
+─────────────────────────────────────────────────*/
+.telescopes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.telescopes-card {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* centers horizontally */
-  align-items: center; /* aligns to the top vertically */
-  min-height: 90vh;
-}
-
-.telescopes-ranking-link .telescopes-ranking-link-title {
-  padding-right: 20px;
-}
-
-
-
-.telescopes-toggle-container .telescopes-ranking-link {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
-
-  border-style: solid;
-  border-width: 2px;
-  border-color: black;
-  padding: 1em;
-  margin: 1rem;
+  background: #fff;
   border-radius: 8px;
-
-  width: 300px
+  box-shadow: 0 2px 6px var(--card-shadow);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
 }
 
+.telescopes-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
 
-.telescopes-toggle-container .post-group a:hover{
-  opacity: 0.8;
+/*─────────────────────────────────────────────────
+  Link & Content Inside Card
+─────────────────────────────────────────────────*/
+.telescopes-link {
+  display: flex;            /* NEW */
+  flex-direction: column;   /* NEW */
+  flex: 1;                  /* already there, ensures link grows */
+  padding: 1rem;
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+}
+
+.telescopes-link::after {
+  content: '→';
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.2rem;
+  color: #888;
+  opacity: 0;
+  transition: opacity 0.2s, color 0.2s;
+}
+
+.telescopes-card:hover .telescopes-link::after {
+  opacity: 1;
+  color: #5156c1;
+}
+
+/*─────────────────────────────────────────────────
+  Titles, Ratings & Descriptions
+─────────────────────────────────────────────────*/
+.telescopes-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.telescopes-rating {
+  display: inline-block;
+  background: black;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 0.25rem;
+  margin-bottom: 0.75rem;
+  align-self: flex-start;  /* prevent stretching in the column flex container */
+}
+
+.telescopes-desc {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: #555;
+}
+
+/* Push “Read full review →” to the bottom of the link area */
+.read-review {
+  margin-top: auto;        /* NEW */
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: right;
+  color: #5156c1;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.telescopes-card:hover .read-review {
+  opacity: 1;
+}
+
+/*─────────────────────────────────────────────────
+  Affiliate Buttons
+─────────────────────────────────────────────────*/
+.affiliate-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem 1rem;
+}
+
+.affiliate-btn {
+  flex: 1;
+  text-align: center;
+  padding: 0.5rem;
+  background: #5156c1;
+  border: 1px solid #5156c1;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  color: #fff;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.affiliate-btn:hover {
+  background: #3f448f;
+  transform: translateY(-1px);
 }

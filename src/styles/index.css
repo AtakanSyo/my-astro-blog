@@ -63,6 +63,8 @@
     background-clip: text;
     color: transparent; /* Hide original text color */
   }
+
+  
   .trust-box p {
 
     max-width: 600px;

@@ -2,110 +2,163 @@
 import Layout from '../layouts/Layout.astro';
 import '../styles/telescopes.css';
 
-// Grab all your posts
 const allPosts = await Astro.glob('./posts/*.{md,mdx}');
-// Filter only those in the “telescopes” subcategory
-const telescopePosts = allPosts.filter(
-  (p) => p.frontmatter.subcategory === 'telescopes'
-);
+const telescopePosts = allPosts.filter(p => p.frontmatter.subcategory === 'telescopes');
 
 // ── SORTED “All” POSTS ──
-const sortedAll = telescopePosts
-  .slice()
-  .sort(
-    (a, b) =>
-      (b.frontmatter.rating?.overall ?? 0) -
-      (a.frontmatter.rating?.overall ?? 0)
-  );
+const sortedAll = [...telescopePosts].sort(
+  (a, b) => (b.frontmatter.rating?.overall ?? 0) - (a.frontmatter.rating?.overall ?? 0)
+);
 
-// Group by your `telescopeType` frontmatter
+// ── GROUP & SORT BY TYPE ──
 const grouped = telescopePosts.reduce((acc, post) => {
   const type = post.frontmatter.telescopeType || 'Other';
-  if (!acc[type]) acc[type] = [];
-  acc[type].push(post);
+  (acc[type] ??= []).push(post);
   return acc;
 }, {});
-
-// Build an array of types, sorted alphabetically
 const types = Object.keys(grouped).sort();
-
-// ── SORTED GROUPS ──
-const sortedGrouped = {};
-for (const type of types) {
-  sortedGrouped[type] = grouped[type]
-    .slice()
-    .sort(
-      (a, b) =>
-        (b.frontmatter.rating?.overall ?? 0) -
-        (a.frontmatter.rating?.overall ?? 0)
-    );
-}
+const sortedGrouped = Object.fromEntries(
+  types.map(type => [
+    type,
+    [...grouped[type]].sort(
+      (a, b) => (b.frontmatter.rating?.overall ?? 0) - (a.frontmatter.rating?.overall ?? 0)
+    ),
+  ])
+);
 ---
+
 <Layout title="Telescope Reviews">
   <div class="telescopes-toggle-container">
+    <!-- toggle buttons -->
     <div class="toggle-buttons">
       <button data-type="all" class="active">All</button>
-      {types.map((t) => (
-        <button data-type={t}>{t}</button>
-      ))}
+      {types.map(t => <button data-type={t}>{t}</button>)}
     </div>
+
+    <!-- description placeholder -->
+    <div id="type-description" class="type-description"></div>
 
     <!-- “All” group -->
     <div class="post-group" data-type="all">
-      <h3>All Telescopes</h3>
-      {sortedAll.map(({ frontmatter, url }) => {
-        const cleanTitle = frontmatter.title.replace(/ Review$/, '');
-        const score = frontmatter.rating?.overall ?? 'N/A';
-          return (
-            <a href={url} class="telescopes-ranking-link">
-              <div class="telescopes-ranking-link-title">{cleanTitle}</div>
-              <div class="telescopes-ranking-link-rating">{score}/10</div>
-            </a>
-          );
-      })}
-    </div>
+      <h2>All Telescopes</h2>
+      <div class="telescopes-grid">
+        {sortedAll.map(({ frontmatter, url }) => {
+          const { title, description, rating, affiliate = {} } = frontmatter;
+          const cleanTitle = title.replace(/ Review$/, '');
+          const score = rating?.overall ?? 'N/A';
+          const affs = [
+            ['Amazon', affiliate.amazon],
+            ['HighPoint', affiliate.highpointscientific],
+            ['Astroshop', affiliate.astroshop],
+          ].filter(([, link]) => link);
 
-    <!-- One group per type -->
-    {types.map((t) => (
-      <div class="post-group" data-type={t} style="display:none;">
-        <h3>{t} Telescopes</h3>
-        {sortedGrouped[t].map(({ frontmatter, url }) => {
-          const cleanTitle = frontmatter.title.replace(/ Review$/, '');
-          const score = frontmatter.rating?.overall ?? 'N/A';
           return (
-            <a href={url} class="telescopes-ranking-link">
-              <div class="telescopes-ranking-link-title">{cleanTitle}</div>
-              <div class="telescopes-ranking-link-rating">{score}/10</div>
-            </a>
+            <div class="telescopes-card">
+              <a href={url} class="telescopes-link">
+                <div class="telescopes-title">{cleanTitle}</div>
+                <div class="telescopes-rating">{score}/10</div>
+                <p class="telescopes-desc">{description}</p>
+              </a>
+              {affs.length > 0 && (
+                <div class="affiliate-links">
+                  {affs.map(([name, link]) => (
+                    <a href={link}
+                       class="affiliate-btn"
+                       target="_blank"
+                       rel="noopener">
+                      Buy on {name}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
           );
         })}
+      </div>
+    </div>
+
+    <!-- one group per type -->
+    {types.map(type => (
+      <div class="post-group" data-type={type} style="display:none;">
+        <h2>{type} Telescopes</h2>
+        <div class="telescopes-grid">
+          {sortedGrouped[type].map(({ frontmatter, url }) => {
+            const { title, description, rating, affiliate = {} } = frontmatter;
+            const cleanTitle = title.replace(/ Review$/, '');
+            const score = rating?.overall ?? 'N/A';
+            const affs = [
+              ['Amazon', affiliate.amazon],
+              ['HighPoint', affiliate.highpointscientific],
+              ['Astroshop', affiliate.astroshop],
+            ].filter(([, link]) => link);
+
+            return (
+              <div class="telescopes-card">
+                <a href={url} class="telescopes-link">
+                  <div class="telescopes-title">{cleanTitle}</div>
+                  <div class="telescopes-rating">{score}/10</div>
+                  <p class="telescopes-desc">{description}</p>
+                  <div class="read-review">Read full review →</div>
+                </a>
+                {affs.length > 0 && (
+                  <div class="affiliate-links">
+                    {affs.map(([name, link]) => (
+                      <a href={link}
+                         class="affiliate-btn"
+                         target="_blank"
+                         rel="noopener">
+                        Buy on {name}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
       </div>
     ))}
   </div>
 
-  <!-- Client-side toggling logic -->
   <script type="module" client:load>
+    // define everything in here
+    const typeDescriptions = {
+      all:           "Browse reviews of every telescope style—find your perfect match in one place.",
+      Dobsonian:     "Dobsonians are large-aperture Newtonian reflectors on simple rocker-box mounts—ideal for sweeping deep-sky views.",
+      "Tabletop Dobsonian": "A compact Dobsonian you can set on any table—perfect for quick setup and on-the-go observing.",
+      Refractor:     "Refractors use precision lenses for crisp, high-contrast views of planets, the Moon, and double stars.",
+      Reflector:     "Classic Newtonian reflectors with mirrors—great light-gathering at an affordable price.",
+      "Maksutov-Cassegrain": "Maksutovs pack long focal lengths into small tubes for sharp planetary and lunar views.",
+      "Schmidt-Cassegrain":  "Schmidts combine mirrors and lenses in a compact, versatile package for both planets and deep-sky objects.",
+      "Smart Telescope":     "App-controlled scopes automate alignment and tracking—perfect for hands-free stargazing.",
+      Other:         "Unique designs and hybrids—explore these if you’re craving something different.",
+    };
+
     const buttons = document.querySelectorAll('.toggle-buttons button');
-    const groups = document.querySelectorAll('.post-group');
+    const groups  = document.querySelectorAll('.post-group');
+    const descEl  = document.getElementById('type-description');
 
     function showGroup(type) {
-      groups.forEach((grp) => {
-        if (type === 'all') {
-          // only show the one with data-type="all"
-          grp.style.display = grp.dataset.type === 'all' ? '' : 'none';
-        } else {
-          // show only the matching type
-          grp.style.display = grp.dataset.type === type ? '' : 'none';
-        }
+      // toggle visibility
+      groups.forEach(g => {
+        g.style.display = type === 'all'
+          ? (g.dataset.type === 'all' ? '' : 'none')
+          : (g.dataset.type === type ? '' : 'none');
       });
+      // update description text
+      descEl.textContent = typeDescriptions[type] || '';
     }
 
-    buttons.forEach((btn) => {
+    // wire up buttons & initial state
+    buttons.forEach(btn =>
       btn.addEventListener('click', () => {
-        buttons.forEach((b) => b.classList.remove('active'));
+        buttons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         showGroup(btn.dataset.type);
-      });
-    });
+      })
+    );
+
+    // show “all” on first load
+    showGroup('all');
   </script>
 </Layout>
