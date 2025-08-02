@@ -144,18 +144,22 @@ header {
 /* Nav links */
 .site-nav {
   display: flex;
-  gap: 2rem;
+  height: 100%;
 }
 
 .nav-item {
   color: var(--nav-link-color);
   text-decoration: none;
   font-weight: 400;
-  transition: color var(--transition-speed);
+  padding-left: 2rem;
+  padding-right: 2rem;
+  transition-duration: 0.07s;
+  height: 100%;
 }
+
 .nav-item:hover,
 .nav-item:focus {
-  color: var(--nav-link-hover);
+  background-color: rgba(255,255,255,0.2);
 }
 
 /* Hamburger toggle (hidden on desktop) */
@@ -198,6 +202,7 @@ header {
     overflow: hidden;
     transition-duration: 0.22s;
     opacity: 0;
+    height: auto;
   }
   .site-nav.open {
     max-height: 200px; /* enough to show all links */
@@ -209,6 +214,10 @@ header {
     display: block;
   }
 
+  .nav-item{
+    padding: 1rem;
+    width: 100%;
+  }
 }
 
 .site-footer {
