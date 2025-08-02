@@ -170,3 +170,10 @@
   transform: translateY(-1px);
 }
 
+.telescopes-summary {
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  color: var(--color-heading);
+}
