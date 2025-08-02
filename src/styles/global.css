@@ -16,8 +16,11 @@
   --color-text: #333;
   --color-primary: #3C3743;
   --spacing: 1rem;
-  --header-height: 50px;
   --golden-ratio: 1.618; /* Define the multiplier */
+  --header-height: 60px;
+  --nav-bg: rgba(0, 0, 0, 1.0);
+  --nav-link-color: #fff;
+  --nav-link-hover: rgba(255, 255, 255, 0.8);
 }
 
 /* 3. Base styles */
@@ -108,61 +111,102 @@ p {
   letter-spacing: 0.01em;                  /* subtle tracking for elegance */
 }
 
+/* Base header */
 header {
-  display: flex;
-  align-items: center; /* vertical */
-  justify-content: center; /* horizontal */
-  width: 100%;
-  background-color: black;
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  top: 0; left: 0; right: 0;
   height: var(--header-height);
-
-  opacity: 0.95;
+  background: var(--nav-bg);
+  backdrop-filter: saturate(180%) blur(10px);
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-header nav {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  gap: 6rem; /* space between links */
-}
-
-header nav a {
-  color: white;
-  font-weight: 300;
-}
-
-header nav a:hover {
-  opacity: 0.8;
-  text-decoration: none;
-}
-
-/* Mobile styles (typically under 768px) */
-@media screen and (max-width: 768px) {
-  header nav {
-    gap: 2rem;
-  }
-}
-
-.logo{
-  position: fixed;
-  left: 1rem;
-  top: 0.5rem;
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 0 1rem;
 }
 
+/* Logo */
 .logo img {
-    width: 33px;
-    height: auto;
+  height: 40px;
+  width: auto;
+  display: block;
+}
+
+/* Nav links */
+.site-nav {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-item {
+  color: var(--nav-link-color);
+  text-decoration: none;
+  font-weight: 400;
+  transition: color var(--transition-speed);
+}
+.nav-item:hover,
+.nav-item:focus {
+  color: var(--nav-link-hover);
+}
+
+/* Hamburger toggle (hidden on desktop) */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+  content: "";
+  display: block;
+  width: 24px;
+  height: 3px;
+  background: var(--nav-link-color);
+  border-radius: 2px;
+  transition: transform var(--transition-speed);
+}
+.hamburger::before {
+  transform: translateY(-7px);
+}
+.hamburger::after {
+  transform: translateY(4px);
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .site-nav {
+    position: absolute;
+    top: var(--header-height);
+    left: 0; right: 0;
+    background: var(--nav-bg);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-height: 0;
+    overflow: hidden;
+    transition-duration: 0.22s;
+    opacity: 0;
+  }
+  .site-nav.open {
+    max-height: 200px; /* enough to show all links */
+    padding-bottom: 2rem;
+    opacity: 1;
+  }
+
+  .nav-toggle {
+    display: block;
+  }
+
 }
 
 .site-footer {

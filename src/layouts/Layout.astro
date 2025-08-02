@@ -19,18 +19,24 @@ const site_description = site.description;
 		<script defer src="https://cloud.umami.is/script.js" data-website-id="7f187073-b57a-4268-9c53-94c815af943f"></script>
 	</head>
 	<body>
-    <header>
-      <nav>
-		  <a href="/" class="logo">
-          <img
-            src="/images/shared/logo.webp"
-            alt={site.name}
-          />
+
+  <header>
+    <div class="header-inner">
+      <a href="/" class="logo">
+        <img src="/images/shared/logo.webp" alt={site.name} />
       </a>
-        <a href="/">{site.name}</a>
-        <a href="/telescopes">Telescopes</a>
+
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span class="hamburger"></span>
+      </button>
+
+      <nav class="site-nav">
+        <a href="/" class="nav-item">Home</a>
+        <a href="/telescopes" class="nav-item">Telescopes</a>
+        <!-- add more links here -->
       </nav>
-    </header>
+    </div>
+  </header>
 
     <main>
       <slot />
@@ -40,7 +46,17 @@ const site_description = site.description;
     <footer class="site-footer centered_flex">
       <p>© {new Date().getFullYear()} Astrosyo.</p>
     </footer>
-
+    <script>
+      
+      document.addEventListener("DOMContentLoaded", () => {
+        const toggle = document.querySelector(".nav-toggle");
+        const nav    = document.querySelector(".site-nav");
+        toggle.addEventListener("click", () => {
+          nav.classList.toggle("open");
+          toggle.classList.toggle("active");
+        });
+      });
+    </script>
 	</body>
 </html>
 
