@@ -7,7 +7,7 @@ export default function SearchPosts({ posts = [], limit = 50 }) {
     return new URL(window.location.href).searchParams.get('q') || '';
   };
 
-  const [q, setQ] = useState(getInitialQ());
+  const [q, setQ] = useState(getInitialQ().slice(0, 100));
 
   // ➋ Whenever q changes, update the URL bar (optional)
   useEffect(() => {
@@ -43,7 +43,8 @@ export default function SearchPosts({ posts = [], limit = 50 }) {
           type="search"
           placeholder="🔎 Search posts…"
           value={q}
-          onChange={(e) => setQ(e.currentTarget.value)}
+          maxLength={100}
+          onChange={e => setQ(e.currentTarget.value.slice(0, 100))}
           className="search-input"
         />
       </form>
