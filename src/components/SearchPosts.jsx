@@ -58,10 +58,9 @@ export default function SearchPosts({ posts = [], limit = 50 }) {
           <div className="post-card" key={p.url}>
             <a href={p.url} className="post-card-link">
               <div className="post-card-title">{p.frontmatter.title}</div>
-              <div className="post-card-meta">
-                By {p.frontmatter.writer} —{' '}
-                {new Date(p.frontmatter.pubDate).toLocaleDateString()}
-              </div>
+               <div className="post-card-meta">
+                 By {p.frontmatter.writer} — {p.dateStr}
+               </div>
               {p.frontmatter.description && (
                 <p className="post-card-desc">
                   {p.frontmatter.description}

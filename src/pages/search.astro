@@ -34,6 +34,6 @@ const q   = url.searchParams.get('q') || '';
   <section class="container search-page" style="padding:2rem 1rem;">
     <h1>Search All Posts</h1>
     <!-- Hydrate a React island that does the filtering -->
-    <SearchPosts client:load posts={posts} limit={100} />
+    <SearchPosts client:only="react" posts={posts} initialQuery={q} limit={100} />
   </section>
 </Layout>
