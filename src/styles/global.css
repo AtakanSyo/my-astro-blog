@@ -5,6 +5,9 @@
 @tailwind utilities;
 /* 1. Simple CSS reset */
 
+html {
+  -webkit-text-size-adjust: 100%;
+}
 
 *, *::before, *::after {
   box-sizing: border-box;

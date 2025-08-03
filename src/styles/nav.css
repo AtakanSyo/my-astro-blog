@@ -106,6 +106,10 @@ header {
   margin-left: auto;
 }
 
+.nav-search-form:focus-within {
+  outline: none;
+}
+
 .nav-search-input {
   width: 200px;
   padding: 0.4rem 0.75rem;
@@ -116,9 +120,13 @@ header {
   border-radius: 4px;
   transition: border-color 0.2s;
 }
+
+
 .nav-search-input:focus {
-  border-color: #5156c1;
+  outline: none;
+  border-color: #5156c1; /* keep your existing colored border */
 }
+
 /* the little “✕” close button */
 .nav-search-close {
   background: none;
