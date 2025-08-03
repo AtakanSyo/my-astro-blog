@@ -199,4 +199,8 @@ header {
     margin: 0 auto;
     padding: 1rem;
   }
+
+  .nav-search-input {
+    font-size: 16px;  /* was 0.9rem (~14.4px), now big enough to stop zoom */
+  }
 }
