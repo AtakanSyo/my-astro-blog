@@ -195,7 +195,6 @@ header {
 
 .nav-search-input:focus {
   border-color: #5156c1;          /* your accent color */
-  box-shadow: 0 0 0 3px rgba(81,86,193,0.3);
 }
 
 /* ensure the search form container has no extra padding on desktop */

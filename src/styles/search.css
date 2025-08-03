@@ -33,7 +33,7 @@
 }
 
 .search-input:focus {
-  border-color: #5156c1;
+  border-color: rgba(0,0,0,0);
   /* subtle glow */
   box-shadow: 0 0 0 3px rgba(81, 86, 193, 0.2);
 }
