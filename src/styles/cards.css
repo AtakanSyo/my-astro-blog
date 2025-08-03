@@ -1,0 +1,137 @@
+/*─────────────────────────────────────────────────
+  Variables (you can move these to :root in your globals.css)
+─────────────────────────────────────────────────*/
+:root {
+  --card-bg: #fff;
+  --card-radius: 0.5rem;
+  --card-shadow: rgba(0, 0, 0, 0.05);
+  --card-shadow-hover: rgba(0, 0, 0, 0.12);
+  --accent: #5156c1;
+  --text-muted: #555;
+  --transition-fast: 0.2s ease;
+}
+
+/*─────────────────────────────────────────────────
+  Grid wrapper
+─────────────────────────────────────────────────*/
+.post-grid {
+  display: grid;
+  gap: 1.5rem;
+  /* auto-fit columns, min 260px, max 1fr */
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+/*─────────────────────────────────────────────────
+  Card container
+─────────────────────────────────────────────────*/
+.post-card {
+  background: var(--card-bg);
+  border-radius: var(--card-radius);
+  box-shadow: 0 2px 6px var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform var(--transition-fast),
+              box-shadow var(--transition-fast);
+  cursor: pointer;
+}
+
+.post-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px var(--card-shadow-hover);
+}
+
+/*─────────────────────────────────────────────────
+  Clickable area
+─────────────────────────────────────────────────*/
+.post-card-link {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+}
+
+/* optional arrow on hover */
+.post-card-link::after {
+  content: "→";
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  font-size: 1.2rem;
+  color: #888;
+}
+
+.post-card:hover .post-card-link::after {
+  opacity: 1;
+  color: var(--accent);
+}
+
+/*─────────────────────────────────────────────────
+  Typography inside
+─────────────────────────────────────────────────*/
+.post-card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.post-card-meta {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.post-card-desc {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  flex: none;
+}
+
+/*─────────────────────────────────────────────────
+  “Read full post →” at bottom
+─────────────────────────────────────────────────*/
+.read-post {
+  margin-top: auto;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: right;
+  color: var(--accent);
+  opacity: 0.6;
+  transition: opacity var(--transition-fast);
+}
+
+.post-card:hover .read-post {
+  opacity: 1;
+}
+
+/*─────────────────────────────────────────────────
+  Affiliate-style button group (optional)
+─────────────────────────────────────────────────*/
+.card-buttons {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem 1rem;
+}
+
+.card-btn {
+  flex: 1;
+  padding: 0.5rem;
+  text-align: center;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background var(--transition-fast), transform 0.1s;
+}
+
+.card-btn:hover {
+  background: darken(var(--accent), 10%);
+  transform: translateY(-1px);
+}

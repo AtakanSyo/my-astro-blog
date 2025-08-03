@@ -1,0 +1,9 @@
+.search-page {
+  min-height: 100vh;
+}
+
+.no-results {
+  text-align: center;
+  color: #666;
+  margin-top: 2rem;
+}

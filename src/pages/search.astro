@@ -1,0 +1,45 @@
+---
+export const prerender = false;  // ← disable static prerendering
+
+// src/pages/search.astro
+import Layout from '../layouts/Layout.astro';
+import SearchPosts from '../components/SearchPosts.jsx';
+import '../styles/cards.css';
+import '../styles/search.css';
+import '../styles/searchPage.css';
+// 1) Glob & sort at build time
+const allPosts = await Astro.glob('./posts/*.{md,mdx}', { eager: true });
+allPosts.sort(
+  (a, b) => new Date(b.frontmatter.pubDate) - new Date(a.frontmatter.pubDate)
+);
+
+// 2) Map into a shape that includes a formatted date string
+const posts = allPosts.map((p) => {
+  const raw = new Date(p.frontmatter.pubDate);
+  const dateStr = raw.toLocaleDateString('en-GB', {
+    day:   '2-digit',
+    month: '2-digit',
+    year:  'numeric',
+  });
+  return {
+    url:       p.url,
+    frontmatter: p.frontmatter,
+    dateStr,
+  };
+});
+
+// Grab “q” as before…
+const url = new URL(Astro.request.url);
+const q   = url.searchParams.get('q') || '';
+---
+<Layout title={`Search: ${q}`}>
+  <section class="container search-page" style="padding:2rem 1rem;">
+    <h1>Search results for “{q}”</h1>
+    <SearchPosts
+      client:load
+      posts={posts}
+      initialQuery={q}
+      limit={100}
+    />
+  </section>
+</Layout>

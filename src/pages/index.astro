@@ -1,8 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import '../styles/index.css';
+import '../styles/cards.css';
+import '../styles/search.css';
 import { site } from '../config/site.js';
-
 // 1. Grab *all* your posts
 const allPosts = await Astro.glob('./posts/*.{md,mdx}', { eager: true });
 
@@ -31,7 +32,19 @@ const posts = allPosts.slice(0, 100);
         🔭 Explore All Telescopes
       </a>
     </div>
-    
+  
+    <section class="container search-container" style="padding: 2rem 1rem;">
+      <h2 class="search-title">Search All Posts</h2>
+      <form action="/search" method="get" class="search-form">
+        <input
+          type="search"
+          name="q"
+          placeholder="🔎 Search posts…"
+          class="search-input"
+        />
+      </form>
+    </section>
+
     <section class="trust-box">
     <h2>Why trust us?</h2>
       <p>
@@ -70,20 +83,21 @@ const posts = allPosts.slice(0, 100);
     </p>
   </section>
 
-    <div class="latest-section">
-      <h2 class="latest-title">Latest</h2>
-      <div class="post-list">
-        {posts.map(({ frontmatter, url }) => (
-          <a href={url} class="post_link">
-            <div class="post-link-title">{frontmatter.title}</div>
-            <p class="post-link-writer">{frontmatter.writer}</p>
-            <time datetime={frontmatter.pubDate}>
-              {new Date(frontmatter.pubDate).toLocaleDateString()}
-            </time>
-          </a>
-        ))}
+<section class="latest-section">
+  <h2 class="latest-title">Latest</h2>
+  <div class="post-grid">
+    {posts.map(({ frontmatter, url }) => (
+      <div class="post-card">
+        <a href={url} class="post-card-link">
+          <div class="post-card-title">{frontmatter.title}</div>
+          <div class="post-card-meta">By {frontmatter.writer} — {new Date(frontmatter.pubDate).toLocaleDateString()}</div>
+          <p class="post-card-desc">{frontmatter.description}</p>
+          <div class="read-post">Read full post →</div>
+        </a>
       </div>
-    </div>
+    ))}
+  </div>
+</section>
 
   </section>
 </Layout>

@@ -34,6 +34,15 @@ const site_description = site.description;
         <a href="/" class="nav-item centered_flex">Home</a>
         <a href="/telescopes" class="nav-item centered_flex">Telescopes</a>
         <!-- add more links here -->
+        <form action="/search" method="get" class="nav-search-form">
+          <input
+            type="search"
+            name="q"
+            class="nav-search-input"
+            placeholder="🔎 Search…"
+            aria-label="Search posts"
+          />
+        </form>
       </nav>
     </div>
   </header>
