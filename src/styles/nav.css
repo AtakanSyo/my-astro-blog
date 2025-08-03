@@ -1,5 +1,6 @@
-
-/* Base header */
+/*─────────────────────────────────────────────────
+  Base header & inner wrapper
+─────────────────────────────────────────────────*/
 header {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -7,9 +8,7 @@ header {
   background: var(--nav-bg);
   backdrop-filter: saturate(180%) blur(10px);
   z-index: 1000;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
-
 .header-inner {
   max-width: 1200px;
   margin: 0 auto;
@@ -20,88 +19,45 @@ header {
   padding: 0 1rem;
 }
 
-/* Logo */
+/*─────────────────────────────────────────────────
+  Logo
+─────────────────────────────────────────────────*/
 .logo img {
   height: 32px;
-  width: auto;
-  display: block;
 }
-/* ── Site Navigation ── */
+
+/*─────────────────────────────────────────────────
+  Site nav & links
+─────────────────────────────────────────────────*/
 .site-nav {
   display: flex;
   align-items: center;
   gap: 1rem;
-  flex-wrap: nowrap;
 }
 
-/* Nav links */
+/* the regular links */
 .nav-item {
   color: var(--nav-link-color);
   text-decoration: none;
-  font-weight: 400;
   padding: 0.5rem 1rem;
   border-radius: 4px;
   transition: background 0.2s;
 }
-
-
 .nav-item:hover,
 .nav-item:focus {
-  background: rgba(255, 255, 255, 0.15);
-}
-
-/* ── Search form in nav ── */
-.nav-search-form {
-  margin-left: auto;
-  position: relative;
-}
-
-.nav-search-input {
-  width: 200px;
-  padding: 0.4rem 0.75rem;
-  font-size: 0.9rem;
-  background: #111;               /* match your black nav */
-  color: #fff;                    /* white text */
-  border: 1px solid #333;         /* dark border */
-  border-radius: 4px;
-  outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.nav-search-input::placeholder {
-  color: #888;                    /* lighter gray placeholder */
-}
-
-.nav-search-input:focus {
-  border-color: #5156c1;          /* your accent color */
-}
-
-/* ensure the search form container has no extra padding on desktop */
-@media (min-width: 769px) {
-  .nav-search-form {
-    padding: 0;
-  }
+  background: rgba(255,255,255,0.15);
 }
 
 /*─────────────────────────────────────────────────
-  Mobile adjustments
+  Hamburger toggle (desktop hidden)
 ─────────────────────────────────────────────────*/
-@media (max-width: 768px) {
-  .nav-search-form {
-    padding: 0.5rem 1rem;         /* give it some breathing room */
-  }
-  .nav-search-input {
-    width: 100%;                  /* full-width under mobile nav */
-  }
-}
-
-/* ── Hamburger toggle ── */
 .nav-toggle {
   display: none;
   background: none;
   border: none;
   padding: 0.5rem;
-  margin-left: auto; /* push toggle to far right on mobile */
+  margin-right: 0.5rem;
+  cursor: pointer;
 }
 .hamburger,
 .hamburger::before,
@@ -112,14 +68,12 @@ header {
   height: 3px;
   background: var(--nav-link-color);
   border-radius: 2px;
-  transition: transform 0.3s;
+  transition: transform 0.3s ease;
 }
-.hamburger::before {
-  transform: translateY(-7px);
-}
-.hamburger::after {
-  transform: translateY(4px);
-}
+.hamburger::before { transform: translateY(-7px); }
+.hamburger::after  { transform: translateY(4px); }
+
+/* open state turns the three bars into an “X” */
 .nav-toggle.active .hamburger {
   background: transparent;
 }
@@ -131,9 +85,73 @@ header {
 }
 
 /*─────────────────────────────────────────────────
+  Search icon & form (desktop)
+─────────────────────────────────────────────────*/
+.nav-search-toggle {
+  background: none;
+  border: none;
+  color: var(--nav-link-color);
+  cursor: pointer;
+  font-size: 1.25rem;
+  padding: 1rem;
+}
+
+.nav-search-toggle:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+/* hidden by default */
+.nav-search-form {
+  display: none;
+  margin-left: auto;
+}
+
+.nav-search-input {
+  width: 200px;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.9rem;
+  background: #111;
+  color: #fff;
+  border: 1px solid #333;
+  border-radius: 4px;
+  transition: border-color 0.2s;
+}
+.nav-search-input:focus {
+  border-color: #5156c1;
+}
+/* the little “✕” close button */
+.nav-search-close {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.25rem;
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+
+/*─────────────────────────────────────────────────
+  When `.search-open` is on the `<nav>`
+─────────────────────────────────────────────────*/
+.site-nav.search-open .nav-item,
+.site-nav.search-open .nav-search-toggle {
+  display: none;
+}
+.site-nav.search-open .nav-search-form {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+/*─────────────────────────────────────────────────
   Mobile styles
 ─────────────────────────────────────────────────*/
 @media (max-width: 768px) {
+  /* show hamburger */
+  .nav-toggle {
+    display: block;
+  }
+
+  /* stack nav-items vertically, collapsed by default */
   .site-nav {
     position: absolute;
     top: var(--header-height);
@@ -147,21 +165,30 @@ header {
     transition: max-height 0.3s ease, opacity 0.3s ease;
   }
   .site-nav.open {
-    max-height: 400px; /* plenty to show links + search */
+    max-height: 400px; /* enough to show links + search */
     opacity: 1;
   }
+
   .nav-item {
     width: 100%;
     padding: 1rem;
   }
+
+  .site-nav.search-open .nav-item{
+    display: block;
+  }
+
+  /* search form in mobile: appears inside the open menu */
   .nav-search-form {
     padding: 0 1rem 1rem;
-    margin: 0;
   }
-  .nav-search-input {
-    width: 100%;
+
+  /* when search-open also set, only show the form */
+  .site-nav.search-open {
+    max-height: none; /* allow it to grow past 400px if needed */
   }
-  .nav-toggle {
-    display: block;
+  .site-nav.search-open .nav-search-form {
+    margin: 0 auto;
+    padding: 1rem;
   }
 }

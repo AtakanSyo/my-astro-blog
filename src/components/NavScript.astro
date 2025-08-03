@@ -1,0 +1,28 @@
+---
+// no props needed
+---
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const nav           = document.querySelector('.site-nav');
+    const menuToggle    = document.querySelector('.nav-toggle');
+    const searchToggle  = document.querySelector('.nav-search-toggle');
+    const searchForm    = document.querySelector('.nav-search-form');
+    const searchClose   = document.querySelector('.nav-search-close');
+
+    menuToggle?.addEventListener('click', () => {
+      nav.classList.toggle('open');
+      menuToggle.classList.toggle('active');
+      // always hide search if you open/close the menu
+      nav.classList.remove('search-open');
+    });
+
+    searchToggle?.addEventListener('click', () => {
+      nav.classList.add('search-open');
+      searchForm.querySelector('input')?.focus();
+    });
+
+    searchClose?.addEventListener('click', () => {
+      nav.classList.remove('search-open');
+    });
+  });
+</script>
