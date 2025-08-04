@@ -318,4 +318,38 @@ figcaption {
   outline-offset: 2px;
 }
 
+.accessory-box {
+  background: #f7f9fb;
+  border-left: 4px solid black;
+  padding: 1rem 1.5rem;
+  margin: 2rem 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
 
+.accessory-box h3 {
+  margin-top: 0;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.accessory-box ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.accessory-box li {
+  padding-left: 1.2rem;
+  margin: 0.5rem 0;
+  position: relative;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.accessory-box li::before {
+  content: "🔭";
+  position: absolute;
+  left: 0;
+  top: 0.05rem;
+}
