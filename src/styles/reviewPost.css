@@ -348,8 +348,10 @@ figcaption {
 }
 
 .accessory-box li::before {
-  content: "🔭";
+  content: "•";
   position: absolute;
   left: 0;
-  top: 0.05rem;
+  top: 0;
+  font-size: 1rem;
+  color: #4c9ef1; /* match your accent color */
 }
