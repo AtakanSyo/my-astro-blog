@@ -382,22 +382,3 @@ figcaption {
   font-size: 0.95rem;
   color: #333;
 }
-
-.accessory-box li::before {
-  content: "•";
-  position: absolute;
-  left: 0;
-  top: 0;
-  font-size: 1rem;
-  color: black; /* match your accent color */
-}
-
-.affiliates-header::after {
-  content: '';
-  display: block;
-  width: 40px;
-  height: 2px;
-  background-color: currentColor;
-  margin: 0.5rem auto 0;
-  border-radius: 1px;
-}
