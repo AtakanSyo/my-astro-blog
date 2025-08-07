@@ -1,0 +1,32 @@
+/* Style all links that point to your internal posts */
+.post a[href^="/posts/"] {
+  /* Base text color (fallback if --accent-color isn’t set) */
+  color: #5d62d2;
+  position: relative;
+  text-decoration: none;
+  /* Underline effect via background gradient */
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-size: 0% 2px;       /* start hidden */
+  background-position: 0 100%;   /* flush at text bottom */
+  transition: background-size 0.25s ease-in-out;
+}
+
+/* On hover, reveal the underline */
+.post a[href^="/posts/"]:hover {
+  background-size: 100% 2px;
+}
+
+/* Add a small “↗” arrow after the link text */
+.post a[href^="/posts/"]::after {
+  content: ' ↗';
+  font-size: 0.75em;
+  opacity: 0.6;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* Animate the arrow on hover */
+.post a[href^="/posts/"]:hover::after {
+  transform: translateX(2px);
+  opacity: 1;
+}
