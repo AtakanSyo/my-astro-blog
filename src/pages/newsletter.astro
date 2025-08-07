@@ -1,0 +1,137 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Join Our Newsletter">
+  <main class="newsletter-page">
+    <section class="hero">
+      <h1>Stay Updated with Astrosyo</h1>
+      <p>Get monthly sky guides, exclusive telescope deals, and behind-the-scenes astronomy content delivered straight to your inbox.</p>
+    </section>
+
+    <section class="form-section">
+      <!-- Buttondown embed form -->
+      <form
+        action="https://buttondown.com/api/emails/embed-subscribe/astroyso"
+        method="post"
+        target="popupwindow"
+        onsubmit="window.open('https://buttondown.com/astroyso', 'popupwindow')"
+        class="embeddable-buttondown-form"
+      >
+        <label for="bd-email">Email Address</label>
+        <input type="email" name="email" id="bd-email" placeholder="you@example.com" required />
+        <input type="submit" value="Subscribe" />
+        <p class="powered-by">
+          <a href="https://buttondown.com/refer/astroyso" target="_blank">Powered by Buttondown</a>
+        </p>
+      </form>
+    </section>
+  </main>
+</Layout>
+
+<style>
+:root {
+  --bg-page: #eef2ff;
+  --card-bg: #ffffff;
+  --text-color: #1f2937;
+  --accent-color: #6366f1;
+  --input-bg: #ffffff;
+  --input-border: #d1d5db;
+  --button-hover: #4f46e5;
+}
+
+.newsletter-page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 4rem 1rem;
+  background: var(--bg-page);
+  text-align: center;
+  min-height: 90vh;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  color: var(--accent-color);
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.125rem;
+  color: var(--text-color);
+  margin-bottom: 2rem;
+}
+
+.form-section {
+  background: var(--card-bg);
+  padding: 2.5rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.embeddable-buttondown-form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1.25rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.embeddable-buttondown-form label {
+  font-weight: 600;
+  color: var(--text-color);
+  text-align: left;
+  font-size: 1rem;
+}
+
+.embeddable-buttondown-form input[type="email"] {
+  padding: 0.75rem 1rem;
+  border: 1.5px solid var(--input-border);
+  border-radius: 8px;
+  font-size: 1rem;
+  background: var(--input-bg);
+  transition: border-color 0.3s ease;
+}
+
+.embeddable-buttondown-form input[type="email"]:focus {
+  outline: none;
+  border-color: var(--accent-color);
+}
+
+.embeddable-buttondown-form input[type="submit"] {
+  padding: 0.75rem 1rem;
+  background: var(--accent-color);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.embeddable-buttondown-form input[type="submit"]:hover {
+  background: var(--button-hover);
+  transform: translateY(-2px);
+}
+
+.powered-by {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.powered-by a {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-style: italic;
+}
+
+.powered-by a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+}
+</style>
