@@ -22,8 +22,17 @@ header {
 /*─────────────────────────────────────────────────
   Logo
 ─────────────────────────────────────────────────*/
+.logo {
+  transition-duration: 0.2s;
+}
+
 .logo img {
   height: 32px;
+}
+
+.logo:hover,
+.logo:focus {
+  opacity: 0.8;
 }
 
 /*─────────────────────────────────────────────────
@@ -43,6 +52,7 @@ header {
   border-radius: 4px;
   transition: background 0.2s;
 }
+
 .nav-item:hover,
 .nav-item:focus {
   background: rgba(255,255,255,0.15);
