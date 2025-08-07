@@ -15,7 +15,8 @@ export interface Props {
 const { affiliate } = Astro.props as Props;
 ---
 
-<section class="affiliates">
+<section class="affiliates centered_flex">
+  <h3 class="affiliates-header">Choose a vendor</h3>
   <ul>
     {affiliate.amazon && (
       <li>

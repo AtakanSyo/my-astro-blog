@@ -261,6 +261,7 @@ figcaption {
   padding: 1.5em;
   border-radius: 0.75rem;
   text-align: center;
+  width: 100%;
 }
 
 .affiliates h3 {
@@ -270,33 +271,45 @@ figcaption {
 }
 
 .affiliates ul {
-  list-style: none;
+  list-style: none;        /* no bullets */
+  margin: auto;
   padding: 0;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
+  
+  display: grid;
+  grid-template-columns: 1fr; /* mobile = single column */
   gap: 1.5rem;
 }
 
+@media (min-width: 768px) {
+  .affiliates ul {
+    /* desktop = one equal-width column per item, all in a row */
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    justify-content: center; /* center the row if there’s extra space */
+  }
+}
 
 .affiliate-link {
-  display: inline-flex;
-  align-items: center;
+  display: flex;
+  width: 100%;
   justify-content: center;
+  align-items: center;
+  
+  /* prevent text wrapping so heights stay equal */
+  white-space: nowrap;
+  
+  /* your styling */
   padding: 14px 28px;
   background-color: #5d62d2;
-  color: white;
+  color: #fff;
   text-decoration: none;
   font-weight: 600;
   font-size: 1rem;
   border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 6px rgba(93, 98, 210, 0.6);
-  position: relative;
-  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(93,98,210,0.6);
+  transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+
+  max-width: 400px;
 }
 
 /* Hover effect - slightly darker & elevate */
@@ -354,4 +367,14 @@ figcaption {
   top: 0;
   font-size: 1rem;
   color: black; /* match your accent color */
+}
+
+.affiliates-header::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 2px;
+  background-color: currentColor;
+  margin: 0.5rem auto 0;
+  border-radius: 1px;
 }
