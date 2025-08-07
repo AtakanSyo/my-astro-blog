@@ -1,0 +1,120 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+---
+<Layout title="Our Authors">
+  <main class="authors-page">
+    <!-- First author: image left, bio right -->
+    <section class="author author--left">
+      <img src="/images/authors/zane-landers.webp" alt="Author Zane Landers">
+      <div class="bio">
+        <h2>Zane Landers</h2>
+        <p>Zane Landers is an amateur astronomer and telescope maker from Arizona. Zane builds and regularly observes with Dobsonian telescopes as large as 40" in aperture, and grinds his own mirrors. Featured in major publications, he advocates for variable star observers and dark sky preservation.</p>
+      </div>
+    </section>
+
+    <!-- Second author: image right, bio left -->
+    <section class="author author--right">
+      <img src="/images/authors/richard-j-bartlett.webp" alt="Richard J. Bartlett">
+      <div class="bio">
+        <h2>Richard J. Bartlett</h2>
+        <p>England-born Richard Bartlett has written for Sky & Telescope and Astronomy Magazine. Author of several astronomy guides, he now shares celestial insights from Southern California.</p>
+      </div>
+    </section>
+
+    <!-- Third author: image right, bio left -->
+    <section class="author author--left">
+      <img src="/images/authors/atakan-saracyakupoglu.webp" alt="Atakan Saracyakupoglu">
+      <div class="bio">
+        <h2>Atakan Saracyakupoglu</h2>
+        <p>Atakan Saracyakupoglu is a graduate student in astrophysics at Sabanci University, specializing in telescope simulations and technical analyses.</p>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+:root {
+  --bg-page: #f5f7fa;
+  --card-bg: #ffffff;
+  --text-color: #333333;
+  --accent-color: #4f46e5;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+.authors-page {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  gap: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 4rem 1rem;
+}
+
+.author {
+  display: flex;
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 16px var(--shadow-color);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  width: 100%;
+}
+
+.author--left {
+  grid-template-areas: "image bio";
+  justify-content: start;
+}
+
+.author--right {
+  grid-template-areas: "bio image";
+  justify-content: end;
+  flex-direction: row-reverse;
+
+}
+
+.author img {
+  width: 100%;
+  height: auto;
+  grid-area: image;
+  object-fit: cover;
+  max-width: 200px;
+  filter: grayscale(60%); /* This makes the image black and white */
+  transition: filter 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/* Optional: Add color on hover */
+.author:hover img {
+  filter: grayscale(0%);
+}
+
+.bio {
+  grid-area: bio;
+  padding: 2rem;
+  color: var(--text-color);
+}
+
+.bio h2 {
+  margin: 0 0 1rem;
+  font-size: 2rem;
+  color: var(--accent-color);
+}
+
+.bio p {
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .author {
+    justify-content: center;
+    flex-direction: column;
+    max-width: 300px;
+  }
+
+  .author img{
+    margin: auto;
+  }
+}
+</style>
