@@ -3,6 +3,15 @@ p {
   max-width: 800px;
 }
 
+/* Left‐align all headings inside .post */
+.post h2,
+.post h4,
+.post h5 {
+  align-self: flex-start;
+  /* If you have text‐align rules, ensure they read left: */
+  text-align: left;
+}
+
 
 /* Center any content that uses .centered_flex */
 .centered_flex {
@@ -329,6 +338,20 @@ figcaption {
 .affiliate-link:focus-visible {
   outline: 2px solid #5d62d2;
   outline-offset: 2px;
+}
+
+.affiliate-caption {
+  margin-top: 0.5rem;
+  font-size: 0.7rem;
+  color: rgb(124,124,124);
+  font-style: italic;
+  text-align: center;
+  line-height: 1.3;
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  hyphens: none;
+  word-break: keep-all;
 }
 
 .accessory-box {
