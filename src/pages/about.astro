@@ -1,0 +1,110 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="About Astrosyo">
+  <main class="about-page">
+    <section class="intro">
+      <h1>Welcome to Astrosyo</h1>
+      <p>At Astrosyo, we’re passionate about making astronomy accessible, engaging, and fun for everyone. Whether you’re a curious beginner or a seasoned skywatcher, our goal is to help you explore the cosmos with confidence.</p>
+    </section>
+
+    <section class="mission">
+      <h2>Our Mission</h2>
+      <p>We believe the night sky holds endless wonder. Our mission is to provide honest, in-depth telescope reviews, practical observing tips, and educational articles that inspire you to look up, learn, and discover the universe.</p>
+    </section>
+
+    <section class="coverage">
+      <h2>What We Cover</h2>
+      <ul>
+        <li><strong>Telescope Reviews</strong> – Unbiased breakdowns of optics, mounts, and accessories.</li>
+        <li><strong>How-To Guides</strong> – Step-by-step tutorials for beginners and advanced users alike.</li>
+        <li><strong>Astrophotography Tips</strong> – Techniques to capture stunning celestial images.</li>
+        <li><strong>Astronomy News</strong> – Updates on discoveries, events, and space missions.</li>
+      </ul>
+    </section>
+
+    <section class="team">
+      <h2>Meet the Team</h2>
+      <p>Our crew combines hands-on observing experience, academic research, and a love of teaching. From mirror grinding to mount engineering, each author brings a unique perspective to help you find the right gear and skywatching techniques.</p>
+    </section>
+
+    <section class="join">
+      <h2>Join Us</h2>
+      <p>Subscribe to our newsletter for monthly sky guides, exclusive discounts, and behind-the-scenes content. Connect with us on social media and become a part of the Astrosyo community!</p>
+      <a href="/newsletter" class="btn-primary">Subscribe Now</a>
+    </section>
+  </main>
+</Layout>
+
+<style>
+:root {
+  --bg-page: #ffffff;
+  --text-color: #2d2d2d;
+  --accent-color: #4f46e5;
+  --section-spacing: 3rem;
+}
+
+.about-page {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  color: var(--text-color);
+}
+
+.about-page section {
+  margin-bottom: var(--section-spacing);
+}
+
+.intro h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--accent-color);
+}
+
+.intro p {
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+
+.mission h2,
+.coverage h2,
+.team h2,
+.join h2 {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+  color: var(--accent-color);
+}
+
+.coverage ul {
+  list-style-type: disc;
+  margin-left: 1.5rem;
+  line-height: 1.6;
+}
+
+.join .btn-primary {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--accent-color);
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.join .btn-primary:hover {
+  background: #3730a3;
+}
+
+@media (max-width: 600px) {
+  .intro h1 {
+    font-size: 2rem;
+  }
+  .mission h2,
+  .coverage h2,
+  .team h2,
+  .join h2 {
+    font-size: 1.75rem;
+  }
+}
+</style>
