@@ -383,3 +383,16 @@ figcaption {
   color: #333;
 }
 
+.review-disclaimer {
+  background-color: #fff4d1;
+  border-left: 4px solid #ff9800;
+  padding: 0.8rem 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+  color: #4a3f2d;
+  border-radius: 4px;
+}
+
+.review-disclaimer strong {
+  color: #d35400;
+}
