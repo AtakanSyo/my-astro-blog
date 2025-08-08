@@ -1,13 +1,15 @@
 /* FOV & Magnification Simulator (p5.js)
    - Uses field-stop TFOV if provided; else AFOV/mag
    - Optionally caps TFOV by eyepiece barrel (1.25" ~27 mm, 2" ~46 mm)
-   - Uniform star density; warns on impractical exit pupils
-   - "Doesn't fit" overlay if target > TFOV
+   - Brightness scales with exit pupil vs. eye pupil (extended objects & sky)
+   - Star size set by diffraction (≈138/D_mm) with seeing floor (arcsec)
+   - Star counts respond to aperture & sky darkness
+   - Target overlay now has translucent fill + HUD inset when tiny/too-large
 */
 
 let canvas, cx, cy, radius;
 let stars = [];
-const STAR_COUNT = 300;
+let lastStarCount = 0;
 
 let telF = 1200;     // telescope focal length (mm)
 let apMM = 150;      // aperture (mm)
@@ -17,11 +19,21 @@ let fieldStop = null;// eyepiece field stop (mm); null => unknown
 let barrel = null;   // "1.25", "2", or null (unknown)
 let target = 'Moon (0.5°)';
 
+// Optional physical knobs (bind if inputs exist)
+let eyePupil = 7.0;        // mm (dark-adapted typical)
+let seeingArcsec = 2.0;    // arcsec (typical mediocre seeing)
+
 let mag = 0;
-let tfov = 0;            // deg (actual, possibly capped)
-let tfovRaw = 0;         // deg (before any barrel cap)
-let tfovCapped = false;  // whether TFOV was capped by barrel
-let exitPupil = 0;       // mm
+let tfov = 0;              // deg (actual, possibly capped)
+let tfovRaw = 0;           // deg (before any barrel cap)
+let tfovCapped = false;    // whether TFOV was capped by barrel
+let exitPupil = 0;         // mm
+
+// Derived visual variables
+let effectiveExit = 0;     // min(exitPupil, eyePupil)
+let bgScale = 1;           // 0..1, sky brightness scale vs. max
+let bgGray = 40;           // background gray
+let starDiaPx = 2;         // pixel diameter of star PSF
 
 const targets = {
   'Moon (0.5°)': 0.5,
@@ -35,9 +47,9 @@ function setup() {
   canvas = createCanvas(windowWidth, 360);
   canvas.parent('sketch-container');
   computeGeometry();
-  seedStars();
+  compute();       // compute first so seedStars can use bgScale etc.
+  seedStars();     // seed with a count that reflects current physics
   bindControls();
-  compute();
   noLoop(); // static render; call redraw() on changes
 }
 
@@ -54,30 +66,39 @@ function computeGeometry() {
   radius = Math.min(width, height) * 0.42;
 }
 
+function desiredStarCount() {
+  const base = 220;
+  const apFactor = Math.pow(Math.max(apMM, 40) / 100.0, 0.7);
+  const skyFactor = 0.7 + 0.8 * (1 - bgScale);
+  return Math.round(constrain(base * apFactor * skyFactor, 120, 900));
+}
+
 function seedStars() {
+  const count = desiredStarCount();
   stars = [];
-  for (let i = 0; i < STAR_COUNT; i++) {
-    // uniform over disk: r = R * sqrt(U)
+  for (let i = 0; i < count; i++) {
     const r = Math.sqrt(Math.random()) * radius;
     const a = Math.random() * TWO_PI;
     stars.push({
       x: cx + r * Math.cos(a),
       y: cy + r * Math.sin(a),
-      b: 180 + Math.random() * 75
+      b: 170 + Math.random() * 85 // 170..255
     });
   }
+  lastStarCount = count;
 }
 
 function compute() {
-  mag = telF / epF;                         // Magnification
-  const tfovFromAFOV = afov / mag;          // Approx TFOV from AFOV
+  // --- Core optics ---
+  mag = telF / epF;
+  const tfovFromAFOV = afov / mag;
   const tfovFromFS   = (fieldStop && fieldStop > 0)
-    ? (57.2958 * fieldStop / telF)          // TFOV ≈ 57.3° * FS / F_telescope
+    ? (57.2958 * fieldStop / telF)
     : null;
 
   tfovRaw = (tfovFromFS != null) ? tfovFromFS : tfovFromAFOV;
 
-  // Optional barrel cap if field stop unknown or too large
+  // Optional barrel cap
   tfovCapped = false;
   const fsMax = (barrel === "1.25") ? 27.0 : (barrel === "2" ? 46.0 : null);
   if (fsMax != null) {
@@ -92,7 +113,19 @@ function compute() {
     tfov = tfovRaw;
   }
 
-  exitPupil = apMM / mag;                   // Exit pupil (mm)
+  exitPupil = apMM / mag;
+
+  // --- Visual model ---
+  effectiveExit = Math.min(exitPupil, eyePupil);
+  bgScale = (eyePupil > 0) ? Math.pow(effectiveExit / eyePupil, 2) : 1.0;
+  bgGray = Math.round(8 + 42 * constrain(bgScale, 0, 1)); // 8..50
+
+  // Diffraction + seeing
+  const thetaArcsec = Math.max(seeingArcsec, 138.0 / Math.max(apMM, 1e-6));
+  const thetaDeg = thetaArcsec / 3600.0;
+  starDiaPx = (tfov > 0.0) ? Math.max(1.5, (thetaDeg / tfov) * (radius * 2)) : 2.0;
+  starDiaPx = Math.min(starDiaPx, 6.0);
+
   updateOutputs();
 }
 
@@ -102,24 +135,33 @@ function updateOutputs() {
   const epEl   = document.getElementById('out-exitpupil');
   const warnEl = document.getElementById('out-warn');
 
+  const bgEl   = document.getElementById('out-sky');
+  const blurEl = document.getElementById('out-blur');
+  const tgtEl  = document.getElementById('out-target');
+
   if (magEl)  magEl.textContent  = roundTo(mag, 1);
   if (tfovEl) tfovEl.textContent = roundTo(tfov, 2) + '°' + (tfovCapped ? ' (capped)' : '');
   if (epEl)   epEl.textContent   = roundTo(exitPupil, 1) + ' mm';
+  if (bgEl)   bgEl.textContent   = `${Math.round(100 * (1 - bgScale))}% darker sky vs. max`;
+  if (blurEl) blurEl.textContent = `${roundTo(Math.max(seeingArcsec, 138.0 / Math.max(apMM, 1)), 1)}″ PSF`;
+
+  if (tgtEl && tfov > 0) {
+    const tdeg = targets[target] ?? 0.5;
+    const fracPct = Math.round(100 * tdeg / tfov);
+    tgtEl.textContent = `${tdeg}° (${fracPct}% of TFOV)`;
+  }
 
   if (warnEl) {
     let msg = '';
     if (exitPupil > 7) msg = 'Note: Exit pupil > ~7 mm (likely wasted aperture).';
     else if (exitPupil < 0.5) msg = 'Note: Exit pupil < ~0.5 mm (dim/diffraction-prone).';
-    // Warn if AFOV/mag implies a field stop beyond barrel, when we capped
-    if (tfovCapped) {
-      msg = (msg ? msg + ' ' : '') + 'TFOV limited by selected barrel size.';
-    }
+    if (tfovCapped) msg = (msg ? msg + ' ' : '') + 'TFOV limited by selected barrel size.';
     warnEl.textContent = msg;
   }
 }
 
 function draw() {
-  background(10);
+  background(bgGray);
 
   // outer eyepiece circle (TFOV ring)
   noFill();
@@ -132,23 +174,33 @@ function draw() {
   for (const s of stars) {
     const d = dist(s.x, s.y, cx, cy);
     if (d <= radius) {
-      fill(s.b);
-      circle(s.x, s.y, 2);
+      const contrastBoost = 0.85 + 0.3 * (1 - bgScale);
+      const shade = Math.round(constrain(s.b * contrastBoost, 130, 255));
+      fill(shade);
+      circle(s.x, s.y, starDiaPx);
     }
   }
 
-  // target overlay
+  // target overlay — stronger visuals + HUD if tiny/too-large
   const targetDeg = targets[target] ?? 0.5;
   if (tfov > 0) {
-    const frac = targetDeg / tfov; // target diameter as fraction of TFOV diameter
+    const frac = targetDeg / tfov; // target diameter fraction of TFOV diameter
+    const diamPx = radius * 2 * frac;
+
     if (frac <= 1) {
-      // fits: draw true-scaled circle
-      stroke(200, 200, 255);
+      // Draw true-scaled translucent disk so area difference is obvious
+      stroke(200, 220, 255);
       strokeWeight(2);
-      noFill();
-      circle(cx, cy, radius * 2 * frac);
+      fill(180, 200, 255, 45); // translucent fill
+      circle(cx, cy, Math.max(0, diamPx));
+
+      // If the target is too tiny to see, draw a HUD inset magnified
+      const pixPerDeg = (radius * 2) / tfov;
+      if (diamPx < 8) {
+        drawTargetHUD(targetDeg, pixPerDeg, diamPx, false);
+      }
     } else {
-      // doesn't fit: indicate at edge + label
+      // doesn't fit: keep edge + label and add HUD showing how much larger
       drawingContext.setLineDash([6, 6]);
       stroke(200, 200, 255);
       strokeWeight(2);
@@ -159,6 +211,9 @@ function draw() {
       fill(255, 180, 180);
       textAlign(CENTER, BOTTOM);
       text('Target larger than your TFOV', cx, cy - 12);
+
+      const pixPerDeg = (radius * 2) / tfov;
+      drawTargetHUD(targetDeg, pixPerDeg, diamPx, true);
     }
   }
 
@@ -178,12 +233,67 @@ function draw() {
   fill(220);
   textAlign(LEFT, TOP);
   textSize(13);
+  const seeingShown = roundTo(Math.max(seeingArcsec, 138.0 / Math.max(apMM, 1)), 1);
+  const tdeg = targets[target] ?? 0.5;
+  const coverage = (tfov > 0) ? Math.round(100 * tdeg / tfov) : 0;
   text(
     `Magnification: ${roundTo(mag, 1)}×\n` +
     `True FOV: ${roundTo(tfov, 2)}°${tfovCapped ? ' (capped)' : ''}\n` +
-    `Exit pupil: ${roundTo(exitPupil, 1)} mm`,
+    `Exit pupil: ${roundTo(exitPupil, 1)} mm\n` +
+    `Sky: ${Math.round(100 * (1 - bgScale))}% darker vs. max\n` +
+    `Star blur: ~${seeingShown}″\n` +
+    `Target: ${tdeg}° (${coverage}% of TFOV)`,
     16, 12
   );
+}
+
+// Draws a little HUD in the top-right that magnifies the target circle
+// tinyMode=false: show tiny target magnified
+// tinyMode=true: show "too large" with percent overfill
+function drawTargetHUD(targetDeg, pixPerDeg, diamPx, tooLarge) {
+  const pad = 10;
+  const boxW = 150, boxH = 100;
+  const x0 = width - boxW - pad;
+  const y0 = pad;
+
+  // box
+  noStroke();
+  fill(0, 0, 0, 120);
+  rect(x0, y0, boxW, boxH, 8);
+
+  // title
+  fill(230);
+  textAlign(LEFT, TOP);
+  textSize(12);
+  text(tooLarge ? 'Target (too large)' : 'Target (magnified)', x0 + 8, y0 + 6);
+
+  // content area
+  const cxh = x0 + boxW/2, cyh = y0 + boxH/2 + 8;
+  const maxDraw = Math.min(boxW, boxH) - 28;
+  const scale = tooLarge
+    ? Math.min(30, maxDraw / Math.max(10, diamPx))     // tame huge overfill
+    : Math.min(30, maxDraw / Math.max(1, diamPx));     // magnify tiny target
+  const shownDiam = diamPx * scale;
+
+  // target circle
+  stroke(200, 220, 255);
+  strokeWeight(2);
+  fill(180, 200, 255, 55);
+  circle(cxh, cyh, shownDiam);
+
+  // label
+  noStroke();
+  fill(220);
+  textAlign(CENTER, TOP);
+  textSize(11);
+  if (tfov > 0) {
+    const coverage = Math.round(100 * (targetDeg / tfov));
+    const scaleTxt = (scale > 1.05) ? ` ×${roundTo(scale,1)}` : '';
+    const label = tooLarge
+      ? `${coverage}% of TFOV (over)`
+      : `${coverage}% of TFOV${scaleTxt}`;
+    text(label, cxh, y0 + boxH - 18);
+  }
 }
 
 function bindControls() {
@@ -194,22 +304,33 @@ function bindControls() {
   const fsEl   = document.getElementById('in-fieldstop'); // optional
   const barrelEl = document.getElementById('in-barrel');  // optional: "1.25" | "2"
   const targEl = document.getElementById('in-target');
+  const eyeEl  = document.getElementById('in-eyePupil');  // optional (mm)
+  const seeEl  = document.getElementById('in-seeing');     // optional (arcsec)
 
-  if (telFEl) telFEl.addEventListener('input', (e) => { telF = clampNum(+e.target.value, 200, 4000); compute(); redraw(); });
-  if (apEl)   apEl.addEventListener('input', (e) => { apMM = clampNum(+e.target.value, 40, 500); compute(); redraw(); });
-  if (epEl)   epEl.addEventListener('input', (e) => { epF = clampNum(+e.target.value, 2, 60); compute(); redraw(); });
-  if (afovEl) afovEl.addEventListener('input', (e) => { afov = clampNum(+e.target.value, 30, 120); compute(); redraw(); });
+  const recomputeAndRedraw = (doReseed=false) => {
+    compute();
+    if (doReseed) seedStars();
+    redraw();
+  };
+
+  if (telFEl) telFEl.addEventListener('input', (e) => { telF = clampNum(+e.target.value, 200, 4000); recomputeAndRedraw(false); });
+  if (apEl)   apEl.addEventListener('input', (e) => { apMM = clampNum(+e.target.value, 40, 500);   recomputeAndRedraw(true);  });
+  if (epEl)   epEl.addEventListener('input', (e) => { epF = clampNum(+e.target.value, 2, 60);      recomputeAndRedraw(true);  });
+  if (afovEl) afovEl.addEventListener('input', (e) => { afov = clampNum(+e.target.value, 30, 120); recomputeAndRedraw(true);  });
   if (fsEl)   fsEl.addEventListener('input', (e) => { 
     const v = +e.target.value;
     fieldStop = (Number.isFinite(v) && v > 0) ? v : null;
-    compute(); redraw(); 
+    recomputeAndRedraw(false);
   });
   if (barrelEl) barrelEl.addEventListener('change', (e) => { 
     const v = e.target.value;
     barrel = (v === "1.25" || v === "2") ? v : null;
-    compute(); redraw(); 
+    recomputeAndRedraw(false);
   });
   if (targEl)  targEl.addEventListener('change', (e) => { target = e.target.value; redraw(); });
+
+  if (eyeEl)   eyeEl.addEventListener('input', (e) => { eyePupil = clampNum(+e.target.value, 2, 8); recomputeAndRedraw(true); });
+  if (seeEl)   seeEl.addEventListener('input', (e) => { seeingArcsec = clampNum(+e.target.value, 0.5, 5); recomputeAndRedraw(false); });
 
   // initialize displayed values (only if elements exist)
   if (telFEl) telFEl.value = telF;
@@ -219,6 +340,8 @@ function bindControls() {
   if (fsEl)   fsEl.value = fieldStop ?? '';
   if (barrelEl) barrelEl.value = barrel ?? '';
   if (targEl)  targEl.value = 'Moon (0.5°)';
+  if (eyeEl)   eyeEl.value = eyePupil;
+  if (seeEl)   seeEl.value = seeingArcsec;
 }
 
 function clampNum(v, lo, hi) {
