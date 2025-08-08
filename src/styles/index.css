@@ -139,15 +139,6 @@
   font-weight: 600;
 }
 
-.latest-title::after {
-  content: "";
-  position: absolute;
-  left: 0; right: 0; bottom: -8px;
-  height: 2px;
-  background: linear-gradient(90deg, var(--accent), rgba(81,86,193,0));
-  border-radius: 2px;
-  opacity: .85;
-}
 
 .home-post-list {
   display: grid;
