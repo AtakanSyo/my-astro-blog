@@ -1,3 +1,4 @@
+// src/components/SearchPosts.jsx
 import React, { useState, useMemo, useEffect, useCallback } from 'react';
 
 export default function SearchPosts({ posts = [], limit = 50 }) {
@@ -20,19 +21,22 @@ export default function SearchPosts({ posts = [], limit = 50 }) {
     window.history.replaceState(null, '', newUrl);
   }, [q]);
 
-  // ➌ Filter & slice (now including `writer`)
+  // ➌ Filter & slice (now includes `writer` + categories)
   const filtered = useMemo(() => {
     const term = q.trim().toLowerCase();
     return posts
       .filter((p) => {
-        const t = p.frontmatter.title.toLowerCase();
-        const d = (p.frontmatter.description ?? '').toLowerCase();
-        const w = (p.frontmatter.writer ?? '').toLowerCase();
+        const fm = p.frontmatter || {};
+        const title = (fm.title || '').toLowerCase();
+        const desc  = (fm.description || '').toLowerCase();
+        const writ  = (fm.writer || '').toLowerCase();
+        const cats  = normalizeCats(fm).join(' ');
         return (
           !term ||
-          t.includes(term) ||
-          d.includes(term) ||
-          w.includes(term)
+          title.includes(term) ||
+          desc.includes(term) ||
+          writ.includes(term) ||
+          cats.includes(term)
         );
       })
       .slice(0, limit);
@@ -41,10 +45,10 @@ export default function SearchPosts({ posts = [], limit = 50 }) {
   // ➍ Highlight helper
   const highlightText = useCallback((text, term) => {
     if (!term) return text;
-    const escaped = term.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
-    const regex = new RegExp(`(${escaped})`, 'gi');
-    return text.split(regex).map((chunk, i) =>
-      regex.test(chunk) ? <mark key={i}>{chunk}</mark> : chunk
+    const safeTerm = term.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+    const re = new RegExp(`(${safeTerm})`, 'gi');
+    return String(text).split(re).map((chunk, i) =>
+      re.test(chunk) ? <mark key={i}>{chunk}</mark> : chunk
     );
   }, []);
 
@@ -52,9 +56,7 @@ export default function SearchPosts({ posts = [], limit = 50 }) {
     <div className="search-container">
       <form
         className="search-form"
-        onSubmit={(e) => {
-          e.preventDefault();
-        }}
+        onSubmit={(e) => e.preventDefault()}
       >
         <input
           type="search"
@@ -71,35 +73,70 @@ export default function SearchPosts({ posts = [], limit = 50 }) {
       </div>
 
       <div className="post-grid">
-        {filtered.map((p) => (
-          <div className="post-card" key={p.url}>
-            <a href={p.url} className="post-card-link">
-              {/* Title with highlights */}
-              <div className="post-card-title">
-                {highlightText(p.frontmatter.title, q)}
-              </div>
+        {filtered.map((p) => {
+          const fm = p.frontmatter || {};
+          const cats = normalizeCats(fm);
+          const isP5     = cats.includes('p5sim');
+          const isReview = cats.includes('reviews') || cats.includes('review');
+          const isInfo   = cats.includes('informational') || cats.includes('info');
 
-              {/* Meta: Writer with highlights + date */}
-              <div className="post-card-meta">
-                By{' '}
-                {highlightText(p.frontmatter.writer ?? 'Unknown', q)}{' '}
-                — {p.dateStr}
-              </div>
+          const cardClasses = [
+            'post-card',
+            isP5 && 'post-card--p5',
+            isReview && 'post-card--review',
+            isInfo && 'post-card--info',
+          ].filter(Boolean).join(' ');
 
-              {/* Description with highlights */}
-              {p.frontmatter.description && (
-                <p className="post-card-desc">
-                  {highlightText(p.frontmatter.description, q)}
-                </p>
-              )}
+          const ctaText =
+            isP5 ? 'Go to the simulation →'
+            : isReview ? 'Read the review →'
+            : isInfo ? 'Read the guide →'
+            : 'Read full post →';
 
-              <div className="read-post">Read full post →</div>
-            </a>
-          </div>
-        ))}
+          return (
+            <div className={cardClasses} key={p.url}>
+              <a href={p.url} className="post-card-link">
+                {/* Title with highlights */}
+                <div className="post-card-title">
+                  {highlightText(fm.title ?? '', q)}
+                </div>
+
+                {/* Meta: Writer with highlights + date */}
+                <div className="post-card-meta">
+                  By {highlightText(fm.writer ?? 'Unknown', q)} — {p.dateStr}
+                </div>
+
+                {/* Description with highlights */}
+                {fm.description && (
+                  <p className="post-card-desc">
+                    {highlightText(fm.description, q)}
+                  </p>
+                )}
+
+                {/* Footer: badges (left) + CTA (right) */}
+                <div className={`post-card-footer ${(isP5 || isReview || isInfo) ? 'has-badge' : ''}`}>
+                  <div className="post-card-badges">
+                    {isP5 && <span className="p5-badge">p5.js</span>}
+                    {isReview && <span className="review-badge">Review</span>}
+                    {isInfo && <span className="info-badge">Info</span>}
+                  </div>
+                  <div className="read-post">{ctaText}</div>
+                </div>
+              </a>
+            </div>
+          );
+        })}
 
         {filtered.length === 0 && <p>No results found.</p>}
       </div>
     </div>
   );
+}
+
+/* Helpers */
+function normalizeCats(frontmatter) {
+  const raw = frontmatter?.category ?? frontmatter?.categories ?? [];
+  if (Array.isArray(raw)) return raw.map(String).map((s) => s.toLowerCase());
+  if (typeof raw === 'string') return [raw.toLowerCase()];
+  return [];
 }

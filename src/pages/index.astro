@@ -4,6 +4,7 @@ import '../styles/index.css';
 import '../styles/cards.css';
 import '../styles/search.css';
 import { site } from '../config/site.js';
+
 // 1. Grab *all* your posts
 const allPosts = await Astro.glob('./posts/*.{md,mdx}', { eager: true });
 
@@ -12,8 +13,18 @@ allPosts.sort(
   (a, b) => new Date(b.frontmatter.pubDate) - new Date(a.frontmatter.pubDate)
 );
 
-// 3. Take only the first 4 items
+// 3. Take first N
 const posts = allPosts.slice(0, 100);
+
+// helper: is this post a p5 sim?
+function isP5Sim(frontmatter) {
+  const cat = frontmatter.category ?? frontmatter.categories ?? null;
+  if (!cat) return false;
+  if (Array.isArray(cat)) {
+    return cat.some((c) => typeof c === 'string' && c.toLowerCase() === 'p5sim');
+  }
+  return typeof cat === 'string' && cat.toLowerCase() === 'p5sim';
+}
 ---
 
 <Layout title="Home">
@@ -34,7 +45,7 @@ const posts = allPosts.slice(0, 100);
     </div>
 
     <section class="trust-box">
-    <h2>Why trust us?</h2>
+      <h2>Why trust us?</h2>
       <p>
         Astrosyo is an astronomy blog created by experts in software and astronomy.  
         Our writers <strong>Atakan Saraçyakupoğlu</strong>, <strong>Zane Landers</strong>,  
@@ -44,48 +55,82 @@ const posts = allPosts.slice(0, 100);
       </p>
     </section>
 
-  <section class="home-notice">
-    <h3 class="home-notice-title">Our Rating System</h3>
-    <p class="home-notice-text">
-      Our ratings are based on hands-on experience and expert judgment of each telescope or product.  
-      In the end it’s an arbitrary ranking system—feel free to draw your own conclusions from our reviews and posts.
-    </p>
-  </section>
+    <section class="home-notice">
+      <h3 class="home-notice-title">Our Rating System</h3>
+      <p class="home-notice-text">
+        Our ratings are based on hands-on experience and expert judgment of each telescope or product.  
+        In the end it’s an arbitrary ranking system—feel free to draw your own conclusions from our reviews and posts.
+      </p>
+    </section>
 
-  <section class="home-notice">
-    <h3 class="home-notice-title">Where to buy?</h3>
-    <p class="home-notice-text">
-      Consider choosing HighPointScientific as your main vendor, as it is a community favorite
-      in terms of shipment safety, refunds, and product quality. Amazon is a viable choice, however it is 
-      known for shipping astronomy equipment with missing pieces, and problematic refund processes.
-    </p>
-  </section>
+    <section class="home-notice">
+      <h3 class="home-notice-title">Where to buy?</h3>
+      <p class="home-notice-text">
+        Consider choosing HighPointScientific as your main vendor, as it is a community favorite
+        in terms of shipment safety, refunds, and product quality. Amazon is a viable choice, however it is 
+        known for shipping astronomy equipment with missing pieces, and problematic refund processes.
+      </p>
+    </section>
 
-  <section class="home-notice">
-    <h3 class="home-notice-title">Affiliate Notice</h3>
-    <p class="home-notice-text">
-      We have affiliate programs with Amazon, HighPointScientific, and Astroshop.  
-      If you click on a link and make a purchase, we will get a small percentage as commission.  
-      However, our reviews and ratings stay honest—your satisfaction with the product increases our trustworthiness  
-      and benefits this website more than any immediate affiliate income.
-    </p>
-  </section>
+    <section class="home-notice">
+      <h3 class="home-notice-title">Affiliate Notice</h3>
+      <p class="home-notice-text">
+        We have affiliate programs with Amazon, HighPointScientific, and Astroshop.  
+        If you click on a link and make a purchase, we will get a small percentage as commission.  
+        However, our reviews and ratings stay honest—your satisfaction with the product increases our trustworthiness  
+        and benefits this website more than any immediate affiliate income.
+      </p>
+    </section>
 
-<section class="latest-section">
-  <h2 class="latest-title">Latest</h2>
-  <div class="post-grid">
-    {posts.map(({ frontmatter, url }) => (
-      <div class="post-card">
-        <a href={url} class="post-card-link">
-          <div class="post-card-title">{frontmatter.title}</div>
-          <div class="post-card-meta">By {frontmatter.writer} — {new Date(frontmatter.pubDate).toLocaleDateString()}</div>
-          <p class="post-card-desc">{frontmatter.description}</p>
-          <div class="read-post">Read full post →</div>
-        </a>
-      </div>
-    ))}
-  </div>
-</section>
+    <section class="latest-section">
+      <h2 class="latest-title">Latest</h2>
+        <div class="post-grid">
+          {
+            posts.map(({ frontmatter, url }) => {
+              const cat = frontmatter.category ?? frontmatter.categories ?? null;
+              const isP5 = Array.isArray(cat)
+                ? cat.some((c) => typeof c === 'string' && c.toLowerCase() === 'p5sim')
+                : typeof cat === 'string' && cat.toLowerCase() === 'p5sim';
 
+              const isReview = Array.isArray(cat)
+                ? cat.some((c) => typeof c === 'string' && c.toLowerCase() === 'reviews')
+                : typeof cat === 'string' && cat.toLowerCase() === 'reviews';
+
+              const isInfo = Array.isArray(cat)
+                ? cat.some((c) => typeof c === 'string' && c.toLowerCase() === 'informational')
+                : typeof cat === 'string' && cat.toLowerCase() === 'informational';
+
+              const cardClasses = `post-card ${isP5 ? 'post-card--p5' : ''} ${isReview ? 'post-card--review' : ''} ${isInfo ? 'post-card--info' : ''}`.trim();
+
+              const ctaText =
+                isP5 ? 'Go to the simulation →'
+                : isReview ? 'Read the review →'
+                : isInfo ? 'Read the guide →'
+                : 'Read full post →';
+
+              return (
+                <div class={cardClasses}>
+                  <a href={url} class="post-card-link">
+                    <div class="post-card-title">{frontmatter.title}</div>
+                    <div class="post-card-meta">
+                      By {frontmatter.writer} — {new Date(frontmatter.pubDate).toLocaleDateString()}
+                    </div>
+                    <p class="post-card-desc">{frontmatter.description}</p>
+
+                    <div class={`post-card-footer ${(isP5 || isReview || isInfo) ? 'has-badge' : ''}`}>
+                      <div class="post-card-badges">
+                        {isP5 && <span class="p5-badge">p5.js</span>}
+                        {isReview && <span class="review-badge">Review</span>}
+                        {isInfo && <span class="info-badge">Info</span>}
+                      </div>
+                      <div class="read-post">{ctaText}</div>
+                    </div>
+                  </a>
+                </div>
+              );
+            })
+          }
+        </div>
+    </section>
   </section>
 </Layout>
