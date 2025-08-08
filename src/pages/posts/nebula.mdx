@@ -1,0 +1,61 @@
+---
+layout: ../../layouts/p5Layout.astro
+title: Nebula Explosion (GPU Hybrid)
+category: p5sim
+writer: Astrosyo
+pubDate: '2025-08-08'
+description: A nebula that expands from a single point to a filamented shell in ~30 seconds. Defaults to WebGL2 (Three.js) with optional WebGPU for high-end browsers.
+slug: nebula
+imageDir: /images/nebula
+keywords:
+  - nebula
+  - webgl2
+  - webgpu
+  - three.js
+  - compute shader
+  - gpgpu
+  - astronomy visualization
+---
+
+import NebulaGPU from "../../components/NebulaGPU.astro";
+
+<div class="p5-container centered_flex">
+  <p class="Tool-Explanation">
+    This simulation shows a <strong>nebula shell</strong> expanding from a tiny ignition to a thin, filamented rim—start to finish in ~30 seconds with no input needed.
+    It uses a <em>GPU-hybrid</em> approach: by default it runs on <strong>WebGL2 (Three.js, instanced sprites)</strong> for maximum browser compatibility.
+    If your browser supports <strong>WebGPU</strong>, you can opt in for extra headroom and stability with <code>?gpu=1</code> on the URL.
+  </p>
+
+  <div class="upper-div">
+    <form class="sim-controls" onsubmit="return false" aria-label="Simulation controls">
+      <fieldset class="controls-group">
+        <legend>Controls</legend>
+        <button id="js-neb-pause" class="pill" type="button" aria-pressed="false">Pause</button>
+      </fieldset>
+      <noscript><p>This simulation requires JavaScript.</p></noscript>
+    </form>
+  </div>
+
+  <figcaption class="sim-caption">
+    <span>Timeline: autoplay 0 → 30 s (point → shell)</span>
+    <span>Renderer: WebGL2 default; add <code>?gpu=1</code> for WebGPU</span>
+  </figcaption>
+
+  <div class="sim-stage" aria-label="Nebula simulation canvas">
+    <NebulaGPU />
+  </div>
+</div>
+
+<div class="p5-article">
+  <h2>Under the hood</h2>
+  <p>
+    The WebGL2 path renders tens of thousands of particles as <em>instanced sprites</em> with additive blending and depth disabled—so no “TV static” at the rim.
+    On WebGPU, the particle positions update in a <em>compute pass</em> and render in one instanced draw, keeping CPU overhead near zero.
+  </p>
+
+  <h3>Compatibility</h3>
+  <p>
+    Works on Chrome, Edge, Firefox (WebGL2). WebGPU is available on modern Chrome/Edge and recent Safari; otherwise the page stays on WebGL2.
+    You can force WebGPU (when supported) by appending <code>?gpu=1</code> to the URL.
+  </p>
+</div>

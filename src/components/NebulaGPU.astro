@@ -1,0 +1,21 @@
+---
+// src/components/NebulaGPU.astro
+const id = `nebula-${Math.random().toString(36).slice(2,8)}`;
+---
+
+<style>
+  .sim-stage { position: relative; }
+  canvas { width: 100%; height: 100%; display: block; }
+</style>
+
+<div class="sim-stage" style="aspect-ratio: 16/9;">
+  <canvas id={id}></canvas>
+  <button id="js-neb-pause" class="pill" style="position:absolute;top:12px;left:12px;">Pause</button>
+</div>
+
+<script type="module" client:load define:vars={{ id }}>
+  import init from '/scripts/nebula-hybrid.js';
+  const canvas = document.getElementById(id);
+  const pauseBtn = document.getElementById('js-neb-pause');
+  if (canvas) init(canvas, pauseBtn, { preferWebGPU: false }); // WebGL2 by default
+</script>
