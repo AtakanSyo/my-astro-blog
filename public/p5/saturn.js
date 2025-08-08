@@ -351,14 +351,11 @@ export const saturnSketch = (p) => {
     p.pop();
   }
 
-  // ---------- Utils ----------
   function chooseCanvasSize(parent) {
-    const w = Math.max(320, Math.min((parent && parent.clientWidth) || window.innerWidth, 1920));
-    const hByWidth = Math.round(w * 0.55);
-    const hMax = Math.floor(window.innerHeight * 0.75);
-    const h = Math.max(300, Math.min(hByWidth, hMax, 560));
-    return [w, h];
+    if (!parent) return [window.innerWidth, window.innerHeight];
+    return [parent.clientWidth, parent.clientHeight];
   }
+
   function lerp(a, b, t) { return a + (b - a) * t; }
   function clamp(x, lo, hi) { return Math.max(lo, Math.min(hi, x)); }
   function mixRGB(a, b, t) { return [a[0] + (b[0]-a[0]) * t, a[1] + (b[1]-a[1]) * t, a[2] + (b[2]-a[2]) * t]; }

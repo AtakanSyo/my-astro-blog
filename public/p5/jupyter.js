@@ -200,12 +200,8 @@ export const jupiterSketch = (p) => {
   }
 
   function chooseCanvasSize(parent) {
-    // Full viewport width, height clamped (keeps it fast and pretty)
-    const w = Math.max(320, Math.min((parent && parent.clientWidth) || window.innerWidth, 1920));
-    const hByWidth = Math.round(w * 0.55);
-    const hMax = Math.floor(window.innerHeight * 0.75);
-    const h = Math.max(300, Math.min(hByWidth, hMax, 560));
-    return [w, h];
+    if (!parent) return [window.innerWidth, window.innerHeight];
+    return [parent.clientWidth, parent.clientHeight];
   }
 
   // tiny PRNG for stable seeding
