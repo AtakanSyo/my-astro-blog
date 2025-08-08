@@ -396,3 +396,20 @@ figcaption {
 .review-disclaimer strong {
   color: #d35400;
 }
+
+
+.post .post-image {
+  display: block;
+  width: 100%;          /* scale down to container width */
+  height: auto;         /* preserve aspect ratio */
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid rgba(15,23,42,0.06);
+  box-shadow: 0 6px 16px rgba(2,6,23,0.06);
+  transition: transform .18s ease, box-shadow .18s ease;
+  margin: 1rem;
+  border-style: solid;
+  border-color: rgb(220,220,220);
+  border-width: 1px;
+}
+
