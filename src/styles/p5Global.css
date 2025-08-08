@@ -128,7 +128,15 @@ margin-top: .5rem;
 width: 100%;
 max-width: 800px;
 }
-.sim-canvas { min-height: 420px; }
+
+
+.sim-canvas { 
+  min-height: 420px; 
+  height: 100svh;           /* modern fix; Safari/Chrome mobile support it */
+  width: 100%;
+  overflow: hidden;         /* avoid accidental scrollbars inside parent */
+  touch-action: none;       /* optional: stops touch “nudging” inside */
+}
 
 .sim-start {
 position: absolute;
