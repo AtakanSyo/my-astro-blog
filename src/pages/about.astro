@@ -39,72 +39,179 @@ import Layout from '../layouts/Layout.astro';
 <style>
 :root {
   --bg-page: #ffffff;
-  --text-color: #2d2d2d;
+  --text-color: #0f172a;
+  --muted: #475569;
   --accent-color: #4f46e5;
-  --section-spacing: 3rem;
+  --card-bg: #fff;
+  --card-radius: 14px;
+  --shadow: 0 10px 28px rgba(2,6,23,0.08), inset 0 1px 0 rgba(255,255,255,0.6);
+  --section-spacing: 2.25rem;
 }
 
+/* Page wrapper */
 .about-page {
-  max-width: 700px;
+  max-width: 960px;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 2.25rem 1rem 3rem;
   color: var(--text-color);
 }
 
-.about-page section {
-  margin-bottom: var(--section-spacing);
-}
+/* Section spacing */
+.about-page section { margin-bottom: var(--section-spacing); }
 
+/* Intro (no card, just hero-ish text) */
+.about-page .intro {
+  text-align: center;
+  margin-bottom: calc(var(--section-spacing) * 0.9);
+}
 .intro h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  color: var(--accent-color);
+  font-size: clamp(2rem, 3.4vw, 2.75rem);
+  margin: 0 0 .6rem;
+  font-weight: 800;
+  letter-spacing: .2px;
+  background: linear-gradient(45deg, #fc8f63, #5d62d2);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
-
 .intro p {
-  font-size: 1.125rem;
-  line-height: 1.6;
+  font-size: clamp(1rem, 1.1rem + .2vw, 1.125rem);
+  line-height: 1.75;
+  color: var(--muted);
+  margin: 0 auto;
+  max-width: 70ch;
 }
 
-.mission h2,
-.coverage h2,
-.team h2,
-.join h2 {
-  font-size: 2rem;
-  margin-bottom: 0.75rem;
-  color: var(--accent-color);
+/* Card-like sections */
+.about-page .mission,
+.about-page .coverage,
+.about-page .team,
+.about-page .join {
+  position: relative;
+  background:
+    radial-gradient(130% 170% at 100% -40%, color-mix(in oklab, var(--accent-color) 10%, transparent) 0%, transparent 60%),
+    linear-gradient(180deg, var(--card-bg), #f8fafc);
+  border: 1px solid rgba(2,6,23,0.06);
+  border-radius: var(--card-radius);
+  box-shadow: var(--shadow);
+  padding: clamp(1rem, 3vw, 1.5rem) clamp(1rem, 3.5vw, 1.75rem);
+  overflow: clip;
 }
 
+/* Top ribbon accent (echoes your card skins) */
+.about-page .mission::before,
+.about-page .coverage::before,
+.about-page .team::before,
+.about-page .join::before {
+  content: "";
+  position: absolute; left: 0; right: 0; top: 0; height: 4px;
+  background: linear-gradient(90deg, var(--accent-color), color-mix(in oklab, var(--accent-color) 40%, #fff));
+  opacity: .9;
+}
+
+/* Section headings */
+.about-page .mission h2,
+.about-page .coverage h2,
+.about-page .team h2,
+.about-page .join h2 {
+  margin: 0 0 .5rem;
+  font-size: clamp(1.35rem, 1.2rem + .6vw, 2rem);
+  font-weight: 800;
+  letter-spacing: .2px;
+  background: linear-gradient(45deg, #fc8f63, #5d62d2);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Body copy */
+.about-page .mission p,
+.about-page .team p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.8;
+  font-size: 1rem;
+}
+
+/* Coverage list (clean, responsive, readable) */
 .coverage ul {
-  list-style-type: disc;
-  margin-left: 1.5rem;
-  line-height: 1.6;
+  list-style: none;
+  padding: 0;
+  margin: .25rem 0 0;
+  display: grid;
+  gap: .5rem .75rem;
+  grid-template-columns: 1fr;
+}
+.coverage li {
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 1rem;
+  position: relative;
+  padding-left: 1.25rem;
+}
+.coverage li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: .65em;
+  width: .5rem; height: .5rem;
+  border-radius: 999px;
+  background: radial-gradient(circle at 40% 40%, #fc8f63, #5d62d2);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.08);
+}
+@media (min-width: 720px) {
+  .coverage ul { grid-template-columns: 1fr 1fr; }
 }
 
-.join .btn-primary {
-  display: inline-block;
-  margin-top: 1rem;
-  padding: 0.75rem 1.5rem;
-  background: var(--accent-color);
-  color: #fff;
-  border-radius: 6px;
+/* Primary button (consistent with site CTA) */
+.btn-primary {
+  --cta-accent: var(--accent-color);
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .85rem 1.3rem;
+  border-radius: 999px;
   text-decoration: none;
-  transition: background 0.3s ease;
+  font-weight: 700;
+  letter-spacing: .2px;
+  color: #fff;
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--cta-accent) 100%, #000 0%),
+    color-mix(in oklab, var(--cta-accent) 85%, #000 15%)
+  );
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.12);
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+}
+.btn-primary::after {
+  content: "→";
+  opacity: .9;
+  transform: translateX(0);
+  transition: transform .18s ease, opacity .18s ease;
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--cta-accent) 100%, #000 0%),
+    color-mix(in oklab, var(--cta-accent) 95%, #000 5%)
+  );
+  box-shadow: 0 12px 28px rgba(0,0,0,0.28);
+}
+.btn-primary:hover::after { transform: translateX(2px); }
+.btn-primary:active { transform: translateY(0); box-shadow: 0 6px 16px rgba(0,0,0,0.2); }
+.btn-primary:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(255,255,255,0.3),
+    0 0 0 6px color-mix(in oklab, var(--cta-accent) 35%, transparent);
 }
 
-.join .btn-primary:hover {
-  background: #3730a3;
-}
+/* Join section spacing on the button */
+.about-page .join .btn-primary { margin-top: .75rem; }
 
-@media (max-width: 600px) {
-  .intro h1 {
-    font-size: 2rem;
-  }
-  .mission h2,
-  .coverage h2,
-  .team h2,
-  .join h2 {
-    font-size: 1.75rem;
-  }
+/* Mobile polish */
+@media (max-width: 640px) {
+  .about-page { padding: 1.75rem 1rem 2.25rem; }
 }
 </style>

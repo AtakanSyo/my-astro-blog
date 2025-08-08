@@ -37,84 +37,134 @@ import Layout from '../layouts/Layout.astro';
 :root {
   --bg-page: #f5f7fa;
   --card-bg: #ffffff;
-  --text-color: #333333;
+  --text-color: #0f172a;
+  --muted: #475569;
   --accent-color: #4f46e5;
-  --shadow-color: rgba(0, 0, 0, 0.1);
+  --shadow-color: rgba(2, 6, 23, 0.08);
+  --card-radius: 14px;
 }
 
+/* Page shell */
 .authors-page {
   display: grid;
   grid-template-columns: 1fr;
   justify-items: center;
-  gap: 2rem;
-  max-width: 900px;
+  gap: 1.25rem;
+  max-width: 1080px;
   margin: 0 auto;
-  padding: 4rem 1rem;
+  padding: 3rem 1rem;
 }
 
+/* Author card */
 .author {
+  position: relative;
   display: flex;
-  background: var(--card-bg);
-  border-radius: 12px;
-  box-shadow: 0 4px 16px var(--shadow-color);
-  overflow: hidden;
-  transition: transform 0.3s ease;
   width: 100%;
+  background:
+    radial-gradient(130% 170% at 100% -40%, color-mix(in oklab, var(--accent-color) 10%, transparent) 0%, transparent 60%),
+    linear-gradient(180deg, var(--card-bg), #f8fafc);
+  border: 1px solid rgba(2,6,23,0.06);
+  border-radius: var(--card-radius);
+  box-shadow: 0 10px 28px var(--shadow-color), inset 0 1px 0 rgba(255,255,255,0.6);
+  overflow: clip;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  align-items: stretch;
 }
 
-.author--left {
-  grid-template-areas: "image bio";
-  justify-content: start;
+.author:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 38px rgba(2,6,23,0.12);
+  border-color: rgba(2,6,23,0.10);
 }
 
-.author--right {
-  grid-template-areas: "bio image";
-  justify-content: end;
-  flex-direction: row-reverse;
-
+/* Top ribbon accent (echoes your card skins) */
+.author::before {
+  content: "";
+  position: absolute; left: 0; right: 0; top: 0; height: 4px;
+  background: linear-gradient(90deg, var(--accent-color), color-mix(in oklab, var(--accent-color) 40%, #fff));
+  opacity: .9;
 }
 
+/* Alternate layout: right-aligned image just flips the flow */
+.author--right { flex-direction: row-reverse; }
+
+/* Portrait */
 .author img {
-  width: 100%;
+  width: clamp(180px, 26vw, 260px);
   height: auto;
-  grid-area: image;
   object-fit: cover;
-  max-width: 200px;
-  filter: grayscale(60%); /* This makes the image black and white */
-  transition: filter 0.3s ease; /* Smooth transition for hover effect */
+  filter: grayscale(60%);
+  transition: filter .25s ease, transform .25s ease;
+  aspect-ratio: 3 / 4;            /* keeps a steady block even if image loads late */
 }
 
-/* Optional: Add color on hover */
 .author:hover img {
   filter: grayscale(0%);
+  transform: scale(1.02);
 }
 
+/* Bio */
 .bio {
-  grid-area: bio;
-  padding: 2rem;
+  padding: clamp(1rem, 3vw, 2rem);
   color: var(--text-color);
+  display: grid;
+  align-content: center;
 }
 
 .bio h2 {
-  margin: 0 0 1rem;
-  font-size: 2rem;
-  color: var(--accent-color);
+  margin: 0 0 .5rem;
+  font-size: clamp(1.25rem, 1.4rem + .4vw, 2rem);
+  font-weight: 800;
+  letter-spacing: .2px;
+  background: linear-gradient(45deg, #fc8f63, #5d62d2);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .bio p {
-  line-height: 1.6;
+  margin: 0;
+  line-height: 1.7;
   font-size: 1rem;
+  color: var(--muted);
+  max-width: 70ch;
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+  .authors-page { gap: 1rem; padding: 2.25rem 1rem; }
 }
 
 @media (max-width: 768px) {
   .author {
-    justify-content: center;
     flex-direction: column;
-    max-width: 300px;
+    max-width: 520px;
   }
+  .author img {
+    width: 100%;
+    height: clamp(200px, 38vw, 280px);
+    aspect-ratio: auto;
+  }
+  .bio { padding: 1rem 1rem 1.25rem; }
+}
 
-  .author img{
-    margin: auto;
+/* Dark mode polish (optional, safe to keep) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --card-bg: #0b0f18;
+    --text-color: #e5e7eb;
+    --muted: #94a3b8;
+    --shadow-color: rgba(0,0,0,0.35);
+  }
+  .author {
+    background:
+      radial-gradient(130% 170% at 100% -40%, color-mix(in oklab, var(--accent-color) 14%, transparent) 0%, transparent 60%),
+      linear-gradient(180deg, var(--card-bg), #0a0e19);
+    border-color: rgba(255,255,255,0.08);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+  .author::before {
+    opacity: .6;
   }
 }
 </style>
