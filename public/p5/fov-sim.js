@@ -43,9 +43,19 @@ const targets = {
   'Jupiter ~0.008°': 0.008 // ~30 arcsec average, varies
 };
 
+function chooseCanvasSize(parent) {
+  if (!parent) return [window.innerWidth, window.innerHeight];
+  return [parent.clientWidth, parent.clientHeight];
+}
+
 function setup() {
-  canvas = createCanvas(windowWidth, 360);
+  
+
+  const parent = document.getElementById('sketch-container');
+  [W, H] = chooseCanvasSize(parent);
+  canvas = createCanvas(W, H);
   canvas.parent('sketch-container');
+
   computeGeometry();
   compute();       // compute first so seedStars can use bgScale etc.
   seedStars();     // seed with a count that reflects current physics
