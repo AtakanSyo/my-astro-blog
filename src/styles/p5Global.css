@@ -117,25 +117,53 @@ transition: background .2s, transform .2s;
 }
 .pill:hover { background:#eef2ff; transform: translateY(-1px); }
 
-/* Stage, start overlay, canvas */
+/* Outer wrapper */
 .sim-stage {
-position: relative;
-border-radius: 16px;
-background: radial-gradient(120% 120% at 50% 10%, #0b0f18 10%, #0b1220 60%, #0a0e19 100%);
-box-shadow: 0 8px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04);
-padding: .75rem;
-margin-top: .5rem;
-width: 100%;
-max-width: 800px;
+  position: relative;
+  border-radius: 16px;
+  background: radial-gradient(120% 120% at 50% 10%, #0b0f18 10%, #0b1220 60%, #0a0e19 100%);
+  box-shadow: 0 8px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04);
+  padding: .75rem;
+  margin-top: .5rem;
+  width: 100%;
+  max-width: 800px;
+  margin-inline: auto; /* center */
 }
 
+/* Canvas parent */
+.sim-canvas {
+  position: relative;
+  border-radius: 16px;
+  background: radial-gradient(120% 120% at 50% 10%, #0b0f18 10%, #0b1220 60%, #0a0e19 100%);
+  box-shadow: 0 8px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.04);
+  overflow: hidden;
 
-.sim-canvas { 
-  min-height: 420px; 
-  height: 100svh;           /* modern fix; Safari/Chrome mobile support it */
+  /* Desktop/tablet sizing: keep a nice ratio */
   width: 100%;
-  overflow: hidden;         /* avoid accidental scrollbars inside parent */
-  touch-action: none;       /* optional: stops touch “nudging” inside */
+  max-width: 800px;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  min-height: 220px; /* safety */
+  margin: 0 auto;
+}
+
+/* Mobile: lock to safe viewport height so tapping/scrolling doesn't "grow" */
+@media (max-width: 640px) {
+  .sim-canvas {
+    aspect-ratio: auto;   /* switch off ratio */
+    height: 60svh;        /* stable on mobile; won’t jump when URL bar hides */
+    max-width: none;
+  }
+}
+
+/* Make the p5 <canvas> always fill the parent exactly */
+.sim-canvas > canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: inherit;
 }
 
 .sim-start {
