@@ -1,4 +1,3 @@
-// /public/scripts/nebula-webgl2_three.js
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161/build/three.module.js';
 
 export async function run(canvas, { pausedRef }) {
