@@ -25,7 +25,7 @@ const {
   <article class="post p5-post centered_flex">
 
     <h1 class="p5-article-title">{title}</h1>
-    <p class="p5-description">{description}</p>
+
     <p class="writer">Written by {writer}</p>
     <SocialShare frontmatter={Astro.props.frontmatter} url={url} client:load />
     <slot />
