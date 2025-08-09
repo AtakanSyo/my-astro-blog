@@ -1,10 +1,10 @@
-// public/interactive/pulsar/runtime.js
+// /public/interactive/pulsar/runtime.js
 // Three.js-only runtime: pulsar with sweeping lighthouse beams, equatorial wind torus,
 // polar jets, and a light starfield background. Fast: one instanced draw for particles.
 
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161/build/three.module.js';
 
-export async function run(canvas, { pausedRef }) {
+export async function run(canvas, { pausedRef, options = {} } = {}) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: true });
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.setClearColor(0x0a0f16, 1);
@@ -22,6 +22,9 @@ export async function run(canvas, { pausedRef }) {
   new ResizeObserver(fit).observe(canvas);
   fit();
 
+  // === star brightness control (0..1) ===
+  let starDim = typeof options.starDim === 'number' ? options.starDim : 0.1;
+
   // ---------- background stars ----------
   const stars = new THREE.Mesh(
     new THREE.PlaneGeometry(2, 2),
@@ -30,10 +33,28 @@ export async function run(canvas, { pausedRef }) {
       transparent: true,
       depthTest: false,
       depthWrite: false,
+      opacity: starDim,            // << brightness here
     })
   );
   stars.position.z = -0.02;
   scene.add(stars);
+
+  // Hook an <input id="js-stars" type="range" min="0" max="1" step="0.01">
+  const starSlider = document.getElementById('js-stars');
+  const starVal = document.getElementById('js-stars-val'); // optional <span>
+  if (starSlider) {
+    // sync initial UI with runtime
+    if (starSlider.value === '' || isNaN(+starSlider.value)) starSlider.value = String(starDim);
+    else starDim = stars.material.opacity = Math.max(0, Math.min(1, +starSlider.value));
+    if (starVal) starVal.textContent = Number(starDim).toFixed(2);
+
+    starSlider.addEventListener('input', (e) => {
+      const v = Math.max(0, Math.min(1, +e.target.value));
+      starDim = v;
+      stars.material.opacity = v;
+      if (starVal) starVal.textContent = v.toFixed(2);
+    });
+  }
 
   // ---------- screen-space overlay (beams + core glow) ----------
   const overlayMat = new THREE.ShaderMaterial({
@@ -44,12 +65,12 @@ export async function run(canvas, { pausedRef }) {
     uniforms: {
       uTime:     { value: 0 },
       uRes:      { value: new THREE.Vector2(1,1) },
-      uBeamDir:  { value: new THREE.Vector2(0,1) }, // normalized 2D direction of magnetic axis
-      uBeamWid:  { value: 0.10 },  // beam half-width in NDC
-      uBeamSoft: { value: 0.75 },  // gaussian softness
+      uBeamDir:  { value: new THREE.Vector2(0,1) },
+      uBeamWid:  { value: 0.10 },
+      uBeamSoft: { value: 0.75 },
       uCore:     { value: new THREE.Color(0.9, 0.98, 1.0) },
-      uCoreA:    { value: 0.55 },  // core glow strength
-      uPulse:    { value: 1.0 },   // pulse multiplier
+      uCoreA:    { value: 0.55 },
+      uPulse:    { value: 1.0 },
     },
     vertexShader: `
       varying vec2 vUv;
@@ -61,41 +82,30 @@ export async function run(canvas, { pausedRef }) {
     fragmentShader: `
       precision highp float;
       varying vec2 vUv;
-      uniform vec2  uBeamDir;  // normalized
+      uniform vec2  uBeamDir;
       uniform float uBeamWid;
       uniform float uBeamSoft;
       uniform vec3  uCore;
       uniform float uCoreA;
       uniform float uPulse;
 
-      // project pixel (-1..1) onto axis, compute distance to axis
       float axisDistance(vec2 p, vec2 dir){
         vec2 n = vec2(-dir.y, dir.x);
-        return dot(p, n); // signed distance in NDC
+        return dot(p, n);
       }
 
       void main(){
         vec2 p = vUv * 2.0 - 1.0;
-
-        // twin beams along ±uBeamDir
         float d1 = abs(axisDistance(p,  uBeamDir));
         float d2 = abs(axisDistance(p, -uBeamDir));
         float g1 = exp(-pow(d1 / max(1e-4, uBeamWid), 2.0) * (1.0/uBeamSoft));
         float g2 = exp(-pow(d2 / max(1e-4, uBeamWid), 2.0) * (1.0/uBeamSoft));
-
-        // longitudinal falloff (fade far from origin)
         float len = length(p);
         float fall = exp(-pow(len/1.1, 2.0));
-
-        // core glow (small gaussian at center)
         float core = exp(-pow(length(p)/0.22, 2.0)) * uCoreA;
-
-        // simple bluish beam color
         vec3 beamCol = vec3(0.55, 0.85, 1.0);
-
         vec3 col = beamCol * (g1 + g2) * fall * uPulse + uCore * core;
         float a  = (g1 + g2) * 0.65 * fall * uPulse + core;
-
         gl_FragColor = vec4(col * a, a);
       }
     `,
@@ -105,14 +115,11 @@ export async function run(canvas, { pausedRef }) {
   scene.add(overlay);
 
   // ---------- particle wind (instanced sprites) ----------
-  // Torus (equatorial) + jets (poles). Continuous emission with lifetime cycling.
-
-  const N = 60000;     // particle budget
-  const LIFE = 6.0;    // seconds until a particle respawns
-  const RMAX = 0.9;    // max radius in NDC (scaled per pixel in shader)
+  const N = 60000;
+  const LIFE = 6.0;
+  const RMAX = 0.9;
   const geo = new THREE.InstancedBufferGeometry();
 
-  // a small circular sprite (two triangles)
   const quad = new Float32Array([
     -1,-1,0,  1,-1,0,  1, 1,0,
     -1,-1,0,  1, 1,0, -1, 1,0
@@ -120,27 +127,23 @@ export async function run(canvas, { pausedRef }) {
   geo.setAttribute('position', new THREE.Float32BufferAttribute(quad, 3));
   geo.instanceCount = N;
 
-  // instance attributes
-  const dirStar = new Float32Array(N * 3); // emission direction in star frame
-  const speed   = new Float32Array(N);     // base radial speed
-  const birth   = new Float32Array(N);     // birth time offset [0, LIFE)
-  const role    = new Float32Array(N);     // 0 torus, 1 jet
+  const dirStar = new Float32Array(N * 3);
+  const speed   = new Float32Array(N);
+  const birth   = new Float32Array(N);
+  const role    = new Float32Array(N);
 
   for (let i = 0; i < N; i++) {
-    // sample unit sphere (Marsaglia)
     let u=0,v=0,s=2; while(s>=1||s===0){ u=Math.random()*2-1; v=Math.random()*2-1; s=u*u+v*v; }
     let x=2*u*Math.sqrt(1-s), y=1-2*s, z=2*v*Math.sqrt(1-s);
 
     let r = Math.random();
     if (r < 0.70) {
-      // torus: squash to equator (y≈0), renormalize
       y *= 0.18;
       const n = 1/Math.hypot(x,y,z); x*=n; y*=n; z*=n;
       dirStar[i*3+0]=x; dirStar[i*3+1]=y; dirStar[i*3+2]=z;
       speed[i] = 0.55 + 0.25*Math.random();
       role[i]  = 0.0;
     } else {
-      // jet: emphasize poles (±y), narrower cone
       const sgn = (i & 1) ? 1 : -1;
       x *= 0.25; z *= 0.25; y = sgn * Math.abs(y);
       const n = 1/Math.hypot(x,y,z); x*=n; y*=n; z*=n;
@@ -166,15 +169,15 @@ export async function run(canvas, { pausedRef }) {
       uTime:     { value: 0 },
       uLife:     { value: LIFE },
       uRmax:     { value: RMAX },
-      uSpinTilt: { value: new THREE.Vector2(0.35, 0.20) }, // tilt around X/Y (radians) of *spin axis*
+      uSpinTilt: { value: new THREE.Vector2(0.35, 0.20) },
     },
     vertexShader: `
       precision highp float;
-      attribute vec3 position;   // sprite corner
-      attribute vec3 iDir;       // emission direction in star frame
-      attribute float iSpeed;    // base radial speed
-      attribute float iBirth;    // birth time
-      attribute float iRole;     // 0 torus, 1 jet
+      attribute vec3 position;
+      attribute vec3 iDir;
+      attribute float iSpeed;
+      attribute float iBirth;
+      attribute float iRole;
 
       uniform vec2  uRes;
       uniform float uTime, uLife, uRmax;
@@ -186,7 +189,6 @@ export async function run(canvas, { pausedRef }) {
       vec3 rotX(vec3 p, float a){ float s=sin(a), c=cos(a); return vec3(p.x, c*p.y - s*p.z, s*p.y + c*p.z); }
       vec3 rotY(vec3 p, float a){ float s=sin(a), c=cos(a); return vec3(c*p.x + s*p.z, p.y, -s*p.x + c*p.z); }
 
-      // subtle filament wobble (no flicker)
       vec3 wobble(vec3 d, float t){
         vec3 t1 = normalize(cross(d, vec3(0.0,1.0,0.0)));
         vec3 t2 = normalize(cross(d, t1));
@@ -196,27 +198,20 @@ export async function run(canvas, { pausedRef }) {
       }
 
       void main(){
-        // rotate star frame so equator/jet look tilted in screen
         vec3 d = rotY(rotX(iDir, uSpinTilt.x), uSpinTilt.y);
 
-        // age 0..uLife and normalized 0..1
         float age = mod(max(0.0, uTime - iBirth), uLife);
         float a01 = age / uLife;
 
-        // radius grows linearly with age (role adjusts speed a bit)
         float v = iSpeed * mix(1.0, 1.3, iRole);
         float r = uRmax * a01 * v;
 
-        // little tangent wobble to suggest filaments
         vec3 off = wobble(d, uTime) * r * 0.08;
-
         vec3 P = d * r + off;
 
-        // edge metric for coloring: 0 near origin -> 1 near rim
         vEdge = clamp(r / uRmax, 0.0, 1.0);
         vRole = iRole;
 
-        // sprite in pixels
         float size = 1.2 + 2.2 * pow(vEdge, 0.7);
         vec2 pixel = position.xy * size / (0.5 * uRes);
 
@@ -230,21 +225,12 @@ export async function run(canvas, { pausedRef }) {
       varying float vEdge;
 
       void main(){
-        // circular soft sprite from interpolated corner coords
-        // we don't have the corner here, but RawShaderMaterial forwards no varying for it.
-        // Approximate with radial fade using gl_PointCoord trick substitute:
-        // Since we're using quads, emulate a soft circle:
-        // use derivative of edge instead; simpler: constant radial falloff inside quad.
-        // (We already keep size tiny; artifact-free in practice.)
-        float d = length(gl_FragCoord.xy); // not ideal; we'll use alpha only
-        // Crab-like ramp: core cyan → outer copper, with jet slightly bluer
         vec3 core = vec3(0.35, 0.90, 1.00);
         vec3 fil  = vec3(1.00, 0.63, 0.31);
         vec3 jet  = vec3(0.60, 0.85, 1.00);
         float t = clamp(vEdge*1.05, 0.0, 1.0);
         vec3 col = mix(core, mix(fil, jet, vRole), t);
 
-        // soft alpha bands (stable, no flicker)
         float inner = exp(-pow(vEdge/0.22, 2.0));
         float outer = exp(-pow((1.0-vEdge)/0.45, 2.0));
         float alpha = 0.08 + 0.75*inner + 0.35*outer;
@@ -260,21 +246,18 @@ export async function run(canvas, { pausedRef }) {
   scene.add(wind);
 
   // ---------- pulsar orientation / beam dynamics ----------
-  const spinPeriod = 0.5;            // seconds per rotation (visualized; real pulsars are ms)
+  const spinPeriod = 0.5;
   const omega = (2 * Math.PI) / spinPeriod;
-  const spinTiltX = 0.45;            // star spin axis tilt (radians)
+  const spinTiltX = 0.45;
   const spinTiltY = -0.10;
-  const magAlpha  = 0.35;            // angle between magnetic and spin axis (radians)
+  const magAlpha  = 0.35;
 
   function magneticAxis(t) {
-    // Spin axis S in world coords (apply tilts)
     const S = rotY(rotX([0,1,0], spinTiltX), spinTiltY);
-    // A unit vector M that is 'magAlpha' away from S, rotating around S with ωt
-    // Build an orthonormal basis around S:
-    const T1 = normalize(cross(S, [1,0,0]).some ? cross(S,[1,0,0]) : cross(S,[0,0,1]));
+    const tryX = cross(S, [1,0,0]);
+    const T1 = normalize((tryX[0]||tryX[1]||tryX[2]) ? tryX : cross(S,[0,0,1]));
     const T2 = normalize(cross(S, T1));
     const phase = omega * t;
-    // M = S*cos(a) + (T1*cos(phase) + T2*sin(phase)) * sin(a)
     const c = Math.cos(magAlpha), s = Math.sin(magAlpha);
     const M = add(scale(S, c), scale(add(scale(T1, Math.cos(phase)), scale(T2, Math.sin(phase))), s));
     return normalize(M);
@@ -288,7 +271,6 @@ export async function run(canvas, { pausedRef }) {
     const t = (performance.now() - start) / 1000;
     const w = renderer.domElement.width, h = renderer.domElement.height;
 
-    // update uniforms
     windMat.uniforms.uRes.value.set(w, h);
     windMat.uniforms.uTime.value = t;
     windMat.uniforms.uSpinTilt.value.set(spinTiltX, spinTiltY);
@@ -296,13 +278,11 @@ export async function run(canvas, { pausedRef }) {
     overlayMat.uniforms.uTime.value = t;
     overlayMat.uniforms.uRes.value.set(w, h);
 
-    // compute magnetic axis in world, project to screen XY and normalize
     const M = magneticAxis(t);
-    const M2 = new THREE.Vector2(M[0], -M[1]); // note Y flip for NDC orientation
+    const M2 = new THREE.Vector2(M[0], -M[1]);
     if (M2.lengthSq() > 1e-6) M2.normalize();
     overlayMat.uniforms.uBeamDir.value.copy(M2);
 
-    // gentle pulse envelope (brightens beams periodically)
     const pulse = 0.6 + 0.4 * (0.5 + 0.5 * Math.sin(omega * t * 2.0));
     overlayMat.uniforms.uPulse.value = pulse;
 
@@ -349,7 +329,6 @@ function makeStarfieldTexture(w, h){
 function rotX(v, a){ const s=Math.sin(a), c=Math.cos(a); return [v[0], c*v[1]-s*v[2], s*v[1]+c*v[2]]; }
 function rotY(v, a){ const s=Math.sin(a), c=Math.cos(a); return [ c*v[0]+s*v[2], v[1], -s*v[0]+c*v[2] ]; }
 function cross(a,b){ return [ a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0] ]; }
-function dot(a,b){ return a[0]*b[0]+a[1]*b[1]+a[2]*b[2]; }
 function len(v){ return Math.hypot(v[0],v[1],v[2]); }
 function normalize(v){ const L=len(v)||1; return [v[0]/L,v[1]/L,v[2]/L]; }
 function scale(v,k){ return [v[0]*k,v[1]*k,v[2]*k]; }
