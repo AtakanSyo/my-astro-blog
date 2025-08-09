@@ -1,7 +1,7 @@
 ---
-layout: ../../layouts/p5Layout.astro
+layout: ../../layouts/simLayout.astro
 title: "Pulsar"
-category: p5sim
+category: simulation
 writer: Astrosyo
 pubDate: '2025-08-08'
 description: "A lightweight, GPU-hybrid nebula simulation that expands from a single ignition to a thin, filamented shell in ~30 seconds. WebGL2 by default with optional WebGPU for high-end browsers."
@@ -20,7 +20,7 @@ keywords:
 import SimCanvas from "../../components/SimCanvas.astro";
 import SimPostSchema from "../../components/SimPostSchema.astro";
 
-<div class="p5-container centered_flex">
+<div class="sim-container centered_flex">
   <p class="Tool-Explanation">
     This simulation shows a <strong>nebula shell</strong> expanding from a tiny ignition to a thin, filamented rim—start to finish in ~30 seconds with no input needed.
     It uses a <em>GPU-hybrid</em> approach: by default it runs on <strong>WebGL2 (Three.js, instanced sprites)</strong> for maximum browser compatibility.
@@ -37,7 +37,7 @@ import SimPostSchema from "../../components/SimPostSchema.astro";
 
 </div>
 
-<div class="p5-article">
+<div class="sim-article">
   <h2 id="about-this-page">About this page</h2>
   <p>
     Above is a <strong>GPU-accelerated nebula simulation</strong>. Below is a short guide explaining what you’re seeing, how the effect is produced, and how to run it smoothly on your device. 

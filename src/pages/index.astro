@@ -21,9 +21,9 @@ function isP5Sim(frontmatter) {
   const cat = frontmatter.category ?? frontmatter.categories ?? null;
   if (!cat) return false;
   if (Array.isArray(cat)) {
-    return cat.some((c) => typeof c === 'string' && c.toLowerCase() === 'p5sim');
+    return cat.some((c) => typeof c === 'string' && c.toLowerCase() === 'simulation');
   }
-  return typeof cat === 'string' && cat.toLowerCase() === 'p5sim';
+  return typeof cat === 'string' && cat.toLowerCase() === 'simulation';
 }
 ---
 
@@ -51,8 +51,8 @@ function isP5Sim(frontmatter) {
             posts.map(({ frontmatter, url }) => {
               const cat = frontmatter.category ?? frontmatter.categories ?? null;
               const isP5 = Array.isArray(cat)
-                ? cat.some((c) => typeof c === 'string' && c.toLowerCase() === 'p5sim')
-                : typeof cat === 'string' && cat.toLowerCase() === 'p5sim';
+                ? cat.some((c) => typeof c === 'string' && c.toLowerCase() === 'simulation')
+                : typeof cat === 'string' && cat.toLowerCase() === 'simulation';
 
               const isReview = Array.isArray(cat)
                 ? cat.some((c) => typeof c === 'string' && c.toLowerCase() === 'reviews')

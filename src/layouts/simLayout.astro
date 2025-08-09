@@ -1,7 +1,7 @@
 ---
 import Layout from './Layout.astro';
 import '../styles/infoPost.css';  // ← pulls in your global styles
-import '../styles/p5Global.css';  // ← pulls in your global styles
+import '../styles/simGlobal.css';  // ← pulls in your global styles
 import SocialShare from '../components/SocialShare.astro';
 
 const {
@@ -22,9 +22,9 @@ const {
 </head>
 
 <Layout title={title}>
-  <article class="post p5-post centered_flex">
+  <article class="post sim-post centered_flex">
 
-    <h1 class="p5-article-title">{title}</h1>
+    <h1 class="sim-article-title">{title}</h1>
 
     <p class="writer">Written by {writer}</p>
     <SocialShare frontmatter={Astro.props.frontmatter} url={url} client:load />

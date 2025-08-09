@@ -1,38 +1,38 @@
-.p5-article-title{
+.sim-article-title{
   padding-top: 2em;
 }
 
-.p5-description {
+.sim-description {
   padding-left: 1rem;
   padding-right: 1rem;
   text-align: center;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
-.p5-article body::-webkit-scrollbar {
+.sim-article body::-webkit-scrollbar {
   display: none;
 }
 
-.p5-article {
+.sim-article {
   max-width: 800px;
 }
 
-.p5-article p, h1, h2, h3, h4, h5 {
+.sim-article p, h1, h2, h3, h4, h5 {
   padding-left: 1rem;
   padding-right: 1rem;
 }
 
-.p5-container {
+.sim-container {
   margin-bottom: 3rem;
 }
 
-.p5-container #sketch-container {
+.sim-container #sketch-container {
   border-style: solid;
   border-width: 2px;
   border-color: white;
 }
 
-.p5-container .Tool-Explanation {
+.sim-container .Tool-Explanation {
   font-size: 1rem;
   color: #999;
   text-align: center;
@@ -87,7 +87,7 @@ transition: background .2s, transform .2s;
   }
 }
 
-/* Make the p5 <canvas> always fill the parent exactly */
+/* Make the sim <canvas> always fill the parent exactly */
 .sim-canvas > canvas {
   position: absolute;
   inset: 0;

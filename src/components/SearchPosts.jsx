@@ -76,7 +76,7 @@ export default function SearchPosts({ posts = [], limit = 50 }) {
         {filtered.map((p) => {
           const fm = p.frontmatter || {};
           const cats = normalizeCats(fm);
-          const isP5     = cats.includes('p5sim');
+          const isP5     = cats.includes('simulation');
           const isReview = cats.includes('reviews') || cats.includes('review');
           const isInfo   = cats.includes('informational') || cats.includes('info');
 
