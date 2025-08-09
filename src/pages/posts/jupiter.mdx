@@ -1,0 +1,103 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Jupiter"
+category: simulation
+writer: Astrosyo
+pubDate: '2025-08-09'
+description: "A lightweight, GPU-hybrid Jupiter visualization rendered in WebGL2 by default, with optional WebGPU for high-end browsers."
+slug: jupiter
+imageDir: /images/jupiter
+keywords:
+---
+
+import SimCanvas from "../../components/SimCanvas.astro";
+import SimPostSchema from "../../components/SimPostSchema.astro";
+
+<div class="sim-container centered_flex">
+  <p class="Tool-Explanation">
+    This simulation renders a shader-lit model of <strong>Jupiter</strong> with banded clouds, subtle limb darkening, and a faint starfield background.
+    By default it runs on <strong>WebGL2 (Three.js)</strong> for broad compatibility. If your browser supports <strong>WebGPU</strong>, 
+    you can enable it by adding <code>?gpu=1</code> to the URL for potentially smoother performance.
+  </p>
+
+  <div class="sim-stage" aria-label="Jupiter simulation canvas" id="simulation">
+    <SimCanvas slug="jupiter" />
+  </div>
+
+  <figcaption class="sim-caption">
+    Renderer: WebGL2 by default. Falls back automatically if WebGPU is not available.
+  </figcaption>
+</div>
+
+<div class="sim-article">
+  <h2 id="about-this-page">About this page</h2>
+  <p>
+    Above is a <strong>GPU-accelerated Jupiter visualization</strong>. The scene includes a physically-lit sphere with 
+    zonal bands (belts and zones), gentle limb darkening, and optional features like a persistent storm region resembling
+    the Great Red Spot. A dim, inside-out sphere provides the starfield background.
+  </p>
+
+  <h3 id="what-youre-seeing">What you’re seeing</h3>
+  <p>
+    Jupiter rotates rapidly (sub-10-hour day), so the band patterns sweep by quickly. Light from a fixed “Sun” source 
+    creates visible phases and shading across the cloud tops. The brownish belts and pale zones are stylized with 
+    procedural noise to suggest turbulence and shear between jet streams.
+  </p>
+
+  <h2 id="tech-notes">Tech notes</h2>
+  <p>
+    In <strong>WebGL2</strong> mode, the visualization uses <em>MeshStandardMaterial</em> (PBR) with ACES tone mapping, sRGB textures (or
+    procedural colors), and a small custom shader hook for band contrast. Limb darkening is approximated with a Fresnel-style 
+    rim term. The starfield is a textured, back-faced sphere kept very dim to avoid distraction. If WebGPU is enabled, the loader
+    will attempt that path; otherwise it falls back to WebGL2 automatically.
+  </p>
+
+  <h3 id="compatibility">Compatibility</h3>
+  <p>
+    Works on all modern browsers supporting WebGL2. If WebGPU is enabled and available, the loader will attempt 
+    to run that version; otherwise, it falls back to WebGL2 automatically.
+  </p>
+
+  <h2 id="faq">FAQ</h2>
+  <p>
+    <strong>Is the Great Red Spot real here?</strong> It’s a stylized storm feature, not a physically accurate simulation, meant to hint at Jupiter’s famous anticyclone.
+  </p>
+  <p>
+    <strong>Is this physically exact?</strong> No — it’s a real-time visualization tuned for smooth performance and legibility rather than full atmospheric dynamics.
+  </p>
+
+  <h2 id="credits">Credits</h2>
+  <p>
+    Based on real-time rendering techniques for planetary shaders, inspired by spacecraft imagery and amateur astrophotography.
+  </p>
+</div>
+
+<SimPostSchema
+  title="Jupiter Simulation"
+  description="A lightweight, GPU-hybrid Jupiter simulation with banded clouds, limb darkening, and a faint starfield."
+  url="https://astrosyo.com/posts/jupiter"
+  datePublished="2025-08-09"
+  authorName="Astrosyo"
+  keywords={[
+    "jupiter",
+    "webgl2",
+    "webgpu",
+    "three.js",
+    "shader",
+    "astronomy visualization"
+  ]}
+  image="/images/jupiter/cover.webp"
+  articleSection="Astronomy"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.webp"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Jupiter Simulation",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires WebGL2; optional WebGPU",
+    "url": "https://astrosyo.com/posts/jupiter#simulation",
+    "description": "Interactive Jupiter visualization with banded clouds and a faint starfield."
+  }}
+/>
