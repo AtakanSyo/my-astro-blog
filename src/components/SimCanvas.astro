@@ -3,19 +3,106 @@ const id = `sim-${Math.random().toString(36).slice(2,8)}`;
 const { slug, aspect = "16/9", showPause = true } = Astro.props;
 ---
 
-<div class="sim-stage centered_flex" style={`aspect-ratio: ${aspect};`}>
+<style>
+  .sim-stage {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sim-stage canvas {
+    opacity: 0;
+    transition: opacity 600ms ease;
+    will-change: opacity;
+  }
+  .sim-stage.is-visible canvas {
+    opacity: 1;
+  }
+
+  /* Play/Pause button styles */
+  .sim-controls-inline {
+    position: absolute;
+    z-index: 2;
+    transition: all 400ms ease;
+    padding: 0.5rem 0.9rem;
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+
+  /* Initially centered */
+  .sim-stage:not(.started) .sim-controls-inline {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  /* After starting: top-left corner */
+  .sim-stage.started .sim-controls-inline {
+    top: 0.5rem;
+    left: 0.5rem;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sim-stage canvas {
+      transition: none;
+    }
+    .sim-controls-inline {
+      transition: none;
+    }
+  }
+</style>
+
+<div class="sim-stage centered_flex" style={`aspect-ratio: ${aspect};`} id={`stage-${id}`}>
   <canvas id={id}></canvas>
-  {showPause && <button id={`pause-${id}`} class="pill sim-controls-inline" type="button">Play</button>}
+  {showPause && (
+    <button
+      id={`pause-${id}`}
+      class="pill sim-controls-inline"
+      type="button"
+      aria-pressed="false"
+    >
+      ►
+    </button>
+  )}
 </div>
 
 <script type="module" client:load define:vars={{ id, slug }}>
   (async () => {
     const canvas = document.getElementById(id);
     const pauseBtn = document.getElementById(`pause-${id}`);
+    const stage = document.getElementById(`stage-${id}`);
     if (!canvas) return;
+
+    let isPlaying = false; // false = stopped/paused, true = running
+
+    const updateIcon = () => {
+      if (!pauseBtn) return;
+      pauseBtn.textContent = isPlaying ? "❚❚" : "►";
+      pauseBtn.setAttribute("aria-pressed", String(isPlaying));
+    };
+
+    if (pauseBtn && stage) {
+      pauseBtn.addEventListener("click", () => {
+        if (!stage.classList.contains("started")) {
+          stage.classList.add("is-visible"); // fade-in canvas
+          stage.classList.add("started");    // move button to top-left
+        }
+        isPlaying = !isPlaying;
+        updateIcon();
+
+        // Hook into simulation pause/resume
+        if (isPlaying) {
+          // Resume simulation
+        } else {
+          // Pause simulation
+        }
+      });
+    }
+
+    updateIcon(); // set initial icon
 
     // ✅ dynamic import with a variable path
     const mod = await import(`/interactive/${slug}/loader.js`);
     (mod.default || mod)(canvas, pauseBtn);
-  })().catch(err => console.error('SimCanvas load failed:', err));
+  })().catch(err => console.error("SimCanvas load failed:", err));
 </script>
