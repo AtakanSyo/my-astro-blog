@@ -1,12 +1,6 @@
-// public/interactive/saturn/runtime.js
+// /public/interactive/saturn/runtime.js
 // WebGL2/Three.js Saturn: shader-lit globe + physically-plausible rings.
-// - Correct depth (rings hide behind globe)
-// - Constant circular orbits (no jitter/wobble)
-// - Tiny vertical ring thickness
-// - Forward-scattering brightness (Henyey–Greenstein)
-// - Optical depth per ring region (C/B/Cassini/A)
-// - Globe oblateness & subtle vignette
-// Hooks #js-speed, #js-tilt; works with your loader pausedRef.
+// Hard pause supported via pausedRef() from your loader.
 
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161/build/three.module.js';
 
@@ -335,7 +329,7 @@ export async function run(canvas, { pausedRef }) {
     transparent: true,
     depthTest: true,
     depthWrite: false,
-    blending: THREE.NormalBlending, // avoid multiply-quad artifacts
+    blending: THREE.NormalBlending,
     uniforms: {
       uAlpha:   { value: 0.20 },
       uSunElev: { value: 0.5 }
@@ -378,12 +372,45 @@ export async function run(canvas, { pausedRef }) {
   // ---------------- Controls ----------------
   hookControls();
 
-  // ---------------- Frame loop ----------------
-  const start = performance.now();
-  function tick(){
-    if (pausedRef && pausedRef()) return renderer.setAnimationLoop(tick);
+  // ---------------- HARD-PAUSE ANIMATION LOOP ----------------
+  const clock = new THREE.Clock();
+  let elapsed = 0;          // seconds accumulated only while running
+  let rafRunning = false;
+  let pollId = 0;
 
-    const t = (performance.now() - start) / 1000;
+  function startLoop() {
+    if (rafRunning) return;
+    clock.getDelta();       // reset delta so first frame dt is small
+    renderer.setAnimationLoop(loop);
+    rafRunning = true;
+  }
+  function stopLoop() {
+    if (!rafRunning) return;
+    renderer.setAnimationLoop(null);
+    rafRunning = false;
+  }
+  function startPollingForResume() {
+    if (pollId) return;
+    pollId = setInterval(() => {
+      if (!pausedRef || !pausedRef()) {
+        clearInterval(pollId);
+        pollId = 0;
+        startLoop();
+      }
+    }, 100); // 10 Hz
+  }
+
+  function loop() {
+    if (pausedRef && pausedRef()) {
+      stopLoop();           // stop RAF entirely
+      startPollingForResume();
+      return;
+    }
+
+    const dt = clock.getDelta();
+    elapsed += dt;
+    const t = elapsed;
+
     const w = renderer.domElement.width, h = renderer.domElement.height;
 
     // Planet size: pixels → world units for correct perspective scaling
@@ -431,9 +458,10 @@ export async function run(canvas, { pausedRef }) {
     ringMat.uniforms.uViewR.value.set(Vr.x, Vr.y, Vr.z);
 
     renderer.render(scene, camera);
-    renderer.setAnimationLoop(tick);
   }
-  renderer.setAnimationLoop(tick);
+
+  // kick off
+  startLoop();
 
   // ---------------- Helpers ----------------
   function hookControls(){
