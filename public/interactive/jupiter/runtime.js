@@ -127,7 +127,7 @@ export async function run(canvas, { pausedRef, options = {} } = {}) {
   const sun = new THREE.DirectionalLight(0xffffff, 2.0);
   sun.position.set(5, 2, 3).normalize();
   scene.add(sun);
-  scene.add(new THREE.AmbientLight(0xffffff, 0.03));
+  scene.add(new THREE.AmbientLight(0xffffff, 0.12));
   const syncLightUniforms = () => {
     const dir = sun.position.clone().normalize();
     atmosMat.uniforms.uLightDir.value.copy(dir);
