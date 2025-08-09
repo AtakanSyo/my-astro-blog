@@ -116,7 +116,7 @@ export default function SearchPosts({ posts = [], limit = 50 }) {
                 {/* Footer: badges (left) + CTA (right) */}
                 <div className={`post-card-footer ${(isP5 || isReview || isInfo) ? 'has-badge' : ''}`}>
                   <div className="post-card-badges">
-                    {isP5 && <span className="p5-badge">p5.js</span>}
+                    {isP5 && <span className="p5-badge">simulation</span>}
                     {isReview && <span className="review-badge">Review</span>}
                     {isInfo && <span className="info-badge">Info</span>}
                   </div>

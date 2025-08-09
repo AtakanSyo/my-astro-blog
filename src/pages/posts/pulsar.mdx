@@ -1,10 +1,10 @@
 ---
 layout: ../../layouts/p5Layout.astro
-title: Pulsar (GPU Hybrid)
+title: "Pulsar"
 category: p5sim
 writer: Astrosyo
 pubDate: '2025-08-08'
-description: A nebula that expands from a single point to a filamented shell in ~30 seconds. Defaults to WebGL2 (Three.js) with optional WebGPU for high-end browsers.
+description: "A lightweight, GPU-hybrid nebula simulation that expands from a single ignition to a thin, filamented shell in ~30 seconds. WebGL2 by default with optional WebGPU for high-end browsers."
 slug: pulsar
 imageDir: /images/pulsar
 keywords:
@@ -18,6 +18,7 @@ keywords:
 ---
 
 import SimCanvas from "../../components/SimCanvas.astro";
+import SimPostSchema from "../../components/SimPostSchema.astro";
 
 <div class="p5-container centered_flex">
   <p class="Tool-Explanation">
@@ -26,36 +27,89 @@ import SimCanvas from "../../components/SimCanvas.astro";
     If your browser supports <strong>WebGPU</strong>, you can opt in for extra headroom and stability with <code>?gpu=1</code> on the URL.
   </p>
 
-  <div class="upper-div">
-    <form class="sim-controls" onsubmit="return false" aria-label="Simulation controls">
-      <fieldset class="controls-group">
-        <legend>Controls</legend>
-        <button id="js-neb-pause" class="pill" type="button" aria-pressed="false">Pause</button>
-      </fieldset>
-      <noscript><p>This simulation requires JavaScript.</p></noscript>
-    </form>
+  <div class="sim-stage" aria-label="Nebula simulation canvas" id="simulation">
+    <SimCanvas slug="pulsar" />
   </div>
 
   <figcaption class="sim-caption">
-    <span>Timeline: autoplay 0 → 30 s (point → shell)</span>
-    <span>Renderer: WebGL2 default; add <code>?gpu=1</code> for WebGPU</span>
+    <span>Renderer: WebGL2 default.</span>
   </figcaption>
 
-  <div class="sim-stage" aria-label="Nebula simulation canvas">
-    <SimCanvas slug="pulsar" />
-  </div>
 </div>
 
 <div class="p5-article">
-  <h2>Under the hood</h2>
+  <h2 id="about-this-page">About this page</h2>
   <p>
-    The WebGL2 path renders tens of thousands of particles as <em>instanced sprites</em> with additive blending and depth disabled—so no “TV static” at the rim.
-    On WebGPU, the particle positions update in a <em>compute pass</em> and render in one instanced draw, keeping CPU overhead near zero.
+    Above is a <strong>GPU-accelerated nebula simulation</strong>. Below is a short guide explaining what you’re seeing, how the effect is produced, and how to run it smoothly on your device. 
+    The goal is to connect <em>visual intuition</em> with a few practical rendering notes.
   </p>
 
-  <h3>Compatibility</h3>
+  <h3 id="what-youre-seeing">What you’re seeing</h3>
+  <ul>
+    <li><strong>Ignition → shell:</strong> A central seed expands into a thin, bright rim.</li>
+    <li><strong>Filamentation:</strong> Noise-driven advection and instanced particles evoke tangled, radially stretched strands.</li>
+    <li><strong>Additive glow:</strong> Depth writes are disabled so the rim stays smooth without speckle.</li>
+  </ul>
+
+  <h2 id="tech-notes">Tech notes (GPU-hybrid)</h2>
   <p>
-    Works on Chrome, Edge, Firefox (WebGL2). WebGPU is available on modern Chrome/Edge and recent Safari; otherwise the page stays on WebGL2.
-    You can force WebGPU (when supported) by appending <code>?gpu=1</code> to the URL.
+    On <strong>WebGL2</strong>, tens of thousands of particles render as <em>instanced billboards</em> with additive blending in a single draw call.
+    When <strong>WebGPU</strong> is enabled with <code>?gpu=1</code>, particle updates happen in a <em>compute pass</em> and render in one instanced draw, minimizing CPU overhead and improving stability on fast devices.
+  </p>
+
+  <h3 id="compatibility">Compatibility</h3>
+  <p>
+    Works on Chrome, Edge, and Firefox via WebGL2. WebGPU is available on modern Chrome/Edge and recent Safari; otherwise the page stays on WebGL2.
+  </p>
+
+  <h2 id="faq">FAQ</h2>
+  <details>
+    <summary>Why does the rim look brightest?</summary>
+    <p>High apparent density and additive blending concentrate light at the expanding front, creating a glowing edge.</p>
+  </details>
+  <details>
+    <summary>Is this physically exact?</summary>
+    <p>No—this is a stylized visualization focused on motion and texture rather than a full physical simulation.</p>
+  </details>
+
+  <h2 id="credits">Credits</h2>
+  <p>
+    Inspired by particle-based nebula visualizations and GPGPU techniques in modern real-time graphics.
   </p>
 </div>
+
+<SimPostSchema
+  title="Pulsar — GPU-Hybrid Nebula Simulation & Guide"
+  description="A lightweight, GPU-hybrid nebula simulation that expands from a single ignition to a thin, filamented shell in ~30 seconds. WebGL2 by default with optional WebGPU for high-end browsers."
+  url="https://example.com/posts/pulsar"
+  datePublished="2025-08-08"
+  dateModified="2025-08-08"
+  authorName="Astrosyo"
+  keywords={[
+    "nebula",
+    "webgl2",
+    "webgpu",
+    "three.js",
+    "compute shader",
+    "gpgpu",
+    "astronomy visualization"
+  ]}
+  image="/images/pulsar/cover.webp"
+  articleSection="Astronomy"
+  isAccessibleForFree={true}
+  sameAs={[
+    "https://twitter.com/your-handle",
+    "https://github.com/your-handle"
+  ]}
+  publisherName="Your Site Name"
+  publisherLogo="/images/shared/logo.webp"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Pulsar Nebula Simulation",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires WebGL2; optional WebGPU",
+    "url": "https://example.com/posts/pulsar#simulation",
+    "description": "Interactive nebula visualization with instanced particles and optional WebGPU compute updates."
+  }}
+/>

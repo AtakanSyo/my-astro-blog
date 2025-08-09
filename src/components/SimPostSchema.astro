@@ -1,0 +1,66 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  url: string;                    // canonical URL of the post
+  datePublished: string;          // 'YYYY-MM-DD'
+  dateModified?: string;          // 'YYYY-MM-DD' (defaults to datePublished)
+  authorName: string;             // display name for author
+  keywords?: string[] | string;
+  image?: string | string[];      // cover or an array of images
+  articleSection?: string;        // e.g., "Astronomy", "Simulation", etc.
+  type?: string[];                // e.g., ["TechArticle","BlogPosting"]
+  isAccessibleForFree?: boolean;
+  sameAs?: string[];              // social/profile URLs for author or site
+  publisherName?: string;         // optional organization/publisher
+  publisherLogo?: string;         // absolute or site-root path to logo
+}
+
+const {
+  title,
+  description,
+  url,
+  datePublished,
+  dateModified = datePublished,
+  authorName,
+  keywords,
+  image = [],
+  articleSection = "Simulation",
+  type = ["TechArticle", "BlogPosting"],
+  isAccessibleForFree = true,
+  sameAs = [],
+  publisherName,
+  publisherLogo
+} = Astro.props;
+
+const images = Array.isArray(image) ? image : [image].filter(Boolean);
+const kw = Array.isArray(keywords) ? keywords.join(", ") : (keywords ?? "");
+
+// Build schema and strip undefined fields
+const schema: Record<string, any> = {
+  "@context": "https://schema.org",
+  "@type": type,
+  "headline": title,
+  "description": description,
+  "mainEntityOfPage": { "@type": "WebPage", "@id": url },
+  "datePublished": datePublished,
+  "dateModified": dateModified,
+  "author": { "@type": "Person", "name": authorName, ...(sameAs.length ? { sameAs } : {}) },
+  ...(images.length ? { image: images } : {}),
+  ...(kw ? { keywords: kw } : {}),
+  "articleSection": articleSection,
+  "isAccessibleForFree": String(isAccessibleForFree)
+};
+
+if (publisherName) {
+  schema.publisher = {
+    "@type": "Organization",
+    "name": publisherName,
+    ...(publisherLogo ? { "logo": { "@type": "ImageObject", "url": publisherLogo } } : {})
+  };
+}
+---
+
+<script type="application/ld+json">
+  {JSON.stringify(schema)}
+</script>
