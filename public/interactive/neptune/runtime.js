@@ -14,8 +14,8 @@ export async function run(canvas, { pausedRef, options = {} } = {}) {
   const STAR_RADIUS      = options.starRadius ?? 200;
   const ATMOS_INTENSITY  = options.atmosIntensity ?? 0.2; // 🌌 Lower = fainter glow
 
-  const TEX_NEPTUNE = options.neptuneTexture ?? '/public/interactive/neptune/neptune_texture.jpg';
-  const TEX_STARS   = options.starsTexture   ?? '/public/interactive/neptune/stars_texture.jpg';
+  const TEX_NEPTUNE = options.neptuneTexture ?? '/interactive/neptune/neptune_texture.jpg';
+  const TEX_STARS   = options.starsTexture   ?? '/interactive/neptune/stars_texture.jpg';
 
   // ---------------- Scene / Camera / Renderer ----------------
   const scene = new THREE.Scene();
