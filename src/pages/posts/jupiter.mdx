@@ -8,26 +8,30 @@ description: "A lightweight, GPU-hybrid Jupiter visualization rendered in WebGL2
 slug: jupiter
 imageDir: /images/jupiter
 keywords:
+ - jupiter simulation
+youtube: https://www.youtube.com/watch?v=D7Mu2K3e6cQ
 ---
 
 import SimCanvas from "../../components/SimCanvas.astro";
+import YouTubeButton from "../../components/YouTubeButton.astro";
 import SimPostSchema from "../../components/SimPostSchema.astro";
 
-<div class="sim-container centered_flex">
+<div class="">
   <p class="Tool-Explanation">
     This simulation renders a shader-lit model of <strong>Jupiter</strong> with banded clouds, subtle limb darkening, and a faint starfield background.
     By default it runs on <strong>WebGL2 (Three.js)</strong> for broad compatibility. If your browser supports <strong>WebGPU</strong>, 
     you can enable it by adding <code>?gpu=1</code> to the URL for potentially smoother performance.
   </p>
 
-  <div class="sim-stage" aria-label="Jupiter simulation canvas" id="simulation">
-    <SimCanvas slug="jupiter" />
+  <div class="sim-stage is-visible" aria-label="Jupiter simulation canvas" id="simulation">
+    <SimCanvas slug="jupiter"/>
   </div>
 
   <figcaption class="sim-caption">
     Renderer: WebGL2 by default. Falls back automatically if WebGPU is not available.
   </figcaption>
-</div>
+    <YouTubeButton href={frontmatter.youtube} />
+  </div>
 
 <div class="sim-article">
   <h2 id="about-this-page">About this page</h2>
