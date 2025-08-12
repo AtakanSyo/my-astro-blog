@@ -3,7 +3,7 @@ export default async function init(canvas, pauseBtn, opts = {}) {
   if (!canvas) return;
 
   // ---- Pause toggle ----
-  let paused = false;
+  let paused = true;
   if (pauseBtn) {
     pauseBtn.addEventListener('click', () => {
       paused = !paused;
