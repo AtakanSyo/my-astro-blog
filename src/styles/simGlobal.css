@@ -15,6 +15,7 @@
 
 .sim-article {
   max-width: 800px;
+  margin-bottom: 2rem;
 }
 
 .sim-article p, h1, h2, h3, h4, h5 {
