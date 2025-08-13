@@ -17,7 +17,7 @@ p {
 /* Highlighted callout paragraphs */
 .highlight {
   background: rgba(255,255,255,0.06);
-  border-left: 4px solid #a9b4ff;
+  border-left: 4px solid #f59e0c;
   padding: 0.75rem 1rem;
   margin: 1.5rem 0;
   width: 100%;
@@ -68,7 +68,6 @@ p {
 .info-tags h3 {
   font-size: 1.25rem;
   margin-bottom: 0.75rem;
-  color: var(--accent);
   font-weight: 700;
   letter-spacing: .2px;
   position: relative;
@@ -80,7 +79,7 @@ p {
   height: 2px;
   width: 72px;
   margin-top: .45rem;
-  background: linear-gradient(90deg, var(--accent), transparent);
+  background: linear-gradient(90deg, #f59e0c, transparent);
   opacity: .8;
 }
 
@@ -111,7 +110,7 @@ p {
   width: .4rem;
   height: .4rem;
   border-radius: 50%;
-  background: var(--accent);
+  background: #f59e0c;
   box-shadow: 0 0 10px rgba(169,180,255,.6);
   margin-right: .5rem;
   display: inline-block;
@@ -354,7 +353,6 @@ figcaption {
 
 .affiliates h3 {
   font-size: 1.5rem;
-  color: #a9b4ff;
   margin-bottom: 1rem;
 }
 
@@ -388,15 +386,15 @@ figcaption {
   font-weight: 600;
   font-size: 1rem;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(169,180,255,0.5);
+  box-shadow: 0 2px 6px rgba(245, 158, 12, 0.5);
   transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
   max-width: 400px;
 }
 
 .affiliate-link:hover {
-  background-color: #c0c8ff;
+  background-color: #ffb833; /* warm golden hover */
   transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(169,180,255,0.25);
+  box-shadow: 0 6px 12px rgba(245, 158, 12, 0.35);
 }
 
 .affiliate-link:active {
