@@ -15,19 +15,13 @@ import SimCanvas from "../../components/SimCanvas.astro";
 import SimPostSchema from "../../components/SimPostSchema.astro";
 
 <div class="sim-container centered_flex">
-  <p class="Tool-Explanation">
-    Experience <strong>Saturn’s rings</strong> in motion. The canvas below runs a lightweight, GPU-accelerated visualization designed to evoke the <em>thin, filamented</em> structure of a ring system. It’s a <strong>no-controls, autoplay</strong> experience that runs smoothly on most devices.
-    <br /><br />
-    By default, it uses <strong>WebGL2 (Three.js)</strong> for the broadest compatibility. If your browser supports <strong>WebGPU</strong>, add <code>?gpu=1</code> to the URL for extra performance headroom.
-  </p>
+  <p class="Tool-Explanation">Experience <strong>Saturn’s rings</strong> in motion. The canvas below runs a lightweight, GPU-accelerated visualization designed to evoke the <em>thin, filamented</em> structure of a ring system. It’s a <strong>no-controls, autoplay</strong> experience that runs smoothly on most devices.</p>
 
   <div class="sim-stage" aria-label="Saturn ring simulation canvas">
     <SimCanvas slug="saturns-rings" />
   </div>
 
-  <figcaption class="sim-caption">
-    <span>Renderer: WebGL2 by default.</span>
-  </figcaption>
+  <figcaption class="sim-caption"></figcaption>
 </div>
 
 <div class="sim-article">
