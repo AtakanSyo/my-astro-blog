@@ -14,17 +14,13 @@ import SimCanvas from "../../components/SimCanvas.astro";
 import SimPostSchema from "../../components/SimPostSchema.astro";
 
 <div class="sim-container centered_flex">
-  <p class="Tool-Explanation">
-    This simulation shows a <strong>nebula shell</strong> expanding from a tiny ignition to a thin, filamented rim—start to finish in about thirty seconds with no input required. It uses a <em>GPU-hybrid</em> approach: by default it runs on <strong>WebGL2 (Three.js, instanced sprites)</strong> for maximum browser compatibility. If your browser supports <strong>WebGPU</strong>, you can opt in for extra performance and stability by adding <code>?gpu=1</code> to the URL.
-  </p>
+  <p class="Tool-Explanation"></p>
 
   <div class="sim-stage" aria-label="Nebula simulation canvas" id="simulation">
     <SimCanvas slug="pulsar" />
   </div>
 
-  <figcaption class="sim-caption">
-    <span>Renderer: WebGL2 default.</span>
-  </figcaption>
+  <figcaption class="sim-caption"></figcaption>
 </div>
 
 <div class="sim-article">

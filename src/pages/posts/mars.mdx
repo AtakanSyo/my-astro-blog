@@ -14,19 +14,13 @@ import SimCanvas from "../../components/SimCanvas.astro";
 import SimPostSchema from "../../components/SimPostSchema.astro";
 
 <div class="sim-container centered_flex">
-  <p class="Tool-Explanation">
-    This simulation renders a shader-lit model of <strong>Mars</strong> with reddish surface tones, subtle shading for craters and albedo variations, and a faint starfield background.
-    By default it runs on <strong>WebGL2 (Three.js)</strong> for broad compatibility. If your browser supports <strong>WebGPU</strong>, 
-    you can enable it by adding <code>?gpu=1</code> to the URL for potentially smoother performance.
-  </p>
+  <p class="Tool-Explanation"></p>
 
   <div class="sim-stage" aria-label="Mars simulation canvas" id="simulation">
     <SimCanvas slug="mars" />
   </div>
 
-  <figcaption class="sim-caption">
-    Renderer: WebGL2 by default. Falls back automatically if WebGPU is not available.
-  </figcaption>
+  <figcaption class="sim-caption"></figcaption>
 </div>
 
 <div class="sim-article">
