@@ -48,18 +48,6 @@ p {
   border-left: 3px solid #8ab4ff;
 }
 
-.rating {
-  width: 8rem;
-  height: 8rem;
-  border-radius: 100%;
-  font-weight: bold;
-  font-style: italic;
-  font-size: 2rem;
-  border-style: solid;
-  color: #e4e4e4;
-  border-color: #a9b4ff;
-}
-
 .writer {
   font-style: italic;
   text-align: center;
@@ -167,6 +155,11 @@ p {
   flex-wrap: wrap;
   gap: 1rem;
 }
+
+/* ===============================
+   MAIN RATING CARD (hero version)
+   =============================== */
+
 
 .rating-card {
   position: relative;

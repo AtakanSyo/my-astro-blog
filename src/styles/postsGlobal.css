@@ -1,23 +1,31 @@
-/* Style all links that point to your internal posts */
+/* ===============================
+   INTERNAL POST LINKS
+   =============================== */
 .post a[href^="/posts/"] {
-  /* Base text color (fallback if --accent-color isn’t set) */
-  color: #5d62d2;
+  color: var(--accent, #a9b4ff); /* match accent tone */
   position: relative;
   text-decoration: none;
-  /* Underline effect via background gradient */
-  background-image: linear-gradient(currentColor, currentColor);
+  font-weight: 500;
+  letter-spacing: 0.2px;
+
+  /* Subtle gradient underline */
+  background-image: linear-gradient(
+    to right,
+    var(--accent, #a9b4ff),
+    var(--accent-2, #c0c8ff)
+  );
   background-repeat: no-repeat;
-  background-size: 0% 2px;       /* start hidden */
-  background-position: 0 100%;   /* flush at text bottom */
-  transition: background-size 0.25s ease-in-out;
+  background-size: 0% 2px;
+  background-position: 0 100%;
+  transition: background-size 0.25s ease-in-out, color 0.25s ease-in-out;
 }
 
-/* On hover, reveal the underline */
 .post a[href^="/posts/"]:hover {
   background-size: 100% 2px;
+  color: var(--accent-2, #c0c8ff);
 }
 
-/* Add a small “↗” arrow after the link text */
+/* Decorative arrow */
 .post a[href^="/posts/"]::after {
   content: ' ↗';
   font-size: 0.75em;
@@ -25,58 +33,195 @@
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-/* Animate the arrow on hover */
 .post a[href^="/posts/"]:hover::after {
   transform: translateX(2px);
   opacity: 1;
 }
 
-.social-share-container {
-  position: relative;
-  display: inline-block;
-}
+
+/* ===============================
+   SOCIAL SHARE — modern, on-brand
+   =============================== */
 .social-share {
+  /* local tokens so we don't touch :root */
+  --accent: #a9b4ff;
+  --accent-2: #c0c8ff;
+  --text: #e4e4e4;
+  --card: #1b1d22;
+  --card-2: #17191e;
+  --line: rgba(255,255,255,0.08);
+  --shadow: 0 10px 30px rgba(0,0,0,0.35);
+
   display: flex;
-  gap: 0.5rem;
-  margin: 1rem 0;
+  gap: 0.7rem;
+  margin-bottom: 2rem;
 }
+
 .social-share a,
 .social-share button {
-  width: 32px;
-  height: 32px;
+  /* size */
+  --size: 40px;
+  width: var(--size);
+  height: var(--size);
+
+  /* layout */
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  background: white;
-
-  border-radius: 50%;
-  border-style: none;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
-  
+  border-radius: 999px;
+  position: relative;
+  isolation: isolate;
   cursor: pointer;
+
+  /* “glass” pill + subtle depth */
+  background: linear-gradient(180deg, var(--card), var(--card-2));
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.04);
+  color: var(--text);
+  text-decoration: none;
+
+  /* crisp motion */
+  transition:
+    transform .18s ease,
+    box-shadow .18s ease,
+    background .18s ease,
+    color .18s ease;
 }
+
+/* Gradient ring (thin, colorful) */
+.social-share a::before,
+.social-share button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px; /* thin outline */
+  background: linear-gradient(135deg, #ff7e5f, #5d62d2, #00c9ff);
+  background-size: 200% 200%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+  transition: opacity .18s ease, transform .18s ease, background-position .6s ease;
+  opacity: 0.75;
+}
+
+/* Inner sheen */
+.social-share a::after,
+.social-share button::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border-radius: inherit;
+  background: radial-gradient(120% 120% at 30% 20%, rgba(255,255,255,0.06), transparent 60%);
+  pointer-events: none;
+  transition: opacity .18s ease;
+  opacity: .7;
+}
+
+/* Hover: lift + glow */
 .social-share a:hover,
 .social-share button:hover {
-  background: #e0e0e0;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(169,180,255,0.16), inset 0 1px 0 rgba(255,255,255,0.06);
 }
-.copy-toast {
 
-  position: absolute;
+.social-share a:hover::before,
+.social-share button:hover::before {
+  background-position: 100% 0%;
+  opacity: 1;
+}
 
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
-  
-  padding: 0.25rem 0.75rem;
-  border-radius: 4px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
+.social-share a:hover::after,
+.social-share button:hover::after {
+  opacity: 1;
+}
 
-  font-size: 0.875rem;
+/* Active press */
+.social-share a:active,
+.social-share button:active {
   transform: translateY(0);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+/* Accessible focus */
+.social-share a:focus-visible,
+.social-share button:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(169,180,255,0.28),
+    0 12px 28px rgba(169,180,255,0.16),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+/* Icon sizing (SVG or font icons) */
+.social-share svg {
+  width: 58%;
+  height: 58%;
+  fill: currentColor;
+  transition: transform .18s ease, opacity .18s ease;
+}
+
+.social-share a:hover svg,
+.social-share button:hover svg {
+  transform: scale(1.04);
+  opacity: 0.95;
+}
+
+/* Optional brand tints on hover (kept subtle for your theme) */
+.social-share .x:hover    { color: #cfd3db; }
+.social-share .reddit:hover { color: #ff9066; }
+.social-share .linkedin:hover { color: #a9c6ff; }
+
+/* Compact variant (if needed) */
+.social-share--sm a,
+.social-share--sm button { --size: 34px; }
+
+/* Copy toast — keep your previous classnames, restyled */
+.copy-toast {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translate(-50%, -4px);
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  font-size: 0.84rem;
+  color: var(--text);
+  background: rgba(169,180,255,0.10);
+  border: 1px solid rgba(169,180,255,0.28);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .22s ease, transform .22s ease;
   z-index: 999;
 }
-.visible {
+.copy-toast.visible {
   opacity: 1 !important;
+  transform: translate(-50%, -8px);
+}
+
+/* Motion sensitivity */
+@media (prefers-reduced-motion: reduce) {
+  .social-share a,
+  .social-share button,
+  .social-share a::before,
+  .social-share button::before,
+  .social-share svg {
+    transition: none;
+  }
+}
+
+.share-header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.3rem; /* very close to SocialShare */
+  margin-top: 2rem;
+}
+
+.share-label {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--muted, #aab1bd);
+  opacity: 0.85;
+  line-height: 1.2;
 }
