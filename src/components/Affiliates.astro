@@ -1,7 +1,5 @@
 ---
 // src/components/Affiliates.astro
-// Expects to receive an `affiliate` object via props,
-// with optional urls: amazon, highpointscientific, astroshop, etc.
 import { Icon } from 'astro-icon/components';
 
 export interface Props {
@@ -13,34 +11,41 @@ export interface Props {
   };
 }
 const { affiliate } = Astro.props as Props;
+
+const hasAffiliate =
+  affiliate.amazon ||
+  affiliate.highpointscientific ||
+  affiliate.astroshop;
 ---
 
-<section class="affiliates centered_flex">
-  <h3 class="affiliates-header">Choose a vendor</h3>
-  <ul>
-    {affiliate.amazon && (
-      <li>
-        <a class="affiliate-link" href={affiliate.amazon} target="_blank" rel="noopener noreferrer">
-          Buy on Amazon
-        </a>
-        <p class="affiliate-caption">Recommended for lower priced general purchases.</p>
-      </li>
-    )}
-    {affiliate.highpointscientific && (
-      <li>
-        <a class="affiliate-link" href={affiliate.highpointscientific} target="_blank" rel="noopener noreferrer">
-          Buy at Highpoint Scientific
-        </a>
-        <p class="affiliate-caption">Recommended for all purchases.</p>
-      </li>
-    )}
-    {affiliate.astroshop && (
-      <li>
-        <a class="affiliate-link" href={affiliate.astroshop} target="_blank" rel="noopener noreferrer">
-          Buy at AstroShop
-        </a>
-        <p class="affiliate-caption">Recommended for European buyers.</p>
-      </li>
-    )}
-  </ul>
-</section>
+{hasAffiliate && (
+  <section class="affiliates centered_flex">
+    <h3 class="affiliates-header">Choose a vendor</h3>
+    <ul>
+      {affiliate.amazon && (
+        <li>
+          <a class="affiliate-link" href={affiliate.amazon} target="_blank" rel="noopener noreferrer">
+            Buy on Amazon
+          </a>
+          <p class="affiliate-caption">Recommended for lower priced general purchases.</p>
+        </li>
+      )}
+      {affiliate.highpointscientific && (
+        <li>
+          <a class="affiliate-link" href={affiliate.highpointscientific} target="_blank" rel="noopener noreferrer">
+            Buy at Highpoint Scientific
+          </a>
+          <p class="affiliate-caption">Recommended for all purchases.</p>
+        </li>
+      )}
+      {affiliate.astroshop && (
+        <li>
+          <a class="affiliate-link" href={affiliate.astroshop} target="_blank" rel="noopener noreferrer">
+            Buy at AstroShop
+          </a>
+          <p class="affiliate-caption">Recommended for European buyers.</p>
+        </li>
+      )}
+    </ul>
+  </section>
+)}
