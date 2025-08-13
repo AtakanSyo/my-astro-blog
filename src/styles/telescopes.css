@@ -28,9 +28,9 @@
 
 .toggle-buttons button:hover,
 .toggle-buttons button.active {
-  background: #a9b4ff;
+  background: #f59e0c;
   color: #0e0e0e;
-  border-color: #a9b4ff;
+  border-color: #f59e0c;
 }
 
 /*─────────────────────────────────────────────────
@@ -46,102 +46,6 @@
   color: #aaa; /* muted on dark */
 }
 
-/*─────────────────────────────────────────────────
-  Grid & Cards
-─────────────────────────────────────────────────*/
-.telescopes-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.5rem;
-}
-
-.telescopes-card {
-  display: flex;
-  flex-direction: column;
-  background: #1f1f1f;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
-  overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  cursor: pointer;
-  color: #e4e4e4;
-}
-
-.telescopes-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.6);
-}
-
-/*─────────────────────────────────────────────────
-  Link & Content Inside Card
-─────────────────────────────────────────────────*/
-.telescopes-link {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  padding: 1rem;
-  position: relative;
-  text-decoration: none;
-  color: inherit;
-}
-
-.telescopes-link::after {
-  content: '→';
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  font-size: 1.2rem;
-  color: #999;
-  opacity: 0;
-  transition: opacity 0.2s, color 0.2s;
-}
-
-.telescopes-card:hover .telescopes-link::after {
-  opacity: 1;
-  color: #a9b4ff;
-}
-
-/*─────────────────────────────────────────────────
-  Titles, Ratings & Descriptions
-─────────────────────────────────────────────────*/
-.telescopes-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: 0.25rem;
-  color: #fff;
-}
-
-.telescopes-rating {
-  display: inline-block;
-  background: #000;
-  color: #fff;
-  font-weight: 700;
-  font-size: 0.95rem;
-  padding: 0.25rem 0.6rem;
-  border-radius: 0.25rem;
-  margin-bottom: 0.75rem;
-  align-self: flex-start;
-}
-
-.telescopes-desc {
-  font-size: 0.95rem;
-  line-height: 1.4;
-  color: #aaa;
-}
-
-.read-review {
-  margin-top: auto;
-  font-size: 0.9rem;
-  font-weight: 600;
-  text-align: right;
-  color: #a9b4ff;
-  opacity: 0.65;
-  transition: opacity 0.2s;
-}
-
-.telescopes-card:hover .read-review {
-  opacity: 1;
-}
 
 /*─────────────────────────────────────────────────
   Affiliate Buttons
@@ -157,18 +61,33 @@
   flex: 1;
   text-align: center;
   padding: 0.5rem;
-  background: #a9b4ff;
-  border: 1px solid #a9b4ff;
-  border-radius: 4px;
+  background: #1f1f1f;
+  border: 1px solid #f59e0c; /* subtle accent color border from the start */
+  border-radius: 6px;
   font-size: 0.875rem;
-  color: #0e0e0e;
+  color: #e6e7ff; /* soft light accent tone for text */
+  font-weight: 600;
   text-decoration: none;
-  transition: background 0.2s, transform 0.1s;
+  box-shadow: 0 0 4px rgba(93, 98, 210, 0.25); /* faint always-on glow */
+  transition:
+    background-color 0.2s ease,
+    transform 0.1s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
 }
 
 .affiliate-btn:hover {
-  background: #c0c8ff;
+  background-color: #2d2d2d;
+  border-color: #f59e0c; /* slightly brighter accent */
+  color: #ffffff;
+  box-shadow: 0 0 8px rgba(93, 98, 210, 0.4);
   transform: translateY(-1px);
+}
+
+.affiliate-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 0 4px rgba(93, 98, 210, 0.3);
 }
 
 /*─────────────────────────────────────────────────
@@ -180,4 +99,43 @@
   font-weight: 500;
   margin-bottom: 1rem;
   color: #e4e4e4;
+}
+
+/* Reuse your .post-card styles as-is. Just add this: */
+
+.score-badge {
+  position: relative;
+  display: inline-block;
+  background: #000;        /* inner bg like your dark theme */
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 0.35rem;
+
+  /* gradient outline (same technique as .rating-card/.telescopes-rating) */
+  border: 1px solid transparent;
+  background-clip: padding-box;
+}
+
+.score-badge::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, #ff7e5f, #5d62d2, #00c9ff);
+  background-size: 200% 200%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Optional: align affiliate row with card spacing */
+.post-card + .affiliate-links {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
 }
