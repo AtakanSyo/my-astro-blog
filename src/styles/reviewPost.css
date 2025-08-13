@@ -64,37 +64,6 @@ p {
   text-align: center;
 }
 
-/* pros/cons container */
-.pros-cons-box {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  margin: 2rem 0;
-}
-
-/* each column */
-.pros-cons-box > div {
-  flex: 1 1 200px;
-  background: rgba(59, 58, 187, 0.1); /* light nebula-indigo tint */
-  border-left: 4px solid #3f3cbb;     /* nebula-indigo */
-  padding: 1rem;
-  border-radius: 0.25rem;
-}
-
-/* headings inside */
-.pros-cons-box h3 {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-  color: #3f3cbb;
-}
-
-/* list items */
-.pros-cons-box ul {
-  list-style: disc inside;
-  margin: 0;
-  padding: 0;
-}
-
 .info-tags {
   margin: 1.5em 0;
   max-width: 800px;
