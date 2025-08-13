@@ -1,6 +1,7 @@
 /* src/styles/post.css */
 p {
   max-width: 800px;
+  color: #e4e4e4;
 }
 
 /* Left‐align all headings inside .post */
@@ -8,10 +9,9 @@ p {
 .post h4,
 .post h5 {
   align-self: flex-start;
-  /* If you have text‐align rules, ensure they read left: */
   text-align: left;
+  color: #ffffff;
 }
-
 
 /* Center any content that uses .centered_flex */
 .centered_flex {
@@ -22,88 +22,143 @@ p {
 }
 
 .post-starter-image {
-
-    height: auto;
-    margin: 1rem 0;
-    border-radius: 8px;
-    max-height: 40vh;
-    max-width: 90vw;
+  height: auto;
+  margin: 1rem 0;
+  border-radius: 8px;
+  max-height: 40vh;
+  max-width: 90vw;
 }
 
 /* Highlighted callout paragraphs */
 .highlight {
-  background: rgba(232, 232, 232);
-  border-left: 4px solid black;
+  background: rgba(255,255,255,0.06);
+  border-left: 4px solid #a9b4ff;
   padding: 0.75rem 1rem;
   margin: 1.5rem 0;
   width: 100%;
+  color: #e4e4e4;
 }
-
 
 /* Tip-style italic notes */
 .tip {
   font-style: italic;
-  color: #3b82f6;
+  color: #8ab4ff;
   margin: 1rem 0;
   padding-left: 1rem;
-  border-left: 3px solid #3b82f6;
+  border-left: 3px solid #8ab4ff;
 }
 
 .rating {
-    width: 8rem;
-    height: 8rem;
-    border-radius: 100%;
-    font-weight: bold;
-    font-style: italic;
-    font-size: 2rem;
-    border-style: solid;
+  width: 8rem;
+  height: 8rem;
+  border-radius: 100%;
+  font-weight: bold;
+  font-style: italic;
+  font-size: 2rem;
+  border-style: solid;
+  color: #e4e4e4;
+  border-color: #a9b4ff;
 }
 
 .writer {
   font-style: italic;
   text-align: center;
+  color: #aaa;
 }
 
+/* ===============================
+   Shared local tokens (scoped)
+   =============================== */
+.info-tags,
+.ratings,
+.pros-cons {
+  --accent: #a9b4ff;
+  --accent-2: #c0c8ff;
+  --text: #e4e4e4;
+  --muted: #aab1bd;
+  --card: #1b1d22;
+  --card-2: #17191e;
+  --line: rgba(255,255,255,0.08);
+  --shadow: 0 10px 30px rgba(0,0,0,0.35);
+  --glow: 0 0 0 1px rgba(169,180,255,0.18), 0 0 24px rgba(169,180,255,0.12);
+}
+
+/* ===============================
+   INFO TAGS (chips)
+   =============================== */
 .info-tags {
   margin: 1.5em 0;
   max-width: 800px;
+  color: var(--text);
 }
 
 .info-tags h3 {
   font-size: 1.25rem;
   margin-bottom: 0.75rem;
-  color: var(--color-primary);
+  color: var(--accent);
+  font-weight: 700;
+  letter-spacing: .2px;
+  position: relative;
+}
+
+.info-tags h3::after {
+  content: "";
+  display: block;
+  height: 2px;
+  width: 72px;
+  margin-top: .45rem;
+  background: linear-gradient(90deg, var(--accent), transparent);
+  opacity: .8;
 }
 
 .info-tags ul {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  gap: .6rem .75rem;
   padding: 0;
   margin: 0;
   list-style: none;
 }
 
 .info-tags ul li {
-
-  border: 1px solid black;
-  padding: 0.5rem 1rem;
-  border-radius: 1.5rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  font-size: 0.95rem;
-  
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: linear-gradient(180deg, var(--card), var(--card-2));
+  color: var(--text);
+  border: 1px solid var(--line);
+  padding: .5rem 0.95rem;
+  border-radius: 999px;
+  box-shadow: var(--shadow), inset 0 1px 0 rgba(255,255,255,0.04);
+  font-size: .94rem;
+  letter-spacing: .1px;
+  position: relative;
+  isolation: isolate;
 }
 
+.info-tags ul li::before {
+  content: "";
+  width: .4rem;
+  height: .4rem;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px rgba(169,180,255,.6);
+  margin-right: .5rem;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* ===============================
+   RATINGS (cards + static ring)
+   =============================== */
 .ratings {
   margin: 2em 0;
   text-align: center;
+  color: var(--text);
 }
 
 .ratings h3 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
-  color: black;
+  color: #fff;
+  letter-spacing: .2px;
 }
 
 .ratings-grid {
@@ -114,58 +169,119 @@ p {
 }
 
 .rating-card {
-  border: 1px solid black;
+  position: relative;
   border-radius: 0.75rem;
-  padding: 0.75rem 1.25rem;
+  padding: 0.9rem 1.2rem;
   width: 6.5rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: #1f1f1f; /* Inner background */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  /* Transparent border to reserve space */
+  border: 1px solid transparent;
+  background-clip: padding-box;
+}
+
+.rating-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px; /* Thinner gradient outline */
+  background: linear-gradient(135deg, #ff7e5f, #5d62d2, #00c9ff);
+  background-size: 200% 200%;
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  pointer-events: none;
 }
 
 .rating-card .category {
-  display: block;
-  font-size: 0.85rem;
-  margin-bottom: 0.25rem;
+  font-size: 0.82rem;
+  margin-bottom: 0.4rem;
+  color: #ccc;
+  text-align: center;
 }
 
 .rating-card .score {
-  font-size: 1.25rem;
-  font-weight: bold;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #ffffff;
 }
 
+/* ===============================
+   PROS & CONS (split cards)
+   =============================== */
 .pros-cons {
   display: flex;
   gap: 2rem;
   margin: 2em 0;
   flex-wrap: wrap;
   max-width: 800px;
+  color: var(--text);
 }
 
 .pros-cons > div {
   flex: 1;
   min-width: 200px;
-  border: 1px solid black;
-  border-radius: 0.75rem;
+  background: linear-gradient(180deg, var(--card), var(--card-2));
+  border: 1px solid var(--line);
+  border-radius: .75rem;
   padding: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.pros-cons > div::before {
+  content: "";
+  position: absolute;
+  inset: -30% -20% 50% auto;
+  background: radial-gradient(60% 120% at 60% 40%, rgba(169,180,255,0.14), transparent 70%);
+  transform: rotate(-8deg);
+  pointer-events: none;
 }
 
 .pros-cons h3 {
   font-size: 1.25rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: .75rem;
   text-align: center;
+  color: #ffffff;
+  letter-spacing: .2px;
 }
 
+/* Lists */
 .pros-cons ul {
-  list-style-type: disc;
-  padding-left: 1.25rem;
+  list-style: none;
+  padding-left: 0;
   margin: 0;
 }
 
 .pros-cons li {
-  margin: 0.5em 0;
+  margin: .5em 0;
   line-height: 1.4;
+  color: var(--text);
+  position: relative;
+  padding-left: 1.25rem;
 }
+
+/* Bullet dots */
+.pros-cons li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: .55em;
+  width: .5rem; height: .5rem;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 2px rgba(169,180,255,0.15);
+}
+
+.pros-cons .pros-block li::before { background: #3cd680; box-shadow: 0 0 0 2px rgba(60,214,128,0.18); }
+.pros-cons .cons-block li::before { background: #ff6b6b; box-shadow: 0 0 0 2px rgba(255,107,107,0.18); }
 
 /* Base class (shared styles) */
 .post-image {
@@ -173,6 +289,9 @@ p {
   height: auto;
   padding: 0.5rem;
   border-radius: 8px;
+  background: #1f1f1f;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
 }
 
 /* Size variants */
@@ -192,8 +311,8 @@ figcaption {
   font-style: italic;
   text-align: center;
   margin-top: 8px;
+  color: #aaa;
 }
-
 
 .includes {
   margin: 2em 0;
@@ -203,7 +322,7 @@ figcaption {
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 1rem;
-  color: #5e3e9b;
+  color: #a9b4ff;
   text-align: center;
 }
 
@@ -218,20 +337,20 @@ figcaption {
 }
 
 .includes ul li {
-  background-color: #f2ebfd;
-  border: 1px solid #d8ccef;
+  background-color: rgba(169,180,255,0.10);
+  border: 1px solid rgba(169,180,255,0.28);
   padding: 0.75rem 1.5rem;
   border-radius: 2rem;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
   font-size: 1rem;
-  color: #4a2c7a;
+  color: #e4e4e4;
   white-space: nowrap;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .includes ul li:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.5);
 }
 
 .affiliates {
@@ -244,26 +363,24 @@ figcaption {
 
 .affiliates h3 {
   font-size: 1.5rem;
-  color: var(--color-primary);
+  color: #a9b4ff;
   margin-bottom: 1rem;
 }
 
 .affiliates ul {
-  list-style: none;        /* no bullets */
+  list-style: none;
   margin: auto;
   padding: 0;
-  
   display: grid;
-  grid-template-columns: 1fr; /* mobile = single column */
+  grid-template-columns: 1fr;
   gap: 1.5rem;
 }
 
 @media (min-width: 768px) {
   .affiliates ul {
-    /* desktop = one equal-width column per item, all in a row */
     grid-auto-flow: column;
     grid-auto-columns: 1fr;
-    justify-content: center; /* center the row if there’s extra space */
+    justify-content: center;
   }
 }
 
@@ -272,47 +389,39 @@ figcaption {
   width: 100%;
   justify-content: center;
   align-items: center;
-  
-  /* prevent text wrapping so heights stay equal */
   white-space: nowrap;
-  
-  /* your styling */
   padding: 14px 28px;
-  background-color: #5d62d2;
-  color: #fff;
+  background-color: #a9b4ff;
+  color: #0e0e0e;
   text-decoration: none;
   font-weight: 600;
   font-size: 1rem;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(93,98,210,0.6);
+  box-shadow: 0 2px 6px rgba(169,180,255,0.5);
   transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
-
   max-width: 400px;
 }
 
-/* Hover effect - slightly darker & elevate */
 .affiliate-link:hover {
-  background-color: #5156c0;
+  background-color: #c0c8ff;
   transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(93, 98, 210, 0.25);
+  box-shadow: 0 6px 12px rgba(169,180,255,0.25);
 }
 
-/* Click effect - subtle push down */
 .affiliate-link:active {
   transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(93, 98, 210, 0.3);
+  box-shadow: 0 2px 4px rgba(169,180,255,0.3);
 }
 
-/* Focus state (accessibility) */
 .affiliate-link:focus-visible {
-  outline: 2px solid #5d62d2;
+  outline: 2px solid #a9b4ff;
   outline-offset: 2px;
 }
 
 .affiliate-caption {
   margin-top: 0.5rem;
   font-size: 0.7rem;
-  color: rgb(124,124,124);
+  color: #aaa;
   font-style: italic;
   text-align: center;
   line-height: 1.3;
@@ -324,18 +433,19 @@ figcaption {
 }
 
 .accessory-box {
-  background: #f7f9fb;
-  border-left: 4px solid black;
+  background: rgba(255,255,255,0.04);
+  border-left: 4px solid #a9b4ff;
   padding: 1rem 1.5rem;
   margin: 2rem 0;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  color: #e4e4e4;
 }
 
 .accessory-box h3 {
   margin-top: 0;
   font-size: 1.1rem;
-  color: #333;
+  color: #ffffff;
 }
 
 .accessory-box ul {
@@ -349,36 +459,34 @@ figcaption {
   margin: 0.5rem 0;
   position: relative;
   font-size: 0.95rem;
-  color: #333;
+  color: #e4e4e4;
 }
 
 .review-disclaimer {
-  background-color: #fff4d1;
+  background-color: rgba(255,196,87,0.12);
   border-left: 4px solid #ff9800;
   padding: 0.8rem 1rem;
   margin-bottom: 1.5rem;
   font-size: 0.95rem;
-  color: #4a3f2d;
+  color: #ffd580;
   border-radius: 4px;
 }
 
 .review-disclaimer strong {
-  color: #d35400;
+  color: #ffb74d;
 }
-
 
 .post .post-image {
   display: block;
-  width: 100%;          /* scale down to container width */
-  height: auto;         /* preserve aspect ratio */
+  width: 100%;
+  height: auto;
   border-radius: 12px;
-  background: #fff;
-  border: 1px solid rgba(15,23,42,0.06);
-  box-shadow: 0 6px 16px rgba(2,6,23,0.06);
+  background: #1f1f1f;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
   transition: transform .18s ease, box-shadow .18s ease;
   margin: 1rem;
   border-style: solid;
-  border-color: rgb(220,220,220);
+  border-color: rgba(255,255,255,0.08);
   border-width: 1px;
 }
-

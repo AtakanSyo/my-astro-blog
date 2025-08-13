@@ -1,4 +1,4 @@
-/* src/styles/search.css */
+/* src/styles/search.css - Dark Mode */
 
 .search-container {
   max-width: 800px;
@@ -21,10 +21,11 @@
   width: 100%;
   padding: 0.75rem 2.5rem 0.75rem 0.75rem;
   font-size: 1rem;
-  border: 1px solid #ddd;
+  border: 1px solid #333;
   border-radius: 6px;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  /* remove ugly default outline */
+  background: #1a1a1a; /* slightly lighter than page bg for contrast */
+  color: #ffffff;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
   outline: none;
 }
 
@@ -33,9 +34,8 @@
 }
 
 .search-input:focus {
-  border-color: rgba(0,0,0,0);
-  /* subtle glow */
-  box-shadow: 0 0 0 3px rgba(81, 86, 193, 0.2);
+  border-color: transparent;
+  box-shadow: 0 0 0 3px rgba(169, 180, 255, 0.25); /* soft blue glow */
 }
 
 .search-clear {
@@ -48,36 +48,39 @@
   font-size: 1.2rem;
   cursor: pointer;
   opacity: 0.6;
-  transition: opacity 0.2s;
+  color: #aaa;
+  transition: opacity 0.2s, color 0.2s;
 }
 
 .search-clear:hover {
   opacity: 1;
+  color: #a9b4ff; /* accent on hover */
 }
 
 .search-btn {
   padding: 0.75rem 1.5rem;
-  background: #5156c1;
-  color: #fff;
+  background: #a9b4ff; /* accent button */
+  color: #121212;      /* dark text on light button */
   border: none;
   border-radius: 6px;
   cursor: pointer;
   font-size: 1rem;
+  font-weight: 600;
   transition: background 0.2s, transform 0.1s;
 }
 
 .search-btn:hover {
-  background: #3f448f;
+  background: #8882a5;
   transform: translateY(-1px);
 }
 
 .search-btn:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(81, 86, 193, 0.2);
+  box-shadow: 0 0 0 3px rgba(169, 180, 255, 0.25);
 }
 
 .search-count {
   margin-bottom: 1rem;
   font-size: 0.9rem;
-  color: #555;
+  color: #aaa;
 }

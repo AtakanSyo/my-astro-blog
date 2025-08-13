@@ -5,9 +5,13 @@ header {
   position: fixed;
   top: 0; left: 0; right: 0;
   height: var(--header-height);
-  background: var(--nav-bg);
+  background: rgba(18, 18, 18, 0.9); /* dark translucent */
   backdrop-filter: saturate(180%) blur(10px);
   z-index: 1000;
+
+  /* separation from content */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* subtle line */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4); /* faint drop shadow */
 }
 .header-inner {
   max-width: 1200px;
@@ -46,7 +50,7 @@ header {
 
 /* the regular links */
 .nav-item {
-  color: var(--nav-link-color);
+  color: #e4e4e4;
   text-decoration: none;
   padding: 0.5rem 1rem;
   border-radius: 4px;
@@ -55,7 +59,7 @@ header {
 
 .nav-item:hover,
 .nav-item:focus {
-  background: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.08);
 }
 
 /*─────────────────────────────────────────────────
@@ -76,7 +80,7 @@ header {
   display: block;
   width: 24px;
   height: 3px;
-  background: var(--nav-link-color);
+  background: #e4e4e4;
   border-radius: 2px;
   transition: transform 0.3s ease;
 }
@@ -100,14 +104,14 @@ header {
 .nav-search-toggle {
   background: none;
   border: none;
-  color: var(--nav-link-color);
+  color: #e4e4e4;
   cursor: pointer;
   font-size: 1.25rem;
   padding: 1rem;
 }
 
 .nav-search-toggle:hover {
-  background: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.08);
 }
 
 /* hidden by default */
@@ -124,24 +128,23 @@ header {
   width: 200px;
   padding: 0.4rem 0.75rem;
   font-size: 0.9rem;
-  background: #111;
-  color: #fff;
-  border: 1px solid #333;
+  background: #1f1f1f;
+  color: #e4e4e4;
+  border: 1px solid #444;
   border-radius: 4px;
   transition: border-color 0.2s;
 }
 
-
 .nav-search-input:focus {
   outline: none;
-  border-color: #5156c1; /* keep your existing colored border */
+  border-color: #a9b4ff;
 }
 
 /* the little “✕” close button */
 .nav-search-close {
   background: none;
   border: none;
-  color: #fff;
+  color: #e4e4e4;
   font-size: 1.25rem;
   margin-left: 0.5rem;
   cursor: pointer;
@@ -174,7 +177,7 @@ header {
     position: absolute;
     top: var(--header-height);
     left: 0; right: 0;
-    background: var(--nav-bg);
+    background: rgba(18, 18, 18, 0.95);
     flex-direction: column;
     align-items: stretch;
     overflow: hidden;
@@ -183,27 +186,27 @@ header {
     transition: max-height 0.3s ease, opacity 0.3s ease;
   }
   .site-nav.open {
-    max-height: 400px; /* enough to show links + search */
+    max-height: 400px;
     opacity: 1;
   }
 
   .nav-item {
     width: 100%;
     padding: 1rem;
+    color: #e4e4e4;
   }
 
-  .site-nav.search-open .nav-item{
+  .site-nav.search-open .nav-item {
     display: block;
   }
 
-  /* search form in mobile: appears inside the open menu */
+  /* search form in mobile */
   .nav-search-form {
     padding: 0 1rem 1rem;
   }
 
-  /* when search-open also set, only show the form */
   .site-nav.search-open {
-    max-height: none; /* allow it to grow past 400px if needed */
+    max-height: none;
   }
   .site-nav.search-open .nav-search-form {
     margin: 0 auto;
@@ -211,6 +214,9 @@ header {
   }
 
   .nav-search-input {
-    font-size: 16px;  /* was 0.9rem (~14.4px), now big enough to stop zoom */
+    font-size: 16px;
+    background: #1f1f1f;
+    color: #e4e4e4;
+    border: 1px solid #444;
   }
 }

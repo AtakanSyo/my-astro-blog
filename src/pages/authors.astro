@@ -35,12 +35,12 @@ import Layout from '../layouts/Layout.astro';
 
 <style>
 :root {
-  --bg-page: #f5f7fa;
-  --card-bg: #ffffff;
-  --text-color: #0f172a;
-  --muted: #475569;
-  --accent-color: #4f46e5;
-  --shadow-color: rgba(2, 6, 23, 0.08);
+  --bg-page: rgb(18, 18, 18);
+  --card-bg: #1a1a1a;
+  --text-color: #ffffff;
+  --muted: #aaa;
+  --accent-color: #a9b4ff; /* matches your global.css primary */
+  --shadow-color: rgba(0, 0, 0, 0.5);
   --card-radius: 14px;
 }
 
@@ -61,11 +61,11 @@ import Layout from '../layouts/Layout.astro';
   display: flex;
   width: 100%;
   background:
-    radial-gradient(130% 170% at 100% -40%, color-mix(in oklab, var(--accent-color) 10%, transparent) 0%, transparent 60%),
-    linear-gradient(180deg, var(--card-bg), #f8fafc);
-  border: 1px solid rgba(2,6,23,0.06);
+    radial-gradient(130% 170% at 100% -40%, color-mix(in oklab, var(--accent-color) 14%, transparent) 0%, transparent 60%),
+    linear-gradient(180deg, var(--card-bg), #141414);
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: var(--card-radius);
-  box-shadow: 0 10px 28px var(--shadow-color), inset 0 1px 0 rgba(255,255,255,0.6);
+  box-shadow: 0 10px 28px var(--shadow-color), inset 0 1px 0 rgba(255,255,255,0.05);
   overflow: clip;
   transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
   align-items: stretch;
@@ -73,19 +73,19 @@ import Layout from '../layouts/Layout.astro';
 
 .author:hover {
   transform: translateY(-2px);
-  box-shadow: 0 14px 38px rgba(2,6,23,0.12);
-  border-color: rgba(2,6,23,0.10);
+  box-shadow: 0 14px 38px rgba(0,0,0,0.6);
+  border-color: rgba(255,255,255,0.12);
 }
 
-/* Top ribbon accent (echoes your card skins) */
+/* Top ribbon accent */
 .author::before {
   content: "";
   position: absolute; left: 0; right: 0; top: 0; height: 4px;
-  background: linear-gradient(90deg, var(--accent-color), color-mix(in oklab, var(--accent-color) 40%, #fff));
-  opacity: .9;
+  background: linear-gradient(90deg, var(--accent-color), color-mix(in oklab, var(--accent-color) 40%, #8882a5));
+  opacity: .8;
 }
 
-/* Alternate layout: right-aligned image just flips the flow */
+/* Alternate layout */
 .author--right { flex-direction: row-reverse; }
 
 /* Portrait */
@@ -95,7 +95,7 @@ import Layout from '../layouts/Layout.astro';
   object-fit: cover;
   filter: grayscale(60%);
   transition: filter .25s ease, transform .25s ease;
-  aspect-ratio: 3 / 4;            /* keeps a steady block even if image loads late */
+  aspect-ratio: 3 / 4;
 }
 
 .author:hover img {
@@ -116,7 +116,7 @@ import Layout from '../layouts/Layout.astro';
   font-size: clamp(1.25rem, 1.4rem + .4vw, 2rem);
   font-weight: 800;
   letter-spacing: .2px;
-  background: linear-gradient(45deg, #fc8f63, #5d62d2);
+  background: linear-gradient(45deg, var(--accent-color), #8882a5);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -146,25 +146,5 @@ import Layout from '../layouts/Layout.astro';
     aspect-ratio: auto;
   }
   .bio { padding: 1rem 1rem 1.25rem; }
-}
-
-/* Dark mode polish (optional, safe to keep) */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --card-bg: #0b0f18;
-    --text-color: #e5e7eb;
-    --muted: #94a3b8;
-    --shadow-color: rgba(0,0,0,0.35);
-  }
-  .author {
-    background:
-      radial-gradient(130% 170% at 100% -40%, color-mix(in oklab, var(--accent-color) 14%, transparent) 0%, transparent 60%),
-      linear-gradient(180deg, var(--card-bg), #0a0e19);
-    border-color: rgba(255,255,255,0.08);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.05);
-  }
-  .author::before {
-    opacity: .6;
-  }
 }
 </style>
