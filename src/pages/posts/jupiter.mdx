@@ -17,19 +17,13 @@ import YouTubeButton from "../../components/YouTubeButton.astro";
 import SimPostSchema from "../../components/SimPostSchema.astro";
 
 <div class="">
-  <p class="Tool-Explanation">
-    This simulation renders a shader-lit model of <strong>Jupiter</strong> with banded clouds, subtle limb darkening, and a faint starfield background.
-    By default it runs on <strong>WebGL2 (Three.js)</strong> for broad compatibility. If your browser supports <strong>WebGPU</strong>, 
-    you can enable it by adding <code>?gpu=1</code> to the URL for potentially smoother performance.
-  </p>
+  <p class="Tool-Explanation"></p>
 
   <div class="sim-stage" aria-label="Jupiter simulation canvas" id="simulation">
     <SimCanvas slug="jupiter"/>
   </div>
 
-  <figcaption class="sim-caption">
-    Renderer: WebGL2 by default. Falls back automatically if WebGPU is not available.
-  </figcaption>
+  <figcaption class="sim-caption"></figcaption>
     <YouTubeButton href={frontmatter.youtube} />
   </div>
 
