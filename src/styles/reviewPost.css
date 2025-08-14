@@ -4,16 +4,6 @@ p {
   color: #e4e4e4;
 }
 
-/* Left‐align all headings inside .post */
-.post h2,
-.post h4,
-.post h5 {
-  align-self: flex-start;
-  text-align: left;
-  color: #ffffff;
-}
-
-
 /* Highlighted callout paragraphs */
 .highlight {
   background: rgba(255,255,255,0.06);
