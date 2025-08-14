@@ -1,0 +1,94 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Mercury"
+category: simulation
+writer: Astrosyo
+pubDate: '2025-08-14'
+description: "A lightweight, GPU-hybrid Mercury visualization showing its cratered surface, phase changes, and slow rotation."
+slug: mercury
+imageDir: /images/mercury
+keywords:
+  - mercury simulation
+  - mercury planet
+  - astronomy visualization
+  - inner planets
+---
+
+import SimCanvas from "../../components/SimCanvas.astro";
+import SimPostSchema from "../../components/SimPostSchema.astro";
+
+<div class="">
+  <p class="Tool-Explanation"></p>
+
+  <div class="sim-stage" aria-label="Mercury simulation canvas" id="simulation">
+    <SimCanvas slug="mercury"/>
+  </div>
+
+  <figcaption class="sim-caption"></figcaption></div>
+
+<div class="sim-article">
+  <h2 id="about-this-page">About this page</h2>
+  <p>
+    Above is a <strong>GPU-accelerated, real-time visualization of Mercury</strong>, the smallest and innermost planet of our Solar System.
+    This rocky world is heavily cratered, resembling our Moon, and experiences extreme temperature changes between day and night.
+    The simulation showcases Mercury’s surface detail and realistic phase lighting as it orbits close to the Sun.
+  </p>
+
+  <h3 id="what-youre-seeing">What you’re seeing</h3>
+  <p>
+    Mercury rotates slowly — once every 58.6 Earth days — and has a unique 3:2 spin-orbit resonance, meaning it completes three rotations for every two orbits around the Sun.
+    The surface is marked by large impact basins such as the <strong>Caloris Basin</strong>, extensive plains, and countless craters.
+    Without a significant atmosphere, Mercury has sharp, high-contrast shadows and no limb haze.
+  </p>
+  <p>
+    The simulation uses high-resolution shading to highlight its rugged terrain, with lighting from a fixed Sun position.
+    Because Mercury is an inner planet, it shows pronounced phases when viewed from Earth, similar to Venus.
+  </p>
+
+  <h2 id="observing-mercury">Observing Mercury</h2>
+  <p>
+    Mercury is often challenging to see because it stays close to the Sun, usually visible only shortly after sunset or before sunrise.
+    It appears as a small, bright point of light in binoculars, and with a telescope, its changing phases can be seen.
+    Surface detail is extremely difficult to observe from Earth due to its small apparent size.
+  </p>
+
+  <h2 id="tech-notes">Tech notes</h2>
+  <p>
+    This visualization runs in <strong>WebGL2</strong> by default with physically based rendering (PBR), ACES tone mapping, and sRGB output.
+    Detailed height and normal maps create realistic crater shadows and surface roughness.
+    Because there is no atmosphere, the shader omits atmospheric scattering and limb darkening.
+    On supported browsers, enabling WebGPU can improve rendering performance and detail.
+    This is an educational model based on real planetary imagery from NASA’s MESSENGER mission.
+  </p>
+</div>
+
+<SimPostSchema
+  title="Mercury Simulation"
+  description="A GPU-hybrid Mercury visualization with cratered surface, realistic shading, and phase changes."
+  url="https://astrosyo.com/posts/mercury"
+  datePublished="2025-08-09"
+  authorName="Astrosyo"
+  keywords={[
+    "mercury",
+    "inner planets",
+    "webgl2",
+    "webgpu",
+    "three.js",
+    "shader",
+    "astronomy visualization"
+  ]}
+  image="/images/mercury/cover.webp"
+  articleSection="Astronomy"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.webp"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Mercury Simulation",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires WebGL2; optional WebGPU",
+    "url": "https://astrosyo.com/posts/mercury#simulation",
+    "description": "Interactive Mercury visualization with cratered terrain and realistic phase lighting."
+  }}
+/>
