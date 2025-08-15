@@ -6,7 +6,7 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161/build/three.mod
 export async function run(canvas, { pausedRef, options = {} } = {}) {
   // ---------------- Config ----------------
   const AXIAL_TILT_DEG    = options.axialTiltDeg ?? 0.0;
-  const tiltSpeed = THREE.MathUtils.degToRad(0.5); // degrees per second, adjust for speed
+  const tiltSpeed = THREE.MathUtils.degToRad(0.8); // degrees per second, adjust for speed
   let currentTilt = THREE.MathUtils.degToRad(AXIAL_TILT_DEG);
   const ROT_PERIOD_H      = options.rotationHours ?? 24.623;
   const TIME_SCALE        = options.timeScale ?? 12000;
