@@ -6,7 +6,7 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161/build/three.mod
 export async function run(canvas, { pausedRef, options = {} } = {}) {
   // ---------------- Config ----------------
   const AXIAL_TILT_DEG    = options.axialTiltDeg ?? 0.0;
-  const tiltSpeed = THREE.MathUtils.degToRad(0.8); // degrees per second, adjust for speed
+  const tiltSpeed = THREE.MathUtils.degToRad(1.6); // degrees per second, adjust for speed
   let currentTilt = THREE.MathUtils.degToRad(AXIAL_TILT_DEG);
   const ROT_PERIOD_H      = options.rotationHours ?? 24.623;
   const TIME_SCALE        = options.timeScale ?? 12000;
@@ -34,8 +34,12 @@ export async function run(canvas, { pausedRef, options = {} } = {}) {
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x000000);
 
+  const camera_radius = 5;
+  const camera_angularSpeed = 0.7; // radians per second (tweak)
+  let angle = 0;
+
   const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 2000);
-  camera.position.set(0, 1, 5);
+
   camera.lookAt(0,0,0)
 
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
@@ -253,6 +257,7 @@ export async function run(canvas, { pausedRef, options = {} } = {}) {
       }
     }, 120);
   }
+  camera.up.set(1, 0, 0);
 
   function loop() {
     if (isActuallyPaused()) {
@@ -271,6 +276,12 @@ export async function run(canvas, { pausedRef, options = {} } = {}) {
     const dt = clock.getDelta();
     const spinDeg = degPerSec * TIME_SCALE * dt;
 
+    angle += camera_angularSpeed * (dt/10);
+    if (angle >= Math.PI * 2) angle -= Math.PI * 2;
+    const y = camera_radius * Math.cos(angle);
+    const z = camera_radius * Math.sin(angle);
+    camera.position.set(-2, y, z);
+    camera.lookAt(0, 0, 0);
     currentTilt += tiltSpeed * dt;   // dt comes from clock.getDelta()
     tiltGroup.rotation.z = currentTilt;
 
