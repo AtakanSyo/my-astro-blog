@@ -11,7 +11,7 @@ export async function run(canvas, { pausedRef, options = {} } = {}) {
   // ---------------- Aesthetic presets ----------------
   const THEMES = {
     noir: {
-      bgTop: 0x0c0c0f, bgBottom: 0x000000, vignette: 0.65,
+      bgTop: 0x0b1020, bgBottom: 0x000000, vignette: 0.65,
       metalColor: 0xb9c2d0, roughness: 0.18, metalness: 1.0,
       ropeColor: 0x2a2a2a, glow: { strength: 0.25, radius: 0.2, threshold: 0.85 },
       exposure: 1.05
@@ -26,7 +26,7 @@ export async function run(canvas, { pausedRef, options = {} } = {}) {
       bgTop: 0x101014, bgBottom: 0x050508, vignette: 0.6,
       metalColor: 0xf3d29a, roughness: 0.12, metalness: 1.0,
       ropeColor: 0x444444, glow: { strength: 0.45, radius: 0.3, threshold: 0.8 },
-      exposure: 1.12, transmission: 0.25 // slight glassy look
+      exposure: 1.12, transmission: 0.25
     },
     mono: {
       bgTop: 0x121212, bgBottom: 0x121212, vignette: 0.5,
@@ -54,6 +54,11 @@ export async function run(canvas, { pausedRef, options = {} } = {}) {
   const INITIAL_ANGLE = options.initialAngle  ?? -0.60;
   const PULL_COUNT    = options.pullCount     ?? 1;
 
+  // ---- NEW: bar controls ----
+  const BAR_Y         = options.barY          ?? 0.55;   // vertical position of the bar
+  const BAR_THICK     = options.barThickness  ?? 0.02;   // bar thickness (y & z)
+  const BAR_MARGIN    = options.barMargin     ?? 0.08;   // extra length beyond outer balls
+
   // ---------------- Scene / Camera / Renderer ----------------
   const scene = new THREE.Scene();
   scene.background = null;
@@ -70,12 +75,12 @@ export async function run(canvas, { pausedRef, options = {} } = {}) {
   renderer.toneMappingExposure = theme.exposure;
   renderer.shadowMap.enabled = false;
 
-  // Environment for nice reflections (but no visible floor/posts)
+  // Environment for nice reflections
   const pmrem = new THREE.PMREMGenerator(renderer);
   const env = pmrem.fromScene(new RoomEnvironment(renderer), 0.04).texture;
   scene.environment = env;
 
-  // Minimal lights (just to help specular)
+  // Minimal lights
   const key = new THREE.DirectionalLight(0xffffff, 1.3);
   key.position.set(3.0, 2.0, 2.2);
   scene.add(key);
@@ -94,19 +99,36 @@ export async function run(canvas, { pausedRef, options = {} } = {}) {
   );
   composer.addPass(bloom);
 
-  // ---------------- Invisible anchors (no bar, no posts) ----------------
+  // ---------------- Bar + anchors (visible) ----------------
   const spacing = (2 * BALL_RADIUS + GAP);
+  const totalBallSpan = (NUM_BALLS - 1) * spacing + 2 * BALL_RADIUS;
+  const barLen = totalBallSpan + 2 * BAR_MARGIN;
+
+  // ⬇️ make it emissive so bloom sees it
+  const barMat = new THREE.MeshPhysicalMaterial({
+    color: theme.ropeColor,
+    metalness: 1.0,
+    roughness: 0.1,
+    envMap: env,
+    emissive: new THREE.Color(options.barGlowColor ?? 0xffffff),
+    emissiveIntensity: options.barGlow ?? 1.8   // try 1.5–3.0
+  });
+  const barGeo = new THREE.BoxGeometry(barLen, BAR_THICK, BAR_THICK);
+  const bar = new THREE.Mesh(barGeo, barMat);
+  bar.position.set(0, BAR_Y, 0);
+  scene.add(bar);
+
+  // anchor positions along the bar bottom edge
   const x0 = -((NUM_BALLS - 1) * spacing) / 2;
   const anchors = [];
   for (let i = 0; i < NUM_BALLS; i++) {
-    anchors.push(new THREE.Vector3(x0 + i * spacing, 0.55, 0)); // floating in space
+    anchors.push(new THREE.Vector3(x0 + i * spacing, BAR_Y - BAR_THICK * 0.5, 0));
   }
 
   // ---------------- Materials ----------------
   const ballMatParams = {
     color: theme.metalColor, metalness: theme.metalness, roughness: theme.roughness, envMap: env
   };
-  // Optional glassiness
   if (theme.transmission) {
     Object.assign(ballMatParams, {
       transparent: true, transmission: theme.transmission, thickness: 0.15, ior: 1.25
@@ -256,10 +278,10 @@ export async function run(canvas, { pausedRef, options = {} } = {}) {
         uniform vec3 uTop, uBottom;
         uniform float uVign;
         void main(){
-          float t = 0.5 + 0.5 * vPos.y;              // vertical blend
+          float t = 0.5 + 0.5 * vPos.y;
           vec3 col = mix(uBottom, uTop, t);
           float vign = smoothstep(1.0, uVign, length(vPos.xz));
-          col *= mix(1.0, 0.75, vign);               // subtle vignette
+          col *= mix(1.0, 0.75, vign);
           gl_FragColor = vec4(col, 1.0);
         }
       `
@@ -287,6 +309,14 @@ export async function run(canvas, { pausedRef, options = {} } = {}) {
   }, 500);
 
   // ---------------- Loop (hard pause aware) ----------------
+
+  function isPaused() {
+    if (pausedRef && pausedRef()) return true;
+    if (typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches) return true;
+    if (document.visibilityState === 'hidden') return true;
+    return false;
+  }
+
   function loop() {
     if (isPaused()) { wasPaused = true; return void (raf = requestAnimationFrame(loop)); }
     if (wasPaused) { wasPaused = false; clock.getDelta(); }
@@ -311,6 +341,7 @@ export async function run(canvas, { pausedRef, options = {} } = {}) {
     renderer.dispose();
     bg.geometry.dispose(); bg.material.dispose();
     ballMat.dispose(); ropeMat.dispose();
+    barGeo.dispose(); barMat.dispose();
     balls.forEach(b => b.geometry.dispose());
     strings.forEach(s => s.geometry.dispose());
   };
