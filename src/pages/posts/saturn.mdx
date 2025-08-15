@@ -1,0 +1,96 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Saturn"
+category: simulation
+writer: Astrosyo
+pubDate: '2025-08-15'
+description: "A lightweight, GPU-hybrid Saturn visualization with detailed ring rendering, realistic atmospheric shading, and dynamic rotation."
+slug: saturn
+imageDir: /images/saturn
+keywords:
+  - saturn simulation
+  - saturn rings
+  - saturn 3d model
+  - astronomy visualization
+  - gas giant
+---
+
+import SimCanvas from "../../components/SimCanvas.astro";
+import SimPostSchema from "../../components/SimPostSchema.astro";
+
+<div class="">
+  <p class="Tool-Explanation"></p>
+
+  <div class="sim-stage" aria-label="Saturn simulation canvas" id="simulation">
+    <SimCanvas slug="saturn"/>
+  </div>
+
+  <figcaption class="sim-caption"></figcaption>
+</div>
+
+<div class="sim-article">
+  <h2 id="about-this-page">About this page</h2>
+  <p>
+    Above is a <strong>GPU-accelerated, real-time visualization of Saturn</strong>, the sixth planet from the Sun and the second-largest in our Solar System.
+    The simulation features realistic gas giant banding, subtle atmospheric scattering, and the planet’s iconic ring system rendered with accurate proportions and transparency effects.
+  </p>
+
+  <h3 id="what-youre-seeing">What you’re seeing</h3>
+  <p>
+    Saturn is best known for its spectacular rings, composed mostly of ice particles with some rocky debris and dust.
+    The planet itself is a gas giant made primarily of hydrogen and helium, with no solid surface.
+    This visualization simulates differential rotation in its atmosphere and the natural color variations caused by ammonia clouds and trace elements.
+  </p>
+  <p>
+    The ring system is shown with scientifically accurate inner and outer radii, and a realistic density gradient.
+    The lighting comes from a fixed Sun position, casting shadows of the rings onto the planet and vice versa.
+    Subtle atmospheric scattering at the limb adds depth and realism to the visual.
+  </p>
+
+  <h2 id="observing-saturn">Observing Saturn</h2>
+  <p>
+    Saturn is one of the most captivating sights in the night sky.
+    Even a small telescope reveals its rings and the dark Cassini Division.
+    Larger instruments can show additional ring details and Saturn’s largest moon, Titan.
+    The best viewing occurs when Saturn is at opposition, fully illuminated by the Sun and closest to Earth.
+  </p>
+
+  <h2 id="tech-notes">Tech notes</h2>
+  <p>
+    This visualization runs in <strong>WebGL2</strong> by default, using physically based rendering (PBR) and ACES tone mapping.
+    Procedural shaders create the banded atmosphere and ring textures, while the simulation dynamically adjusts lighting and shadowing for realistic interaction between the planet and its rings.
+    On compatible browsers, enabling WebGPU can improve shading precision and frame rate.
+    While designed for educational purposes, the model is based on NASA imagery and known planetary dimensions.
+  </p>
+</div>
+
+<SimPostSchema
+  title="Saturn Simulation"
+  description="A GPU-hybrid Saturn visualization with realistic atmospheric shading, ring rendering, and dynamic rotation."
+  url="https://astrosyo.com/posts/saturn"
+  datePublished="2025-08-15"
+  authorName="Astrosyo"
+  keywords={[
+    "saturn",
+    "rings",
+    "webgl2",
+    "webgpu",
+    "three.js",
+    "shader",
+    "astronomy visualization"
+  ]}
+  image="/images/saturn/cover.webp"
+  articleSection="Astronomy"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.webp"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Saturn Simulation",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires WebGL2; optional WebGPU",
+    "url": "https://astrosyo.com/posts/saturn#simulation",
+    "description": "Interactive Saturn visualization with realistic rings, atmospheric shading, and dynamic rotation."
+  }}
+/>
