@@ -1,0 +1,104 @@
+---
+// src/components/SimCanvasSrc.astro
+// Generic wrapper for simulations under src/interactive/<slug>/
+//
+// Props:
+//   - slug: folder name in src/interactive (required)
+//   - aspect: CSS aspect-ratio (default "16/9")
+//   - showPause: boolean (default true)
+//   - options: object passed to loader/runtime
+
+const id = `sim-${Math.random().toString(36).slice(2, 8)}`;
+const { slug, aspect = "16/9", showPause = true, options = {} } = Astro.props;
+if (!slug) throw new Error("SimCanvasSrc: 'slug' prop is required");
+---
+
+<style>
+  /* Scoped styles (Astro will scope these to this component) */
+  .stage { position: relative; width: 100%; }
+  .canvas { width: 100%; height: 100%; display: block; }
+</style>
+
+<div class="sim-stage centered_flex stage" style={`aspect-ratio: ${aspect};`} id={`stage-${id}`}>
+  <canvas id={id} class="canvas"></canvas>
+  {showPause && (
+    <button
+      id={`pause-${id}`}
+      class="pill sim-controls-inline"
+      type="button"
+      aria-pressed="true"
+    >
+      Resume
+    </button>
+  )}
+</div>
+
+<script type="module" client:load define:vars={{ id, slug, options }}>
+  // Prefer loader.js (WebGPU/WebGL hybrid). Fallback to runtime.js.
+  const loaders  = import.meta.glob('/src/interactive/**/loader.js');
+  const runtimes = import.meta.glob('/src/interactive/**/runtime.js');
+
+  const loaderKey  = `/src/interactive/${slug}/loader.js`;
+  const runtimeKey = `/src/interactive/${slug}/runtime.js`;
+
+  const canvas   = document.getElementById(id);
+  const stage    = document.getElementById(`stage-${id}`);
+  const pauseBtn = document.getElementById(`pause-${id}`);
+
+  if (!canvas) throw new Error(`[SimCanvasSrc] canvas not found for slug="${slug}"`);
+
+  // One-time reveal on first click (keeps your fade-in behavior)
+  if (pauseBtn && stage) {
+    pauseBtn.addEventListener('click', () => stage.classList.add('is-visible'), { once: true });
+  }
+
+  // Keep aria-pressed in sync with loader text (“Resume”/“Pause”)
+  function syncAriaFromLabel() {
+    if (!pauseBtn) return;
+    const label = (pauseBtn.textContent || '').trim().toLowerCase();
+    const playing = label === 'pause';
+    pauseBtn.setAttribute('aria-pressed', String(!playing));
+  }
+
+  try {
+    if (loaders[loaderKey]) {
+      // Use your loader (it expects pauseBtn)
+      const mod = await loaders[loaderKey]();
+      const init = mod.default || mod.init || mod.run;
+      if (typeof init !== 'function') throw new Error('loader.js must export a default function');
+      const stop = await init(canvas, pauseBtn, options);
+      syncAriaFromLabel();
+      addEventListener('astro:before-preparation', () => { try { stop?.(); } catch {} });
+    } else if (runtimes[runtimeKey]) {
+      // Direct runtime fallback with a minimal pause hook
+      const mod = await runtimes[runtimeKey]();
+      const run = mod.run || mod.default;
+      if (typeof run !== 'function') throw new Error('runtime.js must export run()');
+
+      let paused = true; // start paused to match initial "Resume" label
+      const pausedRef = () => paused;
+      if (pauseBtn) {
+        pauseBtn.addEventListener('click', () => {
+          paused = !paused;
+          pauseBtn.textContent = paused ? 'Resume' : 'Pause';
+          syncAriaFromLabel();
+        });
+      }
+      const stop = await run(canvas, { pausedRef, options });
+      syncAriaFromLabel();
+      addEventListener('astro:before-preparation', () => { try { stop?.(); } catch {} });
+    } else {
+      console.error(`[SimCanvasSrc] No entry found for "${slug}". Expected:\n  ${loaderKey}\n  ${runtimeKey}`);
+      if (pauseBtn) { pauseBtn.disabled = true; pauseBtn.textContent = 'Unavailable'; }
+    }
+  } catch (err) {
+    console.error('[SimCanvasSrc] init failed:', err);
+    // Paint a fallback so the user doesn’t see a blank box
+    const ctx = canvas.getContext('2d');
+    if (ctx) {
+      ctx.fillStyle = '#0a0f16'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#fff'; ctx.font = '12px system-ui';
+      ctx.fillText('Could not load the simulation.', 14, 24);
+    }
+  }
+</script>

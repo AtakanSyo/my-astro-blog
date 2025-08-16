@@ -18,7 +18,7 @@
     "@iconify-json/logos": "^1.2.5",
     "@iconify-json/simple-icons": "^1.2.44",
     "@tailwindcss/vite": "^4.1.11",
-    "astro": "^5.12.3",
+    "astro": "^5.13.2",
     "astro-icon": "^1.1.5",
     "gray-matter": "^4.0.3",
     "p5": "^2.0.3",
@@ -26,7 +26,8 @@
     "react-dom": "^19.1.0",
     "remark-autolink-headings": "^7.0.1",
     "remark-slug": "^7.0.1",
-    "slugify": "^1.6.6"
+    "slugify": "^1.6.6",
+    "three": "^0.179.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.21",
