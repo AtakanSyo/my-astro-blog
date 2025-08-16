@@ -1,21 +1,21 @@
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
-export default function SimpleSim({ defaultPaused = false, dprCap = 1.5 }) {
+export default function SimpleSim({ dprCap = 1.5 }) {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
-  const pausedRef = useRef(!!defaultPaused);
-  const [paused, setPaused] = useState(!!defaultPaused); // for button label
+  const pausedRef = useRef(true);             // start paused
+  const [paused, setPaused] = useState(true); // button label
+  const madeVisibleRef = useRef(false);       // ensure we add the class only once
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const container = containerRef.current;
     if (!canvas || !container) return;
 
-    // Ensure visible size
     if (!container.clientHeight) container.style.minHeight = '400px';
 
-    // ---- Renderer
+    // Renderer + DPR-capped sizing
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
     const fit = () => {
       const dpr = Math.min(dprCap, window.devicePixelRatio || 1);
@@ -28,36 +28,26 @@ export default function SimpleSim({ defaultPaused = false, dprCap = 1.5 }) {
       camera.updateProjectionMatrix();
     };
 
-    // ---- Scene / Camera
+    // Scene / Camera
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x000000);
 
     const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 100);
     camera.position.set(0, 0, 3);
 
-    // ---- Cube
+    // Cube
     const geometry = new THREE.BoxGeometry(1, 1, 1);
     const material = new THREE.MeshNormalMaterial();
     const cube = new THREE.Mesh(geometry, material);
     scene.add(cube);
 
-    // ---- Resize observe (with DPR cap)
+    // Resize observe
     const ro = new ResizeObserver(fit);
     ro.observe(container);
     window.addEventListener('resize', fit, { passive: true });
     fit();
 
-    // ---- Keyboard toggle (Space)
-    const onKey = (e) => {
-      if (e.code === 'Space') {
-        e.preventDefault();
-        pausedRef.current = !pausedRef.current;
-        setPaused(pausedRef.current);
-      }
-    };
-    window.addEventListener('keydown', onKey);
-
-    // ---- Loop
+    // Loop
     renderer.setAnimationLoop(() => {
       if (!pausedRef.current) {
         const s = 0.01;
@@ -67,21 +57,30 @@ export default function SimpleSim({ defaultPaused = false, dprCap = 1.5 }) {
       renderer.render(scene, camera);
     });
 
-    // ---- Cleanup
     return () => {
       renderer.setAnimationLoop(null);
       ro.disconnect();
       window.removeEventListener('resize', fit);
-      window.removeEventListener('keydown', onKey);
       geometry.dispose();
       material.dispose();
       renderer.dispose();
     };
   }, [dprCap]);
 
-  const toggle = () => {
+  const onPlayPause = () => {
     pausedRef.current = !pausedRef.current;
-    setPaused(pausedRef.current);
+    const nowPaused = pausedRef.current;
+    setPaused(nowPaused);
+
+    // On first transition to playing, add "is-visible" to the nearest figure.sim-stage
+    if (!nowPaused && !madeVisibleRef.current) {
+      madeVisibleRef.current = true;
+      const container = containerRef.current;
+      const figure = container?.closest('figure.sim-stage');
+      if (figure && !figure.classList.contains('is-visible')) {
+        figure.classList.add('is-visible');
+      }
+    }
   };
 
   return (
@@ -91,8 +90,8 @@ export default function SimpleSim({ defaultPaused = false, dprCap = 1.5 }) {
       aria-label="Rotating cube simulation"
     >
       <button
-        onClick={toggle}
-        aria-pressed={paused}
+        onClick={onPlayPause}
+        aria-pressed={!paused}
         style={{
           position: 'absolute',
           right: '12px',
@@ -103,12 +102,12 @@ export default function SimpleSim({ defaultPaused = false, dprCap = 1.5 }) {
           border: '1px solid #2b2f36',
           background: '#0b0f16',
           color: '#e8eef9',
-          font: '12px system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"',
+          font: '12px system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial',
           cursor: 'pointer',
           opacity: 0.9,
         }}
       >
-        {paused ? 'Resume' : 'Pause'}
+        {paused ? 'Play' : 'Pause'}
       </button>
 
       <canvas
