@@ -19,7 +19,14 @@ const {
 <head>
   <title>{title}</title>
   <meta name="description" content={description} />
-
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.161/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.161/examples/jsm/"
+        }
+      }
+    </script>
 </head>
 
 <Layout title={title}>

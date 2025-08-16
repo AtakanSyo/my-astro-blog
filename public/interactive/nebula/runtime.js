@@ -2,7 +2,7 @@
 // Nebula as a glowing point cloud with GPU N-body dynamics (softened gravity)
 // Only control: hard pause/resume via pausedRef()
 
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.161/build/three.module.js';
+import * as THREE from 'three';
 import { GPUComputationRenderer } from 'https://cdn.jsdelivr.net/npm/three@0.161/examples/jsm/misc/GPUComputationRenderer.js';
 export async function run(canvas, { pausedRef, options = {} } = {}) {
   // ---------------- Config ----------------
