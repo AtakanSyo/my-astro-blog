@@ -1,0 +1,28 @@
+---
+// src/pages/interactive/[slug].astro
+import SimCanvasSrc from "../../components/SimCanvasSrc.astro";
+
+// tell Astro which slugs exist
+export async function getStaticPaths() {
+  return [
+    { params: { slug: "gpu-demo" } },
+    { params: { slug: "orbit-demo" } }
+  ];
+}
+
+const { slug } = Astro.params;
+const id = `sim-${slug}`;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Interactive: {slug}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body style="margin:0; padding:1rem;">
+    <h1>Interactive: {slug}</h1>
+    <SimCanvasSrc id={id} slug={slug} height="60vh" />
+  </body>
+</html>
+
