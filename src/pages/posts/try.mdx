@@ -1,0 +1,123 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Cube Demo"
+category: simulation
+writer: Astrosyo
+pubDate: '2025-08-15'
+updatedDate: '2025-08-16'
+description: "Interactive rotating cube demonstration using Three.js, embedded inline with React island."
+slug: cube-demo
+imageDir: /images/cube-demo
+canonicalUrl: https://astrosyo.com/posts/cube-demo
+ogImage: /images/cube-demo/cover.webp
+twitterImage: /images/cube-demo/cover.webp
+keywords:
+  - Three.js cube demo
+  - rotating cube WebGL
+  - interactive cube
+  - astro MDX simulation
+  - simple WebGL example
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import SimpleSim from "../../components/simulations/SimpleSim.jsx";
+
+{/* --- Hero / Simulation --- */}
+<section id="top">
+  <figure class="sim-stage is-visible" aria-label="Interactive rotating cube demonstration">
+    <SimpleSim client:only="react" />
+    <figcaption class="sim-caption">
+      A simple <strong>rotating cube</strong> rendered with WebGL (Three.js). Demonstrates basic 3D rendering and interactivity embedded via a React component island.
+    </figcaption>
+  </figure>
+</section>
+
+<div class="sim-article">
+  <h2 id="overview">What this simulation shows</h2>
+  <p>
+    This demo illustrates a basic 3D scene containing a rotating cube. It's a minimal yet interactive introduction to WebGL rendering using Three.js.
+  </p>
+
+  <h3 id="how-it-works">How it works</h3>
+  <p>
+    A React component (`SimpleSim.jsx`) is imported and hydrated solely on the client. It sets up a Three.js scene, a perspective camera, and animates the cube in a render loop.
+  </p>
+
+  <h3 id="rendering-details">Rendering details</h3>
+  <ul>
+    <li><strong>Cube geometry:</strong> Standard Three.js BoxGeometry with a MeshNormalMaterial.</li>
+    <li><strong>Animation loop:</strong> Rotates the cube continuously using `requestAnimationFrame`.</li>
+    <li><strong>Responsive canvas:</strong> Resizes with the container for proper aspect ratio.</li>
+  </ul>
+
+  <h3 id="purpose">Why this matters</h3>
+  <ul>
+    <li>Shows how WebGL simulations can live inside Astro MDX pages via React islands.</li>
+    <li>Perfect starting point for expanding into more complex simulations.</li>
+    <li>Maintains performance by isolating interactive code in a lightweight client-only component.</li>
+  </ul>
+</div>
+
+{/* --- FAQ JSON-LD for rich results --- */}
+<script type="application/ld+json">
+{JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What does this visualization show?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It visualizes a simple rotating 3D cube using Three.js and WebGL rendered inside Astro via a React component."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this simulation interactive?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It’s mostly visual animation. The main interactivity is provided via component hydration—no additional UI controls yet."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What technologies are used?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Astro + MDX + React (for the island) + Three.js for WebGL rendering."
+      }
+    }
+  ]
+})}
+</script>
+
+<SimPostSchema
+  title="Cube Demo"
+  description="Interactive rotating cube demonstration using Three.js in Astro with React island."
+  url="https://astrosyo.com/posts/cube-demo"
+  datePublished="2025-08-15"
+  dateModified="2025-08-16"
+  authorName="Astrosyo"
+  keywords={[
+    "Three.js cube demo",
+    "rotating cube WebGL",
+    "interactive cube",
+    "astro MDX simulation",
+    "WebGL example"
+  ]}
+  image="/images/cube-demo/cover.webp"
+  articleSection="Astronomy"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.webp"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Rotating Cube Simulation",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires WebGL2",
+    "url": "https://astrosyo.com/posts/cube-demo#simulation",
+    "description": "A basic rotating cube rendered in WebGL using Three.js, embedded via an Astro MDX React island."
+  }}
+/>
