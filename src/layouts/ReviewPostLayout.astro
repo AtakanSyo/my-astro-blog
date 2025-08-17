@@ -75,8 +75,13 @@ const jsonLdProduct = {
       loading="eager"       
       decoding="async"      
     />
-
-    <h1>{title}</h1>
+    <h1>{title}{Astro.props.frontmatter.reviewType && (
+      <span class={`review-tag ${Astro.props.frontmatter.reviewType}`}>
+        {Astro.props.frontmatter.reviewType === "hands-on"
+          ? "Hands-On"
+          : "Research"}
+      </span>
+    )}</h1>
     <p class="writer">Written by {writer}</p>
     <div class="main-rating-card rating-card centered_flex"><span class="category">Overall</span><span class="score">{rating.overall}/10</span></div>
     <div class="share-header"><span class="share-label">Share:</span></div>

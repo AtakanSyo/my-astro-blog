@@ -29,6 +29,34 @@ p {
   color: #aaa;
 }
 
+h1 .review-tag {
+  margin-left: 0.6rem;
+  font-size: 0.55em;   /* scales with h1 */
+  vertical-align: middle;
+}
+
+.review-tag {
+  display: inline-block;
+  padding: 0.3rem 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  border-radius: 0.6rem;
+  border: 2px solid;
+  background: #1a1a1a;
+}
+
+.review-tag.hands-on {
+  color: #ff9800;
+  border-color: #ff9800;
+  background: #2a1a00;
+}
+
+.review-tag.research {
+  color: #4da6ff;
+  border-color: #4da6ff;
+  background: #001a33;
+}
+
 /* ===============================
    Shared local tokens (scoped)
    =============================== */
@@ -373,50 +401,49 @@ figcaption {
 }
 
 .affiliate-link {
-  display: inline-flex;       /* keep text + arrow inline */
-  white-space: nowrap;        /* 🔑 prevents line breaks */
-  justify-content: center;
+  display: inline-flex;
   align-items: center;
-  padding: 0.5rem;
-  flex: 1;
+  justify-content: center;
+  gap: 0.5rem;                /* spacing between text & arrow */
+  padding: 0.65rem 1.25rem;   /* roomier padding */
   width: 100%;
-  max-width: none;
+  max-width: 320px;           /* keeps buttons from stretching too wide */
+  white-space: nowrap;         /* 🔑 text never breaks into 2 lines */
 
-  background-color: rgba(245, 158, 12, 0.1);
-  color: white;
-  font-weight: 500;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #fff;
+  font-weight: 600;
   font-size: 1rem;
   font-family: system-ui, sans-serif;
   text-decoration: none;
-  letter-spacing: 0.3px;
+  text-align: center;
 
-  border: 2px solid rgba(245, 158, 12, 0.4);
-  border-radius: 8px;
-  box-shadow: 0 0 8px rgba(245, 158, 12, 0.4),
-              0 2px 6px rgba(0,0,0,0.6);
-  transition: all 0.25s ease;
-  overflow: hidden;           /* just in case */
-  text-overflow: ellipsis;    /* show … if text is too long */
+  border: none;
+  border-radius: 8px;      /* full pill shape */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3),
+              0 0 8px rgba(245, 158, 12, 0.5);
+  
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .affiliate-link:hover {
-  background-color: rgba(245, 158, 12, 0.2);
-  border-color: #f59e0c;
-  color: #ffb833;
   transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.35),
+              0 0 12px rgba(245, 158, 12, 0.7);
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
 }
 
 .affiliate-link:active {
-  background-color: rgba(245, 158, 12, 0.25);
-  border-color: #ffb833;
-  transform: scale(0.98);
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4),
+              0 0 6px rgba(245, 158, 12, 0.4);
 }
 
 /* Decorative arrow for external/affiliate links */
 .affiliate-link::after {
   content: '↗';
   font-size: 1em;
-  padding: 0.4rem;
+  padding: 0.3rem;
   transition: transform 0.2s ease;
 }
 
@@ -432,6 +459,7 @@ figcaption {
 /* --- Caption --- */
 .affiliate-caption {
   margin-top: 0.75rem;
+  margin-bottom: 0rem;
   font-size: 0.7rem;
   color: #aaa;
   font-style: italic;
@@ -440,7 +468,7 @@ figcaption {
   max-width: 90%;
   margin-left: auto;
   margin-right: auto;
-  min-height: 2.2rem;
+  min-height: 1.6rem;
 }
 
 .accessory-box {
