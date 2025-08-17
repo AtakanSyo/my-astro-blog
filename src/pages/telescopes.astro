@@ -5,6 +5,7 @@ import '../styles/cards.css';
 
 const allPosts = await Astro.glob('./posts/*.{md,mdx}');
 const telescopePosts = allPosts.filter(p => p.frontmatter.subcategory === 'telescopes');
+const telescopeCount = telescopePosts.length;
 
 // ── SORTED “All” POSTS ──
 const sortedAll = [...telescopePosts].sort(
@@ -37,7 +38,7 @@ const sortedGrouped = Object.fromEntries(
     </div>
 
     <!-- description placeholder -->
-    <div id="type-description" class="type-description"></div>
+    <div id="type-description" class="type-description" data-count={telescopeCount}></div>
 
    <!-- “All” group -->
     <div class="post-group" data-type="all">
@@ -146,23 +147,30 @@ const sortedGrouped = Object.fromEntries(
     ))}
   </div>
 
+  <div id="type-description" class="type-description" ></div>
+
+
   <script type="module" client:load>
     // define everything in here
+
+    const descEl  = document.getElementById('type-description');
+    const TELESCOPE_COUNT = Number(descEl.dataset.count);
+    const formattedCount = new Intl.NumberFormat().format(TELESCOPE_COUNT);
+    
     const typeDescriptions = {
-      all:           "Browse reviews of every telescope style—find your perfect match in one place.",
-      Dobsonian:     "Dobsonians are large-aperture Newtonian reflectors on simple rocker-box mounts—ideal for sweeping deep-sky views.",
+      all: `Browse reviews of ${formattedCount} telescopes—find your perfect match in one place.`,
+      Dobsonian: "Dobsonians are large-aperture Newtonian reflectors on simple rocker-box mounts—ideal for sweeping deep-sky views.",
       "Tabletop Dobsonian": "A compact Dobsonian you can set on any table—perfect for quick setup and on-the-go observing.",
-      Refractor:     "Refractors use precision lenses for crisp, high-contrast views of planets, the Moon, and double stars.",
-      Reflector:     "Classic Newtonian reflectors with mirrors—great light-gathering at an affordable price.",
+      Refractor: "Refractors use precision lenses for crisp, high-contrast views of planets, the Moon, and double stars.",
+      Reflector: "Classic Newtonian reflectors with mirrors—great light-gathering at an affordable price.",
       "Maksutov-Cassegrain": "Maksutovs pack long focal lengths into small tubes for sharp planetary and lunar views.",
-      "Schmidt-Cassegrain":  "Schmidts combine mirrors and lenses in a compact, versatile package for both planets and deep-sky objects.",
-      "Smart Telescope":     "App-controlled scopes automate alignment and tracking—perfect for hands-free stargazing.",
-      Other:         "Unique designs and hybrids—explore these if you’re craving something different.",
+      "Schmidt-Cassegrain": "Schmidts combine mirrors and lenses in a compact, versatile package for both planets and deep-sky objects.",
+      "Smart Telescope": "App-controlled scopes automate alignment and tracking—perfect for hands-free stargazing.",
+      Other: "Unique designs and hybrids—explore these if you’re craving something different.",
     };
 
     const buttons = document.querySelectorAll('.toggle-buttons button');
     const groups  = document.querySelectorAll('.post-group');
-    const descEl  = document.getElementById('type-description');
 
     function showGroup(type) {
       // toggle visibility
