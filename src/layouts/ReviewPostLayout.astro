@@ -6,18 +6,23 @@ import SocialShare from '../components/SocialShare.astro';
 
 const { url } = Astro.props;               // ← the page’s own URL
 
-
 const {
   title,
   description,
   writer,
-  rating: { overall: ratingValue } = {},
   pubDate,
+  updatedDate,
   cover_image,
-  rating,
+  rating = {}
 } = Astro.props.frontmatter;
 
-// Build a Product schema embedding your Review
+const ratingsArray = [
+  { category: "Overall", value: rating.overall },
+  { category: "Optics", value: rating.optics },
+  { category: "Mount", value: rating.mount },
+  { category: "Accessories", value: rating.accessories }
+].filter(r => r.value !== undefined); // only include defined ratings
+
 const jsonLdProduct = {
   "@context": "https://schema.org",
   "@type": "Product",
@@ -30,13 +35,15 @@ const jsonLdProduct = {
       "name": writer
     },
     "datePublished": pubDate,
+    "dateModified": updatedDate || pubDate,
     "reviewBody": description,
-    "reviewRating": {
+    "reviewRating": ratingsArray.map(r => ({
       "@type": "Rating",
-      "ratingValue": ratingValue,
+      "ratingValue": r.value,
       "bestRating": "10",
-      "worstRating": "1"
-    }
+      "worstRating": "1",
+      "name": r.category   // 🔑 label each rating
+    }))
   }
 };
 ---

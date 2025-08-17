@@ -342,7 +342,7 @@ figcaption {
   width: 100%;
 }
 
-.affiliates h3 {
+.affiliates-header {
   font-size: 1.5rem;
   margin-bottom: 1rem;
 }
@@ -361,55 +361,72 @@ figcaption {
     grid-auto-flow: column;
     grid-auto-columns: 1fr;
     justify-content: center;
+    align-items: stretch; /* 🔑 ensures equal card height */
   }
 }
 
+.affiliates li {
+  display: flex;
+  flex-direction: column;   /* stack button + caption */
+  justify-content: space-between; /* keep caption at bottom */
+  align-items: stretch;
+}
+
+/* --- Button --- */
 .affiliate-link {
   display: flex;
-  width: 100%;
   justify-content: center;
   align-items: center;
-  white-space: nowrap;
-  padding: 14px 28px;
-  background-color: #f59e0c;
-  color: #0e0e0e;
-  text-decoration: none;
-  font-weight: 600;
+  padding: 12px 28px;
+  flex: 1;                 /* 🔑 stretch button evenly */
+  width: 100%;
+  max-width: none;
+
+  background-color: rgba(245, 158, 12, 0.1);
+  color: #f59e0c;
+  font-weight: 700;
   font-size: 1rem;
+  font-family: system-ui, sans-serif;
+  text-decoration: none;
+  letter-spacing: 0.3px;
+
+  border: 2px solid rgba(245, 158, 12, 0.4);
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(245, 158, 12, 0.5);
-  transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
-  max-width: 400px;
+  box-shadow: 0 0 8px rgba(245, 158, 12, 0.4),
+              0 2px 6px rgba(0,0,0,0.6);
+  transition: all 0.25s ease;
 }
 
 .affiliate-link:hover {
-  background-color: #ffb833; /* warm golden hover */
+  background-color: rgba(245, 158, 12, 0.2);
+  border-color: #f59e0c;
+  color: #ffb833;
   transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(245, 158, 12, 0.35);
 }
 
 .affiliate-link:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(169,180,255,0.3);
+  background-color: rgba(245, 158, 12, 0.25);
+  border-color: #ffb833;
+  transform: scale(0.98);
 }
 
 .affiliate-link:focus-visible {
-  outline: 2px solid #a9b4ff;
-  outline-offset: 2px;
+  outline: 2px solid #f59e0c;
+  outline-offset: 3px;
 }
 
+/* --- Caption --- */
 .affiliate-caption {
-  margin-top: 0.5rem;
+  margin-top: 0.75rem;
   font-size: 0.7rem;
   color: #aaa;
   font-style: italic;
   text-align: center;
   line-height: 1.3;
-  max-width: 80%;
+  max-width: 90%;
   margin-left: auto;
   margin-right: auto;
-  hyphens: none;
-  word-break: keep-all;
+  min-height: 2.2rem;
 }
 
 .accessory-box {
