@@ -4,7 +4,7 @@ import '../styles/index.css';
 import '../styles/cards.css';
 import '../styles/search.css';
 import { site } from '../config/site.js';
-
+import { Instagram, Youtube } from "lucide-react";
 // 1. Grab *all* your posts
 const allPosts = await Astro.glob('./posts/*.{md,mdx}', { eager: true });
 
@@ -37,17 +37,39 @@ function isP5Sim(frontmatter) {
     <h1 class="home-title">{site.name}</h1>
     <p class="home-description">{site.description}</p>
     <p class="home-description-2">Expert written reviews for astronomy equipment, astronomy related posts, and more.</p>
-    
+      <!-- 🔗 Social links -->
     <div class="home-cta-wrapper">
-    <a 
-      href="/telescopes" 
-      class="home-cta-btn" 
-      onclick="umami.track('explore-telescopes-cta')"
-    >
-      🔭 Explore All Telescopes
-    </a>
+      <a 
+        href="/telescopes" 
+        class="home-cta-btn" 
+        onclick="umami.track('explore-telescopes-cta')"
+      >
+        🪐 Explore All Telescopes
+      </a>
     </div>
-
+    <div class="home-socials">
+      <h3>Follow Us</h3>
+      
+      <div class="home-socials-links">
+        <a 
+          href="https://www.instagram.com/astrosyo_" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="social-link"
+        >
+          <Instagram size={42} /> 
+        </a>
+        
+        <a 
+          href="https://www.youtube.com/@atakansaracyakupoglu9930" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="social-link"
+        >
+          <Youtube size={42} /> 
+        </a>
+      </div>
+    </div>
     <section class="latest-section">
       <h2 class="latest-title">Latest</h2>
         <div class="post-grid">

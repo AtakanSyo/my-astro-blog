@@ -22,6 +22,7 @@
     "astro-icon": "^1.1.5",
     "gray-matter": "^4.0.3",
     "lil-gui": "^0.20.0",
+    "lucide-react": "^0.539.0",
     "p5": "^2.0.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
