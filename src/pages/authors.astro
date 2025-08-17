@@ -1,33 +1,54 @@
 ---
-import Layout from '../layouts/Layout.astro';
-
+import Layout from "../layouts/Layout.astro";
 ---
+
 <Layout title="Our Authors">
   <main class="authors-page">
-    <!-- First author: image left, bio right -->
-    <section class="author author--left">
-      <img src="/images/authors/zane-landers.webp" alt="Author Zane Landers">
+    <!-- First author -->
+     <h1>Meet our Authors</h1>
+    <section class="author">
+      <img src="/images/authors/zane-landers.webp" alt="Author Zane Landers" />
       <div class="bio">
         <h2>Zane Landers</h2>
-        <p>Zane Landers is an amateur astronomer and telescope maker from Arizona. Zane builds and regularly observes with Dobsonian telescopes as large as 40" in aperture, and grinds his own mirrors. Featured in major publications, he advocates for variable star observers and dark sky preservation.</p>
+        <p>
+          Zane Landers is an amateur astronomer and telescope maker from
+          Arizona. Zane builds and regularly observes with Dobsonian telescopes
+          as large as 40" in aperture, and grinds his own mirrors. Featured in
+          major publications, he advocates for variable star observers and dark
+          sky preservation.
+        </p>
       </div>
     </section>
 
-    <!-- Second author: image right, bio left -->
-    <section class="author author--right">
-      <img src="/images/authors/richard-j-bartlett.webp" alt="Richard J. Bartlett">
+    <!-- Second author -->
+    <section class="author">
+      <img
+        src="/images/authors/richard-j-bartlett.webp"
+        alt="Richard J. Bartlett"
+      />
       <div class="bio">
         <h2>Richard J. Bartlett</h2>
-        <p>England-born Richard Bartlett has written for Sky & Telescope and Astronomy Magazine. Author of several astronomy guides, he now shares celestial insights from Southern California.</p>
+        <p>
+          England-born Richard Bartlett has written for Sky & Telescope and
+          Astronomy Magazine. Author of several astronomy guides, he now shares
+          celestial insights from Southern California.
+        </p>
       </div>
     </section>
 
-    <!-- Third author: image right, bio left -->
-    <section class="author author--left">
-      <img src="/images/authors/atakan-saracyakupoglu.webp" alt="Atakan Saracyakupoglu">
+    <!-- Third author -->
+    <section class="author">
+      <img
+        src="/images/authors/atakan-saracyakupoglu.webp"
+        alt="Atakan Saracyakupoglu"
+      />
       <div class="bio">
         <h2>Atakan Saracyakupoglu</h2>
-        <p>Atakan Saracyakupoglu is a graduate student in astrophysics at Sabanci University, specializing in telescope simulations and technical analyses.</p>
+        <p>
+          Atakan Saracyakupoglu is a graduate student in astrophysics at Sabanci
+          University, specializing in telescope simulations and technical
+          analyses.
+        </p>
       </div>
     </section>
   </main>
@@ -39,8 +60,7 @@ import Layout from '../layouts/Layout.astro';
   --card-bg: #1a1a1a;
   --text-color: #ffffff;
   --muted: #aaa;
-  --accent-color: #a9b4ff; /* matches your global.css primary */
-  --shadow-color: rgba(0, 0, 0, 0.5);
+  --accent-color:rgb(228 228 228);
   --card-radius: 14px;
 }
 
@@ -48,102 +68,61 @@ import Layout from '../layouts/Layout.astro';
 .authors-page {
   display: grid;
   grid-template-columns: 1fr;
-  justify-items: center;
-  gap: 1.25rem;
-  max-width: 1080px;
+  gap: 2rem;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 3rem 1rem;
+  background: var(--bg-page);
 }
 
 /* Author card */
 .author {
-  position: relative;
   display: flex;
-  width: 100%;
-  background:
-    radial-gradient(130% 170% at 100% -40%, color-mix(in oklab, var(--accent-color) 14%, transparent) 0%, transparent 60%),
-    linear-gradient(180deg, var(--card-bg), #141414);
+  gap: 1.5rem;
+  background: var(--card-bg);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: var(--card-radius);
-  box-shadow: 0 10px 28px var(--shadow-color), inset 0 1px 0 rgba(255,255,255,0.05);
-  overflow: clip;
-  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-  align-items: stretch;
+  padding: 1.5rem;
+  align-items: center;
 }
 
-.author:hover {
-  box-shadow: 0 14px 38px rgba(0,0,0,0.6);
-  border-color: rgba(255,255,255,0.12);
-}
-
-/* Top ribbon accent */
-.author::before {
-  content: "";
-  position: absolute; left: 0; right: 0; top: 0; height: 4px;
-  background: linear-gradient(90deg, var(--accent-color), color-mix(in oklab, var(--accent-color) 40%, #8882a5));
-  opacity: .8;
-}
-
-/* Alternate layout */
-.author--right { flex-direction: row-reverse; }
-
-/* Portrait */
+/* Portraits */
 .author img {
-  width: clamp(180px, 26vw, 260px);
+  width: clamp(140px, 20vw, 200px);
   height: auto;
   object-fit: cover;
-  filter: grayscale(60%);
-  transition: filter .25s ease, transform .25s ease;
-  aspect-ratio: 3 / 4;
+  border-radius: 10px;
 }
 
-.author:hover img {
-  filter: grayscale(0%);
-  transform: scale(1.02);
-}
-
-/* Bio */
+/* Bio text */
 .bio {
-  padding: clamp(1rem, 3vw, 2rem);
-  color: var(--text-color);
-  display: grid;
-  align-content: center;
+  flex: 1;
 }
 
 .bio h2 {
   margin: 0 0 .5rem;
-  font-size: clamp(1.25rem, 1.4rem + .4vw, 2rem);
-  font-weight: 800;
-  letter-spacing: .2px;
-  background: linear-gradient(45deg, var(--accent-color), #8882a5);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent-color);
 }
 
 .bio p {
   margin: 0;
-  line-height: 1.7;
+  line-height: 1.6;
   font-size: 1rem;
   color: var(--muted);
-  max-width: 70ch;
 }
 
 /* Mobile */
-@media (max-width: 900px) {
-  .authors-page { gap: 1rem; padding: 2.25rem 1rem; }
-}
-
 @media (max-width: 768px) {
   .author {
     flex-direction: column;
-    max-width: 520px;
+    text-align: center;
   }
   .author img {
     width: 100%;
-    height: clamp(200px, 38vw, 280px);
-    aspect-ratio: auto;
+    max-width: 260px;
+    border-radius: 12px;
   }
-  .bio { padding: 1rem 1rem 1.25rem; }
 }
 </style>
