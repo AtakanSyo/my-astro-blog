@@ -63,7 +63,7 @@ p {
   position: relative;
 }
 
-.info-tags h3::after {
+.info-tags h3::after, .affiliates-header::after {
   content: "";
   display: block;
   height: 2px;
@@ -352,39 +352,39 @@ figcaption {
   margin: auto;
   padding: 0;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr;  /* default: 1 column on mobile */
   gap: 1.5rem;
 }
 
+/* On wider screens → turn into a single row that wraps if needed */
 @media (min-width: 768px) {
   .affiliates ul {
-    grid-auto-flow: column;
-    grid-auto-columns: 1fr;
-    justify-content: center;
-    align-items: stretch; /* 🔑 ensures equal card height */
+    display: flex;              /* use flex for single-row behavior */
+    flex-wrap: wrap;            /* allow wrapping if space runs out */
+    justify-content: center;    /* center them horizontally */
+    gap: 1.5rem;                /* keep spacing consistent */
+  }
+
+  .affiliates li {
+    flex: 1 1 auto;             /* flexible width, shrink if needed */
+    min-width: 200px;           /* ensures readability, adjust as needed */
+    max-width: 280px;           /* keeps them from stretching too wide */
   }
 }
 
-.affiliates li {
-  display: flex;
-  flex-direction: column;   /* stack button + caption */
-  justify-content: space-between; /* keep caption at bottom */
-  align-items: stretch;
-}
-
-/* --- Button --- */
 .affiliate-link {
-  display: flex;
+  display: inline-flex;       /* keep text + arrow inline */
+  white-space: nowrap;        /* 🔑 prevents line breaks */
   justify-content: center;
   align-items: center;
-  padding: 12px 28px;
-  flex: 1;                 /* 🔑 stretch button evenly */
+  padding: 0.5rem;
+  flex: 1;
   width: 100%;
   max-width: none;
 
   background-color: rgba(245, 158, 12, 0.1);
-  color: #f59e0c;
-  font-weight: 700;
+  color: white;
+  font-weight: 500;
   font-size: 1rem;
   font-family: system-ui, sans-serif;
   text-decoration: none;
@@ -395,6 +395,8 @@ figcaption {
   box-shadow: 0 0 8px rgba(245, 158, 12, 0.4),
               0 2px 6px rgba(0,0,0,0.6);
   transition: all 0.25s ease;
+  overflow: hidden;           /* just in case */
+  text-overflow: ellipsis;    /* show … if text is too long */
 }
 
 .affiliate-link:hover {
@@ -408,6 +410,18 @@ figcaption {
   background-color: rgba(245, 158, 12, 0.25);
   border-color: #ffb833;
   transform: scale(0.98);
+}
+
+/* Decorative arrow for external/affiliate links */
+.affiliate-link::after {
+  content: '↗';
+  font-size: 1em;
+  padding: 0.4rem;
+  transition: transform 0.2s ease;
+}
+
+.affiliate-link:hover::after {
+  transform: translateX(2px);
 }
 
 .affiliate-link:focus-visible {
