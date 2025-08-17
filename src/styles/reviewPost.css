@@ -399,60 +399,69 @@ figcaption {
     max-width: 280px;           /* keeps them from stretching too wide */
   }
 }
-
 .affiliate-link {
+  --gradient: linear-gradient(135deg, #fbbf24, #f59e0b); /* your amber gradient */
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;                /* spacing between text & arrow */
-  padding: 0.65rem 1.25rem;   /* roomier padding */
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
   width: 100%;
-  max-width: 320px;           /* keeps buttons from stretching too wide */
-  white-space: nowrap;         /* 🔑 text never breaks into 2 lines */
+  max-width: 320px;
+  white-space: nowrap;
 
-  background: linear-gradient(135deg, #f59e0b, #d97706);
-  color: #fff;
-  font-weight: 600;
+  background: transparent;
+  color: transparent; /* we’ll “paint” text with gradient */
+  font-weight: 700;
   font-size: 1rem;
   font-family: system-ui, sans-serif;
   text-decoration: none;
   text-align: center;
 
-  border: none;
-  border-radius: 8px;      /* full pill shape */
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3),
-              0 0 8px rgba(245, 158, 12, 0.5);
+  border: 2px solid transparent;
+  border-radius: 6px;
+  background-clip: padding-box;
   
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  /* gradient border + text trick */
+  background-image: var(--gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  border-image: var(--gradient) 1;
+
+  /* solid offset shadow in gradient */
+  box-shadow: 6px 6px 0 #f59e0b;
+  transition: all 0.25s ease;
 }
 
 .affiliate-link:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(0,0,0,0.35),
-              0 0 12px rgba(245, 158, 12, 0.7);
-  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  background: var(--gradient);
+  color: #fff;                  /* switch to solid white text */
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  border-color: transparent;
+  box-shadow: 8px 8px 0 #f59e0b;
+  transform: translate(-2px, -2px);
 }
 
 .affiliate-link:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.4),
-              0 0 6px rgba(245, 158, 12, 0.4);
+  transform: translate(0,0);
+  box-shadow: 4px 4px 0 #f59e0b;
 }
 
-/* Decorative arrow for external/affiliate links */
 .affiliate-link::after {
   content: '↗';
-  font-size: 1em;
-  padding: 0.3rem;
+  font-size: 0.95em;
+  padding-left: 0.35rem;
   transition: transform 0.2s ease;
 }
 
 .affiliate-link:hover::after {
-  transform: translateX(2px);
+  transform: translateX(3px);
 }
 
 .affiliate-link:focus-visible {
-  outline: 2px solid #f59e0c;
+  outline: 2px solid #fbbf24;
   outline-offset: 3px;
 }
 
