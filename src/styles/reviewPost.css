@@ -275,8 +275,8 @@ h1 .review-tag {
   box-shadow: 0 0 0 2px rgba(169,180,255,0.15);
 }
 
-.pros-cons .pros-block li::before { background: #3cd680; box-shadow: 0 0 0 2px rgba(60,214,128,0.18); }
-.pros-cons .cons-block li::before { background: #ff6b6b; box-shadow: 0 0 0 2px rgba(255,107,107,0.18); }
+.pros-cons .pros-block li::before { background: #f59e0c; box-shadow: 0 0 0 2px rgba(60,214,128,0.18); }
+.pros-cons .cons-block li::before { background: #f59e0c; box-shadow: 0 0 0 2px rgba(255,107,107,0.18); }
 
 /* Base class (shared styles) */
 .post-image {
