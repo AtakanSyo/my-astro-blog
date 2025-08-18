@@ -1,0 +1,99 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Black Hole Accretion Disk"
+category: simulation
+writer: Astrosyo
+pubDate: '2025-08-18'
+description: "An interactive Three.js simulation of a black hole surrounded by a glowing accretion disk, photon ring, and starfield background."
+slug: black-hole-accretion
+imageDir: /images/black-hole-accretion
+keywords:
+  - black hole
+  - accretion disk
+  - photon ring
+  - relativistic effects
+  - three.js
+---
+
+import BlackHoleAccretion from "../../components/simulations/BlackHoleAccretion.jsx";
+import SimPostSchema from "../../components/SimPostSchema.astro";
+
+<div class="">
+  <div 
+    class="sim-stage is-visible" 
+    aria-label="Black hole accretion disk simulation canvas" 
+    id="simulation"
+  >
+    <BlackHoleAccretion client:load />
+  </div>
+
+  <figcaption class="sim-caption">
+    Real-time Three.js rendering of a black hole with a relativistic accretion disk and photon ring.
+  </figcaption>
+</div>
+
+<div class="sim-article">
+  <h2 id="about-this-page">About this page</h2>
+  <p>
+    This is a <strong>real-time GPU visualization of a black hole</strong>, complete with an accretion disk, photon ring, and faint background starfield. 
+    The central event horizon remains perfectly dark, while light from the hot plasma disk and lensed starfield creates the familiar silhouette seen in images such as those from the Event Horizon Telescope.
+  </p>
+
+  <h3 id="what-youre-seeing">What you’re seeing</h3>
+  <p>
+    The <em>photon ring</em> arises from light bending multiple times around the black hole before reaching the observer. 
+    The <strong>accretion disk</strong> is hotter near its inner edge: the approaching side is Doppler-boosted into bluish-white tones, while the receding side is redshifted. 
+    A background starfield is lensed and distorted, reinforcing the sense of extreme curvature of spacetime.
+  </p>
+
+  <p>
+    While this is a stylized approximation rather than a full general-relativistic ray-tracing, the essential effects are captured: 
+    <strong>gravitational redshift</strong>, <strong>relativistic beaming</strong>, and the iconic dark silhouette of the event horizon.
+  </p>
+
+  <h2 id="observing-black-holes">Observing black holes</h2>
+  <p>
+    Black holes cannot be observed directly. Instead, astronomers detect them through their influence on surrounding matter. 
+    Accretion disks emit intense X-rays as gas spirals inward, heating to millions of degrees. 
+    On cosmic scales, supermassive black holes can power <em>quasars</em>—some of the brightest and most energetic objects in the universe.
+  </p>
+
+  <h2 id="tech-notes">Tech notes</h2>
+  <p>
+    This simulation runs entirely in <strong>WebGL2</strong> with custom GLSL shaders. 
+    The disk shader approximates relativistic effects using Doppler boosting (~<code>D³</code>) and gravitational redshift (~<code>√(1 - rₛ/r)</code>). 
+    A bloom pass enhances the photon ring’s glow, while stars are drawn as GPU-instanced particles for performance. 
+    The result is an accessible yet visually striking model of black hole physics running in the browser.
+  </p>
+</div>
+
+<SimPostSchema
+  title="Black Hole Accretion Disk Simulation"
+  description="A GPU-accelerated Three.js simulation of a black hole with accretion disk, photon ring, and lensed starfield."
+  url="https://astrosyo.com/posts/black-hole-accretion"
+  datePublished="2025-08-18"
+  authorName="Astrosyo"
+  keywords={[
+    "black hole",
+    "accretion disk",
+    "photon ring",
+    "relativistic effects",
+    "three.js",
+    "shader",
+    "astronomy visualization"
+  ]}
+  image="/images/black-hole-accretion/cover.webp"
+  articleSection="Astronomy"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.webp"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Black Hole Simulation",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires WebGL2",
+    "url": "https://astrosyo.com/posts/black-hole-accretion#simulation",
+    "description": "Interactive visualization of a black hole with relativistic accretion disk, photon ring, and starfield."
+  }}
+/>
