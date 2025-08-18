@@ -18,19 +18,11 @@ keywords:
 import BlackHoleAccretion from "../../components/simulations/BlackHoleAccretion.jsx";
 import SimPostSchema from "../../components/SimPostSchema.astro";
 
-<div class="">
-  <div 
-    class="sim-stage is-visible" 
-    aria-label="Black hole accretion disk simulation canvas" 
-    id="simulation"
-  >
-    <BlackHoleAccretion client:load />
-  </div>
+    <BlackHoleAccretion client:load pausedInitially={true} />
 
   <figcaption class="sim-caption">
     Real-time Three.js rendering of a black hole with a relativistic accretion disk and photon ring.
   </figcaption>
-</div>
 
 <div class="sim-article">
   <h2 id="about-this-page">About this page</h2>

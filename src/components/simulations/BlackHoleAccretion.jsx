@@ -266,22 +266,22 @@ export default function GravityLens({
       }, 100);
     }
 
-    const clock = new THREE.Clock(false); // not auto-started
+    const clock = new THREE.Clock(false);
     clock.start();
     let t = 0;
 
     function loop() {
       if (getPaused()) {
-        if (clock.running) clock.stop(); // freeze elapsed
-        // optional: render(scene, camera) here if you need UI overlays to update
+        if (clock.running) clock.stop();
+        // no t increment, no render = stays frozen at initial frame
       } else {
-        if (!clock.running) clock.start();          // resume without jump
-        const dt = Math.min(clock.getDelta(), 0.05); // clamp huge spikes
+        if (!clock.running) clock.start();
+        const dt = Math.min(clock.getDelta(), 0.05);
         t += dt;
         uniforms.uTime.value = t;
         renderer.render(scene, camera);
       }
-      rafId = requestAnimationFrame(loop);          // keep loop alive
+      rafId = requestAnimationFrame(loop);
     }
     rafId = requestAnimationFrame(loop);
 
@@ -304,10 +304,9 @@ export default function GravityLens({
   }, [paused]);
 
   const onToggle = () => setPaused(p => !p);
-
   return (
     <div
-      className="sim-stage centered_flex"
+      className={`sim-stage centered_flex ${!paused ? "is-visible" : ""}`}
       id={`stage-${id}`}
       ref={containerRef}
       style={{ aspectRatio: aspect }}
