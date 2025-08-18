@@ -32,6 +32,7 @@ export default function GravityLens({
   const pausedRef = useRef(!!pausedInitially);
   const [paused, setPaused] = useState(!!pausedInitially);
   const [ready, setReady] = useState(false);
+  const [hasEverPlayed, setHasEverPlayed] = useState(false);
   const opts = useMemo(() => options ?? {}, [options]);
 
   useEffect(() => {
@@ -303,10 +304,20 @@ export default function GravityLens({
     pausedRef.current = paused;
   }, [paused]);
 
-  const onToggle = () => setPaused(p => !p);
+ const onToggle = () => {
+   setPaused(p => {
+     const next = !p;
+     if (next === false) {
+       // going from paused → playing
+       setHasEverPlayed(true);
+     }
+     return next;
+   });
+ };
+
   return (
-    <div
-      className={`sim-stage centered_flex ${!paused ? "is-visible" : ""}`}
+ <div
+   className={`sim-stage centered_flex ${hasEverPlayed ? "is-visible" : ""}`}
       id={`stage-${id}`}
       ref={containerRef}
       style={{ aspectRatio: aspect }}
