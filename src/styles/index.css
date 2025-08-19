@@ -1,3 +1,7 @@
+body {
+  background: rgb(17,17,17);
+}
+
 .home-title {
     font-size: calc(var(--golden-ratio) * var(--golden-ratio) * 1rem);
     font-weight: bold;
