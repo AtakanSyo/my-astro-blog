@@ -99,7 +99,7 @@ const sortedGrouped = Object.fromEntries(
         <div class="post-grid">
           {sortedGrouped[type].map(({ frontmatter, url }) => {
             const { title, description, rating, writer, pubDate, affiliate = {} } = frontmatter;
-            const cleanTitle = title.replace(/ Review$/, '');
+            const cleanTitle = title.replace(/ (Review|Overview)$/, '');
             const score = rating?.overall ?? 'N/A';
             const affs = [
               ['Amazon', affiliate.amazon],
