@@ -7,7 +7,7 @@ export async function run(canvas, { pausedRef, options = {} } = {}) {
   // ---------------- Config ----------------
   const AXIAL_TILT_DEG    = options.axialTiltDeg ?? 25.19;
   const ROT_PERIOD_H      = options.rotationHours ?? 24.623;
-  const TIME_SCALE        = options.timeScale ?? 4000;
+  const TIME_SCALE        = options.timeScale ?? 2000;
   const STAR_DIM          = options.starDim ?? 0.05;
   const R_PLANET          = options.planetRadius ?? 1.0;
   const R_ATMOS           = R_PLANET * (options.atmosScale ?? 1.005);
