@@ -11,7 +11,6 @@ export default function PlanetSim({
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
   const btnRef = useRef(null);
-
   const pausedRef = useRef(true);
   const [paused, setPaused] = useState(true);
   const madeVisibleRef = useRef(false);
@@ -28,7 +27,7 @@ export default function PlanetSim({
     const cfg = {
       axialTiltDeg: options.axialTiltDeg ?? 28.32,
       rotationHours: options.rotationHours ?? 16.11, // hours
-      timeScale: options.timeScale ?? 2000,
+      timeScale: options.timeScale ?? 0,
       starDim: options.starDim ?? 0.05,
       planetRadius,       // first planet base radius
       secondRadiusScale, // ~Neptune/Jupiter
@@ -37,13 +36,20 @@ export default function PlanetSim({
       atmosIntensity: options.atmosIntensity ?? 0.2,
 
       // textures (pass absolute /public paths or imported URLs)
-      planetTexture: options.planetTexture ?? '/textures/jupiter_texture.jpg',
-      secondTexture: options.secondTexture ?? '/textures/earth-texture-nasa.webp',
+      planetTexture: options.planetTexture ?? '/textures/8k_jupiter.webp',
+      secondTexture: options.secondTexture ?? '/textures/earth-texture-1.webp',
       starsTexture: options.starsTexture ?? '/textures/stars_texture.jpg',
 
       // positions
-      planetPosition: options.planetPosition ?? [-1, 0, 0],
-      secondPosition: options.secondPosition ?? [1, 0, 0],
+      planetPosition: options.planetPosition ?? [-0.2, 0, 0],
+      secondPosition: options.secondPosition ?? [0, -0.2, 1.2],
+
+      planetSat: options.planetSat ?? 1.65,
+      planetContrast: options.planetContrast ?? 1.06,
+      planetBrightness: options.planetBrightness ?? 0.0, // optional
+      secondSat: options.secondSat ?? 1.25,
+      secondContrast: options.secondContrast ?? 2.3,
+      secondBrightness: options.secondBrightness ?? 0.7,
     };
 
     const R_PLANET = cfg.planetRadius;
@@ -85,28 +91,55 @@ export default function PlanetSim({
       return t;
     }
 
-    function makeSTDMaterial(map) {
+    // 2) A reusable factory that adds grading uniforms to a MeshStandardMaterial
+    function makeSTDMaterial(map, { sat = 1.0, contrast = 1.0, brightness = 0.0 } = {}) {
       const mat = new THREE.MeshStandardMaterial({
         map,
         roughness: 1.0,
         metalness: 0.0,
       });
-      // mild color grading
+
+      // expose uniforms on the material for runtime tweaks
+      mat.userData.uSat = { value: sat };
+      mat.userData.uContrast = { value: contrast };
+      mat.userData.uBrightness = { value: brightness };
+
       mat.onBeforeCompile = (shader) => {
-        shader.fragmentShader = shader.fragmentShader.replace(
-          '#include <map_fragment>',
-          `
-          #include <map_fragment>
-          vec3 c = diffuseColor.rgb;
-          float luma = dot(c, vec3(0.2126, 0.7152, 0.0722));
-          float SAT = 1.35;
-          float CONTRAST = 1.06;
-          c = mix(vec3(luma), c, SAT);
-          c = (c - 0.5) * CONTRAST + 0.5;
-          diffuseColor.rgb = c;
-          `
-        );
+        // attach our uniforms
+        shader.uniforms.uSat = mat.userData.uSat;
+        shader.uniforms.uContrast = mat.userData.uContrast;
+        shader.uniforms.uBrightness = mat.userData.uBrightness;
+
+        // inject after the base map sampling
+        shader.fragmentShader = shader.fragmentShader
+          .replace(
+            '#include <common>',
+            `
+            #include <common>
+            uniform float uSat;
+            uniform float uContrast;
+            uniform float uBrightness;
+            `
+          )
+          .replace(
+            '#include <map_fragment>',
+            `
+            #include <map_fragment>
+            // grade diffuseColor.rgb in sRGB space (renderer.outputColorSpace = SRGB)
+            vec3 c = diffuseColor.rgb;
+            // luma for saturation mix
+            float luma = dot(c, vec3(0.2126, 0.7152, 0.0722));
+            // saturation
+            c = mix(vec3(luma), c, uSat);
+            // contrast around mid-grey 0.5
+            c = (c - 0.5) * uContrast + 0.5;
+            // brightness (simple add)
+            c += uBrightness;
+            diffuseColor.rgb = clamp(c, 0.0, 1.0);
+            `
+          );
       };
+
       mat.needsUpdate = true;
       return mat;
     }
@@ -125,8 +158,17 @@ export default function PlanetSim({
     const mapStars  = loadMap(cfg.starsTexture, { repeatWrap: true });
 
     // ---------- Materials ----------
-    const matPlanet = makeSTDMaterial(mapPlanet);
-    const matSecond = makeSTDMaterial(mapSecond);
+    // 3) Build materials with independent controls
+    const matPlanet = makeSTDMaterial(mapPlanet, {
+      sat: cfg.planetSat,
+      contrast: cfg.planetContrast,
+      brightness: cfg.planetBrightness,
+    });
+    const matSecond = makeSTDMaterial(mapSecond, {
+      sat: cfg.secondSat,
+      contrast: cfg.secondContrast,
+      brightness: cfg.secondBrightness,
+    });
 
     // ---------- Planets ----------
     const planetA = makePlanet(R_PLANET,  matPlanet, cfg.axialTiltDeg, cfg.planetPosition);
@@ -191,10 +233,10 @@ export default function PlanetSim({
     scene.add(stars);
 
     // ---------- Lights ----------
-    const sun = new THREE.DirectionalLight(0xffffff, 2.0);
+    const sun = new THREE.DirectionalLight(0xffffff, 1.2);
     sun.position.set(5, 2, 3).normalize();
     scene.add(sun);
-    scene.add(new THREE.AmbientLight(0xffffff, 0.22));
+    scene.add(new THREE.AmbientLight(0xffffff, 0.02));
 
     const syncLightUniforms = () => {
       atmosMat.uniforms.uLightDir.value.copy(sun.position.clone().normalize());
@@ -258,6 +300,13 @@ export default function PlanetSim({
 
       atmosphere.rotation.y = planetA.rotation.y;
       atmosphere.position.copy(planetA.position);
+
+      const t = clock.elapsedTime; // keeps increasing
+
+      camera.position.x = 4 * Math.cos(t/8);
+      camera.position.z = 4 * Math.sin(t/8);
+
+      camera.lookAt(0, 0, 0);
 
       atmosphereB.rotation.y = planetB.rotation.y;
       atmosphereB.position.copy(planetB.position);
