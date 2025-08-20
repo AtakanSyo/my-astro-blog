@@ -23,10 +23,10 @@ export default function PlanetSim({
 
     // ---------- Defaults & Options ----------
     const planetRadius = options.planetRadius ?? 1;
-    const secondRadiusScale = options.secondRadiusScale ?? 0.09;
+    const secondRadiusScale = options.secondRadiusScale ?? 0.4;
 
     const cfg = {
-      axialTiltDeg: options.axialTiltDeg ?? 28.32,
+      axialTiltDeg: options.axialTiltDeg ?? -28.32,
       rotationHours: options.rotationHours ?? 16.11, // hours
       timeScale: options.timeScale ?? 2000,
       starDim: options.starDim ?? 0.05,
@@ -37,13 +37,20 @@ export default function PlanetSim({
       atmosIntensity: options.atmosIntensity ?? 0.2,
 
       // textures (pass absolute /public paths or imported URLs)
-      planetTexture: options.planetTexture ?? '/textures/jupiter_texture.jpg',
-      secondTexture: options.secondTexture ?? '/textures/earth-texture-nasa.webp',
+      planetTexture: options.planetTexture ?? '/textures/earth-texture-1.webp',
+      secondTexture: options.secondTexture ?? '/textures/mars_texture.webp',
       starsTexture: options.starsTexture ?? '/textures/stars_texture.jpg',
 
       // positions
       planetPosition: options.planetPosition ?? [-1, 0, 0],
       secondPosition: options.secondPosition ?? [1, 0, 0],
+      
+      planetSat: options.planetSat ?? 0.8,
+      planetContrast: options.planetContrast ?? 2.1,
+      planetBrightness: options.planetBrightness ?? 0.6, // optional
+      secondSat: options.secondSat ?? 1.1,
+      secondContrast: options.secondContrast ?? 0.6,
+      secondBrightness: options.secondBrightness ?? 0.0,
     };
 
     const R_PLANET = cfg.planetRadius;
@@ -85,28 +92,55 @@ export default function PlanetSim({
       return t;
     }
 
-    function makeSTDMaterial(map) {
+    // 2) A reusable factory that adds grading uniforms to a MeshStandardMaterial
+    function makeSTDMaterial(map, { sat = 1.0, contrast = 1.0, brightness = 0.0 } = {}) {
       const mat = new THREE.MeshStandardMaterial({
         map,
         roughness: 1.0,
         metalness: 0.0,
       });
-      // mild color grading
+
+      // expose uniforms on the material for runtime tweaks
+      mat.userData.uSat = { value: sat };
+      mat.userData.uContrast = { value: contrast };
+      mat.userData.uBrightness = { value: brightness };
+
       mat.onBeforeCompile = (shader) => {
-        shader.fragmentShader = shader.fragmentShader.replace(
-          '#include <map_fragment>',
-          `
-          #include <map_fragment>
-          vec3 c = diffuseColor.rgb;
-          float luma = dot(c, vec3(0.2126, 0.7152, 0.0722));
-          float SAT = 1.35;
-          float CONTRAST = 1.06;
-          c = mix(vec3(luma), c, SAT);
-          c = (c - 0.5) * CONTRAST + 0.5;
-          diffuseColor.rgb = c;
-          `
-        );
+        // attach our uniforms
+        shader.uniforms.uSat = mat.userData.uSat;
+        shader.uniforms.uContrast = mat.userData.uContrast;
+        shader.uniforms.uBrightness = mat.userData.uBrightness;
+
+        // inject after the base map sampling
+        shader.fragmentShader = shader.fragmentShader
+          .replace(
+            '#include <common>',
+            `
+            #include <common>
+            uniform float uSat;
+            uniform float uContrast;
+            uniform float uBrightness;
+            `
+          )
+          .replace(
+            '#include <map_fragment>',
+            `
+            #include <map_fragment>
+            // grade diffuseColor.rgb in sRGB space (renderer.outputColorSpace = SRGB)
+            vec3 c = diffuseColor.rgb;
+            // luma for saturation mix
+            float luma = dot(c, vec3(0.2126, 0.7152, 0.0722));
+            // saturation
+            c = mix(vec3(luma), c, uSat);
+            // contrast around mid-grey 0.5
+            c = (c - 0.5) * uContrast + 0.5;
+            // brightness (simple add)
+            c += uBrightness;
+            diffuseColor.rgb = clamp(c, 0.0, 1.0);
+            `
+          );
       };
+
       mat.needsUpdate = true;
       return mat;
     }
@@ -124,9 +158,17 @@ export default function PlanetSim({
     const mapSecond = loadMap(cfg.secondTexture);
     const mapStars  = loadMap(cfg.starsTexture, { repeatWrap: true });
 
-    // ---------- Materials ----------
-    const matPlanet = makeSTDMaterial(mapPlanet);
-    const matSecond = makeSTDMaterial(mapSecond);
+    // 3) Build materials with independent controls
+    const matPlanet = makeSTDMaterial(mapPlanet, {
+      sat: cfg.planetSat,
+      contrast: cfg.planetContrast,
+      brightness: cfg.planetBrightness,
+    });
+    const matSecond = makeSTDMaterial(mapSecond, {
+      sat: cfg.secondSat,
+      contrast: cfg.secondContrast,
+      brightness: cfg.secondBrightness,
+    });
 
     // ---------- Planets ----------
     const planetA = makePlanet(R_PLANET,  matPlanet, cfg.axialTiltDeg, cfg.planetPosition);
@@ -191,7 +233,7 @@ export default function PlanetSim({
     scene.add(stars);
 
     // ---------- Lights ----------
-    const sun = new THREE.DirectionalLight(0xffffff, 2.0);
+    const sun = new THREE.DirectionalLight(0xffffff, 2.2);
     sun.position.set(5, 2, 3).normalize();
     scene.add(sun);
     scene.add(new THREE.AmbientLight(0xffffff, 0.22));
