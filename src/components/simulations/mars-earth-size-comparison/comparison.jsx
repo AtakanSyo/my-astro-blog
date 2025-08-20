@@ -23,7 +23,7 @@ export default function PlanetSim({
 
     // ---------- Defaults & Options ----------
     const planetRadius = options.planetRadius ?? 1;
-    const secondRadiusScale = options.secondRadiusScale ?? 0.4;
+    const secondRadiusScale = options.secondRadiusScale ?? 0.5313577924;
 
     const cfg = {
       axialTiltDeg: options.axialTiltDeg ?? -28.32,
@@ -45,9 +45,9 @@ export default function PlanetSim({
       planetPosition: options.planetPosition ?? [-1, 0, 0],
       secondPosition: options.secondPosition ?? [1, 0, 0],
       
-      planetSat: options.planetSat ?? 0.8,
-      planetContrast: options.planetContrast ?? 2.1,
-      planetBrightness: options.planetBrightness ?? 0.6, // optional
+      planetSat: options.planetSat ?? 0.7,
+      planetContrast: options.planetContrast ?? 2.3,
+      planetBrightness: options.planetBrightness ?? 0.7, // optional
       secondSat: options.secondSat ?? 1.1,
       secondContrast: options.secondContrast ?? 0.6,
       secondBrightness: options.secondBrightness ?? 0.0,
