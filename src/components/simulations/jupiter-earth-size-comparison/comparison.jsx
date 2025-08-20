@@ -22,7 +22,7 @@ export default function PlanetSim({
     if (!container || !canvas) return;
 
     // ---------- Defaults & Options ----------
-    const planetRadius = options.planetRadius ?? 1.2;
+    const planetRadius = options.planetRadius ?? 1;
     const secondRadiusScale = options.secondRadiusScale ?? planetRadius * 0.09;
 
     const cfg = {
