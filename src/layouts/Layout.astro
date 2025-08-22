@@ -5,7 +5,13 @@ import '../styles/footer.css';
 import { site } from '../config/site.js';
 const site_description = site.description;
 import NavScript from '../components/NavScript.astro';
-// any other imports or props…
+const orgJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: site.name,
+  url: "https://astrosyo.com",
+  logo: "https://astrosyo.com/images/shared/logo.svg",
+};
 ---
 
 <!doctype html>
@@ -17,14 +23,7 @@ import NavScript from '../components/NavScript.astro';
 		<meta name="generator" content={Astro.generator} />
     <meta property="og:description" content={site_description} />
 		<title>Astrosyo</title>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Astrosyo",
-      "url": "https://astrosyo.com",
-      "logo": "https://astrosyo.com/images/shared/logo.svg"
-    }
+    <script type="application/ld+json" set:html={JSON.stringify(orgJsonLd)} />
     </script>
 <script
   defer
