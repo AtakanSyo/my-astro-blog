@@ -7,11 +7,15 @@ const site_description = site.description;
 import NavScript from '../components/NavScript.astro';
 const orgJsonLd = {
   "@context": "https://schema.org",
-  "@type": "Organization",
-  name: site.name,
-  url: "https://astrosyo.com",
-  logo: "https://astrosyo.com/images/shared/logo.svg",
-};
+  "@type": "WebSite",
+  "name": "Astrosyo",
+  "url": "https://astrosyo.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://astrosyo.com/search?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
 ---
 
 <!doctype html>
