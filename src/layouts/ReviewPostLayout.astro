@@ -1,10 +1,10 @@
 ---
 import Layout from './Layout.astro';
 import '../styles/postsGlobal.css';
-import '../styles/reviewPost.css';  // ← pulls in your global styles
+import '../styles/reviewPost.css';
 import SocialShare from '../components/SocialShare.astro';
 
-const { url } = Astro.props;               // ← the page’s own URL
+const { url } = Astro.props;
 
 const {
   title,
@@ -21,7 +21,19 @@ const ratingsArray = [
   { category: "Optics", value: rating.optics },
   { category: "Mount", value: rating.mount },
   { category: "Accessories", value: rating.accessories }
-].filter(r => r.value !== undefined); // only include defined ratings
+].filter(r => r.value !== undefined);
+
+// --- NEW: condition for legacy Zane posts ---
+const cutoff = new Date('2025-09-01T00:00:00Z'); // absolute date
+const pubDateObj = pubDate ? new Date(pubDate) : null;
+const isLegacyZane =
+  (String(writer || '').trim().toLowerCase() === 'zane landers') &&
+  (pubDateObj instanceof Date && !Number.isNaN(pubDateObj.getTime()) && pubDateObj < cutoff);
+
+// What to show in the byline
+const writerLine = isLegacyZane
+  ? `Written by ${writer} 2 years ago, for TelescopesToBuy.`
+  : `Written by ${writer}`;
 
 const jsonLdProduct = {
   "@context": "https://schema.org",
@@ -30,10 +42,7 @@ const jsonLdProduct = {
   "description": description,
   "review": {
     "@type": "Review",
-    "author": {
-      "@type": "Person",
-      "name": writer
-    },
+    "author": { "@type": "Person", "name": writer },
     "datePublished": pubDate,
     "dateModified": updatedDate || pubDate,
     "reviewBody": description,
@@ -42,7 +51,7 @@ const jsonLdProduct = {
       "ratingValue": r.value,
       "bestRating": "10",
       "worstRating": "1",
-      "name": r.category   // 🔑 label each rating
+      "name": r.category
     }))
   }
 };
@@ -51,43 +60,39 @@ const jsonLdProduct = {
 <head>
   <title>{title}</title>
   <meta name="description" content={description} />
-  <!-- JSON-LD markup for Google rich snippets -->
-  <!-- Force‐inject raw JSON via set:html -->
-  <script
-    type="application/ld+json"
-    set:html={JSON.stringify(jsonLdProduct, null, 2)}
-  ></script>
-  <link
-    rel="preload"
-    as="image"
-    href={cover_image}
-  />
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLdProduct, null, 2)}></script>
+  <link rel="preload" as="image" href={cover_image} />
 </head>
 
 <Layout title={title}>
-  
   <article class="post centered_flex">
-        <img
+    <img
       src={cover_image}
       class="post-starter-image"
       alt={title + ' cover'}
       fetchpriority="high"
-      loading="eager"       
-      decoding="async"      
+      loading="eager"
+      decoding="async"
     />
-    <h1>{title}{Astro.props.frontmatter.reviewType && (
-      <span class={`review-tag ${Astro.props.frontmatter.reviewType}`}>
-        {Astro.props.frontmatter.reviewType === "hands-on"
-          ? "Hands-On"
-          : "Research"}
-      </span>
-    )}</h1>
-    <p class="writer">Written by {writer}</p>
-    <div class="main-rating-card rating-card centered_flex"><span class="category">Overall</span><span class="score">{rating.overall}/10</span></div>
+    <h1>
+      {title}
+      {Astro.props.frontmatter.reviewType && (
+        <span class={`review-tag ${Astro.props.frontmatter.reviewType}`}>
+          {Astro.props.frontmatter.reviewType === "hands-on" ? "Hands-On" : "Research"}
+        </span>
+      )}
+    </h1>
+
+    {/* --- UPDATED: use conditional byline --- */}
+    <p class="writer">{writerLine}</p>
+
+    <div class="main-rating-card rating-card centered_flex">
+      <span class="category">Overall</span>
+      <span class="score">{rating.overall}/10</span>
+    </div>
+
     <div class="share-header"><span class="share-label">Share:</span></div>
     <SocialShare frontmatter={Astro.props.frontmatter} url={url} client:load />
     <slot />
-
-    
   </article>
 </Layout>
