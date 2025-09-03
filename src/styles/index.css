@@ -1,6 +1,6 @@
 :root {
   --hero-max: 1280px;
-  --brand-red: #5d62d3;
+  --brand-red: #3850d4;
   --ink: #0f0f0f;
   --paper: #f5f5f5;
 }
@@ -39,7 +39,7 @@ body {
   font-size: clamp(2.75rem, 8vw, 6.25rem);
   margin: 0 0 1.25rem;
 
-  background: linear-gradient(135deg, #5d62d2 30%, #59c2b3, #f5b642 80%);
+  background: linear-gradient(135deg, #3850d4 30%, #59c2b3 70%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
