@@ -20,27 +20,53 @@ const ICONS: Record<string, string> = {
 </svg>`,
 
   "Dobsonian": `
-<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <!-- base pad -->
-    <ellipse cx="24" cy="36" rx="12" ry="6"/>
-    <!-- tube (rounded rect), pivot exactly where it meets the base -->
-    <rect x="17.5" y="5" width="9" height="28" rx="4" ry="4"
-          transform="rotate(20 22 33.5)"/>
-    <!-- small altitude bearing at the pivot -->
-    <circle cx="22" cy="33.5" r="1.6"/>
+<!-- Dobsonian Icon (larger, detailed outline) -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" role="img" aria-label="Dobsonian Telescope">
+  <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Tube (wider & taller) -->
+    <rect x="28" y="10" width="16" height="44" rx="4"/>
+    <!-- Open top -->
+    <line x1="28" y1="10" x2="44" y2="10"/>
+    <!-- Primary mirror cell / back cap -->
+    <line x1="28" y1="54" x2="44" y2="54"/>
+
+    <!-- Focuser stub -->
+    <rect x="44" y="20" width="6" height="8" rx="1.5"/>
+
+    <!-- Rocker box sides -->
+    <path d="M26 54v18h20V54"/>
+    <!-- Base semicircle (alt-az base, wider) -->
+    <path d="M22 72a20 8 0 0 0 28 0"/>
+
+    <!-- Altitude bearings -->
+    <circle cx="28" cy="46" r="3"/>
+    <circle cx="44" cy="46" r="3"/>
   </g>
 </svg>`,
 
   "Tabletop Dobsonian": `
-<svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <!-- base (squashed for a slight 3D vibe) -->
-    <ellipse cx="24" cy="38" rx="13" ry="7"/>
-    <!-- vertical post standing on the ellipse -->
-    <rect x="21" y="24" width="6" height="10" rx="1.5"/>
-    <!-- tabletop -->
-    <rect x="10" y="16" width="28" height="8" rx="2"/>
+<!-- Tabletop Dobsonian Icon (tilted tube, outline) -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" role="img" aria-label="Tabletop Dobsonian Telescope">
+  <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Tilted optical tube -->
+    <rect x="30" y="14" width="22" height="30" rx="4" transform="rotate(-20 30 14)"/>
+    <!-- Open front -->
+    <line x1="30" y1="14" x2="52" y2="14" transform="rotate(-20 30 14)"/>
+    <!-- Back cell -->
+    <line x1="30" y1="44" x2="52" y2="44" transform="rotate(-20 30 14)"/>
+
+    <!-- Small focuser stub -->
+    <rect x="52" y="22" width="6" height="8" rx="1.5" transform="rotate(-20 52 22)"/>
+
+    <!-- Altitude bearings (rings on tube) -->
+    <circle cx="28" cy="36" r="3"/>
+    <circle cx="48" cy="36" r="3"/>
+
+    <!-- Low cradle / tabletop mount sides -->
+    <path d="M26 44v10h24V44"/>
+
+    <!-- Round tabletop base -->
+    <ellipse cx="38" cy="58" rx="18" ry="6"/>
   </g>
 </svg>`,
 
