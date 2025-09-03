@@ -22,12 +22,13 @@ const ICONS: Record<string, string> = {
   "Dobsonian": `
 <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
   <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <!-- base pad (squashed ellipse) -->
-    <ellipse cx="24" cy="36" rx="13" ry="7"/>
-    <!-- optical tube: tall rounded-rect, standing on the ellipse -->
-    <!-- pivot at the contact point (22,33.5); rotate slightly clockwise (right) -->
-    <rect x="17" y="3.5" width="10" height="30" rx="4" ry="4"
-          transform="rotate(18 22 33.5)"/>
+    <!-- base pad -->
+    <ellipse cx="24" cy="36" rx="12" ry="6"/>
+    <!-- tube (rounded rect), pivot exactly where it meets the base -->
+    <rect x="17.5" y="5" width="9" height="28" rx="4" ry="4"
+          transform="rotate(20 22 33.5)"/>
+    <!-- small altitude bearing at the pivot -->
+    <circle cx="22" cy="33.5" r="1.6"/>
   </g>
 </svg>`,
 
