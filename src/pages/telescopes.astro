@@ -71,16 +71,25 @@ const ICONS: Record<string, string> = {
 </svg>`,
 
   "Refractor": `
-<svg viewBox="0 0 48 48" width="48" height="48" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-  <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <!-- long lens tube -->
-    <path d="M8 18 l22  -6 l2 6 l-22 6 z"/>
-    <!-- diagonal + focuser hint -->
-    <path d="M27 16 l4 4"/>
-    <!-- alt-az head -->
-    <path d="M18 28 l6 -4 l4 2"/>
-    <!-- tripod -->
-    <path d="M18 28 l-6 10 M24 26 l2 12 M28 30 l8 8"/>
+<!-- Refractor Telescope Icon (alt-az mount, outline) -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" role="img" aria-label="Refractor Telescope">
+  <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Tripod legs -->
+    <path d="M40 50l-14 24M40 50l14 24M28 56l-8 18M52 56l8 18"/>
+    <!-- Tripod hub -->
+    <ellipse cx="40" cy="50" rx="14" ry="5"/>
+
+    <!-- Alt-az mount fork -->
+    <path d="M36 34l8 6v10h-8z"/>
+
+    <!-- Long optical tube (tilted) -->
+    <rect x="10" y="18" width="44" height="10" rx="3" transform="rotate(15 10 18)"/>
+    <!-- Objective lens cell -->
+    <ellipse cx="52" cy="26" rx="6" ry="5" transform="rotate(15 52 26)"/>
+    <!-- Diagonal / focuser at back -->
+    <rect x="8" y="20" width="6" height="6" rx="1" transform="rotate(15 8 20)"/>
+    <!-- Small finder stub -->
+    <rect x="44" y="20" width="8" height="3" rx="1.5" transform="rotate(15 44 20)"/>
   </g>
 </svg>`,
 
@@ -155,15 +164,24 @@ const ICONS: Record<string, string> = {
 </svg>`,
 
   "Maksutov-Cassegrain": `
-<svg viewBox="0 0 48 48" width="48" height="48" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-  <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-    <!-- compact closed tube -->
-    <rect x="10" y="16" width="22" height="10" rx="4"/>
-    <!-- back cell -->
-    <rect x="30" y="18" width="6" height="6" rx="2"/>
-    <!-- fork/alt-az + small tripod -->
-    <path d="M22 30 h6 m-3 0 v4"/>
-    <path d="M20 34 l-6 8 M25 34 l1 10 M30 34 l8 8"/>
+<!-- Simplified SCT / NexStar Icon -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" role="img" aria-label="SCT on fork mount">
+  <g fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Tripod legs -->
+    <path d="M40 54l-14 20M40 54l14 20M28 58l-8 16M52 58l8 16" />
+    <!-- Base -->
+    <ellipse cx="40" cy="54" rx="16" ry="6"/>
+
+    <!-- Fork arm -->
+    <path d="M46 28v18h-12V28" />
+
+    <!-- Optical tube (tilted) -->
+    <rect x="20" y="18" width="28" height="16" rx="3" transform="rotate(20 20 18)"/>
+    <!-- Corrector/front ring -->
+    <ellipse cx="46" cy="26" rx="6" ry="5" transform="rotate(20 46 26)"/>
+
+    <!-- Finder stub -->
+    <rect x="48" y="20" width="6" height="3" rx="1.5" transform="rotate(20 48 20)"/>
   </g>
 </svg>`,
 
