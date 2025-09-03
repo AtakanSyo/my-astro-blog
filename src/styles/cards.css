@@ -1,12 +1,14 @@
 /*─────────────────────────────────────────────────
-  Variables (you can move these to :root in your globals.css)
+  Variables
 ─────────────────────────────────────────────────*/
 :root {
-  --card-bg: #fff;
+  --card-bg: #ffffff;
   --card-radius: 0.5rem;
   --card-shadow: rgba(0, 0, 0, 0.05);
   --card-shadow-hover: rgba(0, 0, 0, 0.12);
-  --accent: #5156c1;
+
+  --accent: #e03131;         /* align with hero primary */
+  --accent-ghost: rgba(255,255,255,.18);
   --text-muted: #555;
   --transition-fast: 0.2s ease;
 }
@@ -17,7 +19,6 @@
 .post-grid {
   display: grid;
   gap: 1.5rem;
-  /* auto-fit columns, min 260px, max 1fr */
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
@@ -34,6 +35,8 @@
   transition: transform var(--transition-fast),
               box-shadow var(--transition-fast);
   cursor: pointer;
+  position: relative;
+  isolation: isolate;
 }
 
 .post-card:hover {
@@ -54,30 +57,31 @@
   position: relative;
 }
 
-/* optional arrow on hover */
+/* arrow on hover (subtle) */
 .post-card-link::after {
   content: "→";
   position: absolute;
   top: 1rem;
   right: 1rem;
   opacity: 0;
-  transition: opacity var(--transition-fast);
-  font-size: 1.2rem;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+  font-size: 1.1rem;
   color: #888;
+  transform: translateX(-4px);
 }
-
 .post-card:hover .post-card-link::after {
-  opacity: 0.7;
-  color: white;
+  opacity: 0.9;
+  transform: translateX(0);
 }
 
 /*─────────────────────────────────────────────────
   Typography inside
 ─────────────────────────────────────────────────*/
 .post-card-title {
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: clamp(1.05rem, 0.6vw + 1rem, 1.2rem);
+  font-weight: 700;
   margin-bottom: 0.25rem;
+  letter-spacing: .02em;
 }
 
 .post-card-meta {
@@ -88,7 +92,7 @@
 
 .post-card-desc {
   font-size: 0.95rem;
-  line-height: 1.4;
+  line-height: 1.45;
   color: var(--text-muted);
   margin-bottom: 1rem;
   flex: none;
@@ -100,19 +104,21 @@
 .read-post {
   margin-top: auto;
   font-size: 0.9rem;
-  font-weight: 600;
+  font-weight: 700;
   text-align: right;
   color: var(--accent);
-  opacity: 0.6;
-  transition: opacity var(--transition-fast);
+  opacity: 0.65;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+  text-transform: uppercase;
+  letter-spacing: .04em;
 }
-
 .post-card:hover .read-post {
   opacity: 1;
+  transform: translateX(1px);
 }
 
 /*─────────────────────────────────────────────────
-  Affiliate-style button group (optional)
+  Button group (angled CTAs to match hero)
 ─────────────────────────────────────────────────*/
 .card-buttons {
   display: flex;
@@ -122,182 +128,52 @@
 
 .card-btn {
   flex: 1;
-  padding: 0.5rem;
+  padding: 0.7rem 0.9rem;
   text-align: center;
-  background: var(--accent);
   color: #fff;
-  border-radius: 4px;
   text-decoration: none;
-  transition: background var(--transition-fast), transform 0.1s;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  font-size: 0.85rem;
+
+  /* angled ends */
+  clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+  border: 0;
+  background: #2a2a2a;
+  box-shadow:
+    0 4px 16px rgba(0,0,0,.35),
+    inset 0 1px 0 rgba(255,255,255,.05);
+
+  transition: transform .15s ease, box-shadow .15s ease, background .15s ease, opacity .15s ease;
+}
+.card-btn:hover { transform: translateY(-2px); }
+.card-btn:active { transform: translateY(0); }
+.card-btn:focus-visible{
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(255,255,255,.28),
+    0 0 0 6px rgba(224,49,49,.45);
 }
 
-.card-btn:hover {
-  background: darken(var(--accent), 10%);
-  transform: translateY(-1px);
+/* variants */
+.card-btn--primary { background: var(--accent); }
+.card-btn--ghost {
+  background: transparent;
+  outline: 2px solid var(--accent-ghost);
+}
+.card-btn--ghost:hover {
+  background: rgba(255,255,255,.08);
+  outline-color: rgba(255,255,255,.32);
+}
+
+@supports not (clip-path: polygon(0 0)) {
+  .card-btn { clip-path: none; border-radius: 10px; }
 }
 
 /*─────────────────────────────────────────────────
-  p5 Simulation Card Skin
-  Usage: <article class="post-card post-card--p5">…</article>
+  Footer row inside cards
 ─────────────────────────────────────────────────*/
-.post-card--p5 {
-  /* local vars */
-  --p5-bg-1: #0b0f18;
-  --p5-bg-2: #0a0e19;
-  --p5-accent: #8ab4ff;  /* cool blue highlight */
-  --p5-ring: #ffd9a1;    /* warm ring hint */
-  --p5-text: #e5e7eb;
-  --p5-muted: #94a3b8;
-
-  background:
-    radial-gradient(120% 140% at 60% -20%, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0) 45%),
-    radial-gradient(100% 120% at 30% 0%, rgba(255,217,161,0.10) 0%, rgba(255,217,161,0) 60%),
-    linear-gradient(180deg, var(--p5-bg-1), var(--p5-bg-2));
-  color: var(--p5-text);
-  border: 1px solid rgba(255,255,255,0.06);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.04);
-  position: relative;
-  isolation: isolate; /* keeps glow below content */
-}
-
-/* Soft “ring” motif behind content */
-.post-card--p5::before {
-  content: "";
-  position: absolute;
-  inset: -20% -10% auto -10%;
-  height: 60%;
-  background:
-    radial-gradient(60% 120% at 50% 50%, rgba(255,217,161,0.18), rgba(255,217,161,0) 70%),
-    conic-gradient(from 20deg at 50% 50%, rgba(255,255,255,0.10), rgba(255,255,255,0.0) 25% 75%, rgba(255,255,255,0.10));
-  filter: blur(16px) saturate(1.1);
-  opacity: 0.9;
-  z-index: 0;
-  pointer-events: none;
-  transform: rotate(-6deg);
-}
-
-/* star speckles (super subtle) */
-.post-card--p5::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image:
-    radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.20) 50%, transparent 51%),
-    radial-gradient(1px 1px at 70% 60%, rgba(255,255,255,0.16) 50%, transparent 51%),
-    radial-gradient(1px 1px at 45% 80%, rgba(255,255,255,0.14) 50%, transparent 51%),
-    radial-gradient(1px 1px at 85% 25%, rgba(255,255,255,0.18) 50%, transparent 51%);
-  background-repeat: no-repeat;
-  z-index: 0;
-  pointer-events: none;
-}
-
-/* Content sits above decorations */
-.post-card--p5 .post-card-link,
-.post-card--p5 .card-buttons { position: relative; z-index: 1; }
-
-/* Typography tweaks for dark card */
-.post-card--p5 .post-card-title { color: #fff; }
-.post-card--p5 .post-card-meta,
-.post-card--p5 .post-card-desc { color: var(--p5-muted); }
-.post-card--p5 .read-post { color: var(--p5-accent); }
-
-/* Hover: cool glow + play arrow */
-.post-card--p5:hover {
-  box-shadow:
-    0 18px 40px rgba(0,0,0,0.35),
-    0 0 0 1px rgba(138,180,255,0.18) inset,
-    0 0 30px rgba(138,180,255,0.10);
-}
-.post-card--p5 .post-card-link::after {
-  content: "▶";
-  opacity: 0;
-  font-size: 1.1rem;
-  color: var(--p5-accent);
-  top: 1rem;
-  right: 1rem;
-}
-.post-card--p5:hover .post-card-link::after { opacity: 1; }
-
-/* Optional “p5” badge (place <span class="p5-badge">p5.js</span> inside .post-card-link) */
-.p5-badge {
-  position: absolute;
-  top: .85rem;
-  left: .85rem;
-  padding: .2rem .45rem;
-  border-radius: .4rem;
-  font-size: .72rem;
-  font-weight: 700;
-  letter-spacing: .2px;
-  background: rgba(138,180,255,0.15);
-  color: var(--p5-accent);
-  border: 1px solid rgba(138,180,255,0.25);
-  backdrop-filter: blur(4px);
-}
-
-/* Buttons on dark background */
-.post-card--p5 .card-btn {
-  --btn-bg: color-mix(in oklab, var(--p5-accent) 88%, #000);
-  background: var(--btn-bg);
-  border: 1px solid rgba(255,255,255,0.10);
-}
-.post-card--p5 .card-btn:hover {
-  background: color-mix(in oklab, var(--p5-accent) 100%, #000);
-  transform: translateY(-1px);
-}
-
-/* Motion sensitivity */
-@media (prefers-reduced-motion: reduce) {
-  .post-card--p5,
-  .post-card--p5 .post-card-link::after { transition: none !important; }
-}
-
-/* High-contrast / forced-colors support */
-@media (forced-colors: active) {
-  .post-card--p5 { border: 1px solid CanvasText; box-shadow: none; }
-  .p5-badge { border: 1px solid CanvasText; }
-}
-
-/* Footer row inside cards */
-.post-card-footer {
-  margin-top: auto;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end; /* default: text right when no badge */
-  gap: .75rem;
-}
-
-/* When there’s a badge, split left/right */
-.post-card-footer.has-badge {
-  justify-content: space-between;
-}
-
-/* Make the p5 badge inline (bottom-left), overriding any absolute styles */
-.post-card .post-card-footer .p5-badge {
-  position: static;
-  inset: auto;
-  padding: .25rem .5rem;
-  border-radius: .4rem;
-  font-size: .72rem;
-  font-weight: 700;
-  letter-spacing: .2px;
-  line-height: 1;
-  background: rgba(138,180,255,0.15);
-  color: #8ab4ff;
-  border: 1px solid rgba(138,180,255,0.25);
-  backdrop-filter: blur(4px);
-}
-
-/* Optional: slightly stronger accent on p5-skinned cards */
-.post-card--p5 .read-post {
-  color: #8ab4ff;
-}
-
-/* Keep hover arrow behavior intact (if you use it) */
-.post-card--p5 .post-card-link::after {
-  content: "▶";
-}
-
-/* Footer row + badges container (reuses your previous footer styles) */
 .post-card-footer {
   margin-top: auto;
   display: flex;
@@ -308,152 +184,17 @@
 .post-card-footer.has-badge { justify-content: space-between; }
 .post-card-badges { display: flex; gap: .4rem; align-items: center; }
 
-/* Inline badges (bottom-left), overriding any absolute badge styles */
-.post-card .post-card-footer .p5-badge,
-.post-card .post-card-footer .review-badge {
-  position: static;
-  inset: auto;
-  padding: .25rem .5rem;
-  border-radius: .4rem;
-  font-size: .72rem;
-  font-weight: 700;
-  letter-spacing: .2px;
-  line-height: 1;
-  backdrop-filter: blur(4px);
-}
-
-/* Review card skin */
-.post-card--review {
-  --rev-accent: #f59e0b; /* amber-500 */
-  --rev-accent-2: #fde68a; /* amber-200 */
-  --rev-text: #111;
-  --rev-muted: #6b7280;
-
-  background:
-    radial-gradient(140% 180% at 100% -40%, rgba(253,230,138,0.20) 0%, rgba(253,230,138,0) 60%),
-    linear-gradient(180deg, #fff, #f9fafb);
-  border: 1px solid rgba(0,0,0,0.06);
-  box-shadow: 0 8px 28px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.6);
-  color: var(--rev-text);
-}
-.post-card--review:hover {
-  box-shadow: 0 14px 38px rgba(0,0,0,0.12), 0 0 0 1px rgba(245,158,11,0.18) inset;
-}
-
-/* Subtle “ribbon” accent stripe */
-.post-card--review::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--rev-accent), var(--rev-accent-2));
-  opacity: .75;
-}
-
-/* Typography on review cards */
-.post-card--review .post-card-title { color: #0f172a; }
-.post-card--review .post-card-meta,
-.post-card--review .post-card-desc { color: var(--rev-muted); }
-
-/* CTA color on review cards */
-.post-card--review .read-post { color: var(--rev-accent); }
-
-/* Review badge */
-.review-badge {
-  background: rgba(245,158,11,0.12);
-  color: var(--rev-accent);
-  border: 1px solid rgba(245,158,11,0.25);
-}
-
-/* (Already defined) p5 badge when inline in footer */
-.p5-badge {
-  background: rgba(138,180,255,0.15);
-  color: #8ab4ff;
-  border: 1px solid rgba(138,180,255,0.25);
-}
-
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .post-card--review { transition: none !important; }
-}
-
-/* Info/Guide card skin */
-.post-card--info {
-  --info-accent: #14b8a6; /* teal-500 */
-  --info-accent-2: #99f6e4; /* teal-200 */
-  --info-text: #0f172a;
-  --info-muted: #475569;
-
-  background:
-    radial-gradient(130% 170% at 90% -30%, rgba(20,184,166,0.12) 0%, rgba(20,184,166,0) 60%),
-    linear-gradient(180deg, #ffffff, #f8fafc);
-  border: 1px solid rgba(0,0,0,0.06);
-  box-shadow: 0 8px 28px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.6);
-  color: var(--info-text);
-  position: relative;
-  overflow: hidden;
-}
-
-/* subtle grid overlay */
-.post-card--info::after {
-  content: "";
-  position: absolute; inset: 0;
-  background-image:
-    repeating-linear-gradient(0deg, rgba(2,6,23,0.05) 0 1px, transparent 1px 22px),
-    repeating-linear-gradient(90deg, rgba(2,6,23,0.05) 0 1px, transparent 1px 22px);
-  pointer-events: none;
-  mix-blend-mode: multiply;
-}
-
-/* thin left accent bar */
-.post-card--info::before {
-  content: "";
-  position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
-  background: linear-gradient(180deg, var(--info-accent), var(--info-accent-2));
-  opacity: .9;
-}
-
-/* type + CTA colors */
-.post-card--info .post-card-title { color: #0b1220; }
-.post-card--info .post-card-meta,
-.post-card--info .post-card-desc { color: var(--info-muted); }
-.post-card--info .read-post { color: var(--info-accent); }
-
-/* inline badge (bottom-left) */
-.info-badge {
-  padding: .25rem .5rem;
-  border-radius: .4rem;
-  font-size: .72rem;
-  font-weight: 700;
-  letter-spacing: .2px;
-  line-height: 1;
-  background: rgba(20,184,166,0.12);
-  color: var(--info-accent);
-  border: 1px solid rgba(20,184,166,0.25);
-  backdrop-filter: blur(4px);
-}
-
-/* keep footer layout consistent */
-.post-card-footer { margin-top: auto; display: flex; align-items: center; justify-content: flex-end; gap: .75rem; }
-.post-card-footer.has-badge { justify-content: space-between; }
-.post-card-badges { display: flex; gap: .4rem; align-items: center; }
-
-/* hover polish */
-.post-card--info:hover {
-  box-shadow: 0 14px 38px rgba(0,0,0,0.12), 0 0 0 1px rgba(20,184,166,0.16) inset;
-}
-
-/*───────────────────────────────────────────────
-  Simulation / p5 card (dark)
-───────────────────────────────────────────────*/
+/*─────────────────────────────────────────────────
+  DARK SKIN: p5 / Simulation
+  Usage: <article class="post-card post-card--p5">…</article>
+─────────────────────────────────────────────────*/
 .post-card--p5 {
-  /* local vars */
   --p5-bg-1: #0c0f15;
   --p5-bg-2: #0a0d14;
-  --p5-accent: #a9b4ff;    /* theme accent */
-  --p5-ring: #ffd9a1;      /* warm hint */
-  --p5-text: #e4e4e4;      /* main text */
-  --p5-muted: #aab2c2;     /* meta/desc */
+  --p5-accent: #a9b4ff;    /* hero-adjacent cool accent */
+  --p5-ring: #ffd9a1;
+  --p5-text: #e4e4e4;
+  --p5-muted: #aab2c2;
 
   background:
     radial-gradient(120% 140% at 60% -20%, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 45%),
@@ -480,11 +221,9 @@
   pointer-events: none;
   transform: rotate(-6deg);
 }
-
 .post-card--p5::after {
   content: "";
-  position: absolute;
-  inset: 0;
+  position: absolute; inset: 0;
   background-image:
     radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.18) 50%, transparent 51%),
     radial-gradient(1px 1px at 70% 60%, rgba(255,255,255,0.14) 50%, transparent 51%),
@@ -517,19 +256,20 @@
 }
 .post-card--p5:hover .post-card-link::after { opacity: 1; }
 
-/* badges + buttons on dark */
+/* badge */
 .p5-badge {
   position: absolute;
   top: .85rem; left: .85rem;
-  padding: .2rem .45rem;
-  border-radius: .4rem;
-  font-size: .72rem; font-weight: 700; letter-spacing: .2px;
+  padding: .22rem .5rem;
+  border-radius: .45rem;
+  font-size: .72rem; font-weight: 800; letter-spacing: .2px;
   background: rgba(169,180,255,0.15);
   color: var(--p5-accent);
   border: 1px solid rgba(169,180,255,0.25);
   backdrop-filter: blur(4px);
 }
 
+/* buttons on dark */
 .post-card--p5 .card-btn {
   --btn-bg: color-mix(in oklab, var(--p5-accent) 88%, #000);
   background: var(--btn-bg);
@@ -538,15 +278,14 @@
 }
 .post-card--p5 .card-btn:hover {
   background: color-mix(in oklab, var(--p5-accent) 100%, #000);
-  transform: translateY(-1px);
 }
 
-/*───────────────────────────────────────────────
-  Review card (dark)
-───────────────────────────────────────────────*/
+/*─────────────────────────────────────────────────
+  DARK SKIN: Review
+─────────────────────────────────────────────────*/
 .post-card--review {
-  --rev-accent: #f59e0b;     /* amber-500 */
-  --rev-accent-2: #fde68a;   /* amber-200 */
+  --rev-accent: #f59e0b;
+  --rev-accent-2: #fde68a;
   --rev-text: #e4e4e4;
   --rev-muted: #b3bac4;
 
@@ -557,12 +296,9 @@
   box-shadow: 0 8px 28px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.05);
   color: var(--rev-text);
 }
-
 .post-card--review:hover {
   box-shadow: 0 14px 38px rgba(0,0,0,0.5), 0 0 0 1px rgba(245,158,11,0.18) inset;
 }
-
-/* ribbon */
 .post-card--review::before {
   content: "";
   position: absolute; top: 0; left: 0; right: 0;
@@ -570,21 +306,18 @@
   background: linear-gradient(90deg, var(--rev-accent), var(--rev-accent-2));
   opacity: .75;
 }
-
-/* type */
 .post-card--review .post-card-title { color: #ffffff; }
 .post-card--review .post-card-meta,
 .post-card--review .post-card-desc { color: var(--rev-muted); }
 .post-card--review .read-post { color: var(--rev-accent); }
 
-/* review badge + buttons */
+/* badge + buttons */
 .review-badge {
   background: rgba(245,158,11,0.14);
   color: var(--rev-accent);
   border: 1px solid rgba(245,158,11,0.32);
   backdrop-filter: blur(4px);
 }
-
 .post-card--review .card-btn {
   background: color-mix(in oklab, var(--rev-accent) 92%, #000);
   color: #0c0c0c;
@@ -594,12 +327,12 @@
   background: color-mix(in oklab, var(--rev-accent) 100%, #000);
 }
 
-/*───────────────────────────────────────────────
-  Info/Guide card (dark)
-───────────────────────────────────────────────*/
+/*─────────────────────────────────────────────────
+  DARK SKIN: Info / Guide
+─────────────────────────────────────────────────*/
 .post-card--info {
-  --info-accent: #14b8a6;    /* teal-500 */
-  --info-accent-2: #99f6e4;  /* teal-200 */
+  --info-accent: #14b8a6;
+  --info-accent-2: #99f6e4;
   --info-text: #e4e4e4;
   --info-muted: #a7b3bf;
 
@@ -613,7 +346,7 @@
   overflow: hidden;
 }
 
-/* subtle grid overlay (lighter lines on dark) */
+/* subtle grid overlay */
 .post-card--info::after {
   content: "";
   position: absolute; inset: 0;
@@ -621,10 +354,7 @@
     repeating-linear-gradient(0deg, rgba(255,255,255,0.04) 0 1px, transparent 1px 22px),
     repeating-linear-gradient(90deg, rgba(255,255,255,0.04) 0 1px, transparent 1px 22px);
   pointer-events: none;
-  mix-blend-mode: normal;
 }
-
-/* thin left accent bar */
 .post-card--info::before {
   content: "";
   position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
@@ -632,24 +362,53 @@
   opacity: .9;
 }
 
-/* type + CTA */
 .post-card--info .post-card-title { color: #ffffff; }
 .post-card--info .post-card-meta,
 .post-card--info .post-card-desc { color: var(--info-muted); }
 .post-card--info .read-post { color: var(--info-accent); }
 
-/* inline badge */
+/* badge */
 .info-badge {
   padding: .25rem .5rem;
   border-radius: .4rem;
-  font-size: .72rem; font-weight: 700; letter-spacing: .2px; line-height: 1;
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .2px;
+  line-height: 1;
   background: rgba(20,184,166,0.14);
   color: var(--info-accent);
   border: 1px solid rgba(20,184,166,0.30);
   backdrop-filter: blur(4px);
 }
 
-/* keep footer layout rules unchanged; colors only */
-.post-card-footer { color: inherit; }
-.post-card-footer.has-badge { color: inherit; }
-.post-card-badges { color: inherit; }
+/*─────────────────────────────────────────────────
+  Inline badges in footer (shared)
+─────────────────────────────────────────────────*/
+.post-card .post-card-footer .p5-badge,
+.post-card .post-card-footer .review-badge {
+  position: static;
+  inset: auto;
+  padding: .25rem .5rem;
+  border-radius: .4rem;
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .2px;
+  line-height: 1;
+}
+
+/*─────────────────────────────────────────────────
+  Accessibility / motion
+─────────────────────────────────────────────────*/
+@media (prefers-reduced-motion: reduce) {
+  .post-card,
+  .post-card-link::after,
+  .read-post,
+  .card-btn { transition: none !important; }
+  .post-card:hover { transform: none; }
+}
+@media (forced-colors: active) {
+  .post-card--p5,
+  .post-card--review,
+  .post-card--info { border: 1px solid CanvasText; box-shadow: none; }
+  .p5-badge, .review-badge, .info-badge { border: 1px solid CanvasText; }
+}

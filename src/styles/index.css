@@ -1,162 +1,176 @@
+:root {
+  --hero-max: 1280px;
+  --brand-red: #5d62d3;
+  --ink: #0f0f0f;
+  --paper: #f5f5f5;
+}
+
+/* ---- Global background ---- */
 body {
-  background: rgb(17,17,17);
+  background: #111;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-size: 14px 14px;
+}
+
+/* ---- HERO ---- */
+.hero {
+  max-width: var(--hero-max);
+  margin: 8vh auto 5vh;
+  padding: 0 1rem;
+  text-align: center;
+  position: relative;
+  isolation: isolate;
+}
+
+.hero-kicker {
+  display: inline-block;
+  font-size: clamp(.8rem, 1vw + .5rem, 1rem);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: #a7a7a7;
+  margin-bottom: .75rem;
 }
 
 .home-title {
-    font-size: calc(var(--golden-ratio) * var(--golden-ratio) * 1rem);
-    font-weight: bold;
-    margin-bottom: 0.5rem;
+  font-weight: 900;
+  letter-spacing: .02em;
+  line-height: 0.95;
+  text-transform: uppercase;
+  font-size: clamp(2.75rem, 8vw, 6.25rem);
+  margin: 0 0 1.25rem;
 
-    background: linear-gradient(135deg, #ff7e5f, #5d62d2, #00c9ff);
-    -webkit-background-clip: text; /* For Safari */
-    background-clip: text;
-    color: transparent; /* Hide original text color */
-
-    text-align: center;
+  background: linear-gradient(135deg, #5d62d2 30%, #59c2b3, #f5b642 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@supports not (-webkit-background-clip:text) {
+  .home-title {
+    color: #fff;
+    background: none;
+  }
 }
 
 .home-description {
-    font-size: calc(var(--golden-ratio) * 1rem);
-    color: rgb(180,180,180);
-    margin-bottom: 1rem;
-
-    text-align: center;
-}
-
-.home-description-2 {
-    font-size: 1rem;
-    color: #999;
-    margin-bottom: 1rem;
-
-    text-align: center;
-}
-
-.home-socials {
-  margin: 2rem 0;
+  font-size: clamp(1rem, 1.4vw + .5rem, 1.375rem);
+  color: #cfcfcf;
+  margin: 0 auto 2rem;
+  max-width: 60ch;
   text-align: center;
 }
 
+/* ---- CTA Row ---- */
+.cta-row {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  max-width: 980px;
+  margin: 0 auto 3rem;
+}
+@media (max-width: 820px) {
+  .cta-row {
+    grid-auto-flow: row;
+  }
+}
+
+/* ---- CTA Buttons ---- */
+.cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .6rem;
+  padding: 1.05rem 1.35rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  font-size: clamp(.9rem, 1.2vw + .5rem, 1.05rem);
+  color: white;
+  text-decoration: none;
+  transform: translateZ(0);
+  transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+  border-radius: 12px;
+  border: 0;
+  background: #202020;
+  box-shadow:
+    0 4px 16px rgba(0,0,0,.35),
+    inset 0 1px 0 rgba(255,255,255,.05);
+}
+.cta svg { width: 1.1em; height: 1.1em; }
+
+.cta:hover { transform: translateY(-2px); }
+.cta:active { transform: translateY(0); }
+.cta:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255,255,255,.28),
+              0 0 0 6px rgba(224,49,49,.45);
+}
+
+/* CTA Variants */
+.cta--primary { background: var(--brand-red); }
+.cta--dark    { background: #2a2a2a; }
+.cta--ghost {
+  background: transparent;
+  outline: 2px solid rgba(255,255,255,.22);
+}
+.cta--ghost:hover {
+  background: rgba(255,255,255,.08);
+  outline-color: rgba(255,255,255,.35);
+}
+
+@supports not (clip-path: polygon(0 0)) {
+  .cta { clip-path: none; border-radius: 10px; }
+}
+
+/* ---- Socials ---- */
+.home-socials {
+  margin: 1rem 0 3.5rem;
+}
 .home-socials-links {
   display: flex;
   justify-content: center;
-  gap: 1.5rem;
+  gap: 1rem;
+}
+.social-link { color: #fff; opacity: .9; }
+.social-link:hover { opacity: 1; }
+
+/* ---- Trust Box ---- */
+.trust-box {
+  max-width: 720px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: #1a1a1a;
+  color: #f5f5f5;
+  border-radius: 0.75rem;
+  text-align: center;
+}
+.trust-box h2 {
+  margin-bottom: 1rem;
+  font-size: 1.75rem;
+  background: linear-gradient(45deg, #fc8f63, #5d62d2);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.trust-box p {
+  max-width: 600px;
+  margin: 0 auto;
+  color: white;
+}
+@media (max-width: 600px) {
+  .trust-box { margin: 2rem 1rem; padding: 1.5rem; }
+  .trust-box h2 { font-size: 1.5rem; }
 }
 
-.social-link {
-  color: #fff;
-  transition: color 0.2s ease;
-}
-
-.social-link:hover {
-  color: var(--accent, #a9b4ff); /* or brand color if you want */
-}
-
-.home-cover-image {
-    width: 30vw;
-    min-width: 300px;
-}
-
+/* ---- Latest Section ---- */
 .latest-section {
   margin: 4rem auto;
   max-width: 960px;
   padding: 0 1rem;
 }
-
-.latest-title {
-  font-size: 2rem;
-  font-weight: 600;
-  text-align: center;
-  margin-bottom: 1.5rem;
-}
-
-  .trust-box {
-    max-width: 720px;
-    margin: 3rem auto;
-    padding: 2rem;
-    background: #1a1a1a;
-    color: #f5f5f5;
-    border-radius: 0.75rem;
-    text-align: center;
-  }
-  .trust-box h2 {
-    margin-bottom: 1rem;
-    font-size: 1.75rem;
-    background: linear-gradient(45deg, #fc8f63, #5d62d2); /* Your colors */
-    -webkit-background-clip: text; /* For Safari */
-    background-clip: text;
-    color: transparent; /* Hide original text color */
-  }
-
-  
-  .trust-box p {
-
-    max-width: 600px;
-    margin: 0 auto;
-    color: white;
-  }
-
-  @media (max-width: 600px) {
-    .trust-box {
-      margin: 2rem 1rem;
-      padding: 1.5rem;
-    }
-    .trust-box h2 {
-      font-size: 1.5rem;
-    }
-  }
-
-
-/* ---------- CTA button (outlined, white text) ---------- */
-.home-cta-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: .5rem;
-  padding: .85rem 1.3rem;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 500;
-  color: white; /* 🔑 text is white now */
-  background: transparent; /* 🔑 no fill */
-  border: 1px solid rgba(255,255,255,0.6); /* 🔑 white outline */
-
-  box-shadow: 
-    0 2px 6px rgba(255,255,255,0.15),   /* subtle outer glow */
-    inset 0 1px 0 rgba(255,255,255,0.25); /* faint inner highlight */
-
-  transition: transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease;
-  position: relative;
-  margin: 1rem;
-}
-
-.home-cta-btn::after {
-  content: "→";
-  opacity: .9;
-  transform: translateX(0);
-  transition: transform .18s ease, opacity .18s ease;
-}
-
-.home-cta-btn:hover {
-  transform: translateY(-1px);
-  background: rgba(255,255,255,0.12); /* 🔑 subtle fill on hover */
-  color: white;
-}
-
-.home-cta-btn:hover::after {
-  transform: translateX(2px);
-}
-
-.home-cta-btn:active {
-  transform: translateY(0);
-  box-shadow: 0 3px 8px rgba(255,255,255,0.2);
-}
-
-.home-cta-btn:focus-visible {
-  outline: none;
-  box-shadow:
-    0 0 0 3px rgba(255,255,255,0.25),
-    0 0 0 6px rgba(255,255,255,0.4);
-}
-
 .latest-title {
   position: relative;
   margin: 0 0 .5rem;
@@ -166,13 +180,12 @@ body {
   font-weight: 600;
 }
 
-
+/* ---- Posts ---- */
 .home-post-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1.5rem;
 }
-
 .home-post-link {
   background: white;
   border-radius: 0.5rem;
@@ -182,30 +195,26 @@ body {
   color: inherit;
   transition: transform 0.2s, box-shadow 0.2s;
 }
-
 .home-post-link:hover {
   transform: translateY(-4px);
   box-shadow: 0 6px 16px rgba(0,0,0,0.1);
 }
-
 .home-post-link-title {
   font-size: 1.1rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
-
 .home-post-link-writer {
   font-size: 0.9rem;
   color: #666;
   margin-bottom: 0.5rem;
 }
-
 .home-post-link time {
   font-size: 0.85rem;
   color: #999;
 }
 
-/* lightly muted box so it’s noticed but not shouting */
+/* ---- Notice ---- */
 .home-notice {
   background: var(--color-bg);
   border-left: 4px solid var(--color-muted);
@@ -217,14 +226,16 @@ body {
   line-height: 1.5;
   border-radius: 4px;
 }
-
 .home-notice-title {
   margin: 0 0 0.5rem;
   font-size: 1.2rem;
   color: var(--color-muted);
   font-weight: 500;
 }
+.home-notice-text { margin: 0; }
 
-.home-notice-text {
-  margin: 0;
+/* ---- Optional reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  .cta { transition: none; }
+  .cta:hover { transform: none; }
 }
