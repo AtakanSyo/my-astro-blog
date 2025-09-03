@@ -109,7 +109,6 @@
   color: var(--accent);
   opacity: 0.65;
   transition: opacity var(--transition-fast), transform var(--transition-fast);
-  text-transform: uppercase;
   letter-spacing: .04em;
 }
 .post-card:hover .read-post {
