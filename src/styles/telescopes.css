@@ -16,12 +16,45 @@
   padding: 2rem 1rem;
 }
 
+.icon-button {
+  display: grid;
+  place-items: center;
+  gap: 0.35rem;
+  padding: 0.75rem 0.5rem;
+  background: var(--card-bg, #fff);
+  border: 1px solid color-mix(in oklab, currentColor 18%, transparent);
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 6px var(--card-shadow, rgba(0,0,0,.06));
+  color: var(--accent, #5156c1);
+  transition: transform var(--transition-fast, .2s ease), box-shadow var(--transition-fast, .2s ease), border-color var(--transition-fast, .2s ease);
+  cursor: pointer;
+}
+
+.icon-button .icon svg {
+  width: 40px;
+  height: 40px;
+  display: block;
+}
+
+.icon-button .label {
+  font-size: 0.9rem;
+  line-height: 1.1;
+  color: inherit;
+  text-align: center;
+}
+
+.icon-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px var(--card-shadow-hover, rgba(0,0,0,.12));
+  border-color: color-mix(in oklab, currentColor 30%, transparent);
+}
+
+/* ── Iconic toggle buttons ───────────────────────────────────── */
 .toggle-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  justify-content: center;
-  margin-bottom: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
 }
 
 .toggle-buttons button {
