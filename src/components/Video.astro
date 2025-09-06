@@ -1,8 +1,7 @@
 ---
 // components/Video.astro
-// A reusable, responsive MP4 video component for Astro + MDX
-// Supports: multiple sources (qualities), poster, captions (VTT),
-// autoplay/loop/muted, PiP, download link, lazy-loading via IntersectionObserver.
+// Reusable, responsive MP4 video component for Astro + MDX
+// Now: download UI disabled (controlsList="nodownload") and no manual download button.
 
 interface Source {
   src: string;
@@ -31,7 +30,8 @@ const {
   preload = 'metadata', // 'none' | 'metadata' | 'auto'
   playsinline = true,
   pip = true, // picture-in-picture allowed
-  allowDownload = false, // show a small download button
+  // Deprecated: kept for API compatibility; ignored to prevent downloads.
+  allowDownload = false,
   className = '',
   style = '',
   // Aspect ratio for a responsive wrapper (e.g., '16 / 9' or '1 / 1')
@@ -49,7 +49,7 @@ const {
   preload?: 'none' | 'metadata' | 'auto';
   playsinline?: boolean;
   pip?: boolean;
-  allowDownload?: boolean;
+  allowDownload?: boolean; // deprecated
   className?: string;
   style?: string;
   aspectRatio?: string;
@@ -59,7 +59,10 @@ const normalizedSources: Source[] = (sources && sources.length > 0)
   ? sources
   : (src ? [{ src, type: 'video/mp4' }] : []);
 
-const firstSrc = normalizedSources[0]?.src;
+// Build controlsList: always include "nodownload"; add "nopictureinpicture" when pip=false
+const controlsList: string = ['nodownload', (!pip ? 'nopictureinpicture' : '')]
+  .filter(Boolean)
+  .join(' ');
 ---
 
 <figure class={`video-outer ${className}`} style={`--ar:${aspectRatio};${style}`}>
@@ -72,7 +75,9 @@ const firstSrc = normalizedSources[0]?.src;
       playsinline={playsinline}
       poster={poster}
       preload="none"
-      controlsList={pip ? undefined : 'nopictureinpicture'}
+      controlsList={controlsList}
+      {...(!pip ? { disablePictureInPicture: true } : {})}
+      oncontextmenu="return false"
       // Lazy init: sources set via data-* and swapped when in view
       data-video-lazy
     >
@@ -86,14 +91,6 @@ const firstSrc = normalizedSources[0]?.src;
     </video>
   </div>
   {caption && <figcaption class="video-caption">{caption}</figcaption>}
-
-  {allowDownload && firstSrc && (
-    <div class="video-actions">
-      <a class="download" href={firstSrc} download>
-        Download video
-      </a>
-    </div>
-  )}
 </figure>
 
 <script>
@@ -156,19 +153,4 @@ const firstSrc = normalizedSources[0]?.src;
   margin-top: 0.5rem;
   line-height: 1.4;
 }
-
-.video-actions {
-  margin-top: 0.5rem;
-}
-
-.download {
-  font-size: 0.9rem;
-  text-decoration: none;
-  padding: 0.35rem 0.6rem;
-  border-radius: 10px;
-  border: 1px solid #2b2f3a;
-  display: inline-block;
-}
-
-.download:hover { background: #151822; }
 </style>
