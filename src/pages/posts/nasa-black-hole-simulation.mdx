@@ -1,0 +1,80 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Supermassive Black Hole Merger Simulation"
+category: nasa
+writer: Astrosyo
+pubDate: '2025-09-06'
+description: "A NASA ultra-high definition simulation of two supermassive black holes orbiting each other, showing accretion disks, hot gas streams, and X-ray producing coronas."
+slug: supermassive-blackhole-merger
+imageDir: /images/blackholes-merger
+keywords:
+  - supermassive black holes
+  - black hole merger
+  - accretion disk
+  - circumbinary disk
+  - nasa simulation
+---
+
+import Video from "../../components/Video.astro";
+
+<section>
+  <p>
+    This new ultra-high definition simulation shows three orbits of a pair of <strong>supermassive black holes</strong> only forty
+    orbits from merging. It reveals how matter behaves in one of the universe’s most extreme environments, where gravity sculpts
+    streams of gas into glowing disks and high-energy light escapes from regions close to the event horizon.
+  </p>
+</section>
+
+<Video
+  sources={[
+    { src: "/videos/video1.mp4", type: "video/mp4" },
+  ]}
+  caption="Ultra-high definition simulation of two supermassive black holes spiraling toward merger."
+  autoplay={false}
+  loop={false}
+  muted={false}
+  allowDownload={true}
+/>
+
+<section id="simulation-details">
+  <h2>Inside the Simulation</h2>
+  <p>
+    The system modeled here has a mass of about <em>one million Suns</em> and a separation of <em>30 million kilometers</em>
+    between the two black holes. Three regions of light-emitting gas shine as they orbit:
+    the large <strong>circumbinary disk</strong> surrounding both black holes,
+    and two smaller <strong>mini disks</strong> feeding each one individually.
+  </p>
+  <p>
+    All of these structures emit predominantly ultraviolet light. When gas flows rapidly into a mini disk,
+    the intense UV interacts with the black hole’s <strong>corona</strong>—a halo of energetic particles—producing bursts of X-rays.
+    When the accretion rate slows, UV light dims and the relative X-ray brightness increases.
+  </p>
+</section>
+
+<section id="computational-power">
+  <h2>The Computational Challenge</h2>
+  <p>
+    To create this simulation, scientists used the <strong>Blue Waters supercomputer</strong> at the University of Illinois at
+    Urbana-Champaign. Modeling just three orbits of this system required <em>46 continuous days</em> on
+    <em>9,600 processing cores</em>. Such calculations are essential for predicting what astronomers might one day observe
+    when telescopes detect electromagnetic counterparts to gravitational wave signals from merging black holes.
+  </p>
+</section>
+
+<section id="reflections">
+  <h2>Reflections</h2>
+  <p>
+    Simulations like this bridge theory and observation. They transform abstract equations of relativity and fluid dynamics
+    into moving pictures of the cosmos in action. Watching two black holes spiral toward collision reminds us that the
+    universe is not static, but alive with processes on unimaginable scales. Each orbit brings us closer to understanding
+    how galaxies evolve and how the most massive objects in the universe shape their surroundings.
+  </p>
+</section>
+
+<section id="credits">
+  <h2>Credits</h2>
+  <p>
+    Simulation produced by <strong>NASA’s Goddard Space Flight Center</strong>, modeled on the
+    <strong>NCSA Blue Waters supercomputer</strong>. Commentary and notes by <strong>Astrosyo</strong>.
+  </p>
+</section>

@@ -88,53 +88,61 @@ function isP5Sim(frontmatter) {
 </section>
     <section class="latest-section">
       <h2 class="latest-title">Latest</h2>
-        <div class="post-grid">
-          {
-            posts.map(({ frontmatter, url }) => {
-              const cat = frontmatter.category ?? frontmatter.categories ?? null;
-              const isP5 = Array.isArray(cat)
-                ? cat.some((c) => typeof c === 'string' && c.toLowerCase() === 'simulation')
-                : typeof cat === 'string' && cat.toLowerCase() === 'simulation';
+<div class="post-grid">
+  {
+    posts.map(({ frontmatter, url }) => {
+      const cat = frontmatter.category ?? frontmatter.categories ?? null;
 
-              const isReview = Array.isArray(cat)
-                ? cat.some((c) => typeof c === 'string' && c.toLowerCase() === 'reviews')
-                : typeof cat === 'string' && cat.toLowerCase() === 'reviews';
+      const hasCat = (needle) => (
+        Array.isArray(cat)
+          ? cat.some((c) => typeof c === 'string' && c.toLowerCase() === needle)
+          : typeof cat === 'string' && cat.toLowerCase() === needle
+      );
 
-              const isInfo = Array.isArray(cat)
-                ? cat.some((c) => typeof c === 'string' && c.toLowerCase() === 'informational')
-                : typeof cat === 'string' && cat.toLowerCase() === 'informational';
+      const isP5    = hasCat('simulation');
+      const isReview= hasCat('reviews');
+      const isInfo  = hasCat('informational');
+      const isNasa  = hasCat('nasa');
 
-              const cardClasses = `post-card ${isP5 ? 'post-card--p5' : ''} ${isReview ? 'post-card--review' : ''} ${isInfo ? 'post-card--info' : ''}`.trim();
+      const cardClasses = [
+        'post-card',
+        isP5 && 'post-card--p5',
+        isReview && 'post-card--review',
+        isInfo && 'post-card--info',
+        isNasa && 'post-card--nasa',
+      ].filter(Boolean).join(' ');
 
-              const ctaText =
-                isP5 ? 'Go to the simulation →'
-                : isReview ? 'Read the review →'
-                : isInfo ? 'Read the guide →'
-                : 'Read full post →';
+      const ctaText =
+        isP5 ? 'Go to the simulation →'
+      : isReview ? 'Read the review →'
+      : isInfo ? 'Read the guide →'
+      : isNasa ? 'Watch the NASA video →'
+      : 'Read full post →';
 
-              return (
-                <div class={cardClasses}>
-                  <a href={url} class="post-card-link">
-                    <div class="post-card-title">{frontmatter.title}</div>
-                    <div class="post-card-meta">
-                      By {frontmatter.writer} — {new Date(frontmatter.pubDate).toLocaleDateString()}
-                    </div>
-                    <p class="post-card-desc">{frontmatter.description}</p>
+      return (
+        <div class={cardClasses}>
+          <a href={url} class="post-card-link">
+            <div class="post-card-title">{frontmatter.title}</div>
+            <div class="post-card-meta">
+              By {frontmatter.writer} — {new Date(frontmatter.pubDate).toLocaleDateString()}
+            </div>
+            <p class="post-card-desc">{frontmatter.description}</p>
 
-                    <div class={`post-card-footer ${(isP5 || isReview || isInfo) ? 'has-badge' : ''}`}>
-                      <div class="post-card-badges">
-                        {isP5 && <span class="p5-badge">Simulation</span>}
-                        {isReview && <span class="review-badge">Review</span>}
-                        {isInfo && <span class="info-badge">Info</span>}
-                      </div>
-                      <div class="read-post">{ctaText}</div>
-                    </div>
-                  </a>
-                </div>
-              );
-            })
-          }
+            <div class={`post-card-footer ${(isP5 || isReview || isInfo || isNasa) ? 'has-badge' : ''}`}>
+              <div class="post-card-badges">
+                {isP5 && <span class="p5-badge">Simulation</span>}
+                {isReview && <span class="review-badge">Review</span>}
+                {isInfo && <span class="info-badge">Info</span>}
+                {isNasa && <span class="nasa-badge">NASA</span>}
+              </div>
+              <div class="read-post">{ctaText}</div>
+            </div>
+          </a>
         </div>
+      );
+    })
+  }
+</div>
     </section>
 
 <section class="home-notice">

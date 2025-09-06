@@ -72,63 +72,68 @@ export default function SearchPosts({ posts = [], limit = 50 }) {
         Showing {filtered.length} of {posts.length} posts
       </div>
 
-      <div className="post-grid">
-        {filtered.map((p) => {
-          const fm = p.frontmatter || {};
-          const cats = normalizeCats(fm);
-          const isP5     = cats.includes('simulation');
-          const isReview = cats.includes('reviews') || cats.includes('review');
-          const isInfo   = cats.includes('informational') || cats.includes('info');
+<div className="post-grid">
+  {filtered.map((p) => {
+    const fm = p.frontmatter || {};
+    const cats = normalizeCats(fm); // should return lowercased array
 
-          const cardClasses = [
-            'post-card',
-            isP5 && 'post-card--p5',
-            isReview && 'post-card--review',
-            isInfo && 'post-card--info',
-          ].filter(Boolean).join(' ');
+    const isP5     = cats.includes('simulation');
+    const isReview = cats.includes('reviews') || cats.includes('review');
+    const isInfo   = cats.includes('informational') || cats.includes('info');
+    const isNasa   = cats.includes('nasa');
 
-          const ctaText =
-            isP5 ? 'Go to the simulation →'
-            : isReview ? 'Read the review →'
-            : isInfo ? 'Read the guide →'
-            : 'Read full post →';
+    const cardClasses = [
+      'post-card',
+      isP5 && 'post-card--p5',
+      isReview && 'post-card--review',
+      isInfo && 'post-card--info',
+      isNasa && 'post-card--nasa',
+    ].filter(Boolean).join(' ');
 
-          return (
-            <div className={cardClasses} key={p.url}>
-              <a href={p.url} className="post-card-link">
-                {/* Title with highlights */}
-                <div className="post-card-title">
-                  {highlightText(fm.title ?? '', q)}
-                </div>
+    const ctaText =
+      isP5 ? 'Go to the simulation →'
+      : isReview ? 'Read the review →'
+      : isInfo ? 'Read the guide →'
+      : isNasa ? 'Watch the NASA video →'
+      : 'Read full post →';
 
-                {/* Meta: Writer with highlights + date */}
-                <div className="post-card-meta">
-                  By {highlightText(fm.writer ?? 'Unknown', q)} — {p.dateStr}
-                </div>
+    return (
+      <div className={cardClasses} key={p.url}>
+        <a href={p.url} className="post-card-link">
+          {/* Title with highlights */}
+          <div className="post-card-title">
+            {highlightText(fm.title ?? '', q)}
+          </div>
 
-                {/* Description with highlights */}
-                {fm.description && (
-                  <p className="post-card-desc">
-                    {highlightText(fm.description, q)}
-                  </p>
-                )}
+          {/* Meta: Writer with highlights + date */}
+          <div className="post-card-meta">
+            By {highlightText(fm.writer ?? 'Unknown', q)} — {p.dateStr}
+          </div>
 
-                {/* Footer: badges (left) + CTA (right) */}
-                <div className={`post-card-footer ${(isP5 || isReview || isInfo) ? 'has-badge' : ''}`}>
-                  <div className="post-card-badges">
-                    {isP5 && <span className="p5-badge">simulation</span>}
-                    {isReview && <span className="review-badge">Review</span>}
-                    {isInfo && <span className="info-badge">Info</span>}
-                  </div>
-                  <div className="read-post">{ctaText}</div>
-                </div>
-              </a>
+          {/* Description with highlights */}
+          {fm.description && (
+            <p className="post-card-desc">
+              {highlightText(fm.description, q)}
+            </p>
+          )}
+
+          {/* Footer: badges (left) + CTA (right) */}
+          <div className={`post-card-footer ${(isP5 || isReview || isInfo || isNasa) ? 'has-badge' : ''}`}>
+            <div className="post-card-badges">
+              {isP5 && <span className="p5-badge">Simulation</span>}
+              {isReview && <span className="review-badge">Review</span>}
+              {isInfo && <span className="info-badge">Info</span>}
+              {isNasa && <span className="nasa-badge">NASA</span>}
             </div>
-          );
-        })}
-
-        {filtered.length === 0 && <p>No results found.</p>}
+            <div className="read-post">{ctaText}</div>
+          </div>
+        </a>
       </div>
+    );
+  })}
+
+  {filtered.length === 0 && <p>No results found.</p>}
+</div>
     </div>
   );
 }

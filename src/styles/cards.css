@@ -653,3 +653,90 @@
 .post-card-footer { color: inherit; }
 .post-card-footer.has-badge { color: inherit; }
 .post-card-badges { color: inherit; }
+
+/*───────────────────────────────────────────────
+  NASA card skin
+  Usage: <article class="post-card post-card--nasa">…</article>
+───────────────────────────────────────────────*/
+.post-card--nasa {
+  --nasa-bg-1: #0a0d16;       /* deep space navy */
+  --nasa-bg-2: #05070d;       /* darker shadow */
+  --nasa-accent: #1d4ed8;     /* NASA blue */
+  --nasa-accent-light: #60a5fa;
+  --nasa-text: #e6eaf2;
+  --nasa-muted: #9ca3af;
+
+  background:
+    radial-gradient(140% 180% at 70% -40%, rgba(96,165,250,0.10) 0%, rgba(96,165,250,0) 70%),
+    linear-gradient(180deg, var(--nasa-bg-1), var(--nasa-bg-2));
+  color: var(--nasa-text);
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.05);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* star speckles */
+.post-card--nasa::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 20% 20%, rgba(255,255,255,0.20) 50%, transparent 51%),
+    radial-gradient(1px 1px at 65% 45%, rgba(255,255,255,0.15) 50%, transparent 51%),
+    radial-gradient(1px 1px at 30% 70%, rgba(255,255,255,0.12) 50%, transparent 51%),
+    radial-gradient(1px 1px at 80% 30%, rgba(255,255,255,0.18) 50%, transparent 51%);
+  background-repeat: no-repeat;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* type colors */
+.post-card--nasa .post-card-title { color: #fff; }
+.post-card--nasa .post-card-meta,
+.post-card--nasa .post-card-desc { color: var(--nasa-muted); }
+.post-card--nasa .read-post { color: var(--nasa-accent-light); }
+
+/* hover polish */
+.post-card--nasa:hover {
+  box-shadow:
+    0 18px 42px rgba(0,0,0,0.5),
+    0 0 0 1px rgba(96,165,250,0.25) inset,
+    0 0 36px rgba(96,165,250,0.15);
+  transform: translateY(-4px);
+}
+
+/* hover arrow */
+.post-card--nasa .post-card-link::after {
+  content: "🚀";
+  opacity: 0;
+  font-size: 1.1rem;
+  color: var(--nasa-accent-light);
+  top: 1rem; right: 1rem;
+}
+.post-card--nasa:hover .post-card-link::after { opacity: 1; }
+
+/* badge (optional) */
+.nasa-badge {
+  position: absolute;
+  bottom: .85rem; left: .85rem;
+  padding: .25rem .55rem;
+  border-radius: .4rem;
+  font-size: .72rem; font-weight: 700; letter-spacing: .2px;
+  background: rgba(29,78,216,0.2);
+  color: var(--nasa-accent-light);
+  border: 1px solid rgba(29,78,216,0.3);
+  backdrop-filter: blur(4px);
+}
+
+/* buttons on dark */
+.post-card--nasa .card-btn {
+  background: var(--nasa-accent);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #fff;
+}
+.post-card--nasa .card-btn:hover {
+  background: var(--nasa-accent-light);
+  transform: translateY(-1px);
+}

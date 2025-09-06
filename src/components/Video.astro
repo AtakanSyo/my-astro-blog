@@ -1,0 +1,174 @@
+---
+// components/Video.astro
+// A reusable, responsive MP4 video component for Astro + MDX
+// Supports: multiple sources (qualities), poster, captions (VTT),
+// autoplay/loop/muted, PiP, download link, lazy-loading via IntersectionObserver.
+
+interface Source {
+  src: string;
+  type?: string; // e.g., 'video/mp4'
+}
+
+interface Track {
+  src: string;
+  kind?: 'subtitles' | 'captions' | 'descriptions' | 'chapters' | 'metadata';
+  srclang?: string; // e.g., 'en'
+  label?: string; // e.g., 'English'
+  default?: boolean;
+}
+
+const {
+  // Either provide `src` for a single MP4, or `sources` for multiple qualities/codecs.
+  src,
+  sources = [],
+  poster = undefined,
+  caption = undefined,
+  tracks = [],
+  autoplay = false,
+  loop = false,
+  muted = false,
+  controls = true,
+  preload = 'metadata', // 'none' | 'metadata' | 'auto'
+  playsinline = true,
+  pip = true, // picture-in-picture allowed
+  allowDownload = false, // show a small download button
+  className = '',
+  style = '',
+  // Aspect ratio for a responsive wrapper (e.g., '16 / 9' or '1 / 1')
+  aspectRatio = '16 / 9',
+} = Astro.props as {
+  src?: string;
+  sources?: Source[];
+  poster?: string;
+  caption?: string;
+  tracks?: Track[];
+  autoplay?: boolean;
+  loop?: boolean;
+  muted?: boolean;
+  controls?: boolean;
+  preload?: 'none' | 'metadata' | 'auto';
+  playsinline?: boolean;
+  pip?: boolean;
+  allowDownload?: boolean;
+  className?: string;
+  style?: string;
+  aspectRatio?: string;
+};
+
+const normalizedSources: Source[] = (sources && sources.length > 0)
+  ? sources
+  : (src ? [{ src, type: 'video/mp4' }] : []);
+
+const firstSrc = normalizedSources[0]?.src;
+---
+
+<figure class={`video-outer ${className}`} style={`--ar:${aspectRatio};${style}`}>
+  <div class="video-frame">
+    <video
+      controls={controls}
+      muted={muted}
+      autoplay={autoplay}
+      loop={loop}
+      playsinline={playsinline}
+      poster={poster}
+      preload={preload}
+      controlsList={pip ? undefined : 'nopictureinpicture'}
+      // Lazy init: sources set via data-* and swapped when in view
+      data-video-lazy
+    >
+      {normalizedSources.map((s) => (
+        <source data-src={s.src} type={s.type ?? 'video/mp4'} />
+      ))}
+      {tracks.map((t) => (
+        <track src={t.src} kind={t.kind ?? 'subtitles'} srclang={t.srclang} label={t.label} default={t.default} />
+      ))}
+      Your browser does not support the <code>video</code> tag.
+    </video>
+  </div>
+  {caption && <figcaption class="video-caption">{caption}</figcaption>}
+
+  {allowDownload && firstSrc && (
+    <div class="video-actions">
+      <a class="download" href={firstSrc} download>
+        Download video
+      </a>
+    </div>
+  )}
+</figure>
+
+<script>
+  // Lightweight lazy loader: swap <source data-src> -> src when the video enters viewport.
+  const setupLazyVideo = (video) => {
+    const hydrate = () => {
+      const sources = video.querySelectorAll('source[data-src]');
+      sources.forEach((el) => {
+        el.setAttribute('src', el.getAttribute('data-src'));
+        el.removeAttribute('data-src');
+      });
+      // After assigning sources, call load() so the browser picks them up
+      video.load();
+    };
+
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            hydrate();
+            io.disconnect();
+          }
+        });
+      }, { rootMargin: '200px' });
+      io.observe(video);
+    } else {
+      // Fallback: hydrate immediately
+      hydrate();
+    }
+  };
+
+  document.querySelectorAll('video[data-video-lazy]').forEach(setupLazyVideo);
+</script>
+
+<style>
+.video-outer {
+  margin: 1.5rem 0;
+}
+
+.video-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: var(--ar, 16/9);
+  background: radial-gradient(100% 100% at 50% 0%, #0e0e15 0%, #07070c 100%);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+.video-frame > video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-caption {
+  font-size: 0.95rem;
+  color: #9aa3b2;
+  margin-top: 0.5rem;
+  line-height: 1.4;
+}
+
+.video-actions {
+  margin-top: 0.5rem;
+}
+
+.download {
+  font-size: 0.9rem;
+  text-decoration: none;
+  padding: 0.35rem 0.6rem;
+  border-radius: 10px;
+  border: 1px solid #2b2f3a;
+  display: inline-block;
+}
+
+.download:hover { background: #151822; }
+</style>
