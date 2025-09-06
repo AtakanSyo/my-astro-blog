@@ -1,4 +1,43 @@
 .nasa-article-title {
-  text-align: center;
-  padding-top: 4rem;
+  margin-top: 3rem;
+}
+
+.nasa-image{
+  max-height: 70vh;
+}
+
+/*───────────────────────────────────────────────
+  Credits section
+───────────────────────────────────────────────*/
+.credits {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.25),
+    rgba(0, 0, 0, 0.35)
+  );
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #9ca3af;
+}
+
+.credits h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  color: #e5e7eb;
+}
+
+.credits p {
+  margin: 0.25rem 0;
+  line-height: 1.5;
+}
+
+.credits strong {
+  color: #f3f4f6;
+  font-weight: 600;
 }
