@@ -717,7 +717,6 @@
 }
 .post-card--nasa:hover .post-card-link::after { opacity: 1; }
 
-/* badge (optional) */
 .nasa-badge {
   position: absolute;
   bottom: .85rem; left: .85rem;
@@ -739,4 +738,43 @@
 .post-card--nasa .card-btn:hover {
   background: var(--nasa-accent-light);
   transform: translateY(-1px);
+}
+
+/* Let individual badges flow inside the flex row */
+.post-card--nasa .post-card-badges .nasa-badge,
+.post-card--nasa .post-card-badges .latest-reel-badge {
+  position: static;   /* was absolute */
+}
+
+/* Keep your existing badge look */
+.latest-reel-badge {
+  padding: .25rem .55rem;
+  border-radius: .4rem;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .2px;
+
+  /* subtle gray background */
+  background: rgba(40, 40, 40, 0.7);
+  backdrop-filter: blur(3px);
+
+  /* gradient border */
+  border: 1px solid transparent;
+  background-image:
+    linear-gradient(rgba(40,40,40,0), rgba(40,40,40,0)),
+    linear-gradient(90deg,
+      #feda75 0%,
+      #fa7e1e 25%,
+      #d62976 50%,
+      #962fbf 75%,
+      #4f5bd5 100%
+    );
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+
+  /* gradient text */
+  color: transparent;
+  background-clip: text, border-box;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

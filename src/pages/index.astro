@@ -31,6 +31,9 @@ const CATS = [
   { key: 'simulation',    label: 'Simulations',    cta: 'Go to the simulation →' },
   { key: 'informational', label: 'Guides',         cta: 'Read the guide →' },
 ];
+
+const latestNasa = allPosts.find(({ frontmatter }) => hasCat(frontmatter, 'nasa'));
+
 ---
 
 <Layout title="Home">
@@ -74,6 +77,7 @@ const CATS = [
                   const isReview = hasCat(frontmatter, 'reviews');
                   const isInfo   = hasCat(frontmatter, 'informational');
                   const isNasa   = hasCat(frontmatter, 'nasa');
+                  const isLatestNasa = isNasa && latestNasa && url === latestNasa.url;
 
                   const cardClasses = [
                     'post-card',
@@ -105,6 +109,7 @@ const CATS = [
                             {isReview && <span class="review-badge">Review</span>}
                             {isInfo && <span class="info-badge">Info</span>}
                             {isNasa && <span class="nasa-badge">NASA</span>}
+                            {isLatestNasa && <span class="latest-reel-badge">Latest Reel</span>}
                           </div>
                           <div class="read-post">{ctaText}</div>
                         </div>
