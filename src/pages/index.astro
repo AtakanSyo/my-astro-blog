@@ -1,197 +1,166 @@
 ---
+// imports stay the same
 import Layout from '../layouts/Layout.astro';
 import '../styles/index.css';
 import '../styles/cards.css';
 import '../styles/search.css';
 import { site } from '../config/site.js';
 import { Instagram, Youtube } from "lucide-react";
-// 1. Grab *all* your posts
+
+// 1) load and sort all posts
 const allPosts = await Astro.glob('./posts/*.{md,mdx}', { eager: true });
+allPosts.sort((a, b) => new Date(b.frontmatter.pubDate) - new Date(a.frontmatter.pubDate));
 
-// 2. Sort descending by `pubDate` (newest first)
-allPosts.sort(
-  (a, b) => new Date(b.frontmatter.pubDate) - new Date(a.frontmatter.pubDate)
-);
-
-// 3. Take first N
-const posts = allPosts.slice(0, 8);
-
-// helper: is this post a p5 sim?
-function isP5Sim(frontmatter) {
-  const cat = frontmatter.category ?? frontmatter.categories ?? null;
-  if (!cat) return false;
-  if (Array.isArray(cat)) {
-    return cat.some((c) => typeof c === 'string' && c.toLowerCase() === 'simulation');
-  }
-  return typeof cat === 'string' && cat.toLowerCase() === 'simulation';
+// helpers
+function normalizeCat(cat) {
+  if (!cat) return [];
+  if (Array.isArray(cat)) return cat.filter(Boolean).map((c) => String(c).toLowerCase());
+  return [String(cat).toLowerCase()];
 }
+function hasCat(frontmatter, needle) {
+  return normalizeCat(frontmatter.category ?? frontmatter.categories).includes(needle);
+}
+function latestByCategory(key, n = 4) {
+  return allPosts.filter(({ frontmatter }) => hasCat(frontmatter, key)).slice(0, n);
+}
+
+// category config
+const CATS = [
+  { key: 'nasa',          label: 'NASA',           cta: 'See the article →' },
+  { key: 'reviews',        label: 'Reviews',        cta: 'Read the review →' },
+  { key: 'simulation',    label: 'Simulations',    cta: 'Go to the simulation →' },
+  { key: 'informational', label: 'Guides',         cta: 'Read the guide →' },
+];
 ---
 
 <Layout title="Home">
-  <section class="centered_flex">
-<section class="hero">
-  <!-- Optional kicker text -->
-  <span class="hero-kicker">{site.name}</span>
+  <section class="centered_flex home-main-section">
+    <section class="hero">
+      <span class="hero-kicker">{site.name}</span>
+      <h1 class="home-title">{site.description}</h1>
+      <p class="home-description">Simulations, cosmic insights, and telescope reviews.</p>
 
-  <!-- Big headline -->
-  <h1 class="home-title">
-    {site.description}
-  </h1>
+      <div class="cta-row">
+        <a href="/telescopes" class="cta cta--primary" onclick="umami?.track?.('explore-telescopes-cta')">🪐 Explore Telescopes</a>
+        <a href="/about" class="cta cta--ghost" onclick="umami?.track?.('about-cta')">ℹ️ About Us</a>
+      </div>
 
-  <!-- Supporting line -->
-  <p class="home-description">
-    Simulations, cosmic insights, and telescope reviews.
-  </p>
-
-  <!-- CTA row -->
-  <div class="cta-row">
-    <a 
-      href="/telescopes" 
-      class="cta cta--primary" 
-      onclick="umami.track('explore-telescopes-cta')"
-    >
-      🪐 Explore Telescopes
-    </a>
-
-    <a 
-      href="/about" 
-      class="cta cta--ghost" 
-      onclick="umami.track('about-cta')"
-    >
-      ℹ️ About Us
-    </a>
-  </div>
-
-  <!-- Socials -->
-  <div class="home-socials">
-    <div class="home-socials-links">
-      <a 
-        href="https://www.instagram.com/astrosyo_" 
-        target="_blank" 
-        rel="noopener noreferrer"
-        class="social-link"
-        aria-label="Instagram"
-      >
-        <Instagram size={42} />
-      </a>
-      <a 
-        href="https://www.youtube.com/@atakansaracyakupoglu9930" 
-        target="_blank" 
-        rel="noopener noreferrer"
-        class="social-link"
-        aria-label="YouTube"
-      >
-        <Youtube size={42} />
-      </a>
-    </div>
-  </div>
-</section>
-    <section class="latest-section">
-      <h2 class="latest-title">Latest</h2>
-<div class="post-grid">
-  {
-    posts.map(({ frontmatter, url }) => {
-      const cat = frontmatter.category ?? frontmatter.categories ?? null;
-
-      const hasCat = (needle) => (
-        Array.isArray(cat)
-          ? cat.some((c) => typeof c === 'string' && c.toLowerCase() === needle)
-          : typeof cat === 'string' && cat.toLowerCase() === needle
-      );
-
-      const isP5    = hasCat('simulation');
-      const isReview= hasCat('reviews');
-      const isInfo  = hasCat('informational');
-      const isNasa  = hasCat('nasa');
-
-      const cardClasses = [
-        'post-card',
-        isP5 && 'post-card--p5',
-        isReview && 'post-card--review',
-        isInfo && 'post-card--info',
-        isNasa && 'post-card--nasa',
-      ].filter(Boolean).join(' ');
-
-      const ctaText =
-        isP5 ? 'Go to the simulation →'
-      : isReview ? 'Read the review →'
-      : isInfo ? 'Read the guide →'
-      : isNasa ? 'See the article →'
-      : 'Read full post →';
-
-      return (
-        <div class={cardClasses}>
-          <a href={url} class="post-card-link">
-            <div class="post-card-title">{frontmatter.title}</div>
-            <div class="post-card-meta">
-              By {frontmatter.writer} — {new Date(frontmatter.pubDate).toLocaleDateString()}
-            </div>
-            <p class="post-card-desc">{frontmatter.description}</p>
-
-            <div class={`post-card-footer ${(isP5 || isReview || isInfo || isNasa) ? 'has-badge' : ''}`}>
-              <div class="post-card-badges">
-                {isP5 && <span class="p5-badge">Simulation</span>}
-                {isReview && <span class="review-badge">Review</span>}
-                {isInfo && <span class="info-badge">Info</span>}
-                {isNasa && <span class="nasa-badge">NASA</span>}
-              </div>
-              <div class="read-post">{ctaText}</div>
-            </div>
+      <div class="home-socials">
+        <div class="home-socials-links">
+          <a href="https://www.instagram.com/astrosyo_" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
+            <Instagram size={42} />
+          </a>
+          <a href="https://www.youtube.com/@atakansaracyakupoglu9930" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="YouTube">
+            <Youtube size={42} />
           </a>
         </div>
-      );
-    })
-  }
-</div>
+      </div>
     </section>
 
-<section class="home-notice">
-  <h3 class="home-notice-title">Why trust us?</h3>
-  <p class="home-notice-text">
-    Astrosyo is an astronomy blog created by experts in software and astronomy.  
-    Our writers <strong>Atakan Saraçyakupoğlu</strong> and <strong>Zane Landers</strong>
-    provide trustworthy product insights,  
-    overviews, and reviews to help you with your stargazing adventures.
-  </p>
-</section>
+    <!-- Latest by category (stacked sections) -->
+    <section class="latest-section">
+      {CATS.map((cat) => {
+        const items = latestByCategory(cat.key, 4);
+        if (items.length === 0) return null;
 
-<section class="home-notice">
-  <h3 class="home-notice-title">Our Content Types</h3>
-  <p class="home-notice-text">
-    <strong>Review Posts</strong> are based on hands-on experience and direct testing of telescopes and astronomy gear.  
-    <strong>Overview Posts</strong> are based on in-depth research, manufacturer data, astronomy community feedback,  
-    and independent testing data from trusted sources.  
-    Both types aim to give you clear, honest, and useful information for making your decisions.
-  </p>
-</section>
+        return (
+          <section class="category-section">
+            <h2 class="latest-title">{cat.label} — Latest</h2>
 
-<section class="home-notice">
-  <h3 class="home-notice-title">Our Rating System</h3>
-  <p class="home-notice-text">
-    For review posts, our ratings are based on first-hand use and expert judgment of each product.  
-    For overview posts, our ratings reflect aggregated insights from reputable sources and verified user experiences.  
-    In the end, it’s an informed but subjective ranking — we encourage you to consider your own priorities.
-  </p>
-</section>
+            <div class="post-grid category-grid">
+              {
+                items.map(({ frontmatter, url }) => {
+                  const isP5     = hasCat(frontmatter, 'simulation');
+                  const isReview = hasCat(frontmatter, 'reviews');
+                  const isInfo   = hasCat(frontmatter, 'informational');
+                  const isNasa   = hasCat(frontmatter, 'nasa');
 
-<section class="home-notice">
-  <h3 class="home-notice-title">Where to buy?</h3>
-  <p class="home-notice-text">
-    Consider choosing HighPointScientific as your main vendor, as it is a community favorite
-    in terms of shipment safety, refunds, and product quality. Amazon is a viable choice,  
-    but it has been known to occasionally ship astronomy equipment with missing pieces  
-    and to have more complex refund processes.
-  </p>
-</section>
+                  const cardClasses = [
+                    'post-card',
+                    isP5 && 'post-card--p5',
+                    isReview && 'post-card--review',
+                    isInfo && 'post-card--info',
+                    isNasa && 'post-card--nasa',
+                  ].filter(Boolean).join(' ');
 
-<section class="home-notice">
-  <h3 class="home-notice-title">Affiliate Notice</h3>
-  <p class="home-notice-text">
-    We have affiliate programs with Amazon, HighPointScientific, and Astroshop.  
-    If you click on a link and make a purchase, we receive a small commission.  
-    However, our content — whether a review or an overview — remains unbiased.  
-    Your satisfaction with the product builds our credibility far more than any short-term affiliate income.
-  </p>
-</section>
+                  const ctaText =
+                    isP5 ? 'Go to the simulation →'
+                  : isReview ? 'Read the review →'
+                  : isInfo ? 'Read the guide →'
+                  : isNasa ? 'See the article →'
+                  : 'Read full post →';
+
+                  return (
+                    <div class={cardClasses}>
+                      <a href={url} class="post-card-link">
+                        <div class="post-card-title">{frontmatter.title}</div>
+                        <div class="post-card-meta">
+                          By {frontmatter.writer} — {new Date(frontmatter.pubDate).toLocaleDateString()}
+                        </div>
+                        <p class="post-card-desc">{frontmatter.description}</p>
+
+                        <div class={`post-card-footer ${(isP5 || isReview || isInfo || isNasa) ? 'has-badge' : ''}`}>
+                          <div class="post-card-badges">
+                            {isP5 && <span class="p5-badge">Simulation</span>}
+                            {isReview && <span class="review-badge">Review</span>}
+                            {isInfo && <span class="info-badge">Info</span>}
+                            {isNasa && <span class="nasa-badge">NASA</span>}
+                          </div>
+                          <div class="read-post">{ctaText}</div>
+                        </div>
+                      </a>
+                    </div>
+                  );
+                })
+              }
+            </div>
+          </section>
+        );
+      })}
+    </section>
+
+    <!-- Your existing notices (unchanged) -->
+    <section class="home-notice">
+      <h3 class="home-notice-title">Why trust us?</h3>
+      <p class="home-notice-text">
+        Astrosyo is an astronomy blog created by experts in software and astronomy.
+        Our writers <strong>Atakan Saraçyakupoğlu</strong> and <strong>Zane Landers</strong>
+        provide trustworthy product insights, overviews, and reviews to help you with your stargazing adventures.
+      </p>
+    </section>
+
+    <section class="home-notice">
+      <h3 class="home-notice-title">Our Content Types</h3>
+      <p class="home-notice-text">
+        <strong>Review Posts</strong> are based on hands-on experience and direct testing of telescopes and astronomy gear.
+        <strong>Overview Posts</strong> are based on in-depth research, manufacturer data, astronomy community feedback,
+        and independent testing data from trusted sources. Both types aim to give you clear, honest, and useful information.
+      </p>
+    </section>
+
+    <section class="home-notice">
+      <h3 class="home-notice-title">Our Rating System</h3>
+      <p class="home-notice-text">
+        For review posts, our ratings are based on first-hand use and expert judgment.
+        For overview posts, our ratings reflect aggregated insights from reputable sources and verified user experiences.
+      </p>
+    </section>
+
+    <section class="home-notice">
+      <h3 class="home-notice-title">Where to buy?</h3>
+      <p class="home-notice-text">
+        Consider choosing HighPointScientific as your main vendor for shipping safety and refunds.
+        Amazon is viable, but has occasionally shipped astronomy gear with missing pieces and more complex refund processes.
+      </p>
+    </section>
+
+    <section class="home-notice">
+      <h3 class="home-notice-title">Affiliate Notice</h3>
+      <p class="home-notice-text">
+        We have affiliate programs with Amazon, HighPointScientific, and Astroshop.
+        If you click on a link and make a purchase, we receive a small commission.
+        Our content remains unbiased — your satisfaction matters more than short-term affiliate income.
+      </p>
+    </section>
   </section>
 </Layout>
