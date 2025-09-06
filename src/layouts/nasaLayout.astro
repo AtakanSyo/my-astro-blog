@@ -1,0 +1,43 @@
+---
+import Layout from './Layout.astro';
+import '../styles/infoPost.css';  // ← pulls in your global styles
+import '../styles/postsGlobal.css';  // ← pulls in your global styles
+import '../styles/nasaPost.css'
+import SocialShare from '../components/SocialShare.astro';
+
+const {
+  title,
+  description,
+  writer,
+  pubDate,
+  url,
+} = Astro.props.frontmatter;
+
+
+---
+
+<head>
+  <title>{title}</title>
+  <meta name="description" content={description} />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.161/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.161/examples/jsm/"
+        }
+      }
+    </script>
+</head>
+
+<Layout title={title}>
+  <article class="post nasa-post centered_flex">
+
+    <h1 class="nasa-article-title">{title}</h1>
+
+    <p class="writer">Published by {writer}</p>
+    <SocialShare frontmatter={Astro.props.frontmatter} url={url} client:load />
+    <slot />
+
+    
+  </article>
+</Layout>
