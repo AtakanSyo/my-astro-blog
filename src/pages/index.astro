@@ -91,25 +91,35 @@ const CATS = [
                   : 'Read full post →';
 
                   return (
-                    <div class={cardClasses}>
-                      <a href={url} class="post-card-link">
-                        <div class="post-card-title">{frontmatter.title}</div>
-                        <div class="post-card-meta">
-                          By {frontmatter.writer} — {new Date(frontmatter.pubDate).toLocaleDateString()}
+                  <div class={cardClasses}>
+                    <a href={url} class="post-card-link">
+                      {isNasa && frontmatter.cover && (
+                        <div class="post-card-thumb">
+                          <img 
+                            src={frontmatter.cover} 
+                            alt={frontmatter.title} 
+                            loading="lazy"
+                          />
                         </div>
-                        <p class="post-card-desc">{frontmatter.description}</p>
+                      )}
+                      
+                      <div class="post-card-title">{frontmatter.title}</div>
+                      <div class="post-card-meta">
+                        By {frontmatter.writer} — {new Date(frontmatter.pubDate).toLocaleDateString()}
+                      </div>
+                      <p class="post-card-desc">{frontmatter.description}</p>
 
-                        <div class={`post-card-footer ${(isP5 || isReview || isInfo || isNasa) ? 'has-badge' : ''}`}>
-                          <div class="post-card-badges">
-                            {isP5 && <span class="p5-badge">Simulation</span>}
-                            {isReview && <span class="review-badge">Review</span>}
-                            {isInfo && <span class="info-badge">Info</span>}
-                            {isNasa && <span class="nasa-badge">NASA</span>}
-                          </div>
-                          <div class="read-post">{ctaText}</div>
+                      <div class={`post-card-footer ${(isP5 || isReview || isInfo || isNasa) ? 'has-badge' : ''}`}>
+                        <div class="post-card-badges">
+                          {isP5 && <span class="p5-badge">Simulation</span>}
+                          {isReview && <span class="review-badge">Review</span>}
+                          {isInfo && <span class="info-badge">Info</span>}
+                          {isNasa && <span class="nasa-badge">NASA</span>}
                         </div>
-                      </a>
-                    </div>
+                        <div class="read-post">{ctaText}</div>
+                      </div>
+                    </a>
+                  </div>
                   );
                 })
               }
