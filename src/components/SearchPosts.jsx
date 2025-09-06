@@ -94,7 +94,7 @@ export default function SearchPosts({ posts = [], limit = 50 }) {
       isP5 ? 'Go to the simulation →'
       : isReview ? 'Read the review →'
       : isInfo ? 'Read the guide →'
-      : isNasa ? 'Watch the NASA video →'
+      : isNasa ? 'See the article →'
       : 'Read full post →';
 
     return (
