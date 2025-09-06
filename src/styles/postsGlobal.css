@@ -183,24 +183,33 @@
 }
 
 /* Optional brand tints on hover (kept subtle for your theme) */
-.social-share .x:hover    { color: #cfd3db; }
-.social-share .reddit:hover { color: #ff9066; }
-.social-share .linkedin:hover { color: #a9c6ff; }
+.social-share .x:hover       { color: #cfd3db; }
+.social-share .reddit:hover  { color: #ff9066; }
+.social-share .linkedin:hover{ color: #a9c6ff; }
 
 /* Compact variant (if needed) */
 .social-share--sm a,
 .social-share--sm button { --size: 34px; }
 
-/* Copy toast — keep your previous classnames, restyled */
+/* ===============================
+   COPY TOAST (anchored to container)
+   =============================== */
+
+/* Anchor: wrapper around .social-share + toast */
+.social-share-container {
+  position: relative;          /* key: positions the absolute toast */
+  display: inline-block;       /* keeps toast aligned with the buttons row */
+}
+
+
+/* Toast bubble */
 .copy-toast {
   position: absolute;
-  top: calc(100% + 8px);
-  left: 50%;
-  transform: translate(-50%, -4px);
+  transform: translate(60%, 0px); /* start slightly low for lift-in */
   padding: 0.4rem 0.8rem;
   border-radius: 8px;
   font-size: 0.84rem;
-  color: var(--text);
+  color: var(--text, #e4e4e4);
   background: rgba(169,180,255,0.10);
   border: 1px solid rgba(169,180,255,0.28);
   box-shadow: 0 8px 16px rgba(0,0,0,0.45);
@@ -208,10 +217,12 @@
   pointer-events: none;
   transition: opacity .22s ease, transform .22s ease;
   z-index: 999;
+  white-space: nowrap;         /* prevent wrap */
 }
+
 .copy-toast.visible {
   opacity: 1 !important;
-  transform: translate(-50%, -8px);
+  transform: translate(60%, -4px); /* subtle lift on show */
 }
 
 /* Motion sensitivity */
@@ -220,7 +231,8 @@
   .social-share button,
   .social-share a::before,
   .social-share button::before,
-  .social-share svg {
+  .social-share svg,
+  .copy-toast {
     transition: none;
   }
 }
