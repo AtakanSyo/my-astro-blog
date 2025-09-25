@@ -15,7 +15,6 @@ export default defineConfig({
       remarkPlugins: [
         remarkSlug,
         remarkAutolinkHeadings,
-        remarkInternalLinks,
       ],
     }),
     sitemap(),
