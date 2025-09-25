@@ -9,6 +9,31 @@
   --accent: #5156c1;
   --text-muted: #555;
   --transition-fast: 0.2s ease;
+
+  /*review post*/
+  --rev-accent: #f59e0b;
+  --rev-accent-2: #fde68a;
+  --rev-text: #e4e4e4;
+  --rev-muted: #b3bac4;
+  /*nasa post*/
+  --nasa-bg-1: #0a0d16;
+  --nasa-bg-2: #05070d;
+  --nasa-accent: #1d4ed8;
+  --nasa-accent-light: #60a5fa;
+  --nasa-text: #e6eaf2;
+  --nasa-muted: #9ca3af;
+  /*simulation post*/
+  --p5-bg-1: #0c0f15;
+  --p5-bg-2: #0a0d14;
+  --p5-accent: #a9b4ff;
+  --p5-ring: #ffd9a1;
+  --p5-text: #e4e4e4;
+  --p5-muted: #aab2c2;
+  /*info post*/
+  --info-accent: #14b8a6;
+  --info-accent-2: #99f6e4;
+  --info-text: #e4e4e4;
+  --info-muted: #a7b3bf;
 }
 
 /*─────────────────────────────────────────────────
@@ -106,12 +131,6 @@
   p5 / Simulation (dark skin)
 ───────────────────────────────────────────────*/
 .post-card--p5 {
-  --p5-bg-1: #0c0f15;
-  --p5-bg-2: #0a0d14;
-  --p5-accent: #a9b4ff;
-  --p5-ring: #ffd9a1;
-  --p5-text: #e4e4e4;
-  --p5-muted: #aab2c2;
 
   background:
     radial-gradient(120% 140% at 60% -20%, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 45%),
@@ -189,10 +208,6 @@
   Review (dark skin)
 ───────────────────────────────────────────────*/
 .post-card--review {
-  --rev-accent: #f59e0b;
-  --rev-accent-2: #fde68a;
-  --rev-text: #e4e4e4;
-  --rev-muted: #b3bac4;
 
   background:
     radial-gradient(140% 180% at 100% -40%, rgba(253,230,138,0.10) 0%, rgba(253,230,138,0) 60%),
@@ -231,10 +246,7 @@
   Info / Guide (dark skin)
 ───────────────────────────────────────────────*/
 .post-card--info {
-  --info-accent: #14b8a6;
-  --info-accent-2: #99f6e4;
-  --info-text: #e4e4e4;
-  --info-muted: #a7b3bf;
+
 
   background:
     radial-gradient(130% 170% at 90% -30%, rgba(20,184,166,0.10) 0%, rgba(20,184,166,0) 60%),
@@ -275,12 +287,6 @@
   NASA (dark skin)
 ───────────────────────────────────────────────*/
 .post-card--nasa {
-  --nasa-bg-1: #0a0d16;
-  --nasa-bg-2: #05070d;
-  --nasa-accent: #1d4ed8;
-  --nasa-accent-light: #60a5fa;
-  --nasa-text: #e6eaf2;
-  --nasa-muted: #9ca3af;
 
   background:
     radial-gradient(140% 180% at 70% -40%, rgba(96,165,250,0.10) 0%, rgba(96,165,250,0) 70%),
