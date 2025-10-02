@@ -64,7 +64,21 @@ const jsonLdProduct = {
 </head>
 
 <Layout title={title}>
-  <article class="post centered_flex">
+
+<div class="centered_flex">
+<div class="review-post-starter">
+  <h1>
+    {title}
+    {Astro.props.frontmatter.reviewType && (
+      <span class={`review-tag ${Astro.props.frontmatter.reviewType}`}>
+        {Astro.props.frontmatter.reviewType === "hands-on" ? "Hands-On" : "Research"}
+      </span>
+    )}
+  </h1>
+  <p class="writer">{writerLine}</p>
+
+  <div class="review-post-starter-content">
+    <div class="centered_flex">
     <img
       src={cover_image}
       class="post-starter-image"
@@ -73,25 +87,24 @@ const jsonLdProduct = {
       loading="eager"
       decoding="async"
     />
-    <h1>
-      {title}
-      {Astro.props.frontmatter.reviewType && (
-        <span class={`review-tag ${Astro.props.frontmatter.reviewType}`}>
-          {Astro.props.frontmatter.reviewType === "hands-on" ? "Hands-On" : "Research"}
-        </span>
-      )}
-    </h1>
+  </div>
+    <div class="review-meta centered_flex">
+      
 
-    {/* --- UPDATED: use conditional byline --- */}
-    <p class="writer">{writerLine}</p>
-
-    <div class="main-rating-card rating-card centered_flex">
-      <span class="category">Overall</span>
-      <span class="score">{rating.overall}/10</span>
+      <div class="main-rating-card rating-card centered_flex">
+        <span class="category">Overall</span>
+        <span class="score">{rating.overall}/10</span>
+      </div>
+      <p class="post-starter-description">{Astro.props.frontmatter.description}</p>
+      <div class="share-header"><span class="share-label">Share:</span></div>
+      <SocialShare frontmatter={Astro.props.frontmatter} url={url} client:load />
     </div>
+  </div>
+</div>
 
-    <div class="share-header"><span class="share-label">Share:</span></div>
-    <SocialShare frontmatter={Astro.props.frontmatter} url={url} client:load />
+  <article class="post review-post centered_flex">
     <slot />
   </article>
+
+</div>
 </Layout>
