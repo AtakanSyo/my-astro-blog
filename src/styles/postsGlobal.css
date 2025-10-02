@@ -14,6 +14,7 @@ p {
   align-self: flex-start;
   text-align: left;
   color: #ffffff;
+  font-weight: 900;
 }
 
 .review-description {

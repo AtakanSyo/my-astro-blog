@@ -407,7 +407,7 @@ figcaption {
 }
 
 .affiliate-link {
-  --gradient: linear-gradient(135deg, var(--brand-red), var(--brand-red)); /* your amber gradient */
+  --gradient: linear-gradient(135deg, var(--brand-affiliate-button-red), var(--brand-affiliate-button-red)); /* your amber gradient */
 
   display: inline-flex;
   align-items: center;
@@ -420,8 +420,8 @@ figcaption {
 
   background: transparent;
   color: transparent; /* we’ll “paint” text with gradient */
-  font-weight: 700;
-  font-size: 1rem;
+  font-weight: 900;
+  font-size: 1.1rem;
   font-family: system-ui, sans-serif;
   text-decoration: none;
   text-align: center;
@@ -437,7 +437,7 @@ figcaption {
   border-image: var(--gradient) 1;
 
   /* solid offset shadow in gradient */
-  box-shadow: 6px 6px 0 var(--brand-red);
+  box-shadow: 6px 6px 0 var(--brand-affiliate-button-red);
   transition: all 0.25s ease;
 }
 
