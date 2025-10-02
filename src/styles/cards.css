@@ -1,349 +1,241 @@
-/*─────────────────────────────────────────────────
-  Variables
-─────────────────────────────────────────────────*/
-:root {
-  --card-bg: #fff;
-  --card-radius: 0.5rem;
-  --card-shadow: rgba(0, 0, 0, 0.05);
-  --card-shadow-hover: rgba(0, 0, 0, 0.12);
-  --accent: #5156c1;
-  --text-muted: #555;
-  --transition-fast: 0.2s ease;
+/* =========================================================
+   Astrosyo — Cards (Same design, color-only variants)
+   - No CSS variables
+   - Primary accent: #c40323
+   - Class names unchanged: .post-grid, .post-card, .post-card-link,
+     variants: .post-card--nasa, --review, --info, --p5
+========================================================= */
 
-  /*review post*/
-  --rev-accent: #f59e0b;
-  --rev-accent-2: #fde68a;
-  --rev-text: #e4e4e4;
-  --rev-muted: #b3bac4;
-  /*nasa post*/
-  --nasa-bg-1: #0a0d16;
-  --nasa-bg-2: #05070d;
-  --nasa-accent: #1d4ed8;
-  --nasa-accent-light: #60a5fa;
-  --nasa-text: #e6eaf2;
-  --nasa-muted: #9ca3af;
-  /*simulation post*/
-  --p5-bg-1: #0c0f15;
-  --p5-bg-2: #0a0d14;
-  --p5-accent: #a9b4ff;
-  --p5-ring: #ffd9a1;
-  --p5-text: #e4e4e4;
-  --p5-muted: #aab2c2;
-  /*info post*/
-  --info-accent: #14b8a6;
-  --info-accent-2: #99f6e4;
-  --info-text: #e4e4e4;
-  --info-muted: #a7b3bf;
-}
-
-/*─────────────────────────────────────────────────
-  Grid
-─────────────────────────────────────────────────*/
+/* -------- Grid -------- */
 .post-grid {
   display: grid;
-  gap: 1.5rem;
+  gap: clamp(14px, 2.2vw, 22px);
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
-/*─────────────────────────────────────────────────
-  Card base
-─────────────────────────────────────────────────*/
+/* -------- Card base (shared design) -------- */
 .post-card {
-  background: var(--card-bg);
-  border-radius: var(--card-radius);
-  box-shadow: 0 2px 6px var(--card-shadow);
+  position: relative;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
   cursor: pointer;
-  position: relative;
-}
-.post-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px var(--card-shadow-hover);
+
+  /* glassy neutral surface (same for all) */
+  background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.028));
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 14px;
+
+  /* shared depth */
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+
+  /* shared motion */
+  transition:
+    transform .22s ease,
+    box-shadow .22s ease,
+    border-color .22s ease,
+    background .22s ease,
+    filter .22s ease;
+  isolation: isolate;
 }
 
-/* Clickable area + hover indicator */
+/* subtle star speckles (same for all) */
+.post-card::after {
+  content: "";
+  position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background-image:
+    radial-gradient(1px 1px at 14% 22%, rgba(255,255,255,.06) 50%, transparent 51%),
+    radial-gradient(1px 1px at 78% 44%, rgba(255,255,255,.05) 50%, transparent 51%),
+    radial-gradient(1px 1px at 36% 76%, rgba(255,255,255,.05) 50%, transparent 51%);
+  background-repeat: no-repeat;
+}
+
+.post-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 44px rgba(0,0,0,0.5);
+  border-color: rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.065);
+}
+
+/* keyboard focus (shared) */
+.post-card:focus-within {
+  outline: none;
+  box-shadow:
+    0 0 0 3px color-mix(in oklab, #c40323 55%, transparent),
+    0 20px 44px rgba(0,0,0,0.5);
+}
+
+/* -------- Clickable area (shared) -------- */
 .post-card-link {
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  padding: clamp(14px, 1.6vw, 18px);
   text-decoration: none;
   color: inherit;
   position: relative;
+  z-index: 1;
 }
 .post-card-link::after {
   content: "→";
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
+  position: absolute; top: 12px; right: 12px;
   opacity: 0;
-  transition: opacity var(--transition-fast);
-  font-size: 1.2rem;
-  color: #888;
+  transform: translateY(2px);
+  transition: opacity .18s ease, transform .18s ease, color .18s ease;
+  font-size: 1.15rem;
+  color: #8a90a0; /* overridden by variants only in color */
 }
-.post-card:hover .post-card-link::after { opacity: 0.7; color: #fff; }
+.post-card:hover .post-card-link::after {
+  opacity: .95;
+  transform: translateY(0);
+  color: color-mix(in oklab, #c40323 78%, white);
+}
 
-/* Typography */
-.post-card-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.25rem; }
-.post-card-meta  { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem; }
-.post-card-desc  { font-size: 0.95rem; line-height: 1.4; color: var(--text-muted); margin-bottom: 1rem; }
+/* -------- Optional thumbnail (shared) -------- */
+.post-card .thumb {
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  margin: -0.5rem -0.5rem clamp(12px, 1.5vw, 16px);
+  border: 1px solid rgba(255,255,255,0.10);
+  background: #0b0e15;
+}
+.post-card .thumb img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .5s ease;
+}
+.post-card:hover .thumb img { transform: scale(1.04); }
 
-/* CTA */
+/* -------- Typography (shared) -------- */
+.post-card-title {
+  font-size: clamp(1.02rem, .6vw + 1rem, 1.18rem);
+  font-weight: 800;
+  letter-spacing: .01em;
+  margin: 0 0 .4rem;
+  color: #f3f4f6;
+}
+.post-card-meta {
+  font-size: clamp(.88rem, .4vw + .8rem, .96rem);
+  color: #8a90a0;
+  margin: 0 0 .55rem;
+}
+.post-card-desc {
+  font-size: clamp(.95rem, .35vw + .86rem, 1rem);
+  line-height: 1.55;
+  color: #b7bdc9;
+  margin: 0 0 .9rem;
+}
+
+/* -------- Text CTA (shared) -------- */
 .read-post {
   margin-top: auto;
-  font-size: 0.9rem;
-  font-weight: 600;
+  font-size: .92rem;
+  font-weight: 800;
   text-align: right;
-  color: var(--accent);
-  opacity: 0.6;
-  transition: opacity var(--transition-fast);
+  color: color-mix(in oklab, #c40323 86%, white); /* variants override with different red tint only */
+  opacity: .85;
+  letter-spacing: .01em;
+  transition: opacity .18s ease, letter-spacing .18s ease;
 }
-.post-card:hover .read-post { opacity: 1; }
+.post-card:hover .read-post {
+  opacity: 1;
+  letter-spacing: .02em;
+}
 
-/* Footer + badges (shared) */
+/* -------- Footer / badges (shared) -------- */
 .post-card-footer {
   margin-top: auto;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   gap: .75rem;
+  padding-top: .25rem;
 }
 .post-card-footer.has-badge { justify-content: space-between; }
 .post-card-badges { display: flex; gap: .4rem; align-items: center; }
 
-/* Buttons (shared) */
-.card-buttons { display: flex; gap: 0.5rem; padding: 0.75rem 1rem 1rem; }
+/* -------- Button row (shared design) -------- */
+.card-buttons { display: flex; gap: .5rem; padding: 0 .95rem .95rem; }
 .card-btn {
-  flex: 1; padding: 0.5rem; text-align: center; background: var(--accent);
-  color: #fff; border-radius: 4px; text-decoration: none;
-  transition: background var(--transition-fast), transform 0.1s;
+  flex: 1;
+  padding: .58rem .8rem;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 12px;
+  color: #ffffff;
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 8px 24px rgba(0,0,0,.28);
+  transition: transform .14s ease, background .18s ease, box-shadow .18s ease, filter .18s ease;
 }
-.card-btn:hover {
-  /* darken(var(--accent), 10%) replacement */
-  background: color-mix(in oklab, var(--accent) 85%, #000);
-  transform: translateY(-1px);
-}
+.card-btn:hover { transform: translateY(-1px); box-shadow: 0 16px 32px rgba(0,0,0,.34); }
 
-/*───────────────────────────────────────────────
-  p5 / Simulation (dark skin)
-───────────────────────────────────────────────*/
-.post-card--p5 {
+/* =========================================================
+   COLOR-ONLY VARIANTS
+   (Everything else stays identical)
+========================================================= */
 
-  background:
-    radial-gradient(120% 140% at 60% -20%, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 45%),
-    radial-gradient(100% 120% at 30% 0%, rgba(255,217,161,0.08) 0%, rgba(255,217,161,0) 60%),
-    linear-gradient(180deg, var(--p5-bg-1), var(--p5-bg-2));
-  color: var(--p5-text);
-  border: 1px solid rgba(255,255,255,0.06);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.04);
-  isolation: isolate;
-}
-.post-card--p5::before {
-  content: "";
-  position: absolute; inset: -20% -10% auto -10%; height: 60%;
-  background:
-    radial-gradient(60% 120% at 50% 50%, rgba(255,217,161,0.14), rgba(255,217,161,0) 70%),
-    conic-gradient(from 20deg at 50% 50%, rgba(255,255,255,0.08), rgba(255,255,255,0.0) 25% 75%, rgba(255,255,255,0.08));
-  filter: blur(16px) saturate(1.05);
-  opacity: 0.85; z-index: 0; pointer-events: none; transform: rotate(-6deg);
-}
-.post-card--p5::after {
-  content: "";
-  position: absolute; inset: 0;
-  background-image:
-    radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.18) 50%, transparent 51%),
-    radial-gradient(1px 1px at 70% 60%, rgba(255,255,255,0.14) 50%, transparent 51%),
-    radial-gradient(1px 1px at 45% 80%, rgba(255,255,255,0.12) 50%, transparent 51%),
-    radial-gradient(1px 1px at 85% 25%, rgba(255,255,255,0.16) 50%, transparent 51%);
-  background-repeat: no-repeat; z-index: 0; pointer-events: none;
-}
-.post-card--p5 .post-card-title { color: #fff; }
-.post-card--p5 .post-card-meta,
-.post-card--p5 .post-card-desc { color: var(--p5-muted); }
-.post-card--p5 .read-post { color: var(--p5-accent); }
-.post-card--p5:hover {
-  box-shadow:
-    0 18px 40px rgba(0,0,0,0.45),
-    0 0 0 1px rgba(169,180,255,0.18) inset,
-    0 0 30px rgba(169,180,255,0.10);
-}
-.post-card--p5 .post-card-link::after { content: "▶"; font-size: 1.1rem; color: var(--p5-accent); }
-.post-card--p5 .post-card-link, .post-card--p5 .card-buttons { position: relative; z-index: 1; }
+/* Base (no modifier): core red */
+.post-card .post-card-link::after { color: color-mix(in oklab, #c40323 78%, white); }
+.post-card .read-post { color: color-mix(in oklab, #c40323 86%, white); }
+.card-btn { background: linear-gradient(180deg, #c40323, color-mix(in oklab, #c40323 85%, #6c0a18)); }
+.card-btn:hover { background: linear-gradient(180deg, color-mix(in oklab, #c40323 98%, #ff5a5a 2%), color-mix(in oklab, #c40323 90%, #6c0a18)); }
 
-/* p5 badge (absolute or inline when placed in footer) */
-.p5-badge {
-  padding: .25rem .5rem;
-  border-radius: .4rem;
-  font-size: .72rem;
-  font-weight: 700;
-  letter-spacing: .2px;
-  line-height: 1;
-  background: rgba(169,180,255,0.15);
-  color: var(--p5-accent);
-  border: 1px solid rgba(169,180,255,0.25);
-  backdrop-filter: blur(4px);
-}
-.post-card .post-card-footer .p5-badge { position: static; inset: auto; }
-.post-card--p5 .card-btn {
-  --btn-bg: color-mix(in oklab, var(--p5-accent) 88%, #000);
-  background: var(--btn-bg);
-  border: 1px solid rgba(255,255,255,0.10);
-  color: #0b0b0b;
-}
-.post-card--p5 .card-btn:hover { background: color-mix(in oklab, var(--p5-accent) 100%, #000); }
+/* NASA — cooler red tint */
+.post-card--nasa .post-card-link::after { color: color-mix(in oklab, #c40323 74%, #b3d1ff); }
+.post-card--nasa .read-post { color: color-mix(in oklab, #c40323 88%, #e6f0ff); }
+.post-card--nasa .card-btn { background: linear-gradient(180deg, color-mix(in oklab, #c40323 92%, #204a8b), color-mix(in oklab, #c40323 78%, #18233a)); }
+.post-card--nasa .card-btn:hover { background: linear-gradient(180deg, color-mix(in oklab, #c40323 98%, #5aa0ff 2%), color-mix(in oklab, #c40323 86%, #1c2c55)); }
+.post-card--nasa:hover { box-shadow: 0 20px 44px rgba(0,0,0,0.5), 0 0 32px rgba(196,3,35,0.20); }
 
-/* Reduced motion / forced colors */
-@media (prefers-reduced-motion: reduce) {
-  .post-card, .post-card-link::after, .card-btn { transition: none !important; }
-}
-@media (forced-colors: active) {
-  .post-card--p5 { border: 1px solid CanvasText; box-shadow: none; }
-  .p5-badge { border: 1px solid CanvasText; }
-}
+/* Review — warmer red tint */
+.post-card--review .post-card-link::after { color: color-mix(in oklab, #c40323 78%, #ffd7a3); }
+.post-card--review .read-post { color: color-mix(in oklab, #c40323 92%, #ffe4b8); }
+.post-card--review .card-btn { background: linear-gradient(180deg, color-mix(in oklab, #c40323 95%, #8b4a20), color-mix(in oklab, #c40323 80%, #3a2218)); }
+.post-card--review .card-btn:hover { background: linear-gradient(180deg, color-mix(in oklab, #c40323 98%, #ffb45a 2%), color-mix(in oklab, #c40323 86%, #552c1c)); }
+.post-card--review:hover { box-shadow: 0 20px 44px rgba(0,0,0,0.5), 0 0 32px rgba(196,3,35,0.20); }
 
-/*───────────────────────────────────────────────
-  Review (dark skin)
-───────────────────────────────────────────────*/
-.post-card--review {
+/* Info — neutral/clean red tint (slightly lighter) */
+.post-card--info .post-card-link::after { color: color-mix(in oklab, #c40323 76%, #ffffff); }
+.post-card--info .read-post { color: color-mix(in oklab, #c40323 90%, #ffffff); }
+.post-card--info .card-btn { background: linear-gradient(180deg, color-mix(in oklab, #c40323 94%, #4f4f4f), color-mix(in oklab, #c40323 82%, #2b2b2b)); }
+.post-card--info .card-btn:hover { background: linear-gradient(180deg, color-mix(in oklab, #c40323 98%, #ff8080 2%), color-mix(in oklab, #c40323 88%, #383838)); }
+.post-card--info:hover { box-shadow: 0 20px 44px rgba(0,0,0,0.5), 0 0 32px rgba(196,3,35,0.20); }
 
-  background:
-    radial-gradient(140% 180% at 100% -40%, rgba(253,230,138,0.10) 0%, rgba(253,230,138,0) 60%),
-    linear-gradient(180deg, #1b1b1b, #151515);
-  border: 1px solid rgba(255,255,255,0.06);
-  box-shadow: 0 8px 28px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.05);
-  color: var(--rev-text);
-}
-.post-card--review::before {
-  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 4px;
-  background: linear-gradient(90deg, var(--rev-accent), var(--rev-accent-2));
-  opacity: .75;
-}
-.post-card--review:hover {
-  box-shadow: 0 14px 38px rgba(0,0,0,0.5), 0 0 0 1px rgba(245,158,11,0.18) inset;
-}
-.post-card--review .post-card-title { color: #fff; }
-.post-card--review .post-card-meta,
-.post-card--review .post-card-desc { color: var(--rev-muted); }
-.post-card--review .read-post { color: var(--rev-accent); }
-.review-badge {
-  padding: .25rem .5rem; border-radius: .4rem; font-size: .72rem; font-weight: 700; letter-spacing: .2px; line-height: 1;
-  background: rgba(245,158,11,0.14);
-  color: var(--rev-accent);
-  border: 1px solid rgba(245,158,11,0.32);
-  backdrop-filter: blur(4px);
-}
-.post-card--review .card-btn {
-  background: color-mix(in oklab, var(--rev-accent) 92%, #000);
-  color: #0c0c0c;
-  border: 1px solid rgba(255,255,255,0.08);
-}
-.post-card--review .card-btn:hover { background: color-mix(in oklab, var(--rev-accent) 100%, #000); }
+/* Simulation / p5 — vivid/energetic red tint */
+.post-card--p5 .post-card-link::after { color: color-mix(in oklab, #c40323 84%, #ffd9d9); }
+.post-card--p5 .read-post { color: color-mix(in oklab, #c40323 92%, #ffe3e3); }
+.post-card--p5 .card-btn { background: linear-gradient(180deg, color-mix(in oklab, #c40323 96%, #7a1b2f), color-mix(in oklab, #c40323 84%, #2a0e14)); }
+.post-card--p5 .card-btn:hover { background: linear-gradient(180deg, color-mix(in oklab, #c40323 99%, #ff6a8a 2%), color-mix(in oklab, #c40323 90%, #3a121a)); }
+.post-card--p5:hover { box-shadow: 0 20px 44px rgba(0,0,0,0.5), 0 0 32px rgba(196,3,35,0.20); }
 
-/*───────────────────────────────────────────────
-  Info / Guide (dark skin)
-───────────────────────────────────────────────*/
-.post-card--info {
-
-
-  background:
-    radial-gradient(130% 170% at 90% -30%, rgba(20,184,166,0.10) 0%, rgba(20,184,166,0) 60%),
-    linear-gradient(180deg, #1a1f23, #121519);
-  border: 1px solid rgba(255,255,255,0.06);
-  box-shadow: 0 8px 28px rgba(0,0,0,0.32), inset 0 1px 0 rgba(255,255,255,0.05);
-  color: var(--info-text);
-  overflow: hidden;
-  position: relative;
-}
-.post-card--info::before {
-  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
-  background: linear-gradient(180deg, var(--info-accent), var(--info-accent-2)); opacity: .9;
-}
-.post-card--info::after {
-  content: ""; position: absolute; inset: 0;
-  background-image:
-    repeating-linear-gradient(0deg, rgba(255,255,255,0.04) 0 1px, transparent 1px 22px),
-    repeating-linear-gradient(90deg, rgba(255,255,255,0.04) 0 1px, transparent 1px 22px);
-  pointer-events: none;
-}
-.post-card--info .post-card-title { color: #fff; }
-.post-card--info .post-card-meta,
-.post-card--info .post-card-desc { color: var(--info-muted); }
-.post-card--info .read-post { color: var(--info-accent); }
-.info-badge {
-  padding: .25rem .5rem; border-radius: .4rem; font-size: .72rem; font-weight: 700; letter-spacing: .2px; line-height: 1;
-  background: rgba(20,184,166,0.14);
-  color: var(--info-accent);
-  border: 1px solid rgba(20,184,166,0.30);
-  backdrop-filter: blur(4px);
-}
-.post-card--info:hover {
-  box-shadow: 0 14px 38px rgba(0,0,0,0.12), 0 0 0 1px rgba(20,184,166,0.16) inset;
-}
-
-/*───────────────────────────────────────────────
-  NASA (dark skin)
-───────────────────────────────────────────────*/
-.post-card--nasa {
-
-  background:
-    radial-gradient(140% 180% at 70% -40%, rgba(96,165,250,0.10) 0%, rgba(96,165,250,0) 70%),
-    linear-gradient(180deg, var(--nasa-bg-1), var(--nasa-bg-2));
-  color: var(--nasa-text);
-  border: 1px solid rgba(255,255,255,0.06);
-  box-shadow: 0 12px 28px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.05);
-  overflow: hidden;
-  isolation: isolate;
-}
-.post-card--nasa::after {
-  content: ""; position: absolute; inset: 0;
-  background-image:
-    radial-gradient(1px 1px at 20% 20%, rgba(255,255,255,0.20) 50%, transparent 51%),
-    radial-gradient(1px 1px at 65% 45%, rgba(255,255,255,0.15) 50%, transparent 51%),
-    radial-gradient(1px 1px at 30% 70%, rgba(255,255,255,0.12) 50%, transparent 51%),
-    radial-gradient(1px 1px at 80% 30%, rgba(255,255,255,0.18) 50%, transparent 51%);
-  background-repeat: no-repeat; z-index: 0; pointer-events: none;
-}
-.post-card--nasa .post-card-title { color: #fff; }
-.post-card--nasa .post-card-meta,
-.post-card--nasa .post-card-desc { color: var(--nasa-muted); }
-.post-card--nasa .read-post { color: var(--nasa-accent-light); }
-.post-card--nasa:hover {
-  box-shadow:
-    0 18px 42px rgba(0,0,0,0.5),
-    0 0 0 1px rgba(96,165,250,0.25) inset,
-    0 0 36px rgba(96,165,250,0.15);
-  transform: translateY(-4px);
-}
-.post-card--nasa .post-card-link::after {
-  content: "🚀"; font-size: 1.1rem; color: var(--nasa-accent-light);
-}
-.nasa-badge {
-  padding: .25rem .55rem; border-radius: .4rem; font-size: .72rem; font-weight: 700; letter-spacing: .2px;
-  background: rgba(29,78,216,0.2);
-  color: var(--nasa-accent-light);
-  border: 1px solid rgba(29,78,216,0.3);
-  backdrop-filter: blur(4px);
-}
-.post-card--nasa .card-btn {
-  background: var(--nasa-accent);
-  border: 1px solid rgba(255,255,255,0.08);
-  color: #fff;
-}
-.post-card--nasa .card-btn:hover { background: var(--nasa-accent-light); transform: translateY(-1px); }
-
-/* IG “latest reel” badge (kept as-is) */
+/* -------- Badges (same style, red family tints per variant) -------- */
+.p5-badge,
+.review-badge,
+.info-badge,
+.nasa-badge,
 .latest-reel-badge {
   padding: .25rem .55rem;
   border-radius: .4rem;
   font-size: .72rem;
   font-weight: 700;
   letter-spacing: .2px;
-  background: rgba(40,40,40,0.7);
   backdrop-filter: blur(3px);
   border: 1px solid transparent;
+}
+
+/* red family for all content badges (same structure) */
+.p5-badge,
+.review-badge,
+.info-badge,
+.nasa-badge {
+  background: rgba(196,3,35,0.16);
+  color: color-mix(in oklab, #c40323 92%, white);
+  border-color: rgba(196,3,35,0.30);
+}
+
+/* IG badge keeps the gradient text but matches structure */
+.latest-reel-badge {
+  background: rgba(40,40,40,0.7);
   background-image:
     linear-gradient(rgba(40,40,40,0), rgba(40,40,40,0)),
     linear-gradient(90deg,#feda75 0%,#fa7e1e 25%,#d62976 50%,#962fbf 75%,#4f5bd5 100%);
@@ -355,6 +247,39 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* Let badges flow inline in footer when used there */
+/* Inline flow in footer (shared) */
 .post-card .post-card-badges .nasa-badge,
-.post-card .post-card-badges .latest-reel-badge { position: static; }
+.post-card .post-card-badges .latest-reel-badge,
+.post-card .post-card-badges .p5-badge,
+.post-card .post-card-badges .review-badge,
+.post-card .post-card-badges .info-badge { position: static; }
+
+/* -------- Accessibility / Motion (shared) -------- */
+.post-card-link:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in oklab, #c40323 55%, transparent);
+  border-radius: 12px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .post-card,
+  .post-card-link::after,
+  .card-btn,
+  .post-card .thumb img { transition: none !important; }
+  .post-card:hover { transform: none !important; }
+}
+
+/* -------- Light mode friendliness (shared) -------- */
+@media (prefers-color-scheme: light) {
+  .post-card {
+    background: linear-gradient(180deg, rgba(10,12,30,0.04), rgba(10,12,30,0.028));
+    border-color: rgba(10,12,30,0.10);
+    box-shadow: 0 10px 22px rgba(8, 12, 40, 0.12);
+  }
+  .post-card:hover {
+    box-shadow: 0 30px 50px rgba(8, 12, 40, 0.18);
+    background: rgba(10,12,30,0.06);
+  }
+  .post-card-title { color: #0f1320; }
+  .post-card-meta { color: #4a536b; }
+  .post-card-desc { color: #69738c; }
+}
