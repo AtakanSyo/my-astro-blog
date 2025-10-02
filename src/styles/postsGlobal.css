@@ -1,3 +1,11 @@
+:root {
+  --post-text-size: 18px;
+}
+
+p {
+  font-size: var(--post-text-size);
+}
+
 /* Left‐align all headings inside .post */
 .post h2,
 .post h3,

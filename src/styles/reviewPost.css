@@ -405,6 +405,7 @@ figcaption {
     max-width: 280px;           /* keeps them from stretching too wide */
   }
 }
+
 .affiliate-link {
   --gradient: linear-gradient(135deg, var(--brand-red), var(--brand-red)); /* your amber gradient */
 
