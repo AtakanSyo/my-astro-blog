@@ -137,7 +137,7 @@ header {
 
 .nav-search-input:focus {
   outline: none;
-  border-color: #a9b4ff;
+  border-color: var(--brand-red);
 }
 
 /* the little “✕” close button */
