@@ -41,7 +41,11 @@ html {
   --brand-affiliate-button-red: #ff5252;
   --brand-red-darker: #c40523; /* brand accent (blue-ish) */
   --brand-red-v2: #e1142f;
-  --cosmic-gradient: linear-gradient(135deg, #ff3b3b, #ff0080, #8b3dff, #ffb800);
+  --cosmic-gradient: linear-gradient(
+    135deg,
+    #ff3b3b 0%,    /* vivid bright red */
+    #ff0080 80%   /* cosmic hot pink */
+  );
 }
 
 body {

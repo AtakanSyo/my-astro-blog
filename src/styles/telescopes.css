@@ -179,14 +179,7 @@
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(
-    135deg,
-    #ff3b3b 0%,    /* vivid bright red */
-    #ff0080 35%,   /* cosmic hot pink */
-    #8b3dff 65%,   /* vivid violet / purple */
-    #ffb800 100%   /* golden orange glow */
-  );
-  background-size: 200% 200%;
+  background: var(--cosmic-gradient);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
           mask-composite: exclude;

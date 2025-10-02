@@ -177,12 +177,7 @@ h1 .review-tag {
   border: 2px solid transparent; /* controls border thickness */
   background:
     linear-gradient(#1f1f1f, #1f1f1f) padding-box,                 /* inner fill */
-    linear-gradient(135deg,
-      var(--brand-red) 0%,
-      #ff0080 35%,
-      #8b3dff 65%,
-      #ffb800 100%
-    ) border-box;                                                  /* gradient border */
+    var(--cosmic-gradient);                                               /* gradient border */
 
   display: flex;
   flex-direction: column;
@@ -192,15 +187,8 @@ h1 .review-tag {
   /* Prevent any weird overlap/scrolling */
   isolation: isolate;
   overflow: hidden;
-
-  background-size: auto, 200% 200%;
-  animation: rating-border-pan 6s linear infinite;
 }
 
-@keyframes rating-border-pan {
-  0%   { background-position: 0 0,   0% 50%; }
-  100% { background-position: 0 0, 100% 50%; }
-}
 
 
 .rating-card .category {
