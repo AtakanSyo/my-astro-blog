@@ -109,8 +109,14 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  padding: 1px; /* thin outline */
-  background: linear-gradient(135deg, #ff7e5f, #5d62d2, #00c9ff);
+  padding: 2px; /* thin outline */
+  background: linear-gradient(
+    135deg,
+    #ff3b3b 0%,    /* vivid bright red */
+    #ff0080 35%,   /* cosmic hot pink */
+    #8b3dff 65%,   /* vivid violet / purple */
+    #ffb800 100%   /* golden orange glow */
+  );
   background-size: 200% 200%;
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
@@ -174,6 +180,8 @@
   height: 58%;
   fill: currentColor;
   transition: transform .18s ease, opacity .18s ease;
+  filter: grayscale(100%) brightness(100); /* turns everything black */
+
 }
 
 .social-share a:hover svg,
@@ -182,10 +190,7 @@
   opacity: 0.95;
 }
 
-/* Optional brand tints on hover (kept subtle for your theme) */
-.social-share .x:hover       { color: #cfd3db; }
-.social-share .reddit:hover  { color: #ff9066; }
-.social-share .linkedin:hover{ color: #a9c6ff; }
+
 
 /* Compact variant (if needed) */
 .social-share--sm a,

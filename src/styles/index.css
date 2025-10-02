@@ -3,7 +3,7 @@
   --hero-max: 1280px;
 
   /* Brand & palette */
-  --brand-red: #c40523; /* brand accent (blue-ish) */
+
   --ink: #0f0f0f;
   --paper: #f5f5f5;
 
@@ -96,7 +96,7 @@
 }
 
 /* CTA Variants */
-.cta--primary { background: var(--brand-red); }
+.cta--primary { background: var(--brand-red-darker); }
 .cta--dark    { background: #2a2a2a; }
 .cta--ghost {
   background: transparent;
@@ -173,7 +173,7 @@
   text-align: left;
   font-size: clamp(1.25rem, 2vw + 1rem, 1.625rem);
   line-height: 1.2;
-  font-weight: 600;
+  font-weight: 900;
 }
 
 /* Grid: 4 across on wide, 2×2 on smaller */
@@ -256,3 +256,4 @@
   .home-post-link { transition: none; }
   .home-post-link:hover { transform: none; }
 }
+

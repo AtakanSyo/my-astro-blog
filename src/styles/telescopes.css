@@ -83,9 +83,9 @@
 
 .toggle-buttons button:hover,
 .toggle-buttons button.active {
-  background: #f59e0c;
-  color: #0e0e0e;
-  border-color: #f59e0c;
+  background: var(--brand-red-v2);
+  color: white;
+  border-color: var(--brand-red-v2);
 }
 
 /*─────────────────────────────────────────────────
@@ -117,7 +117,7 @@
   text-align: center;
   padding: 0.5rem;
   background: #1f1f1f;
-  border: 1px solid #f59e0c; /* subtle accent color border from the start */
+  border: 1px solid var(--brand-red); /* subtle accent color border from the start */
   border-radius: 6px;
   font-size: 0.875rem;
   color: #e6e7ff; /* soft light accent tone for text */
@@ -134,7 +134,7 @@
 
 .affiliate-btn:hover {
   background-color: #2d2d2d;
-  border-color: #f59e0c; /* slightly brighter accent */
+  border-color: var(--brand-red); /* slightly brighter accent */
   color: #ffffff;
   box-shadow: 0 0 8px rgba(93, 98, 210, 0.4);
   transform: translateY(-1px);
@@ -179,7 +179,13 @@
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, #ff7e5f, #5d62d2, #00c9ff);
+  background: linear-gradient(
+    135deg,
+    #ff3b3b 0%,    /* vivid bright red */
+    #ff0080 35%,   /* cosmic hot pink */
+    #8b3dff 65%,   /* vivid violet / purple */
+    #ffb800 100%   /* golden orange glow */
+  );
   background-size: 200% 200%;
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;

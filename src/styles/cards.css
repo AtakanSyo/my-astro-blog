@@ -1,7 +1,7 @@
 /* =========================================================
    Astrosyo — Cards (Same design, color-only variants)
    - No CSS variables
-   - Primary accent: #c40323
+   - Primary accent: var(--brand-red)
    - Class names unchanged: .post-grid, .post-card, .post-card-link,
      variants: .post-card--nasa, --review, --info, --p5
 ========================================================= */
@@ -61,7 +61,7 @@
 .post-card:focus-within {
   outline: none;
   box-shadow:
-    0 0 0 3px color-mix(in oklab, #c40323 55%, transparent),
+    0 0 0 3px color-mix(in oklab, var(--brand-red) 55%, transparent),
     0 20px 44px rgba(0,0,0,0.5);
 }
 
@@ -88,7 +88,7 @@
 .post-card:hover .post-card-link::after {
   opacity: .95;
   transform: translateY(0);
-  color: color-mix(in oklab, #c40323 78%, white);
+  color: color-mix(in oklab, var(--brand-red) 78%, white);
 }
 
 /* -------- Optional thumbnail (shared) -------- */
@@ -132,7 +132,7 @@
   font-size: .92rem;
   font-weight: 800;
   text-align: right;
-  color: color-mix(in oklab, #c40323 86%, white); /* variants override with different red tint only */
+  color: color-mix(in oklab, var(--brand-red) 86%, white); /* variants override with different red tint only */
   opacity: .85;
   letter-spacing: .01em;
   transition: opacity .18s ease, letter-spacing .18s ease;
@@ -175,37 +175,37 @@
 ========================================================= */
 
 /* Base (no modifier): core red */
-.post-card .post-card-link::after { color: color-mix(in oklab, #c40323 78%, white); }
-.post-card .read-post { color: color-mix(in oklab, #c40323 86%, white); }
-.card-btn { background: linear-gradient(180deg, #c40323, color-mix(in oklab, #c40323 85%, #6c0a18)); }
-.card-btn:hover { background: linear-gradient(180deg, color-mix(in oklab, #c40323 98%, #ff5a5a 2%), color-mix(in oklab, #c40323 90%, #6c0a18)); }
+.post-card .post-card-link::after { color: color-mix(in oklab, var(--brand-red) 78%, white); }
+.post-card .read-post { color: color-mix(in oklab, var(--brand-red) 86%, white); }
+.card-btn { background: linear-gradient(180deg, var(--brand-red), color-mix(in oklab, var(--brand-red) 85%, #6c0a18)); }
+.card-btn:hover { background: linear-gradient(180deg, color-mix(in oklab, var(--brand-red) 98%, #ff5a5a 2%), color-mix(in oklab, var(--brand-red) 90%, #6c0a18)); }
 
 /* NASA — cooler red tint */
-.post-card--nasa .post-card-link::after { color: color-mix(in oklab, #c40323 74%, #b3d1ff); }
-.post-card--nasa .read-post { color: color-mix(in oklab, #c40323 88%, #e6f0ff); }
-.post-card--nasa .card-btn { background: linear-gradient(180deg, color-mix(in oklab, #c40323 92%, #204a8b), color-mix(in oklab, #c40323 78%, #18233a)); }
-.post-card--nasa .card-btn:hover { background: linear-gradient(180deg, color-mix(in oklab, #c40323 98%, #5aa0ff 2%), color-mix(in oklab, #c40323 86%, #1c2c55)); }
+.post-card--nasa .post-card-link::after { color: color-mix(in oklab, var(--brand-red) 74%, #b3d1ff); }
+.post-card--nasa .read-post { color: color-mix(in oklab, var(--brand-red) 88%, #e6f0ff); }
+.post-card--nasa .card-btn { background: linear-gradient(180deg, color-mix(in oklab, var(--brand-red) 92%, #204a8b), color-mix(in oklab, var(--brand-red) 78%, #18233a)); }
+.post-card--nasa .card-btn:hover { background: linear-gradient(180deg, color-mix(in oklab, var(--brand-red) 98%, #5aa0ff 2%), color-mix(in oklab, var(--brand-red) 86%, #1c2c55)); }
 .post-card--nasa:hover { box-shadow: 0 20px 44px rgba(0,0,0,0.5), 0 0 32px rgba(196,3,35,0.20); }
 
 /* Review — warmer red tint */
-.post-card--review .post-card-link::after { color: color-mix(in oklab, #c40323 78%, #ffd7a3); }
-.post-card--review .read-post { color: color-mix(in oklab, #c40323 92%, #ffe4b8); }
-.post-card--review .card-btn { background: linear-gradient(180deg, color-mix(in oklab, #c40323 95%, #8b4a20), color-mix(in oklab, #c40323 80%, #3a2218)); }
-.post-card--review .card-btn:hover { background: linear-gradient(180deg, color-mix(in oklab, #c40323 98%, #ffb45a 2%), color-mix(in oklab, #c40323 86%, #552c1c)); }
+.post-card--review .post-card-link::after { color: color-mix(in oklab, var(--brand-red) 78%, #ffd7a3); }
+.post-card--review .read-post { color: color-mix(in oklab, var(--brand-red) 92%, #ffe4b8); }
+.post-card--review .card-btn { background: linear-gradient(180deg, color-mix(in oklab, var(--brand-red) 95%, #8b4a20), color-mix(in oklab, var(--brand-red) 80%, #3a2218)); }
+.post-card--review .card-btn:hover { background: linear-gradient(180deg, color-mix(in oklab, var(--brand-red) 98%, #ffb45a 2%), color-mix(in oklab, var(--brand-red) 86%, #552c1c)); }
 .post-card--review:hover { box-shadow: 0 20px 44px rgba(0,0,0,0.5), 0 0 32px rgba(196,3,35,0.20); }
 
 /* Info — neutral/clean red tint (slightly lighter) */
-.post-card--info .post-card-link::after { color: color-mix(in oklab, #c40323 76%, #ffffff); }
-.post-card--info .read-post { color: color-mix(in oklab, #c40323 90%, #ffffff); }
-.post-card--info .card-btn { background: linear-gradient(180deg, color-mix(in oklab, #c40323 94%, #4f4f4f), color-mix(in oklab, #c40323 82%, #2b2b2b)); }
-.post-card--info .card-btn:hover { background: linear-gradient(180deg, color-mix(in oklab, #c40323 98%, #ff8080 2%), color-mix(in oklab, #c40323 88%, #383838)); }
+.post-card--info .post-card-link::after { color: color-mix(in oklab, var(--brand-red) 76%, #ffffff); }
+.post-card--info .read-post { color: color-mix(in oklab, var(--brand-red) 90%, #ffffff); }
+.post-card--info .card-btn { background: linear-gradient(180deg, color-mix(in oklab, var(--brand-red) 94%, #4f4f4f), color-mix(in oklab, var(--brand-red) 82%, #2b2b2b)); }
+.post-card--info .card-btn:hover { background: linear-gradient(180deg, color-mix(in oklab, var(--brand-red) 98%, #ff8080 2%), color-mix(in oklab, var(--brand-red) 88%, #383838)); }
 .post-card--info:hover { box-shadow: 0 20px 44px rgba(0,0,0,0.5), 0 0 32px rgba(196,3,35,0.20); }
 
 /* Simulation / p5 — vivid/energetic red tint */
-.post-card--p5 .post-card-link::after { color: color-mix(in oklab, #c40323 84%, #ffd9d9); }
-.post-card--p5 .read-post { color: color-mix(in oklab, #c40323 92%, #ffe3e3); }
-.post-card--p5 .card-btn { background: linear-gradient(180deg, color-mix(in oklab, #c40323 96%, #7a1b2f), color-mix(in oklab, #c40323 84%, #2a0e14)); }
-.post-card--p5 .card-btn:hover { background: linear-gradient(180deg, color-mix(in oklab, #c40323 99%, #ff6a8a 2%), color-mix(in oklab, #c40323 90%, #3a121a)); }
+.post-card--p5 .post-card-link::after { color: color-mix(in oklab, var(--brand-red) 84%, #ffd9d9); }
+.post-card--p5 .read-post { color: color-mix(in oklab, var(--brand-red) 92%, #ffe3e3); }
+.post-card--p5 .card-btn { background: linear-gradient(180deg, color-mix(in oklab, var(--brand-red) 96%, #7a1b2f), color-mix(in oklab, var(--brand-red) 84%, #2a0e14)); }
+.post-card--p5 .card-btn:hover { background: linear-gradient(180deg, color-mix(in oklab, var(--brand-red) 99%, #ff6a8a 2%), color-mix(in oklab, var(--brand-red) 90%, #3a121a)); }
 .post-card--p5:hover { box-shadow: 0 20px 44px rgba(0,0,0,0.5), 0 0 32px rgba(196,3,35,0.20); }
 
 /* -------- Badges (same style, red family tints per variant) -------- */
@@ -228,9 +228,9 @@
 .review-badge,
 .info-badge,
 .nasa-badge {
-  background: rgba(196,3,35,0.16);
-  color: color-mix(in oklab, #c40323 92%, white);
-  border-color: rgba(196,3,35,0.30);
+  background: var(--brand-red-bg);
+  color: color-mix(in oklab, var(--brand-red) 92%, white);
+  border-color: var(--brand-red-bg);
 }
 
 /* IG badge keeps the gradient text but matches structure */
@@ -257,7 +257,7 @@
 /* -------- Accessibility / Motion (shared) -------- */
 .post-card-link:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px color-mix(in oklab, #c40323 55%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--brand-red) 55%, transparent);
   border-radius: 12px;
 }
 @media (prefers-reduced-motion: reduce) {
