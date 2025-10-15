@@ -257,3 +257,14 @@
   .home-post-link:hover { transform: none; }
 }
 
+
+.latest-link {
+  color: white;
+  text-decoration: none;
+  transition: transform 0.18s ease, text-shadow 0.25s ease;
+}
+
+.latest-link:hover {
+  transform: translateY(-2px);
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.55);
+}

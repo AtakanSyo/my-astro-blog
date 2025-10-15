@@ -28,8 +28,8 @@ function latestByCategory(key, n = 4) {
 const CATS = [
   { key: 'nasa',          label: 'NASA',           cta: 'See the article →' },
   { key: 'reviews',        label: 'Reviews',        cta: 'Read the review →' },
-  { key: 'simulation',    label: 'Simulations',    cta: 'Go to the simulation →' },
-  { key: 'informational', label: 'Guides',         cta: 'Read the guide →' },
+  { key: 'simulation',    label: 'Simulation',    cta: 'Go to the simulation →' },
+  { key: 'informational', label: 'Informational',         cta: 'Read the guide →' },
 ];
 
 const latestNasa = allPosts.find(({ frontmatter }) => hasCat(frontmatter, 'nasa'));
@@ -68,7 +68,10 @@ const latestNasa = allPosts.find(({ frontmatter }) => hasCat(frontmatter, 'nasa'
 
         return (
           <section class="category-section">
-            <h2 class="latest-title">{cat.label} — Latest</h2>
+
+            <a href={`/category/${cat.label.toLowerCase()}`} class="latest-link">
+              <h2 class="latest-title">{cat.label} →</h2>
+            </a>
 
             <div class="post-grid category-grid">
               {

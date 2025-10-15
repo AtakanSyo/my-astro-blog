@@ -1,0 +1,30 @@
+.page-category {
+  min-height: 100vh;
+  justify-content: space-between;
+}
+
+.category-title {
+  color: white;
+  font-size: clamp(2.2rem, 5vw, 3rem);
+  font-weight: 900;
+  text-align: center;
+
+  /* spacing & layout */
+  margin: 2rem auto 3rem;
+  line-height: 1.2;
+
+  transform: translateY(20px);
+  animation: fadeUp 0.6s ease forwards;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.category-grid {
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+}
