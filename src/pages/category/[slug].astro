@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import '../../styles/index.css';
 import '../../styles/cards.css';
 import '../../styles/category.css';
+import FloatingTelescopeIcons from "../../components/FloatingTelescopeIcons.astro";
 
 export async function getStaticPaths() {
   const all = await Astro.glob('../posts/*.{md,mdx}', { eager: true });
@@ -28,7 +29,13 @@ const posts = (await Astro.glob('../posts/*.{md,mdx}', { eager: true }))
   .filter((p) => typeof p.frontmatter?.category === 'string' && p.frontmatter.category.toLowerCase() === slug)
   .sort((a, b) => new Date(b.frontmatter.pubDate) - new Date(a.frontmatter.pubDate));
 ---
+
 <Layout title="Category">
+
+  {slug === "reviews" && (
+      <FloatingTelescopeIcons
+      />
+  )}
   <h1 class="category-title">{categoryLabel}</h1>
 
   <div class="post-grid category-grid">

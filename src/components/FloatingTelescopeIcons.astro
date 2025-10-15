@@ -1,0 +1,169 @@
+---
+/**
+ * FloatingTelescopeIcons.astro
+ * Artistic scattered icons using your /public/icons.svg sprite.
+ *
+ * Props:
+ *  - width, height: container size (CSS length) — default 600x320
+ *  - count: how many icons to scatter
+ *  - ids: which symbol IDs to sample from (defaults to your set)
+ *  - stroke: CSS color for the icons (inherit by default)
+ *  - min, max: min/max icon size in px
+ *  - opacity: stroke opacity (0..1)
+ */
+interface Props {
+  width?: string;
+  height?: string;
+  count?: number;
+  ids?: string[];
+  stroke?: string;
+  min?: number;
+  max?: number;
+  opacity?: number;
+}
+
+const {
+  width = "600px",
+  height = "320px",
+  count = 48,
+  ids = [
+    "all",
+    "dobsonian",
+    "tabletop-dobsonian",
+    "refractor",
+    "reflector",
+    "newtonian-reflector",
+    "bird-jones-reflector",
+    "astrograph",
+    "maksutov-cassegrain",
+    "schmidt-cassegrain",
+    "smart-telescope",
+    "other",
+  ],
+  stroke,
+  min = 18,
+  max = 54,
+  opacity = 0.8,
+} = Astro.props;
+
+// simple helpers
+const rand = (a: number, b: number) => a + Math.random() * (b - a);
+const rint = (a: number, b: number) => Math.floor(rand(a, b + 1));
+const rpick = <T,>(arr: T[]) => arr[rint(0, arr.length - 1)];
+
+// pre-generate icon instances with CSS variables
+const items = Array.from({ length: count }, () => {
+  const id = rpick(ids);
+  const size = Math.round(rand(min, max));
+  const x = Math.round(rand(2, 98));     // percent
+  const y = Math.round(rand(5, 95));     // percent
+  const rot = Math.round(rand(-25, 25)); // subtle tilt for aesthetics
+  const drift = rand(8, 16);             // seconds
+  const phase = Math.random().toFixed(2);
+  const dx = Math.round(rand(-12, 12));  // px drift
+  const dy = Math.round(rand(-10, 10));  // px drift
+  const sc = rand(0.85, 1.25).toFixed(3);
+  const thin = Math.random() < 0.35;     // occasional thinner stroke
+  return { id, size, x, y, rot, drift, phase, dx, dy, sc, thin };
+});
+---
+
+<div
+  class="icon-field full-bleed"
+  style={`--w:${width}; --h:${height}; ${stroke ? `--stroke:${stroke};` : ''} --opacity:${opacity};`}
+  aria-hidden="true"
+>
+  {items.map(({ id, size, x, y, rot, drift, phase, dx, dy, sc, thin }) => (
+    <svg
+      class={`glyph${thin ? " glyph--thin" : ""}`}
+      width={size}
+      height={size}
+      style={`
+        --x:${x}%;
+        --y:${y}%;
+        --r:${rot}deg;
+        --s:${sc};
+        --dx:${dx}px;
+        --dy:${dy}px;
+        --dur:${drift}s;
+        --delay:${phase}s;
+      `}
+      viewBox="0 0 48 48"
+    >
+      <use href={`/icons/icons.svg#${id}`} />
+    </svg>
+  ))}
+</div>
+
+<style>
+  .icon-field {
+    position: relative;
+    width: var(--w);
+    height: var(--h);
+    overflow: hidden;
+    /* aesthetic backdrop */
+    border-radius: 18px;
+    background:
+      radial-gradient(120% 120% at 0% 0%, rgba(255,255,255,0.06), transparent 60%),
+      radial-gradient(120% 120% at 100% 100%, rgba(255,255,255,0.05), transparent 60%),
+      linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
+    outline: 1px solid rgba(255,255,255,0.08);
+    box-shadow:
+      0 10px 30px rgba(0,0,0,0.25),
+      inset 0 1px 0 rgba(255,255,255,0.05);
+    /* let parent color flow by default, or override via --stroke */
+    --stroke: currentColor;
+    --opacity: 0.8;
+  }
+
+  .glyph {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    transform:
+      translate(-50%, -50%)
+      rotate(var(--r))
+      scale(var(--s));
+    stroke: var(--stroke);
+    fill: none;
+    opacity: var(--opacity);
+    /* base stroke width tuned for 48 viewBox; gets thin variant below */
+    stroke-width: 2;
+    /* subtle glow on dark backgrounds */
+    filter: drop-shadow(0 0 6px rgba(255,255,255,0.04));
+    animation:
+      drift var(--dur) ease-in-out infinite alternate,
+      sway calc(var(--dur) * 1.3) ease-in-out infinite alternate;
+    animation-delay: var(--delay);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .glyph use {
+    /* ensure symbols that use currentColor pick up stroke */
+    stroke: inherit;
+    fill: none;
+  }
+
+  .glyph--thin { stroke-width: 1.5; }
+
+  @keyframes drift {
+    from { transform: translate(-50%, -50%) rotate(var(--r)) scale(var(--s)); }
+    to   { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) rotate(calc(var(--r) + 6deg)) scale(var(--s)); }
+  }
+
+  @keyframes sway {
+    from { opacity: calc(var(--opacity) * 0.75); }
+    to   { opacity: calc(var(--opacity) * 1); }
+  }
+
+  /* Responsive tweak: reduce count visually on narrow screens by shrinking icons */
+  @media (max-width: 640px) {
+    .glyph { transform: translate(-50%, -50%) rotate(var(--r)) scale(calc(var(--s) * 0.85)); }
+  }
+
+  .full-bleed {
+  width: 100%;
+  height: 15rem;
+}
+</style>
