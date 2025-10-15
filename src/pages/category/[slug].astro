@@ -1,5 +1,4 @@
 ---
-
 import Layout from '../../layouts/Layout.astro';
 import '../../styles/index.css';
 import '../../styles/cards.css';
@@ -17,7 +16,6 @@ export async function getStaticPaths() {
 
 const slug = (Astro.params.slug || '').toLowerCase();
 
-// --- Hardcoded slug → label mapping ---
 const labelMap = {
   reviews: 'Telescope & Gear Reviews',
   nasa: 'NASA Articles',
@@ -26,9 +24,9 @@ const labelMap = {
 };
 const categoryLabel = labelMap[slug] || `${slug.charAt(0).toUpperCase() + slug.slice(1)} Posts`;
 
-
 const posts = (await Astro.glob('../posts/*.{md,mdx}', { eager: true }))
-  .filter((p) => typeof p.frontmatter?.category === 'string' && p.frontmatter.category.toLowerCase() === slug);
+  .filter((p) => typeof p.frontmatter?.category === 'string' && p.frontmatter.category.toLowerCase() === slug)
+  .sort((a, b) => new Date(b.frontmatter.pubDate) - new Date(a.frontmatter.pubDate));
 ---
 <Layout title="Category">
   <h1 class="category-title">{categoryLabel}</h1>
@@ -37,7 +35,7 @@ const posts = (await Astro.glob('../posts/*.{md,mdx}', { eager: true }))
     {posts.length === 0 ? (
       <p>No posts.</p>
     ) : (
-      posts.map(({ frontmatter }) => {
+      posts.map(({ frontmatter, url }) => {
         const cat = frontmatter.category?.toLowerCase();
         const isP5 = cat === 'simulation';
         const isReview = cat === 'reviews';
@@ -67,20 +65,15 @@ const posts = (await Astro.glob('../posts/*.{md,mdx}', { eager: true }))
 
         return (
           <div class={cardClasses}>
-            <a href={frontmatter.url} class="post-card-link">
+            <a href={url} class="post-card-link">
               <div class="post-card-title">{frontmatter.title}</div>
               <div class="post-card-meta">
-                By {frontmatter.writer} —{' '}
-                {new Date(frontmatter.pubDate).toLocaleDateString()}
+                By {frontmatter.writer} — {new Date(frontmatter.pubDate).toLocaleDateString()}
               </div>
 
               <p class="post-card-desc">{frontmatter.description}</p>
 
-              <div
-                class={`post-card-footer ${
-                  isP5 || isReview || isInfo || isNasa ? 'has-badge' : ''
-                }`}
-              >
+              <div class={`post-card-footer ${isP5 || isReview || isInfo || isNasa ? 'has-badge' : ''}`}>
                 <div class="post-card-badges">
                   {isP5 && <span class="p5-badge">Simulation</span>}
                   {isReview && <span class="review-badge">Review</span>}
