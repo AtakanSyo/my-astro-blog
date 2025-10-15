@@ -34,8 +34,26 @@ const posts = (await Astro.glob('../posts/*.{md,mdx}', { eager: true }))
 
   {slug === "reviews" && (
       <FloatingTelescopeIcons
+      file="telescope-icons"
       />
   )}
+  {slug === "nasa" && (
+      <FloatingTelescopeIcons
+      file="nasa-icons"
+      />
+  )}
+  {slug === "simulation" && (
+      <FloatingTelescopeIcons
+      file="simulation-icons"
+      />
+  )}
+  {slug === "informational" && (
+      <FloatingTelescopeIcons
+      file="informational-icons"
+      />
+  )}
+
+
   <h1 class="category-title">{categoryLabel}</h1>
 
   <div class="post-grid category-grid">

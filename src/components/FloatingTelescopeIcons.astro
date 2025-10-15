@@ -11,7 +11,12 @@
  *  - min, max: min/max icon size in px
  *  - opacity: stroke opacity (0..1)
  */
+
+import fs from "node:fs";
+import path from "node:path";
+
 interface Props {
+  file?: string;
   width?: string;
   height?: string;
   count?: number;
@@ -23,6 +28,7 @@ interface Props {
 }
 
 const {
+  file,
   width = "600px",
   height = "320px",
   count = 48,
@@ -46,14 +52,23 @@ const {
   opacity = 0.8,
 } = Astro.props;
 
+let spriteIds: string[] = [];
+const spritePath = path.resolve(
+  new URL("../../public/icons", import.meta.url).pathname,
+  `${file}.svg`,
+);
+const svg = fs.readFileSync(spritePath, "utf8");
+spriteIds = [...svg.matchAll(/<symbol\b[^>]*\sid=["']([^"']+)["']/g)].map(m => m[1]);
+// Optional: de-dupe just in case
+spriteIds = Array.from(new Set(spriteIds));
+
 // simple helpers
 const rand = (a: number, b: number) => a + Math.random() * (b - a);
 const rint = (a: number, b: number) => Math.floor(rand(a, b + 1));
 const rpick = <T,>(arr: T[]) => arr[rint(0, arr.length - 1)];
 
-// pre-generate icon instances with CSS variables
 const items = Array.from({ length: count }, () => {
-  const id = rpick(ids);
+  const id = rpick(spriteIds);
   const size = Math.round(rand(min, max));
   const x = Math.round(rand(2, 98));     // percent
   const y = Math.round(rand(5, 95));     // percent
@@ -90,7 +105,7 @@ const items = Array.from({ length: count }, () => {
       `}
       viewBox="0 0 48 48"
     >
-      <use href={`/icons/icons.svg#${id}`} />
+      <use href={`/icons/${file}.svg#${id}`} />
     </svg>
   ))}
 </div>
@@ -114,6 +129,7 @@ const items = Array.from({ length: count }, () => {
     /* let parent color flow by default, or override via --stroke */
     --stroke: currentColor;
     --opacity: 0.8;
+    margin-top: 2rem;
   }
 
   .glyph {

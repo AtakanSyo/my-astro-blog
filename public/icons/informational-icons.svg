@@ -1,0 +1,93 @@
+<!-- /public/icons/informational-icons.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <!-- INFO: open book -->
+  <symbol id="icon-info-book-open" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Informational — Book</title>
+    <path d="M8 12c6 0 10 2 16 4v20c-6-2-10-4-16-4V12Z"/>
+    <path d="M40 12c-6 0-10 2-16 4v20c6-2 10-4 16-4V12Z"/>
+    <path d="M24 16v20"/>
+  </symbol>
+
+  <!-- INFO: scroll -->
+  <symbol id="icon-info-scroll" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Informational — Scroll</title>
+    <path d="M14 12h18a6 6 0 0 1 0 12H16a6 6 0 0 0 0 12h18"/>
+    <path d="M18 18h12M18 23h10M18 28h8" opacity=".8"/>
+  </symbol>
+
+  <!-- INFO: compass / navigation -->
+  <symbol id="icon-info-compass" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Informational — Compass</title>
+    <circle cx="24" cy="24" r="14"/>
+    <path d="M18 30l6-12 6 12-12-6Z"/>
+    <circle cx="24" cy="24" r="1.7" fill="currentColor" stroke="none"/>
+  </symbol>
+
+  <!-- INFO: small refractor telescope -->
+  <symbol id="icon-info-telescope" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Informational — Telescope</title>
+    <path d="M8 22l20-6 2 6-20 6-2-6Z"/>
+    <path d="M28 16l6-3"/>
+    <circle cx="35" cy="12.5" r="1.7" fill="currentColor" stroke="none"/>
+    <path d="M18 30l-3 8M26 28l3 10"/>
+  </symbol>
+
+  <!-- INFO: ringed planet -->
+  <symbol id="icon-info-planet" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Informational — Planet</title>
+    <circle cx="24" cy="24" r="7.5"/>
+    <ellipse cx="24" cy="24" rx="18" ry="7.2" transform="rotate(-12 24 24)"/>
+  </symbol>
+
+  <!-- INFO: amphora (artifact) -->
+  <symbol id="icon-info-artifact" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Informational — Artifact</title>
+    <path d="M20 10h8M22 10c0 2-2 4-6 6 0 10 4 14 8 18 4-4 8-8 8-18-4-2-6-4-6-6"/>
+    <path d="M14 16c-2 0-4 2-4 4s2 4 4 4M34 16c2 0 4 2 4 4s-2 4-4 4"/>
+  </symbol>
+
+  <!-- INFO: column / pillar (history) -->
+  <symbol id="icon-info-column" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+    <title>Informational — Column</title>
+    <rect x="12" y="12" width="24" height="6" rx="2"/>
+    <path d="M16 18v18M24 18v18M32 18v18"/>
+    <path d="M10 36h28"/>
+  </symbol>
+
+  <!-- INFO: folded map -->
+  <symbol id="icon-info-map" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+    <title>Informational — Map</title>
+    <path d="M8 14l10-4 12 4 10-4v28l-10 4-12-4-10 4V14Z"/>
+    <path d="M18 10v28M30 14v28"/>
+    <path d="M24 20l2 3-2 3-2-3 2-3Z"/>
+  </symbol>
+
+  <!-- INFO: lightbulb (idea) -->
+  <symbol id="icon-info-lightbulb" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Informational — Lightbulb</title>
+    <path d="M24 10a12 12 0 0 1 8 20c-2 2-2 4-2 6H18c0-2 0-4-2-6a12 12 0 0 1 8-20Z"/>
+    <path d="M20 38h8M20 42h8"/>
+  </symbol>
+
+  <!-- INFO: checklist / guide -->
+  <symbol id="icon-info-checklist" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+    <title>Informational — Checklist</title>
+    <rect x="10" y="8" width="28" height="32" rx="3"/>
+    <path d="M16 16h16M16 24h16M16 32h12"/>
+    <path d="M16 16l2.2 2.2 3.8-3.8" opacity=".9"/>
+  </symbol>
+
+  <!-- INFO: info badge -->
+  <symbol id="icon-info-badge" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Informational — Info</title>
+    <circle cx="24" cy="24" r="16"/>
+    <path d="M24 22v10M24 16h.02" />
+  </symbol>
+
+  <!-- INFO: magnifier / research -->
+  <symbol id="icon-info-magnifier" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Informational — Magnifier</title>
+    <circle cx="22" cy="22" r="9"/>
+    <path d="M29 29l9 9"/>
+  </symbol>
+</svg>

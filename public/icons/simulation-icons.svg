@@ -1,0 +1,103 @@
+<!-- /public/icons/simulation-icons.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <!-- SIM: orbit with periapsis -->
+  <symbol id="icon-sim-orbit" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Simulation — Orbit</title>
+    <circle cx="24" cy="24" r="6.5"/>
+    <ellipse cx="24" cy="24" rx="18" ry="8.5" transform="rotate(-18 24 24)"/>
+    <path d="M34 12.5l2.8-2.8M34 12.5h4.2"/>
+  </symbol>
+
+  <!-- SIM: particle scatter -->
+  <symbol id="icon-sim-particles" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Simulation — Particles</title>
+    <path d="M10 36l6-10m6 10l6-10m6 10l4-7"/>
+    <circle cx="10" cy="36" r="2.3"/>
+    <circle cx="16" cy="26" r="2.3"/>
+    <circle cx="22" cy="36" r="2.3"/>
+    <circle cx="28" cy="26" r="2.3"/>
+    <circle cx="34" cy="36" r="2.3"/>
+    <circle cx="38" cy="29" r="2.3"/>
+  </symbol>
+
+  <!-- SIM: wave equation -->
+  <symbol id="icon-sim-wave" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Simulation — Wave</title>
+    <path d="M6 30c4.5-12 9-12 13.5 0 4.5 12 9 12 13.5 0C38.5 18 43 18 46 30"/>
+    <path d="M6 38h36" opacity=".5"/>
+  </symbol>
+
+  <!-- SIM: field lines (dipole-ish) -->
+  <symbol id="icon-sim-fieldlines" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Simulation — Field Lines</title>
+    <path d="M9 36c0-12 6-24 15-24s15 12 15 24"/>
+    <path d="M14 36c0-9 5-18 10-18s10 9 10 18"/>
+    <path d="M24 12v24"/>
+    <circle cx="24" cy="24" r="2.4"/>
+  </symbol>
+
+  <!-- SIM: grid (mesh) -->
+  <symbol id="icon-sim-grid" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Simulation — Grid</title>
+    <rect x="8" y="12" width="32" height="24" rx="2"/>
+    <path d="M16 12v24M24 12v24M32 12v24M8 20h32M8 28h32"/>
+  </symbol>
+
+  <!-- SIM: GPU chip -->
+  <symbol id="icon-sim-gpu" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Simulation — GPU</title>
+    <rect x="12" y="12" width="24" height="24" rx="2"/>
+    <rect x="18" y="18" width="12" height="12" rx="1.5"/>
+    <path d="M8 18h4M8 24h4M8 30h4M36 18h4M36 24h4M36 30h4M18 8v4M24 8v4M30 8v4M18 36v4M24 36v4M30 36v4"/>
+  </symbol>
+
+  <!-- SIM: shader (GLSL brackets + spark) -->
+  <symbol id="icon-sim-shader" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Simulation — Shader</title>
+    <path d="M14 16l-6 8 6 8M34 16l6 8-6 8"/>
+    <path d="M24 12v4M24 32v4M21 24h6"/>
+    <path d="M24 18l1.8 1.2M24 18l-1.8 1.2" opacity=".7"/>
+  </symbol>
+
+  <!-- SIM: canvas (play in viewport) -->
+  <symbol id="icon-sim-canvas" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Simulation — Canvas</title>
+    <rect x="8" y="12" width="32" height="24" rx="3"/>
+    <path d="M8 18h32" opacity=".5"/>
+    <path d="M22 28l8 4-8 4v-8z"/>
+  </symbol>
+
+  <!-- SIM: cube wireframe (scene primitive) -->
+  <symbol id="icon-sim-cube" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Simulation — Cube</title>
+    <path d="M24 8l14 8v16l-14 8-14-8V16l14-8Z"/>
+    <path d="M38 16l-14 8-14-8M24 24v16"/>
+  </symbol>
+
+  <!-- SIM: axis triad -->
+  <symbol id="icon-sim-axis" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Simulation — Axis</title>
+    <path d="M10 38h28"/>
+    <path d="M24 38V10"/>
+    <path d="M24 38L12 26"/>
+    <path d="M38 38l-3-3"/>
+    <path d="M24 10l-3 3"/>
+    <path d="M12 26l-3 3"/>
+  </symbol>
+
+  <!-- SIM: collision (two bodies interacting) -->
+  <symbol id="icon-sim-collision" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Simulation — Collision</title>
+    <circle cx="16" cy="24" r="5.5"/>
+    <circle cx="32" cy="24" r="5.5"/>
+    <path d="M21.5 21.5l5 5M21.5 26.5l5-5"/>
+  </symbol>
+
+  <!-- SIM: timestep integrator -->
+  <symbol id="icon-sim-timestep" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Simulation — Timestep</title>
+    <circle cx="24" cy="24" r="14"/>
+    <path d="M24 24l8-6M24 10v4M24 34v4M10 24h4M34 24h4"/>
+    <path d="M16 32l2-2M30 18l2-2" opacity=".7"/>
+  </symbol>
+</svg>
