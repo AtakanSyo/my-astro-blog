@@ -53,11 +53,8 @@ const {
 } = Astro.props;
 
 let spriteIds: string[] = [];
-const spritePath = path.resolve(
-  new URL("../../public/icons", import.meta.url).pathname,
-  `${file}.svg`,
-);
-const svg = fs.readFileSync(spritePath, "utf8");
+const spritePath = path.join(process.cwd(), "public", "icons", `${file}.svg`);
+const svg = fs.readFileSync(spritePath, "utf8"); // ← will succeed if the file exists
 spriteIds = [...svg.matchAll(/<symbol\b[^>]*\sid=["']([^"']+)["']/g)].map(m => m[1]);
 // Optional: de-dupe just in case
 spriteIds = Array.from(new Set(spriteIds));
