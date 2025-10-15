@@ -1,0 +1,83 @@
+<!-- /public/icons/rankings-icons.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <!-- RANK: leaderboard (1–2–3) -->
+  <symbol id="icon-rank-leaderboard" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Rankings — Leaderboard</title>
+    <rect x="6"  y="22" width="10" height="14" rx="2"/>
+    <rect x="19" y="16" width="10" height="20" rx="2"/>
+    <rect x="32" y="20" width="10" height="16" rx="2"/>
+    <path d="M11 18l2-2M24 12l2-2M37 16l2-2" opacity=".7"/>
+  </symbol>
+
+  <!-- RANK: trophy -->
+  <symbol id="icon-rank-trophy" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Rankings — Trophy</title>
+    <path d="M16 12h16v4a8 8 0 0 1-16 0v-4Z"/>
+    <path d="M12 14H8a6 6 0 0 0 6 8M36 14h4a6 6 0 0 1-6 8"/>
+    <path d="M20 26v4a4 4 0 0 0 8 0v-4M18 38h12M16 42h16"/>
+  </symbol>
+
+  <!-- RANK: rosette badge -->
+  <symbol id="icon-rank-rosette" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Rankings — Rosette</title>
+    <circle cx="24" cy="18" r="8"/>
+    <path d="M19 27l-5 9 7-3 3 7 3-7 7 3-5-9"/>
+  </symbol>
+
+  <!-- RANK: medal #1 -->
+  <symbol id="icon-rank-medal-1" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Rankings — Medal #1</title>
+    <path d="M16 6l8 10 8-10"/>
+    <circle cx="24" cy="30" r="8"/>
+    <path d="M24 26v8M22 30h4"/>
+  </symbol>
+
+  <!-- RANK: medal #2 -->
+  <symbol id="icon-rank-medal-2" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Rankings — Medal #2</title>
+    <path d="M16 6l8 10 8-10"/>
+    <circle cx="24" cy="30" r="8"/>
+    <path d="M20 32c0-2 4-2 4-4s-4-2-4-4h8"/>
+  </symbol>
+
+  <!-- RANK: medal #3 -->
+  <symbol id="icon-rank-medal-3" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Rankings — Medal #3</title>
+    <path d="M16 6l8 10 8-10"/>
+    <circle cx="24" cy="30" r="8"/>
+    <path d="M21 28a3 3 0 1 1 6 0 3 3 0 1 1-6 0Z"/>
+  </symbol>
+
+  <!-- RANK: bar chart (rating histogram) -->
+  <symbol id="icon-rank-bars" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+    <title>Rankings — Bars</title>
+    <path d="M8 36h32"/>
+    <rect x="10" y="26" width="6" height="10" rx="1.5"/>
+    <rect x="20" y="22" width="6" height="14" rx="1.5"/>
+    <rect x="30" y="16" width="6" height="20" rx="1.5"/>
+  </symbol>
+
+  <!-- RANK: up/down arrows (delta vs. last month) -->
+  <symbol id="icon-rank-delta" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+    <title>Rankings — Change</title>
+    <path d="M14 30l6-6 6 6"/>
+    <path d="M28 18l6 6 6-6"/>
+    <path d="M20 30v8M34 18v8"/>
+  </symbol>
+
+  <!-- RANK: crown -->
+  <symbol id="icon-rank-crown" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Rankings — Crown</title>
+    <path d="M8 30l4-12 12 8 12-8 4 12H8Z"/>
+    <path d="M14 34h20"/>
+  </symbol>
+
+  <!-- RANK: telescope + star (reviewed gear) -->
+  <symbol id="icon-rank-telescope-star" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Rankings — Telescope Star</title>
+    <path d="M8 26l20-6 2 6-20 6-2-6Z"/>
+    <path d="M28 20l6-3"/>
+    <path d="M18 34l-3 8M26 32l3 10"/>
+    <path d="M36 10l1.4 3.2L40.8 14 38 16l.9 3.6L36 18l-2.9 1.6L34 16l-2.8-2 3.4-.8L36 10Z"/>
+  </symbol>
+</svg>

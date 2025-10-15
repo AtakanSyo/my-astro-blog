@@ -2,6 +2,10 @@
   Container & Toggle Buttons
 ─────────────────────────────────────────────────*/
 
+.telescope-rankings-page-title {
+  margin-top: 6rem;
+}
+
 .page-telescope-reviews {
   background: #111;
   background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
@@ -13,7 +17,7 @@
 .telescopes-toggle-container {
   max-width: 1200px;
   min-height: 100vh;
-  margin-top: 6rem;
+  margin-top: 2rem;
   padding: 1rem;
 }
 
