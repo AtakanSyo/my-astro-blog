@@ -1,89 +1,123 @@
 ---
 /**
  * FloatingTelescopeIcons.astro
- * Artistic scattered icons using your /public/icons.svg sprite.
- *
- * Props:
- *  - width, height: container size (CSS length) — default 600x320
- *  - count: how many icons to scatter
- *  - ids: which symbol IDs to sample from (defaults to your set)
- *  - stroke: CSS color for the icons (inherit by default)
- *  - min, max: min/max icon size in px
- *  - opacity: stroke opacity (0..1)
+ * Scattered outline icons pulled from /public/icons/<file>.svg (sprite).
+ * Deterministic (seeded) option + graceful fallbacks.
  */
 
 import fs from "node:fs";
 import path from "node:path";
 
 interface Props {
-  file?: string;
-  width?: string;
-  height?: string;
-  count?: number;
-  ids?: string[];
-  stroke?: string;
-  min?: number;
-  max?: number;
-  opacity?: number;
+  file?: string;              // sprite filename (without .svg); defaults to "icons"
+  width?: string;             // CSS length
+  height?: string;            // CSS length
+  count?: number;             // how many glyphs
+  ids?: string[];             // restrict to these symbol IDs (subset of the sprite)
+  stroke?: string;            // CSS color
+  min?: number;               // min icon px
+  max?: number;               // max icon px
+  opacity?: number;           // 0..1
+  seed?: number | string;     // deterministic layout if provided
+  class?: string;             // passthrough
+  style?: string;             // passthrough
+  densityByArea?: boolean;    // if true, auto-scale count by area
 }
 
 const {
-  file,
-  width = "600px",
-  height = "320px",
+  file = "icons",
+  width = "100%",
+  height = "200px",
   count = 48,
-  ids = [
-    "all",
-    "dobsonian",
-    "tabletop-dobsonian",
-    "refractor",
-    "reflector",
-    "newtonian-reflector",
-    "bird-jones-reflector",
-    "astrograph",
-    "maksutov-cassegrain",
-    "schmidt-cassegrain",
-    "smart-telescope",
-    "other",
-  ],
+  ids,
   stroke,
   min = 18,
   max = 54,
   opacity = 0.8,
+  seed,
+  class: className,
+  style,
+  densityByArea = false,
 } = Astro.props;
 
-let spriteIds: string[] = [];
+// --- read & parse sprite (gracefully) ---
 const spritePath = path.join(process.cwd(), "public", "icons", `${file}.svg`);
-const svg = fs.readFileSync(spritePath, "utf8"); // ← will succeed if the file exists
-spriteIds = [...svg.matchAll(/<symbol\b[^>]*\sid=["']([^"']+)["']/g)].map(m => m[1]);
-// Optional: de-dupe just in case
-spriteIds = Array.from(new Set(spriteIds));
+let spriteIds: string[] = [];
+try {
+  const svg = fs.readFileSync(spritePath, "utf8");
+  spriteIds = [...svg.matchAll(/<symbol\b[^>]*\sid=["']([^"']+)["']/g)].map(m => m[1]);
+  spriteIds = Array.from(new Set(spriteIds));
+} catch (e) {
+  // If sprite is missing, fall back to passed `ids` or an empty list
+  spriteIds = Array.isArray(ids) && ids.length ? ids : [];
+}
 
-// simple helpers
-const rand = (a: number, b: number) => a + Math.random() * (b - a);
+// If the user passed `ids`, filter to the intersection
+let usableIds = spriteIds;
+if (Array.isArray(ids) && ids.length) {
+  const set = new Set(ids);
+  usableIds = spriteIds.filter(id => set.has(id));
+}
+// If nothing usable, at least render a harmless empty container
+const hasIcons = usableIds.length > 0;
+
+// --- seeded randomness (deterministic when seed provided) ---
+function mulberry32(a: number) {
+  return function () {
+    let t = (a += 0x6D2B79F5);
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+const seedNum =
+  typeof seed === "number"
+    ? seed
+    : typeof seed === "string"
+    ? Array.from(seed).reduce((acc, c) => (acc * 31 + c.charCodeAt(0)) >>> 0, 0x9e3779b9)
+    : Math.floor(Math.random() * 1e9);
+
+const rng = mulberry32(seedNum);
+const rand = (a: number, b: number) => a + rng() * (b - a);
 const rint = (a: number, b: number) => Math.floor(rand(a, b + 1));
 const rpick = <T,>(arr: T[]) => arr[rint(0, arr.length - 1)];
 
-const items = Array.from({ length: count }, () => {
-  const id = rpick(spriteIds);
-  const size = Math.round(rand(min, max));
-  const x = Math.round(rand(2, 98));     // percent
-  const y = Math.round(rand(5, 95));     // percent
-  const rot = Math.round(rand(-25, 25)); // subtle tilt for aesthetics
-  const drift = rand(8, 16);             // seconds
-  const phase = Math.random().toFixed(2);
-  const dx = Math.round(rand(-12, 12));  // px drift
-  const dy = Math.round(rand(-10, 10));  // px drift
-  const sc = rand(0.85, 1.25).toFixed(3);
-  const thin = Math.random() < 0.35;     // occasional thinner stroke
-  return { id, size, x, y, rot, drift, phase, dx, dy, sc, thin };
-});
+// --- auto density (optional) ---
+let finalCount = count;
+if (densityByArea) {
+  // Attempt to parse numeric px values; fallback to count if not
+  const w = parseFloat(width);
+  const h = parseFloat(height);
+  if (!Number.isNaN(w) && !Number.isNaN(h)) {
+    // baseline: 600x320 → count
+    const baseline = 600 * 320;
+    finalCount = Math.max(8, Math.round((w * h * count) / baseline));
+  }
+}
+
+const items = hasIcons
+  ? Array.from({ length: finalCount }, () => {
+      const id = rpick(usableIds);
+      const size = Math.round(rand(min, max));
+      const x = Math.round(rand(2, 98));     // percent
+      const y = Math.round(rand(5, 95));     // percent
+      const rot = Math.round(rand(-25, 25)); // tilt
+      const drift = rand(8, 16);             // seconds
+      const phase = rand(0, 2).toFixed(2);
+      const dx = Math.round(rand(-12, 12));  // px drift
+      const dy = Math.round(rand(-10, 10));  // px drift
+      const sc = rand(0.85, 1.25).toFixed(3);
+      const thin = rng() < 0.35;             // occasional thinner stroke
+      return { id, size, x, y, rot, drift, phase, dx, dy, sc, thin };
+    })
+  : [];
 ---
 
 <div
-  class="icon-field full-bleed"
-  style={`--w:${width}; --h:${height}; ${stroke ? `--stroke:${stroke};` : ''} --opacity:${opacity};`}
+  class={`icon-field ${className ?? ""}`}
+  style={`--w:${width}; --h:${height}; ${stroke ? `--stroke:${stroke};` : ""} --opacity:${opacity}; ${style ?? ""}`}
   aria-hidden="true"
+  data-seed={seed ?? ""}
 >
   {items.map(({ id, size, x, y, rot, drift, phase, dx, dy, sc, thin }) => (
     <svg
@@ -101,6 +135,8 @@ const items = Array.from({ length: count }, () => {
         --delay:${phase}s;
       `}
       viewBox="0 0 48 48"
+      role="img"
+      aria-label=""
     >
       <use href={`/icons/${file}.svg#${id}`} />
     </svg>
@@ -113,6 +149,7 @@ const items = Array.from({ length: count }, () => {
     width: var(--w);
     height: var(--h);
     overflow: hidden;
+
     /* aesthetic backdrop */
     border-radius: 18px;
     background:
@@ -123,11 +160,14 @@ const items = Array.from({ length: count }, () => {
     box-shadow:
       0 10px 30px rgba(0,0,0,0.25),
       inset 0 1px 0 rgba(255,255,255,0.05);
-    /* let parent color flow by default, or override via --stroke */
+
     --stroke: currentColor;
     --opacity: 0.8;
     margin-top: 2rem;
   }
+
+  /* Remove the old .full-bleed override that clobbered width/height.
+     If you want a full-width variant, pass width="100%" or use a wrapper. */
 
   .glyph {
     position: absolute;
@@ -140,9 +180,7 @@ const items = Array.from({ length: count }, () => {
     stroke: var(--stroke);
     fill: none;
     opacity: var(--opacity);
-    /* base stroke width tuned for 48 viewBox; gets thin variant below */
     stroke-width: 2;
-    /* subtle glow on dark backgrounds */
     filter: drop-shadow(0 0 6px rgba(255,255,255,0.04));
     animation:
       drift var(--dur) ease-in-out infinite alternate,
@@ -150,14 +188,11 @@ const items = Array.from({ length: count }, () => {
     animation-delay: var(--delay);
     pointer-events: none;
     user-select: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 
-  .glyph use {
-    /* ensure symbols that use currentColor pick up stroke */
-    stroke: inherit;
-    fill: none;
-  }
-
+  .glyph use { stroke: inherit; fill: none; }
   .glyph--thin { stroke-width: 1.5; }
 
   @keyframes drift {
@@ -166,17 +201,11 @@ const items = Array.from({ length: count }, () => {
   }
 
   @keyframes sway {
-    from { opacity: calc(var(--opacity) * 0.75); }
-    to   { opacity: calc(var(--opacity) * 1); }
+    from { transform: translate(-50%, -50%) rotate(var(--r)) scale(var(--s)); }
+    to   { transform: translate(-50%, -50%) rotate(calc(var(--r) + 1deg)) scale(var(--s)); }
   }
 
-  /* Responsive tweak: reduce count visually on narrow screens by shrinking icons */
   @media (max-width: 640px) {
     .glyph { transform: translate(-50%, -50%) rotate(var(--r)) scale(calc(var(--s) * 0.85)); }
   }
-
-  .full-bleed {
-  width: 100%;
-  height: 15rem;
-}
 </style>
