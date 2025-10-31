@@ -15,7 +15,7 @@ export default defineConfig({
   integrations: [
     mdx({
       remarkPlugins: [
-        remarkMath,
+        [remarkMath, { singleDollarTextMath: false }], // << disable $...$ inline math
         remarkSlug,
         remarkSlug,
         remarkAutolinkHeadings,
