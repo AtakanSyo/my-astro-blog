@@ -23,11 +23,11 @@
 
   /* glassy neutral surface (same for all) */
   background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.028));
-  border: 1px solid rgba(255,255,255,0.10);
+  border: 1px solid rgba(255,255,255,0.20);
   border-radius: 14px;
 
   /* shared depth */
-  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  box-shadow: 0 1px 1px rgba(255,255,255,0.20);
 
   /* shared motion */
   transition:
@@ -70,7 +70,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: clamp(14px, 1.6vw, 18px);
+  padding: clamp(12px, 2vw, 16px);
   text-decoration: none;
   color: inherit;
   position: relative;
@@ -111,7 +111,7 @@
   font-size: clamp(1.02rem, .6vw + 1rem, 1.18rem);
   font-weight: 800;
   letter-spacing: .01em;
-  margin: 0 0 .4rem;
+  margin: 0 0 .25rem;
   color: #f3f4f6;
 }
 .post-card-meta {
@@ -120,10 +120,11 @@
   margin: 0 0 .55rem;
 }
 .post-card-desc {
-  font-size: clamp(.95rem, .35vw + .86rem, 1rem);
+  font-size: clamp(.80rem, .3vw + .75rem, .93rem);
   line-height: 1.55;
   color: #b7bdc9;
-  margin: 0 0 .9rem;
+  margin: 0 0 .5rem;
+  text-indent: 1.25rem; /* adjust value until you like it */
 }
 
 /* -------- Text CTA (shared) -------- */
