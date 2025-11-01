@@ -22,6 +22,7 @@ html {
   --golden-ratio: 1.618;
   --header-height: 52px;
   --bg: #121212;
+  --bg-light: #1f1f1f;
 
   --nav-bg: #1a1a1a;            /* dark navbar background */
   --nav-link-color: #fff;
