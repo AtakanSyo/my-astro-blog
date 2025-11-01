@@ -26,16 +26,6 @@ html {
   --nav-link-color: #fff;
   --nav-link-hover: rgba(255, 255, 255, 0.8);
 
-  --bg: #121212;
-  --card-bg: #1f1f1f;           /* dark cards */
-  --card-radius: 12px;
-  --card-border: #333;
-  --card-shadow: rgba(0, 0, 0, 0.5);
-  --primary-color: #a9b4ff;
-  --accent-color: #8882a5;
-  --text-color: #e4e4e4;
-  --meta-color: #aaa;
-
   --brand-red: #ff3a3b;
   --brand-red-bg: rgba(196,3,35,0.30);
   --brand-affiliate-button-red: #ff5252;

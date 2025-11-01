@@ -67,15 +67,9 @@ h1 .review-tag {
 .info-tags,
 .ratings,
 .pros-cons {
-  --accent: #a9b4ff;
-  --accent-2: #c0c8ff;
-  --text: #e4e4e4;
-  --muted: #aab1bd;
   --card: #1b1d22;
   --card-2: #17191e;
-  --line: rgba(255,255,255,0.08);
   --shadow: 0 10px 30px rgba(0,0,0,0.35);
-  --glow: 0 0 0 1px rgba(169,180,255,0.18), 0 0 24px rgba(169,180,255,0.12);
 }
 
 /* ===============================
@@ -409,7 +403,7 @@ figcaption {
   white-space: nowrap;
 
   background: transparent;
-  color: transparent; /* we’ll “paint” text with gradient */
+  color: var(--brand-affiliate-button-red); /* we’ll “paint” text with gradient */
   font-weight: 900;
   font-size: 1.1rem;
   font-family: system-ui, sans-serif;
@@ -417,19 +411,15 @@ figcaption {
   text-align: center;
 
   border: 2px solid transparent;
-  border-radius: 6px;
-  background-clip: padding-box;
-  
-  /* gradient border + text trick */
-  background-image: var(--gradient);
-  -webkit-background-clip: text;
-  background-clip: text;
-  border-image: var(--gradient) 1;
+  border-color: var(--brand-affiliate-button-red);
+  border-radius: 8px;
 
   /* solid offset shadow in gradient */
   box-shadow: 6px 6px 0 var(--brand-affiliate-button-red);
   transition: all 0.25s ease;
 }
+
+
 
 .affiliate-link:hover {
   background: var(--gradient);
