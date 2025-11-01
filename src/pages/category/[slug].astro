@@ -22,6 +22,7 @@ const labelMap = {
   nasa: 'NASA Articles',
   informational: 'Astronomy Guides & Insights',
   simulation: 'Astrophysics Simulations',
+  tools: 'Astronomy Tools',
 };
 const categoryLabel = labelMap[slug] || `${slug.charAt(0).toUpperCase() + slug.slice(1)} Posts`;
 
@@ -52,6 +53,11 @@ const posts = (await Astro.glob('../posts/*.{md,mdx}', { eager: true }))
       file="informational-icons"
       />
   )}
+  {slug === "tools" && (
+      <FloatingTelescopeIcons
+      file="tools-icons"
+      />
+  )}
 
 
   <h1 class="category-title">{categoryLabel}</h1>
@@ -66,6 +72,7 @@ const posts = (await Astro.glob('../posts/*.{md,mdx}', { eager: true }))
         const isReview = cat === 'reviews';
         const isInfo = cat === 'informational';
         const isNasa = cat === 'nasa';
+        const isTool = cat === 'tools';
 
         const cardClasses = [
           'post-card',
@@ -86,6 +93,8 @@ const posts = (await Astro.glob('../posts/*.{md,mdx}', { eager: true }))
             ? 'Read the guide →'
             : isNasa
             ? 'See the article →'
+            : isTool
+            ? 'Use the tool →'
             : 'Read full post →';
 
         return (

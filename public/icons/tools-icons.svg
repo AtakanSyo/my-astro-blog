@@ -1,0 +1,126 @@
+<!-- /public/icons/astronomical-tools.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <!-- TOOLS: refractor telescope on alt-az mount -->
+  <symbol id="icon-tools-telescope" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Astronomical Tools — Telescope</title>
+    <rect x="10" y="18" width="20" height="6" rx="2"/>
+    <path d="M30 19l8-3 2 6-8 3z"/>
+    <path d="M16 24l-6 9M26 24l6 9M10 33h22"/>
+    <path d="M21 33v6M14 39l7-6 7 6"/>
+  </symbol>
+
+  <!-- TOOLS: eyepiece -->
+  <symbol id="icon-tools-eyepiece" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Astronomical Tools — Eyepiece</title>
+    <rect x="18" y="10" width="12" height="8" rx="2"/>
+    <rect x="16" y="18" width="16" height="12" rx="2"/>
+    <path d="M18 30v4a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-4"/>
+  </symbol>
+
+  <!-- TOOLS: Barlow lens -->
+  <symbol id="icon-tools-barlow" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Astronomical Tools — Barlow</title>
+    <rect x="16" y="12" width="16" height="10" rx="2"/>
+    <path d="M16 22l-2 6h20l-2-6z"/>
+    <path d="M18 28v6h12v-6"/>
+  </symbol>
+
+  <!-- TOOLS: 1.25/2" filter -->
+  <symbol id="icon-tools-filter" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Astronomical Tools — Filter</title>
+    <circle cx="24" cy="24" r="10"/>
+    <circle cx="24" cy="24" r="6"/>
+    <path d="M12 24h-2M38 24h2M24 12v-2M24 38v2"/>
+  </symbol>
+
+  <!-- TOOLS: star diagonal -->
+  <symbol id="icon-tools-diagonal" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Astronomical Tools — Star Diagonal</title>
+    <path d="M14 30l10-10 10 10-10 10-10-10z"/>
+    <rect x="10" y="18" width="8" height="6" rx="1.5" transform="rotate(-45 14 21)"/>
+    <rect x="30" y="30" width="8" height="6" rx="1.5" transform="rotate(45 34 33)"/>
+  </symbol>
+
+  <!-- TOOLS: finder scope / RDF -->
+  <symbol id="icon-tools-finder" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Astronomical Tools — Finder</title>
+    <path d="M10 32h16l4-8H14z"/>
+    <path d="M26 24l10-4 2 6-10 4z"/>
+    <path d="M12 32v4M24 32v4"/>
+  </symbol>
+
+  <!-- TOOLS: Bahtinov mask -->
+  <symbol id="icon-tools-bahtinov" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Astronomical Tools — Bahtinov Mask</title>
+    <circle cx="24" cy="24" r="12"/>
+    <path d="M16 19l16 10M16 24l16 10M16 14l16 10" opacity=".9"/>
+    <path d="M16 29l16-10M16 34l16-10M16 24l16-10" opacity=".6"/>
+  </symbol>
+
+  <!-- TOOLS: laser/cheshire collimation -->
+  <symbol id="icon-tools-collimation" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Astronomical Tools — Collimation</title>
+    <circle cx="30" cy="24" r="10" opacity=".5"/>
+    <circle cx="30" cy="24" r="4"/>
+    <path d="M10 12l12 12M22 24l-6 6"/>
+    <path d="M10 12h6v6" opacity=".7"/>
+  </symbol>
+
+  <!-- TOOLS: planisphere / star chart -->
+  <symbol id="icon-tools-plansphere" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Astronomical Tools — Star Chart</title>
+    <circle cx="24" cy="24" r="14"/>
+    <path d="M12 26l6-8 8 4 6-6" />
+    <path d="M18 18h0M26 22h0M32 16h0M12 26h0" stroke-linecap="round"/>
+    <path d="M10 24h28" opacity=".4"/>
+  </symbol>
+
+  <!-- TOOLS: polar scope reticle -->
+  <symbol id="icon-tools-polar" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Astronomical Tools — Polar Alignment</title>
+    <circle cx="24" cy="24" r="12"/>
+    <path d="M24 12v24M12 24h24" opacity=".5"/>
+    <circle cx="29" cy="18" r="2"/>
+    <path d="M24 24l5-6" opacity=".8"/>
+  </symbol>
+
+  <!-- TOOLS: red flashlight -->
+  <symbol id="icon-tools-flashlight" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Astronomical Tools — Red Flashlight</title>
+    <rect x="14" y="22" width="10" height="8" rx="2"/>
+    <path d="M24 24h10l4 4H24z"/>
+    <path d="M17 22v-4M21 22v-4" opacity=".6"/>
+  </symbol>
+
+  <!-- TOOLS: power tank / battery -->
+  <symbol id="icon-tools-power" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Astronomical Tools — Power Tank</title>
+    <rect x="10" y="16" width="20" height="16" rx="2"/>
+    <path d="M18 20l-2 4h4l-2 4" />
+    <rect x="32" y="22" width="6" height="4" rx="1"/>
+    <path d="M38 24h4" />
+  </symbol>
+
+  <!-- TOOLS: tripod -->
+  <symbol id="icon-tools-tripod" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Astronomical Tools — Tripod</title>
+    <path d="M24 10v10"/>
+    <path d="M18 20h12"/>
+    <path d="M24 20l-8 18M24 20l8 18M16 38h16"/>
+  </symbol>
+
+  <!-- TOOLS: T-ring / adapter -->
+  <symbol id="icon-tools-tr" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Astronomical Tools — T-Ring Adapter</title>
+    <circle cx="24" cy="24" r="10"/>
+    <circle cx="24" cy="24" r="5"/>
+    <path d="M24 14v-4M34 24h4M24 34v4M14 24h-4"/>
+  </symbol>
+
+  <!-- TOOLS: reducer / field flattener -->
+  <symbol id="icon-tools-reducer" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <title>Astronomical Tools — Reducer/Flattener</title>
+    <rect x="14" y="16" width="20" height="16" rx="8"/>
+    <path d="M18 24h12M16 20h0M32 28h0" />
+  </symbol>
+</svg>
