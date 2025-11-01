@@ -4,7 +4,8 @@
 
 p {
   font-size: var(--post-text-size);
-  padding: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 /* Left‐align all headings inside .post */
