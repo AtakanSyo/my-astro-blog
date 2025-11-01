@@ -364,7 +364,7 @@ figcaption {
   grid-template-columns: 1fr auto;   /* left: meta, right: action block */
   align-items: center;
   column-gap: 18px;
-  padding: 1.6rem;
+  padding: 1.2rem;
   border-radius: 16px;
   background: rgba(20, 23, 35, 0.6);
   backdrop-filter: blur(6px);
