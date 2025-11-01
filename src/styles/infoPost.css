@@ -11,13 +11,13 @@ p {
   justify-content: center;
 }
 
-/* Highlighted callout paragraphs */
 .highlight {
-  background: rgba(232, 232, 232);
-  border-left: 4px solid black;
+  background: rgba(255,255,255,0.06);
+  border-left: 4px solid var(--brand-red);
   padding: 0.75rem 1rem;
   margin: 1.5rem 0;
   width: 100%;
+  color: #e4e4e4;
 }
 
 /* Tip-style italic notes */
@@ -81,7 +81,7 @@ p {
   height: auto;
   margin: 1rem 0;
   border-radius: 8px;
-  max-height: 40vh;
+  max-height: 50vh;
   max-width: 90vw;
   background: #1f1f1f;
   border: 1px solid rgba(255,255,255,0.08);
@@ -106,4 +106,73 @@ figcaption {
   font-style: italic;
   text-align: center;
   margin-top: 8px;
+}
+
+/* ---------- Reusable Input Group (Info Posts) ---------- */
+
+.info-input-group {
+  margin-top: 1.4rem;
+  margin-bottom: 1.4rem;
+  padding: 1.2rem 1.4rem;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.06);      /* glass-card UI */
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.info-input-group-label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+/* ---------- Input Row Layout ---------- */
+
+.info-input-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* ---------- Input Fields ---------- */
+
+.info-input-field {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.1);
+  color: var(--text-color, #fff);
+  font-size: 0.9rem;
+  flex: 1 1 200px;
+  transition: all 0.2s ease;
+}
+
+.info-input-field::placeholder {
+  color: rgba(255,255,255,0.5);
+}
+
+.info-input-field:focus {
+  border-color: var(--brand-red, #ff5a5f);
+  outline: none;
+  background: rgba(255,255,255,0.18);
+}
+
+/* ---------- Primary Button ---------- */
+
+.info-primary-btn {
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: none;
+  background: var(--brand-red, #ff5a5f);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.25s;
+  flex: 0 0 auto;
+}
+
+.info-primary-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255,90,95,0.4);
 }
