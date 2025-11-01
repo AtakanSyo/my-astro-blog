@@ -447,7 +447,7 @@ figcaption {
   border: none;
   padding: 0 1.4rem;
 
-  background: var(--cosmic-gradient-v2); 
+  background: linear-gradient(90deg, var(--brand-red), var(--brand-affiliate-button-red));
   color: #fff;
   font-size: 0.9rem;
   font-weight: 900;
