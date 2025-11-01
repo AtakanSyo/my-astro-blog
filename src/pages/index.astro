@@ -30,6 +30,7 @@ const CATS = [
   { key: 'reviews',        label: 'Reviews',        cta: 'Read the review →' },
   { key: 'simulation',    label: 'Simulation',    cta: 'Go to the simulation →' },
   { key: 'informational', label: 'Informational',         cta: 'Read the guide →' },
+  { key: 'tools', label: 'Tools',         cta: 'Use the tool →' },
 ];
 
 const latestNasa = allPosts.find(({ frontmatter }) => hasCat(frontmatter, 'nasa'));
@@ -80,6 +81,7 @@ const latestNasa = allPosts.find(({ frontmatter }) => hasCat(frontmatter, 'nasa'
                   const isReview = hasCat(frontmatter, 'reviews');
                   const isInfo   = hasCat(frontmatter, 'informational');
                   const isNasa   = hasCat(frontmatter, 'nasa');
+                  const isTool   = hasCat(frontmatter, 'tools');
                   const isLatestNasa = isNasa && latestNasa && url === latestNasa.url;
 
                   const cardClasses = [
@@ -88,6 +90,7 @@ const latestNasa = allPosts.find(({ frontmatter }) => hasCat(frontmatter, 'nasa'
                     isReview && 'post-card--review',
                     isInfo && 'post-card--info',
                     isNasa && 'post-card--nasa',
+                    isTool && 'post-card--info',
                   ].filter(Boolean).join(' ');
 
                   const ctaText =
@@ -95,6 +98,7 @@ const latestNasa = allPosts.find(({ frontmatter }) => hasCat(frontmatter, 'nasa'
                   : isReview ? 'Read the review →'
                   : isInfo ? 'Read the guide →'
                   : isNasa ? 'See the article →'
+                  : isTool ? 'Use the tool →'
                   : 'Read full post →';
 
                   return (
@@ -106,12 +110,13 @@ const latestNasa = allPosts.find(({ frontmatter }) => hasCat(frontmatter, 'nasa'
                         </div>
                         <p class="post-card-desc">{frontmatter.description}</p>
 
-                        <div class={`post-card-footer ${(isP5 || isReview || isInfo || isNasa) ? 'has-badge' : ''}`}>
+                        <div class={`post-card-footer ${(isP5 || isReview || isInfo || isNasa || isTool) ? 'has-badge' : ''}`}>
                           <div class="post-card-badges">
                             {isP5 && <span class="p5-badge">Simulation</span>}
                             {isReview && <span class="review-badge">Review</span>}
                             {isInfo && <span class="info-badge">Info</span>}
                             {isNasa && <span class="nasa-badge">NASA</span>}
+                            {isTool && <span class="info-badge">Tools</span>}
                           </div>
                           <div class="read-post">{ctaText}</div>
                         </div>

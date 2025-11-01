@@ -1,0 +1,67 @@
+---
+layout: '../../layouts/InfoPostLayout.astro'
+title: "Telescope Field of View (FOV) Calculator"
+category: "tools"
+writer: "Astrosyo"
+cover_image: "/images/fov-calculator/cover.webp"
+pubDate: "2025-11-01"
+description: "A simple, fast FOV calculator for telescopes and cameras. Enter focal length and sensor size to get field of view and pixel scale."
+slug: fov-calculator
+imageDir: /images/fov-calculator
+keywords:
+  - telescope field of view
+  - FOV calculator
+  - astrophotography
+  - pixel scale
+  - sensor size
+---
+
+# Telescope Field of View (FOV) Calculator
+
+Enter your telescope and camera parameters to see the **field of view** and **pixel scale**.
+
+<div class="info-input-group">
+  <label class="info-input-group-label">Telescope & Camera</label>
+
+  <div class="info-input-row">
+    <input id="fov-focal-mm" class="info-input-field" placeholder="Focal length (mm, e.g., 750)" />
+    <input id="fov-sensor-w-mm" class="info-input-field" placeholder="Sensor width (mm, e.g., 22.3)" />
+    <input id="fov-sensor-h-mm" class="info-input-field" placeholder="Sensor height (mm, e.g., 14.9)" />
+  </div>
+
+  <div class="info-input-row" style="margin-top:6px;">
+    <input id="fov-pixel-size-um" class="info-input-field" placeholder="Pixel size (µm, optional)" />
+    <input id="fov-res-w-px" class="info-input-field" placeholder="Resolution width (px, optional)" />
+  </div>
+</div>
+
+<div class="info-input-group" style="margin-top:14px;">
+  <label class="info-input-group-label">Results</label>
+
+  <div class="info-input-row">
+    <div class="tool-pill">
+      <div class="tool-pill-label">FOV Width</div>
+      <div class="tool-pill-value"><span id="fov-out-w-deg">—</span>° (<span id="fov-out-w-min">—</span>' )</div>
+    </div>
+
+    <div class="tool-pill">
+      <div class="tool-pill-label">FOV Height</div>
+      <div class="tool-pill-value"><span id="fov-out-h-deg">—</span>° (<span id="fov-out-h-min">—</span>' )</div>
+    </div>
+
+    <div class="tool-pill">
+      <div class="tool-pill-label">FOV Diagonal</div>
+      <div class="tool-pill-value"><span id="fov-out-d-deg">—</span>° (<span id="fov-out-d-min">—</span>' )</div>
+    </div>
+
+    <div class="tool-pill">
+      <div class="tool-pill-label">Pixel Scale</div>
+      <div class="tool-pill-value"><span id="fov-out-scale">—</span> arcsec/px</div>
+    </div>
+  </div>
+
+  <div id="tool-note" class="tool-note"></div>
+</div>
+
+
+<script src="/interactive/fov-calculator/fov-calculator.js"></script>
