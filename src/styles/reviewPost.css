@@ -273,6 +273,7 @@ box-shadow: 0 0 6px color-mix(in srgb, var(--brand-affiliate-button-red) 40%, tr
   background: #1f1f1f;
   border: 1px solid rgba(255,255,255,0.08);
   box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+  margin: 2rem;
 }
 
 .post-starter-image {
