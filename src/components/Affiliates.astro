@@ -19,27 +19,61 @@ const hasAffiliate =
 ---
 
 {hasAffiliate && (
-  <section class="affiliates centered_flex">
-    <h3 class="affiliates-header">Choose a vendor</h3>
-    <ul>
-      {affiliate.amazon && (
-        <li>
-          <a class="affiliate-link" href={affiliate.amazon} target="_blank" rel="noopener noreferrer">Buy on Amazon</a>
-          <p class="affiliate-caption">Recommended for lower priced general purchases.</p>
-        </li>
-      )}
-      {affiliate.highpointscientific && (
-        <li>
-          <a class="affiliate-link" href={affiliate.highpointscientific} target="_blank" rel="noopener noreferrer">Buy on HighpointScientific</a>
-          <p class="affiliate-caption">Recommended for all purchases.</p>
-        </li>
-      )}
-      {affiliate.astroshop && (
-        <li>
-          <a class="affiliate-link" href={affiliate.astroshop} target="_blank" rel="noopener noreferrer">Buy on AstroShop</a>
-          <p class="affiliate-caption">Recommended for European buyers.</p>
-        </li>
-      )}
-    </ul>
-  </section>
+<section class="affiliates centered_flex" aria-labelledby="affiliates-heading">
+  <h3 id="affiliates-heading" class="affiliates-header">Choose a vendor</h3>
+
+<ul class="affiliate-vendors" role="list">
+  {affiliate.highpointscientific && (
+    <li class="vendor-card is-recommended">
+      <div class="vendor-meta vendor-header-group">
+        <span class="vendor-name">HighPointScientific</span>
+        <span class="vendor-badge" aria-label="Recommended vendor">Recommended</span>
+      </div>
+
+      <div class="vendor-action-group">
+        <a class="affiliate-link" href={affiliate.highpointscientific} target="_blank" rel="noopener noreferrer">
+          Buy on HighPointScientific
+        </a>
+        <p class="vendor-caption">Best overall support & stock for astronomy gear.</p>
+      </div>
+    </li>
+  )}
+
+  {affiliate.amazon && (
+    <li class="vendor-card">
+      <div class="vendor-meta vendor-header-group">
+        <span class="vendor-name">Amazon</span>
+        <span class="vendor-badge vendor-badge--value">Value</span>
+      </div>
+
+      <div class="vendor-action-group">
+        <a class="affiliate-link" href={affiliate.amazon} target="_blank" rel="noopener noreferrer">
+          Buy on Amazon
+        </a>
+        <p class="vendor-caption">Often cheaper; fast shipping & easy returns.</p>
+      </div>
+    </li>
+  )}
+
+  {affiliate.astroshop && (
+    <li class="vendor-card">
+      <div class="vendor-meta vendor-header-group">
+        <span class="vendor-name">AstroShop</span>
+        <span class="vendor-badge vendor-badge--region">EU</span>
+      </div>
+
+      <div class="vendor-action-group">
+        <a class="affiliate-link" href={affiliate.astroshop} target="_blank" rel="noopener noreferrer">
+          Buy on AstroShop
+        </a>
+        <p class="vendor-caption">Great for European buyers; no surprise import fees.</p>
+      </div>
+    </li>
+  )}
+</ul>
+
+  <p class="affiliate-disclaimer">
+    These are affiliate links — purchasing through them supports the site at no extra cost to you.
+  </p>
+</section>
 )}
