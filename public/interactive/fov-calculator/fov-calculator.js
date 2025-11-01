@@ -1,7 +1,8 @@
+// public/visual-fov.js
+// Beginner Visual FOV Calculator (visual observing)
+// Inputs: telescope FL (mm), telescope aperture (mm), eyepiece FL (mm), eyepiece AFOV (deg)
+// Outputs: Magnification, True FOV (deg), Exit Pupil (mm), Max Magnification (×)
 
-// ------------------------------------------------------
-// Calculator logic
-// ------------------------------------------------------
 (function () {
   const $ = (id) => document.getElementById(id);
 
@@ -10,11 +11,12 @@
   const epFL  = $("vfov-eyepiece-fl-mm");
   const epAF  = $("vfov-eyepiece-afov-deg");
 
-  const outMag   = $("vfov-out-mag");
-  const outTFOV  = $("vfov-out-tfov");
-  const outExit  = $("vfov-out-exit");
-  const outNote  = $("vfov-note");
-  const btnReset = $("vfov-reset");
+  const outMag    = $("vfov-out-mag");
+  const outTFOV   = $("vfov-out-tfov");
+  const outExit   = $("vfov-out-exit");
+  const outMaxMag = $("vfov-out-maxmag"); // NEW
+  const outNote   = $("vfov-note");
+  const btnReset  = $("vfov-reset");
 
   function n(el) {
     const v = parseFloat(el.value);
@@ -22,36 +24,58 @@
   }
 
   function compute() {
-    const tfl = n(telFL);
-    const tap = n(telAp);
-    const efl = n(epFL);
-    const afv = n(epAF);
+  const tfl = n(telFL);   // telescope focal length
+  const tap = n(telAp);   // telescope aperture
+  const efl = n(epFL);    // eyepiece focal length
+  const afv = n(epAF);    // eyepiece AFOV
 
-    outNote.textContent = "";
+  outNote.textContent = "";
 
-    // Need at least telescope FL & eyepiece FL
-    if (!tfl || !efl) {
-      renderEmpty();
-      outNote.textContent = "Enter telescope focal length and eyepiece focal length to compute magnification & TFOV.";
-      return;
-    }
-
-    const mag  = tfl / efl;                 // magnification
-    const tfov = afv ? (afv / mag) : null;  // degrees (if AFOV provided)
-    const exit = (tap && mag) ? (tap / mag) : null; // mm (if aperture provided)
-
-    outMag.textContent  = isFinite(mag) ? mag.toFixed(1) : "—";
-    outTFOV.textContent = (tfov && isFinite(tfov)) ? tfov.toFixed(2) + "°" : "—";
-    outExit.textContent = (exit && isFinite(exit)) ? exit.toFixed(1) + " mm" : "—";
-
-    if (!afv) outNote.textContent = "Tip: Add eyepiece AFOV to see True Field of View (TFOV).";
-    if (!tap) outNote.textContent = (outNote.textContent ? outNote.textContent + " " : "") + "Add telescope aperture to see exit pupil.";
+  // ✅ Max magnification now depends ONLY on aperture
+  if (tap) {
+    const maxMag = Math.min(2.5 * tap, 350);  // Rule of thumb, capped
+    outMaxMag.textContent = `${Math.round(maxMag)}×`;
+  } else {
+    outMaxMag.textContent = "—";
   }
 
-  function renderEmpty() {
+  // If no FL or eyepiece FL, still calculate max mag, but skip other results
+  if (!tfl || !efl) {
     outMag.textContent  = "—";
     outTFOV.textContent = "—";
     outExit.textContent = "—";
+
+    if (!tap) {
+      outNote.textContent = "Enter your telescope aperture (mm) to see max magnification.";
+    } else {
+      outNote.textContent = "Add focal length + eyepiece focal length to compute magnification and TFOV.";
+    }
+
+    return;
+  }
+
+  // Magnification (needs telescope FL + eyepiece FL)
+  const mag = tfl / efl;
+  outMag.textContent = mag.toFixed(1);
+
+  // True FOV (needs AFOV)
+  const tfov = afv ? (afv / mag) : null;
+  outTFOV.textContent = tfov ? `${tfov.toFixed(2)}°` : "—";
+
+  // Exit pupil (needs aperture)
+  const exit = tap ? (tap / mag) : null;
+  outExit.textContent = exit ? `${exit.toFixed(1)} mm` : "—";
+
+  // Context note
+  if (!afv) outNote.textContent = "Add eyepiece AFOV to see True Field of View.";
+  if (!tap) outNote.textContent += " Add aperture to see exit pupil.";
+}
+
+  function renderEmpty() {
+    outMag.textContent    = "—";
+    outTFOV.textContent   = "—";
+    outExit.textContent   = "—";
+    outMaxMag.textContent = "—";
   }
 
   [telFL, telAp, epFL, epAF].forEach((el) => el && el.addEventListener("input", compute));
