@@ -78,12 +78,37 @@
   .cta-row { grid-auto-flow: row; }
 }
 
+
 /* ---- CTA Buttons ---- */
-.cta{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:.6rem;
-  padding:1.05rem 1.35rem;border:0;border-radius:14px;text-transform:uppercase;letter-spacing:.06em;font-weight:800;font-size:clamp(.9rem,1.2vw + .5rem,1.05rem);
-  color:#fff;background:linear-gradient(180deg,#1e2028,#141723);box-shadow:0 8px 24px rgba(0,0,0,0.35);transform:translateZ(0);
-  transition: transform .18s ease, box-shadow .22s ease, background .18s ease, filter .18s ease, opacity .18s ease;
+.cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 0.6rem;
+  padding: 1.05rem 1.35rem;
+  border: 0;
+  border-radius: 14px;
+
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 800;
+  font-size: clamp(0.9rem, 1.2vw + 0.5rem, 1.05rem);
+
+  color: #fff;
+  background: linear-gradient(180deg, #1e2028, #141723);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+
+  transform: translateZ(0);
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.22s ease,
+    background 0.18s ease,
+    filter 0.18s ease,
+    opacity 0.18s ease;
 }
+
 .cta svg { width: 1.1em; height: 1.1em; }
 
 .cta:hover { transform: translateY(-2px); }
@@ -96,7 +121,9 @@
 }
 
 /* CTA Variants */
-.cta--primary { background: var(--brand-red-darker); }
+.cta--primary { 
+  background: var(--cosmic-gradient-v2); 
+}
 .cta--dark    { background: #2a2a2a; }
 .cta--ghost {
   background: transparent;

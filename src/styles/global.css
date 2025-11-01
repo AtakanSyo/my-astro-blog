@@ -39,7 +39,9 @@ html {
   --brand-red: #ff3a3b;
   --brand-red-bg: rgba(196,3,35,0.30);
   --brand-affiliate-button-red: #ff5252;
-  --brand-red-darker: #c40523; /* brand accent (blue-ish) */
+  --brand-red-less-darker: #d40a2b;
+  --cosmic-gradient-v2: linear-gradient(135deg, #c40523 50%, #f2354f 150%);
+  --brand-red-darker: #c40523;
   --brand-red-v2: #e1142f;
   --cosmic-gradient: linear-gradient(
     135deg,
