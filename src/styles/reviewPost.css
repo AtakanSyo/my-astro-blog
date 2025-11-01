@@ -69,7 +69,7 @@ h1 .review-tag {
 .pros-cons {
   --accent: #a9b4ff;
   --accent-2: #c0c8ff;
-  --text: #e4e4e4;
+  --grayish-text: #e4e4e4;
   --muted: #aab1bd;
   --card: #1b1d22;
   --card-2: #17191e;
@@ -84,7 +84,7 @@ h1 .review-tag {
 .info-tags {
   margin: 1.5em 0;
   max-width: 800px;
-  color: var(--text);
+  color: var(--grayish-text);
 }
 
 .info-tags h3 {
@@ -204,7 +204,7 @@ box-shadow: 0 0 6px color-mix(in srgb, var(--brand-affiliate-button-red) 40%, tr
   margin: 2em 0;
   flex-wrap: wrap;
   max-width: 800px;
-  color: var(--text);
+  color: var(--grayish-text);
 }
 
 .pros-cons > div {
@@ -231,7 +231,7 @@ box-shadow: 0 0 6px color-mix(in srgb, var(--brand-affiliate-button-red) 40%, tr
 .pros-cons h3 {
   font-size: 1.25rem;
   margin-bottom: .75rem;
-  text-align: center;
+  text-align: left;
   color: #ffffff;
   letter-spacing: .2px;
 }
