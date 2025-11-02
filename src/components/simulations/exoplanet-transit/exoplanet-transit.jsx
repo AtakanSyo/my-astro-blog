@@ -494,6 +494,9 @@ export default function ExoplanetTransitSim({
         }
         const depth = cfg.transitDepth * overlapFraction;
         relativeBrightness = 1 - depth;
+        if (relativeBrightness > 0.999) {
+          relativeBrightness = 1;
+        }
       }
 
       // State throttling (unchanged logic)

@@ -68,19 +68,32 @@ const PLANET_DATA = [
   },
 ];
 
+const EMPTY_OPTS = Object.freeze({});
 export default function SolarSystemTopDown({
   id = 'solar-system-topdown',
   aspect = '3 / 2',
   showPause = true,
   dprCap = 1.5,
-  options = {},
+  options,
 }) {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
   const pausedRef = useRef(true);
   const hasPlayedRef = useRef(false);
   const [paused, setPaused] = useState(true);
-  const opts = useMemo(() => options ?? {}, [options]);
+  const opts = useMemo(() => options ?? EMPTY_OPTS, [options]);
+
+  // put this helper above useEffect
+  function seededAngle(key) {
+    // simple stable hash → [0, 1)
+    let h = 2166136261;
+    for (let i = 0; i < key.length; i++) {
+      h ^= key.charCodeAt(i);
+      h = Math.imul(h, 16777619);
+    }
+    const u = ((h >>> 0) % 1000003) / 1000003; // 0..1
+    return u * Math.PI * 2;
+  }
 
   useEffect(() => {
     const container = containerRef.current;
@@ -241,14 +254,14 @@ export default function SolarSystemTopDown({
       scene.add(orbit);
 
       const orbitAngularSpeed = (Math.PI * 2) / planet.orbitDays;
-      planets.push({
-        name: planet.name,
-        mesh,
-        orbit,
-        orbitRadius,
-        orbitAngularSpeed,
-        angle: Math.random() * Math.PI * 2,
-      });
+      const angle = seededAngle(planet.name); // stable per-planet
+
+      // place the planet immediately so paused frames are correct
+      const x0 = Math.cos(angle) * orbitRadius;
+      const z0 = Math.sin(angle) * orbitRadius;
+      mesh.position.set(x0, 0, z0);
+
+      planets.push({ name: planet.name, mesh, orbit, orbitRadius, orbitAngularSpeed, angle });
     });
 
     // ---------- Resize ----------
@@ -276,42 +289,22 @@ export default function SolarSystemTopDown({
     // ---------- Animation ----------
     const clock = new THREE.Clock();
     let rafId = 0;
-    let pollId = 0;
-    let wasPaused = false;
-
-    const startPollingForResume = () => {
-      if (pollId) return;
-      pollId = window.setInterval(() => {
-        if (!pausedRef.current) {
-          clearInterval(pollId);
-          pollId = 0;
-          clock.getDelta();
-          rafId = requestAnimationFrame(loop);
-        }
-      }, 120);
-    };
 
     const loop = () => {
-      if (pausedRef.current) {
-        wasPaused = true;
-        if (rafId) cancelAnimationFrame(rafId);
-        rafId = 0;
-        startPollingForResume();
-        return;
-      }
-
-      const dt = Math.min(clock.getDelta(), 0.05);
+      // Always tick the clock so time never accumulates
+      const rawDt = clock.getDelta();      // seconds since last frame
+      const dt = pausedRef.current ? 0 : Math.min(rawDt, 0.05);
       const deltaDays = dt * cfg.daysPerSecond;
-      if (wasPaused) {
-        wasPaused = false;
-      }
 
-      planets.forEach((planet) => {
-        planet.angle += planet.orbitAngularSpeed * deltaDays;
-        const x = Math.cos(planet.angle) * planet.orbitRadius;
-        const z = Math.sin(planet.angle) * planet.orbitRadius;
-        planet.mesh.position.set(x, 0, z);
-      });
+      // Advance only when not paused
+      if (dt > 0) {
+        planets.forEach((planet) => {
+          planet.angle += planet.orbitAngularSpeed * deltaDays;
+          const x = Math.cos(planet.angle) * planet.orbitRadius;
+          const z = Math.sin(planet.angle) * planet.orbitRadius;
+          planet.mesh.position.set(x, 0, z);
+        });
+      }
 
       renderer.render(scene, camera);
       rafId = requestAnimationFrame(loop);
@@ -324,7 +317,6 @@ export default function SolarSystemTopDown({
       try { ro.disconnect(); } catch {}
       window.removeEventListener('resize', fit);
       if (rafId) cancelAnimationFrame(rafId);
-      if (pollId) clearInterval(pollId);
 
       planets.forEach((planet) => {
         planet.mesh.geometry.dispose();
@@ -348,16 +340,13 @@ export default function SolarSystemTopDown({
   }, [paused]);
 
   const onToggle = () => {
-    setPaused((prev) => {
-      const next = !prev;
-      if (!next && !hasPlayedRef.current) {
-        hasPlayedRef.current = true;
-        const el = containerRef.current?.closest('.sim-stage') ?? containerRef.current;
-        if (el && !el.classList.contains('is-visible')) el.classList.add('is-visible');
-      }
-      pausedRef.current = next;
-      return next;
-    });
+    pausedRef.current = !pausedRef.current;
+    setPaused(pausedRef.current);
+    if (!pausedRef.current && !hasPlayedRef.current) {
+      hasPlayedRef.current = true;
+      const el = containerRef.current?.closest('.sim-stage') ?? containerRef.current;
+      if (el && !el.classList.contains('is-visible')) el.classList.add('is-visible');
+    }
   };
 
   return (
