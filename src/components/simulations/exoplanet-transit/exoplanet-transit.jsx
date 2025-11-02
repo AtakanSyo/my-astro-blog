@@ -2,12 +2,14 @@ import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
 /**
- * ExoplanetTransitSim.jsx
+ * ExoplanetTransitSim.jsx (fixed)
  *
- * Renders a stylised exoplanet transit: a glowing star, an orbiting planet,
- * and an accompanying light-curve readout showing the dip in brightness when
- * the planet crosses in front of the star. Designed for Astro posts using the
- * shared sim-stage styles.
+ * - Starts/stops RAF directly (no polling)
+ * - Doesn’t start RAF when initially paused
+ * - Respects prefers-reduced-motion and auto-pauses when off-screen
+ * - Uses only ResizeObserver for sizing
+ * - Caches chart context/gradient and rebuilds only on size change
+ * - WebGL guards + context-lost handler
  */
 export default function ExoplanetTransitSim({
   id = 'exoplanet-transit',
@@ -19,13 +21,34 @@ export default function ExoplanetTransitSim({
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
   const chartRef = useRef(null);
+
   const pausedRef = useRef(true);
   const [paused, setPaused] = useState(true);
+
   const [brightness, setBrightness] = useState(1);
   const [phasePercent, setPhasePercent] = useState(0);
   const [transitLabel, setTransitLabel] = useState('Out of transit');
+
   const madeVisibleRef = useRef(false);
   const brightnessHistoryRef = useRef([]);
+
+  // Three/loop refs
+  const rendererRef = useRef(null);
+  const sceneRef = useRef(null);
+  const cameraRef = useRef(null);
+  const clockRef = useRef(null);
+  const loopRef = useRef(null);
+  const rafIdRef = useRef(0);
+
+  // Misc refs
+  const roRef = useRef(null);
+  const ioRef = useRef(null);
+
+  // Chart cache refs
+  const chartCtxRef = useRef(null);
+  const chartGradRef = useRef(null);
+  const chartSizeRef = useRef({ w: 0, h: 0 });
+
   const optionsKey = JSON.stringify(optionsProp ?? {});
 
   useEffect(() => {
@@ -33,6 +56,16 @@ export default function ExoplanetTransitSim({
     const canvas = canvasRef.current;
     const chartCanvas = chartRef.current;
     if (!container || !canvas || !chartCanvas) return;
+
+    // Guard for WebGL availability
+    if (!canvas.getContext || !('WebGLRenderingContext' in window)) {
+      // Optionally show a fallback message in your overlay
+      return;
+    }
+    // Avoid default browser dialog on context loss
+    const onContextLost = (e) => { e.preventDefault(); };
+    canvas.addEventListener('webglcontextlost', onContextLost, { passive: false });
+
     brightnessHistoryRef.current = [];
 
     // ---------- Options & defaults ----------
@@ -40,9 +73,7 @@ export default function ExoplanetTransitSim({
 
     const starRadius = options.starRadius ?? 1.2;
     const planetRadius = options.planetRadius ?? 0.22;
-    const orbitRadius =
-      options.orbitRadius ??
-      Math.max(starRadius + planetRadius * 0.2, starRadius * 1.05);
+    const orbitRadius = 2;
 
     const cfg = {
       starRadius,
@@ -50,14 +81,14 @@ export default function ExoplanetTransitSim({
       orbitTiltDeg: options.orbitTiltDeg ?? 2.5,
       orbitRadius,
       orbitalPeriod: Math.max(30, options.orbitalPeriod ?? 240), // seconds per orbit (minimum clamp)
-      speedMultiplier: Math.max(0.05, options.speedMultiplier ?? 8.0),
+      speedMultiplier: Math.max(0.05, options.speedMultiplier ?? 40.0),
       transitDepth: options.transitDepth ?? 0.012,
-      backgroundColor: options.backgroundColor ?? 0x060914,
+      backgroundColor: options.backgroundColor ?? 0x000000,
       starColor: options.starColor ?? 0xffd27f,
       coronaColor: options.coronaColor ?? 0xfff4c1,
       planetColor: options.planetColor ?? 0x3457ff,
       planetNightColor: options.planetNightColor ?? 0x0f1a3a,
-      cameraDistance: options.cameraDistance ?? 7.0,
+      cameraDistance: options.cameraDistance ?? 15.0,
       starfieldCount: options.starfieldCount ?? 400,
       orbitLineColor: options.orbitLineColor ?? 0x4a6cff,
       orbitLineOpacity: options.orbitLineOpacity ?? 0.35,
@@ -68,16 +99,18 @@ export default function ExoplanetTransitSim({
       atmosphereIntensity: options.atmosphereIntensity ?? 0.35,
     };
 
+    // ---------- Three setup ----------
     const renderer = new THREE.WebGLRenderer({
       canvas,
       antialias: true,
       alpha: true,
       powerPreference: 'high-performance',
     });
+    // Verify against your THREE version; these names changed across r15x:
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.1;
-    renderer.physicallyCorrectLights = true;
+    // renderer.physicallyCorrectLights = true; // keep/remove depending on version defaults
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(cfg.backgroundColor);
@@ -85,6 +118,10 @@ export default function ExoplanetTransitSim({
     const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
     camera.position.set(0, cfg.starRadius * 0.25, cfg.cameraDistance);
     camera.lookAt(0, 0, 0);
+
+    rendererRef.current = renderer;
+    sceneRef.current = scene;
+    cameraRef.current = camera;
 
     // ---------- Star ----------
     const starGeo = new THREE.SphereGeometry(cfg.starRadius, 128, 128);
@@ -134,7 +171,7 @@ export default function ExoplanetTransitSim({
     const star = new THREE.Mesh(starGeo, starMat);
     scene.add(star);
 
-    // Soft corona for the star
+    // Soft corona
     const coronaMat = new THREE.ShaderMaterial({
       transparent: true,
       depthWrite: false,
@@ -157,12 +194,12 @@ export default function ExoplanetTransitSim({
         void main() {
           float r = length(vPosition);
           float falloff = smoothstep(1.8, 0.6, r);
-          gl_FragColor = vec4(uColor, falloff * uIntensity * 0.6);
+          gl_FragColor = vec4(uColor, falloff * uIntensity * 0.9);
         }
       `,
     });
     const corona = new THREE.Mesh(starGeo.clone(), coronaMat);
-    corona.scale.setScalar(1.8);
+    corona.scale.setScalar(1.06);
     scene.add(corona);
 
     // ---------- Planet & orbit ----------
@@ -239,7 +276,7 @@ export default function ExoplanetTransitSim({
       `,
     });
     const atmosphere = new THREE.Mesh(
-      new THREE.SphereGeometry(cfg.planetRadius * 1.35, 64, 64),
+      new THREE.SphereGeometry(cfg.planetRadius * 1.1, 64, 64),
       atmosphereMat
     );
     atmosphere.position.copy(planet.position);
@@ -275,6 +312,7 @@ export default function ExoplanetTransitSim({
 
     // ---------- Chart helpers ----------
     const MAX_HISTORY = 240;
+
     const recordBrightness = (value) => {
       const list = brightnessHistoryRef.current;
       const percent = THREE.MathUtils.clamp(value * 100, 0, 100);
@@ -282,16 +320,34 @@ export default function ExoplanetTransitSim({
       if (list.length > MAX_HISTORY) list.shift();
     };
 
+    const ensureChartCtx = () => {
+      if (!chartCtxRef.current) {
+        chartCtxRef.current = chartCanvas.getContext('2d');
+      }
+      return chartCtxRef.current;
+    };
+
     const drawPlot = () => {
-      const ctx = chartCanvas.getContext('2d');
+      const ctx = ensureChartCtx();
       if (!ctx) return;
       const width = chartCanvas.width || chartCanvas.clientWidth || 1;
       const height = chartCanvas.height || chartCanvas.clientHeight || 1;
+
+      // Rebuild gradient only when size changes
+      if (chartSizeRef.current.w !== width || chartSizeRef.current.h !== height) {
+        chartGradRef.current = ctx.createLinearGradient(0, 0, 0, height);
+        chartGradRef.current.addColorStop(0, 'rgba(255, 216, 107, 0.18)');
+        chartGradRef.current.addColorStop(1, 'rgba(255, 216, 107, 0.02)');
+        chartSizeRef.current = { w: width, h: height };
+      }
+
       ctx.save();
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       ctx.clearRect(0, 0, width, height);
-      ctx.fillStyle = '#050812ee';
+      ctx.fillStyle = 'black';
       ctx.fillRect(0, 0, width, height);
+
+      // Grid
       ctx.strokeStyle = 'rgba(255,255,255,0.08)';
       ctx.lineWidth = 1;
       for (let i = 1; i < 4; i++) {
@@ -301,15 +357,18 @@ export default function ExoplanetTransitSim({
         ctx.lineTo(width, y);
         ctx.stroke();
       }
+
       const data = brightnessHistoryRef.current;
       if (data.length < 2) {
         ctx.restore();
         return;
       }
-      const minVal = 0;
+
+      const minVal = 98;
       const maxVal = 100;
       const span = maxVal - minVal;
 
+      // Line
       ctx.strokeStyle = '#ffd86b';
       ctx.lineWidth = 2;
       const points = [];
@@ -324,21 +383,19 @@ export default function ExoplanetTransitSim({
       });
       ctx.stroke();
 
+      // Fill under curve
       if (points.length > 1) {
         ctx.beginPath();
         ctx.moveTo(points[0].x, height);
         points.forEach((p) => ctx.lineTo(p.x, p.y));
         ctx.lineTo(points[points.length - 1].x, height);
         ctx.closePath();
-        const grad = ctx.createLinearGradient(0, 0, 0, height);
-        grad.addColorStop(0, 'rgba(255, 216, 107, 0.18)');
-        grad.addColorStop(1, 'rgba(255, 216, 107, 0.02)');
-        ctx.fillStyle = grad;
+        ctx.fillStyle = chartGradRef.current;
         ctx.fill();
       }
 
-      // Baseline at brightness = 1
-      const baselineTarget = 99;
+      // Baseline at brightness = 100%
+      const baselineTarget = 100;
       const baselineRatio = (baselineTarget - minVal) / span;
       const baselineY = height - baselineRatio * height;
       ctx.strokeStyle = 'rgba(255,255,255,0.25)';
@@ -357,61 +414,45 @@ export default function ExoplanetTransitSim({
       const width = Math.max(1, container.clientWidth | 0);
       const height = Math.max(1, container.clientHeight | 0);
       renderer.setSize(width, height, false);
+
       camera.aspect = width / height || 1;
       camera.updateProjectionMatrix();
 
       const chartWidth = Math.max(1, Math.floor(chartCanvas.clientWidth || width * 0.5));
-      const chartHeight = Math.max(1, Math.floor(chartCanvas.clientHeight || height * 0.25));
-      if (chartCanvas.width !== chartWidth) chartCanvas.width = chartWidth;
-      if (chartCanvas.height !== chartHeight) chartCanvas.height = chartHeight;
+      const chartHeight = 300;
+      let sizeChanged = false;
+      if (chartCanvas.width !== chartWidth) { chartCanvas.width = chartWidth; sizeChanged = true; }
+      if (chartCanvas.height !== chartHeight) { chartCanvas.height = chartHeight; sizeChanged = true; }
+      if (sizeChanged) {
+        chartCtxRef.current = null; // force ctx re-fetch (some browsers bind size to context)
+      }
       drawPlot();
     };
 
+    // Only ResizeObserver (window resize is redundant)
     const ro = new ResizeObserver(fit);
     ro.observe(container);
-    window.addEventListener('resize', fit, { passive: true });
-    fit();
+    roRef.current = ro;
 
     // ---------- Animation ----------
     const clock = new THREE.Clock();
+    clockRef.current = clock;
+
     const orbitPhaseIncrement = cfg.speedMultiplier / cfg.orbitalPeriod;
     const tmpVec = new THREE.Vector3();
-    let rafId = 0;
-    let pollId = 0;
-    let wasPaused = false;
     let chartAccumulator = 0;
+
+    let orbitPhase = 0.5;
+    planetGroup.rotation.y = orbitPhase * Math.PI * 2;
+
     const brightnessStateRef = { value: brightness };
     const phaseStateRef = { value: phasePercent };
     const transitStateRef = { value: transitLabel };
 
-    const startPollingForResume = () => {
-      if (pollId) return;
-      pollId = window.setInterval(() => {
-        if (!pausedRef.current) {
-          clearInterval(pollId);
-          pollId = 0;
-          clock.getDelta();
-          rafId = requestAnimationFrame(loop);
-        }
-      }, 100);
-    };
-
-    let orbitPhase = 0;
-    planetGroup.rotation.y = orbitPhase * Math.PI * 2;
-
     const loop = () => {
-      if (pausedRef.current) {
-        wasPaused = true;
-        if (rafId) cancelAnimationFrame(rafId);
-        rafId = 0;
-        startPollingForResume();
-        return;
-      }
+      if (pausedRef.current) return; // stop cleanly if paused
 
       const dt = Math.min(clock.getDelta(), 0.05);
-      if (wasPaused) {
-        wasPaused = false;
-      }
 
       orbitPhase += dt * orbitPhaseIncrement;
       if (orbitPhase >= 1) orbitPhase -= 1;
@@ -448,6 +489,7 @@ export default function ExoplanetTransitSim({
         relativeBrightness = 1 - depth;
       }
 
+      // State throttling (unchanged logic)
       if (Math.abs(orbitPhase - phaseStateRef.value) > 0.0012) {
         phaseStateRef.value = orbitPhase;
         setPhasePercent(orbitPhase);
@@ -485,17 +527,46 @@ export default function ExoplanetTransitSim({
       }
 
       renderer.render(scene, camera);
-      rafId = requestAnimationFrame(loop);
+      rafIdRef.current = requestAnimationFrame(loop);
     };
 
-    clock.start();
-    rafId = requestAnimationFrame(loop);
+    loopRef.current = loop;
 
+    // Initial fit
+    fit();
+
+    // Reduced-motion and visibility handling
+    const prefersReduced = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+    if (prefersReduced?.matches) {
+      pausedRef.current = true;
+      setPaused(true);
+    }
+
+    const io = new IntersectionObserver((entries) => {
+      const visible = entries[0]?.isIntersecting;
+      if (!visible && !pausedRef.current) {
+        pausedRef.current = true;
+        setPaused(true);
+      }
+    }, { threshold: 0.05 });
+    io.observe(container);
+    ioRef.current = io;
+
+    // Kick the loop only if not paused initially
+    if (!pausedRef.current) {
+      clock.start();
+      rafIdRef.current = requestAnimationFrame(loop);
+    } else {
+      clock.start(); // keep clock ready; we’ll reset delta on play
+    }
+
+    // Cleanup
     return () => {
       try { ro.disconnect(); } catch {}
-      window.removeEventListener('resize', fit);
-      if (rafId) cancelAnimationFrame(rafId);
-      if (pollId) clearInterval(pollId);
+      try { io.disconnect(); } catch {}
+      canvas.removeEventListener('webglcontextlost', onContextLost);
+
+      if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
 
       renderer.dispose();
 
@@ -511,6 +582,10 @@ export default function ExoplanetTransitSim({
       planetMat.dispose();
       coronaMat.dispose();
       backdrop.material?.dispose?.();
+
+      // Clear chart caches
+      chartCtxRef.current = null;
+      chartGradRef.current = null;
     };
   }, [dprCap, optionsKey]);
 
@@ -519,14 +594,27 @@ export default function ExoplanetTransitSim({
   }, [paused]);
 
   const onToggle = () => {
-    pausedRef.current = !pausedRef.current;
-    const nowPaused = pausedRef.current;
+    const nowPaused = !pausedRef.current;
+    pausedRef.current = nowPaused;
     setPaused(nowPaused);
 
+    // Mark visible class once we start playing the first time
     if (!nowPaused && !madeVisibleRef.current) {
       madeVisibleRef.current = true;
       const el = containerRef.current?.closest('.sim-stage') ?? containerRef.current;
       if (el && !el.classList.contains('is-visible')) el.classList.add('is-visible');
+    }
+
+    // Start/stop the RAF loop here
+    if (!nowPaused) {
+      // playing
+      // resync delta so we don't get a big jump after a long pause
+      try { clockRef.current?.getDelta?.(); } catch {}
+      rafIdRef.current = requestAnimationFrame(() => loopRef.current?.());
+    } else {
+      // paused
+      if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
+      rafIdRef.current = 0;
     }
   };
 
@@ -535,7 +623,7 @@ export default function ExoplanetTransitSim({
       className="sim-stage centered_flex"
       id={`stage-${id}`}
       ref={containerRef}
-      style={{ aspectRatio: aspect, width: '100%', position: 'relative' }}
+      style={{ aspectRatio: aspect, width: '100%', height: '600px', position: 'relative' }}
     >
       <canvas id={id} ref={canvasRef} />
 
@@ -547,7 +635,7 @@ export default function ExoplanetTransitSim({
           right: 12,
           bottom: 12,
           padding: '12px 14px',
-          background: 'rgba(5, 8, 18, 0.75)',
+          background: 'rgba(0, 0, 0, 0.75)',
           borderRadius: 8,
           backdropFilter: 'blur(6px)',
           color: '#eef1ff',
@@ -593,7 +681,8 @@ export default function ExoplanetTransitSim({
           id={`pause-${id}`}
           className="pill sim-controls-inline"
           type="button"
-          aria-pressed={!paused}
+          aria-pressed={!paused}               // pressed = playing
+          aria-label={paused ? 'Play' : 'Pause'}
           onClick={onToggle}
         >
           {paused ? 'Play' : 'Pause'}

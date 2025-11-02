@@ -1,0 +1,96 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Exoplanet Transit Light Curve"
+category: simulation
+writer: Astrosyo
+pubDate: '2025-10-02'
+description: "Watch a stylised hot Jupiter cross its star and see the stellar light curve dip in real time."
+slug: exoplanet-transit
+imageDir: /images/exoplanet-transit
+keywords:
+  - exoplanet
+  - transit method
+  - light curve
+  - astronomy visualization
+  - three.js
+---
+
+import ExoplanetTransitSim from "../../components/simulations/exoplanet-transit/exoplanet-transit.jsx";
+import SimPostSchema from "../../components/SimPostSchema.astro";
+
+<ExoplanetTransitSim client:only="react" showPause={true} options={{ speedMultiplier: 40 }} />
+
+<figcaption class="sim-caption">
+  A stylised hot Jupiter sweeps across its host star. The overlay shows how astronomers watch the star’s brightness dip during the transit.
+</figcaption>
+
+<div class="sim-article">
+  <h2 id="what-are-you-seeing">What you are seeing</h2>
+  <p>
+    The animation places a short-period gas giant on an inclined orbit around a sun-like star. The star itself is alive with animated
+    granulation—bright cells of rising plasma and darker lanes of cooler gas—while a soft corona hints at the extended stellar
+    atmosphere. A thin orbit line marks the planet’s path so you can track where it is in three dimensions even when it slips behind the
+    star.
+  </p>
+  <p>
+    When the planet moves in front of the star from our point of view, it blocks a small fraction of starlight. The panel overlaying the
+    simulation keeps you grounded: real-time brightness, orbital phase, inferred transit depth, and a friendly status label (Ingress,
+    Mid-transit, or just “Passing in front”) update continuously. Below those numbers, the golden light-curve plot accumulates the data,
+    producing the familiar “U” shaped dip seen in missions like <em>Kepler</em> and <em>TESS</em>.
+  </p>
+
+  <h2 id="how-the-dimming-works">How the dimming works</h2>
+  <p>
+    Even though the planet is much smaller than the star, the drop in light is measurable. For a Jupiter-sized world transiting a
+    sun-sized star, the dip is roughly 1 percent. Shallow though it is, that signal repeats every orbit, allowing astronomers to infer
+    the planet’s size, orbital period, and—combined with radial velocity data—its density. Because the star’s atmosphere is brighter in
+    the centre than at the edges (limb darkening), the curve slopes gently down, flattens near mid-transit, then climbs back up. In this
+    simulation we mimic that behaviour with a simple overlap model: the deeper the overlap between discs, the larger the temporary drop.
+  </p>
+  <p>
+    Notice how the overlay reports a non-zero brightness even when the planet is still in front of the star but no longer overlapping it.
+    In observational astronomy this would correspond to a near miss or grazing transit, and scientists keep an eye on those cases to
+    better understand orbital inclinations. The panel makes those moments obvious without needing to squint at the plot.
+  </p>
+
+  <h2 id="try-it-yourself">Try it yourself</h2>
+  <p>
+    Press play to let the planet begin its orbit and watch the live brightness readout. You can tweak the component’s props in code—
+    including the orbital period, planet radius, transit depth, and even the colour of the starfield—to model different systems. Want to
+    mimic a super-Earth or a bloated ultra-hot Jupiter? Adjust <code>options</code> and see how the light curve responds. Try increasing
+    <code>atmosphereIntensity</code> for a hazier world, or dial back <code>starGranulationStrength</code> if you prefer a smoother star.
+    It’s an intuitive way to connect visual motion with the data that real surveys collect.
+  </p>
+</div>
+
+<SimPostSchema
+  title="Exoplanet Transit Light Curve"
+  description="Explore how astronomers detect exoplanets by watching a stylised hot Jupiter transit its star while the light curve dips in real time."
+  url="https://astrosyo.com/posts/exoplanet-transit"
+  datePublished="2025-08-22"
+  dateModified="2025-08-22"
+  authorName="Astrosyo"
+  keywords={[
+    "exoplanet",
+    "transit method",
+    "light curve",
+    "astronomy visualization",
+    "three.js",
+    "webgl",
+    "education"
+  ]}
+  image="/images/exoplanet-transit/cover.webp"
+  articleSection="Astronomy"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.webp"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Exoplanet Transit Simulator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires WebGL2",
+    "url": "https://astrosyo.com/posts/exoplanet-transit#simulation",
+    "description": "Interactive visualisation of an exoplanet transit with a live stellar light-curve display."
+  }}
+/>
