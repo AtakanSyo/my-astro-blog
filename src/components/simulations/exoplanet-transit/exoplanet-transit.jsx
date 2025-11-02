@@ -63,8 +63,8 @@ export default function ExoplanetTransitSim({
       return;
     }
     // Avoid default browser dialog on context loss
-    const onContextLost = (e) => { e.preventDefault(); };
-    canvas.addEventListener('webglcontextlost', onContextLost, { passive: false });
+    const onContextLost = () => {};
+    canvas.addEventListener('webglcontextlost', onContextLost);
 
     brightnessHistoryRef.current = [];
 
@@ -415,11 +415,18 @@ export default function ExoplanetTransitSim({
       const height = Math.max(1, container.clientHeight | 0);
       renderer.setSize(width, height, false);
 
+
+       if (width < 760) {
+         container.style.aspectRatio = "9 / 16";   // mobile ratio
+       } else {
+         container.style.aspectRatio = aspect;      // desktop ratio (from props)
+       }
+
       camera.aspect = width / height || 1;
       camera.updateProjectionMatrix();
 
       const chartWidth = Math.max(1, Math.floor(chartCanvas.clientWidth || width * 0.5));
-      const chartHeight = 300;
+      const chartHeight = 200;
       let sizeChanged = false;
       if (chartCanvas.width !== chartWidth) { chartCanvas.width = chartWidth; sizeChanged = true; }
       if (chartCanvas.height !== chartHeight) { chartCanvas.height = chartHeight; sizeChanged = true; }
@@ -535,23 +542,6 @@ export default function ExoplanetTransitSim({
     // Initial fit
     fit();
 
-    // Reduced-motion and visibility handling
-    const prefersReduced = window.matchMedia?.('(prefers-reduced-motion: reduce)');
-    if (prefersReduced?.matches) {
-      pausedRef.current = true;
-      setPaused(true);
-    }
-
-    const io = new IntersectionObserver((entries) => {
-      const visible = entries[0]?.isIntersecting;
-      if (!visible && !pausedRef.current) {
-        pausedRef.current = true;
-        setPaused(true);
-      }
-    }, { threshold: 0.05 });
-    io.observe(container);
-    ioRef.current = io;
-
     // Kick the loop only if not paused initially
     if (!pausedRef.current) {
       clock.start();
@@ -563,7 +553,6 @@ export default function ExoplanetTransitSim({
     // Cleanup
     return () => {
       try { ro.disconnect(); } catch {}
-      try { io.disconnect(); } catch {}
       canvas.removeEventListener('webglcontextlost', onContextLost);
 
       if (rafIdRef.current) cancelAnimationFrame(rafIdRef.current);
@@ -619,75 +608,122 @@ export default function ExoplanetTransitSim({
   };
 
   return (
-    <div
-      className="sim-stage centered_flex"
-      id={`stage-${id}`}
-      ref={containerRef}
-      style={{ aspectRatio: aspect, width: '100%', height: '600px', position: 'relative' }}
-    >
-      <canvas id={id} ref={canvasRef} />
-
       <div
-        className="sim-overlay transit-readout"
-        style={{
-          position: 'absolute',
-          left: 12,
-          right: 12,
-          bottom: 12,
-          padding: '12px 14px',
-          background: 'rgba(0, 0, 0, 0.75)',
-          borderRadius: 8,
-          backdropFilter: 'blur(6px)',
-          color: '#eef1ff',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 8,
-        }}
+        className="sim-stage centered_flex"
+        id={`stage-${id}`}
+        ref={containerRef}
+        style={{ aspectRatio: aspect, width: '100%', position: 'relative',}}
       >
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span style={{ fontWeight: 600 }}>Relative Brightness</span>
-          <span style={{ fontVariantNumeric: 'tabular-nums' }}>
-            {(brightness * 100).toFixed(2)}%
-          </span>
-        </div>
+        <canvas id={id} ref={canvasRef} />
+
         <div
+          className="sim-overlay transit-readout"
           style={{
+            position: 'absolute',
+            display: 'block',
+            inset: 'auto 0 0 0',
+            margin: '0 auto',
+            padding: '14px 16px',
+            background: 'rgba(8, 10, 16, 0.78)',
+            border: '1px solid rgba(255, 255, 255, 0.08)',
+            borderRadius: 10,
+            boxShadow: '0 8px 28px rgba(0,0,0,0.35)',
+            backdropFilter: 'blur(6px)',
+            color: '#eef1ff',
             display: 'flex',
-            gap: 12,
-            flexWrap: 'wrap',
-            fontSize: '0.9rem',
-            fontVariantNumeric: 'tabular-nums',
+            flexDirection: 'column',
+            gap: 10,
           }}
         >
-          <span>
-            <strong>Phase:</strong> {(phasePercent * 100).toFixed(1)}%
-          </span>
-          <span>
-            <strong>Depth:</strong> {Math.max(0, (1 - brightness) * 100).toFixed(2)}%
-          </span>
-          <span style={{ flex: '1 1 auto', minWidth: 160 }}>
-            <strong>Transit:</strong> {transitLabel}
-          </span>
+
+          {/* Brightness + key stats (all in one flex block) */}
+          <div
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: '14px 22px',
+              fontSize: '.95rem',
+              width: '100%',
+            }}
+          >
+            {/* Relative Brightness (acts like title + value) */}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'baseline',
+                gap: 10,
+                flex: '1 1 auto',
+                minWidth: 180,
+              }}
+            >
+              <span style={{ fontWeight: 700, letterSpacing: '.01em' }}>Relative Brightness</span>
+              <span
+                style={{
+                  fontVariantNumeric: 'tabular-nums',
+                  fontWeight: 700,
+                  fontSize: '1.05rem',
+                }}
+              >
+                {(brightness * 100).toFixed(2)}%
+              </span>
+            </div>
+
+            {/* Stats row */}
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '12px 18px',
+                alignItems: 'center',
+                flex: '1 1 auto',
+                justifyContent: 'flex-end',
+              }}
+            >
+              <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+                <span style={{ opacity: 0.85 }}>Phase:</span>
+                <span style={{ fontVariantNumeric: 'tabular-nums', fontWeight: 600 }}>
+                  {(phasePercent * 100).toFixed(1)}%
+                </span>
+              </div>
+
+            </div>
+          </div>
+
+          {/* Divider */}
+          <div
+            role="presentation"
+            style={{
+              height: 1,
+              background:
+                'linear-gradient(90deg, transparent, rgba(255,255,255,.14), transparent)',
+              margin: '2px 0 6px',
+            }}
+          />
+
+          {/* Chart */}
+          <canvas
+            ref={chartRef}
+            aria-label="Light curve showing star brightness during transit"
+            style={{ width: '100%', height: 60 }}
+          />
         </div>
-        <canvas
-          ref={chartRef}
-          aria-label="Light curve showing star brightness during transit"
-          style={{ width: '100%', height: 120 }}
-        />
+
+        {showPause && (
+          <button
+            id={`pause-${id}`}
+            className="pill sim-controls-inline"
+            type="button"
+            aria-pressed={!paused}               // pressed = playing
+            aria-label={paused ? 'Play' : 'Pause'}
+            onClick={onToggle}
+          >
+            {paused ? 'Play' : 'Pause'}
+          </button>
+        )}
       </div>
 
-      {showPause && (
-        <button
-          id={`pause-${id}`}
-          className="pill sim-controls-inline"
-          type="button"
-          aria-pressed={!paused}               // pressed = playing
-          aria-label={paused ? 'Play' : 'Pause'}
-          onClick={onToggle}
-        >
-          {paused ? 'Play' : 'Pause'}
-        </button>
-      )}
-    </div>
+
   );
 }
