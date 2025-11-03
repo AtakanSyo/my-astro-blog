@@ -3,16 +3,10 @@ import Layout from '../layouts/Layout.astro';
 import '../styles/telescopes.css';
 import '../styles/cards.css';
 
-const toUrl = (entry: any) => {
-  const s =
-    entry.slug ??
-    entry.id?.toString()?.split('/').pop()?.replace(/\.(md|mdx)$/, '');
-  return `/posts/${s}/`;
-};
-
 const allPosts = await Astro.glob('./posts/*.{md,mdx}');
 const telescopePosts = allPosts.filter(p => p.frontmatter.subcategory === 'telescopes');
 const telescopeCount = telescopePosts.length;
+
 // ── SORTED “All” POSTS ──
 const sortedAll = [...telescopePosts].sort(
   (a, b) => (b.frontmatter.rating?.overall ?? 0) - (a.frontmatter.rating?.overall ?? 0)
@@ -35,8 +29,8 @@ const sortedGrouped = Object.fromEntries(
 );
 ---
 
-
 <Layout title="Telescope Reviews">
+
   <h1 class="telescope-rankings-page-title">Telescope Rankings</h1>
 
   <div class="telescopes-toggle-container">
@@ -51,7 +45,7 @@ const sortedGrouped = Object.fromEntries(
       </button>
 
       <!-- Dynamically render buttons for each telescope type -->
-      {types.map((t) => {
+      {types.map(t => {
         const slug = t.toLowerCase().replace(/\s+/g, '-'); // e.g. "Tabletop Dobsonian" → "tabletop-dobsonian"
         return (
           <button data-type={t} class="icon-button" role="tab" aria-selected="false">
@@ -65,41 +59,35 @@ const sortedGrouped = Object.fromEntries(
     </div>
 
     <!-- description placeholder -->
-    <div id="type-description" class="type-description" data-count={reviewCount}></div>
+    <div id="type-description" class="type-description" data-count={telescopeCount}></div>
 
     <!-- “All” group -->
     <div class="post-group" data-type="all">
       <h2>All Telescopes</h2>
       <div class="post-grid">
-        {sortedAll.map((entry) => {
-          const data = entry.data ?? {};
-          const url = toUrl(entry);
-
-          const cleanTitle = (data.title ?? '').replace(/ (Review|Overview)$/i, '');
-          const score = data?.rating?.overall ?? 'N/A';
-          const dRaw = data.date ?? data.pubDate;
-          const dateStr = dRaw ? new Date(dRaw).toLocaleDateString() : '';
-
-          const affiliate = data.affiliate ?? {};
-          const affs: Array<[string, string | undefined]> = [
+        {sortedAll.map(({ frontmatter, url }) => {
+          const { title, description, rating, writer, pubDate, affiliate = {} } = frontmatter;
+          const cleanTitle = title.replace(/ (Review|Overview)$/, '');
+          const score = rating?.overall ?? 'N/A';
+          const affs = [
             ['Amazon', affiliate.amazon],
             ['HighPoint', affiliate.highpointscientific],
             ['Astroshop', affiliate.astroshop],
-          ].filter(([, link]) => !!link);
+          ].filter(([, link]) => link);
 
           return (
             <div class="post-card post-card--review">
               <a href={url} class="post-card-link">
                 <div class="post-card-title">{cleanTitle}</div>
 
-                {(data.writer || dateStr) && (
+                {(writer || pubDate) && (
                   <div class="post-card-meta">
-                    {data.writer ? `By ${data.writer}` : ''}{data.writer && dateStr ? ' — ' : ''}
-                    {dateStr}
+                    {writer ? `By ${writer}` : ''}{writer && pubDate ? ' — ' : ''}
+                    {pubDate ? new Date(pubDate).toLocaleDateString() : ''}
                   </div>
                 )}
 
-                {data.description && <p class="post-card-desc">{data.description}</p>}
+                <p class="post-card-desc">{description}</p>
 
                 <div class="post-card-footer has-badge">
                   <div class="post-card-badges">
@@ -113,7 +101,7 @@ const sortedGrouped = Object.fromEntries(
               {affs.length > 0 && (
                 <div class="affiliate-links">
                   {affs.map(([name, link]) => (
-                    <a href={link!} class="affiliate-btn" target="_blank" rel="noopener">
+                    <a href={link} class="affiliate-btn" target="_blank" rel="noopener">
                       Buy on {name}
                     </a>
                   ))}
@@ -125,40 +113,34 @@ const sortedGrouped = Object.fromEntries(
       </div>
     </div>
 
-    <!-- one group per type -->
-    {types.map((type) => (
+    {/* one group per type */}
+    {types.map(type => (
       <div class="post-group" data-type={type} style="display:none;">
         <h2>{type} Telescopes</h2>
         <div class="post-grid">
-          {sortedGrouped[type].map((entry) => {
-            const data = entry.data ?? {};
-            const url = toUrl(entry);
-
-            const cleanTitle = (data.title ?? '').replace(/ (Review|Overview)$/i, '');
-            const score = data?.rating?.overall ?? 'N/A';
-            const dRaw = data.date ?? data.pubDate;
-            const dateStr = dRaw ? new Date(dRaw).toLocaleDateString() : '';
-
-            const affiliate = data.affiliate ?? {};
-            const affs: Array<[string, string | undefined]> = [
+          {sortedGrouped[type].map(({ frontmatter, url }) => {
+            const { title, description, rating, writer, pubDate, affiliate = {} } = frontmatter;
+            const cleanTitle = title.replace(/ (Review|Overview)$/, '');
+            const score = rating?.overall ?? 'N/A';
+            const affs = [
               ['Amazon', affiliate.amazon],
               ['HighPoint', affiliate.highpointscientific],
               ['Astroshop', affiliate.astroshop],
-            ].filter(([, link]) => !!link);
+            ].filter(([, link]) => link);
 
             return (
               <div class="post-card post-card--review">
                 <a href={url} class="post-card-link">
                   <div class="post-card-title">{cleanTitle}</div>
 
-                  {(data.writer || dateStr) && (
+                  {(writer || pubDate) && (
                     <div class="post-card-meta">
-                      {data.writer ? `By ${data.writer}` : ''}{data.writer && dateStr ? ' — ' : ''}
-                      {dateStr}
+                      {writer ? `By ${writer}` : ''}{writer && pubDate ? ' — ' : ''}
+                      {pubDate ? new Date(pubDate).toLocaleDateString() : ''}
                     </div>
                   )}
 
-                  {data.description && <p class="post-card-desc">{data.description}</p>}
+                  <p class="post-card-desc">{description}</p>
 
                   <div class="post-card-footer has-badge">
                     <div class="post-card-badges">
@@ -172,7 +154,7 @@ const sortedGrouped = Object.fromEntries(
                 {affs.length > 0 && (
                   <div class="affiliate-links">
                     {affs.map(([name, link]) => (
-                      <a href={link!} class="affiliate-btn" target="_blank" rel="noopener">
+                      <a href={link} class="affiliate-btn" target="_blank" rel="noopener">
                         Buy on {name}
                       </a>
                     ))}
@@ -186,9 +168,9 @@ const sortedGrouped = Object.fromEntries(
     ))}
   </div>
 
-  <div id="type-description" class="type-description"></div>
-
   <script type="module">
+    // define everything in here
+
     const descEl  = document.getElementById('type-description');
     const TELESCOPE_COUNT = Number(descEl.dataset.count);
     const formattedCount = new Intl.NumberFormat().format(TELESCOPE_COUNT);
@@ -211,8 +193,8 @@ const sortedGrouped = Object.fromEntries(
     function showGroup(type) {
       groups.forEach(g => {
         g.style.display = type === 'all'
-          ? (g.dataset.type === 'all' ? '' : 'none')
-          : (g.dataset.type === type ? '' : 'none');
+          ? (g.dataset.type == 'all' ? '' : 'none')
+          : (g.dataset.type == type ? '' : 'none');
       });
       descEl.textContent = typeDescriptions[type] || '';
     }
