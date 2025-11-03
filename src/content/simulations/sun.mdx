@@ -1,0 +1,98 @@
+---
+
+title: "The Sun"
+category: simulation
+writer: Astrosyo
+pubDate: '2025-08-14'
+description: "A lightweight, GPU-hybrid Sun visualization with granulation, limb darkening, and a hint of magnetic activity."
+slug: sun
+imageDir: /images/sun
+keywords:
+  - sun simulation
+  - solar granulation
+  - sunspots
+  - astronomy visualization
+  - differential rotation
+  - Sun
+  - The Sun
+---
+
+import SimCanvas from "../../components/SimCanvas.astro";
+import SimPostSchema from "../../components/SimPostSchema.astro";
+
+<div class="">
+  <p class="Tool-Explanation"></p>
+
+  <div class="sim-stage" aria-label="Sun simulation canvas" id="simulation">
+    <SimCanvas slug="sun"/>
+  </div>
+
+  <figcaption class="sim-caption"></figcaption></div>
+
+<div class="sim-article">
+  <h2 id="about-this-page">About this page</h2>
+  <p>
+    Above is a <strong>GPU-accelerated, real-time visualization of the Sun</strong>, our G-type main-sequence star.
+    The model emphasizes <em>photospheric granulation</em>, <strong>limb darkening</strong>, and a stylized hint of <em>magnetic activity</em> such as sunspots and faculae.
+    It’s designed for clarity and performance rather than physical fluid simulation.
+  </p>
+
+  <h3 id="what-youre-seeing">What you’re seeing</h3>
+  <p>
+    The mottled texture evokes <strong>granulation</strong>: convection cells where hot plasma rises, cools, and sinks.
+    Darker spots represent <strong>sunspots</strong>—regions of concentrated magnetic fields that appear cooler than their surroundings—while subtle bright rims suggest <em>faculae</em>.
+    The disc edge appears dimmer due to <strong>limb darkening</strong>, modeled in the shader to approximate how light escapes from different depths in the photosphere.
+  </p>
+  <p>
+    The Sun exhibits <strong>differential rotation</strong>: roughly ~25 days at the equator and ~35 days near the poles.
+    This visualization hints at that with latitude-dependent scrolling of the texture; it is a visual approximation, not a helioseismology-accurate model.
+    A gentle additive glow stands in for the low-contrast <em>chromosphere/corona</em> for context.
+  </p>
+
+  <h2 id="observing-the-sun">Observing the Sun (Safety!)</h2>
+  <p>
+    <strong>Never look at the Sun directly or through optical instruments without a certified solar filter.</strong>
+    With proper filters, you can see sunspots in white light. In <em>H-alpha</em>, narrowband filters reveal prominences and filaments along the limb.
+    Solar activity varies over an ~11-year cycle, so the number and size of visible spots changes over time.
+  </p>
+
+  <h2 id="tech-notes">Tech notes</h2>
+  <p>
+    The simulation runs in <strong>WebGL2</strong> by default with ACES tone mapping and sRGB output.
+    A multi-layer shader blends animated noise for granulation, a parametric limb-darkening curve, and optional spot masks with soft falloff.
+    Latitude-weighted UV distortion suggests <em>differential rotation</em>. A back-faced sphere provides a faint starfield vignette (minimal for contrast).
+    On compatible systems, enabling WebGPU can improve precision and frame pacing. This is a real-time educational rendering, not an MHD/CFD model.
+  </p>
+</div>
+
+<SimPostSchema
+  title="Sun Simulation"
+  description="A GPU-hybrid Sun visualization featuring granulation, limb darkening, and stylized magnetic activity."
+  url="https://astrosyo.com/posts/sun"
+  datePublished="2025-08-09"
+  authorName="Astrosyo"
+  keywords={[
+    "sun",
+    "solar granulation",
+    "sunspots",
+    "webgl2",
+    "webgpu",
+    "three.js",
+    "shader",
+    "astronomy visualization"
+  ]}
+  image="/images/sun/cover.webp"
+  articleSection="Astronomy"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.webp"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Sun Simulation",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires WebGL2; optional WebGPU",
+    "url": "https://astrosyo.com/posts/sun#simulation",
+    "description": "Interactive Sun visualization with photospheric granulation, limb darkening, and stylized sunspots."
+  }}
+/>

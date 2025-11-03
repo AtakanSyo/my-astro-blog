@@ -11,7 +11,7 @@ const {
   writer,
   pubDate,
   url,
-} = Astro.props.frontmatter;
+} = Astro.props as any;
 
 
 ---
@@ -33,7 +33,7 @@ const {
   <article class="post sim-post centered_flex">
 
     <h1 class="sim-article-title">{title}</h1>
-    <SocialShare frontmatter={Astro.props.frontmatter} url={url} client:load />
+    <SocialShare frontmatter={Astro.props} url={url} client:load />
     <slot />
 
     

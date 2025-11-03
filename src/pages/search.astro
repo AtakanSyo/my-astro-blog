@@ -1,39 +1,43 @@
 ---
-// src/pages/search.astro
 import Layout from '../layouts/Layout.astro';
 import SearchPosts from '../components/SearchPosts.jsx';
 import '../styles/cards.css';
 import '../styles/search.css';
 import '../styles/searchPage.css';
-// 1) Glob & sort at build time
-const allPosts = await Astro.glob('./posts/*.{md,mdx}', { eager: true });
-allPosts.sort(
-  (a, b) => new Date(b.frontmatter.pubDate) - new Date(a.frontmatter.pubDate)
-);
+import { getCollection } from "astro:content";
 
-// 2) Map into a shape that includes a formatted date string
-const posts = allPosts.map((p) => {
-  const raw = new Date(p.frontmatter.pubDate);
-  const dateStr = raw.toLocaleDateString('en-GB', {
-    day:   '2-digit',
-    month: '2-digit',
-    year:  'numeric',
-  });
+/** 1) Load from content collections (no Astro.glob) */
+const [reviews, nasa, tools, simulations, informational] = await Promise.all([
+  getCollection("reviews"),
+  getCollection("nasa"),
+  getCollection("tools"),
+  getCollection("simulations"),
+  getCollection("informational"),
+]);
+
+/** 2) Merge, filter drafts, sort by date desc */
+const all = [...reviews, ...nasa, ...tools, ...simulations, ...informational]
+  .filter(e => !e.data.draft)
+  .sort((a, b) => +new Date(b.data.date) - +new Date(a.data.date));
+
+/** 3) Map to the shape your React island expects */
+const posts = all.map(p => {
+  const raw = new Date(p.data.date);
+  const dateStr = raw.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' });
   return {
-    url:       p.url,
-    frontmatter: p.frontmatter,
+    url: `/posts/${p.slug}/`,   // legacy route stays valid
+    frontmatter: p.data,        // keep prop name stable
     dateStr,
   };
 });
 
-// Grab “q” as before…
-const url = new URL(Astro.request.url);
-const q   = url.searchParams.get('q') || '';
+/** 4) Read ?q= from the URL (Astro v5) */
+const q = (Astro.url.searchParams.get('q') ?? '').toString();
 ---
+
 <Layout title="Search">
   <section class="container search-page" style="padding:2rem 1rem;">
     <h1>Search All Posts</h1>
-    <!-- Hydrate a React island that does the filtering -->
-    <SearchPosts client:only="react" posts={posts} initialQuery={q} limit={100} />
+    <SearchPosts client:only="react" posts={posts as any} initialQuery={q} limit={100} />
   </section>
 </Layout>

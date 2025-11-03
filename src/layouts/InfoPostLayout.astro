@@ -11,7 +11,7 @@ const {
   pubDate,
   url,
   cover_image,
-} = Astro.props.frontmatter;
+} = Astro.props as any;
 
 
 ---
@@ -44,7 +44,7 @@ const {
     <h1>{title}</h1>
     <p class="post-starter-description">{description}</p>
     <p class="writer">Written by {writer}</p>
-    <SocialShare frontmatter={Astro.props.frontmatter} url={url} client:load />
+    <SocialShare frontmatter={Astro.props} url={url}/>
     <slot />
 
     

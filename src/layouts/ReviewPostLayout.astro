@@ -14,7 +14,7 @@ const {
   updatedDate,
   cover_image,
   rating = {}
-} = Astro.props.frontmatter;
+} = Astro.props as any;;
 
 const ratingsArray = [
   { category: "Overall", value: rating.overall },
@@ -69,9 +69,9 @@ const jsonLdProduct = {
 <div class="review-post-starter">
   <h1>
     {title}
-    {Astro.props.frontmatter.reviewType && (
-      <span class={`review-tag ${Astro.props.frontmatter.reviewType}`}>
-        {Astro.props.frontmatter.reviewType === "hands-on" ? "Hands-On" : "Research"}
+    {Astro.props.reviewType && (
+      <span class={`review-tag ${Astro.props.reviewType}`}>
+        {Astro.props.reviewType === "hands-on" ? "Hands-On" : "Research"}
       </span>
     )}
   </h1>
@@ -94,9 +94,9 @@ const jsonLdProduct = {
         <span class="category">Overall</span>
         <span class="score">{rating.overall}/10</span>
       </div>
-      <p class="post-starter-description">{Astro.props.frontmatter.description}</p>
+      <p class="post-starter-description">{Astro.props.description}</p>
       <div class="share-header"><span class="share-label">Share:</span></div>
-      <SocialShare frontmatter={Astro.props.frontmatter} url={url} client:load />
+      <SocialShare frontmatter={Astro.props} url={url} client:load />
     </div>
   </div>
 </div>

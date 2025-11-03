@@ -1,7 +1,7 @@
 // src/components/SearchPosts.jsx
 import React, { useState, useMemo, useEffect, useCallback } from 'react';
 
-export default function SearchPosts({ posts = [], limit = 50 }) {
+export default function SearchPosts({ posts = [], initialQuery = '', limit = 100 }) {
   // ➊ Seed from URL
   const getInitialQ = () => {
     if (typeof window === 'undefined') return '';

@@ -1,0 +1,99 @@
+---
+
+title: "Neptune"
+category: simulation
+writer: Astrosyo
+pubDate: '2025-08-09'
+description: "A lightweight, GPU-hybrid Neptune simulation rendered in WebGL2 by default, with optional WebGPU for high-end browsers."
+slug: neptune
+imageDir: /images/neptune
+keywords:
+---
+
+import SimCanvas from "../../components/SimCanvas.astro";
+import SimPostSchema from "../../components/SimPostSchema.astro";
+
+<div class="sim-container centered_flex">
+  <p class="Tool-Explanation"></p>
+
+  <div class="sim-stage" aria-label="Neptune simulation canvas" id="simulation">
+    <SimCanvas slug="neptune" />
+  </div>
+
+  <figcaption class="sim-caption"></figcaption>
+</div>
+
+<div class="sim-article">
+  <h2 id="about-this-page">About this page</h2>
+  <p>
+    Above is a <strong>GPU-accelerated Neptune visualization</strong>. The scene includes a physically-lit sphere with a 
+    subtle Fresnel-based atmospheric rim, realistic axial tilt, and a slow rotation scaled from Neptune’s real day length.
+    A dim, inside-out sphere provides the starfield background.
+  </p>
+
+  <h3 id="what-youre-seeing">What you’re seeing</h3>
+  <p>
+    Neptune rotates with a configurable time scale while light from a fixed “Sun” source creates visible phases. 
+    The faint blue glow around the edge is an atmospheric effect simulated in a shader, and the stars are part of 
+    a large inverted sphere surrounding the planet.
+  </p>
+
+  <h2 id="tech-notes">Tech notes</h2>
+  <p>
+    In <strong>WebGL2</strong> mode, the visualization uses <em>MeshStandardMaterial</em> with ACES tone mapping, sRGB texture loading, 
+    and a custom shader hook for slight saturation/contrast adjustments. The atmospheric glow is rendered as a separate 
+    back-sided sphere with a Fresnel term, and the starfield uses a basic textured sphere with low brightness.
+  </p>
+
+  <h3 id="compatibility">Compatibility</h3>
+  <p>
+    Works on all modern browsers supporting WebGL2. If WebGPU is enabled and available, the loader will attempt 
+    to run that version; otherwise, it falls back to WebGL2 automatically.
+  </p>
+
+  <h2 id="faq">FAQ</h2>
+  <p>
+    <strong>Why is the atmosphere faint?</strong> The glow intensity is tuned to be subtle, matching Neptune’s appearance 
+    in long-exposure images without overpowering the planet’s details.
+  </p>
+  <p>
+    <strong>Is this physically exact?</strong> No — it’s a stylized real-time visualization designed for smooth performance 
+    and visual clarity, rather than a perfect simulation.
+  </p>
+
+  <h2 id="credits">Credits</h2>
+  <p>
+    Based on real-time rendering techniques from modern planetary shaders, inspired by space visualization tools 
+    and astrophotography references.
+  </p>
+</div>
+
+<SimPostSchema
+  title="Neptune Simulation"
+  description="A lightweight, GPU-hybrid Neptune simulation with atmospheric glow and starfield background."
+  url="https://astrosyo.com/posts/learning-webgl"
+  datePublished="2025-08-09"
+  authorName="Astrosyo"
+  keywords={[
+    "neptune",
+    "webgl2",
+    "webgpu",
+    "three.js",
+    "shader",
+    "astronomy visualization"
+  ]}
+  image="/images/neptune/cover.webp"
+  articleSection="Astronomy"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.webp"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Neptune Simulation",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires WebGL2; optional WebGPU",
+    "url": "https://astrosyo.com/posts/learning-webgl#simulation",
+    "description": "Interactive Neptune visualization with atmospheric glow and starfield background."
+  }}
+/>

@@ -17,7 +17,7 @@ const orgJsonLd = {
     "query-input": "required name=search_term_string"
   }
 }
-function slugify(str) {
+function slugify(str: string): string {
   return str.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, '');
 }
 ---

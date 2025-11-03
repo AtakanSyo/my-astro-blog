@@ -1,0 +1,63 @@
+---
+// src/pages/posts/[slug].astro
+import { getCollection } from "astro:content";
+import ReviewPostLayout from "../../layouts/ReviewPostLayout.astro";
+import InfoPostLayout from "../../layouts/InfoPostLayout.astro";
+import SimLayout from "../../layouts/simLayout.astro";
+import NasaLayout from "../../layouts/nasaLayout.astro";
+
+/** Build all post slugs from every collection */
+export async function getStaticPaths() {
+  const cols = ["reviews", "nasa", "informational", "simulations", "tools"] as const;
+  const all = (await Promise.all(cols.map((c) => getCollection(c)))).flat();
+
+  const toSlug = (e: any) =>
+    e.slug ??
+    e.id?.toString()?.split("/").pop()?.replace(/\.(md|mdx)$/, "");
+
+  return all.map((e: any) => ({
+    params: { slug: toSlug(e) },
+  }));
+}
+
+const { slug } = Astro.params;
+const cols = ["reviews", "nasa", "informational", "simulations", "tools"] as const;
+const all = (await Promise.all(cols.map((c) => getCollection(c)))).flat();
+
+const toSlug = (e: any) =>
+  e.slug ??
+  e.id?.toString()?.split("/").pop()?.replace(/\.(md|mdx)$/, "");
+
+const entry: any = all.find((e: any) => toSlug(e) === slug);
+
+if (!entry) {
+  throw new Error(`Post not found for slug: ${slug}`);
+}
+
+const { data, collection } = entry;
+const Content = await entry.render();
+---
+
+{collection === "reviews" && (
+  <ReviewPostLayout {...data}>
+    <Content.Content />
+  </ReviewPostLayout>
+)}
+
+{collection === "simulations" && (
+  <SimLayout {...data}>
+    <Content.Content />
+  </SimLayout>
+)}
+
+{collection === "nasa" && (
+  <NasaLayout {...data}>
+    <Content.Content />
+  </NasaLayout>
+)}
+
+{(collection === "informational" || collection === "tools") && (
+  <InfoPostLayout {...data}>
+    <Content.Content />
+  </InfoPostLayout>
+)}

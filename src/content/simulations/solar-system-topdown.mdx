@@ -1,0 +1,98 @@
+---
+
+title: "Top-Down Solar System Orrery"
+category: simulation
+writer: Astrosyo
+pubDate: '2025-11-02'
+description: "Take a relaxing, top-down tour of the Solar System with interactive controls, planet textures, and friendly explanations."
+slug: solar-system-topdown
+imageDir: /images/solar-system-topdown
+keywords:
+  - solar system
+  - orbital mechanics
+  - three.js
+  - astronomy visualization
+  - orrery
+---
+
+import SolarSystemTopDown from "../../components/simulations/solar-system-topdown/solar-system.jsx";
+import SimPostSchema from "../../components/SimPostSchema.astro";
+
+<SolarSystemTopDown client:only="react" showPause={true} />
+
+<figcaption class="sim-caption">
+  A calm, top-down view of our Solar System. Tap play, watch the planets glide, and imagine you are floating high above the ecliptic.
+</figcaption>
+
+<div class="sim-article">
+  <h2 id="welcome">Welcome to the neighborhood</h2>
+  <p>
+    Imagine hovering hundreds of millions of kilometres above the Sun, looking straight down on the entire Solar System. That is the
+    feeling this simulation aims to deliver. Planets sweep gracefully around the Sun, each carrying a genuine surface texture taken from
+    space-mission imagery. The distances are artistically compressed so you can see every world at once, yet the <strong>tempo of the
+    orbits</strong> stays faithful to real astronomy data: Mercury loops in weeks, Earth keeps its steady one-year rhythm, and Neptune
+    barely budges.
+  </p>
+
+  <p>
+    Use the pause button whenever you want to freeze a moment. The simulation defaults to an easy pace, but if you are curious you can
+    tweak the component’s <code>options.daysPerSecond</code> value in code to speed up or slow down the dance. The textures are loaded
+    from the <code>public/textures</code> folder, so dropping in a new map for your favourite planet is as simple as swapping a file.
+  </p>
+
+  <h2 id="lighting-and-shadows">Lighting, shadows, and ambience</h2>
+  <p>
+    The Sun at the centre is not just a bright decoration. A physically based point light lives inside it, casting illumination across
+    every planet. You can easily spot the dividing line between day and night (the terminator), and the thin ambient fill softens the
+    shadowed hemispheres just enough to keep surface details visible. The orbit traces are rendered as translucent white rings against a
+    black backdrop so that the geometry of the system stays clear without stealing attention from the worlds themselves.
+  </p>
+
+  <h2 id="what-to-look-for">What to look for</h2>
+  <p>
+    <strong>Mercury</strong> hugs the Sun tightly, racing through its orbit in just 88 days. <strong>Venus</strong> appears serene but
+    remember that it spins backward (a retrograde rotation). <strong>Earth</strong> and <strong>Mars</strong> show off familiar desert
+    and oceanic textures, while the gas giants glow with belts, storms, and subtle cloud bands. Out beyond Saturn’s orbit sit
+    <strong>Uranus</strong> and <strong>Neptune</strong>, their cool blues moving so slowly that you could step away for a cup of tea and
+    return to find them barely shifted.
+  </p>
+
+  <p>
+    Because this is a simplified orrery, the planets all share the same radius by default (half the size of the Sun in the current
+    build). That makes it easier to read the scene and recognise each texture. If you are after strict scale, you can pass a custom
+    <code>planetRadius</code> or even rescale individual worlds inside the component.
+  </p>
+
+</div>
+
+<SimPostSchema
+  title="Top-Down Solar System Orrery"
+  description="Take a friendly, top-down tour of the Solar System with interactive controls, accurate orbital tempos, and textured planets."
+  url="https://astrosyo.com/posts/solar-system-topdown"
+  datePublished="2025-08-23"
+  dateModified="2025-08-23"
+  authorName="Astrosyo"
+  keywords={[
+    "solar system",
+    "orrery",
+    "three.js",
+    "orbital mechanics",
+    "astronomy visualization",
+    "webgl",
+    "education"
+  ]}
+  image="/images/solar-system-topdown/cover.webp"
+  articleSection="Astronomy"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.webp"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Solar System Top-Down Simulation",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires WebGL2",
+    "url": "https://astrosyo.com/posts/solar-system-topdown#simulation",
+    "description": "Interactive heliocentric orrery with real orbital periods and axis rotations."
+  }}
+/>

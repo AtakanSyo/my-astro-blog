@@ -12,7 +12,7 @@ const { slug, aspect = "16/9", showPause = true } = Astro.props;
   )}
 </div>
 
-<script type="module" client:load define:vars={{ id, slug }}>
+<script is:inline define:vars={{ id, slug }}>
   (async () => {
     const canvas = document.getElementById(id);
     const pauseBtn = document.getElementById(`pause-${id}`);

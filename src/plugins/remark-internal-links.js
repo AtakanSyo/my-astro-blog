@@ -1,54 +1,39 @@
 // src/plugins/remark-internal-links.js
 import { visit } from 'unist-util-visit';
 import { getKeywordMap } from '../utils/keyword-map.js';
-import fs from 'fs';
 import path from 'path';
-import matter from 'gray-matter';
-import { fileURLToPath } from 'url';
-
-// Helper to get the posts directory
-const postsDir = fileURLToPath(new URL('../pages/posts', import.meta.url));
 
 export default function remarkInternalLinks() {
   return (tree, file) => {
-    // Build keyword->URL map for all posts
+    // 1) Build keyword -> URL map (your existing util)
     const keywordMap = getKeywordMap();
 
-    // Derive current file's slug from its frontmatter
-    const filename = path.basename(file.path);
-    const fullPath = path.join(postsDir, filename);
-    let currentUrl = null;
-    try {
-      const raw = fs.readFileSync(fullPath, 'utf8');
-      const { data } = matter(raw);
-      const slug = data.slug || filename.replace(/\.(md|mdx)$/, '');
-      currentUrl = `/posts/${slug}`;
-    } catch {
-      // fallback: do not filter if error
-      currentUrl = null;
-    }
+    // 2) Derive current slug without reading from disk
+    // Astro exposes frontmatter at file.data.astro.frontmatter (if present)
+    const fm = file?.data?.astro?.frontmatter ?? {};
+    const filename = path.basename(file.path || '');
+    const inferred = filename.replace(/\.(md|mdx)$/i, '');
+    const slug = (typeof fm.slug === 'string' && fm.slug.trim()) ? fm.slug.trim() : inferred;
+    const currentUrl = `/posts/${slug}`;
 
-    // Prepare sorted list of keywords longest-first
+    // 3) Prepare sorted keywords (longest first), excluding self-links
     const sorted = Object.keys(keywordMap)
       .sort((a, b) => b.length - a.length)
-      .map(text => ({ text, url: keywordMap[text] }));
-
-    // Filter out entries pointing to the current post
-    const entries = currentUrl
-      ? sorted.filter(({ url }) => url !== currentUrl)
-      : sorted;
+      .map(text => ({ text, url: keywordMap[text] }))
+      .filter(({ url }) => url !== currentUrl);
 
     let injected = false;
 
-    // Walk text nodes and replace keywords with links
+    // 4) Walk text nodes and inject links (skip inside existing links)
     visit(tree, 'text', (node, index, parent) => {
       if (!parent || parent.type === 'link') return;
+
       let text = node.value;
       const newNodes = [];
 
       while (text) {
         let matched = false;
-        for (const { text: kw, url } of entries) {
+        for (const { text: kw, url } of sorted) {
           const pos = text.indexOf(kw);
           if (pos !== -1) {
             const before = text.slice(0, pos);
@@ -70,9 +55,7 @@ export default function remarkInternalLinks() {
         }
       }
 
-      if (injected) {
-        parent.children.splice(index, 1, ...newNodes);
-      }
+      if (injected) parent.children.splice(index, 1, ...newNodes);
     });
 
     if (injected) {
