@@ -4,8 +4,6 @@
 
 p {
   font-size: var(--post-text-size);
-  padding-left: 1rem;
-  padding-right: 1rem;
 }
 
 /* Left‐align all headings inside .post */
@@ -17,7 +15,6 @@ p {
   text-align: left;
   color: #ffffff;
   font-weight: 900;
-  padding: 1rem;
 }
 
 .review-description {

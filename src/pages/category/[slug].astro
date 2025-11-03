@@ -4,49 +4,55 @@ import '../../styles/index.css';
 import '../../styles/cards.css';
 import '../../styles/category.css';
 import FloatingTelescopeIcons from "../../components/FloatingTelescopeIcons.astro";
-import { getCollection } from "astro:content";
 
-/** Build-time paths kept inside the function to avoid scope issues in dev */
 export async function getStaticPaths() {
-  const slugs = ["reviews","nasa","tools","simulations","simulation","informational"];
-  return slugs.map((slug) => ({ params: { slug } }));
+  const all = await Astro.glob('../posts/*.{md,mdx}', { eager: true });
+  const set = new Set();
+  for (const p of all) {
+    const c = p.frontmatter?.category;
+    if (typeof c === 'string' && c) set.add(c.toLowerCase());
+  }
+  return Array.from(set).map((slug) => ({ params: { slug } }));
 }
 
-type CatKey = 'reviews' | 'nasa' | 'tools' | 'simulations' | 'informational';
-const ALLOWED: ReadonlyArray<CatKey> = ['reviews','nasa','tools','simulations','informational'] as const;
+const slug = (Astro.params.slug || '').toLowerCase();
 
-/** Normalize & validate slug */
-const rawSlug = (Astro.params.slug || '').toString().toLowerCase();
-const slug = (rawSlug === "simulation" ? "simulations" : rawSlug) as CatKey;
-if (!ALLOWED.includes(slug)) {
-  return Astro.redirect('/404');
-}
-
-/** Labels */
-const labelMap: Record<CatKey, string> = {
+const labelMap = {
   reviews: 'Telescope & Gear Reviews',
   nasa: 'NASA Articles',
   informational: 'Astronomy Guides & Insights',
-  simulations: 'Astrophysics Simulations',
-  tools: 'Astronomy Tools',
+  simulation: 'Astrophysics Simulations',
 };
-const categoryLabel = labelMap[slug];
+const categoryLabel = labelMap[slug] || `${slug.charAt(0).toUpperCase() + slug.slice(1)} Posts`;
 
-/** Load collection */
-let posts = await getCollection(slug);
-posts = posts
-  .filter(e => !e.data.draft)
-  .sort((a, b) => +new Date(b.data.date) - +new Date(a.data.date));
-
-const toUrl = (s: string) => `/posts/${s}/`;
+const posts = (await Astro.glob('../posts/*.{md,mdx}', { eager: true }))
+  .filter((p) => typeof p.frontmatter?.category === 'string' && p.frontmatter.category.toLowerCase() === slug)
+  .sort((a, b) => new Date(b.frontmatter.pubDate) - new Date(a.frontmatter.pubDate));
 ---
 
 <Layout title="Category">
-  {slug === "reviews" && <FloatingTelescopeIcons file="telescope-icons" />}
-  {slug === "nasa" && <FloatingTelescopeIcons file="nasa-icons" />}
-  {slug === "simulations" && <FloatingTelescopeIcons file="simulation-icons" />}
-  {slug === "informational" && <FloatingTelescopeIcons file="informational-icons" />}
-  {slug === "tools" && <FloatingTelescopeIcons file="tools-icons" />}
+
+  {slug === "reviews" && (
+      <FloatingTelescopeIcons
+      file="telescope-icons"
+      />
+  )}
+  {slug === "nasa" && (
+      <FloatingTelescopeIcons
+      file="nasa-icons"
+      />
+  )}
+  {slug === "simulation" && (
+      <FloatingTelescopeIcons
+      file="simulation-icons"
+      />
+  )}
+  {slug === "informational" && (
+      <FloatingTelescopeIcons
+      file="informational-icons"
+      />
+  )}
+
 
   <h1 class="category-title">{categoryLabel}</h1>
 
@@ -54,48 +60,52 @@ const toUrl = (s: string) => `/posts/${s}/`;
     {posts.length === 0 ? (
       <p>No posts.</p>
     ) : (
-      posts.map((entry) => {
-
-        const data = entry.data;
-        const s = (entry as any).slug
-          ?? (entry as any).id?.toString()?.split('/').pop()?.replace(/\.(md|mdx)$/, '');
-        const url = toUrl(s);
+      posts.map(({ frontmatter, url }) => {
+        const cat = frontmatter.category?.toLowerCase();
+        const isP5 = cat === 'simulation';
+        const isReview = cat === 'reviews';
+        const isInfo = cat === 'informational';
+        const isNasa = cat === 'nasa';
 
         const cardClasses = [
           'post-card',
-          entry.collection === 'simulations'   && 'post-card--p5',
-          entry.collection === 'reviews'       && 'post-card--review',
-          entry.collection === 'informational' && 'post-card--info',
-          entry.collection === 'nasa'          && 'post-card--nasa',
-          entry.collection === 'tools'         && 'post-card--info',
-        ].filter(Boolean).join(' ');
+          isP5 && 'post-card--p5',
+          isReview && 'post-card--review',
+          isInfo && 'post-card--info',
+          isNasa && 'post-card--nasa',
+        ]
+          .filter(Boolean)
+          .join(' ');
 
         const ctaText =
-          entry.collection === 'simulations'   ? 'Go to the simulation →' :
-          entry.collection === 'reviews'       ? 'Read the review →' :
-          entry.collection === 'informational' ? 'Read the guide →' :
-          entry.collection === 'nasa'          ? 'See the article →' :
-          entry.collection === 'tools'         ? 'Use the tool →' :
-                                                 'Read full post →';
+          isP5
+            ? 'Go to the simulation →'
+            : isReview
+            ? 'Read the review →'
+            : isInfo
+            ? 'Read the guide →'
+            : isNasa
+            ? 'See the article →'
+            : 'Read full post →';
 
         return (
           <div class={cardClasses}>
             <a href={url} class="post-card-link">
-              <div class="post-card-title">{data.title}</div>
+              <div class="post-card-title">{frontmatter.title}</div>
               <div class="post-card-meta">
-                {data.writer ? <>By {data.writer} — </> : null}
-                {new Date(data.date).toLocaleDateString()}
+                By {frontmatter.writer} — {new Date(frontmatter.pubDate).toLocaleDateString()}
               </div>
-              {data.description && <p class="post-card-desc">{data.description}</p>}
 
-              <div class="post-card-footer has-badge">
+              <p class="post-card-desc">{frontmatter.description}</p>
+
+              <div class={`post-card-footer ${isP5 || isReview || isInfo || isNasa ? 'has-badge' : ''}`}>
                 <div class="post-card-badges">
-                  {entry.collection === 'simulations'   && <span class="p5-badge">Simulation</span>}
-                  {entry.collection === 'reviews'       && <span class="review-badge">Review</span>}
-                  {entry.collection === 'informational' && <span class="info-badge">Info</span>}
-                  {entry.collection === 'nasa'          && <span class="nasa-badge">NASA</span>}
-                  {entry.collection === 'tools'         && <span class="info-badge">Tools</span>}
+                  {isP5 && <span class="p5-badge">Simulation</span>}
+                  {isReview && <span class="review-badge">Review</span>}
+                  {isInfo && <span class="info-badge">Info</span>}
+                  {isNasa && <span class="nasa-badge">NASA</span>}
                 </div>
+
                 <div class="read-post">{ctaText}</div>
               </div>
             </a>

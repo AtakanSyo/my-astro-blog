@@ -1,0 +1,108 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Newton's Pendulum"
+category: simulation
+writer: Astrosyo
+pubDate: '2025-08-14'
+description: "A lightweight, real-time Newton’s Pendulum simulation demonstrating conservation of momentum and energy."
+slug: newtons-pendulum
+imageDir: /images/newtons-pendulum
+keywords:
+  - newtons pendulum
+  - newtons cradle
+  - momentum conservation
+  - energy conservation
+  - physics simulation
+---
+
+import SimCanvas from "../../components/SimCanvas.astro";
+import SimPostSchema from "../../components/SimPostSchema.astro";
+
+<div class="">
+  <p class="Tool-Explanation"></p>
+
+  <div class="sim-stage" aria-label="Newton's Pendulum simulation canvas" id="simulation">
+    <SimCanvas slug="newtons-pendulum"/>
+  </div>
+
+  <figcaption class="sim-caption"></figcaption></div>
+
+<div class="sim-article">
+  <h2 id="about-this-page">About this page</h2>
+  <p>
+    Above is a <strong>GPU-accelerated, real-time visualization of Newton’s Pendulum</strong> (also called Newton’s Cradle), a classic physics demonstration of 
+    <em>conservation of momentum</em> and <em>conservation of energy</em>.
+    When one or more balls on one side are lifted and released, an equal number of balls on the opposite side swing out with almost the same speed.
+  </p>
+
+  <h3 id="what-youre-seeing">What you’re seeing</h3>
+  <p>
+    Newton’s Pendulum consists of identical steel balls suspended so that they barely touch at rest.
+    When a ball is lifted and let go, it collides with the next ball, transferring its momentum and kinetic energy through the stationary balls in the center.
+    The ball on the opposite end receives nearly all of that energy, swinging outward in response.
+  </p>
+  <p>
+    In a perfectly elastic collision with no losses, this transfer would continue indefinitely.
+    In reality, some energy is lost to sound, heat, and slight deformations of the balls, so the motion gradually slows.
+    This simulation exaggerates elasticity for clarity, but still includes a subtle damping effect to show realistic decay over time.
+  </p>
+
+  <h2 id="physics-behind-it">Physics behind it</h2>
+  <p>
+    The behavior of Newton’s Pendulum can be explained using two main laws:
+  </p>
+  <ul>
+    <li><strong>Conservation of Momentum:</strong> The total momentum of the system remains constant in an isolated set of collisions.</li>
+    <li><strong>Conservation of Energy:</strong> In elastic collisions, the total kinetic energy is conserved.</li>
+  </ul>
+  <p>
+    Because the balls are identical and collisions are nearly head-on, the momentum and energy transfer efficiently from the first ball to the last with minimal motion of the intermediate balls.
+  </p>
+
+  <h2 id="observing-the-simulation">Observing the simulation</h2>
+  <p>
+    Try lifting different numbers of balls on one side — one ball will make one swing out, two will make two swing out, and so on.
+    Watch for how the speed and height match on both sides, and how the motion gradually fades as energy is dissipated.
+    This makes Newton’s Pendulum both a beautiful desk ornament and a perfect introductory physics experiment.
+  </p>
+
+  <h2 id="tech-notes">Tech notes</h2>
+  <p>
+    The simulation runs in <strong>WebGL2</strong> by default, using a simple rigid-body physics solver to handle collisions and momentum transfer.
+    Ball motion is calculated in real-time with constraints to maintain their suspension geometry.
+    Soft shadows and reflections are used to make the balls appear metallic and physically present.
+    On supported systems, enabling WebGPU may improve performance and allow for more accurate collision resolution.
+  </p>
+</div>
+
+<SimPostSchema
+  title="Newton's Pendulum Simulation"
+  description="A GPU-hybrid Newton’s Pendulum (Newton’s Cradle) simulation demonstrating conservation of momentum and energy."
+  url="https://astrosyo.com/posts/newtons-pendulum"
+  datePublished="2025-08-14"
+  authorName="Astrosyo"
+  keywords={[
+    "newtons pendulum",
+    "newtons cradle",
+    "momentum conservation",
+    "energy conservation",
+    "physics",
+    "simulation",
+    "webgl2",
+    "webgpu"
+  ]}
+  image="/images/newtons-pendulum/cover.webp"
+  articleSection="Physics"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.webp"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Newton's Pendulum Simulation",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires WebGL2; optional WebGPU",
+    "url": "https://astrosyo.com/posts/newtons-pendulum#simulation",
+    "description": "Interactive Newton’s Pendulum simulation showing momentum and energy transfer."
+  }}
+/>

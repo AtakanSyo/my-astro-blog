@@ -1,6 +1,6 @@
 ---
 import '../styles/simGlobal.css'; // keep existing styles so SimCanvas works
-const { title = 'Simulation', description = '' } = Astro.props as any ?? {};
+const { title = 'Simulation', description = '' } = Astro.props.frontmatter ?? {};
 ---
 
 <html lang="en">

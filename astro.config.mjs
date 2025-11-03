@@ -6,6 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 import icon from 'astro-icon';
 import remarkSlug from 'remark-slug';
 import remarkAutolinkHeadings from 'remark-autolink-headings';
+import remarkInternalLinks from './src/plugins/remark-internal-links.js';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 

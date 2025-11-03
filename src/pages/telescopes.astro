@@ -1,15 +1,8 @@
 ---
-
 import Layout from '../layouts/Layout.astro';
 import '../styles/telescopes.css';
 import '../styles/cards.css';
-import { getCollection } from 'astro:content';
 
-const reviewEntries = (await getCollection('reviews')).filter(e => !e.data?.draft);
-
-const telescopeCount = reviewEntries.length;
-
-/* Helper to create /posts/:slug URLs */
 const toUrl = (entry: any) => {
   const s =
     entry.slug ??
@@ -17,30 +10,31 @@ const toUrl = (entry: any) => {
   return `/posts/${s}/`;
 };
 
+const allPosts = await Astro.glob('./posts/*.{md,mdx}');
+const telescopePosts = allPosts.filter(p => p.frontmatter.subcategory === 'telescopes');
+const telescopeCount = telescopePosts.length;
 // ── SORTED “All” POSTS ──
-const sortedAll = [...reviewEntries].sort(
-  (a, b) => (b.data?.rating?.overall ?? 0) - (a.data?.rating?.overall ?? 0)
+const sortedAll = [...telescopePosts].sort(
+  (a, b) => (b.frontmatter.rating?.overall ?? 0) - (a.frontmatter.rating?.overall ?? 0)
 );
 
 // ── GROUP & SORT BY TYPE ──
-const grouped = reviewEntries.reduce((acc, entry) => {
-  const type = entry.data?.telescopeType || 'Other';
-  (acc[type] ??= []).push(entry);
+const grouped = telescopePosts.reduce((acc, post) => {
+  const type = post.frontmatter.telescopeType || 'Other';
+  (acc[type] ??= []).push(post);
   return acc;
-}, {} as Record<string, typeof reviewEntries>);
-
+}, {});
 const types = Object.keys(grouped).sort();
-
 const sortedGrouped = Object.fromEntries(
   types.map(type => [
     type,
     [...grouped[type]].sort(
-      (a, b) => (b.data?.rating?.overall ?? 0) - (a.data?.rating?.overall ?? 0)
+      (a, b) => (b.frontmatter.rating?.overall ?? 0) - (a.frontmatter.rating?.overall ?? 0)
     ),
   ])
 );
-
 ---
+
 
 <Layout title="Telescope Reviews">
   <h1 class="telescope-rankings-page-title">Telescope Rankings</h1>
@@ -71,7 +65,7 @@ const sortedGrouped = Object.fromEntries(
     </div>
 
     <!-- description placeholder -->
-    <div id="type-description" class="type-description" data-count={telescopeCount}></div>
+    <div id="type-description" class="type-description" data-count={reviewCount}></div>
 
     <!-- “All” group -->
     <div class="post-group" data-type="all">

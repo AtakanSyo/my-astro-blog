@@ -63,7 +63,7 @@ const eTitle = encodeURIComponent(frontmatter.title);
 </div>
 
 <!-- Client-side logic to handle copy and show toast -->
-<script is:inline>
+<script is:inline client:load>
   const copyBtn = document.getElementById('copy-btn');
   const FULL_URL = copyBtn.dataset.url;
   const toast = document.getElementById('copy-toast');

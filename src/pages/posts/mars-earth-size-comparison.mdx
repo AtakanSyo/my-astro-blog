@@ -1,0 +1,75 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Mars and Earth Size Comparison"
+category: simulation
+writer: Astrosyo
+pubDate: '2025-08-20'
+description: "A simulation showing the true scale difference between Mars and Earth."
+slug: mars-earth-size-comparison
+imageDir: /images/mars-earth-size-comparison
+keywords:
+  - mars
+  - earth
+  - planet sizes
+  - astronomy
+  - three.js
+---
+
+import Comparison from "../../components/simulations/mars-earth-size-comparison/comparison.jsx";
+import SimPostSchema from "../../components/SimPostSchema.astro";
+
+<Comparison client:load pausedInitially={true} />
+
+<figcaption class="sim-caption">
+  Mars and Earth rendered to scale. Mars’s radius is about half of Earth’s, and its volume is just 15% that of our planet.
+</figcaption>
+
+<div class="sim-article">
+  <h2 id="about-this-simulation">About this simulation</h2>
+  <p>
+    This interactive scene places Mars and Earth side by side so you can see their difference in scale.
+    Based on real measurements: Earth’s mean radius is about 6,371 kilometers, while Mars’s is about 3,390 kilometers.
+    That makes Mars just over half the size of Earth in diameter. When it comes to volume, Earth is more than six times larger,
+    with Mars holding only about 15% of Earth’s volume.
+  </p>
+
+  <h2 id="why-it-matters">Why this is interesting</h2>
+  <p>
+    Comparing Mars to Earth highlights both the similarities and differences between our home planet and its smaller neighbor.
+    Despite its modest size, Mars has long fascinated scientists as the most Earth-like planet in the Solar System,
+    with mountains, valleys, polar ice caps, and even evidence of ancient water flows.
+    This comparison reminds us why Mars is a key target in the search for past or present extraterrestrial life,
+    and why it continues to be central to future human exploration.
+  </p>
+</div>
+
+<SimPostSchema
+  title="Mars and Earth Size Comparison"
+  description="An interactive browser-based simulation that shows the true scale difference between Mars and Earth."
+  url="https://astrosyo.com/posts/mars-earth-size-comparison"
+  datePublished="2025-08-20"
+  authorName="Astrosyo"
+  keywords={[
+    "mars",
+    "earth",
+    "planet size comparison",
+    "astronomy",
+    "three.js",
+    "webgl",
+    "education"
+  ]}
+  image="/images/mars-earth-size-comparison/cover.webp"
+  articleSection="Astronomy"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.webp"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Planet Size Comparison",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires WebGL2",
+    "url": "https://astrosyo.com/posts/mars-earth-size-comparison#simulation",
+    "description": "Interactive visualization comparing Mars and Earth with accurate scale."
+  }}
+/>

@@ -11,7 +11,8 @@ const {
   writer,
   pubDate,
   url,
-} = Astro.props as any;
+} = Astro.props.frontmatter;
+
 
 ---
 
@@ -34,7 +35,7 @@ const {
     <h1 class="nasa-article-title">{title}</h1>
 
     <p class="writer">Published by {writer}</p>
-    <SocialShare frontmatter={Astro.props} url={url} client:load />
+    <SocialShare frontmatter={Astro.props.frontmatter} url={url} client:load />
     <slot />
 
     

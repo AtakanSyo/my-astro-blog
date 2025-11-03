@@ -21,23 +21,30 @@ html {
   --spacing: 1rem;
   --golden-ratio: 1.618;
   --header-height: 52px;
-  --bg: #121212;
-  --bg-light: #1f1f1f;
 
   --nav-bg: #1a1a1a;            /* dark navbar background */
   --nav-link-color: #fff;
   --nav-link-hover: rgba(255, 255, 255, 0.8);
 
-  --brand-red: #ff174e;
+  --bg: #121212;
+  --card-bg: #1f1f1f;           /* dark cards */
+  --card-radius: 12px;
+  --card-border: #333;
+  --card-shadow: rgba(0, 0, 0, 0.5);
+  --primary-color: #a9b4ff;
+  --accent-color: #8882a5;
+  --text-color: #e4e4e4;
+  --meta-color: #aaa;
+
+  --brand-red: #ff3a3b;
   --brand-red-bg: rgba(196,3,35,0.30);
-  --brand-affiliate-button-red: #ff174e;
-  --brand-red-less-darker: #d40a2b;
-  --cosmic-gradient-v2: linear-gradient(135deg, #c40523 50%, #f2354f 150%);
-  --brand-red-darker: #c40523;
+  --brand-affiliate-button-red: #ff5252;
+  --brand-red-darker: #c40523; /* brand accent (blue-ish) */
+  --brand-red-v2: #e1142f;
   --cosmic-gradient: linear-gradient(
     135deg,
     #ff3b3b 0%,    /* vivid bright red */
-    #ff0080 100%   /* cosmic hot pink */
+    #ff0080 80%   /* cosmic hot pink */
   );
 }
 
@@ -49,7 +56,7 @@ body {
 
   line-height: 1.6;
   color: var(--color-text);
-  background: var(--bg); /* dark gray instead of white */
+  background: #121212; /* dark gray instead of white */
 
   width: 100%;
   height: 100%;

@@ -1,7 +1,7 @@
 // src/components/SearchPosts.jsx
 import React, { useState, useMemo, useEffect, useCallback } from 'react';
 
-export default function SearchPosts({ posts = [], initialQuery = '', limit = 100 }) {
+export default function SearchPosts({ posts = [], limit = 50 }) {
   // ➊ Seed from URL
   const getInitialQ = () => {
     if (typeof window === 'undefined') return '';
@@ -81,7 +81,6 @@ export default function SearchPosts({ posts = [], initialQuery = '', limit = 100
     const isReview = cats.includes('reviews') || cats.includes('review');
     const isInfo   = cats.includes('informational') || cats.includes('info');
     const isNasa   = cats.includes('nasa');
-    const isTool   = cats.includes('tools');
 
     const cardClasses = [
       'post-card',
@@ -96,7 +95,6 @@ export default function SearchPosts({ posts = [], initialQuery = '', limit = 100
       : isReview ? 'Read the review →'
       : isInfo ? 'Read the guide →'
       : isNasa ? 'See the article →'
-      : isTool ? 'Use the tool →'
       : 'Read full post →';
 
     return (
@@ -120,13 +118,12 @@ export default function SearchPosts({ posts = [], initialQuery = '', limit = 100
           )}
 
           {/* Footer: badges (left) + CTA (right) */}
-          <div className={`post-card-footer ${(isP5 || isReview || isInfo || isNasa || isTool) ? 'has-badge' : ''}`}>
+          <div className={`post-card-footer ${(isP5 || isReview || isInfo || isNasa) ? 'has-badge' : ''}`}>
             <div className="post-card-badges">
               {isP5 && <span className="p5-badge">Simulation</span>}
               {isReview && <span className="review-badge">Review</span>}
               {isInfo && <span className="info-badge">Info</span>}
               {isNasa && <span className="nasa-badge">NASA</span>}
-              {isTool && <span className="info-badge">Tool</span>}
             </div>
             <div className="read-post">{ctaText}</div>
           </div>

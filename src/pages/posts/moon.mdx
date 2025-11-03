@@ -1,0 +1,93 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "The Moon"
+category: simulation
+writer: Astrosyo
+pubDate: '2025-08-14'
+description: "A lightweight, GPU-hybrid Moon visualization with detailed surface shading, realistic phases, and subtle limb darkening."
+slug: moon
+imageDir: /images/moon
+keywords:
+  - moon simulation
+  - lunar phases
+  - moon 3d model
+  - astronomy visualization
+  - The Moon
+---
+
+import SimCanvas from "../../components/SimCanvas.astro";
+import SimPostSchema from "../../components/SimPostSchema.astro";
+
+<div class="">
+  <p class="Tool-Explanation"></p>
+
+  <div class="sim-stage" aria-label="Moon simulation canvas" id="simulation">
+    <SimCanvas slug="moon"/>
+  </div>
+
+  <figcaption class="sim-caption"></figcaption></div>
+
+<div class="sim-article">
+  <h2 id="about-this-page">About this page</h2>
+  <p>
+    Above is a <strong>GPU-accelerated, real-time visualization of the Moon</strong>, Earth’s only natural satellite.
+    The simulation uses high-resolution shading to highlight craters, maria, and highlands, along with a realistic phase cycle as seen from Earth.
+  </p>
+
+  <h3 id="what-youre-seeing">What you’re seeing</h3>
+  <p>
+    The Moon rotates once on its axis in the same amount of time it takes to orbit Earth — about 27.3 days — a phenomenon known as <strong>tidal locking</strong>.
+    This is why we always see the same lunar hemisphere. The visible side is marked by dark basalt plains called <em>maria</em> and brighter highland regions.
+  </p>
+  <p>
+    The lighting comes from a fixed Sun position, producing realistic shadows in craters and mountains.
+    A limb-darkening effect makes the edge appear softer, matching the way light scatters off the surface and into the vacuum of space.
+    The simulation also reproduces the Moon’s changing phase, from new to full and back, depending on its position relative to Earth and the Sun.
+  </p>
+
+  <h2 id="observing-the-moon">Observing the Moon</h2>
+  <p>
+    The Moon is one of the easiest and most rewarding objects to observe in the night sky.
+    Even binoculars reveal craters, ridges, and maria in detail, while a small telescope can provide breathtaking close-up views.
+    The best time to observe is near first or last quarter, when shadows are longest and features stand out in sharp relief.
+  </p>
+
+  <h2 id="tech-notes">Tech notes</h2>
+  <p>
+    This visualization runs in <strong>WebGL2</strong> by default with physically based rendering (PBR) and ACES tone mapping.
+    A high-detail displacement map and normal map provide surface relief, while the shader dynamically adjusts lighting for accurate phase rendering.
+    On compatible browsers, enabling WebGPU can enhance performance and shading precision.
+    This is an educational visualization, not a scientific terrain simulation, though it is based on real lunar imagery.
+  </p>
+</div>
+
+<SimPostSchema
+  title="The Moon Simulation"
+  description="A GPU-hybrid Moon visualization with realistic surface shading, phases, and limb darkening."
+  url="https://astrosyo.com/posts/moon"
+  datePublished="2025-08-09"
+  authorName="Astrosyo"
+  keywords={[
+    "moon",
+    "lunar phases",
+    "webgl2",
+    "webgpu",
+    "three.js",
+    "shader",
+    "astronomy visualization"
+  ]}
+  image="/images/moon/cover.webp"
+  articleSection="Astronomy"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.webp"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "The Moon Simulation",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires WebGL2; optional WebGPU",
+    "url": "https://astrosyo.com/posts/moon#simulation",
+    "description": "Interactive Moon visualization with surface detail, phases, and realistic shading."
+  }}
+/>

@@ -1,102 +1,101 @@
 ---
 import Layout from '../layouts/Layout.astro';
 ---
-
 <Layout title="About Astrosyo">
   <main class="about-page">
     <section class="intro">
       <h1>Welcome to Astrosyo</h1>
-      <p>
-        Hey 👋 I’m really glad you’re here. Astrosyo exists because looking up at the night sky
-        changes something in us — and I wanted a place to share that feeling. If you’re curious
-        about telescopes, space, or just want to start stargazing without getting overwhelmed,
-        you’re in the right spot.
-      </p>
+      <p>At Astrosyo, we’re passionate about making astronomy accessible, engaging, and fun for everyone. Whether you’re a curious beginner or a seasoned skywatcher, our goal is to help you explore the cosmos with confidence.</p>
     </section>
 
     <section class="mission">
       <h2>Our Mission</h2>
-      <p>
-Everything I write or build here — reviews, guides, tools, and simulations — 
-comes from real experience and genuine curiosity. I started this blog to offer something useful in a time
- when most sites are packed with ads and distractions. My goal is simple: keep things honest, fast, easy to understand, 
- and pleasing to look at.
-      </p>
+      <p>We believe the night sky holds endless wonder. Our mission is to provide honest, in-depth telescope reviews, practical observing tips, and educational articles that inspire you to look up, learn, and discover the universe.</p>
     </section>
 
-  <section class="coverage">
-    <h2>What You’ll Find Here</h2>
-    <ul>
-      <li>
-        <strong>Telescope Reviews</strong> — some are based on real, hands-on experience and others are research-based.
-        Each review is labeled clearly ("hands-on" or "research") so you always know what you're reading.
-      </li>
-      <li>
-        <strong>Getting Started</strong> — simple guides to help you understand your telescope and enjoy your first nights under the stars.
-      </li>
-      <li>
-        <strong>Astronomy Simulations</strong> — visual demos and interactive experiments to help explain how things in space actually work.
-      </li>
-      <li>
-        <strong>Astronomy Tools</strong> — calculators and helpers (FOV, magnification, exit pupil, etc.) to make observing easier.
-      </li>
-      <li>
-        <strong>Space & Curiosity Posts</strong> — topics about NASA, discoveries, and anything fascinating happening above our heads.
-      </li>
-    </ul>
-  </section>
+    <section class="coverage">
+      <h2>What We Cover</h2>
+      <ul>
+        <li><strong>Telescope Reviews</strong> – Unbiased breakdowns of optics, mounts, and accessories.</li>
+        <li><strong>How-To Guides</strong> – Step-by-step tutorials for beginners and advanced users alike.</li>
+        <li><strong>Astrophotography Tips</strong> – Techniques to capture stunning celestial images.</li>
+        <li><strong>Astronomy News</strong> – Updates on discoveries, events, and space missions.</li>
+      </ul>
+    </section>
 
     <section class="team">
-      <h2>Who’s Behind Astrosyo?</h2>
-      <p>
-        It’s mostly just me — someone who genuinely loves space, spends too much time testing gear,
-        and wants to help people avoid buying the wrong telescope. Sometimes I collaborate with
-        friends who have backgrounds in astronomy, astrophotography, or engineering 🚀
-      </p>
+      <h2>Meet the Team</h2>
+      <p>Our crew combines hands-on observing experience, academic research, and a love of teaching. From mirror grinding to mount engineering, each author brings a unique perspective to help you find the right gear and skywatching techniques.</p>
     </section>
 
     <section class="join">
-      <h2>Stay in the Loop</h2>
-      <p>
-        If you’d like, you can join the mailing list — no spam, just a quick email when there’s
-        something worth sharing: new guides, telescope deals, or cool space events.
-      </p>
-      <a href="/newsletter" class="btn-primary">Subscribe</a>
+      <h2>Join Us</h2>
+      <p>Subscribe to our newsletter for monthly sky guides, exclusive discounts, and behind-the-scenes content. Connect with us on social media and become a part of the Astrosyo community!</p>
+      <a href="/newsletter" class="btn-primary">Subscribe Now</a>
     </section>
   </main>
 </Layout>
 
-
-
 <style>
+:root {
+  --bg-page: rgb(18, 18, 18);
+  --text-color: #ffffff;
+  --muted: #aaa;
+  --accent-color: rgb(228,228,228); /* cool blue accent from global.css */
+  --card-bg: #1a1a1a;
+  --card-radius: 14px;
+  --shadow: 0 10px 28px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+  --section-spacing: 2.25rem;
+}
+
 /* Page wrapper */
 .about-page {
-  max-width: 980px;
+  max-width: 960px;
   margin: 0 auto;
-  padding: calc(var(--spacing) * 1.75) var(--spacing) calc(var(--spacing) * 2.25);
+  padding: 2.25rem 1rem 3rem;
   color: var(--text-color);
 }
 
 /* Section spacing */
-.about-page section { margin-bottom: calc(var(--spacing) * 1.75); }
+.about-page section { margin-bottom: var(--section-spacing); }
 
-/* Intro */
+/* Intro (no card, just hero-ish text) */
 .about-page .intro {
   text-align: center;
-  margin-bottom: calc(var(--spacing) * 2);
+  margin-bottom: calc(var(--section-spacing) * 0.9);
 }
 .intro h1 {
-  font-size: clamp(1.9rem, 3.1vw, 2.6rem);
-  margin: 0 0 .5rem;
+  font-size: clamp(2rem, 3.4vw, 2.75rem);
+  margin: 0 0 .6rem;
   font-weight: 800;
   letter-spacing: .2px;
+  background: linear-gradient(45deg, var(--accent-color), #8882a5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 .intro p {
-  font-size: clamp(1rem, .98rem + .25vw, 1.125rem);
-  line-height: 1.7;
-  color: var(--meta-color);
+  font-size: clamp(1rem, 1.1rem + .2vw, 1.125rem);
+  line-height: 1.75;
+  color: var(--muted);
   margin: 0 auto;
   max-width: 70ch;
+}
+
+/* Card-like sections */
+.about-page .mission,
+.about-page .coverage,
+.about-page .team,
+.about-page .join {
+  position: relative;
+  background:
+    radial-gradient(130% 170% at 100% -40%, color-mix(in oklab, var(--accent-color) 14%, transparent) 0%, transparent 60%),
+    linear-gradient(180deg, var(--card-bg), #141414);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--card-radius);
+  box-shadow: var(--shadow);
+  padding: clamp(1rem, 3vw, 1.5rem) clamp(1rem, 3.5vw, 1.75rem);
+  overflow: clip;
 }
 
 /* Top ribbon accent */
@@ -105,9 +104,9 @@ comes from real experience and genuine curiosity. I started this blog to offer s
 .about-page .team::before,
 .about-page .join::before {
   content: "";
-  position: absolute; left: 0; right: 0; top: 0; height: 3px;
-  background: var(--cosmic-gradient);
-  opacity: .95;
+  position: absolute; left: 0; right: 0; top: 0; height: 4px;
+  background: linear-gradient(90deg, var(--accent-color), color-mix(in oklab, var(--accent-color) 40%, #8882a5));
+  opacity: .8;
 }
 
 /* Section headings */
@@ -115,19 +114,23 @@ comes from real experience and genuine curiosity. I started this blog to offer s
 .about-page .coverage h2,
 .about-page .team h2,
 .about-page .join h2 {
-  margin: 0 0 .4rem;
-  font-size: clamp(1.25rem, 1.05rem + .65vw, 1.85rem);
+  margin: 0 0 .5rem;
+  font-size: clamp(1.35rem, 1.2rem + .6vw, 2rem);
   font-weight: 800;
   letter-spacing: .2px;
+  background: linear-gradient(45deg, var(--accent-color), #8882a5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 /* Body copy */
 .about-page .mission p,
 .about-page .team p {
   margin: 0;
-  color: var(--meta-color);
-  font-size: .98rem;
-  line-height: 1.7;
+  color: var(--muted);
+  line-height: 1.8;
+  font-size: 1rem;
 }
 
 /* Coverage list */
@@ -136,75 +139,79 @@ comes from real experience and genuine curiosity. I started this blog to offer s
   padding: 0;
   margin: .25rem 0 0;
   display: grid;
-  gap: .4rem .75rem;
+  gap: .5rem .75rem;
   grid-template-columns: 1fr;
 }
 .coverage li {
-  color: var(--meta-color);
-  font-size: .98rem;
-  line-height: 1.65;
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 1rem;
   position: relative;
-  padding-left: 1.15rem;
+  padding-left: 1.25rem;
 }
 .coverage li::before {
   content: "";
   position: absolute;
   left: 0; top: .65em;
-  width: .46rem; height: .46rem;
+  width: .5rem; height: .5rem;
   border-radius: 999px;
-  background: var(--cosmic-gradient);
-  box-shadow: 0 0 0 2px rgba(255,0,60,.2);
+  background: radial-gradient(circle at 40% 40%, var(--accent-color), #8882a5);
+  box-shadow: 0 0 0 2px rgba(169, 180, 255, 0.15);
 }
 @media (min-width: 720px) {
   .coverage ul { grid-template-columns: 1fr 1fr; }
 }
 
-/* CTA BUTTON — the only hover-animated element */
+/* Primary button */
 .btn-primary {
+  --cta-accent: var(--accent-color);
   display: inline-flex;
   align-items: center;
   gap: .5rem;
-  padding: .78rem 1.15rem;
+  padding: .85rem 1.3rem;
   border-radius: 999px;
   text-decoration: none;
-  font-weight: 750;
+  font-weight: 700;
   letter-spacing: .2px;
-  color: #ffffff;
-  background: var(--cosmic-gradient);
-  border: 1px solid var(--brand-red-darker);
-  box-shadow: 0 8px 22px rgba(255,0,60,.28);
-  transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+  color: #121212;
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--cta-accent) 100%, #000 0%),
+    color-mix(in oklab, var(--cta-accent) 85%, #000 15%)
+  );
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.12);
+  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
 }
 .btn-primary::after {
   content: "→";
   opacity: .9;
-  transition: transform .18s ease;
+  transform: translateX(0);
+  transition: transform .18s ease, opacity .18s ease;
 }
 .btn-primary:hover {
   transform: translateY(-1px);
-  filter: brightness(1.1);
-  box-shadow: 0 12px 28px rgba(255,0,60,.36);
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--cta-accent) 100%, #000 0%),
+    color-mix(in oklab, var(--cta-accent) 95%, #000 5%)
+  );
+  box-shadow: 0 12px 28px rgba(0,0,0,0.28);
 }
-.btn-primary:hover::after { transform: translateX(3px); }
-.btn-primary:active {
-  transform: translateY(0);
-  box-shadow: 0 6px 16px rgba(255,0,60,.22);
-}
+.btn-primary:hover::after { transform: translateX(2px); }
+.btn-primary:active { transform: translateY(0); box-shadow: 0 6px 16px rgba(0,0,0,0.2); }
 .btn-primary:focus-visible {
   outline: none;
   box-shadow:
-    0 0 0 3px rgba(255,255,255,.4),
-    0 0 0 6px var(--brand-red-bg);
+    0 0 0 3px rgba(255,255,255,0.3),
+    0 0 0 6px color-mix(in oklab, var(--cta-accent) 35%, transparent);
 }
 
-/* Button placement */
-.about-page .join .btn-primary { margin-top: .6rem; }
-
-/* Content rhythm */
-.about-page :where(p, ul, ol) + :where(p, ul, ol) { margin-top: .55rem; }
+/* Join section spacing */
+.about-page .join .btn-primary { margin-top: .75rem; }
 
 /* Mobile polish */
 @media (max-width: 640px) {
-  .about-page { padding: calc(var(--spacing) * 1.4) var(--spacing) calc(var(--spacing) * 2); }
+  .about-page { padding: 1.75rem 1rem 2.25rem; }
 }
 </style>
