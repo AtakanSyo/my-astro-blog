@@ -30,8 +30,31 @@ slug: explore-scientific-ed80-review
 imageDir: /images/explore-scientific-ed80-review
 keywords:
   - Explore Scientific ED80
+prosCons:
+  pros:
+    - "Decent optics"
+    - "Decently priced and easy to use for beginner astrophotographers"
+    - "Works with smaller equatorial mounts"
+    - "Great for visual observation"
+  cons:
+    - "Pretty much no optical improvements over a good doublet, but heavier"
+    - "Vignettes with full-frame sensors and cannot be used with a focal reducer"
+    - "Mediocre focuser"
+    - "Annoying mounting hardware"
+    - "Needs a good mount and autoguiding"
+quickSpecs:
+  - "80 mm (3.2”) Aperture"
+  - "480 mm Focal Length"
+  - "f/6"
+  - "Triplet FCD-1 (FPL-51 equiv.) optics"
+  - "Refractor"
+  - "Astrograph"
+  - "Dual-speed rotatable 2” Crayford focuser"
 ---
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import ProsCons from '../../components/ProsCons.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
 
 <h2>Introduction</h2>
 
@@ -48,62 +71,11 @@ import Affiliates from '../../components/Affiliates.astro'
   Scientific triplet refractors make great scopes for visual observation and were seemingly designed for 
   such, with imaging capabilities as more of an afterthought.</p>
 
-<section class="info-tags">
-  <h3>Info Tags</h3>
-  <ul>
-    <li>80 mm (3.2”) Aperture</li>
-    <li>480 mm Focal Length</li>
-    <li>f/6</li>
-    <li>Triplet FCD-1 (FPL-51 equiv.) optics</li>
-    <li>Refractor</li>
-    <li>Astrograph</li>
-    <li>Dual-speed rotatable 2” Crayford focuser</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-      <li>Decent optics</li>
-      <li>Decently priced and easy to use for beginner astrophotographers</li>
-      <li>Works with smaller equatorial mounts</li>
-      <li>Great for visual observation</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-      <li>Pretty much no optical improvements over a good doublet, but heavier</li>
-      <li>Vignettes with full-frame sensors and cannot be used with a focal reducer</li>
-      <li>Mediocre focuser</li>
-      <li>Annoying mounting hardware</li>
-      <li>Needs a good mount and autoguiding</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Rating</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Mechanics</span>
-      <span class="score">{frontmatter.rating.mechanics}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Value</span>
-      <span class="score">{frontmatter.rating.value}/10</span>
-    </div>
-  </div>
-</section>
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

@@ -32,64 +32,36 @@ keywords:
   - Celestron PowerSeeker 127EQ
   - beginner telescope
   - Bird-Jones telescope
+quickSpecs:
+  - "127 mm (5″) Aperture"
+  - "1000 mm Focal Length (with corrector lens)"
+  - "f/7.9 Bird-Jones Reflector"
+  - "EQ-1 Equatorial Mount"
+prosCons:
+  pros:
+    - "Large 127 mm aperture at a low price"
+    - "Mount is capable of carrying the optical tube"
+    - "Lightweight and portable overall"
+  cons:
+    - "Bird-Jones optical design poorly implemented"
+    - "Corrector lens inside focuser complicates collimation"
+    - "Noticeable optical aberrations and color inaccuracies"
+    - "Cheap accessories that need upgrading"
+    - "Misleading specs compared to true parabolic reflectors"
 ---
 
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
+import ProsCons from '../../components/ProsCons.astro'
 
 <p>The Celestron PowerSeeker 127EQ is one of the most widely marketed beginner telescopes, but unfortunately, it is also one of the most disappointing. While its specifications look impressive on paper — a 127 mm aperture and 1000 mm focal length — the design is a low-cost implementation of a Bird-Jones reflector, and the results are compromised optics, frustrating collimation, and underwhelming views. Beginners lured in by the numbers often end up frustrated with the experience.</p>
 
-<section class="info-tags">
-  <h3>Quick Specs</h3>
-  <ul>
-    <li>127 mm (5″) Aperture</li>
-    <li>1000 mm Focal Length (with corrector lens)</li>
-    <li>f/7.9 Bird-Jones Reflector</li>
-    <li>EQ-1 Equatorial Mount</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-      <li>Large 127 mm aperture at a low price</li>
-      <li>Mount is capable of carrying the optical tube</li>
-      <li>Lightweight and portable overall</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-      <li>Bird-Jones optical design poorly implemented</li>
-      <li>Corrector lens inside focuser complicates collimation</li>
-      <li>Noticeable optical aberrations and color inaccuracies</li>
-      <li>Cheap accessories that need upgrading</li>
-      <li>Misleading specs compared to true parabolic reflectors</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Overall</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Mount</span>
-      <span class="score">{frontmatter.rating.mount}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Accessories</span>
-      <span class="score">{frontmatter.rating.accessories}/10</span>
-    </div>
-  </div>
-</section>
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

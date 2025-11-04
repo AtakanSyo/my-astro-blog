@@ -31,9 +31,30 @@ slug: celestron-firstscope-review
 imageDir: /images/celestron-firstscope-review
 keywords:
   - Celestron FirstScope
+prosCons:
+  pros:
+    - "76 mm aperture delivers clear lunar and planetary views"
+    - "Stable, smooth tabletop Dobsonian mount"
+    - "Ultra-portable and lightweight"
+    - "Acts as its own finderscope at 20×–30×"
+  cons:
+    - "Included eyepieces are low-quality"
+    - "Primary mirror is not collimatable"
+    - "Spherical mirror design causes edge aberrations"
+    - "No dedicated finderscope"
+quickSpecs:
+  - "76 mm (3″) Aperture"
+  - "300 mm Focal Length"
+  - "f/4"
+  - "Tabletop Dobsonian Mount"
+  - "1.25″ Focuser"
+  - "5.5 lbs"
 ---
 
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import ProsCons from '../../components/ProsCons.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
 
 <p>The Celestron FirstScope is one of the most popular beginner telescopes, widely praised for its portability and ease of use. Reports from owners indicate that it has solid build quality and optics that, while basic, are capable enough to give first-time users a satisfying introduction to astronomy.</p>
 
@@ -45,60 +66,11 @@ import Affiliates from '../../components/Affiliates.astro'
 
 <p>While the Celestron FirstScope is not a high-powered instrument, its portability, price, and user-friendly mount make it a thoughtful gift or an ideal way to introduce children to stargazing.</p>
 
-<section class="info-tags">
-  <h3>Info Tags</h3>
-  <ul>
-    <li>76 mm (3″) Aperture</li>
-    <li>300 mm Focal Length</li>
-    <li>f/4</li>
-    <li>Tabletop Dobsonian Mount</li>
-    <li>1.25″ Focuser</li>
-    <li>5.5 lbs</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-      <li>76 mm aperture delivers clear lunar and planetary views</li>
-      <li>Stable, smooth tabletop Dobsonian mount</li>
-      <li>Ultra-portable and lightweight</li>
-      <li>Acts as its own finderscope at 20×–30×</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-      <li>Included eyepieces are low-quality</li>
-      <li>Primary mirror is not collimatable</li>
-      <li>Spherical mirror design causes edge aberrations</li>
-      <li>No dedicated finderscope</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Overall</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Mount</span>
-      <span class="score">{frontmatter.rating.mount}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Accessories</span>
-      <span class="score">{frontmatter.rating.accessories}/10</span>
-    </div>
-  </div>
-</section>
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

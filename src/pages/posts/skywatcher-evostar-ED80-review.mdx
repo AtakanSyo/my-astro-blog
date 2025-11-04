@@ -29,69 +29,41 @@ slug: skywatcher-evostar-ed80-review
 imageDir: /images/skywatcher-evostar-ed80-review
 keywords:
   - Skywatcher EvoStar ED80
+prosCons:
+  pros:
+    - "Great optics"
+    - "Ideal size and price for beginner astrophotographers"
+    - "f/7.5 speed doesn’t urgently require a field flattener for smaller sensors"
+    - "Useful for visual observing and accessories are provided to enable such"
+  cons:
+    - "f/7.5 speed and 600mm focal length poor for large targets & require better tracking/guiding"
+    - "Cannot balance without purchase of a longer dovetail rail in some cases"
+    - "Field limited to either full frame at f/7.5 or APS-C + reducer"
+    - "ED doublet design produces slightly inferior images to a triplet or Petzval system"
+quickSpecs:
+  - "80mm (3.2”) Aperture"
+  - "600mm Focal Length"
+  - "f/7.5"
+  - "Doublet FPL-53 optics"
+  - "Refractor"
+  - "Astrograph"
+  - "Dual Speed 2” Crayford Focuser"
 ---
 
 import Affiliates from '../../components/Affiliates.astro';
+import Ratings from '../../components/Ratings.astro'
+import ProsCons from '../../components/ProsCons.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
 
 <h2>Introduction</h2>
 
 <p class="highlight">The Sky-Watcher EvoStar 80ED is a budget-friendly option for beginner astrophotographers, offering sharp images with its FPL-53 ED doublet optics. While it may not be as high quality as more expensive triplet refractors like the Esprit, it is still capable of imaging larger deep-sky objects and can be mounted on medium-duty EQ5 class mounts such as the Sky-Watcher HEQ5 Pro for this task. Overall, the EvoStar 80ED offers good value for its price, and it also includes a full complement of accessories for you to use it for visual observation atop a suitable mount.</p>
 
-<section class="info-tags">
-  <h3>Info Tags</h3>
-  <ul>
-    <li>80mm (3.2”) Aperture</li>
-    <li>600mm Focal Length</li>
-    <li>f/7.5</li>
-    <li>Doublet FPL-53 optics</li>
-    <li>Refractor</li>
-    <li>Astrograph</li>
-    <li>Dual Speed 2” Crayford Focuser</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-      <li>Great optics</li>
-      <li>Ideal size and price for beginner astrophotographers</li>
-      <li>f/7.5 speed doesn’t urgently require a field flattener for smaller sensors</li>
-      <li>Useful for visual observing and accessories are provided to enable such</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-      <li>f/7.5 speed and 600mm focal length poor for large targets &amp; require better tracking/guiding</li>
-      <li>Cannot balance without purchase of a longer dovetail rail in some cases</li>
-      <li>Field limited to either full frame at f/7.5 or APS-C + reducer</li>
-      <li>ED doublet design produces slightly inferior images to a triplet or Petzval system</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Rating</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Mechanics</span>
-      <span class="score">{frontmatter.rating.mechanics}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Value</span>
-      <span class="score">{frontmatter.rating.value}/10</span>
-    </div>
-  </div>
-</section>
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

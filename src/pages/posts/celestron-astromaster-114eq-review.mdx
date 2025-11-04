@@ -28,9 +28,28 @@ slug: celestron-astromaster-114eq-review
 imageDir: /images/celestron-astromaster-114eq-review
 keywords:
   - Celestron AstroMaster 114EQ
+prosCons:
+  pros:
+    - "Includes a usable red-dot finder"
+    - "10 mm eyepiece performs acceptably"
+    - "Equatorial mount allows manual tracking"
+  cons:
+    - "Bird-Jones optical design causes soft, distorted images"
+    - "Corrector lens inside the focuser makes collimation nearly impossible"
+    - "Plastic mount components cause vibration and instability"
+    - "Misleading marketing and poor value for the price"
+quickSpecs:
+  - "114 mm (4.5”) Aperture"
+  - "1000 mm Focal Length (via corrector lens)"
+  - "Bird–Jones Spherical Mirror System"
+  - "Equatorial Mount"
+  - "Manual slow-motion controls"
 ---
 
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import ProsCons from '../../components/ProsCons.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
 
 <h2>Introduction</h2>
 
@@ -40,58 +59,11 @@ import Affiliates from '../../components/Affiliates.astro'
 User reports and independent testing indicate that the AstroMaster 114EQ prioritizes marketability over optical performance. The scope uses a spherical mirror with a permanently built-in corrector lens inside the focuser. This design makes accurate collimation nearly impossible, introduces optical distortion, and results in soft, washed-out views that disappoint most beginners. At this price, significantly better telescopes exist, such as the Zhumell Z130, SkyWatcher Heritage 130P, and Meade Infinity 102.
 </p>
 
-<section class="info-tags">
-  <h3>Info Tags</h3>
-  <ul>
-    <li>114 mm (4.5”) Aperture</li>
-    <li>1000 mm Focal Length (via corrector lens)</li>
-    <li>Bird–Jones Spherical Mirror System</li>
-    <li>Equatorial Mount</li>
-    <li>Manual slow-motion controls</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-      <li>Includes a usable red-dot finder</li>
-      <li>10 mm eyepiece performs acceptably</li>
-      <li>Equatorial mount allows manual tracking</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-      <li>Bird-Jones optical design causes soft, distorted images</li>
-      <li>Corrector lens inside the focuser makes collimation nearly impossible</li>
-      <li>Plastic mount components cause vibration and instability</li>
-      <li>Misleading marketing and poor value for the price</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Overall</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Mechanics</span>
-      <span class="score">{frontmatter.rating.mechanics}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Value</span>
-      <span class="score">{frontmatter.rating.value}/10</span>
-    </div>
-  </div>
-</section>
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

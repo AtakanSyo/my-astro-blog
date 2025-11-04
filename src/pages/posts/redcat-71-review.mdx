@@ -30,70 +30,39 @@ slug: redcat-71-review
 imageDir: /images/redcat-71-review
 keywords:
   - RedCat 71
+prosCons:
+  pros:
+    - "Good optics"
+    - "A great astrophotography scope for beginners"
+    - "Fairly lightweight and portable"
+    - "Large field of view"
+  cons:
+    - "Short focal length limits target choices and image scale"
+    - "Not designed for monochrome cameras"
+    - "Rather expensive"
+    - "Needs an HEQ5-class mount for the best results"
+quickSpecs:
+  - "71mm (2.8”) Aperture"
+  - "350mm Focal Length"
+  - "f/4.9"
+  - "Petzval doublet optics"
+  - "Included field rotator"
+  - "Refractor"
+  - "Astrograph"
 ---
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import ProsCons from '../../components/ProsCons.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
 
 <h2>Introduction</h2>
 
 <p class="highlight">Like the smaller RedCat 51, the William Optics RedCat 71 is a high-quality imaging refractor that combines the best aspects of telephoto lenses and traditional astronomical refracting telescopes into a high-quality, well-arranged, and easy-to-use package. The RedCat 71 is a little more expensive and demands more work to use than the smaller RedCat 51, but is still a great telescope for those starting out in astronomical imaging. The RedCat 71 has an even larger image circle than the 51mm model at 48mm and works with almost any color astronomical camera, mirrorless camera, or DSLR. It needs no external field flattener and accepts a wide variety of accessories to improve your imaging experience.</p>
-<section class="info-tags">
-  <h3>Info Tags</h3>
-  <ul>
-    <li>71mm (2.8”) Aperture</li>
-    <li>350mm Focal Length</li>
-    <li>f/4.9</li>
-    <li>Petzval doublet optics</li>
-    <li>Included field rotator</li>
-    <li>Refractor</li>
-    <li>Astrograph</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-        <li>Good optics</li>
-        <li>A great astrophotography scope for beginners</li>
-        <li>Fairly lightweight and portable</li>
-        <li>Large field of view</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-        <li>Short focal length limits target choices and image scale</li>
-        <li>Not designed for monochrome cameras</li>
-        <li>Rather expensive</li>
-        <li>Needs an HEQ5-class mount for the best results</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Rating</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Mechanics</span>
-      <span class="score">{frontmatter.rating.mechanics}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Value</span>
-      <span class="score">{frontmatter.rating.value}/10</span>
-    </div>
-  </div>
-</section>
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

@@ -29,73 +29,41 @@ slug: skywatcher-flextube-250p-review
 imageDir: /images/skywatcher-flextube-250p-review
 keywords:
   - SkyWatcher Flextube 250P
+prosCons:
+  pros:
+    - "Great optics"
+    - "Lots of aperture"
+    - "Fairly portable"
+    - "Decent included accessory set"
+    - "Collapsible tube saves on storage space and is easier to carry"
+  cons:
+    - "Not actually any lighter than a solid-tubed instrument"
+    - "Needs a shroud and other upgrades/DIY modifications to perform well"
+    - "Finderscope can be confusing to use"
+    - "Annoying adapter system for eyepieces"
+    - "Bearings poorly designed"
+quickSpecs:
+  - "250mm (10”) Aperture"
+  - "1200mm Focal Length"
+  - "f/4.7"
+  - "2 included eyepieces"
+  - "9x50 right-angle finderscope"
+  - "Dobsonian"
 ---
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import ProsCons from '../../components/ProsCons.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
 
 
 <h2>Introduction</h2>
 
 <p class="highlight">The Sky-Watcher Flextube 250P, otherwise known as the 10” Collapsible, is a great scope with a slightly more compact form factor than traditional, solid-tubed Dobsonians of its size. Almost any 10” Dobsonian is great for beginners or experienced users, providing significantly brighter views than a smaller 6” or 8” scope with a minimal increase in bulk or weight. However, there are a few design compromises made with the FlexTube design, as well as all of Sky-Watcher’s Dobsonians, which make the Flextube 250P less-than-ideal for all use cases.</p>
-<section class="info-tags">
-  <h3>Info Tags</h3>
-  <ul>
-    <li>250mm (10”) Aperture</li>
-    <li>1200mm Focal Length</li>
-    <li>f/4.7</li>
-    <li>2 included eyepieces</li>
-    <li>9x50 right-angle finderscope</li>
-    <li>Dobsonian</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-        <li>Great optics</li>
-        <li>Lots of aperture</li>
-        <li>Fairly portable</li>
-        <li>Decent included accessory set</li>
-        <li>Collapsible tube saves on storage space and is easier to carry</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-        <li>Not actually any lighter than a solid-tubed instrument</li>
-        <li>Needs a shroud and other upgrades/DIY modifications to perform well</li>
-        <li>Finderscope can be confusing to use</li>
-        <li>Annoying adapter system for eyepieces</li>
-        <li>Bearings poorly designed</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Rating</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Mount</span>
-      <span class="score">{frontmatter.rating.mount}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Accessories</span>
-      <span class="score">{frontmatter.rating.accessories}/10</span>
-    </div>
-  </div>
-</section>
-
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

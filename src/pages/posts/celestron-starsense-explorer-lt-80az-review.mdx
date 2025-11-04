@@ -30,32 +30,25 @@ slug: celestron-starsense-explorer-lt-80az-review
 imageDir: /images/celestron-starsense-explorer-lt-80az-review
 keywords:
   - Celestron StarSense Explorer LT 80AZ
+prosCons:
+  pros:
+    - "Accurate StarSense app guidance"
+    - "Quick, one-step alignment"
+    - "Clear planetary and lunar views"
+    - "Stable tripod with pads"
+    - "Affordable"
+  cons:
+    - "Below-average optics"
+    - "Poor deep-space performance"
+    - "Flimsy plastic mount"
+    - "Cheap accessories"
+    - "Sticky 1.25″ focuser"
+    - "Not for serious astrophotography"
 ---
 import Affiliates from '../../components/Affiliates.astro'
+import ProsCons from '../../components/ProsCons.astro'
 
-<section class="pros-cons">
-<div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-      <li>Accurate StarSense app guidance</li>
-      <li>Quick, one-step alignment</li>
-      <li>Clear planetary and lunar views</li>
-      <li>Stable tripod with pads</li>
-      <li>Affordable</li>
-    </ul>
-</div>
-<div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-      <li>Below-average optics</li>
-      <li>Poor deep-space performance</li>
-      <li>Flimsy plastic mount</li>
-      <li>Cheap accessories</li>
-      <li>Sticky 1.25″ focuser</li>
-      <li>Not for serious astrophotography</li>
-    </ul>
-</div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

@@ -30,67 +30,39 @@ keywords:
   - Celestron NexStar Evolution 6
   - NexStar Evolution
   - Schmidt-Cassegrain
+prosCons:
+  pros:
+    - "High-quality computerized mount with metal gears"
+    - "Built-in WiFi and rechargeable battery"
+    - "Portable and compact Schmidt-Cassegrain design"
+    - "Excellent planetary and lunar performance"
+  cons:
+    - "Only 6″ of aperture at a premium price"
+    - "Deep-sky performance requires costly accessories"
+    - "Bundled eyepieces, finder, and diagonal are underwhelming"
+    - "SkyPortal app can be unreliable"
+quickSpecs:
+  - "150mm (6″) Aperture"
+  - "1500mm Focal Length"
+  - "f/10 Schmidt-Cassegrain"
+  - "Computerized alt-azimuth mount"
+  - "Built-in WiFi & Lithium battery"
+  - "Includes 13mm & 40mm Plössl eyepieces"
 ---
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import ProsCons from '../../components/ProsCons.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
 
 <h2>Introduction</h2>
 
 <p class="highlight">The Celestron NexStar Evolution 6 is often described as more of a high-tech mount than a powerhouse optical instrument. While the 6” Schmidt-Cassegrain optical tube is competent, the value of this package lies primarily in its computerized tracking, built-in WiFi, and rechargeable battery. In terms of raw aperture, comparable performance can be found in far less expensive reflectors—but the Evolution series offers portability and modern features that those scopes lack.</p>
 
-<section class="info-tags">
-  <h3>Info Tags</h3>
-  <ul>
-    <li>150mm (6″) Aperture</li>
-    <li>1500mm Focal Length</li>
-    <li>f/10 Schmidt-Cassegrain</li>
-    <li>Computerized alt-azimuth mount</li>
-    <li>Built-in WiFi & Lithium battery</li>
-    <li>Includes 13mm & 40mm Plössl eyepieces</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-        <li>High-quality computerized mount with metal gears</li>
-        <li>Built-in WiFi and rechargeable battery</li>
-        <li>Portable and compact Schmidt-Cassegrain design</li>
-        <li>Excellent planetary and lunar performance</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-        <li>Only 6″ of aperture at a premium price</li>
-        <li>Deep-sky performance requires costly accessories</li>
-        <li>Bundled eyepieces, finder, and diagonal are underwhelming</li>
-        <li>SkyPortal app can be unreliable</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Overall</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Mount</span>
-      <span class="score">{frontmatter.rating.mount}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Accessories</span>
-      <span class="score">{frontmatter.rating.accessories}/10</span>
-    </div>
-  </div>
-</section>
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

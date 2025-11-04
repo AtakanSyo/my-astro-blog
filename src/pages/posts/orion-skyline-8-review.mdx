@@ -27,68 +27,37 @@ slug: orion-skyline-8-review
 imageDir: /images/orion-skyline-8-review
 keywords:
   - Orion Skyline 8
+prosCons:
+  pros:
+    - "Great optics"
+    - "Dual-speed focuser"
+    - "Plenty of aperture"
+    - "Decent included accessory set"
+  cons:
+    - "Finderscope is somewhat difficult to use"
+    - "Expensive compared to similar and identical models from other brands"
+    - "Unusual bearings can be a little too smooth"
+quickSpecs:
+  - "203mm (8”) Aperture"
+  - "1200mm Focal Length"
+  - "f/5.9"
+  - "2 included eyepieces"
+  - "9x50 right-angle finderscope"
+  - "Dobsonian"
 ---
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import ProsCons from '../../components/ProsCons.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
 
 <h2>Introduction</h2>
 
 <p class="highlight">Orion’s SkyLine 8, the bigger sibling of the Orion Skyline 6, is another one of their imported scopes made by GSO - identical to the AD telescopes sold by Apertura, and the Z series deluxe Dobsonians sold by Zhumell, along with many others. The SkyLine 8 is a great scope, and comes with more features and accessories out of the box compared to the more basic 8” scopes sold at lower price tags. An 8” Dobsonian is considered by many to be the sweet spot for portability and aperture for beginners; a 6” or 10” is similarly sized physically but lighter/heavier respectively.</p>
-<section class="info-tags">
-  <h3>Info Tags</h3>
-  <ul>
-    <li>203mm (8”) Aperture</li>
-    <li>1200mm Focal Length</li>
-    <li>f/5.9</li>
-    <li>2 included eyepieces</li>
-    <li>9x50 right-angle finderscope</li>
-    <li>Dobsonian</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-        <li>Great optics</li>
-        <li>Dual-speed focuser</li>
-        <li>Plenty of aperture</li>
-        <li>Decent included accessory set</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-        <li>Finderscope is somewhat difficult to use</li>
-        <li>Expensive compared to similar and identical models from other brands</li>
-        <li>Unusual bearings can be a little too smooth</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Rating</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Mount</span>
-      <span class="score">{frontmatter.rating.mount}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Accessories</span>
-      <span class="score">{frontmatter.rating.accessories}/10</span>
-    </div>
-  </div>
-</section>
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

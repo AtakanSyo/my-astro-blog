@@ -27,71 +27,40 @@ slug: william-optics-zenithstar-73-review
 imageDir: /images/william-optics-zenithstar-73-review
 keywords:
   - William Optics ZenithStar 73
+prosCons:
+  pros:
+    - "Decent optics"
+    - "Ideal size and price for beginner astrophotographers"
+    - "Works with small equatorial mounts"
+    - "Large field of view with 35mm illuminated image circle"
+  cons:
+    - "Short focal length limits you to larger targets"
+    - "Heavier than a 60-62mm refractor or telephoto lens, requiring a true equatorial mount"
+    - "Requires a field flattener (sold separately) for acceptable images"
+quickSpecs:
+  - "73mm (2.8”) Aperture"
+  - "430mm Focal Length"
+  - "f/5.9"
+  - "Doublet FPL-53 optics"
+  - "Refractor"
+  - "Astrograph"
+  - "Dual Speed 2.5” Rack & Pinion Focuser"
 ---
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import ProsCons from '../../components/ProsCons.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
 
 <p class="highlight">The William Optics ZenithStar 73 III is an ideal telescope for wide-field deep-sky astrophotographers, regardless of whether you’re a beginner or an experienced imager.</p>
 <h2>Introduction</h2>
 
 <p>The William Optics ZenithStar 73 III is a popular choice among beginner astrophotographers thanks to its compact size, ease of use, and value for the money. It is an ED doublet refractor with mounting requirements less stringent than larger scopes, though it does require a true equatorial mount in the range of a 15-20 lb or higher stated weight capacity as opposed to a lightweight “star tracker” equatorial mount like smaller instruments.</p>
 <p>Other ED doublet refractors with identical optics and seemingly similar features to the ZenithStar 73 are plentiful, but the ZenithStar 73’s mechanical design and included features, while making it more expensive than competitors, save you a lot of money and hassle in shopping for better rings and various dovetail/bracket parts to rigidly attach the telescope to a suitable mount and guide scope.</p>
-<section class="info-tags">
-  <h3>Info Tags</h3>
-  <ul>
-    <li>73mm (2.8”) Aperture</li>
-    <li>430mm Focal Length</li>
-    <li>f/5.9</li>
-    <li>Doublet FPL-53 optics</li>
-    <li>Refractor</li>
-    <li>Astrograph</li>
-    <li>Dual Speed 2.5” Rack & Pinion Focuser</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-        <li>Decent optics</li>
-        <li>Ideal size and price for beginner astrophotographers</li>
-        <li>Works with small equatorial mounts</li>
-        <li>Large field of view with 35mm illuminated image circle</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-        <li>Short focal length limits you to larger targets</li>
-        <li>Heavier than a 60-62mm refractor or telephoto lens, requiring a true equatorial mount</li>
-        <li>Requires a field flattener (sold separately) for acceptable images</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Rating</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Mechanics</span>
-      <span class="score">{frontmatter.rating.mechanics}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Value</span>
-      <span class="score">{frontmatter.rating.value}/10</span>
-    </div>
-  </div>
-</section>
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

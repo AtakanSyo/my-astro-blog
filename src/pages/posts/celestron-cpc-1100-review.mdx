@@ -30,74 +30,43 @@ imageDir: /images/celestron-cpc-1100-gps-review
 keywords:
   - Celestron CPC 1100 GPS
   - C11 Schmidt-Cassegrain
+prosCons:
+  pros:
+    - "Huge 11” (280mm) aperture gathers plenty of light for awesome deep-sky views"
+    - "Fairly simple to set up and use"
+    - "Sharp optics great for planetary observing or imaging"
+    - "High-quality construction"
+  cons:
+    - "Fork/optical tube section is very heavy and not particularly compact"
+    - "Extremely long focal length means narrow field of view"
+    - "Needs a wedge for long-exposure astrophotography, increasing cost and setup effort"
+    - "Very expensive"
+quickSpecs:
+  - "280mm (11″) Aperture"
+  - "2800mm Focal Length"
+  - "f/10"
+  - "HyperStar compatible"
+  - "GoTo"
+  - "Computerized"
+  - "GPS"
+  - "Catadioptric"
 ---
 
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import ProsCons from '../../components/ProsCons.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
 
 <h2>Introduction</h2>
 
 <p>The Celestron CPC 1100 GPS is an absolute monster of a telescope, and probably isn’t best as a beginner or “only” instrument - but boy, does it deliver.</p>
 <p>Celestron has been offering Schmidt-Cassegrains atop double-armed fork mounts since their inception in the 1960s, and the CPC series telescopes are the last remnants of that era. The CPC 1100 is the largest of the three aperture options in the CPC line, and Celestron doesn’t sell a 14” CPC for a good reason - these fork mounts are massive! The CPC 1100 is a very capable instrument, but between its price tag, weight, and complexity, you should probably own or have owned at least one or two other telescopes so you know what you’re getting into.</p>
 
-<section class="info-tags">
-  <h3>Info Tags</h3>
-  <ul>
-    <li>280mm (11″) Aperture</li>
-    <li>2800mm Focal Length</li>
-    <li>f/10</li>
-    <li>HyperStar compatible</li>
-    <li>GoTo</li>
-    <li>Computerized</li>
-    <li>GPS</li>
-    <li>Catadioptric</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-      <li>Huge 11” (280mm) aperture gathers plenty of light for awesome deep-sky views</li>
-      <li>Fairly simple to set up and use</li>
-      <li>Sharp optics great for planetary observing or imaging</li>
-      <li>High-quality construction</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-      <li>Fork/optical tube section is very heavy and not particularly compact</li>
-      <li>Extremely long focal length means narrow field of view</li>
-      <li>Needs a wedge for long-exposure astrophotography, increasing cost and setup effort</li>
-      <li>Very expensive</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Rating</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Mount</span>
-      <span class="score">{frontmatter.rating.mount}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Accessories</span>
-      <span class="score">{frontmatter.rating.accessories}/10</span>
-    </div>
-  </div>
-</section>
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

@@ -30,67 +30,39 @@ keywords:
   - Celestron Inspire 100AZ
   - Beginner telescope
   - Celestron refractor
+prosCons:
+  pros:
+    - "100mm aperture provides solid beginner-level optics"
+    - "Sturdy steel tripod compared to most in this price range"
+    - "Innovative accessories: lens cap smartphone adapter, red flashlight"
+    - "Good lunar and planetary detail for beginners"
+  cons:
+    - "Plastic focuser is wobbly and imprecise"
+    - "Chromatic aberration visible on bright targets"
+    - "Mount is mostly plastic and not very stable"
+    - "Eyepieces and diagonal are basic quality"
+quickSpecs:
+  - "100mm (4″) Aperture"
+  - "660mm Focal Length"
+  - "f/6.6 Achromatic Refractor"
+  - "Alt-azimuth mount with pan handle"
+  - "Includes 10mm & 20mm Kellner eyepieces"
+  - "Integrated smartphone adapter lens cap & red flashlight"
 ---
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import ProsCons from '../../components/ProsCons.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
 
 <h2>Introduction</h2>
 
 <p class="highlight">The Celestron Inspire 100AZ is marketed as an easy-to-use refractor for beginners, with smart accessories and decent optics for its price. While the telescope delivers good planetary views and helpful extras, its plastic focuser remains a recurring criticism among reviewers, making it less appealing compared to sturdier alternatives.</p>
 
-<section class="info-tags">
-  <h3>Info Tags</h3>
-  <ul>
-    <li>100mm (4″) Aperture</li>
-    <li>660mm Focal Length</li>
-    <li>f/6.6 Achromatic Refractor</li>
-    <li>Alt-azimuth mount with pan handle</li>
-    <li>Includes 10mm & 20mm Kellner eyepieces</li>
-    <li>Integrated smartphone adapter lens cap & red flashlight</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-        <li>100mm aperture provides solid beginner-level optics</li>
-        <li>Sturdy steel tripod compared to most in this price range</li>
-        <li>Innovative accessories: lens cap smartphone adapter, red flashlight</li>
-        <li>Good lunar and planetary detail for beginners</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-        <li>Plastic focuser is wobbly and imprecise</li>
-        <li>Chromatic aberration visible on bright targets</li>
-        <li>Mount is mostly plastic and not very stable</li>
-        <li>Eyepieces and diagonal are basic quality</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Overall</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Mount</span>
-      <span class="score">{frontmatter.rating.mount}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Accessories</span>
-      <span class="score">{frontmatter.rating.accessories}/10</span>
-    </div>
-  </div>
-</section>
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

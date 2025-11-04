@@ -29,9 +29,31 @@ slug: seestar-s30-review
 imageDir: /images/seestar-s30-review
 keywords:
   - seestar s30
+prosCons:
+  pros:
+    - "Effortless setup and operation"
+    - "Apochromatic optics deliver clean, low-aberration stars"
+    - "Excellent app experience with automatic stacking"
+    - "Magnetic solar filter included"
+    - "Outstanding value for price"
+  cons:
+    - "Limited resolution due to 30 mm aperture"
+    - "Not suited for planetary detail"
+    - "Alt-az tracking can introduce slight edge rotation in long stacks"
+    - "Requires a phone or tablet to operate"
+quickSpecs:
+  - "30 mm Apochromatic Triplet"
+  - "150 mm Focal Length (f/5)"
+  - "Sony IMX662 Color Sensor"
+  - "Automated Go-To and Tracking"
+  - "Live Stacking Astrophotography"
+  - "Includes Magnetic Solar Filter"
 ---
 
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import ProsCons from '../../components/ProsCons.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
 
 <h2>Introduction</h2>
 
@@ -42,61 +64,11 @@ import Affiliates from '../../components/Affiliates.astro'
 Where most beginner telescopes demand patience and mechanical precision, the Seestar takes a software-first approach. Once powered on, it plate-solves using the sky itself as a reference, automatically finds focus, slews to the target, and begins collecting and stacking exposures. The user watches the image improve in real time. The design philosophy is clear: remove the work, preserve the wonder.
 </p>
 
-<section class="info-tags">
-  <h3>Info Tags</h3>
-  <ul>
-    <li>30 mm Apochromatic Triplet</li>
-    <li>150 mm Focal Length (f/5)</li>
-    <li>Sony IMX662 Color Sensor</li>
-    <li>Automated Go-To and Tracking</li>
-    <li>Live Stacking Astrophotography</li>
-    <li>Includes Magnetic Solar Filter</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-      <li>Effortless setup and operation</li>
-      <li>Apochromatic optics deliver clean, low-aberration stars</li>
-      <li>Excellent app experience with automatic stacking</li>
-      <li>Magnetic solar filter included</li>
-      <li>Outstanding value for price</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-      <li>Limited resolution due to 30 mm aperture</li>
-      <li>Not suited for planetary detail</li>
-      <li>Alt-az tracking can introduce slight edge rotation in long stacks</li>
-      <li>Requires a phone or tablet to operate</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Overall</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Mechanics</span>
-      <span class="score">{frontmatter.rating.mechanics}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Value</span>
-      <span class="score">{frontmatter.rating.value}/10</span>
-    </div>
-  </div>
-</section>
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

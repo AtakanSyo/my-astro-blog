@@ -27,74 +27,43 @@ slug: william-optics-zenithstar-81-review
 imageDir: /images/william-optics-zenithstar-81-review
 keywords:
   - William Optics ZenithStar 81
+prosCons:
+  pros:
+    - "Decent optics"
+    - "Ideal size and price for beginner astrophotographers"
+    - "Best with smaller equatorial mounts"
+    - "f/6.9 speed more tolerant of tilt/focus errors and offers acceptable images without a flattener"
+    - "Some usefulness for visual observing"
+  cons:
+    - "f/6.9 speed is slower, and 559mm focal length less optimal for large targets"
+    - "A little too short in focal length for galaxy imaging"
+    - "Heavier than smaller refractors"
+    - "ED doublet design produces slightly inferior images to a triplet or Petzval system"
+    - "Longer focal length and higher weight mean autoguiding and a good mount are of greater importance"
+quickSpecs:
+  - "81mm (3.2”) Aperture"
+  - "559mm Focal Length"
+  - "f/6.9"
+  - "Doublet FPL-53 optics"
+  - "Refractor"
+  - "Astrograph"
+  - "Dual Speed 2.5” Rack & Pinion Focuser"
 ---
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import ProsCons from '../../components/ProsCons.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
 
 <p class="highlight">The William Optics ZenithStar 81 is a great telescope for beginner astrophotographers and provides excellent value for the money, though it’s a little more demanding than smaller aperture instruments and slower in focal ratio.</p>
 <h2>Introduction</h2>
 
 <p>The William Optics ZenithStar 81 is a well-designed scope for beginner astrophotographers or those on a tight budget, offering sharp images with its doublet optics (though slightly inferior to a quality triplet like the GT81) and plenty of capability for imaging larger deep-sky objects, while still fitting on medium-duty mounts of the EQ5 class range which are sold for slightly more than the cost of the ZenithStar 81 itself. Other 80mm f/7 doublets may offer identical optical performance to the ZenithStar 81 at a lower price but have a lesser quality fit and finish, along with fewer mounting options.</p>
 <p>If you want to get started in deep-sky astrophotography without requiring autoguiding or a beefy mount, the ZenithStar 73 and ZenithStar 61, also offered by William Optics, are great scopes, either of which offer a wider field of view and less stringent tracking or guiding requirements than the larger ZenithStar 81 but the same great features and optics.</p>
-<section class="info-tags">
-  <h3>Info Tags</h3>
-  <ul>
-    <li>81mm (3.2”) Aperture</li>
-    <li>559mm Focal Length</li>
-    <li>f/6.9</li>
-    <li>Doublet FPL-53 optics</li>
-    <li>Refractor</li>
-    <li>Astrograph</li>
-    <li>Dual Speed 2.5” Rack & Pinion Focuser</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-        <li>Decent optics</li>
-        <li>Ideal size and price for beginner astrophotographers</li>
-        <li>Best with smaller equatorial mounts</li>
-        <li>f/6.9 speed more tolerant of tilt/focus errors and offers acceptable images without a flattener</li>
-        <li>Some usefulness for visual observing</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-        <li>f/6.9 speed is slower, and 559mm focal length less optimal for large targets</li>
-        <li>A little too short in focal length for galaxy imaging</li>
-        <li>Heavier than smaller refractors</li>
-        <li>ED doublet design produces slightly inferior images to a triplet or Petzval system</li>
-        <li>Longer focal length and higher weight mean autoguiding and a good mount are of greater importance</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Rating</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Mechanics</span>
-      <span class="score">{frontmatter.rating.mechanics}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Value</span>
-      <span class="score">{frontmatter.rating.value}/10</span>
-    </div>
-  </div>
-</section>
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

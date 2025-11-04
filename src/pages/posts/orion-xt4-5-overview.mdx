@@ -33,65 +33,37 @@ keywords:
   - Orion SkyQuest
   - Dobsonian telescope
   - beginner telescope
+quickSpecs:
+  - "114 mm (4.5″) Aperture"
+  - "900 mm Focal Length"
+  - "f/7.9 Newtonian Reflector"
+  - "Dobsonian Mount"
+prosCons:
+  pros:
+    - "Strong planetary and lunar performance for its size"
+    - "Long focal length makes high magnifications easy"
+    - "Easier collimation compared to shorter reflectors"
+    - "Solid, smooth Dobsonian base"
+    - "Good-quality Plössl eyepieces included"
+  cons:
+    - "Narrow field of view limits deep-sky enjoyment"
+    - "Ergonomics can be awkward for adults"
+    - "Included finder is small and difficult to use"
+    - "Requires a stand or table for comfortable viewing height"
 ---
 
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
+import ProsCons from '../../components/ProsCons.astro'
 
 <p>The Orion SkyQuest XT4.5 is a quirky little Dobsonian with a design you won’t see in many other beginner scopes. Its unusually long tube houses a spherical mirror, a choice that Orion offset with clever engineering. The result? A telescope that delivers surprisingly sharp planetary views, though with compromises in ergonomics and wide-field deep-sky observing. Depending on what you’re looking for, this scope can either feel awkward or like a gem you’ll keep for years.</p>
 
-<section class="info-tags">
-  <h3>Quick Specs</h3>
-  <ul>
-    <li>114 mm (4.5″) Aperture</li>
-    <li>900 mm Focal Length</li>
-    <li>f/7.9 Newtonian Reflector</li>
-    <li>Dobsonian Mount</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-      <li>Strong planetary and lunar performance for its size</li>
-      <li>Long focal length makes high magnifications easy</li>
-      <li>Easier collimation compared to shorter reflectors</li>
-      <li>Solid, smooth Dobsonian base</li>
-      <li>Good-quality Plössl eyepieces included</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-      <li>Narrow field of view limits deep-sky enjoyment</li>
-      <li>Ergonomics can be awkward for adults</li>
-      <li>Included finder is small and difficult to use</li>
-      <li>Requires a stand or table for comfortable viewing height</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Overall</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Mount</span>
-      <span class="score">{frontmatter.rating.mount}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Accessories</span>
-      <span class="score">{frontmatter.rating.accessories}/10</span>
-    </div>
-  </div>
-</section>
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

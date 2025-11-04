@@ -30,68 +30,40 @@ keywords:
   - Meade Infinity 90
   - Meade Refractor Telescope
   - Beginner Telescope
+prosCons:
+  pros:
+    - "Excellent lunar and planetary performance for its price"
+    - "Portable and lightweight design"
+    - "Better-than-average tripod stability for an entry-level scope"
+    - "Metal rack-and-pinion focuser adds durability"
+  cons:
+    - "90mm aperture limits faint deep-sky visibility"
+    - "Plastic alt-az mount struggles at high magnification"
+    - "Bundled diagonal dims and distorts images"
+    - "Stock eyepieces are serviceable but benefit from upgrades"
+quickSpecs:
+  - "90mm (3.5″) Aperture"
+  - "600mm Focal Length"
+  - "f/6.7 Achromatic Refractor"
+  - "Manual Alt-Azimuth Mount with Slow-Motion Controls"
+  - "1.25” Rack-and-Pinion Metal Focuser"
+  - "Includes 26mm, 9mm, and 6.3mm Kellner Eyepieces"
+  - "Red Dot Finder"
 ---
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import ProsCons from '../../components/ProsCons.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
 
 <h2>Introduction</h2>
 
 <p class="highlight">The Meade Infinity 90mm AZ Refractor is often recommended as a beginner-friendly telescope. Its 90mm aperture and relatively long focal length allow for solid planetary and lunar performance, while keeping the design portable and simple to use. It’s not a powerhouse for faint deep-sky objects, but for bright clusters, nebulae, and Solar System targets, it provides very good views at this price point.</p>
 
-<section class="info-tags">
-  <h3>Info Tags</h3>
-  <ul>
-    <li>90mm (3.5″) Aperture</li>
-    <li>600mm Focal Length</li>
-    <li>f/6.7 Achromatic Refractor</li>
-    <li>Manual Alt-Azimuth Mount with Slow-Motion Controls</li>
-    <li>1.25” Rack-and-Pinion Metal Focuser</li>
-    <li>Includes 26mm, 9mm, and 6.3mm Kellner Eyepieces</li>
-    <li>Red Dot Finder</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-        <li>Excellent lunar and planetary performance for its price</li>
-        <li>Portable and lightweight design</li>
-        <li>Better-than-average tripod stability for an entry-level scope</li>
-        <li>Metal rack-and-pinion focuser adds durability</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-        <li>90mm aperture limits faint deep-sky visibility</li>
-        <li>Plastic alt-az mount struggles at high magnification</li>
-        <li>Bundled diagonal dims and distorts images</li>
-        <li>Stock eyepieces are serviceable but benefit from upgrades</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Overall</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Mount</span>
-      <span class="score">{frontmatter.rating.mount}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Accessories</span>
-      <span class="score">{frontmatter.rating.accessories}/10</span>
-    </div>
-  </div>
-</section>
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

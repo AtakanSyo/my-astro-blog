@@ -31,33 +31,29 @@ slug: celestron-starsense-explorer-dx-130az-review
 imageDir: /images/celestron-starsense-explorer-dx-130az-review
 keywords:
   - Celestron StarSense Explorer DX 130AZ
+prosCons:
+  pros:
+    - "Impressive StarSense app"
+    - "Versatile f/5 reflector"
+    - "Sturdy steel optical tube"
+    - "2″ focuser for wider views"
+    - "Secure adjustable phone mount"
+    - "Tripod with vibration pads"
+  cons:
+    - "Average optics quality"
+    - "Requires regular collimation"
+    - "Flimsy plastic mount"
+    - "App struggles in light pollution"
+    - "Cheap eyepieces and diagonal"
+    - "Not for long-exposure astrophotography"
 ---
 import Affiliates from '../../components/Affiliates.astro'
+import ProsCons from '../../components/ProsCons.astro'
+import Ratings from '../../components/Ratings.astro'
 
-<section class="pros-cons">
-<div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-      <li>Impressive StarSense app</li>
-      <li>Versatile f/5 reflector</li>
-      <li>Sturdy steel optical tube</li>
-      <li>2″ focuser for wider views</li>
-      <li>Secure adjustable phone mount</li>
-      <li>Tripod with vibration pads</li>
-    </ul>
-</div>
-<div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-      <li>Average optics quality</li>
-      <li>Requires regular collimation</li>
-      <li>Flimsy plastic mount</li>
-      <li>App struggles in light pollution</li>
-      <li>Cheap eyepieces and diagonal</li>
-      <li>Not for long-exposure astrophotography</li>
-    </ul>
-</div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
+
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

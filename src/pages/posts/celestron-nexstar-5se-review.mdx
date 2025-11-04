@@ -33,65 +33,37 @@ keywords:
   - GoTo telescope
   - beginner telescope
   - 5SE
+quickSpecs:
+  - "127 mm (5″) Aperture"
+  - "1250 mm Focal Length"
+  - "f/10 Schmidt-Cassegrain"
+  - "Motorized GoTo Alt-Az Mount"
+  - "2″ Steel Tripod"
+prosCons:
+  pros:
+    - "Sharp, contrasty views of the Moon and planets"
+    - "Reliable GoTo mount makes locating objects simple"
+    - "Portable and easy to transport"
+    - "Sturdy tripod and mount construction"
+  cons:
+    - "Requires external power — AA batteries drain too quickly"
+    - "5″ aperture limits deep-sky views"
+    - "Narrow field of view without a focal reducer"
+    - "Accessories are basic and limited"
 ---
 
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
+import ProsCons from '../../components/ProsCons.astro'
 
 <p>The Celestron NexStar 5SE is often seen as the “sweet spot” of the SE line — not too big, not too small, and loaded with GoTo convenience. With a 5″ Schmidt-Cassegrain design, it’s compact, easy to transport, and performs very well on Solar System objects. At around $700, though, it sits in an awkward price range where larger manual Dobsonians offer far more light-gathering power. What you’re paying for here isn’t raw aperture, but portability, automation, and a well-built mount.</p>
 
-<section class="info-tags">
-  <h3>Quick Specs</h3>
-  <ul>
-    <li>127 mm (5″) Aperture</li>
-    <li>1250 mm Focal Length</li>
-    <li>f/10 Schmidt-Cassegrain</li>
-    <li>Motorized GoTo Alt-Az Mount</li>
-    <li>2″ Steel Tripod</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-      <li>Sharp, contrasty views of the Moon and planets</li>
-      <li>Reliable GoTo mount makes locating objects simple</li>
-      <li>Portable and easy to transport</li>
-      <li>Sturdy tripod and mount construction</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-      <li>Requires external power — AA batteries drain too quickly</li>
-      <li>5″ aperture limits deep-sky views</li>
-      <li>Narrow field of view without a focal reducer</li>
-      <li>Accessories are basic and limited</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Overall</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Mount</span>
-      <span class="score">{frontmatter.rating.mount}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Accessories</span>
-      <span class="score">{frontmatter.rating.accessories}/10</span>
-    </div>
-  </div>
-</section>
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

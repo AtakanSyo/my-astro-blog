@@ -30,9 +30,30 @@ imageDir: /images/radian-raptor-61-review
 keywords:
   - Radian Raptor 61
   - Raptor 61
+prosCons:
+  pros:
+    - "Good optics"
+    - "Sturdy focuser"
+    - "Fast focal ratio"
+  cons:
+    - "Basically a marked-up generic design"
+    - "Lots of gimmicky features which serve no actual purpose"
+    - "Too heavy for a star-tracker-sized mount"
+quickSpecs:
+  - "61mm (2.4”) Aperture"
+  - "275mm Focal Length"
+  - "f/4.5"
+  - "Triplet optics"
+  - "Included 0.8x flattener/reducer"
+  - "Refractor"
+  - "Astrograph"
+  - "Dual speed 2” focuser"
 ---
 
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import ProsCons from '../../components/ProsCons.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
 
 <h2>Introduction</h2>
 
@@ -45,60 +66,11 @@ import Affiliates from '../../components/Affiliates.astro'
   be used - at which point you might as well go for something with more aperture
   and focal length.</p>
 
-<section class="info-tags">
-  <h3>Info Tags</h3>
-  <ul>
-    <li>61mm (2.4”) Aperture</li>
-    <li>275mm Focal Length</li>
-    <li>f/4.5</li>
-    <li>Triplet optics</li>
-    <li>Included 0.8x flattener/reducer</li>
-    <li>Refractor</li>
-    <li>Astrograph</li>
-    <li>Dual speed 2” focuser</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-      <li>Good optics</li>
-      <li>Sturdy focuser</li>
-      <li>Fast focal ratio</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-      <li>Basically a marked-up generic design</li>
-      <li>Lots of gimmicky features which serve no actual purpose</li>
-      <li>Too heavy for a star-tracker-sized mount</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Rating</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Mechanics</span>
-      <span class="score">{frontmatter.rating.mechanics}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Value</span>
-      <span class="score">{frontmatter.rating.value}/10</span>
-    </div>
-  </div>
-</section>
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

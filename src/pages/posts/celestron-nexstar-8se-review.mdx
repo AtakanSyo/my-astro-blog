@@ -30,65 +30,37 @@ keywords:
   - Schmidt-Cassegrain
   - GoTo telescope
   - 8SE
+quickSpecs:
+  - "203 mm (8″) Aperture"
+  - "2032 mm Focal Length"
+  - "f/10 Schmidt-Cassegrain"
+  - "Motorized GoTo Alt-Az Mount"
+  - "2″ Steel Tripod"
+prosCons:
+  pros:
+    - "Excellent optics with high contrast and sharp detail"
+    - "Large 8″ aperture provides deep reach into the night sky"
+    - "Compact design compared to traditional Dobsonians"
+    - "Computerized GoTo system makes object finding easy"
+  cons:
+    - "Mount is undersized for the optical tube"
+    - "Field of view is narrow at f/10 without a focal reducer"
+    - "Only one basic eyepiece included"
+    - "Requires external power for practical use"
 ---
 
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
+import ProsCons from '../../components/ProsCons.astro'
 
 <p>The Celestron NexStar 8SE has long been one of the most recognizable Schmidt-Cassegrain telescopes on the market. Its optical tube offers outstanding performance, but the pairing with a lightweight single-arm GoTo mount means users should expect compromises in stability and ease of use. While the 8SE remains popular, many reviewers suggest there are steadier or more complete alternatives in the same price bracket.</p>
 
-<section class="info-tags">
-  <h3>Quick Specs</h3>
-  <ul>
-    <li>203 mm (8″) Aperture</li>
-    <li>2032 mm Focal Length</li>
-    <li>f/10 Schmidt-Cassegrain</li>
-    <li>Motorized GoTo Alt-Az Mount</li>
-    <li>2″ Steel Tripod</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-      <li>Excellent optics with high contrast and sharp detail</li>
-      <li>Large 8″ aperture provides deep reach into the night sky</li>
-      <li>Compact design compared to traditional Dobsonians</li>
-      <li>Computerized GoTo system makes object finding easy</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-      <li>Mount is undersized for the optical tube</li>
-      <li>Field of view is narrow at f/10 without a focal reducer</li>
-      <li>Only one basic eyepiece included</li>
-      <li>Requires external power for practical use</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Overall</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Mount</span>
-      <span class="score">{frontmatter.rating.mount}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Accessories</span>
-      <span class="score">{frontmatter.rating.accessories}/10</span>
-    </div>
-  </div>
-</section>
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

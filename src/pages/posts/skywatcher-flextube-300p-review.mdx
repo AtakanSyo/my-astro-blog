@@ -29,8 +29,31 @@ slug: skywatcher-flextube-300p-review
 imageDir: /images/skywatcher-flextube-300p-review
 keywords:
   - SkyWatcher Flextube 300P
+prosCons:
+  pros:
+    - "Great optics, as is to be expected"
+    - "FlexTube design makes a significant difference in portability"
+    - "Dobsonian mount is easy to set up and aim around the sky"
+    - "Includes acceptable accessories"
+  cons:
+    - "Mount is fairly bulky and heavy for no good reason"
+    - "Single-speed focuser and mediocre accessories provided"
+    - "Needs a shroud to keep light out of the tube"
+    - "More expensive than some other options"
+quickSpecs:
+  - "300mm (12”) Aperture"
+  - "1500mm Focal Length"
+  - "f/5"
+  - "Parabolic primary mirror"
+  - "Reflector"
+  - "Dobsonian"
+  - "Collapsible"
+  - "Single Speed 2” Crayford Focuser"
 ---
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import ProsCons from '../../components/ProsCons.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
 
 <h2>Introduction</h2>
 
@@ -44,66 +67,11 @@ good choice for those interested in a large and capable telescope without a prem
 Dobsonian telescope. Compared to traditional solid-tubed instruments, it is more portable and 
 practical to transport due to its more compact design, with a tube that’s easier to carry around or fit 
 in a car. The 12” FlexTube offers some of the advantages of a truss tube Dobsonian without requiring complex assembly or incurring high additional costs. When compared with smaller FlexTube scopes, the 12” FlexTube certainly stands out as a far better choice compared to alternatives, as it isn’t a lot more expensive compared to its solid-tubed counterparts and the 12” model’s collapsing tube makes a huge difference in some transport/storage situations where the 8” and 10” FlexTube models may not be of much benefit compared to a regular solid-tubed scope.</p>
-<section class="info-tags">
-  <h3>Info Tags</h3>
-  <ul>
-    <li>300mm (12”) Aperture</li>
-    <li>1500mm Focal Length</li>
-    <li>f/5</li>
-    <li>Parabolic primary mirror</li>
-    <li>Reflector</li>
-    <li>Dobsonian</li>
-    <li>Collapsible</li>
-    <li>Single Speed 2” Crayford Focuser</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-        <li>Great optics, as is to be expected</li>
-        <li>FlexTube design makes a significant difference in portability</li>
-        <li>Dobsonian mount is easy to set up and aim around the sky</li>
-        <li>Includes acceptable accessories</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-        <li>Mount is fairly bulky and heavy for no good reason</li>
-        <li>Single-speed focuser and mediocre accessories provided</li>
-        <li>Needs a shroud to keep light out of the tube</li>
-        <li>More expensive than some other options</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Rating</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Mechanics</span>
-      <span class="score">{frontmatter.rating.mechanics}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Value</span>
-      <span class="score">{frontmatter.rating.value}/10</span>
-    </div>
-  </div>
-</section>
-
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

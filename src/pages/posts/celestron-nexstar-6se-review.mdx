@@ -32,65 +32,37 @@ keywords:
   - GoTo telescope
   - beginner telescope
   - 6SE
+quickSpecs:
+  - "150 mm (6″) Aperture"
+  - "1500 mm Focal Length"
+  - "f/10 Schmidt-Cassegrain"
+  - "Motorized GoTo Alt-Az Mount"
+  - "2″ Steel Tripod"
+prosCons:
+  pros:
+    - "Excellent planetary and lunar performance"
+    - "StarBright XLT coatings provide bright, sharp views"
+    - "Stable tripod and reliable GoTo system"
+    - "Compact size for a 6″ SCT"
+  cons:
+    - "No built-in battery; external power almost required"
+    - "Basic accessories out of the box"
+    - "Narrow field of view without a focal reducer"
+    - "Alt-az mount limits long-exposure astrophotography"
 ---
 
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
+import ProsCons from '../../components/ProsCons.astro'
 
 <p>The Celestron NexStar 6SE is one of the most popular mid-range GoTo telescopes on the market. Its 6″ Schmidt-Cassegrain optics and computerized mount strike a balance between power and portability. This scope shines on Solar System objects, but deep-sky performance and astrophotography come with caveats.</p>
 
-<section class="info-tags">
-  <h3>Quick Specs</h3>
-  <ul>
-    <li>150 mm (6″) Aperture</li>
-    <li>1500 mm Focal Length</li>
-    <li>f/10 Schmidt-Cassegrain</li>
-    <li>Motorized GoTo Alt-Az Mount</li>
-    <li>2″ Steel Tripod</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-      <li>Excellent planetary and lunar performance</li>
-      <li>StarBright XLT coatings provide bright, sharp views</li>
-      <li>Stable tripod and reliable GoTo system</li>
-      <li>Compact size for a 6″ SCT</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-      <li>No built-in battery; external power almost required</li>
-      <li>Basic accessories out of the box</li>
-      <li>Narrow field of view without a focal reducer</li>
-      <li>Alt-az mount limits long-exposure astrophotography</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Overall</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Mount</span>
-      <span class="score">{frontmatter.rating.mount}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Accessories</span>
-      <span class="score">{frontmatter.rating.accessories}/10</span>
-    </div>
-  </div>
-</section>
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

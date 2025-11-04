@@ -32,9 +32,30 @@ keywords:
   - Dobsonian
   - telescope overview
   - Zhumell Deluxe
+prosCons:
+  pros:
+    - "Excellent optical performance for the price"
+    - "High-quality accessories included (laser collimator, 8×50 RACI finder)"
+    - "Dual-speed Crayford focuser supports both 1.25″ and 2″ eyepieces"
+    - "Adjustable tension control and cooling fan for better usability"
+  cons:
+    - "Mount made from heavy particleboard"
+    - "9 mm eyepiece is serviceable but could be better quality"
+    - "Bulkier size may challenge transport in smaller vehicles"
+quickSpecs:
+  - "203 mm (8″) Aperture"
+  - "1200 mm Focal Length"
+  - "f/6"
+  - "Dobsonian Mount"
+  - "2″ Dual-Speed Crayford Focuser"
+  - "Laser Collimator Included"
+  - "8×50 Right-Angle Finder Scope"
 ---
 
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import ProsCons from '../../components/ProsCons.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
 
 <section class="review-disclaimer">
   <strong>Disclaimer:</strong> This overview is based on manufacturer specifications, astronomy community feedback, and independent testing data from trusted sources. It compiles and analyzes user reports to provide an accurate, unbiased assessment without implying first-hand product testing.
@@ -42,60 +63,11 @@ import Affiliates from '../../components/Affiliates.astro'
 
 <p>The Zhumell Z8 Deluxe Dobsonian offers the same core optical specifications as other 8″ Dobsonians, such as the Orion XT8, but distinguishes itself with higher-quality accessories and a set of practical design features that improve the observing experience. Its strong optical performance, combined with well-chosen extras like a laser collimator and angled finder scope, make it one of the most value-packed options in its class.</p>
 
-<section class="info-tags">
-  <h3>Info Tags</h3>
-  <ul>
-    <li>203 mm (8″) Aperture</li>
-    <li>1200 mm Focal Length</li>
-    <li>f/6</li>
-    <li>Dobsonian Mount</li>
-    <li>2″ Dual-Speed Crayford Focuser</li>
-    <li>Laser Collimator Included</li>
-    <li>8×50 Right-Angle Finder Scope</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-      <li>Excellent optical performance for the price</li>
-      <li>High-quality accessories included (laser collimator, 8×50 RACI finder)</li>
-      <li>Dual-speed Crayford focuser supports both 1.25″ and 2″ eyepieces</li>
-      <li>Adjustable tension control and cooling fan for better usability</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-      <li>Mount made from heavy particleboard</li>
-      <li>9 mm eyepiece is serviceable but could be better quality</li>
-      <li>Bulkier size may challenge transport in smaller vehicles</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Overall</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Mount</span>
-      <span class="score">{frontmatter.rating.mount}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Accessories</span>
-      <span class="score">{frontmatter.rating.accessories}/10</span>
-    </div>
-  </div>
-</section>
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

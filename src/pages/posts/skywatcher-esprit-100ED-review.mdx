@@ -30,9 +30,30 @@ slug: skywatcher-esprit-100ed-review
 imageDir: /images/skywatcher-esprit-100ed-review
 keywords:
   - SkyWatcher Esprit 100ED
+prosCons:
+  pros:
+    - "Great optics"
+    - "Sharp, flat field of view"
+    - "Illuminates even the largest sensors"
+    - "Fast f/5.5 focal ratio"
+  cons:
+    - "Expensive"
+    - "Heavy"
+    - "May be too short in focal length for your targets"
+quickSpecs:
+  - "100mm (4”) Aperture"
+  - "550mm Focal Length"
+  - "f/5.5"
+  - "Triplet FPL-53 & FPL-51 optics"
+  - "Refractor"
+  - "Astrograph"
+  - "Dual Speed 3.4” rack-and-pinion hybrid focuser"
 ---
 
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import ProsCons from '../../components/ProsCons.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
 
 <h2>Introduction</h2>
 
@@ -40,63 +61,11 @@ import Affiliates from '../../components/Affiliates.astro'
 
 <p>The Sky-Watcher Esprit 100ED is a high-quality apochromatic refractor telescope designed specifically for wide-field astrophotography. It uses three lenses in an ED triplet design to produce images with exceptional color correction. This telescope is particularly well-suited for taking pictures of large nebulae like the Veil Nebula, North America Nebula, and the Rosette Nebula, and offers a fast focal ratio with sharp images across even the largest astrophotography camera sensors, along with excellent views at the eyepiece. Premium ED refractors are versatile telescopes with minimal fuss and offer the sharpest views and images possible of any design, and the Esprit 100ED is no different.</p>
 
-<section class="info-tags">
-  <h3>Info Tags</h3>
-  <ul>
-    <li>100mm (4”) Aperture</li>
-    <li>550mm Focal Length</li>
-    <li>f/5.5</li>
-    <li>Triplet FPL-53 & FPL-51 optics</li>
-    <li>Refractor</li>
-    <li>Astrograph</li>
-    <li>Dual Speed 3.4” rack-and-pinion hybrid focuser</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-      <li>Great optics</li>
-      <li>Sharp, flat field of view</li>
-      <li>Illuminates even the largest sensors</li>
-      <li>Fast f/5.5 focal ratio</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-      <li>Expensive</li>
-      <li>Heavy</li>
-      <li>May be too short in focal length for your targets</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Rating</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Mechanics</span>
-      <span class="score">{frontmatter.rating.mechanics}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Value</span>
-      <span class="score">{frontmatter.rating.value}/10</span>
-    </div>
-  </div>
-</section>
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

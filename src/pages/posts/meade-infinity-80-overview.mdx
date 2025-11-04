@@ -30,67 +30,39 @@ keywords:
   - Meade Infinity 80
   - beginner refractor telescope
   - grab-and-go telescope
+prosCons:
+  pros:
+    - "Lightweight and portable—ideal for grab-and-go use"
+    - "Decent lunar and planetary performance for beginners"
+    - "Metal 1.25″ rack-and-pinion focuser is solid and smooth"
+    - "Includes a variety of starter accessories"
+  cons:
+    - "80mm aperture limits faint deep-sky observing"
+    - "Mount stability and fine control are limited at higher magnifications"
+    - "Stock eyepieces and Barlow are of average quality"
+    - "Plastic construction in mount/tripod reduces durability"
+quickSpecs:
+  - "80mm (3.2″) Aperture"
+  - "400mm Focal Length"
+  - "f/5 Achromatic Refractor"
+  - "Alt-azimuth mount with slow-motion controls"
+  - "Weight: ~7.5 lbs"
+  - "Includes three Kellner eyepieces & 2x Barlow"
 ---
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import ProsCons from '../../components/ProsCons.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
 
 <h2>Introduction</h2>
 
 <p class="highlight">The Meade Infinity 80 is marketed as an affordable, grab-and-go refractor for beginners. With an 80mm aperture and f/5 focal ratio, it prioritizes portability and ease of use over raw optical power. While limited in deep-sky performance, it offers sharp lunar and planetary views for its price point and is often recommended as a starter telescope.</p>
 
-<section class="info-tags">
-  <h3>Info Tags</h3>
-  <ul>
-    <li>80mm (3.2″) Aperture</li>
-    <li>400mm Focal Length</li>
-    <li>f/5 Achromatic Refractor</li>
-    <li>Alt-azimuth mount with slow-motion controls</li>
-    <li>Weight: ~7.5 lbs</li>
-    <li>Includes three Kellner eyepieces & 2x Barlow</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-      <li>Lightweight and portable—ideal for grab-and-go use</li>
-      <li>Decent lunar and planetary performance for beginners</li>
-      <li>Metal 1.25″ rack-and-pinion focuser is solid and smooth</li>
-      <li>Includes a variety of starter accessories</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-      <li>80mm aperture limits faint deep-sky observing</li>
-      <li>Mount stability and fine control are limited at higher magnifications</li>
-      <li>Stock eyepieces and Barlow are of average quality</li>
-      <li>Plastic construction in mount/tripod reduces durability</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Overall</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Mount</span>
-      <span class="score">{frontmatter.rating.mount}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Accessories</span>
-      <span class="score">{frontmatter.rating.accessories}/10</span>
-    </div>
-  </div>
-</section>
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

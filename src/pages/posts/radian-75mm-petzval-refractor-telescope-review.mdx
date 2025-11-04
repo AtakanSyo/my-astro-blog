@@ -27,8 +27,28 @@ slug: radian-75mm-petzval-refractor-telescope-review
 imageDir: /images/radian-75mm-petzval-refractor-telescope-review
 keywords:
   - Radian 75mm Petzval Refractor Telescope
+prosCons:
+  pros:
+    - "Great optics"
+    - "Ideal size for beginner astrophotographers"
+    - "Fast f/5.4 speed and flattened field"
+  cons:
+    - "Expensive and essentially a marked-up copycat of other products"
+    - "Kind of heavy"
+    - "Stock tube rings aren’t the best"
+quickSpecs:
+  - "75mm (3”) Aperture"
+  - "405mm Focal Length"
+  - "f/5.4"
+  - "Quintuplet Petzval FCD100 optics"
+  - "Refractor"
+  - "Astrograph"
+  - "Dual Speed 3” Rack & Pinion Focuser"
 ---
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import ProsCons from '../../components/ProsCons.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
 
 <p class="highlight">The Radian 75mm Petzval is a decent imaging refractor - though it’s little more than a rebadged copy of an identical and cheaper telescope.</p>
 
@@ -38,62 +58,11 @@ import Affiliates from '../../components/Affiliates.astro'
 
 <p>The Radian 75mm Petzval is of course an imaging telescope, though you could of course put an eyepiece on the back. As such, our comments here mostly apply to imaging aspects of this instrument.</p>
 
-<section class="info-tags">
-  <h3>Info Tags</h3>
-  <ul>
-    <li>75mm (3”) Aperture</li>
-    <li>405mm Focal Length</li>
-    <li>f/5.4</li>
-    <li>Quintuplet Petzval FCD100 optics</li>
-    <li>Refractor</li>
-    <li>Astrograph</li>
-    <li>Dual Speed 3” Rack & Pinion Focuser</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-        <li>Great optics</li>
-        <li>Ideal size for beginner astrophotographers</li>
-        <li>Fast f/5.4 speed and flattened field</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-        <li>Expensive and essentially a marked-up copycat of other products</li>
-        <li>Kind of heavy</li>
-        <li>Stock tube rings aren’t the best</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Rating</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Mechanics</span>
-      <span class="score">{frontmatter.rating.mechanics}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Value</span>
-      <span class="score">{frontmatter.rating.value}/10</span>
-    </div>
-  </div>
-</section>
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

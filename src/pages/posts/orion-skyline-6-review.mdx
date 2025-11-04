@@ -25,68 +25,37 @@ slug: orion-skyline-6-review
 imageDir: /images/orion-skyline-6-review
 keywords:
   - Orion Skyline 6
+prosCons:
+  pros:
+    - "Great optics"
+    - "Nice focuser"
+    - "High-quality included eyepieces"
+    - "Easy to use"
+  cons:
+    - "Finderscope is uncomfortable to aim"
+    - "A bit heavy"
+    - "More expensive than some other 6” Dobs"
+quickSpecs:
+  - "152mm (6”) Aperture"
+  - "1200mm Focal Length"
+  - "f/7.9"
+  - "2 included eyepieces"
+  - "6x30 finderscope"
+  - "Dobsonian"
 ---
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import ProsCons from '../../components/ProsCons.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
 
 <h2>Introduction</h2>
 
 <p class="highlight">The Orion SkyLine 6” is one of the best 6” Dobsonians out there and provides good value for the price and high-quality optics and components. It’s much better than cheaper telescopes with plastic focusers, small aperture, and often poor-quality mounts, accessories, or optics. The SkyLine 6” is manufactured by GSO and thus available under a variety of different labels, such as Apertura’s DT6, sometimes at lower prices or with different regional availability. These scopes are all the same apart from slight accessory differences so our comments in this review apply to the SkyLine 6” and its various copies equally.</p>
-<section class="info-tags">
-  <h3>Info Tags</h3>
-  <ul>
-    <li>152mm (6”) Aperture</li>
-    <li>1200mm Focal Length</li>
-    <li>f/7.9</li>
-    <li>2 included eyepieces</li>
-    <li>6x30 finderscope</li>
-    <li>Dobsonian</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-        <li>Great optics</li>
-        <li>Nice focuser</li>
-        <li>High-quality included eyepieces</li>
-        <li>Easy to use</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-        <li>Finderscope is uncomfortable to aim</li>
-        <li>A bit heavy</li>
-        <li>More expensive than some other 6” Dobs</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Rating</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Mount</span>
-      <span class="score">{frontmatter.rating.mount}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Accessories</span>
-      <span class="score">{frontmatter.rating.accessories}/10</span>
-    </div>
-  </div>
-</section>
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

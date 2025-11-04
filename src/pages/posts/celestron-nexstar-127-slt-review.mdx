@@ -30,72 +30,40 @@ slug: celestron-nexstar-127-slt-review
 imageDir: /images/celestron-nexstar-127-slt-review
 keywords:
   - Celestron NexStar 127 SLT
+prosCons:
+  pros:
+    - "Sharp optics"
+    - "Some astrophotography capabilities"
+    - "Fully computerized"
+    - "Lightweight & portable"
+  cons:
+    - "Not a lot of aperture for the money"
+    - "Long focal length limits target options"
+    - "Mount is not the sturdiest nor most up-to-date"
+quickSpecs:
+  - "120mm (4.7”) Aperture"
+  - "1500mm Focal Length"
+  - "f/12.5"
+  - "GoTo"
+  - "Computerized"
+  - "Maksutov-Cassegrain"
+  - "Catadioptric"
 ---
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import ProsCons from '../../components/ProsCons.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
 
 <p class="highlight">The Celestron NexStar 127SLT isn’t a terrible scope, but is limited for deep-sky viewing and fairly expensive.</p>
 
 <h2>Introduction</h2>
 
 <p>Celestron’s NexStar 127SLT (Star Locating Telescope) is one of the larger scopes in the SLT lineup, and consists of a nominally 5” Maksutov-Cassegrain paired with a GoTo mount. It’s a lot cheaper than the 5” SCT models Celestron offers or the computerized Maksutov-Cassegrains of equivalent aperture from other companies.</p>
-<section class="info-tags">
-  <h3>Info Tags</h3>
-  <ul>
-    <li>120mm (4.7”) Aperture</li>
-    <li>1500mm Focal Length</li>
-    <li>f/12.5</li>
-    <li>GoTo</li>
-    <li>Computerized</li>
-    <li>Maksutov-Cassegrain</li>
-    <li>Catadioptric</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-        <li>Sharp optics</li>
-        <li>Some astrophotography capabilities</li>
-        <li>Fully computerized</li>
-        <li>Lightweight & portable</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-        <li>Not a lot of aperture for the money</li>
-        <li>Long focal length limits target options</li>
-        <li>Mount is not the sturdiest nor most up-to-date</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Rating</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Mount</span>
-      <span class="score">{frontmatter.rating.mount}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Accessories</span>
-      <span class="score">{frontmatter.rating.accessories}/10</span>
-    </div>
-  </div>
-</section>
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

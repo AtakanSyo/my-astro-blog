@@ -33,68 +33,40 @@ keywords:
   - NexStar Evolution
   - Schmidt-Cassegrain
   - StarSense
+prosCons:
+  pros:
+    - "EdgeHD optics with XLT coatings provide sharp, flat fields"
+    - "StarSense auto-alignment saves significant setup time"
+    - "Evolution mount offers stable GoTo and tracking"
+    - "Rechargeable onboard battery and Wi-Fi control add convenience"
+    - "Excellent planetary and lunar performance"
+  cons:
+    - "High price relative to aperture"
+    - "Ships with a 1.25″ tripod—suboptimal for an 8″ OTA"
+    - "Accessories are basic and require upgrades"
+    - "Additional cost for focal reducer or HyperStar for best DSO/astrophoto performance"
+quickSpecs:
+  - "203mm (8″) Aperture"
+  - "2032mm Focal Length"
+  - "f/10 Schmidt-Cassegrain (EdgeHD optics)"
+  - "Computerized alt-azimuth Evolution mount"
+  - "Built-in Wi-Fi & rechargeable lithium battery"
+  - "Includes StarSense AutoAlign system"
 ---
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import ProsCons from '../../components/ProsCons.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
 
 <h2>Introduction</h2>
 
 <p class="highlight">Celestron’s NexStar Evolution 8 EdgeHD with StarSense is widely regarded as a balanced and portable package that blends premium optics with advanced automation. It is not without flaws—particularly cost and bundled tripod choice—but the combination of EdgeHD optics, StarBright XLT coatings, StarSense auto-alignment, and the Evolution mount makes this one of the most capable consumer SCTs on the market.</p>
 
-<section class="info-tags">
-  <h3>Info Tags</h3>
-  <ul>
-    <li>203mm (8″) Aperture</li>
-    <li>2032mm Focal Length</li>
-    <li>f/10 Schmidt-Cassegrain (EdgeHD optics)</li>
-    <li>Computerized alt-azimuth Evolution mount</li>
-    <li>Built-in Wi-Fi & rechargeable lithium battery</li>
-    <li>Includes StarSense AutoAlign system</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-      <li>EdgeHD optics with XLT coatings provide sharp, flat fields</li>
-      <li>StarSense auto-alignment saves significant setup time</li>
-      <li>Evolution mount offers stable GoTo and tracking</li>
-      <li>Rechargeable onboard battery and Wi-Fi control add convenience</li>
-      <li>Excellent planetary and lunar performance</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-      <li>High price relative to aperture</li>
-      <li>Ships with a 1.25″ tripod—suboptimal for an 8″ OTA</li>
-      <li>Accessories are basic and require upgrades</li>
-      <li>Additional cost for focal reducer or HyperStar for best DSO/astrophoto performance</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Overall</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Mount</span>
-      <span class="score">{frontmatter.rating.mount}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Accessories</span>
-      <span class="score">{frontmatter.rating.accessories}/10</span>
-    </div>
-  </div>
-</section>
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

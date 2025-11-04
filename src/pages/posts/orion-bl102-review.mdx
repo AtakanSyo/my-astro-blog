@@ -29,70 +29,39 @@ slug: orion-bl102-review
 imageDir: /images/orion-bl102-review
 keywords:
   - Orion BL102
+prosCons:
+  pros:
+    - "Decent amount of aperture"
+    - "Easy to aim"
+    - "Stable"
+    - "Wide field of view"
+  cons:
+    - "Low-quality, albeit usable, optics"
+    - "Bad included eyepieces"
+    - "Unusable focuser"
+quickSpecs:
+  - "102mm (4″) Aperture"
+  - "640mm Focal Length"
+  - "f/6"
+  - "2 included eyepieces"
+  - "Red dot finder"
+  - "Dobsonian"
+  - "Adjustable bearing friction for altitude axis"
 ---
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import ProsCons from '../../components/ProsCons.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
 
 <h2>Introduction</h2>
 
 <p class="highlight">Orion’s SkyScanner BL102 takes advantage of brand and product line name confusion, poor availability of alternatives, and the assumption that most Dobsonians are good telescopes to sell a shoddy, generic telescope with low-quality optics, poor accessories, poor design, and a rather high price for what you get.</p>
 <p>The BL102 shares little with the high-quality and similarly named SkyScanner 100 besides a similar aperture and Dobsonian mount design. Orion is importing it, along with its BL135 Dobsonian and Observer reflectors, from a generic, low-quality manufacturer known as KSON. This seems to be a temporary measure as Orion sorts out its supply chain issues from the COVID-19 pandemic and its breakup with Synta, and starts new production lines from its acquisition of Meade Instruments. But for now, the BL102 and BL135 scopes are here to stay, and are also some of the few beginner scopes in stock right now. But buyer beware…</p>
-<section class="info-tags">
-  <h3>Info Tags</h3>
-  <ul>
-    <li>102mm (4″) Aperture</li>
-    <li>640mm Focal Length</li>
-    <li>f/6</li>
-    <li>2 included eyepieces</li>
-    <li>Red dot finder</li>
-    <li>Dobsonian</li>
-    <li>Adjustable bearing friction for altitude axis</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-        <li>Decent amount of aperture</li>
-        <li>Easy to aim</li>
-        <li>Stable</li>
-        <li>Wide field of view</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-        <li>Low-quality, albeit usable, optics</li>
-        <li>Bad included eyepieces</li>
-        <li>Unusable focuser</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Rating</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Mount</span>
-      <span class="score">{frontmatter.rating.mount}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Accessories</span>
-      <span class="score">{frontmatter.rating.accessories}/10</span>
-    </div>
-  </div>
-</section>
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

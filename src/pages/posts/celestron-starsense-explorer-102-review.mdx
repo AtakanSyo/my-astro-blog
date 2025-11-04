@@ -30,36 +30,28 @@ slug: celestron-starsense-explorer-102-review
 imageDir: /images/celestron-starsense-explorer-102-review
 keywords:
   - Celestron Starsense Explorer 102
+prosCons:
+  pros:
+    - "Easy setup and alignment"
+    - "f/6.5 refractor for planets & deep sky"
+    - "2″ focuser for wide-field views"
+    - "Secure smartphone mount"
+    - "Stable tripod with vibration pads"
+    - "Precise plate-solving"
+    - "StarSense app is admirable"
+  cons:
+    - "Cheap plastic mount"
+    - "Sticky focuser mechanism"
+    - "Poor chromatic correction"
+    - "Low-quality eyepieces & diagonal"
+    - "No long-exposure astrophotography"
+    - "App fails in light pollution"
+    - "Overall cheap build quality"
 ---
 import Affiliates from '../../components/Affiliates.astro'
+import ProsCons from '../../components/ProsCons.astro'
 
-<section class="pros-cons">
-<div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-      <li>Easy setup and alignment</li>
-      <li>f/6.5 refractor for planets & deep sky</li>
-      <li>2″ focuser for wide-field views</li>
-      <li>Secure smartphone mount</li>
-      <li>Stable tripod with vibration pads</li>
-      <li>Precise plate-solving</li>
-      <li>StarSense app is admirable</li>
-    </ul>
-</div>
-<div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-      <li>Cheap plastic mount</li>
-      <li>Sticky focuser mechanism</li>
-      <li>Poor chromatic correction</li>
-      <li>Low-quality eyepieces & diagonal</li>
-      <li>No long-exposure astrophotography</li>
-      <li>App fails in light pollution</li>
-      <li>Overall cheap build quality</li>
-    </ul>
-</div>
-</section>
-
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 <h2>Review</h2>

@@ -30,72 +30,41 @@ slug: celestron-evolution-9-25-review
 imageDir: /images/celestron-evolution-9-25-review
 keywords:
   - Celestron Evolution 9.25
+prosCons:
+  pros:
+    - "Large 9.25” aperture great for lunar, planetary, and deep-sky viewing"
+    - "Great optics"
+    - "GoTo mount with built-in batteries"
+    - "Decent included accessories"
+  cons:
+    - "Quite heavy/bulky"
+    - "Mount head is not the sturdiest due to design"
+    - "Long focal length and narrow field of view"
+    - "Not ideal for long-exposure astrophotography"
+    - "Expensive"
+quickSpecs:
+  - "235mm (9.25″) Aperture"
+  - "2350mm Focal Length"
+  - "f/10"
+  - "HyperStar compatible"
+  - "GoTo"
+  - "Computerized"
+  - "WiFi"
+  - "Catadioptric"
 ---
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import ProsCons from '../../components/ProsCons.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
 
 <h2>Introduction</h2>
 
 <p>Celestron’s NexStar Evolution 9.25” is the largest of the three NexStar Evolution telescopes in Celestron’s lineup. The Evolution 9.25” is one of several tube/mount combinations offered by Celestron featuring the unusual C9.25 optical tube, and features an alt-azimuth GoTo mount with motorized tracking and GoTo. The C9.25 sits squarely in the middle between typical 8” and 10” telescopes in terms of performance. Compared to the other C9.25/mount packages, the Evolution 9.25 is arguably the easiest to set up and use, but the least stable or capable.</p>
-<section class="info-tags">
-  <h3>Info Tags</h3>
-  <ul>
-    <li>235mm (9.25″) Aperture</li>
-    <li>2350mm Focal Length</li>
-    <li>f/10</li>
-    <li>HyperStar compatible</li>
-    <li>GoTo</li>
-    <li>Computerized</li>
-    <li>WiFi</li>
-    <li>Catadioptric</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-        <li>Large 9.25” aperture great for lunar, planetary, and deep-sky viewing</li>
-        <li>Great optics</li>
-        <li>GoTo mount with built-in batteries</li>
-        <li>Decent included accessories</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-        <li>Quite heavy/bulky</li>
-        <li>Mount head is not the sturdiest due to design</li>
-        <li>Long focal length and narrow field of view</li>
-        <li>Not ideal for long-exposure astrophotography</li>
-        <li>Expensive</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Rating</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Mount</span>
-      <span class="score">{frontmatter.rating.mount}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Accessories</span>
-      <span class="score">{frontmatter.rating.accessories}/10</span>
-    </div>
-  </div>
-</section>
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

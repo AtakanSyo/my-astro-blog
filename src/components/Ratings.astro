@@ -1,0 +1,39 @@
+---
+interface RatingsMap {
+  [key: string]: number | string | undefined;
+  overall?: number | string;
+  optics?: number | string;
+  mount?: number | string;
+  accessories?: number | string;
+}
+
+interface Props {
+  rating?: RatingsMap;
+}
+
+const { rating } = Astro.props;
+
+const categories = [
+  { key: 'overall', label: 'Overall' },
+  { key: 'optics', label: 'Optics' },
+  { key: 'mount', label: 'Mount' },
+  { key: 'accessories', label: 'Accessories' },
+];
+
+const visibleRatings = rating
+  ? categories.filter(({ key }) => rating[key] !== undefined && rating[key] !== null && rating[key] !== '')
+  : [];
+---
+{visibleRatings.length > 0 && (
+  <section class="ratings">
+    <h3>Ratings</h3>
+    <div class="ratings-grid">
+      {visibleRatings.map(({ key, label }) => (
+        <div class="rating-card">
+          <span class="category">{label}</span>
+          <span class="score">{rating?.[key]}/10</span>
+        </div>
+      ))}
+    </div>
+  </section>
+)}

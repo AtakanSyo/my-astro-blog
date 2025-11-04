@@ -28,9 +28,28 @@ slug: gskyer-travel-scope-70-review
 imageDir: /images/gskyer-travel-scope-70-review
 keywords:
   - Gskyer Travel Scope 70
+prosCons:
+  pros:
+    - "Extremely lightweight and portable"
+    - "Comes with a carrying backpack"
+    - "Low-magnification eyepiece is usable for daytime viewing"
+  cons:
+    - "Strong chromatic aberration and dim images at night"
+    - "Tripod and mount are unstable and vibrate excessively"
+    - "Finder scope, diagonal, and 3× Barlow are not practical to use"
+    - "Better-performing telescopes exist at the same price"
+quickSpecs:
+  - "70 mm (2.75”) Aperture"
+  - "400 mm Focal Length"
+  - "f/5.7 Achromatic Refractor"
+  - "Lightweight alt-azimuth tripod"
+  - "Designed primarily as a travel scope"
 ---
 
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import ProsCons from '../../components/ProsCons.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
 
 <h2>Introduction</h2>
 
@@ -46,58 +65,11 @@ Better starter telescopes—such as the Meade Infinity 70, Orion SkyScanner 100,
 substantially improved performance without requiring immediate upgrades.
 </p>
 
-<section class="info-tags">
-  <h3>Info Tags</h3>
-  <ul>
-    <li>70 mm (2.75”) Aperture</li>
-    <li>400 mm Focal Length</li>
-    <li>f/5.7 Achromatic Refractor</li>
-    <li>Lightweight alt-azimuth tripod</li>
-    <li>Designed primarily as a travel scope</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-      <li>Extremely lightweight and portable</li>
-      <li>Comes with a carrying backpack</li>
-      <li>Low-magnification eyepiece is usable for daytime viewing</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-      <li>Strong chromatic aberration and dim images at night</li>
-      <li>Tripod and mount are unstable and vibrate excessively</li>
-      <li>Finder scope, diagonal, and 3× Barlow are not practical to use</li>
-      <li>Better-performing telescopes exist at the same price</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Overall</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Mechanics</span>
-      <span class="score">{frontmatter.rating.mechanics}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Value</span>
-      <span class="score">{frontmatter.rating.value}/10</span>
-    </div>
-  </div>
-</section>
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

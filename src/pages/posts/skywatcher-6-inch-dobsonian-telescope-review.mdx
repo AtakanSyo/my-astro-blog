@@ -30,45 +30,36 @@ keywords:
   - SkyWatcher 6 Dobsonian
   - SkyWatcher Traditional Dobsonian Review
   - Best 6 inch Dobsonian
+prosCons:
+  pros:
+    - "Excellent all-round f/8 optics for planets and deep-sky"
+    - "Solid and stable Dobsonian mount"
+    - "High-quality included eyepieces for the price"
+    - "Metal 2″ focuser with smooth action"
+  cons:
+    - "Less portable than tabletop or tripod-mounted scopes"
+    - "6×30 finder is adequate but small and dim"
+    - "Heavy base makes transport harder"
+quickSpecs:
+  - "Aperture: 150 mm (6 inches)"
+  - "Focal Length: 1200 mm"
+  - "Focal Ratio: f/8"
+  - "Highest Useful Magnification: 300×"
+  - "Mount Type: Dobsonian, Manual"
+  - "Focuser Size: 2″"
+  - "Focuser Style: Rack-and-pinion"
+  - "Finder: 6×30"
+  - "Base Weight: 25 lbs"
+  - "Optical Tube Weight: 15 lbs"
 ---
+import ProsCons from '../../components/ProsCons.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
 
 <p>The <strong>SkyWatcher 6” Traditional Dobsonian</strong> is one of the most praised beginner telescopes on the market. Known for its excellent optical performance and solid build quality, it offers tremendous value for the price. Based on owner reports and technical specifications, it’s a model we can recommend to almost anyone looking for a balance of planetary detail, deep-sky reach, and durability.</p>
 
-<section class="info-tags">
-<h2>Info Tags</h2>
-<ul>
-  <li>Aperture: 150 mm (6 inches)</li>
-  <li>Focal Length: 1200 mm</li>
-  <li>Focal Ratio: f/8</li>
-  <li>Highest Useful Magnification: 300×</li>
-  <li>Mount Type: Dobsonian, Manual</li>
-  <li>Focuser Size: 2″</li>
-  <li>Focuser Style: Rack-and-pinion</li>
-  <li>Finder: 6×30</li>
-  <li>Base Weight: 25 lbs</li>
-  <li>Optical Tube Weight: 15 lbs</li>
-</ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-      <li>Excellent all-round f/8 optics for planets and deep-sky</li>
-      <li>Solid and stable Dobsonian mount</li>
-      <li>High-quality included eyepieces for the price</li>
-      <li>Metal 2″ focuser with smooth action</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-      <li>Less portable than tabletop or tripod-mounted scopes</li>
-      <li>6×30 finder is adequate but small and dim</li>
-      <li>Heavy base makes transport harder</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
 <h2>In-Depth Review</h2>
 <p>The SkyWatcher 6” Dobsonian is a full-sized Newtonian reflector mounted on a simple yet sturdy Dobsonian base. It’s not as portable as smaller scopes — the base and tube are best carried separately — but the optical performance more than makes up for the size. Owners consistently report that it delivers sharp, bright views and holds up well over years of use.</p>

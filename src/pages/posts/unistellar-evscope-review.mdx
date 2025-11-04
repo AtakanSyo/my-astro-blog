@@ -30,64 +30,33 @@ slug: unistellar-evscope-review
 imageDir: /images/unistellar-evscope-review
 keywords:
   - Unistellar Evscope
+prosCons:
+  pros:
+    - "Requires essentially no effort, brainpower, or dark skies to use"
+    - "Produces low-quality images that may impress non-astronomers"
+  cons:
+    - "A complete rip-off-"
+    - "Low-quality images that even a DSLR and wind-up star tracker can beat"
+    - "Not a substitute for actual observation through an eyepiece"
+quickSpecs:
+  - "114mm (4.5”) Aperture"
+  - "500mm Focal Length"
+  - "f/3.9"
+  - "Built-in electronic “eyepiece” on base model"
 ---
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import ProsCons from '../../components/ProsCons.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
 
 <h2>Introduction</h2>
 
 <p class="highlight">The Unistellar eVscope is a product built largely on marketing hype and the laziness of its target demographic, providing lackluster images built on misleading promises and using components that cost roughly one-tenth to buy yourself as what Unistellar tricks you into purchasing. It is a scam marginally better than other crowdfunded products like solar roadways or artificial gills, designed to con those with more money than common sense into buying a bloated, barely functional product that rips away the entire point of purchasing a telescope in the first place. A real high-quality telescope is cheaper; a real astrophotography rig is more capable.</p>
-<section class="info-tags">
-  <h3>Info Tags</h3>
-  <ul>
-    <li>114mm (4.5”) Aperture</li>
-    <li>500mm Focal Length</li>
-    <li>f/3.9</li>
-    <li>Built-in electronic “eyepiece” on base model</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-        <li>Requires essentially no effort, brainpower, or dark skies to use</li>
-        <li>Produces low-quality images that may impress non-astronomers</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-        <li>A complete rip-off-</li>
-        <li>Low-quality images that even a DSLR and wind-up star tracker can beat</li>
-        <li>Not a substitute for actual observation through an eyepiece</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Rating</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Mount</span>
-      <span class="score">{frontmatter.rating.mount}/10</span>
-    </div>
-
-    <div class="rating-card">
-      <span class="category">Accessories</span>
-      <span class="score">{frontmatter.rating.accessories}/10</span>
-    </div>
-  </div>
-</section>
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

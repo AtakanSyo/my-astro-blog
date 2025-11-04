@@ -29,9 +29,31 @@ imageDir: /images/meade-instruments-infinity-70-az-refractor-telescope-review
 keywords:
   - Meade Infinity 70
   - Infinity 70
+prosCons:
+  pros:
+    - "70 mm aperture: clear lunar and planetary views"
+    - "Includes decent eyepieces and a Barlow lens"
+    - "Easy-to-use red dot finder"
+  cons:
+    - "Limited deep-sky performance"
+    - "Tripod can wobble at high power"
+    - "Barlow lens is plastic"
+quickSpecs:
+  - "70 mm (2.75″) Aperture"
+  - "700 mm Focal Length"
+  - "f/10"
+  - "140× Highest Magnification"
+  - "Alt-Az Manual Mount"
+  - "1.25″ Focuser"
+  - "Rack-and-pinion Focuser"
+  - "Red Dot Finder"
+  - "7.45 lbs Weight"
 ---
 
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import ProsCons from '../../components/ProsCons.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
 
 <section class="review-disclaimer">
   <strong>Disclaimer:</strong> This review is based on technical specifications, manufacturer details, and multiple reports from telescope owners on forums such as Cloudy Nights, Amazon reviews, and other trusted sources. I have not personally used this telescope, but this article combines verified user feedback and product analysis to give an accurate overview.
@@ -49,61 +71,11 @@ import Affiliates from '../../components/Affiliates.astro'
 
 <p>Overall, the Meade Infinity 70 sits right at the point where a budget telescope becomes genuinely useful for astronomy. Its biggest draw is the low price: stepping up to an 80 mm model would typically cost nearly twice as much, making this scope a strong value choice for those starting out.</p>
 
-<section class="info-tags">
-  <h3>Info Tags</h3>
-  <ul>
-    <li>70 mm (2.75″) Aperture</li>
-    <li>700 mm Focal Length</li>
-    <li>f/10</li>
-    <li>140× Highest Magnification</li>
-    <li>Alt-Az Manual Mount</li>
-    <li>1.25″ Focuser</li>
-    <li>Rack-and-pinion Focuser</li>
-    <li>Red Dot Finder</li>
-    <li>7.45 lbs Weight</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-      <li>70 mm aperture: clear lunar and planetary views</li>
-      <li>Includes decent eyepieces and a Barlow lens</li>
-      <li>Easy-to-use red dot finder</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-      <li>Limited deep-sky performance</li>
-      <li>Tripod can wobble at high power</li>
-      <li>Barlow lens is plastic</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Overall</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Mount</span>
-      <span class="score">{frontmatter.rating.mount}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Accessories</span>
-      <span class="score">{frontmatter.rating.accessories}/10</span>
-    </div>
-  </div>
-</section>
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

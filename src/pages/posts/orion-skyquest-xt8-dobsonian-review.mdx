@@ -30,7 +30,30 @@ keywords:
   - Orion SkyQuest XT8
   - Orion Dobsonian
   - XT8 Classic
+prosCons:
+  pros:
+    - "Large 8-inch aperture for bright, detailed views"
+    - "Sturdy and smooth Dobsonian mount"
+    - "Accepts both 1.25\" and 2\" eyepieces"
+    - "Strong value for its price"
+  cons:
+    - "Basic finder scope limits comfort"
+    - "Only one eyepiece included"
+    - "Base is heavy due to particleboard construction"
+quickSpecs:
+  - "Optical Design: Newtonian Reflector"
+  - "Apertter: 8\" (203 mm)"
+  - "Focal Length: 1200 mm"
+  - "Focal Ratio: f/6"
+  - "Mount Type: Dobsonian, Manual"
+  - "Optical Coatings: Aluminum & Silicon Dioxide"
+  - "Limiting Stellar Magnitude: 14.2"
+  - "Lowest Useful Magnification: 29×"
+  - "Highest Useful Magnification: 300×"
+  - "Total Weight: 41 lbs (Optical Tube: ~21 lbs, Base: ~20 lbs)"
 ---
+import ProsCons from '../../components/ProsCons.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
 
 <section class="review-disclaimer">
   Disclaimer: This review is based on detailed analysis of manufacturer specifications, astronomy community feedback, and independent testing data from trusted sources. Our review combines expert insights, verified customer feedback, and technical specifications to provide a complete picture of the product.
@@ -40,41 +63,9 @@ keywords:
 
 <p>For those willing to spend about $100 more, the Zhumell Z8 Deluxe offers similar power with a richer accessory package — but the XT8 still holds strong value thanks to Orion’s solid build quality and optics.</p>
 
-<section class="info-tags">
-<h3>Info Tags</h3>
-  <ul>
-    <li>Optical Design: Newtonian Reflector</li>
-    <li>Apertter: 8" (203 mm)</li>
-    <li>Focal Length: 1200 mm</li>
-    <li>Focal Ratio: f/6</li>
-    <li>Mount Type: Dobsonian, Manual</li>
-    <li>Optical Coatings: Aluminum & Silicon Dioxide</li>
-    <li>Limiting Stellar Magnitude: 14.2</li>
-    <li>Lowest Useful Magnification: 29×</li>
-    <li>Highest Useful Magnification: 300×</li>
-    <li>Total Weight: 41 lbs (Optical Tube: ~21 lbs, Base: ~20 lbs)</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-      <li>Large 8-inch aperture for bright, detailed views</li>
-      <li>Sturdy and smooth Dobsonian mount</li>
-      <li>Accepts both 1.25" and 2" eyepieces</li>
-      <li>Strong value for its price</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-      <li>Basic finder scope limits comfort</li>
-      <li>Only one eyepiece included</li>
-      <li>Base is heavy due to particleboard construction</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
 <h2>In-Depth Review</h2>
 <p>The XT8 is designed to provide maximum optical power for the money. Its 8-inch aperture gathers a huge amount of light, making it well-suited for observing planets and bright deep-sky objects. Under good conditions, users report sharp, clear views of Jupiter’s cloud bands, Saturn’s rings, and the Moon’s craters and maria. Deep-sky performance is also strong: galaxies, nebulae, and star clusters are well within reach.</p>

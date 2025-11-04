@@ -33,65 +33,37 @@ keywords:
   - GoTo telescope
   - beginner telescope
   - 4SE
+quickSpecs:
+  - "102 mm (4″) Aperture"
+  - "1325 mm Focal Length"
+  - "f/13 Maksutov-Cassegrain"
+  - "Motorized GoTo Alt-Az Mount"
+  - "2″ Steel Tripod"
+prosCons:
+  pros:
+    - "Great views of the Moon and planets"
+    - "Computerized mount makes finding objects easy"
+    - "Solid tripod for the size and price"
+    - "Compact and travel-friendly"
+  cons:
+    - "Small aperture limits deep-sky viewing"
+    - "Narrow field of view (f/13)"
+    - "Needs external power for longer sessions"
+    - "Basic accessories out of the box"
 ---
 
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
+import ProsCons from '../../components/ProsCons.astro'
 
 <p>The Celestron NexStar 4SE is a small, computerized telescope. Its compact Maksutov-Cassegrain design and GoTo mount make it a popular choice for beginners who want automation and portability. That said, with only a 4″ aperture, it’s not a deep-sky powerhouse — this scope really plays best to its strengths: the Moon and planets.</p>
 
-<section class="info-tags">
-  <h3>Quick Specs</h3>
-  <ul>
-    <li>102 mm (4″) Aperture</li>
-    <li>1325 mm Focal Length</li>
-    <li>f/13 Maksutov-Cassegrain</li>
-    <li>Motorized GoTo Alt-Az Mount</li>
-    <li>2″ Steel Tripod</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-      <li>Great views of the Moon and planets</li>
-      <li>Computerized mount makes finding objects easy</li>
-      <li>Solid tripod for the size and price</li>
-      <li>Compact and travel-friendly</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-      <li>Small aperture limits deep-sky viewing</li>
-      <li>Narrow field of view (f/13)</li>
-      <li>Needs external power for longer sessions</li>
-      <li>Basic accessories out of the box</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Overall</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Mount</span>
-      <span class="score">{frontmatter.rating.mount}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Accessories</span>
-      <span class="score">{frontmatter.rating.accessories}/10</span>
-    </div>
-  </div>
-</section>
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 

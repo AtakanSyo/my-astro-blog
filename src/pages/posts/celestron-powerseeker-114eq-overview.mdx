@@ -31,64 +31,36 @@ keywords:
   - Celestron PowerSeeker 114EQ
   - Celestron telescope
   - beginner telescope
+quickSpecs:
+  - "114 mm (4.5″) Aperture"
+  - "900 mm Focal Length"
+  - "f/8 Newtonian Reflector"
+  - "EQ-1 Equatorial Mount"
+prosCons:
+  pros:
+    - "Good optical performance for the price"
+    - "Sharp planetary and lunar views at high magnification"
+    - "Reasonable deep-sky performance on bright targets"
+    - "Lightweight and portable optical tube"
+  cons:
+    - "Shaky EQ-1 mount struggles with the long tube"
+    - "Poor-quality included eyepieces and Barlow"
+    - "Small finder scope is difficult to use"
+    - "Accessories require immediate upgrades"
 ---
 
 import Affiliates from '../../components/Affiliates.astro'
+import Ratings from '../../components/Ratings.astro'
+import QuickSpecs from '../../components/QuickSpecs.astro'
+import ProsCons from '../../components/ProsCons.astro'
 
 <p>The Celestron PowerSeeker 114EQ is a telescope with a lot of potential: a long 114 mm optical tube capable of delivering sharp planetary and lunar views. Unfortunately, it’s paired with a very lightweight equatorial mount and low-quality accessories, which makes the overall package frustrating for beginners. With upgrades, the optical tube can shine, but most buyers may prefer sturdier alternatives in the same price range.</p>
 
-<section class="info-tags">
-  <h3>Quick Specs</h3>
-  <ul>
-    <li>114 mm (4.5″) Aperture</li>
-    <li>900 mm Focal Length</li>
-    <li>f/8 Newtonian Reflector</li>
-    <li>EQ-1 Equatorial Mount</li>
-  </ul>
-</section>
+<QuickSpecs items={frontmatter.quickSpecs} />
 
-<section class="pros-cons">
-  <div class="pros-block">
-    <h3>Pros</h3>
-    <ul>
-      <li>Good optical performance for the price</li>
-      <li>Sharp planetary and lunar views at high magnification</li>
-      <li>Reasonable deep-sky performance on bright targets</li>
-      <li>Lightweight and portable optical tube</li>
-    </ul>
-  </div>
-  <div class="cons-block">
-    <h3>Cons</h3>
-    <ul>
-      <li>Shaky EQ-1 mount struggles with the long tube</li>
-      <li>Poor-quality included eyepieces and Barlow</li>
-      <li>Small finder scope is difficult to use</li>
-      <li>Accessories require immediate upgrades</li>
-    </ul>
-  </div>
-</section>
+<ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
-<section class="ratings">
-  <h3>Ratings</h3>
-  <div class="ratings-grid">
-    <div class="rating-card">
-      <span class="category">Overall</span>
-      <span class="score">{frontmatter.rating.overall}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Optics</span>
-      <span class="score">{frontmatter.rating.optics}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Mount</span>
-      <span class="score">{frontmatter.rating.mount}/10</span>
-    </div>
-    <div class="rating-card">
-      <span class="category">Accessories</span>
-      <span class="score">{frontmatter.rating.accessories}/10</span>
-    </div>
-  </div>
-</section>
+<Ratings rating={frontmatter.rating} />
 
 <Affiliates affiliate={frontmatter.affiliate} />
 
