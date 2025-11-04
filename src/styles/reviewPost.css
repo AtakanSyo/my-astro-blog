@@ -296,7 +296,7 @@ h1 .review-tag {
 
 /* Subtle emphasis on Overall (not changing bar color) */
 .vbar-card[data-key="overall"] {
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.15);
 }
 
 /* ===============================
