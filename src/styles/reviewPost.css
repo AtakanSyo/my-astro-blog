@@ -495,14 +495,11 @@ figcaption {
   max-width: 70%;
 }
 
-.feedback-card .vendor-name {
-  font-size: 1.1rem;
+@media (max-width: 600px) {
+  .feedback-card .vendor-info{
+      max-width: 100%;
+  }
 }
-
-.feedback-card .vendor-desc {
-  font-size: 0.9rem;
-}
-
 
 
 .vendor-info {
