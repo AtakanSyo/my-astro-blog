@@ -1,211 +1,44 @@
 ---
-/**
- * GenericTable.astro
- *
- * Props:
- * - columns: Array<{
- *     key: string;             // property name in each row
- *     label: string;           // column header
- *     type?: 'text'|'datetime'|'utc'|'number';
- *     align?: 'left'|'center'|'right';
- *     hideOnMobile?: boolean;  // optional
- *   }>
- * - rows: Array<Record<string, any>>
- * - options?: {
- *     tzPicker?: boolean;         // show Local/ET/TRT/UTC switcher for 'datetime' columns
- *     stickyHeader?: boolean;     // default true
- *     zebra?: boolean;            // default true
- *     hover?: boolean;            // default true
- *     cardBreakpointPx?: number;  // default 720
- *   }
- * - controls?: optional slot for extra UI on the right of the header
- */
-
-interface Column {
-  key: string;
-  label: string;
-  type?: 'text'|'datetime'|'utc'|'number';
-  align?: 'left'|'center'|'right';
-  hideOnMobile?: boolean;
+interface Props {
+  headers: string[];
+  rows: Array<Array<string | number>>;
+  title?: string;
+  caption?: string;
+  class?: string;
 }
 
 const {
-  columns = [] as Column[],
-  rows = [] as Record<string, any>[],
-  options = {}
-} = Astro.props;
-
-const {
-  tzPicker = false,
-  stickyHeader = true,
-  zebra = true,
-  hover = true,
-  cardBreakpointPx = 720,
-} = options;
-
-const tzOptions = [
-  { key: 'local', label: 'Local', tz: undefined },
-  { key: 'TRT',   label: 'Turkey Time', tz: 'Europe/Istanbul' },
-  { key: 'ET',    label: 'Eastern', tz: 'America/New_York' },
-  { key: 'UTC',   label: 'UTC', tz: 'UTC' },
-];
+  headers = [],
+  rows = [],
+  title,
+  caption,
+  class: extraClass = '',
+} = Astro.props as Props;
 ---
 
-<section class="gt">
-  <div class="gt-head">
-    <h3 class="gt-title"><slot name="title">Table</slot></h3>
-    <div class="gt-actions">
-      <slot name="controls" />
-      {tzPicker && (
-        <label class="tz">
-          <span>Time zone</span>
-          <select id="gt-tz">
-            {tzOptions.map(o => <option value={o.key}>{o.label}</option>)}
-          </select>
-        </label>
-      )}
-    </div>
-  </div>
-
-  <table class="gt-table" data-sticky={stickyHeader} data-zebra={zebra} data-hover={hover}>
-    <caption class="sr-only"><slot name="caption">Data table</slot></caption>
-    <thead>
-      <tr>
-        {columns.map(col => (
-          <th
-            scope="col"
-            class={[
-              col.align ? `al-${col.align}` : 'al-left',
-              col.hideOnMobile ? 'hide-sm' : ''
-            ].join(' ')}
-          >
-            {col.label}
-          </th>
-        ))}
-      </tr>
-    </thead>
-    <tbody>
-      {rows.map((row) => (
+<section class={['simple-table', extraClass].filter(Boolean).join(' ')}>
+  {title && <h3 class="simple-table__title">{title}</h3>}
+  <div class="simple-table__wrap">
+    <table class="simple-table__table">
+      <thead>
         <tr>
-          {columns.map((col) => {
-            const val = row[col.key];
-
-            // Text output helpers
-            function alignClass(a?: string) {
-              return a ? `al-${a}` : 'al-left';
-            }
-
-            // Render cell by type
-            if (col.type === 'datetime') {
-              // Expect ISO string in val
-              return (
-                <td class={[alignClass(col.align), col.hideOnMobile ? 'hide-sm' : ''].join(' ')} data-label={col.label}>
-                  <time class="gt-dt" data-iso={String(val)}>—</time>
-                </td>
-              );
-            }
-            if (col.type === 'utc') {
-              const d = val ? new Date(String(val)) : null;
-              const out = d ? d.toUTCString().replace(' GMT','') : '';
-              return (
-                <td class={[alignClass(col.align), 'muted', col.hideOnMobile ? 'hide-sm' : ''].join(' ')} data-label={col.label}>
-                  <time datetime={d ? d.toISOString() : undefined}>{out}</time>
-                </td>
-              );
-            }
-            if (col.type === 'number') {
-              return (
-                <td class={[alignClass(col.align ?? 'right'), col.hideOnMobile ? 'hide-sm' : ''].join(' ')} data-label={col.label}>
-                  {typeof val === 'number' ? val.toLocaleString() : val}
-                </td>
-              );
-            }
-            // Default: text
-            return (
-              <td class={[alignClass(col.align), col.hideOnMobile ? 'hide-sm' : ''].join(' ')} data-label={col.label}>
-                {val}
-              </td>
-            );
-          })}
+          {headers.map(header => (
+            <th scope="col">{header}</th>
+          ))}
         </tr>
-      ))}
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        {rows.map((row) => (
+          <tr>
+            {row.map((cell, cellIndex) => (
+              <td data-label={headers[cellIndex] ?? `Col ${cellIndex + 1}`}>
+                {typeof cell === 'number' ? cell.toLocaleString() : cell}
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    {caption && <p class="simple-table__caption">{caption}</p>}
+  </div>
 </section>
-
-<style>
-  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
-  .gt { margin-block: 1rem 2rem; }
-  .gt-head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: .75rem; }
-  .gt-title { margin: 0; }
-  .gt-actions { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
-  .tz { display: inline-flex; gap: .5rem; align-items: center; font-size: .95rem; }
-  .tz select {
-    padding: .4rem .6rem; border-radius: 8px; border: 1px solid var(--border, #ddd);
-    background: var(--bg, #fff); color: var(--color-text, #111);
-  }
-
-  .gt-table { width: 100%; border-collapse: collapse; }
-  thead th {
-    background: var(--table-head, rgba(0,0,0,0.04));
-    font-weight: 600; text-align: left; padding: .6rem .75rem;
-  }
-  [data-sticky="true"] thead th { position: sticky; top: 0; backdrop-filter: blur(2px); z-index: 1; }
-
-  tbody td { padding: .65rem .75rem; border-top: 1px solid var(--row, rgba(0,0,0,0.08)); }
-
-  /* zebra + hover */
-  [data-zebra="true"] tbody tr:nth-child(even) { background: var(--zebra, rgba(0,0,0,0.03)); }
-  [data-hover="true"] tbody tr:hover { background: var(--hover, rgba(0,0,0,0.06)); }
-
-  .muted { opacity: .78; }
-
-  /* alignment */
-  .al-left { text-align: left; }
-  .al-center { text-align: center; }
-  .al-right { text-align: right; }
-
-  /* mobile card mode */
-  @media (max-width: {cardBreakpointPx}px) {
-    .gt-table thead { display: none; }
-    .gt-table, .gt-table tbody, .gt-table tr, .gt-table td { display: block; width: 100%; }
-    .gt-table tr {
-      border: 1px solid var(--row, rgba(0,0,0,0.08));
-      border-radius: 14px; padding: .6rem; margin-bottom: .75rem;
-      background: var(--card, rgba(255,255,255,0.6));
-      box-shadow: 0 1px 10px rgba(0,0,0,0.04);
-    }
-    .gt-table td { border: 0; padding: .35rem .25rem; }
-    .gt-table td[data-label]::before {
-      content: attr(data-label) ": "; font-weight: 600; opacity: .65; margin-right: .25rem;
-    }
-    .hide-sm { display: none; }
-  }
-</style>
-
-{tzPicker && (
-  <script>
-    const select = document.getElementById('gt-tz');
-    function renderTZ(key) {
-      let tz;
-      if (key === 'ET') tz = 'America/New_York';
-      else if (key === 'TRT') tz = 'Europe/Istanbul';
-      else if (key === 'UTC') tz = 'UTC';
-      else tz = undefined;
-
-      document.querySelectorAll('.gt-dt[data-iso]').forEach(el => {
-        const iso = el.getAttribute('data-iso');
-        const d = new Date(iso);
-        const parts = new Intl.DateTimeFormat(undefined, {
-          timeZone: tz,
-          hour: '2-digit', minute: '2-digit',
-          weekday: 'short', year: 'numeric', month: 'short', day: '2-digit'
-        }).formatToParts(d);
-        const get = (t) => parts.find(p => p.type === t)?.value || '';
-        el.textContent = `${get('weekday')}, ${get('month')} ${get('day')} — ${get('hour')}:${get('minute')}`;
-      });
-    }
-    renderTZ('local');
-    select?.addEventListener('change', (e) => renderTZ(e.target.value));
-  </script>
-)}
