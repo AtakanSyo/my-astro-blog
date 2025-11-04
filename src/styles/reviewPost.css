@@ -2,6 +2,11 @@
 p {
   max-width: 800px;
   color: #e4e4e4;
+  padding: 0.7rem;
+}
+
+h1, h2, h3, h4, h5 {
+  padding: 0.5rem;
 }
 
 .review-post {
@@ -124,6 +129,8 @@ h1 .review-tag {
   letter-spacing: .1px;
   position: relative;
   isolation: isolate;
+
+  max-width: 90vw;
 }
 
 .info-tags ul li::before {
@@ -224,6 +231,8 @@ h1 .review-tag {
   gap: 18px;
   border-radius: 18px;
   padding: 9px 11px;
+  max-width: min(90vw, 600px);
+  overflow-x: scroll;
 }
 
 /* Each bar card */
@@ -295,9 +304,16 @@ h1 .review-tag {
   gap: 2rem;
   margin: 2em 0;
   flex-wrap: wrap;
-  max-width: 800px;
+  max-width: min(90vw, 800px);
   color: var(--text);
 }
+
+@media (max-width: 600px) {
+  .pros-cons{
+    flex-direction: column;
+  }
+}
+
 
 .pros-cons > div {
   flex: 1;
@@ -308,15 +324,6 @@ h1 .review-tag {
   box-shadow: var(--shadow);
   position: relative;
   overflow: hidden;
-}
-
-.pros-cons > div::before {
-  content: "";
-  position: absolute;
-  inset: -30% -20% 50% auto;
-  background: radial-gradient(60% 120% at 60% 40%, rgba(169,180,255,0.14), transparent 70%);
-  transform: rotate(-8deg);
-  pointer-events: none;
 }
 
 .pros-cons h3 {
@@ -441,10 +448,11 @@ figcaption {
 }
 
 .affiliate-section {
-  width: 100%;
+  max-width: min(90vw, 520px);
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
+  justify-content: center;
 }
 
 .affiliate-section-title {
@@ -457,7 +465,6 @@ figcaption {
   flex-direction: column;
   gap: 1rem;
   width: 100%;
-  max-width: 520px;
   padding: 0;
   list-style: none;
 }
@@ -479,15 +486,9 @@ figcaption {
    =============================== */
 .feedback-cta {
   width: 100%;
-  margin: 3rem auto 0;
+  margin: 3rem;
   display: flex;
   justify-content: center;
-}
-
-.feedback-card {
-  width: 100%;
-  max-width: 520px;
-  gap: 1.25rem;
 }
 
 .feedback-card .vendor-info {
@@ -500,12 +501,6 @@ figcaption {
 
 .feedback-card .vendor-desc {
   font-size: 0.9rem;
-}
-
-@media (max-width: 600px) {
-  .feedback-card .vendor-info {
-    max-width: 100%;
-  }
 }
 
 

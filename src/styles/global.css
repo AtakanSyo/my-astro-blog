@@ -122,14 +122,14 @@ h5 {
 
 p {
   margin-bottom: var(--spacing);
-  font-size: clamp(1rem, 1.1vw, 1.125rem); /* a bit larger on big screens */
-  line-height: 1.75;                       /* airy reading rhythm */
-  text-align: justify;                     /* clean edges on both sides */
-  hyphens: auto;                           /* avoid awkward gaps */
+  font-size: clamp(1rem, 1rem + 0.25vw, 1.125rem); /* scales responsibly */
+  line-height: 1.75;                                /* airy reading rhythm */
+  text-align: justify;                              /* clean edges */
+  hyphens: auto;                                     /* avoids weird spacing */
   color: var(--color-text);
-  letter-spacing: 0.01em;                  /* subtle tracking for elegance */
+  letter-spacing: 0.01em;                           /* slight readability boost */
+  max-width: 65ch;                                  /* PERFECT reading width */
 }
-
 footer {
   margin-top: 2rem;
 }
