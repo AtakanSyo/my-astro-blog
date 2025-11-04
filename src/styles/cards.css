@@ -155,6 +155,33 @@
 .post-card-footer.has-badge { justify-content: space-between; }
 .post-card-badges { display: flex; gap: .4rem; align-items: center; }
 
+@media (max-width: 640px) {
+  .post-card-footer.has-badge .post-card-badges {
+    overflow-x: auto;
+    padding-bottom: 0.35rem;
+    margin-right: -0.25rem;
+    scroll-snap-type: x mandatory;
+  }
+
+  .post-card-footer.has-badge .post-card-badges::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .post-card-footer.has-badge .post-card-badges::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .post-card-footer.has-badge .post-card-badges::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 2px;
+  }
+
+  .post-card-footer.has-badge .post-card-badges > * {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+}
+
 /* -------- Button row (shared design) -------- */
 .card-buttons { display: flex; gap: .5rem; padding: 0 .95rem .95rem; }
 .card-btn {

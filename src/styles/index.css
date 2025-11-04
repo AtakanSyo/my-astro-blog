@@ -70,7 +70,8 @@
   grid-auto-columns: 1fr;
   gap: 1rem;
   justify-content: center;
-  align-items: center;
+  align-items: stretch;
+  justify-items: stretch;
   max-width: 980px;
   margin: 0 auto 3rem;
 }
@@ -83,6 +84,8 @@
   padding:1.05rem 1.35rem;border:0;border-radius:14px;text-transform:uppercase;letter-spacing:.06em;font-weight:800;font-size:clamp(.9rem,1.2vw + .5rem,1.05rem);
   color:#fff;background:linear-gradient(180deg,#1e2028,#141723);box-shadow:0 8px 24px rgba(0,0,0,0.35);transform:translateZ(0);
   transition: transform .18s ease, box-shadow .22s ease, background .18s ease, filter .18s ease, opacity .18s ease;
+  min-height: 3.25rem;
+  width: 100%;
 }
 .cta svg { width: 1.1em; height: 1.1em; }
 
