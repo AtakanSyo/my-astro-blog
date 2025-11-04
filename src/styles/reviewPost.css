@@ -2,11 +2,13 @@
 p {
   max-width: 800px;
   color: #e4e4e4;
-  padding: 0.7rem;
+  padding-left: 0.7rem;
+  padding-right: 0.7rem;
 }
 
 h1, h2, h3, h4, h5 {
-  padding: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 .review-post {
