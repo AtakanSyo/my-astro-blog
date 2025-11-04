@@ -175,8 +175,6 @@ h1 .review-tag {
   padding: 0.9rem 1.2rem;
   width: 8rem;
 
-  font-size: 1.2rem;
-
   /* Two-layer background: inner fill + gradient border */
   border: 2px solid transparent; /* controls border thickness */
   background:
@@ -678,6 +676,8 @@ figcaption {
   overflow: hidden;             /* prevents child overflow */
 }
 
+
+
 /* Meta column (fixed/narrow, left) */
 .review-meta {
   flex: 0 0 360px;
@@ -686,4 +686,27 @@ figcaption {
   flex-direction: column;
   gap: 0.8rem;
   align-items: center;
+}
+
+/* =============================
+   Responsive Adjustments
+   ============================= */
+@media (max-width: 768px) {
+  .review-post-starter-content {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .review-meta {
+    flex: 1 1 auto;
+    max-width: 100%;
+  }
+
+  .post-starter-image {
+    width: 100%;
+    max-width: 100%;
+    align-self: center;
+  }
 }
