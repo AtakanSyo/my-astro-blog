@@ -432,18 +432,26 @@ figcaption {
 }
 
 .vendor-button {
-  white-space: nowrap;
-  padding: 0.65rem 1rem;
+  padding: 0.7rem 1.25rem;
   border-radius: 8px;
-  font-weight: 700;
-  background: var(--brand-red-darker);
-  color: white;
+  font-weight: 900;              /* bold text */
+  font-size: 0.9rem;
   text-decoration: none;
-  transition: 0.2s ease;
+
+  color: var(--brand-red);  /* red text */
+  border: 1px solid var(--brand-red); /* red border */
+
+  background: transparent;       /* transparent button */
+  backdrop-filter: blur(5px);
+
+  transition: box-shadow .25s ease, transform .18s ease;
 }
 
+/* Hover – soft highlight, not aggressive */
 .vendor-button:hover {
-  filter: brightness(1.15);
+  background: rgba(255,255,255,0.12);
+  border-color: var(--brand-red);
+  transform: translateY(-1px);
 }
 
 /* Mobile layout: stack items */
