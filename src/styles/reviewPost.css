@@ -164,6 +164,23 @@ h1 .review-tag {
   letter-spacing: .2px;
 }
 
+.ratings-descriptor {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-left: 0.85rem;
+  padding: 0.32rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(255, 58, 59, 0.12);
+  border: 1px solid rgba(255, 58, 59, 0.35);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: color-mix(in oklab, var(--brand-red) 90%, white 10%);
+  box-shadow: 0 6px 14px rgba(255, 58, 59, 0.18);
+}
+
 .ratings-grid {
   display: flex;
   justify-content: center;
@@ -236,6 +253,7 @@ h1 .review-tag {
   padding: 9px 11px;
   max-width: min(90vw, 600px);
   overflow-x: scroll;
+  justify-content: center;
 }
 
 /* Each bar card */
