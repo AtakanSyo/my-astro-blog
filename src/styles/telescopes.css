@@ -124,7 +124,7 @@
   border: 1px solid var(--brand-red); /* subtle accent color border from the start */
   border-radius: 6px;
   font-size: 0.875rem;
-  color: #e6e7ff; /* soft light accent tone for text */
+  color: #ffffff;
   font-weight: 600;
   text-decoration: none;
   box-shadow: 0 0 4px rgba(93, 98, 210, 0.25); /* faint always-on glow */
