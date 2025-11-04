@@ -1,0 +1,24 @@
+---
+interface Props {
+  email?: string;
+}
+
+const DEFAULT_EMAIL = 'astrosyo@astrosyo.com';
+const { email = DEFAULT_EMAIL } = Astro.props;
+const mailto = `mailto:${email}?subject=${encodeURIComponent('Feedback for Astrosyo Reviews')}`;
+---
+<section class="feedback-cta">
+  <div class="vendor-card feedback-card">
+    <div class="vendor-info">
+      <h4 class="vendor-name">Have feedback for Astrosyo?</h4>
+      <span class="vendor-label">We read every note</span>
+      <p class="vendor-desc">
+        Spot something we should update or want to share your observing experience? Drop us a quick line.
+      </p>
+    </div>
+
+    <a class="vendor-button" href={mailto}>
+      Email us ↗
+    </a>
+  </div>
+</section>

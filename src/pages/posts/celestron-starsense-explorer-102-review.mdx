@@ -50,6 +50,9 @@ prosCons:
 ---
 import Affiliates from '../../components/Affiliates.astro'
 import ProsCons from '../../components/ProsCons.astro'
+import Ratings from '../../components/Ratings.astro'
+
+<Ratings rating={frontmatter.rating} />
 
 <ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 

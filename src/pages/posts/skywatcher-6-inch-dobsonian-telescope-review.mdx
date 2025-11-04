@@ -54,12 +54,15 @@ quickSpecs:
 ---
 import ProsCons from '../../components/ProsCons.astro'
 import QuickSpecs from '../../components/QuickSpecs.astro'
+import Ratings from '../../components/Ratings.astro'
 
 <p>The <strong>SkyWatcher 6” Traditional Dobsonian</strong> is one of the most praised beginner telescopes on the market. Known for its excellent optical performance and solid build quality, it offers tremendous value for the price. Based on owner reports and technical specifications, it’s a model we can recommend to almost anyone looking for a balance of planetary detail, deep-sky reach, and durability.</p>
 
 <QuickSpecs items={frontmatter.quickSpecs} />
 
 <ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
+
+<Ratings rating={frontmatter.rating} />
 
 <h2>In-Depth Review</h2>
 <p>The SkyWatcher 6” Dobsonian is a full-sized Newtonian reflector mounted on a simple yet sturdy Dobsonian base. It’s not as portable as smaller scopes — the base and tube are best carried separately — but the optical performance more than makes up for the size. Owners consistently report that it delivers sharp, bright views and holds up well over years of use.</p>

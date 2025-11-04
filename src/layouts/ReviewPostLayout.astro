@@ -3,6 +3,7 @@ import Layout from './Layout.astro';
 import '../styles/postsGlobal.css';
 import '../styles/reviewPost.css';
 import SocialShare from '../components/SocialShare.astro';
+import FeedbackCTA from '../components/FeedbackCTA.astro';
 
 const { url } = Astro.props;
 
@@ -104,6 +105,8 @@ const jsonLdProduct = {
   <article class="post review-post centered_flex">
     <slot />
   </article>
+
+  <FeedbackCTA />
 
 </div>
 </Layout>

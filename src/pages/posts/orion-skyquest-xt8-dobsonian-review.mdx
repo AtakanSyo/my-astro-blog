@@ -54,6 +54,7 @@ quickSpecs:
 ---
 import ProsCons from '../../components/ProsCons.astro'
 import QuickSpecs from '../../components/QuickSpecs.astro'
+import Ratings from '../../components/Ratings.astro'
 
 <section class="review-disclaimer">
   Disclaimer: This review is based on detailed analysis of manufacturer specifications, astronomy community feedback, and independent testing data from trusted sources. Our review combines expert insights, verified customer feedback, and technical specifications to provide a complete picture of the product.
@@ -66,6 +67,8 @@ import QuickSpecs from '../../components/QuickSpecs.astro'
 <QuickSpecs items={frontmatter.quickSpecs} />
 
 <ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
+
+<Ratings rating={frontmatter.rating} />
 
 <h2>In-Depth Review</h2>
 <p>The XT8 is designed to provide maximum optical power for the money. Its 8-inch aperture gathers a huge amount of light, making it well-suited for observing planets and bright deep-sky objects. Under good conditions, users report sharp, clear views of Jupiter’s cloud bands, Saturn’s rings, and the Moon’s craters and maria. Deep-sky performance is also strong: galaxies, nebulae, and star clusters are well within reach.</p>

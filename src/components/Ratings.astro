@@ -5,11 +5,11 @@ interface RatingsMap {
   optics?: number | string;
   mount?: number | string;
   accessories?: number | string;
+  value?: number | string;
+  mechanics?: number | string;
 }
 
-interface Props {
-  rating?: RatingsMap;
-}
+interface Props { rating?: RatingsMap }
 
 const { rating } = Astro.props;
 
@@ -22,20 +22,44 @@ const categories = [
   { key: 'mechanics', label: 'Mechanics' },
 ];
 
-const visibleRatings = rating
-  ? categories.filter(({ key }) => rating[key] !== undefined && rating[key] !== null && rating[key] !== '')
-  : [];
+function parseScore(v: number | string | undefined): number | null {
+  if (v === undefined || v === null || v === '') return null;
+  if (typeof v === 'number') return Math.max(0, Math.min(10, v));
+  const s = String(v).trim().toLowerCase();
+  const m = s.match(/^(\d+(?:\.\d+)?)(?:\s*\/\s*(\d+(?:\.\d+)?))?$/);
+  if (m) {
+    const num = parseFloat(m[1]);
+    const den = m[2] ? parseFloat(m[2]) : 10;
+    if (!isNaN(num) && !isNaN(den) && den > 0) return Math.max(0, Math.min(10, (num / den) * 10));
+  }
+  const map: Record<string, number> = { a: 9.5, 'a-': 9, 'b+': 8.5, b: 8, 'b-': 7.5, c: 7, 'c-': 6.5 };
+  return map[s] ?? null;
+}
+
+const visible = (rating
+  ? categories
+      .map(c => ({ ...c, score: parseScore(rating[c.key]) }))
+      .filter(c => c.score !== null)
+  : []);
 ---
-{visibleRatings.length > 0 && (
+{visible.length > 0 && (
   <section class="ratings">
-    <h3>Ratings</h3>
-    <div class="ratings-grid">
-      {visibleRatings.map(({ key, label }) => (
-        <div class="rating-card">
-          <span class="category">{label}</span>
-          <span class="score">{rating?.[key]}/10</span>
-        </div>
-      ))}
+    <h3 class="ratings-title">Performance Breakdown</h3>
+
+    <div class="ratings-row" role="list">
+      {visible.map(({ key, label, score }) => {
+        const pct = `${(score as number) * 10}%`; // height %
+        const hue = Math.round(((score as number) / 10) * 120); // 0→120 (red→green)
+        return (
+          <div class="vbar-card" data-key={key} role="listitem" aria-label={`${label} ${(score as number).toFixed(1)}/10`}>
+            <span class="vbar-score" aria-hidden="true">{(score as number).toFixed(1)}</span>
+            <div class="vbar" style={`--p:${pct}; --h:${hue}`}>
+              <span class="vbar-fill" />
+            </div>
+            <span class="vbar-label">{label}</span>
+          </div>
+        );
+      })}
     </div>
   </section>
 )}
