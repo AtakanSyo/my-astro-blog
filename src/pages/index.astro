@@ -38,7 +38,8 @@ const latestNasa = allPosts.find(({ frontmatter }) => hasCat(frontmatter, 'nasa'
 function descriptorFromScore(score) {
   if (score === null || Number.isNaN(score)) return null;
   if (score >= 8.5) return 'cosmic';
-  if (score >= 7) return 'not bad';
+  if (score >= 7) return 'a decent choice';
+  if (score >= 6) return 'not bad';
   if (score >= 5.5) return 'okay';
   if (score >= 4) return 'better options exist';
   return 'not recommended';
@@ -67,7 +68,8 @@ try {
         const bins = [
           { label: '0–4', min: 0, max: 4 },
           { label: '4–5.5', min: 4, max: 5.5 },
-          { label: '5.5–7', min: 5.5, max: 7 },
+          { label: '5.5–6', min: 5.5, max: 6 },
+          { label: '6–7', min: 6, max: 7 },
           { label: '7–8.5', min: 7, max: 8.5 },
           { label: '8.5–10', min: 8.5, max: 10.0001 },
         ];
@@ -76,7 +78,7 @@ try {
           scores.filter((score) => score >= bin.min && (index === bins.length - 1 ? score <= bin.max : score < bin.max)).length
         );
 
-        const descriptorOrder = ['cosmic', 'not bad', 'okay', 'better options exist', 'not recommended'];
+        const descriptorOrder = ['cosmic', 'a decent choice', 'not bad', 'okay', 'better options exist', 'not recommended'];
         const descriptorCounts = descriptorOrder.map((label) => ({
           label,
           count: scores.filter((score) => descriptorFromScore(score) === label).length,
