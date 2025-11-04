@@ -41,6 +41,11 @@ h1, h2, h3, h4, h5 {
   color: #aaa;
 }
 
+.post-starter-description {
+  font-style: italic;
+  color: rgba(220, 226, 244, 0.75);
+}
+
 h1 .review-tag {
   margin-left: 0.6rem;
   font-size: 0.55em;   /* scales with h1 */

@@ -17,7 +17,12 @@ p {
   font-weight: 900;
 }
 
-.review-description {
+.post-description {
+  font-style: italic;
+  color: rgba(220, 226, 244, 0.75);
+}
+
+.post-description {
   text-align: center;
 }
 

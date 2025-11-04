@@ -33,7 +33,7 @@ const {
   <article class="post nasa-post centered_flex">
 
     <h1 class="nasa-article-title">{title}</h1>
-
+    <p class="post-description">{description}</p>
     <p class="writer">Published by {writer}</p>
     <SocialShare frontmatter={Astro.props.frontmatter} url={url} client:load />
     <slot />
