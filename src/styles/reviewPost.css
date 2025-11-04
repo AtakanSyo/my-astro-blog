@@ -115,7 +115,6 @@ h1 .review-tag {
 }
 
 .info-tags ul li {
-  background: linear-gradient(180deg, var(--card), var(--card-2));
   color: var(--text);
   border: 1px solid var(--line);
   padding: .5rem 0.95rem;
@@ -166,6 +165,9 @@ h1 .review-tag {
    MAIN RATING CARD (hero version)
    =============================== */
 
+:root{
+  --rating-card-bg: rgb(22,22,22);
+}
 
 .rating-card {
   position: relative;
@@ -176,8 +178,8 @@ h1 .review-tag {
   /* Two-layer background: inner fill + gradient border */
   border: 2px solid transparent; /* controls border thickness */
   background:
-    linear-gradient(#1f1f1f, #1f1f1f) padding-box,                 /* inner fill */
-    var(--cosmic-gradient);                                               /* gradient border */
+    linear-gradient(var(--rating-card-bg), var(--rating-card-bg)) padding-box,                 /* inner fill */
+    var(--brand-red);                                               /* gradient border */
 
   display: flex;
   flex-direction: column;
@@ -187,6 +189,9 @@ h1 .review-tag {
   /* Prevent any weird overlap/scrolling */
   isolation: isolate;
   overflow: hidden;
+
+  box-shadow:
+    0 0 5px var(--brand-red); /* faint brand-colored glow */
 }
 
 
@@ -219,7 +224,6 @@ h1 .review-tag {
 .pros-cons > div {
   flex: 1;
   min-width: 200px;
-  background: linear-gradient(180deg, var(--card), var(--card-2));
   border: 1px solid var(--line);
   border-radius: .75rem;
   padding: 1rem;
@@ -387,8 +391,6 @@ figcaption {
   padding: 1.2rem 1.4rem;
   border-radius: 12px;
 
-  background: rgba(255,255,255,0.06);
-  backdrop-filter: blur(8px);
   border: 1px solid rgba(255,255,255,0.12);
 
   box-shadow: 0 4px 14px rgba(0,0,0,0.25);

@@ -36,6 +36,8 @@ html {
   --text-color: #e4e4e4;
   --meta-color: #aaa;
 
+  --gray-layer: rgba(255,255,255,0.06);
+
   --brand-red: #ff3a3b;
   --brand-red-bg: rgba(196,3,35,0.30);
   --brand-affiliate-button-red: #ff5252;
