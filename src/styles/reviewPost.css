@@ -175,6 +175,8 @@ h1 .review-tag {
   padding: 0.9rem 1.2rem;
   width: 8rem;
 
+  font-size: 1.2rem;
+
   /* Two-layer background: inner fill + gradient border */
   border: 2px solid transparent; /* controls border thickness */
   background:
@@ -191,7 +193,7 @@ h1 .review-tag {
   overflow: hidden;
 
   box-shadow:
-    0 0 5px var(--brand-red); /* faint brand-colored glow */
+    0 0 3px var(--brand-red); /* faint brand-colored glow */
 }
 
 
