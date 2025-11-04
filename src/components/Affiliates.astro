@@ -19,27 +19,73 @@ const hasAffiliate =
 ---
 
 {hasAffiliate && (
-  <section class="affiliates centered_flex">
-    <h3 class="affiliates-header">Choose a vendor</h3>
-    <ul>
-      {affiliate.amazon && (
-        <li>
-          <a class="affiliate-link" href={affiliate.amazon} target="_blank" rel="noopener noreferrer">Buy on Amazon</a>
-          <p class="affiliate-caption">Recommended for lower priced general purchases.</p>
-        </li>
-      )}
-      {affiliate.highpointscientific && (
-        <li>
-          <a class="affiliate-link" href={affiliate.highpointscientific} target="_blank" rel="noopener noreferrer">Buy on HighpointScientific</a>
-          <p class="affiliate-caption">Recommended for all purchases.</p>
-        </li>
-      )}
-      {affiliate.astroshop && (
-        <li>
-          <a class="affiliate-link" href={affiliate.astroshop} target="_blank" rel="noopener noreferrer">Buy on AstroShop</a>
-          <p class="affiliate-caption">Recommended for European buyers.</p>
-        </li>
-      )}
-    </ul>
-  </section>
+<section class="affiliate-section centered_flex">
+
+  <h3 class="affiliate-section-title">Some Vendors Where You Can Check the Price</h3>
+
+  <ul class="affiliate-vendors">
+
+    {affiliate.amazon && (
+      <li class="vendor-card">
+        
+        <div class="vendor-info">
+          <h4 class="vendor-name">Amazon</h4>
+          <span class="vendor-label">Huge marketplace</span>
+          <p class="vendor-desc">Good for quick shipping & general purchases.</p>
+        </div>
+
+        <a
+          href={affiliate.amazon}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="vendor-button"
+        >
+          Check price →
+        </a>
+      </li>
+    )}
+
+    {affiliate.highpointscientific && (
+      <li class="vendor-card">
+        
+        <div class="vendor-info">
+          <h4 class="vendor-name">HighPoint Scientific</h4>
+          <span class="vendor-label">Astronomy-focused store</span>
+          <p class="vendor-desc">Great customer support & expert guidance.</p>
+        </div>
+
+        <a
+          href={affiliate.highpointscientific}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="vendor-button"
+        >
+          Check price →
+        </a>
+      </li>
+    )}
+
+    {affiliate.astroshop && (
+      <li class="vendor-card">
+        
+        <div class="vendor-info">
+          <h4 class="vendor-name">AstroShop</h4>
+          <span class="vendor-label">Europe</span>
+          <p class="vendor-desc">Recommended for EU customers.</p>
+        </div>
+
+        <a
+          href={affiliate.astroshop}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="vendor-button"
+        >
+          Check price →
+        </a>
+      </li>
+    )}
+
+  </ul>
+
+</section>
 )}
