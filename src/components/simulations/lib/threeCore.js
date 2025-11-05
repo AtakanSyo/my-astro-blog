@@ -202,6 +202,8 @@ export function addSpinningPlanet(
   scene,
   {
     textureUrl,
+    color = '#ffffff',
+    luminosity = 1.2,
     position = [0, 0, 0],
     radius = 1,
     spinSpeed = 0.3,
@@ -216,25 +218,37 @@ export function addSpinningPlanet(
   if (!scene) {
     throw new Error('addSpinningPlanet requires a THREE.Scene instance.');
   }
-  if (!textureUrl) {
-    throw new Error('addSpinningPlanet requires a textureUrl.');
-  }
-
   const loader = textureLoader ?? new THREE.TextureLoader();
-  const texture = loader.load(textureUrl);
-  texture.colorSpace = THREE.SRGBColorSpace;
-  if (renderer?.capabilities?.getMaxAnisotropy) {
-    texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
-  }
-  texture.minFilter = THREE.LinearMipmapLinearFilter;
-  texture.magFilter = THREE.LinearFilter;
+  let texture;
+  let material;
 
-  const material = new THREE.MeshStandardMaterial({
-    map: texture,
-    roughness: 1,
-    metalness: 0,
-    ...materialOptions,
-  });
+  if (textureUrl) {
+    texture = loader.load(textureUrl);
+    texture.colorSpace = THREE.SRGBColorSpace;
+    if (renderer?.capabilities?.getMaxAnisotropy) {
+      texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    }
+    texture.minFilter = THREE.LinearMipmapLinearFilter;
+    texture.magFilter = THREE.LinearFilter;
+
+    material = new THREE.MeshStandardMaterial({
+      map: texture,
+      roughness: 1,
+      metalness: 0,
+      ...materialOptions,
+    });
+  } else {
+    const emissiveCol = new THREE.Color(color);
+    const baseColor = emissiveCol.clone().multiplyScalar(0.35);
+    material = new THREE.MeshStandardMaterial({
+      color: baseColor,
+      emissive: emissiveCol,
+      emissiveIntensity: luminosity,
+      roughness: 0.1,
+      metalness: 0,
+      ...materialOptions,
+    });
+  }
 
   const geometry = new THREE.SphereGeometry(radius, segments, segments);
   const mesh = new THREE.Mesh(geometry, material);
@@ -451,4 +465,392 @@ export function addSaturn(
     planetMaterial,
     ringMaterial,
   };
+}
+
+/**
+ * Creates a particle burst whose kinematics follow named stellar-explosion profiles.
+ *
+ * @param {THREE.Scene} scene
+ * @param {Object} params
+ * @param {number} [params.count=400]
+ * @param {Array|THREE.Vector3} [params.initialSpread=[0.4,0.4,0.4]]
+ * @param {[number, number]} [params.lifeRange=[1.5, 3.0]]
+ * @param {number} [params.size=0.08]
+ * @param {THREE.Color|string|number} [params.color=0xffaa88]
+ * @param {number} [params.opacity=0.9]
+ * @param {string} [params.explosionType='typeIa']
+ * @param {number} [params.decayRate=1.4] - Only used for the 'custom' type.
+ * @param {number} [params.horizontalBias=0.3] - Reduces vertical launch speeds (0-1).
+ * @param {[number, number]} [params.speedRange=[1.5, 3.5]] - Used when explosionType='custom'.
+ * @returns {{
+ *   points: THREE.Points,
+ *   update: (delta: number) => void,
+ *   dispose: () => void,
+ * }}
+ */
+export function createParticleBurst(
+  scene,
+  {
+    count = 400,
+    initialSpread = [0.4, 0.4, 0.4],
+    lifeRange = [1.5, 3.0],
+    size = 0.08,
+    color = 0xffaa88,
+    opacity = 0.9,
+    explosionType = 'typeIa',
+    decayRate = 1.4,
+    horizontalBias = 0.3,
+    speedRange = [1.5, 3.5],
+  } = {},
+) {
+  if (!scene) throw new Error('createParticleBurst requires a THREE.Scene instance.');
+
+  // Supported explosionType values:
+  //   'typeIa', 'typeII', 'hypernova', 'pairInstability', 'electronCapture',
+  //   'lbv' (aliases: 'lbvGiantEruption', 'giant'), 'kilonova', 'custom'
+
+  const typeKey = (explosionType ?? 'typeIa').toLowerCase().replace(/[\s_-]/g, '');
+  const useCustom = typeKey === 'custom';
+
+  const spreadVector = Array.isArray(initialSpread)
+    ? new THREE.Vector3(initialSpread[0] ?? 0.4, initialSpread[1] ?? 0.4, initialSpread[2] ?? 0.4)
+    : initialSpread.clone();
+
+  const paletteMap = {
+    typeia: {
+      start: ['#BFD9FF', '#E9F2FF'],
+      mid: ['#FFFFFF', '#FFF4E0'],
+      late: ['#FFE6B3', '#FFD38A'],
+    },
+    typeii: {
+      start: ['#CBE2FF', '#F2F7FF'],
+      mid: ['#FFFFFF', '#FFEBD1'],
+      late: ['#FF4D4D', '#FF7A3D', '#B34DFF'],
+    },
+    hypernova: {
+      start: ['#A8C5FF', '#BBA7FF'],
+      mid: ['#EAF2FF', '#FFFFFF'],
+      late: ['#FFE8C7', '#FFD6A1'],
+    },
+    pairinstability: {
+      start: ['#D3E5FF', '#FFFFFF'],
+      mid: ['#FFF7E8', '#FFEFCF'],
+      late: ['#FFD48C', '#FFC166'],
+    },
+    electroncapture: {
+      start: ['#F7FBFF'],
+      mid: ['#FFE9B8', '#FFD394'],
+      late: ['#FF9B66', '#FF6B5E'],
+    },
+    lbvgianteruption: {
+      start: ['#FFF0C9'],
+      mid: ['#FFD080', '#FFB363'],
+      late: ['#FF8A58', '#CC6A4C'],
+    },
+    lbv: {
+      start: ['#FFF0C9'],
+      mid: ['#FFD080', '#FFB363'],
+      late: ['#FF8A58', '#CC6A4C'],
+    },
+    giant: {
+      start: ['#FFF0C9'],
+      mid: ['#FFD080', '#FFB363'],
+      late: ['#FF8A58', '#CC6A4C'],
+    },
+    kilonova: {
+      start: ['#BFD6FF', '#E5EEFF'],
+      mid: ['#FFB5A1', '#FF9A86'],
+      late: ['#B31A1A', '#7A0018'],
+    },
+  };
+
+  const randBetween = (min, max) => {
+    const lo = Math.min(min, max);
+    const hi = Math.max(min, max);
+    return Math.random() * (hi - lo) + lo;
+  };
+
+  const gaussian = () => {
+    let u = 0;
+    let v = 0;
+    while (u === 0) u = Math.random();
+    while (v === 0) v = Math.random();
+    return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+  };
+
+  const randomNormal = (mean, std, floor) => {
+    const value = mean + std * gaussian();
+    return Math.max(value, floor);
+  };
+
+  const randomPowerLaw = (min, max, alpha) => {
+    const lo = Math.max(min, 1e-6);
+    const hi = Math.max(max, lo);
+    if (Math.abs(alpha - 1) < 1e-6) {
+      return lo * Math.pow(hi / lo, Math.random());
+    }
+    const exponent = 1 - alpha;
+    const minPow = Math.pow(lo, exponent);
+    const maxPow = Math.pow(hi, exponent);
+    const rnd = minPow + (maxPow - minPow) * Math.random();
+    return Math.pow(rnd, 1 / exponent);
+  };
+
+  const positions = new Float32Array(count * 3);
+  const directions = new Float32Array(count * 3);
+  const ages = new Float32Array(count);
+  const lifetimes = new Float32Array(count);
+  const baseSpeeds = new Float32Array(count);
+  const paramsA = new Float32Array(count);
+  const colorsStart = new Float32Array(count * 3);
+  const colorsMid = new Float32Array(count * 3);
+  const colorsLate = new Float32Array(count * 3);
+
+  const direction = new THREE.Vector3();
+  const jetAxis = new THREE.Vector3(0, 1, 0);
+  const jetExponent = 7;
+  const biasMin = THREE.MathUtils.clamp(horizontalBias, 0, 1);
+
+  const VELOCITY_SCALE = (1 / 5000) * 0.5; // convert km/s -> scene units per second (half-speed)
+  const LIGHT_SPEED_KM = 299792;
+  const MIN_SPEED_UNITS = 1e-4;
+  const MIN_SPEED_KM = MIN_SPEED_UNITS / VELOCITY_SCALE;
+
+  for (let i = 0; i < count; i += 1) {
+    const idx = i * 3;
+    positions[idx] = (Math.random() - 0.5) * spreadVector.x;
+    positions[idx + 1] = (Math.random() - 0.5) * spreadVector.y;
+    positions[idx + 2] = (Math.random() - 0.5) * spreadVector.z;
+
+    direction.randomDirection().normalize();
+    directions[idx] = direction.x;
+    directions[idx + 1] = direction.y;
+    directions[idx + 2] = direction.z;
+
+    let speedUnits;
+    let paramValue = 0;
+
+    if (useCustom) {
+      speedUnits = randBetween(speedRange[0], speedRange[1]);
+      paramValue = decayRate;
+    } else {
+      let speedKm;
+      switch (typeKey) {
+        case 'typeii': {
+          const vMax = 15000;
+          speedKm = Math.max(vMax * Math.random(), MIN_SPEED_KM);
+          break;
+        }
+        case 'hypernova': {
+          const base = 10000;
+          const jetBoost = 70000;
+          const cosTheta = Math.abs(direction.dot(jetAxis));
+          speedKm = Math.max(base + jetBoost * Math.pow(cosTheta, jetExponent), MIN_SPEED_KM);
+          paramValue = THREE.MathUtils.lerp(0.4, 1.2, Math.random());
+          break;
+        }
+        case 'pairinstability': {
+          speedKm = randomPowerLaw(5000, 25000, 2);
+          paramValue = THREE.MathUtils.lerp(0.15, 0.4, Math.random());
+          break;
+        }
+        case 'electroncapture': {
+          speedKm = randomNormal(3000, 1000, MIN_SPEED_KM);
+          paramValue = THREE.MathUtils.lerp(0.6, 1.4, Math.random());
+          break;
+        }
+        case 'lbvgianteruption':
+        case 'lbv':
+        case 'giant': {
+          speedKm = randomNormal(300, 100, MIN_SPEED_KM);
+          paramValue = THREE.MathUtils.lerp(0.2, 0.6, Math.random());
+          break;
+        }
+        case 'kilonova': {
+          speedKm = Math.max(
+            THREE.MathUtils.lerp(0.1, 0.3, Math.random()) * LIGHT_SPEED_KM,
+            MIN_SPEED_KM,
+          );
+          paramValue = THREE.MathUtils.lerp(0.8, 1.6, Math.random());
+          break;
+        }
+        case 'typeia':
+        default:
+          speedKm = randomNormal(10000, 2000, MIN_SPEED_KM);
+          break;
+      }
+
+      speedUnits = Math.max(MIN_SPEED_UNITS, speedKm * VELOCITY_SCALE);
+    }
+
+    const bias = THREE.MathUtils.lerp(biasMin, 1, Math.abs(direction.x));
+    speedUnits = Math.max(MIN_SPEED_UNITS, speedUnits * bias);
+
+    baseSpeeds[i] = speedUnits;
+    paramsA[i] = paramValue;
+
+    ages[i] = 0;
+    lifetimes[i] = randBetween(lifeRange[0], lifeRange[1]);
+
+    const palette = paletteMap[typeKey] ?? null;
+    const pickColor = (arr, fallback) => {
+      const source = Array.isArray(arr) && arr.length > 0 ? arr[Math.floor(Math.random() * arr.length)] : fallback;
+      const col = new THREE.Color(source ?? color);
+      return [col.r, col.g, col.b];
+    };
+    const defaultColor = new THREE.Color(color);
+    const startCol = palette ? pickColor(palette.start, defaultColor) : pickColor(null, defaultColor);
+    const midCol = palette ? pickColor(palette.mid, defaultColor) : startCol;
+    const lateCol = palette ? pickColor(palette.late, defaultColor) : startCol;
+
+    colorsStart[idx] = startCol[0];
+    colorsStart[idx + 1] = startCol[1];
+    colorsStart[idx + 2] = startCol[2];
+
+    colorsMid[idx] = midCol[0];
+    colorsMid[idx + 1] = midCol[1];
+    colorsMid[idx + 2] = midCol[2];
+
+    colorsLate[idx] = lateCol[0];
+    colorsLate[idx + 1] = lateCol[1];
+    colorsLate[idx + 2] = lateCol[2];
+  }
+
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  geometry.setAttribute('direction', new THREE.BufferAttribute(directions, 3));
+  geometry.setAttribute('age', new THREE.BufferAttribute(ages, 1));
+  geometry.setAttribute('lifetime', new THREE.BufferAttribute(lifetimes, 1));
+  const colorAttr = new THREE.BufferAttribute(new Float32Array(count * 3), 3);
+  geometry.setAttribute('color', colorAttr);
+  colorAttr.array.set(colorsStart);
+
+  const material = new THREE.PointsMaterial({
+    size,
+    color: new THREE.Color(color),
+    transparent: true,
+    opacity,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending,
+    sizeAttenuation: true,
+    vertexColors: true,
+  });
+  material.onBeforeCompile = (shader) => {
+    shader.fragmentShader = shader.fragmentShader.replace(
+      '#include <clipping_planes_fragment>',
+      `
+      #include <clipping_planes_fragment>
+      vec2 centered = gl_PointCoord - 0.5;
+      float distSq = dot(centered, centered);
+      if (distSq > 0.25) discard;
+      `
+    );
+  };
+  material.needsUpdate = true;
+
+  const points = new THREE.Points(geometry, material);
+  scene.add(points);
+
+  const distanceDelta = (prevAge, nextAge, speed, param) => {
+    const deltaTime = nextAge - prevAge;
+    switch (typeKey) {
+      case 'typeii':
+      case 'typeia':
+        return speed * deltaTime;
+      case 'hypernova':
+      case 'electroncapture':
+      case 'kilonova': {
+        const gamma = Math.max(param, 1e-6);
+        const expPrev = Math.exp(-gamma * prevAge);
+        const expNext = Math.exp(-gamma * nextAge);
+        return (speed / gamma) * (expPrev - expNext);
+      }
+      case 'pairinstability': {
+        const tau = Math.max(param, 1e-6);
+        const expPrev = Math.exp(-prevAge / tau);
+        const expNext = Math.exp(-nextAge / tau);
+        return speed * (deltaTime + tau * (expNext - expPrev));
+      }
+      case 'lbvgianteruption':
+      case 'lbv':
+      case 'giant': {
+        const beta = Math.max(param, 1e-6);
+        const ratio = (1 + beta * nextAge) / (1 + beta * prevAge);
+        return (speed / beta) * Math.log(Math.max(ratio, 1e-6));
+      }
+      case 'custom': {
+        const rate = Math.max(param, 0);
+        if (rate < 1e-6) return speed * deltaTime;
+        const expPrev = Math.exp(-rate * prevAge);
+        const expNext = Math.exp(-rate * nextAge);
+        return (speed / rate) * (expPrev - expNext);
+      }
+      default:
+        return speed * deltaTime;
+    }
+  };
+
+  const update = (delta) => {
+    const posAttr = geometry.getAttribute('position');
+    const dirAttr = geometry.getAttribute('direction');
+    const ageAttr = geometry.getAttribute('age');
+    const lifeAttr = geometry.getAttribute('lifetime');
+    const colAttr = geometry.getAttribute('color');
+
+    for (let i = 0; i < count; i += 1) {
+      const idx = i * 3;
+      const prevAge = ageAttr.array[i];
+      const targetAge = prevAge + delta;
+      const life = lifeAttr.array[i];
+
+      if (prevAge >= life) {
+        continue;
+      }
+
+      const nextAge = Math.min(targetAge, life);
+      ageAttr.array[i] = nextAge;
+
+      const speed = baseSpeeds[i];
+      if (!Number.isFinite(speed) || speed <= 0) continue;
+      const param = paramsA[i];
+
+      const dist = distanceDelta(prevAge, nextAge, speed, param);
+
+      posAttr.array[idx] += dirAttr.array[idx] * dist;
+      posAttr.array[idx + 1] += dirAttr.array[idx + 1] * dist;
+      posAttr.array[idx + 2] += dirAttr.array[idx + 2] * dist;
+
+      const totalLife = lifeAttr.array[i];
+      const t = totalLife <= 0 ? 1 : Math.min(1, ageAttr.array[i] / totalLife);
+      let r;
+      let g;
+      let b;
+      if (t <= 0.5) {
+        const f = t / 0.5;
+        r = colorsStart[idx] * (1 - f) + colorsMid[idx] * f;
+        g = colorsStart[idx + 1] * (1 - f) + colorsMid[idx + 1] * f;
+        b = colorsStart[idx + 2] * (1 - f) + colorsMid[idx + 2] * f;
+      } else {
+        const f = (t - 0.5) / 0.5;
+        r = colorsMid[idx] * (1 - f) + colorsLate[idx] * f;
+        g = colorsMid[idx + 1] * (1 - f) + colorsLate[idx + 1] * f;
+        b = colorsMid[idx + 2] * (1 - f) + colorsLate[idx + 2] * f;
+      }
+      colAttr.array[idx] = r;
+      colAttr.array[idx + 1] = g;
+      colAttr.array[idx + 2] = b;
+    }
+
+    posAttr.needsUpdate = true;
+    ageAttr.needsUpdate = true;
+    colAttr.needsUpdate = true;
+  };
+
+  const dispose = () => {
+    scene.remove(points);
+    geometry.dispose();
+    material.dispose();
+  };
+
+  return { points, update, dispose };
 }
