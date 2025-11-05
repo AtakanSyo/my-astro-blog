@@ -286,3 +286,169 @@ export function addSpinningPlanet(
     material,
   };
 }
+
+/**
+ * Adds Saturn with ring geometry and returns helpers to animate & clean it up.
+ *
+ * @param {THREE.Scene} scene
+ * @param {Object} params
+ * @param {string} params.textureUrl - Planet texture.
+ * @param {string} params.ringTextureUrl - Ring texture with alpha.
+ * @param {Array|Object} [params.position=[0,0,0]] - Planet position.
+ * @param {number} [params.radius=1] - Planet radius.
+ * @param {number} [params.spinSpeed=0.3] - Planet spin in radians per second.
+ * @param {Array|THREE.Vector3} [params.spinAxis=[0,1,0]] - Rotation axis.
+ * @param {number} [params.tiltDeg=26.7] - Axial tilt to apply to both planet and rings.
+ * @param {number} [params.ringInnerScale=1.2] - Inner radius multiplier relative to planet radius.
+ * @param {number} [params.ringOuterScale=2.3] - Outer radius multiplier relative to planet radius.
+ * @param {number} [params.ringAngle=0] - Initial ring angle in degrees around the spin axis.
+ * @param {number} [params.segments=64] - Sphere resolution.
+ * @param {Object} [params.materialOptions] - Planet material overrides.
+ * @param {Object} [params.ringMaterialOptions] - Ring material overrides.
+ * @param {THREE.TextureLoader} [params.textureLoader]
+ * @param {THREE.WebGLRenderer} [params.renderer]
+ * @returns {{
+ *   planetMesh: THREE.Mesh,
+ *   ringMesh: THREE.Mesh,
+ *   update: (delta: number) => void,
+ *   dispose: () => void,
+ *   planetTexture: THREE.Texture,
+ *   ringTexture: THREE.Texture,
+ *   planetMaterial: THREE.Material,
+ *   ringMaterial: THREE.Material,
+ * }}
+ */
+export function addSaturn(
+  scene,
+  {
+    textureUrl,
+    ringTextureUrl,
+    position = [0, 0, 0],
+    radius = 1,
+    spinSpeed = 0.3,
+    spinAxis = [0, 1, 0],
+    tiltDeg = 26.7,
+    ringInnerScale = 1.2,
+    ringOuterScale = 2.3,
+    ringAngle = 0,
+    ringsSpin = true,
+    segments = 64,
+    materialOptions = {},
+    ringMaterialOptions = {},
+    textureLoader,
+    renderer,
+  } = {},
+) {
+  if (!scene) throw new Error('addSaturn requires a THREE.Scene instance.');
+  if (!textureUrl) throw new Error('addSaturn requires a planet textureUrl.');
+  if (!ringTextureUrl) throw new Error('addSaturn requires a ringTextureUrl.');
+
+  const loader = textureLoader ?? new THREE.TextureLoader();
+
+  const planetTexture = loader.load(textureUrl);
+  planetTexture.colorSpace = THREE.SRGBColorSpace;
+  const maxAniso = renderer?.capabilities?.getMaxAnisotropy
+    ? renderer.capabilities.getMaxAnisotropy()
+    : 1;
+  planetTexture.anisotropy = maxAniso;
+  planetTexture.minFilter = THREE.LinearMipmapLinearFilter;
+  planetTexture.magFilter = THREE.LinearFilter;
+
+  const ringTexture = loader.load(ringTextureUrl);
+  ringTexture.colorSpace = THREE.SRGBColorSpace;
+  ringTexture.anisotropy = maxAniso;
+  ringTexture.wrapS = ringTexture.wrapT = THREE.ClampToEdgeWrapping;
+  ringTexture.minFilter = THREE.LinearMipmapLinearFilter;
+  ringTexture.magFilter = THREE.LinearFilter;
+  ringTexture.generateMipmaps = true;
+
+  const planetMaterial = new THREE.MeshStandardMaterial({
+    map: planetTexture,
+    roughness: 1,
+    metalness: 0,
+    ...materialOptions,
+  });
+
+  const planetGeometry = new THREE.SphereGeometry(radius, segments, segments);
+  const planetMesh = new THREE.Mesh(planetGeometry, planetMaterial);
+
+  if (Array.isArray(position)) {
+    planetMesh.position.set(position[0] ?? 0, position[1] ?? 0, position[2] ?? 0);
+  } else {
+    planetMesh.position.set(position.x ?? 0, position.y ?? 0, position.z ?? 0);
+  }
+
+  const ringGeometry = new THREE.RingGeometry(
+    radius * ringInnerScale,
+    radius * ringOuterScale,
+    128,
+    1,
+  );
+  const ringMaterial = new THREE.MeshBasicMaterial({
+    map: ringTexture,
+    transparent: true,
+    side: THREE.DoubleSide,
+    depthWrite: false,
+    ...ringMaterialOptions,
+  });
+  const ringMesh = new THREE.Mesh(ringGeometry, ringMaterial);
+
+  ringMesh.position.copy(planetMesh.position);
+  ringMesh.rotation.x = Math.PI / 2;
+
+  if (tiltDeg) {
+    const tilt = THREE.MathUtils.degToRad(tiltDeg);
+    planetMesh.rotation.z = tilt;
+    ringMesh.rotation.z = tilt;
+  }
+
+  scene.add(planetMesh);
+  scene.add(ringMesh);
+
+  const axis = spinAxis instanceof THREE.Vector3
+    ? spinAxis.clone().normalize()
+    : new THREE.Vector3(
+        Array.isArray(spinAxis) ? spinAxis[0] ?? 0 : spinAxis.x ?? 0,
+        Array.isArray(spinAxis) ? spinAxis[1] ?? 1 : spinAxis.y ?? 1,
+        Array.isArray(spinAxis) ? spinAxis[2] ?? 0 : spinAxis.z ?? 0,
+      ).normalize();
+
+  if (ringAngle) {
+    const angleRad = THREE.MathUtils.degToRad(ringAngle);
+    planetMesh.rotateOnAxis(axis, angleRad);
+    ringMesh.rotateOnAxis(axis, angleRad);
+  }
+
+  const update = (delta) => {
+    if (!delta) return;
+    const angle = spinSpeed * delta;
+    if (angle !== 0) {
+      planetMesh.rotateOnAxis(axis, angle);
+      if (ringsSpin) {
+        ringMesh.rotateOnAxis(axis, angle);
+      }
+    }
+  };
+
+  const dispose = () => {
+    scene.remove(planetMesh);
+    scene.remove(ringMesh);
+    planetGeometry.dispose();
+    ringGeometry.dispose();
+    planetMaterial.dispose();
+    ringMaterial.dispose();
+    planetTexture?.dispose?.();
+    ringTexture?.dispose?.();
+  };
+
+  return {
+    planetMesh,
+    ringMesh,
+    update,
+    dispose,
+    planetTexture,
+    ringTexture,
+    planetMaterial,
+    ringMaterial,
+  };
+}
