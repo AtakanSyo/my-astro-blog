@@ -4,6 +4,7 @@ import '../styles/infoPost.css';  // ← pulls in your global styles
 import '../styles/postsGlobal.css';  // ← pulls in your global styles
 import '../styles/nasaPost.css'
 import SocialShare from '../components/SocialShare.astro';
+import FeedbackCTA from '../components/FeedbackCTA.astro';
 
 const {
   title,
@@ -37,7 +38,6 @@ const {
     <p class="writer">Published by {writer}</p>
     <SocialShare frontmatter={Astro.props.frontmatter} url={url} client:load />
     <slot />
-
-    
   </article>
+  <FeedbackCTA />
 </Layout>
