@@ -28,6 +28,18 @@ const categoryLabel = labelMap[slug] || `${slug.charAt(0).toUpperCase() + slug.s
 const posts = (await Astro.glob('../posts/*.{md,mdx}', { eager: true }))
   .filter((p) => typeof p.frontmatter?.category === 'string' && p.frontmatter.category.toLowerCase() === slug)
   .sort((a, b) => new Date(b.frontmatter.pubDate) - new Date(a.frontmatter.pubDate));
+
+const count = posts.length;
+const countText =
+  slug === 'simulation'
+    ? `Check out our ${count} ${count === 1 ? 'simulation' : 'simulations'}.`
+    : slug === 'reviews'
+    ? `Check out our ${count} ${count === 1 ? 'review' : 'reviews'}.`
+    : slug === 'informational'
+    ? `Check out our ${count} ${count === 1 ? 'guide' : 'guides'}.`
+    : slug === 'nasa'
+    ? `Check out our ${count} NASA ${count === 1 ? 'feature' : 'features'}.`
+    : `Check out our ${count} ${count === 1 ? 'post' : 'posts'}.`;
 ---
 
 <Layout title="Category">
@@ -55,6 +67,7 @@ const posts = (await Astro.glob('../posts/*.{md,mdx}', { eager: true }))
 
 
   <h1 class="category-title">{categoryLabel}</h1>
+  <p class="category-count-text centered_flex">{countText}</p>
 
   <div class="post-grid category-grid">
     {posts.length === 0 ? (
