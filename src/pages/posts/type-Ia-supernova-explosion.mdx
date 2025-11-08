@@ -1,0 +1,98 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Type Ia Supernova Explosion"
+category: simulation
+writer: Astrosyo
+pubDate: '2025-11-08'
+description: "Trigger a thermonuclear starburst — a Type Ia supernova recreated with glowing particles streaking outward."
+slug: type-Ia-supernova-explosion
+imageDir: /images/particle-burst
+keywords:
+  - particle burst
+  - three.js
+  - space visualization
+  - webgl
+---
+
+import NovaSim from "../../components/simulations/particle-burst/NovaSim.jsx";
+import SimPostSchema from "../../components/SimPostSchema.astro";
+
+<NovaSim client:visible explosionType="typeIa" />
+
+<figcaption class="sim-caption">
+  A white dwarf ignites — the entire star detonates in a thermonuclear flash, flinging matter into space.
+</figcaption>
+
+<div class="sim-article">
+  <h2 id="burst-at-a-glance">Burst at a glance</h2>
+  <p>
+    Hit play to watch thousands of embers rocket away from the center.  
+    Every particle in this simulation represents ejected stellar matter from a
+    <strong>Type Ia supernova</strong> — the thermonuclear explosion of a white
+    dwarf. The glow fades as particles travel outward at nearly constant speed,
+    capturing the clean, spherical symmetry of this kind of supernova.
+  </p>
+
+  <h3 id="tune-it-your-way">Tune it your way</h3>
+  <p>
+    The visualization exposes a simple API: pass <code>explosionType="typeIa"</code>
+    to the component. The helper automatically applies the Type Ia velocity
+    distribution and keeps the expansion almost uniform in every direction.
+    Particle count, lifetime, and color are still yours to tweak for scientific
+    accuracy or pure visual style.
+  </p>
+
+  <h3 id="explosion-profile">Type Ia — how it works</h3>
+  <p>
+    A white dwarf in a binary system steals matter from its companion. When it
+    crosses the critical mass limit (the Chandrasekhar limit), a runaway
+    thermonuclear reaction ignites the entire star. Unlike core–collapse
+    supernovae, a Type Ia does not leave behind a neutron star or black hole —
+    the white dwarf is obliterated completely.
+  </p>
+  <p>
+    In physics terms, Type Ia ejecta expands <strong>nearly homologously</strong>:
+    material flies outward at almost constant velocity regardless of direction.
+    In the sim, that means:
+  </p>
+
+  <ul>
+    <li>Particles start with nearly identical speeds.</li>
+    <li>The outflow forms a smooth, spherical shell.</li>
+    <li>No jets, no poles — just pure thermonuclear symmetry.</li>
+  </ul>
+
+  <p>
+    What you are seeing is a clean visualization of <em>thermonuclear free expansion</em> —
+    the iconic signature that makes Type Ia supernovae invaluable standard candles in cosmology.
+  </p>
+</div>
+
+<SimPostSchema
+  title="Type Ia Supernova Explosion"
+  description="Watch how a thermonuclear supernova flings stellar matter into space — modeled with Three.js and astrophysical expansion laws."
+  url="https://astrosyo.com/posts/particle-burst"
+  datePublished="2025-11-05"
+  authorName="Astrosyo"
+  keywords={[
+    "particle burst",
+    "three.js",
+    "space visualization",
+    "webgl",
+    "type ia supernova"
+  ]}
+  image="/images/particle-burst/cover.webp"
+  articleSection="Astronomy"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.webp"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Type Ia Supernova Simulation",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires WebGL2",
+    "url": "https://astrosyo.com/posts/particle-burst#simulation",
+    "description": "Interactive Type Ia supernova simulation rendered with Three.js."
+  }}
+/>
