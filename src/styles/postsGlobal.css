@@ -478,10 +478,11 @@ p {
 }
 
 .feedback-cta {
-  width: 100%;
-  margin: 3rem;
-  display: flex;
-  justify-content: center;
+  width: 90vw;
+  margin: 0.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .feedback-card .vendor-info {
@@ -496,11 +497,6 @@ p {
 
 @media (max-width: 600px) {
   .feedback-card .vendor-info {
-    max-width: 90vw;
-    margin: 0.5rem;
-  }
-
-  .feedback-cta {
     max-width: 90vw;
     margin: 0.5rem;
   }

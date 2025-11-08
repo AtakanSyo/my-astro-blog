@@ -7,7 +7,7 @@ const DEFAULT_EMAIL = 'astrosyo@astrosyo.com';
 const { email = DEFAULT_EMAIL } = Astro.props;
 const mailto = `mailto:${email}?subject=${encodeURIComponent('Feedback for Astrosyo Reviews')}`;
 ---
-<section class="feedback-cta">
+<section class="feedback-cta centered_flex">
   <div class="vendor-card feedback-card">
     <div class="vendor-info">
       <h4 class="vendor-name">Have feedback for Astrosyo?</h4>
