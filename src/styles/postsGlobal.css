@@ -1,5 +1,7 @@
 :root {
   --post-text-size: 18px;
+  --primary-text-color: white;
+  --secondary-text-color: rgba(220, 226, 244, 0.75);
 }
 
 p {
@@ -38,7 +40,7 @@ p {
 
 .writer, .post-description {
   font-style: italic;
-  color: rgba(220, 226, 244, 0.75);
+  color: var(--secondary-text-color);
   font-size: 0.95rem;
 }
 

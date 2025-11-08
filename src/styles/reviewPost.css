@@ -28,7 +28,7 @@ h1, h2, h3, h4, h5 {
   border-left: 3px solid #8ab4ff;
 }
 
-.post-starter-description, .writer {
+.post-starter-description {
   font-style: italic;
   color: rgba(220, 226, 244, 0.75);
   font-size: 0.95rem;
