@@ -5,10 +5,14 @@ h1, h2, h3, h4, h5 {
   padding-top: 1rem;
 }
 
-.review-post {
-  max-width: 800px;
+.category-reviews {
+  width: 90vw;
+  max-width: 1200px;
 }
 
+.review-post{
+  max-width: 800px;
+}
 /* Highlighted callout paragraphs */
 .highlight {
   background: rgba(255,255,255,0.06);
@@ -553,7 +557,6 @@ figcaption {
    ============================= */
 .review-post-starter {
   margin: 8vh auto 2rem;
-  width: min(90vw, 900px);
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -591,6 +594,11 @@ figcaption {
   align-items: center;
 }
 
+.post-starter-image {
+  width: 100%;
+  max-width: 100%;
+  align-self: center;
+}
 /* =============================
    Responsive Adjustments
    ============================= */

@@ -31,7 +31,7 @@ const {
   />
 </head>
 
-<Layout title={title}>
+<Layout title={title} category={Astro.props.frontmatter?.category}>
   <article class="post centered_flex">
     <img
       src={cover_image}

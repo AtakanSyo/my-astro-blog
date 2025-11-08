@@ -4,7 +4,7 @@ import '../styles/nav.css';
 import '../styles/footer.css';
 import { site } from '../config/site.js';
 const site_description = site.description;
-const { title } = Astro.props;
+const { title, category } = Astro.props;
 import NavScript from '../components/NavScript.astro';
 const orgJsonLd = {
   "@context": "https://schema.org",
@@ -20,6 +20,13 @@ const orgJsonLd = {
 function slugify(str) {
   return str.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, '');
 }
+
+const bodyClasses = [
+  title ? `page-${slugify(title)}` : '',
+  category ? `category-${category.toLowerCase()}` : '',
+]
+  .filter(Boolean)
+  .join(' ');
 ---
 
 <!doctype html>
@@ -38,7 +45,7 @@ function slugify(str) {
   data-website-id="7f187073-b57a-4268-9c53-94c815af943f"
   data-host-url="https://cloud.umami.is"
 ></script>	</head>
-	  <body class={title ? `page-${slugify(title)}` : ''}>
+	  <body class={bodyClasses}>
     <header>
       <div class="header-inner">
         <a href="/" class="logo centered_flex">

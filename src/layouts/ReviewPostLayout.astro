@@ -64,7 +64,7 @@ const jsonLdProduct = {
   <link rel="preload" as="image" href={cover_image} />
 </head>
 
-<Layout title={title}>
+<Layout title={title} category={Astro.props.frontmatter?.category}>
 
 <div class="centered_flex">
 <div class="review-post-starter">

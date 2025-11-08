@@ -30,7 +30,7 @@ const {
     </script>
 </head>
 
-<Layout title={title}>
+<Layout title={title} category={Astro.props.frontmatter?.category}>
   <article class="post nasa-post centered_flex">
 
     <h1 class="nasa-article-title">{title}</h1>
