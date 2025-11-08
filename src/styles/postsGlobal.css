@@ -36,6 +36,11 @@ p {
   opacity: 1;
 }
 
+.writer, .post-description {
+  font-style: italic;
+  color: rgba(220, 226, 244, 0.75);
+  font-size: 0.95rem;
+}
 
 /* ===============================
    SOCIAL SHARE — modern, on-brand
