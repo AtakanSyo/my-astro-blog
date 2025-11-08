@@ -1,11 +1,3 @@
-/* src/styles/post.css */
-.review-post p,
-.review-post-starter p {
-  max-width: 800px;
-  color: #e4e4e4;
-  padding-left: 0.7rem;
-  padding-right: 0.7rem;
-}
 
 h1, h2, h3, h4, h5 {
   padding-left: 0.5rem;
@@ -36,15 +28,14 @@ h1, h2, h3, h4, h5 {
   border-left: 3px solid #8ab4ff;
 }
 
-.writer {
-  font-style: italic;
-  text-align: center;
-  color: #aaa;
-}
-
-.post-starter-description {
+.post-starter-description, .writer {
   font-style: italic;
   color: rgba(220, 226, 244, 0.75);
+  font-size: 0.95rem;
+}
+
+.writer{
+  text-align: center;
 }
 
 h1 .review-tag {
@@ -561,7 +552,7 @@ figcaption {
    Review Post Starter Layout
    ============================= */
 .review-post-starter {
-  margin: 10vh auto 2rem;
+  margin: 8vh auto 2rem;
   width: min(90vw, 900px);
   display: flex;
   flex-direction: column;
@@ -574,6 +565,7 @@ figcaption {
   line-height: 1.2;
   margin: 0;
   text-align: center;
+  margin-bottom: 2rem;
 }
 
 /* =============================

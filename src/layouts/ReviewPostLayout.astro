@@ -76,7 +76,6 @@ const jsonLdProduct = {
       </span>
     )}
   </h1>
-  <p class="writer">{writerLine}</p>
 
   <div class="review-post-starter-content">
     <div class="centered_flex">
@@ -98,6 +97,7 @@ const jsonLdProduct = {
       <p class="post-starter-description">{Astro.props.frontmatter.description}</p>
       <div class="share-header"><span class="share-label">Share:</span></div>
       <SocialShare frontmatter={Astro.props.frontmatter} url={url} client:load />
+      <p class="writer">{writerLine}</p>
     </div>
   </div>
 </div>
