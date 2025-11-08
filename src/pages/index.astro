@@ -29,103 +29,11 @@ function latestByCategory(key, n = 4) {
 const CATS = [
   { key: 'nasa',          label: 'NASA',           cta: 'See the article →' },
   { key: 'reviews',        label: 'Reviews',        cta: 'Read the review →' },
-  { key: 'simulation',    label: 'Simulation',    cta: 'Go to the simulation →' },
+  { key: 'simulation',    label: 'Simulations',    cta: 'Go to the simulation →' },
   { key: 'informational', label: 'Informational',         cta: 'Read the guide →' },
 ];
 
 const latestNasa = allPosts.find(({ frontmatter }) => hasCat(frontmatter, 'nasa'));
-
-function descriptorFromScore(score) {
-  if (score === null || Number.isNaN(score)) return null;
-  if (score >= 9) return 'cosmic';
-  if (score >= 8) return 'strong pick';
-  if (score >= 7) return 'a decent choice';
-  if (score >= 6) return 'not bad';
-  if (score >= 5.5) return 'okay';
-  if (score >= 4) return 'better options exist';
-  return 'not recommended';
-}
-
-let histogramData = null;
-
-try {
-  const csvUrl = new URL('../../ratings.csv', import.meta.url);
-  const csvText = await fs.readFile(csvUrl, 'utf-8');
-  const lines = csvText.trim().split(/\r?\n/);
-  if (lines.length > 1) {
-    const headers = lines[0].split(',');
-    const overallIdx = headers.indexOf('overall');
-    if (overallIdx !== -1) {
-      const scores = lines
-        .slice(1)
-        .map((line) => {
-          const columns = line.split(',');
-          const value = parseFloat(columns[overallIdx]);
-          return Number.isFinite(value) ? value : null;
-        })
-        .filter((value) => value !== null);
-
-      if (scores.length > 0) {
-        const bins = [
-          { label: '0–4', min: 0, max: 4 },
-          { label: '4–5.5', min: 4, max: 5.5 },
-          { label: '5.5–6', min: 5.5, max: 6 },
-          { label: '6–7', min: 6, max: 7 },
-          { label: '7–8', min: 7, max: 8 },
-          { label: '8–9', min: 8, max: 9 },
-          { label: '9–10', min: 9, max: 10.0001 },
-        ];
-
-        const counts = bins.map((bin, index) =>
-          scores.filter((score) => score >= bin.min && (index === bins.length - 1 ? score <= bin.max : score < bin.max)).length
-        );
-
-        const descriptorOrder = ['cosmic', 'strong pick', 'a decent choice', 'not bad', 'okay', 'better options exist', 'not recommended'];
-        const descriptorCounts = descriptorOrder.map((label) => ({
-          label,
-          count: scores.filter((score) => descriptorFromScore(score) === label).length,
-        }));
-
-        const avgScore = scores.reduce((sum, value) => sum + value, 0) / scores.length;
-        const topDescriptor = descriptorCounts.reduce((best, current) => (current.count > best.count ? current : best), descriptorCounts[0] ?? { label: '', count: 0 });
-        const lowDescriptor = descriptorCounts.find((item) => item.label === 'not recommended') ?? { label: 'not recommended', count: 0 };
-
-        const chartWidth = 560;
-        const chartHeight = 260;
-        const margin = { top: 28, right: 32, bottom: 52, left: 48 };
-        const plotWidth = chartWidth - margin.left - margin.right;
-        const plotHeight = chartHeight - margin.top - margin.bottom;
-        const barSlot = plotWidth / bins.length;
-        const barWidth = Math.min(70, barSlot * 0.65);
-        const maxCount = Math.max(...counts);
-
-        histogramData = {
-          bins,
-          counts,
-          scores,
-          descriptorCounts,
-          average: avgScore,
-          total: scores.length,
-          summary: `Average overall score sits at ${avgScore.toFixed(2)} across ${scores.length} recent reviews.`,
-          distribution: descriptorCounts.map(({ label, count }) => `${label}: ${count}`).join(' · '),
-          insight: `${topDescriptor.count} review${topDescriptor.count === 1 ? '' : 's'} land in the “${topDescriptor.label}” tier, while only ${lowDescriptor.count} ${lowDescriptor.count === 1 ? 'falls' : 'fall'} into “${lowDescriptor.label}.”`,
-          chart: {
-            width: chartWidth,
-            height: chartHeight,
-            margin,
-            plotWidth,
-            plotHeight,
-            barSlot,
-            barWidth,
-            maxCount,
-          },
-        };
-      }
-    }
-  }
-} catch (error) {
-  histogramData = null;
-}
 
 ---
 
