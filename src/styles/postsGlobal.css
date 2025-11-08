@@ -488,16 +488,22 @@ p {
   max-width: 70%;
 }
 
-@media (max-width: 600px) {
-  .feedback-card .vendor-info {
-    max-width: 100%;
-  }
-}
-
 .vendor-info {
   display: flex;
   flex-direction: column;
   gap: 4px;
+}
+
+@media (max-width: 600px) {
+  .feedback-card .vendor-info {
+    max-width: 90vw;
+    margin: 0.5rem;
+  }
+
+  .feedback-cta {
+    max-width: 90vw;
+    margin: 0.5rem;
+  }
 }
 
 .vendor-name {
