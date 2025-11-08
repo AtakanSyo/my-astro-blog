@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
+import SimStage from '../lib/SimStage.jsx';
 
 const PLANET_DATA = [
   {
@@ -350,24 +351,15 @@ export default function SolarSystemTopDown({
   };
 
   return (
-    <div
-      className="sim-stage centered_flex"
-      id={`stage-${id}`}
-      ref={containerRef}
-      style={{ aspectRatio: aspect, width: '100%', position: 'relative' }}
-    >
-      <canvas id={id} ref={canvasRef} />
-      {showPause && (
-        <button
-          id={`pause-${id}`}
-          className="pill sim-controls-inline"
-          type="button"
-          aria-pressed={!paused}
-          onClick={onToggle}
-        >
-          {paused ? 'Play' : 'Pause'}
-        </button>
-      )}
-    </div>
+    <SimStage
+      id={id}
+      aspect={aspect}
+      containerRef={containerRef}
+      canvasRef={canvasRef}
+      paused={paused}
+      onToggle={onToggle}
+      showPause={showPause}
+      style={{ width: '100%', position: 'relative' }}
+    />
   );
 }

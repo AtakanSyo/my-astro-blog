@@ -9,12 +9,15 @@ import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+import SimStage from '../lib/SimStage.jsx';
 
 export default function JWSTSpin({
   id = 'jwst-spin',
+  aspect = '16 / 9',
   modelUrl = '/models/JWST_B.glb',
   autoSpinY = 0.006,
   startPaused = true,
+  showPause = true,
   // New optional props:
   hdrUrl = '/hdr/venice_sunset_1k.hdr',   // put an .hdr in /public/hdr or pass null to disable
   enableBloom = true,
@@ -159,16 +162,16 @@ export default function JWSTSpin({
   };
 
   return (
-    <div
-      className="sim-stage centered_flex"
-      ref={containerRef}
-      style={{ aspectRatio: '16/9', width: '100%', minHeight: 320 }}
-    >
-      <canvas id={id} ref={canvasRef} />
-      <button className="pill sim-controls-inline" onClick={onToggle}>
-        {paused ? 'Play' : 'Pause'}
-      </button>
-    </div>
+    <SimStage
+      id={id}
+      aspect={aspect}
+      containerRef={containerRef}
+      canvasRef={canvasRef}
+      paused={paused}
+      onToggle={onToggle}
+      showPause={showPause}
+      style={{ minHeight: 320 }}
+    />
   );
 }
 

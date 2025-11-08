@@ -1,6 +1,7 @@
 // GravityLens.jsx
 import { useEffect, useRef, useState, useMemo } from "react";
 import * as THREE from "three";
+import SimStage from "./lib/SimStage.jsx";
 
 /**
  * Thin-lens gravitational lens (Einstein ring) with a lensed background star texture.
@@ -32,7 +33,7 @@ export default function GravityLens({
   const pausedRef = useRef(!!pausedInitially);
   const [paused, setPaused] = useState(!!pausedInitially);
   const [ready, setReady] = useState(false);
-  const [hasEverPlayed, setHasEverPlayed] = useState(false);
+  const madeVisibleRef = useRef(false);
   const opts = useMemo(() => options ?? {}, [options]);
 
   useEffect(() => {
@@ -304,41 +305,31 @@ export default function GravityLens({
     pausedRef.current = paused;
   }, [paused]);
 
- const onToggle = () => {
-   setPaused(p => {
-     const next = !p;
-     if (next === false) {
-       // going from paused → playing
-       setHasEverPlayed(true);
-     }
-     return next;
-   });
- };
+  const onToggle = () => {
+    setPaused((p) => {
+      const next = !p;
+      if (next === false && !madeVisibleRef.current) {
+        madeVisibleRef.current = true;
+        const el = containerRef.current;
+        if (el && !el.classList.contains('is-visible')) el.classList.add('is-visible');
+      }
+      return next;
+    });
+  };
 
   return (
- <div
-   className={`sim-stage centered_flex ${hasEverPlayed ? "is-visible" : ""}`}
-      id={`stage-${id}`}
-      ref={containerRef}
-      style={{ aspectRatio: aspect }}
+    <SimStage
+      id={id}
+      aspect={aspect}
+      containerRef={containerRef}
+      canvasRef={canvasRef}
+      paused={paused}
+      onToggle={onToggle}
+      showPause={showPause}
     >
-      <canvas id={id} ref={canvasRef} />
-      {showPause && (
-        <button
-          id={`pause-${id}`}
-          className="pill sim-controls-inline"
-          type="button"
-          aria-pressed={!paused}
-          onClick={onToggle}
-          style={{ position: "absolute" }}
-        >
-          {paused ? "Play" : "Pause"}
-        </button>
-      )}
       {!ready && (
-        <div className="pill sim-controls-inline" style={{ position: "absolute" }}>
-        </div>
+        <div className="pill sim-controls-inline" style={{ position: "absolute" }} />
       )}
-    </div>
+    </SimStage>
   );
 }

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
+import SimStage from './lib/SimStage.jsx';
 
 // React component: renders a 3D rainbow-shaded sphere with play/pause control
 export default function SimpleSim({
@@ -11,7 +12,6 @@ export default function SimpleSim({
   // --- Refs to DOM elements & state
   const containerRef = useRef(null);  // <div> container for scene
   const canvasRef = useRef(null);     // <canvas> element where we render
-  const btnRef = useRef(null);        // play/pause button
   const pausedRef = useRef(true);     // mutable paused state used in render loop
   const [paused, setPaused] = useState(true); // React state for button UI
   const madeVisibleRef = useRef(false); // tracks if "is-visible" CSS class was applied
@@ -136,26 +136,14 @@ export default function SimpleSim({
   };
 
   return (
-    <div
-      className="sim-stage centered_flex"
-      id={`stage-${id}`}
-      ref={containerRef}
-      style={{ aspectRatio: aspect }}
-    >
-      <canvas id={id} ref={canvasRef} />
-
-      {showPause && (
-        <button
-          id={`pause-${id}`}
-          ref={btnRef}
-          className="pill sim-controls-inline"
-          type="button"
-          aria-pressed={!paused}
-          onClick={onToggle}
-        >
-          {paused ? 'Play' : 'Pause'}
-        </button>
-      )}
-    </div>
+    <SimStage
+      id={id}
+      aspect={aspect}
+      containerRef={containerRef}
+      canvasRef={canvasRef}
+      paused={paused}
+      onToggle={onToggle}
+      showPause={showPause}
+    />
   );
 }

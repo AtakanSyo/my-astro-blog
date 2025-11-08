@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
+import SimStage from '../lib/SimStage.jsx';
 
 export default function PlanetSim({
   id = 'planet-compare',
@@ -10,7 +11,6 @@ export default function PlanetSim({
 }) {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
-  const btnRef = useRef(null);
   const pausedRef = useRef(true);
   const [paused, setPaused] = useState(true);
   const madeVisibleRef = useRef(false);
@@ -357,26 +357,15 @@ export default function PlanetSim({
   };
 
   return (
-    <div
-      className="sim-stage centered_flex"
-      id={`stage-${id}`}
-      ref={containerRef}
-      style={{ aspectRatio: aspect, width: '100%' }}
-    >
-      <canvas id={id} ref={canvasRef} />
-
-      {showPause && (
-        <button
-          id={`pause-${id}`}
-          ref={btnRef}
-          className="pill sim-controls-inline"
-          type="button"
-          aria-pressed={!paused}
-          onClick={onToggle}
-        >
-          {paused ? 'Play' : 'Pause'}
-        </button>
-      )}
-    </div>
+    <SimStage
+      id={id}
+      aspect={aspect}
+      containerRef={containerRef}
+      canvasRef={canvasRef}
+      paused={paused}
+      onToggle={onToggle}
+      showPause={showPause}
+      style={{ width: '100%' }}
+    />
   );
 }

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
+import SimStage from '../lib/SimStage.jsx';
 
 /**
  * ExoplanetTransitSim.jsx (fixed)
@@ -611,33 +612,34 @@ export default function ExoplanetTransitSim({
   };
 
   return (
+    <SimStage
+      id={id}
+      aspect={aspect}
+      containerRef={containerRef}
+      canvasRef={canvasRef}
+      paused={paused}
+      onToggle={onToggle}
+      showPause={showPause}
+      style={{ width: '100%' }}
+    >
       <div
-        className="sim-stage centered_flex"
-        id={`stage-${id}`}
-        ref={containerRef}
-        style={{ aspectRatio: aspect, width: '100%', position: 'relative',}}
+        className="sim-overlay transit-readout"
+        style={{
+          position: 'absolute',
+          inset: 'auto 0 0 0',
+          margin: '0 auto',
+          padding: '14px 16px',
+          background: 'rgba(8, 10, 16, 0.78)',
+          border: '1px solid rgba(255, 255, 255, 0.08)',
+          borderRadius: 10,
+          boxShadow: '0 8px 28px rgba(0,0,0,0.35)',
+          backdropFilter: 'blur(6px)',
+          color: '#eef1ff',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 10,
+        }}
       >
-        <canvas id={id} ref={canvasRef} />
-
-        <div
-          className="sim-overlay transit-readout"
-          style={{
-            position: 'absolute',
-            display: 'block',
-            inset: 'auto 0 0 0',
-            margin: '0 auto',
-            padding: '14px 16px',
-            background: 'rgba(8, 10, 16, 0.78)',
-            border: '1px solid rgba(255, 255, 255, 0.08)',
-            borderRadius: 10,
-            boxShadow: '0 8px 28px rgba(0,0,0,0.35)',
-            backdropFilter: 'blur(6px)',
-            color: '#eef1ff',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 10,
-          }}
-        >
 
           {/* Brightness + key stats (all in one flex block) */}
           <div
@@ -711,22 +713,7 @@ export default function ExoplanetTransitSim({
             aria-label="Light curve showing star brightness during transit"
             style={{ width: '100%', height: 60 }}
           />
-        </div>
-
-        {showPause && (
-          <button
-            id={`pause-${id}`}
-            className="pill sim-controls-inline"
-            type="button"
-            aria-pressed={!paused}               // pressed = playing
-            aria-label={paused ? 'Play' : 'Pause'}
-            onClick={onToggle}
-          >
-            {paused ? 'Play' : 'Pause'}
-          </button>
-        )}
       </div>
-
-
+    </SimStage>
   );
 }

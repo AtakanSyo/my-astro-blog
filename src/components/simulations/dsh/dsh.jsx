@@ -9,6 +9,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+import SimStage from '../lib/SimStage.jsx';
 
 /**
  * GLBViewer.jsx — drop-in React component for Astro posts
@@ -298,25 +299,16 @@ export default function GLBViewer({
   };
 
   return (
-    <div
-      className={`sim-stage centered_flex ${className}`}
-      id={`stage-${id}`}
-      ref={containerRef}
-      style={{ aspectRatio: aspect, width: '100%', position: 'relative' }}
-    >
-      <canvas id={id} ref={canvasRef} />
-      {showPause && (
-        <button
-          id={`pause-${id}`}
-          className="pill sim-controls-inline"
-          type="button"
-          aria-pressed={!paused}
-          onClick={onToggle}
-          style={{ position: 'absolute', top: 8, right: 8, zIndex: 2 }}
-        >
-          {paused ? 'Play' : 'Pause'}
-        </button>
-      )}
-    </div>
+    <SimStage
+      id={id}
+      aspect={aspect}
+      containerRef={containerRef}
+      canvasRef={canvasRef}
+      paused={paused}
+      onToggle={onToggle}
+      showPause={showPause}
+      className={className}
+      style={{ width: '100%', position: 'relative' }}
+    />
   );
 }

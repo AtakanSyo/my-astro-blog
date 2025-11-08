@@ -9,15 +9,19 @@ export default function SimStage({
   onToggle,
   showPause = true,
   extraControls = null,
+  className = '',
+  style = {},
+  children = null,
 }) {
   const hasControls = showPause || extraControls;
+  const stageClass = className ? `sim-stage centered_flex ${className}` : 'sim-stage centered_flex';
 
   return (
     <div
-      className="sim-stage centered_flex"
+      className={stageClass}
       id={`stage-${id}`}
       ref={containerRef}
-      style={{ aspectRatio: aspect, width: '100%' }}
+      style={{ aspectRatio: aspect, width: '100%', ...style }}
     >
       <canvas id={id} ref={canvasRef} />
 
@@ -45,6 +49,8 @@ export default function SimStage({
           {extraControls}
         </div>
       )}
+
+      {children}
     </div>
   );
 }

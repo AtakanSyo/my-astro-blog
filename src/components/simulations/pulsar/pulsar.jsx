@@ -5,6 +5,7 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+import SimStage from '../lib/SimStage.jsx';
 
 export default function PulsarSim({
   id = 'pulsar-sim',
@@ -15,7 +16,6 @@ export default function PulsarSim({
 }) {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
-  const btnRef = useRef(null);
   const pausedRef = useRef(true);
   const [paused, setPaused] = useState(true);
   const madeVisibleRef = useRef(false);
@@ -219,25 +219,14 @@ export default function PulsarSim({
   };
 
   return (
-    <div
-      className="sim-stage centered_flex"
-      id={`stage-${id}`}
-      ref={containerRef}
-      style={{ aspectRatio: aspect, width: '100%' }}
-    >
-      <canvas id={id} ref={canvasRef} />
-      {showPause && (
-        <button
-          id={`pause-${id}`}
-          ref={btnRef}
-          className="pill sim-controls-inline"
-          type="button"
-          aria-pressed={!paused}
-          onClick={onToggle}
-        >
-          {paused ? 'Play' : 'Pause'}
-        </button>
-      )}
-    </div>
+    <SimStage
+      id={id}
+      aspect={aspect}
+      containerRef={containerRef}
+      canvasRef={canvasRef}
+      paused={paused}
+      onToggle={onToggle}
+      showPause={showPause}
+    />
   );
 }
