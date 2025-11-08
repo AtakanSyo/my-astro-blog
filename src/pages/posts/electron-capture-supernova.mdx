@@ -1,0 +1,85 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Electron-Capture Supernova"
+category: simulation
+writer: Astrosyo
+pubDate: '2025-11-08'
+description: "Dive into the subtle yet dramatic collapse of an electron-capture supernova, where neon–magnesium cores surrender to gravity."
+slug: electron-capture-supernova
+imageDir: /images/particle-burst
+keywords:
+  - electron capture supernova
+  - o-ne-mg core
+  - particle burst
+  - stellar evolution
+---
+
+import NovaSim from "../../components/simulations/particle-burst/NovaSim.jsx";
+import SimPostSchema from "../../components/SimPostSchema.astro";
+
+<NovaSim client:visible explosionType="electronCapture" />
+
+<figcaption class="sim-caption">
+  A super-asymptotic giant branch star collapses the moment electrons vanish from its core, igniting a faint but fascinating supernova.
+</figcaption>
+
+<div class="sim-article">
+  <h2 id="stars-on-the-knife-edge">Stars on the knife edge</h2>
+  <p>
+    Electron-capture supernovae originate from stars with initial masses around 8–10 solar masses, perched between the
+    white-dwarf and neutron-star fates. Their cores never reach the iron stage; instead, they build oxygen–neon–magnesium
+    (O-Ne-Mg) mixtures supported by electron degeneracy pressure. As the core density approaches 10<sup>10</sup> g/cm³, electrons
+    are captured by neon and magnesium nuclei, reducing pressure in a runaway cascade.
+  </p>
+
+  <h3 id="collapse-and-bounce">Collapse and bounce</h3>
+  <p>
+    Once electron captures begin, the core can no longer resist gravity. It collapses in milliseconds, and an oxygen-deflagration
+    front sweeps outward, leaving behind a nascent neutron star. Compared with massive core-collapse events, the explosion
+    energy is modest—about 10<sup>50</sup> ergs—but still enough to eject the star’s outer envelope and seed space with fresh elements.
+  </p>
+
+  <h3 id="observational-signatures">Observational signatures</h3>
+  <p>
+    Electron-capture supernovae likely explain the faint, rapidly evolving Type II-P events seen in nearby dwarf galaxies.
+    Their light curves plateau for only a short time, and spectra often show narrow hydrogen lines from the extended envelope.
+    Because the nickel-56 yield is low, the late-time luminosity fades quickly, distinguishing them from brighter Type II
+    explosions.
+  </p>
+
+  <h3 id="why-we-care">Why we care</h3>
+  <p>
+    These explosions bridge the gap between end-of-life outcomes for intermediate-mass stars. They test our understanding
+    of dense matter, electron-degenerate cores, and neutrino physics. Moreover, electron-capture events may explain the
+    birth of some slow-moving neutron stars and the metallicity patterns in ancient clusters.
+  </p>
+</div>
+
+<SimPostSchema
+  title="Electron-Capture Supernova"
+  description="Learn how electron captures in an O-Ne-Mg core trigger a subtle yet cosmos-shaping supernova."
+  url="https://astrosyo.com/posts/electron-capture-supernova"
+  datePublished="2025-11-08"
+  authorName="Astrosyo"
+  keywords={[
+    "electron capture supernova",
+    "neutron star formation",
+    "stellar evolution",
+    "three.js visualization",
+    "nova sim"
+  ]}
+  image="/images/particle-burst/cover.webp"
+  articleSection="Astronomy"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.webp"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Electron-Capture Supernova Simulation",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires WebGL2",
+    "url": "https://astrosyo.com/posts/electron-capture-supernova#simulation",
+    "description": "Interactive electron-capture supernova visualization rendered with NovaSim."
+  }}
+/>

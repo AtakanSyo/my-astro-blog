@@ -1,0 +1,87 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Type II Supernova Explosion"
+category: simulation
+writer: Astrosyo
+pubDate: '2025-11-08'
+description: "Watch a massive star collapse and rebound—our NovaSim rendering of a Type II supernova captures the core-collapse blast wave."
+slug: type-II-supernova-explosion
+imageDir: /images/particle-burst
+keywords:
+  - type ii supernova
+  - particle burst
+  - three.js
+  - stellar core collapse
+---
+
+import NovaSim from "../../components/simulations/particle-burst/NovaSim.jsx";
+import SimPostSchema from "../../components/SimPostSchema.astro";
+
+<NovaSim client:visible explosionType="typeII" />
+
+<figcaption class="sim-caption">
+  Iron core collapse triggers a shock wave, peeling away the star’s outer layers in a luminous blast.
+</figcaption>
+
+<div class="sim-article">
+  <h2 id="core-collapse-at-a-glance">Core collapse at a glance</h2>
+  <p>
+    Type II supernovae mark the violent deaths of massive stars. Once an iron core approaches the
+    Chandrasekhar mass, pressure from degenerate electrons collapses, gravity wins, and the core implodes
+    in milliseconds. A rebound shock races outward through the infalling layers, dragging neutrino-heated
+    bubbles and magnetic turbulence that seed clumps, jets, and knots in the debris.
+  </p>
+
+  <h3 id="layers-of-the-star">Layers of the star</h3>
+  <p>
+    Before collapse, the progenitor’s onion-like shells fuse progressively heavier elements. Hydrogen and helium
+    dominate the outer envelope, while silicon and sulfur live just above the inert iron heart. When the shock breaks
+    through, each layer imprints its chemistry on the ejecta: hydrogen Balmer lines dominate the early spectra,
+    calcium and oxygen lines bloom weeks later, and radioactive nickel-56 powers the fading light curve.
+  </p>
+
+  <h3 id="fates-of-the-core">Fates of the core</h3>
+  <p>
+    The collapsed center survives. If the remnant mass stays below about 2.2 solar masses, neutron degeneracy pressure
+    halts the collapse and a neutron star emerges—often spinning rapidly and emitting pulsar beacons. More massive cores
+    continue inward to form black holes. Either way, the newborn object launches relativistic winds that sculpt the
+    inner ejecta, driving the asymmetries hinted at in the expanding shell.
+  </p>
+
+  <h3 id="why-it-matters">Why it matters</h3>
+  <p>
+    Type II explosions forge and disperse many of the heavy elements that end up in planets and life. They also seed
+    star-forming regions with shocks, cosmic rays, and enriched gas. Observatories such as the Vera Rubin Observatory
+    and JWST chase their light curves to understand neutrino physics, nuclear burning, and the birth statistics of
+    neutron stars. Each flare is a laboratory for extreme matter, far beyond anything achievable on Earth.
+  </p>
+</div>
+
+<SimPostSchema
+  title="Type II Supernova Explosion"
+  description="Explore a core-collapse supernova rendered with NovaSim: thousands of particles trace the shock that rips a massive star apart."
+  url="https://astrosyo.com/posts/type-II-supernova-explosion"
+  datePublished="2025-11-08"
+  authorName="Astrosyo"
+  keywords={[
+    "type ii supernova",
+    "particle burst",
+    "nova sim",
+    "core collapse",
+    "three.js visualization"
+  ]}
+  image="/images/particle-burst/cover.webp"
+  articleSection="Astronomy"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.webp"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Type II Supernova Simulation",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires WebGL2",
+    "url": "https://astrosyo.com/posts/type-II-supernova-explosion#simulation",
+    "description": "Interactive Type II core-collapse supernova rendered with NovaSim."
+  }}
+/>

@@ -1,0 +1,87 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Hypernova Explosion"
+category: simulation
+writer: Astrosyo
+pubDate: '2025-11-08'
+description: "Experience the titanic energy of a hypernova—an engine powerful enough to launch gamma-ray bursts across galaxies."
+slug: hypernova-explosion
+imageDir: /images/particle-burst
+keywords:
+  - hypernova
+  - gamma ray burst
+  - particle burst
+  - stellar death
+---
+
+import NovaSim from "../../components/simulations/particle-burst/NovaSim.jsx";
+import SimPostSchema from "../../components/SimPostSchema.astro";
+
+<NovaSim client:visible explosionType="hypernova" />
+
+<figcaption class="sim-caption">
+  When the core of a rapidly spinning massive star collapses, twin relativistic jets punch through the star and light up the cosmos.
+</figcaption>
+
+<div class="sim-article">
+  <h2 id="what-is-a-hypernova">What is a hypernova?</h2>
+  <p>
+    Hypernovae are extreme core-collapse supernovae born from stars with initial masses above ~25–30 solar masses
+    that retain strong rotation and magnetic fields. As the iron core collapses, angular momentum funnels matter into
+    an accretion disk feeding a nascent black hole. Magnetic dynamos tap the disk’s energy and drive collimated jets
+    that punch through the stellar envelope, releasing energies up to ten times that of ordinary supernovae.
+  </p>
+
+  <h3 id="jets-and-gamma-rays">Jets and gamma rays</h3>
+  <p>
+    When the jet axis aligns with our line of sight, we detect the event as a long-duration gamma-ray burst.
+    Internal shocks within the jet accelerate electrons to relativistic speeds, and synchrotron radiation floods
+    the spectrum from gamma rays down to radio afterglows. Even when the jets are off-axis, the cocoon of shocked
+    gas they inflate leaves a distinctive imprint: bipolar lobes, high-velocity knots, and broad-lined spectral
+    features from iron-group elements.
+  </p>
+
+  <h3 id="chemical-yields">Chemical yields</h3>
+  <p>
+    Hypernovae are efficient factories for heavy elements. Their immense explosion energies synthesize large quantities
+    of nickel-56, cobalt, and zinc, enriching the interstellar medium far beyond what standard Type II events produce.
+    Observing their remnants helps explain the elevated abundances of these elements in ancient, metal-poor stars that
+    formed shortly after the first galaxies assembled.
+  </p>
+
+  <h3 id="why-hypernovae-matter">Why hypernovae matter</h3>
+  <p>
+    Hypernovae link many frontier questions in astrophysics: the origin of gamma-ray bursts, the birth of rapidly spinning
+    black holes, and the chemical evolution of the early universe. Their blinding luminosity allows us to trace star formation
+    in galaxies billions of light-years away, providing time capsules from epochs when the cosmos was young and metal-poor.
+  </p>
+</div>
+
+<SimPostSchema
+  title="Hypernova Explosion"
+  description="Follow the jets and shock fronts of a hypernova—an ultra-energetic stellar death tied to long gamma-ray bursts."
+  url="https://astrosyo.com/posts/hypernova-explosion"
+  datePublished="2025-11-08"
+  authorName="Astrosyo"
+  keywords={[
+    "hypernova",
+    "gamma ray burst",
+    "stellar death",
+    "three.js visualization",
+    "nova sim"
+  ]}
+  image="/images/particle-burst/cover.webp"
+  articleSection="Astronomy"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.webp"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Hypernova Simulation",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires WebGL2",
+    "url": "https://astrosyo.com/posts/hypernova-explosion#simulation",
+    "description": "Interactive hypernova visualization rendered with NovaSim."
+  }}
+/>
