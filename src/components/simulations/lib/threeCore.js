@@ -14,6 +14,7 @@ import * as THREE from 'three';
  * @param {number} [params.cameraConfig.far=2000]
  * @param {Array|Object} [params.cameraConfig.position={x:0,y:0,z:5}]
  * @param {Array|Object} [params.cameraConfig.lookAt]
+ * @param {() => {camera: THREE.Camera, onResize?: ({width:number,height:number,dpr:number}) => void}} [params.cameraFactory]
  * @param {number} [params.dprCap=1.5] - Maximum device pixel ratio to render at.
  * @param {boolean} [params.alpha=true] - Whether the renderer should preserve alpha.
  * @param {boolean} [params.antialias=true] - Whether to enable antialiasing.
@@ -38,6 +39,7 @@ export function prepareScene({
   dprCap = 1.5,
   alpha = true,
   antialias = true,
+  cameraFactory,
 } = {}) {
   if (!canvas) {
     throw new Error('prepareScene requires a canvas element.');
@@ -62,37 +64,49 @@ export function prepareScene({
       background instanceof THREE.Color ? background : new THREE.Color(background);
   }
 
-  const camera = new THREE.PerspectiveCamera(
-    cameraConfig.fov ?? 60,
-    1,
-    cameraConfig.near ?? 0.1,
-    cameraConfig.far ?? 2000,
-  );
+  let camera;
+  let customResize;
 
-  const cameraPos = cameraConfig.position ?? { x: 0, y: 0, z: 5 };
-  if (Array.isArray(cameraPos)) {
-    camera.position.set(cameraPos[0] ?? 0, cameraPos[1] ?? 0, cameraPos[2] ?? 5);
+  if (typeof cameraFactory === 'function') {
+    const result = cameraFactory();
+    if (!result || !result.camera) {
+      throw new Error('cameraFactory must return an object with a camera property.');
+    }
+    camera = result.camera;
+    customResize = result.onResize;
   } else {
-    camera.position.set(
-      cameraPos.x ?? 0,
-      cameraPos.y ?? 0,
-      cameraPos.z ?? 5,
+    camera = new THREE.PerspectiveCamera(
+      cameraConfig.fov ?? 60,
+      1,
+      cameraConfig.near ?? 0.1,
+      cameraConfig.far ?? 2000,
     );
-  }
 
-  if (cameraConfig.lookAt) {
-    const lookTarget = Array.isArray(cameraConfig.lookAt)
-      ? new THREE.Vector3(
-          cameraConfig.lookAt[0] ?? 0,
-          cameraConfig.lookAt[1] ?? 0,
-          cameraConfig.lookAt[2] ?? 0,
-        )
-      : new THREE.Vector3(
-          cameraConfig.lookAt.x ?? 0,
-          cameraConfig.lookAt.y ?? 0,
-          cameraConfig.lookAt.z ?? 0,
-        );
-    camera.lookAt(lookTarget);
+    const cameraPos = cameraConfig.position ?? { x: 0, y: 0, z: 5 };
+    if (Array.isArray(cameraPos)) {
+      camera.position.set(cameraPos[0] ?? 0, cameraPos[1] ?? 0, cameraPos[2] ?? 5);
+    } else {
+      camera.position.set(
+        cameraPos.x ?? 0,
+        cameraPos.y ?? 0,
+        cameraPos.z ?? 5,
+      );
+    }
+
+    if (cameraConfig.lookAt) {
+      const lookTarget = Array.isArray(cameraConfig.lookAt)
+        ? new THREE.Vector3(
+            cameraConfig.lookAt[0] ?? 0,
+            cameraConfig.lookAt[1] ?? 0,
+            cameraConfig.lookAt[2] ?? 0,
+          )
+        : new THREE.Vector3(
+            cameraConfig.lookAt.x ?? 0,
+            cameraConfig.lookAt.y ?? 0,
+            cameraConfig.lookAt.z ?? 0,
+          );
+      camera.lookAt(lookTarget);
+    }
   }
 
   const textureLoader = new THREE.TextureLoader();
@@ -105,8 +119,12 @@ export function prepareScene({
     const width = Math.max(1, sizingElement.clientWidth);
     const height = Math.max(1, sizingElement.clientHeight);
     renderer.setSize(width, height, false);
-    camera.aspect = width / height || 1;
-    camera.updateProjectionMatrix();
+    if (customResize) {
+      customResize({ width, height, dpr });
+    } else {
+      camera.aspect = width / height || 1;
+      camera.updateProjectionMatrix();
+    }
   };
 
   if (typeof ResizeObserver !== 'undefined' && sizingElement) {

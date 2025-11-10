@@ -1,6 +1,17 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 import SimStage from '../lib/SimStage.jsx';
+import { prepareScene } from '../lib/threeCore.js';
+import {
+  createAtmosphereShell,
+  createBarycentricDisc,
+  createEllipticalOrbit,
+  createOrbitRing,
+  createOrthoTopDownCamera,
+  createStar,
+  computeBinaryPositions,
+  computeEllipticalPosition,
+} from '../lib/starSystemCore.js';
 
 const EMPTY_OPTS = Object.freeze({});
 const DEFAULT_SYSTEM = Object.freeze({
@@ -55,6 +66,13 @@ const DEFAULT_SYSTEM = Object.freeze({
   },
 });
 
+const CAMERA_DEFAULTS = Object.freeze({
+  height: 100,
+  up: [0, 0, -1],
+  lookAt: [0, 0, 0],
+  margin: 1.05,
+});
+
 export default function TripleStarSystem({
   id = 'triple-star-system',
   aspect = '3 / 2',
@@ -66,6 +84,7 @@ export default function TripleStarSystem({
   const canvasRef = useRef(null);
   const pausedRef = useRef(true);
   const hasPlayedRef = useRef(false);
+  const coreHandleRef = useRef(null);
   const [paused, setPaused] = useState(true);
   const opts = useMemo(() => options ?? EMPTY_OPTS, [options]);
 
@@ -97,28 +116,31 @@ export default function TripleStarSystem({
       baryDiscOpacity: opts.baryDiscOpacity ?? 0.05,
     };
 
-    const renderer = new THREE.WebGLRenderer({
-      canvas,
-      antialias: true,
-      alpha: true,
-      powerPreference: 'high-performance',
-    });
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.0;
-    renderer.setClearColor(cfg.backgroundColor, 1);
+    const largestOrbit = Math.max(...mergedStars.map((star) => star.orbitRadius ?? 1));
+    const frustumExtent = largestOrbit * cfg.baryDiscThickness * 1.4 + 10;
 
-    const scene = new THREE.Scene();
-    const camera = new THREE.OrthographicCamera(-28, 28, 28, -28, 0.1, 300);
-    camera.position.set(0, 56, 0);
-    camera.lookAt(scene.position);
+    const core = prepareScene({
+      canvas,
+      container,
+      background: cfg.backgroundColor,
+      dprCap,
+      alpha: true,
+      antialias: true,
+      cameraFactory: () =>
+        createOrthoTopDownCamera({
+          extent: () => frustumExtent,
+          height: CAMERA_DEFAULTS.height,
+          margin: CAMERA_DEFAULTS.margin,
+          up: CAMERA_DEFAULTS.up,
+          lookAt: CAMERA_DEFAULTS.lookAt,
+        }),
+    });
+
+    const { scene, start, stop, renderOnce, dispose: disposeCore } = core;
 
     if (cfg.ambientIntensity > 0) {
       scene.add(new THREE.AmbientLight(0xffffff, cfg.ambientIntensity));
     }
-
-    const starGroup = new THREE.Group();
-    scene.add(starGroup);
 
     const starData = mergedStars.map((star) => {
       const orbitRadius =
@@ -133,70 +155,41 @@ export default function TripleStarSystem({
       const phaseOffset = star.phaseOffset ?? 0;
       const angularSpeed = (Math.PI * 2) / Math.max(1, star.orbitDays ?? 240);
 
-      const geo = new THREE.SphereGeometry(star.radius ?? 1.2, 48, 24);
-      const mat = new THREE.MeshStandardMaterial({
-        emissive: new THREE.Color(star.color ?? 0xffffff),
-        emissiveIntensity: cfg.glowStrength,
-        color: star.color ?? 0xffffff,
-        roughness: 0.35,
-        metalness: 0,
+      const starEntry = createStar({
+        radius: star.radius ?? 1.2,
+        color: star.color,
+        intensity: star.intensity ?? 12,
+        glowStrength: cfg.glowStrength,
       });
-      const mesh = new THREE.Mesh(geo, mat);
-      const light = new THREE.PointLight(star.color ?? 0xffffff, star.intensity ?? 10, 0, 2);
-      mesh.add(light);
-      starGroup.add(mesh);
+      scene.add(starEntry.mesh);
 
-      const orbitGeo = new THREE.BufferGeometry();
-      const segs = 160;
-      const positions = new Float32Array(segs * 3);
-      for (let i = 0; i < segs; i += 1) {
-        const t = (i / segs) * Math.PI * 2;
-        const cosT = Math.cos(t);
-        const sinT = Math.sin(t);
-        positions[i * 3] = cosT * orbitRadius + orbitShift.x;
-        positions[i * 3 + 1] = 0;
-        positions[i * 3 + 2] = sinT * orbitRadius + orbitShift.z;
-      }
-      orbitGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-      const orbitMat = new THREE.LineDashedMaterial({
-        color: 0xffffff,
+      const orbitEntry = createOrbitRing({
+        radius: orbitRadius,
         dashSize: 0.8,
         gapSize: 0.6,
-        transparent: true,
         opacity: 0.4,
       });
-      const orbitLoop = new THREE.LineLoop(orbitGeo, orbitMat);
-      orbitLoop.computeLineDistances();
-      scene.add(orbitLoop);
+      orbitEntry.line.position.set(orbitShift.x, 0, orbitShift.z);
+      scene.add(orbitEntry.line);
 
       return {
         key: star.key,
-        mesh,
-        geo,
-        mat,
-        orbitGeo,
-        orbitMat,
+        entry: starEntry,
+        orbitEntry,
         orbitRadius,
         orbitShift,
         angularSpeed,
         angle: phaseOffset,
-        phaseOffset,
       };
     });
 
     const orbitRadii = starData.map((s) => s.orbitRadius);
-    const discInner = Math.max(0.2, Math.min(...orbitRadii) * 0.35);
-    const discOuter = Math.max(discInner + 0.1, Math.max(...orbitRadii) * cfg.baryDiscThickness);
-    const baryDiscGeo = new THREE.RingGeometry(0.001, discOuter, 128, 1);
-    const baryDiscMat = new THREE.MeshBasicMaterial({
-      color: 0xffffff,
-      transparent: true,
-      opacity: THREE.MathUtils.clamp(cfg.baryDiscOpacity, 0, 1),
-      side: THREE.DoubleSide,
+    const discEntry = createBarycentricDisc({
+      inner: 0,
+      outer: Math.max(...orbitRadii) * cfg.baryDiscThickness,
+      opacity: cfg.baryDiscOpacity,
     });
-    const baryDisc = new THREE.Mesh(baryDiscGeo, baryDiscMat);
-    baryDisc.rotation.x = Math.PI / 2;
-    scene.add(baryDisc);
+    scene.add(discEntry.mesh);
 
     const orbitAnchor = new THREE.Object3D();
     scene.add(orbitAnchor);
@@ -222,25 +215,16 @@ export default function TripleStarSystem({
       (hostStar?.mesh?.geometry?.parameters?.radius ?? 1) * cfg.planetScale * (mergedPlanet.radiusEarth ?? 1),
     );
 
-    const orbitPositions = new Float32Array(cfg.orbitSegments * 3);
-    for (let i = 0; i < cfg.orbitSegments; i += 1) {
-      const t = (i / cfg.orbitSegments) * Math.PI * 2;
-      orbitPositions[i * 3] = Math.cos(t) * semiMajor - planetFocus;
-      orbitPositions[i * 3 + 1] = 0;
-      orbitPositions[i * 3 + 2] = Math.sin(t) * semiMinor;
-    }
-    const planetOrbitGeo = new THREE.BufferGeometry();
-    planetOrbitGeo.setAttribute('position', new THREE.BufferAttribute(orbitPositions, 3));
-    const planetOrbitMat = new THREE.LineDashedMaterial({
-      color: 0xffffff,
+    const planetOrbitEntry = createEllipticalOrbit({
+      semiMajor,
+      semiMinor,
+      offsetX: -planetFocus,
       dashSize: 1,
       gapSize: 0.8,
-      transparent: true,
       opacity: 0.65,
+      segments: cfg.orbitSegments,
     });
-    const planetOrbit = new THREE.LineLoop(planetOrbitGeo, planetOrbitMat);
-    planetOrbit.computeLineDistances();
-    orbitAnchor.add(planetOrbit);
+    orbitAnchor.add(planetOrbitEntry.line);
 
     const planetGeo = new THREE.SphereGeometry(planetRadius, 64, 32);
     const planetMat = new THREE.MeshStandardMaterial({
@@ -249,16 +233,12 @@ export default function TripleStarSystem({
       metalness: 0.08,
     });
     const planetMesh = new THREE.Mesh(planetGeo, planetMat);
-    const atmoGeo = new THREE.SphereGeometry(planetRadius * 1.04, 32, 16);
-    const atmoMat = new THREE.MeshBasicMaterial({
+    const atmosphereEntry = createAtmosphereShell({
+      radius: planetRadius * 1.04,
       color: cfg.atmosphereColor,
-      transparent: true,
       opacity: 0.18,
-      blending: THREE.AdditiveBlending,
-      side: THREE.BackSide,
     });
-    const atmoMesh = new THREE.Mesh(atmoGeo, atmoMat);
-    planetMesh.add(atmoMesh);
+    planetMesh.add(atmosphereEntry.mesh);
     scene.add(planetMesh);
 
     planetMesh.rotation.z = THREE.MathUtils.degToRad(mergedPlanet.tiltDegrees ?? 0);
@@ -271,116 +251,95 @@ export default function TripleStarSystem({
       ((Math.PI * 2) / Math.abs(rotationPeriodDays || 1)) * Math.sign(rotationPeriodDays || 1);
     const planetAngularSpeed = (Math.PI * 2) / Math.max(1, mergedPlanet.orbitDays ?? 200);
 
-    const fit = () => {
-      const dpr = Math.min(dprCap, window.devicePixelRatio || 1);
-      renderer.setPixelRatio(dpr);
-      const width = Math.max(1, container.clientWidth | 0);
-      const height = Math.max(1, container.clientHeight | 0);
-      renderer.setSize(width, height, false);
-
-      const maxOrbit = Math.max(...orbitRadii, semiMajor);
-      const frustumSize = maxOrbit * 2.2;
-      const aspectRatio = width / height || 1;
-      camera.left = -frustumSize * aspectRatio;
-      camera.right = frustumSize * aspectRatio;
-      camera.top = frustumSize;
-      camera.bottom = -frustumSize;
-      camera.updateProjectionMatrix();
-    };
-
-    const ro =
-      typeof ResizeObserver !== 'undefined' && container ? new ResizeObserver(fit) : null;
-    ro?.observe(container);
-    window.addEventListener('resize', fit, { passive: true });
-    fit();
-
     const state = {
-      starAngles: starData.map((star) => star.phaseOffset ?? 0),
+      starAngles: starData.map((star) => star.angle ?? 0),
       planetAngle: 0,
     };
-    const clock = new THREE.Clock();
-    let rafId = 0;
 
     const updateTransforms = () => {
       starData.forEach((star, idx) => {
         const angle = state.starAngles[idx];
         const cosA = Math.cos(angle);
         const sinA = Math.sin(angle);
-        star.mesh.position.set(
+        star.entry.mesh.position.set(
           cosA * star.orbitRadius + star.orbitShift.x,
           0,
           sinA * star.orbitRadius + star.orbitShift.z,
         );
       });
 
-      const hostPos = hostStar?.mesh?.position ?? new THREE.Vector3();
+      const hostMesh = starData.find((star) => star.key === mergedPlanet.hostKey)?.entry.mesh ?? starData[0].entry.mesh;
+      const hostPos = hostMesh.position;
       orbitAnchor.position.copy(hostPos);
 
-      const cosP = Math.cos(state.planetAngle);
-      const sinP = Math.sin(state.planetAngle);
-      const px = cosP * semiMajor - planetFocus;
-      const pz = sinP * semiMinor;
-      planetMesh.position.set(hostPos.x + px, 0, hostPos.z + pz);
+      const planetPos = computeEllipticalPosition({
+        angle: state.planetAngle,
+        semiMajor,
+        semiMinor,
+        focusOffset: planetFocus,
+      });
+      planetMesh.position.set(hostPos.x + planetPos.x, 0, hostPos.z + planetPos.z);
     };
 
-    const loop = () => {
-      const rawDt = clock.getDelta();
-      const dt = pausedRef.current ? 0 : Math.min(rawDt, 0.05);
+    const tick = (delta) => {
+      if (pausedRef.current) return;
+      const dt = Math.min(delta ?? 0, 0.05);
       const deltaDays = dt * cfg.daysPerSecond;
-
-      if (dt > 0) {
-        starData.forEach((star, idx) => {
-          state.starAngles[idx] += star.angularSpeed * deltaDays;
-        });
-        state.planetAngle += planetAngularSpeed * deltaDays;
-        planetMesh.rotation.y += rotationSpeed * deltaDays;
-      }
-
+      starData.forEach((star, idx) => {
+        state.starAngles[idx] += star.angularSpeed * deltaDays;
+      });
+      state.planetAngle += planetAngularSpeed * deltaDays;
+      planetMesh.rotation.y += rotationSpeed * deltaDays;
       updateTransforms();
-      renderer.render(scene, camera);
-      rafId = requestAnimationFrame(loop);
-    };
+   };
 
     updateTransforms();
-    clock.start();
-    rafId = requestAnimationFrame(loop);
+
+    coreHandleRef.current = { api: core, tick };
+    if (pausedRef.current) {
+      renderOnce();
+    } else {
+      start(tick);
+    }
 
     return () => {
-      try {
-        ro?.disconnect();
-      } catch {}
-      window.removeEventListener('resize', fit);
-      if (rafId) cancelAnimationFrame(rafId);
-      renderer.dispose();
-      scene.traverse((obj) => {
-        if (obj.isMesh || obj.type === 'LineLoop') {
-          obj.geometry?.dispose?.();
-          if (Array.isArray(obj.material)) {
-            obj.material.forEach((mat) => mat?.dispose?.());
-          } else {
-            obj.material?.dispose?.();
-          }
-        }
-      });
+      stop();
+      disposeCore();
+      coreHandleRef.current = null;
+      atmosphereEntry.geometry.dispose();
+      atmosphereEntry.material.dispose();
       starData.forEach((star) => {
-        star.geo.dispose();
-        star.mat.dispose();
-        star.orbitGeo.dispose();
-        star.orbitMat.dispose();
+        scene.remove(star.entry.mesh);
+        star.entry.dispose();
+        star.orbitEntry.geometry.dispose();
+        star.orbitEntry.material.dispose();
+        scene.remove(star.orbitEntry.line);
       });
-      baryDiscGeo.dispose();
-      baryDiscMat.dispose();
-      planetOrbitGeo.dispose();
-      planetOrbitMat.dispose();
+      discEntry.geometry.dispose();
+      discEntry.material.dispose();
+      scene.remove(discEntry.mesh);
+      scene.remove(orbitAnchor);
+      planetOrbitEntry.geometry.dispose();
+      planetOrbitEntry.material.dispose();
+      scene.remove(planetOrbitEntry.line);
       planetGeo.dispose();
       planetMat.dispose();
-      atmoGeo.dispose();
-      atmoMat.dispose();
     };
   }, [dprCap, opts]);
 
   useEffect(() => {
     pausedRef.current = paused;
+  }, [paused]);
+
+  useEffect(() => {
+    const handle = coreHandleRef.current;
+    if (!handle) return;
+    if (paused) {
+      handle.api.stop();
+      handle.api.renderOnce();
+    } else {
+      handle.api.start(handle.tick);
+    }
   }, [paused]);
 
   const onToggle = () => {

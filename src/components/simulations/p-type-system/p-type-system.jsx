@@ -1,6 +1,17 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 import SimStage from '../lib/SimStage.jsx';
+import { prepareScene } from '../lib/threeCore.js';
+import {
+  createAtmosphereShell,
+  createBarycentricDisc,
+  createEllipticalOrbit,
+  createOrbitRing,
+  createOrthoTopDownCamera,
+  createStar,
+  computeBinaryPositions,
+  computeEllipticalPosition,
+} from '../lib/starSystemCore.js';
 
 const EMPTY_OPTS = Object.freeze({});
 const DEFAULT_BINARY = Object.freeze({
@@ -42,6 +53,7 @@ export default function PTypeSystem({
   const canvasRef = useRef(null);
   const pausedRef = useRef(true);
   const hasPlayedRef = useRef(false);
+  const coreHandleRef = useRef(null);
   const [paused, setPaused] = useState(true);
   const opts = useMemo(() => options ?? EMPTY_OPTS, [options]);
 
@@ -94,118 +106,77 @@ export default function PTypeSystem({
       Math.max(cfg.starARadius, cfg.starBRadius) * cfg.planetScale * (merged.planet.radiusEarth ?? 1),
     );
 
-    // ---------- Renderer ----------
-    const renderer = new THREE.WebGLRenderer({
-      canvas,
-      antialias: true,
-      alpha: true,
-      powerPreference: 'high-performance',
-    });
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
-    renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.0;
-    renderer.setClearColor(cfg.backgroundColor, 1);
+    const frustumExtent =
+      semiMajor + sep * 1.5 + Math.max(cfg.starARadius, cfg.starBRadius) * 2;
 
-    // ---------- Scene & Camera ----------
-    const scene = new THREE.Scene();
-    const camera = new THREE.OrthographicCamera(-30, 30, 30, -30, 0.1, 400);
-    camera.position.set(0, 60, 0);
-    camera.lookAt(scene.position);
+    const core = prepareScene({
+      canvas,
+      container,
+      background: cfg.backgroundColor,
+      dprCap,
+      alpha: true,
+      antialias: true,
+      cameraFactory: () =>
+        createOrthoTopDownCamera({
+          extent: () => frustumExtent,
+          height: 60,
+          margin: 1.2,
+          up: [0, 0, -1],
+        }),
+    });
+
+    const { scene, start, stop, renderOnce, dispose: disposeCore } = core;
 
     if (cfg.ambientIntensity > 0) {
       const ambient = new THREE.AmbientLight(0xffffff, cfg.ambientIntensity);
       scene.add(ambient);
     }
 
-    const starGroup = new THREE.Group();
-    scene.add(starGroup);
+    const starAEntry = createStar({
+      radius: cfg.starARadius,
+      color: merged.starA.color,
+      intensity: merged.starA.intensity ?? 12,
+      glowStrength: cfg.glowStrength,
+    });
+    const starBEntry = createStar({
+      radius: cfg.starBRadius,
+      color: merged.starB.color,
+      intensity: merged.starB.intensity ?? 12,
+      glowStrength: cfg.glowStrength,
+    });
+    scene.add(starAEntry.mesh);
+    scene.add(starBEntry.mesh);
 
-    const buildStar = (star, radiusOverride) => {
-      const geo = new THREE.SphereGeometry(radiusOverride ?? star.radius ?? 2, 48, 24);
-      const mat = new THREE.MeshStandardMaterial({
-        emissive: new THREE.Color(star.color ?? 0xffffff),
-        emissiveIntensity: cfg.glowStrength,
-        color: star.color ?? 0xffffff,
-        roughness: 0.35,
-        metalness: 0,
-      });
-      const mesh = new THREE.Mesh(geo, mat);
-      const light = new THREE.PointLight(star.color ?? 0xffffff, star.intensity ?? 8, 0, 2);
-      mesh.add(light);
-      starGroup.add(mesh);
-      return { mesh };
-    };
-
-    const starA = buildStar(merged.starA, cfg.starARadius);
-    const starB = buildStar(merged.starB, cfg.starBRadius);
-
-    // Orbit rings for stars
-    const makeOrbitGeo = (radius) => {
-      const segs = 128;
-      const positions = new Float32Array(segs * 3);
-      for (let i = 0; i < segs; i += 1) {
-        const t = (i / segs) * Math.PI * 2;
-        positions[i * 3] = Math.cos(t) * radius;
-        positions[i * 3 + 1] = 0;
-        positions[i * 3 + 2] = Math.sin(t) * radius;
-      }
-      const geo = new THREE.BufferGeometry();
-      geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-      return geo;
-    };
-
-    const starRingGeo = makeOrbitGeo(radiusA);
-    const starBRingGeo = makeOrbitGeo(radiusB);
-    const ringMat = new THREE.LineDashedMaterial({
-      color: 0xffffff,
+    const orbitAEntry = createOrbitRing({
+      radius: radiusA,
       dashSize: 0.8,
       gapSize: 0.5,
-      transparent: true,
       opacity: 0.35,
     });
-    const orbitAGeo = starRingGeo;
-    const orbitAMat = ringMat.clone();
-    const orbitA = new THREE.LineLoop(orbitAGeo, orbitAMat);
-    orbitA.computeLineDistances();
-    const orbitBGeo = starBRingGeo;
-    const orbitBMat = ringMat.clone();
-    const orbitB = new THREE.LineLoop(orbitBGeo, orbitBMat);
-    orbitB.computeLineDistances();
-    scene.add(orbitA);
-    scene.add(orbitB);
-
-    // Circumbinary disk
-    const diskGeo = new THREE.RingGeometry(0.001, semiMajor + 2, 64, 1);
-    const diskMat = new THREE.MeshBasicMaterial({
-      color: 0xffffff,
-      transparent: true,
-      opacity: 0.07,
-      side: THREE.DoubleSide,
+    const orbitBEntry = createOrbitRing({
+      radius: radiusB,
+      dashSize: 0.8,
+      gapSize: 0.5,
+      opacity: 0.35,
     });
-    const disk = new THREE.Mesh(diskGeo, diskMat);
-    disk.rotation.x = Math.PI / 2;
-    scene.add(disk);
+    scene.add(orbitAEntry.line);
+    scene.add(orbitBEntry.line);
+
+    const diskEntry = createBarycentricDisc({ outer: semiMajor + 2, opacity: 0.07 });
+    scene.add(diskEntry.mesh);
 
     // Planet orbit path
-    const orbitPositions = new Float32Array(cfg.orbitSegments * 3);
-    for (let i = 0; i < cfg.orbitSegments; i += 1) {
-      const t = (i / cfg.orbitSegments) * Math.PI * 2;
-      orbitPositions[i * 3] = Math.cos(t) * semiMajor - planetFocus;
-      orbitPositions[i * 3 + 1] = 0;
-      orbitPositions[i * 3 + 2] = Math.sin(t) * semiMinor;
-    }
-    const planetOrbitGeo = new THREE.BufferGeometry();
-    planetOrbitGeo.setAttribute('position', new THREE.BufferAttribute(orbitPositions, 3));
-    const planetOrbitMat = new THREE.LineDashedMaterial({
-      color: 0xffffff,
+    const planetOrbitEntry = createEllipticalOrbit({
+      semiMajor,
+      semiMinor,
+      offsetX: -planetFocus,
+      dashed: true,
       dashSize: 1.2,
       gapSize: 0.8,
-      transparent: true,
       opacity: 0.7,
+      segments: cfg.orbitSegments,
     });
-    const planetOrbit = new THREE.LineLoop(planetOrbitGeo, planetOrbitMat);
-    planetOrbit.computeLineDistances();
-    scene.add(planetOrbit);
+    scene.add(planetOrbitEntry.line);
 
     // Planet mesh
     const planetGeo = new THREE.SphereGeometry(planetRadius, 64, 32);
@@ -215,16 +186,12 @@ export default function PTypeSystem({
       metalness: 0.08,
     });
     const planetMesh = new THREE.Mesh(planetGeo, planetMat);
-    const atmoGeo = new THREE.SphereGeometry(planetRadius * 1.06, 32, 16);
-    const atmoMat = new THREE.MeshBasicMaterial({
+    const atmosphereEntry = createAtmosphereShell({
+      radius: planetRadius * 1.06,
       color: cfg.atmosphereColor,
-      transparent: true,
       opacity: 0.2,
-      blending: THREE.AdditiveBlending,
-      side: THREE.BackSide,
     });
-    const atmoMesh = new THREE.Mesh(atmoGeo, atmoMat);
-    planetMesh.add(atmoMesh);
+    planetMesh.add(atmosphereEntry.mesh);
     scene.add(planetMesh);
 
     planetMesh.rotation.z = THREE.MathUtils.degToRad(merged.planet.tiltDegrees ?? 0);
@@ -239,98 +206,91 @@ export default function PTypeSystem({
     const binaryAngularSpeed = (Math.PI * 2) / (merged.binaryDays || 1);
     const planetAngularSpeed = (Math.PI * 2) / (merged.planet.orbitDays || 1);
 
-    const fit = () => {
-      const dpr = Math.min(dprCap, window.devicePixelRatio || 1);
-      renderer.setPixelRatio(dpr);
-      const width = Math.max(1, container.clientWidth | 0);
-      const height = Math.max(1, container.clientHeight | 0);
-      renderer.setSize(width, height, false);
-
-      const maxDistance = semiMajor + merged.separation * 1.5;
-      const frustumSize = maxDistance * 1.2;
-      const aspectRatio = width / height || 1;
-      camera.left = -frustumSize * aspectRatio;
-      camera.right = frustumSize * aspectRatio;
-      camera.top = frustumSize;
-      camera.bottom = -frustumSize;
-      camera.updateProjectionMatrix();
-    };
-
-    const ro =
-      typeof ResizeObserver !== 'undefined' && container ? new ResizeObserver(fit) : null;
-    ro?.observe(container);
-    window.addEventListener('resize', fit, { passive: true });
-    fit();
-
-    const clock = new THREE.Clock();
-    let rafId = 0;
     const state = {
       binaryAngle: 0,
       planetAngle: 0,
     };
 
-    const loop = () => {
-      const rawDt = clock.getDelta();
-      const dt = pausedRef.current ? 0 : Math.min(rawDt, 0.05);
-      const deltaDays = dt * cfg.daysPerSecond;
+    const updateTransforms = () => {
+      const { starA: posA, starB: posB } = computeBinaryPositions({
+        angle: state.binaryAngle,
+        radiusA,
+        radiusB,
+      });
+      starAEntry.mesh.position.copy(posA);
+      starBEntry.mesh.position.copy(posB);
 
-      if (dt > 0) {
-        state.binaryAngle += binaryAngularSpeed * deltaDays;
-        state.planetAngle += planetAngularSpeed * deltaDays;
-
-        const cosB = Math.cos(state.binaryAngle);
-        const sinB = Math.sin(state.binaryAngle);
-        starA.mesh.position.set(cosB * radiusA, 0, sinB * radiusA);
-        starB.mesh.position.set(-cosB * radiusB, 0, -sinB * radiusB);
-
-        const cosP = Math.cos(state.planetAngle);
-        const sinP = Math.sin(state.planetAngle);
-        const px = cosP * semiMajor - planetFocus;
-        const pz = sinP * semiMinor;
-        planetMesh.position.set(px, 0, pz);
-        planetMesh.rotation.y += rotationSpeed * deltaDays;
-      }
-
-      renderer.render(scene, camera);
-      rafId = requestAnimationFrame(loop);
+      const planetPos = computeEllipticalPosition({
+        angle: state.planetAngle,
+        semiMajor,
+        semiMinor,
+        focusOffset: planetFocus,
+      });
+      planetMesh.position.set(planetPos.x, 0, planetPos.z);
     };
 
-    clock.start();
-    rafId = requestAnimationFrame(loop);
+    updateTransforms();
+
+    const tick = (delta) => {
+      if (pausedRef.current) return;
+      const dt = Math.min(delta ?? 0, 0.05);
+      const deltaDays = dt * cfg.daysPerSecond;
+
+      state.binaryAngle += binaryAngularSpeed * deltaDays;
+      state.planetAngle += planetAngularSpeed * deltaDays;
+
+      planetMesh.rotation.y += rotationSpeed * deltaDays;
+      updateTransforms();
+    };
+
+    coreHandleRef.current = { api: core, tick };
+
+    if (pausedRef.current) {
+      renderOnce();
+    } else {
+      start(tick);
+    }
 
     return () => {
-      try {
-        ro.disconnect();
-      } catch {}
-      window.removeEventListener('resize', fit);
-      if (rafId) cancelAnimationFrame(rafId);
-      renderer.dispose();
-      scene.traverse((obj) => {
-        if (obj.isMesh || obj.type === 'LineLoop' || obj.type === 'Line') {
-          obj.geometry?.dispose?.();
-          if (Array.isArray(obj.material)) {
-            obj.material.forEach((mat) => mat?.dispose?.());
-          } else {
-            obj.material?.dispose?.();
-          }
-        }
-      });
-      starRingGeo.dispose();
-      starBRingGeo.dispose();
-      diskGeo.dispose();
-      diskMat.dispose();
-      planetOrbitGeo.dispose();
-      planetOrbitMat.dispose();
-      ringMat.dispose();
-      orbitAGeo.dispose();
-      orbitAMat.dispose();
-      orbitBGeo.dispose();
-      orbitBMat.dispose();
+      stop();
+      disposeCore();
+      coreHandleRef.current = null;
+      atmosphereEntry.geometry.dispose();
+      atmosphereEntry.material.dispose();
+      scene.remove(starAEntry.mesh);
+      scene.remove(starBEntry.mesh);
+      starAEntry.dispose();
+      starBEntry.dispose();
+      orbitAEntry.geometry.dispose();
+      orbitAEntry.material.dispose();
+      orbitBEntry.geometry.dispose();
+      orbitBEntry.material.dispose();
+      planetOrbitEntry.geometry.dispose();
+      planetOrbitEntry.material.dispose();
+      diskEntry.geometry.dispose();
+      diskEntry.material.dispose();
+      scene.remove(orbitAEntry.line);
+      scene.remove(orbitBEntry.line);
+      scene.remove(planetOrbitEntry.line);
+      scene.remove(diskEntry.mesh);
+      planetGeo.dispose();
+      planetMat.dispose();
     };
   }, [dprCap, opts]);
 
   useEffect(() => {
     pausedRef.current = paused;
+  }, [paused]);
+
+  useEffect(() => {
+    const handle = coreHandleRef.current;
+    if (!handle) return;
+    if (paused) {
+      handle.api.stop();
+      handle.api.renderOnce();
+    } else {
+      handle.api.start(handle.tick);
+    }
   }, [paused]);
 
   const onToggle = () => {
