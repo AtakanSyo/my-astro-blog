@@ -3,36 +3,40 @@ import * as THREE from 'three';
 import SimStage from '../lib/SimStage.jsx';
 
 const EMPTY_OPTS = Object.freeze({});
-const DEFAULT_BINARY = Object.freeze({
-  separation: 8,
-  binaryDays: 40,
-  starA: {
-    name: 'Helios',
-    radius: 1.1,
-    color: 0xffd398,
-    intensity: 300,
+const DEFAULT_SYSTEM = Object.freeze({
+  primary: {
+    name: 'Aster',
+    radius: 0.5,
+    color: 0xffe0b0,
+    intensity: 120,
     mass: 1,
+    orbitRadius: 1.7,
   },
-  starB: {
-    name: 'Nyx',
-    radius: 1.7,
-    color: 0x7dc9ff,
-    intensity: 400,
-    mass: 0.65,
+  companion: {
+    name: 'Umbra',
+    radius: 0.8,
+    color: 0x9fc7ff,
+    intensity: 240,
+    mass: 0.5,
+    separation: 10,
+    orbitDays: 120,
+    orbitRadius: 3.2,
   },
   planet: {
-    name: 'Eclipse',
-    semiMajor: 18,
-    eccentricity: 0.08,
-    orbitDays: 220,
-    rotationHours: 19,
-    tiltDegrees: 9,
-    radiusEarth: 1.2,
+    name: 'Solace',
+    orbiting: 'primary',
+    semiMajor: 12,
+    eccentricity: 0.05,
+    orbitDays: 240,
+    radiusEarth: 1.1,
+    rotationHours: 26,
+    tiltDegrees: 14,
+    color: 0x4fb3ff,
   },
 });
 
-export default function PTypeSystem({
-  id = 'p-type-system',
+export default function STypeSystem({
+  id = 's-type-system',
   aspect = '3 / 2',
   showPause = true,
   dprCap = 1.5,
@@ -51,47 +55,60 @@ export default function PTypeSystem({
     if (!container || !canvas) return;
 
     const merged = {
-      separation: opts.separation ?? DEFAULT_BINARY.separation,
-      binaryDays: opts.binaryDays ?? DEFAULT_BINARY.binaryDays,
-      starA: { ...DEFAULT_BINARY.starA, ...(opts.starA ?? EMPTY_OPTS) },
-      starB: { ...DEFAULT_BINARY.starB, ...(opts.starB ?? EMPTY_OPTS) },
-      planet: { ...DEFAULT_BINARY.planet, ...(opts.planet ?? EMPTY_OPTS) },
+      primary: { ...DEFAULT_SYSTEM.primary, ...(opts.primary ?? EMPTY_OPTS) },
+      companion: { ...DEFAULT_SYSTEM.companion, ...(opts.companion ?? EMPTY_OPTS) },
+      planet: { ...DEFAULT_SYSTEM.planet, ...(opts.planet ?? EMPTY_OPTS) },
     };
+
+    const baseSeparation = Math.max(
+      2,
+      opts.separation ?? merged.companion.separation ?? DEFAULT_SYSTEM.companion.separation,
+    );
 
     const cfg = {
-      backgroundColor: opts.backgroundColor ?? 0x01040a,
+      backgroundColor: opts.backgroundColor ?? 0x020308,
       daysPerSecond: opts.daysPerSecond ?? 5,
       orbitSegments: opts.orbitSegments ?? 256,
-      planetScale: opts.planetScale ?? 1.3,
-      atmosphereColor: opts.atmosphereColor ?? 0xff3a3b,
-      glowStrength: opts.glowStrength ?? 1000.7,
-      ambientIntensity: opts.ambientIntensity ?? 0.15,
-      planetColor: opts.planetColor ?? merged.planet.color ?? 0xff3a3b,
-      starARadius: opts.starARadius ?? merged.starA.radius ?? 2.2,
-      starBRadius: opts.starBRadius ?? merged.starB.radius ?? 1.7,
+      planetScale: opts.planetScale ?? 2.0,
+      atmosphereColor: opts.atmosphereColor ?? 0x73d2ff,
+      glowStrength: opts.glowStrength ?? 1.8,
+      ambientIntensity: opts.ambientIntensity ?? 0.05,
+      planetColor: opts.planetColor ?? merged.planet.color ?? 0x4fb3ff,
+      primaryRadius: opts.primaryRadius ?? merged.primary.radius ?? 2.1,
+      companionRadius: opts.companionRadius ?? merged.companion.radius ?? 1.4,
+      primaryOrbitShift: opts.primaryOrbitShift ?? baseSeparation * 0.15,
+      companionOrbitShift: opts.companionOrbitShift ?? baseSeparation * 0.15,
     };
 
-    // Derived binary properties
-    const totalMass = Math.max(1e-6, (merged.starA.mass ?? 1) + (merged.starB.mass ?? 1));
-    const sep = Math.max(1, merged.separation ?? DEFAULT_BINARY.separation);
-    const radiusA = (sep * (merged.starB.mass ?? 1)) / totalMass;
-    const radiusB = (sep * (merged.starA.mass ?? 1)) / totalMass;
+    const totalMass = Math.max(
+      1e-6,
+      (merged.primary.mass ?? 1) + (merged.companion.mass ?? 1),
+    );
+    const primaryOrbitRadius =
+      opts.primaryOrbitRadius ??
+      merged.primary.orbitRadius ??
+      Math.max(0.5, (baseSeparation * (merged.companion.mass ?? 1)) / totalMass);
+    const companionOrbitRadius =
+      opts.companionOrbitRadius ??
+      merged.companion.orbitRadius ??
+      Math.max(0.5, (baseSeparation * (merged.primary.mass ?? 1)) / totalMass);
+    const primaryShift = cfg.primaryOrbitShift;
+    const companionShift = -cfg.companionOrbitShift;
+    const companionOrbitDays = merged.companion.orbitDays ?? DEFAULT_SYSTEM.companion.orbitDays;
 
     const planetSemiMajor =
-      opts.orbitSemiMajor ??
-      merged.planet.semiMajor ??
-      DEFAULT_BINARY.planet.semiMajor;
+      opts.orbitSemiMajor ?? merged.planet.semiMajor ?? DEFAULT_SYSTEM.planet.semiMajor;
     const planetEcc = THREE.MathUtils.clamp(
-      opts.orbitEccentricity ?? merged.planet.eccentricity ?? 0,
+      opts.orbitEccentricity ?? merged.planet.eccentricity ?? DEFAULT_SYSTEM.planet.eccentricity ?? 0,
       0,
-      0.8,
+      0.85,
     );
-    const semiMajor = Math.max(sep * 1.2, planetSemiMajor);
+    const semiMajor = Math.max(baseSeparation * 0.4, planetSemiMajor);
     const semiMinor = semiMajor * Math.sqrt(1 - planetEcc * planetEcc);
     const planetFocus = Math.sqrt(Math.max(0, semiMajor * semiMajor - semiMinor * semiMinor));
     const planetRadius = Math.max(
-      (cfg.starARadius + cfg.starBRadius) * 0.08,
-      Math.max(cfg.starARadius, cfg.starBRadius) * cfg.planetScale * (merged.planet.radiusEarth ?? 1),
+      cfg.primaryRadius * 0.1,
+      cfg.primaryRadius * cfg.planetScale * (merged.planet.radiusEarth ?? 1),
     );
 
     // ---------- Renderer ----------
@@ -108,8 +125,8 @@ export default function PTypeSystem({
 
     // ---------- Scene & Camera ----------
     const scene = new THREE.Scene();
-    const camera = new THREE.OrthographicCamera(-30, 30, 30, -30, 0.1, 400);
-    camera.position.set(0, 60, 0);
+    const camera = new THREE.OrthographicCamera(-24, 24, 24, -24, 0.1, 200);
+    camera.position.set(0, 48, 0);
     camera.lookAt(scene.position);
 
     if (cfg.ambientIntensity > 0) {
@@ -117,76 +134,67 @@ export default function PTypeSystem({
       scene.add(ambient);
     }
 
+    // ---------- Stars ----------
     const starGroup = new THREE.Group();
     scene.add(starGroup);
 
-    const buildStar = (star, radiusOverride) => {
-      const geo = new THREE.SphereGeometry(radiusOverride ?? star.radius ?? 2, 48, 24);
+    const createStar = ({ color, intensity }, radius, initialPosition = new THREE.Vector3()) => {
+      const geo = new THREE.SphereGeometry(radius, 48, 24);
       const mat = new THREE.MeshStandardMaterial({
-        emissive: new THREE.Color(star.color ?? 0xffffff),
+        emissive: new THREE.Color(color ?? 0xffffff),
         emissiveIntensity: cfg.glowStrength,
-        color: star.color ?? 0xffffff,
+        color: color ?? 0xffffff,
         roughness: 0.35,
         metalness: 0,
       });
       const mesh = new THREE.Mesh(geo, mat);
-      const light = new THREE.PointLight(star.color ?? 0xffffff, star.intensity ?? 8, 0, 2);
+      mesh.position.copy(initialPosition);
+      const light = new THREE.PointLight(color ?? 0xffffff, intensity ?? 10, 0, 2);
       mesh.add(light);
       starGroup.add(mesh);
       return { mesh };
     };
 
-    const starA = buildStar(merged.starA, cfg.starARadius);
-    const starB = buildStar(merged.starB, cfg.starBRadius);
+    const primaryStar = createStar(merged.primary, cfg.primaryRadius);
+    const companionStar = createStar(merged.companion, cfg.companionRadius);
 
-    // Orbit rings for stars
-    const makeOrbitGeo = (radius) => {
-      const segs = 128;
+    const buildShiftedOrbit = (radius, shift, invertPhase = 1) => {
+      const geo = new THREE.BufferGeometry();
+      const segs = 160;
       const positions = new Float32Array(segs * 3);
       for (let i = 0; i < segs; i += 1) {
         const t = (i / segs) * Math.PI * 2;
-        positions[i * 3] = Math.cos(t) * radius;
+        const cosT = Math.cos(t);
+        const sinT = Math.sin(t);
+        const x = invertPhase * cosT * radius + shift;
+        const z = invertPhase * sinT * radius;
+        positions[i * 3] = x;
         positions[i * 3 + 1] = 0;
-        positions[i * 3 + 2] = Math.sin(t) * radius;
+        positions[i * 3 + 2] = z;
       }
-      const geo = new THREE.BufferGeometry();
       geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
       return geo;
     };
 
-    const starRingGeo = makeOrbitGeo(radiusA);
-    const starBRingGeo = makeOrbitGeo(radiusB);
-    const ringMat = new THREE.LineDashedMaterial({
+    const compOrbitGeo = buildShiftedOrbit(companionOrbitRadius, companionShift, -1);
+    const compOrbitMat = new THREE.LineDashedMaterial({
       color: 0xffffff,
       dashSize: 0.8,
       gapSize: 0.5,
       transparent: true,
-      opacity: 0.35,
+      opacity: 0.4,
     });
-    const orbitAGeo = starRingGeo;
-    const orbitAMat = ringMat.clone();
-    const orbitA = new THREE.LineLoop(orbitAGeo, orbitAMat);
-    orbitA.computeLineDistances();
-    const orbitBGeo = starBRingGeo;
-    const orbitBMat = ringMat.clone();
-    const orbitB = new THREE.LineLoop(orbitBGeo, orbitBMat);
-    orbitB.computeLineDistances();
-    scene.add(orbitA);
-    scene.add(orbitB);
+    const companionOrbit = new THREE.LineLoop(compOrbitGeo, compOrbitMat);
+    companionOrbit.computeLineDistances();
+    scene.add(companionOrbit);
 
-    // Circumbinary disk
-    const diskGeo = new THREE.RingGeometry(sep * 0.3, semiMajor + 2, 64, 1);
-    const diskMat = new THREE.MeshBasicMaterial({
-      color: 0xffffff,
-      transparent: true,
-      opacity: 0.07,
-      side: THREE.DoubleSide,
-    });
-    const disk = new THREE.Mesh(diskGeo, diskMat);
-    disk.rotation.x = Math.PI / 2;
-    scene.add(disk);
+    const primaryOrbitGeo = buildShiftedOrbit(primaryOrbitRadius, primaryShift, 1);
+    const primaryOrbitMat = compOrbitMat.clone();
+    const primaryOrbit = new THREE.LineLoop(primaryOrbitGeo, primaryOrbitMat);
+    primaryOrbit.computeLineDistances();
+    scene.add(primaryOrbit);
 
-    // Planet orbit path
+    // Planet orbit path around the primary
     const orbitPositions = new Float32Array(cfg.orbitSegments * 3);
     for (let i = 0; i < cfg.orbitSegments; i += 1) {
       const t = (i / cfg.orbitSegments) * Math.PI * 2;
@@ -194,28 +202,30 @@ export default function PTypeSystem({
       orbitPositions[i * 3 + 1] = 0;
       orbitPositions[i * 3 + 2] = Math.sin(t) * semiMinor;
     }
-    const planetOrbitGeo = new THREE.BufferGeometry();
-    planetOrbitGeo.setAttribute('position', new THREE.BufferAttribute(orbitPositions, 3));
-    const planetOrbitMat = new THREE.LineDashedMaterial({
+    const orbitGeo = new THREE.BufferGeometry();
+    orbitGeo.setAttribute('position', new THREE.BufferAttribute(orbitPositions, 3));
+    const orbitMat = new THREE.LineDashedMaterial({
       color: 0xffffff,
-      dashSize: 1.2,
+      dashSize: 1,
       gapSize: 0.8,
       transparent: true,
       opacity: 0.7,
     });
-    const planetOrbit = new THREE.LineLoop(planetOrbitGeo, planetOrbitMat);
+    const planetOrbit = new THREE.LineLoop(orbitGeo, orbitMat);
     planetOrbit.computeLineDistances();
-    scene.add(planetOrbit);
+    const planetOrbitAnchor = new THREE.Object3D();
+    planetOrbitAnchor.add(planetOrbit);
+    scene.add(planetOrbitAnchor);
 
     // Planet mesh
     const planetGeo = new THREE.SphereGeometry(planetRadius, 64, 32);
     const planetMat = new THREE.MeshStandardMaterial({
       color: cfg.planetColor,
       roughness: 0.55,
-      metalness: 0.08,
+      metalness: 0.1,
     });
     const planetMesh = new THREE.Mesh(planetGeo, planetMat);
-    const atmoGeo = new THREE.SphereGeometry(planetRadius * 1.06, 32, 16);
+    const atmoGeo = new THREE.SphereGeometry(planetRadius * 1.04, 32, 16);
     const atmoMat = new THREE.MeshBasicMaterial({
       color: cfg.atmosphereColor,
       transparent: true,
@@ -236,7 +246,7 @@ export default function PTypeSystem({
     const rotationSpeed =
       ((Math.PI * 2) / Math.abs(rotationPeriodDays || 1)) * Math.sign(rotationPeriodDays || 1);
 
-    const binaryAngularSpeed = (Math.PI * 2) / (merged.binaryDays || 1);
+    const binaryAngularSpeed = (Math.PI * 2) / (companionOrbitDays || 1);
     const planetAngularSpeed = (Math.PI * 2) / (merged.planet.orbitDays || 1);
 
     const fit = () => {
@@ -246,8 +256,9 @@ export default function PTypeSystem({
       const height = Math.max(1, container.clientHeight | 0);
       renderer.setSize(width, height, false);
 
-      const maxDistance = semiMajor + merged.separation * 1.5;
-      const frustumSize = maxDistance * 1.2;
+      const maxDistance =
+        baseSeparation + semiMajor + Math.abs(primaryShift) + Math.abs(companionShift);
+      const frustumSize = maxDistance * 0.8;
       const aspectRatio = width / height || 1;
       camera.left = -frustumSize * aspectRatio;
       camera.right = frustumSize * aspectRatio;
@@ -269,6 +280,34 @@ export default function PTypeSystem({
       planetAngle: 0,
     };
 
+    const applyBodyTransforms = () => {
+      const cosB = Math.cos(state.binaryAngle);
+      const sinB = Math.sin(state.binaryAngle);
+      primaryStar.mesh.position.set(
+        cosB * primaryOrbitRadius + primaryShift,
+        0,
+        sinB * primaryOrbitRadius,
+      );
+      const cosOpp = Math.cos(state.binaryAngle + Math.PI);
+      const sinOpp = Math.sin(state.binaryAngle + Math.PI);
+      companionStar.mesh.position.set(
+        cosOpp * companionOrbitRadius + companionShift,
+        0,
+        sinOpp * companionOrbitRadius,
+      );
+      planetOrbitAnchor.position.copy(primaryStar.mesh.position);
+
+      const cosP = Math.cos(state.planetAngle);
+      const sinP = Math.sin(state.planetAngle);
+      const px = cosP * semiMajor - planetFocus;
+      const pz = sinP * semiMinor;
+      planetMesh.position.set(
+        primaryStar.mesh.position.x + px,
+        0,
+        primaryStar.mesh.position.z + pz,
+      );
+    };
+
     const loop = () => {
       const rawDt = clock.getDelta();
       const dt = pausedRef.current ? 0 : Math.min(rawDt, 0.05);
@@ -277,36 +316,28 @@ export default function PTypeSystem({
       if (dt > 0) {
         state.binaryAngle += binaryAngularSpeed * deltaDays;
         state.planetAngle += planetAngularSpeed * deltaDays;
-
-        const cosB = Math.cos(state.binaryAngle);
-        const sinB = Math.sin(state.binaryAngle);
-        starA.mesh.position.set(cosB * radiusA, 0, sinB * radiusA);
-        starB.mesh.position.set(-cosB * radiusB, 0, -sinB * radiusB);
-
-        const cosP = Math.cos(state.planetAngle);
-        const sinP = Math.sin(state.planetAngle);
-        const px = cosP * semiMajor - planetFocus;
-        const pz = sinP * semiMinor;
-        planetMesh.position.set(px, 0, pz);
         planetMesh.rotation.y += rotationSpeed * deltaDays;
       }
+
+      applyBodyTransforms();
 
       renderer.render(scene, camera);
       rafId = requestAnimationFrame(loop);
     };
 
+    applyBodyTransforms();
     clock.start();
     rafId = requestAnimationFrame(loop);
 
     return () => {
       try {
-        ro.disconnect();
+        ro?.disconnect();
       } catch {}
       window.removeEventListener('resize', fit);
       if (rafId) cancelAnimationFrame(rafId);
       renderer.dispose();
       scene.traverse((obj) => {
-        if (obj.isMesh || obj.type === 'LineLoop' || obj.type === 'Line') {
+        if (obj.isMesh || obj.type === 'LineLoop') {
           obj.geometry?.dispose?.();
           if (Array.isArray(obj.material)) {
             obj.material.forEach((mat) => mat?.dispose?.());
@@ -315,17 +346,16 @@ export default function PTypeSystem({
           }
         }
       });
-      starRingGeo.dispose();
-      starBRingGeo.dispose();
-      diskGeo.dispose();
-      diskMat.dispose();
-      planetOrbitGeo.dispose();
-      planetOrbitMat.dispose();
-      ringMat.dispose();
-      orbitAGeo.dispose();
-      orbitAMat.dispose();
-      orbitBGeo.dispose();
-      orbitBMat.dispose();
+      compOrbitGeo.dispose();
+      compOrbitMat.dispose();
+      primaryOrbitGeo.dispose();
+      primaryOrbitMat.dispose();
+      orbitGeo.dispose();
+      orbitMat.dispose();
+      planetGeo.dispose();
+      planetMat.dispose();
+      atmoGeo.dispose();
+      atmoMat.dispose();
     };
   }, [dprCap, opts]);
 
