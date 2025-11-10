@@ -194,6 +194,61 @@ export function prepareScene({
 }
 
 /**
+ * Convenience factory for a top-down orthographic camera that plugs into prepareScene's cameraFactory.
+ * @param {Object} params
+ * @param {number|(() => number)} [params.extent=20] - Half-width of the visible area or dynamic getter.
+ * @param {number} [params.height=50] - Camera height above the plane (y-axis).
+ * @param {number} [params.margin=1.1] - Multiplier applied to extent to give framing padding.
+ * @param {Array|THREE.Vector3} [params.lookAt=[0,0,0]]
+ * @param {Array|THREE.Vector3} [params.up=[0,0,-1]]
+ * @param {number} [params.near=0.1]
+ * @param {number} [params.far=500]
+ * @returns {{camera: THREE.OrthographicCamera, onResize: ({width:number,height:number,dpr:number}) => void}}
+ */
+export function createTopDownOrthoCamera({
+  extent = 20,
+  height = 50,
+  margin = 1.1,
+  lookAt = [0, 0, 0],
+  up = [0, 0, -1],
+  near = 0.1,
+  far = 500,
+  position,
+} = {}) {
+  const getExtent = typeof extent === 'function' ? extent : () => extent;
+  const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, near, far);
+  if (position) {
+    if (position instanceof THREE.Vector3) {
+      camera.position.copy(position);
+    } else if (Array.isArray(position)) {
+      camera.position.set(position[0] ?? 0, position[1] ?? height, position[2] ?? 0);
+    } else {
+      camera.position.set(position.x ?? 0, position.y ?? height, position.z ?? 0);
+    }
+  } else {
+    camera.position.set(0, height, 0);
+  }
+  const upVec = up instanceof THREE.Vector3 ? up : new THREE.Vector3(up[0] ?? 0, up[1] ?? 0, up[2] ?? -1);
+  camera.up.copy(upVec);
+  const lookAtVec =
+    lookAt instanceof THREE.Vector3 ? lookAt : new THREE.Vector3(lookAt[0] ?? 0, lookAt[1] ?? 0, lookAt[2] ?? 0);
+  camera.lookAt(lookAtVec);
+
+  const onResize = ({ width = 1, height: h = 1 }) => {
+    const base = getExtent();
+    const frustum = base * margin;
+    const aspect = width / h || 1;
+    camera.left = -frustum * aspect;
+    camera.right = frustum * aspect;
+    camera.top = frustum;
+    camera.bottom = -frustum;
+    camera.updateProjectionMatrix();
+  };
+
+  return { camera, onResize };
+}
+
+/**
  * Adds a textured sphere to the scene and returns helpers to animate & clean it up.
  *
  * @param {THREE.Scene} scene - Scene to attach the planet to.

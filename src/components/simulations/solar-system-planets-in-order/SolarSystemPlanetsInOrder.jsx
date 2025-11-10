@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
-import { prepareScene, addSpinningPlanet, addSaturn } from '../lib/threeCore';
+import { prepareScene, addSpinningPlanet, addSaturn, createTopDownOrthoCamera } from '../lib/threeCore';
 import SimStage from '../lib/SimStage.jsx';
 
 const PLANETS = [
@@ -66,14 +66,23 @@ export default function SolarSystemPlanetsInOrder({
     const canvas = canvasRef.current;
     if (!canvas || !container) return;
 
+    const spacing = planetRadius * spacingMultiplier;
+    const extent = 2.3;
+
     const { scene, renderer, textureLoader, start, stop, dispose } = prepareScene({
       canvas,
       container,
       dprCap,
-      cameraConfig: {
-        position: { x: 0, y: 0, z: 6 },
-        fov: 45,
-      },
+      background: 0x000000,
+      cameraFactory: () =>
+        createTopDownOrthoCamera({
+          extent,
+          height: 6,
+          margin: 1.1,
+          position: [0, 0, 6],
+          up: [0, 1, 0],
+          lookAt: [0, 0, 0],
+        }),
     });
 
     const ambient = new THREE.AmbientLight(0xffffff, 0.4);
@@ -83,7 +92,6 @@ export default function SolarSystemPlanetsInOrder({
     fillLight.position.set(-2, 1, -2);
     scene.add(ambient, keyLight, fillLight);
 
-    const spacing = planetRadius * spacingMultiplier;
     const offset = ((PLANETS.length - 1) * spacing) / 2;
 
     const createdPlanets = PLANETS.map((planet, index) => {
