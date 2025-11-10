@@ -25,7 +25,7 @@ const PLANET_CONFIG = {
     spinDegPerSec: 28,
   },
   saturn: {
-    textureUrl: '/textures/saturn_texture.jpg',
+    textureUrl: '/textures/saturn_texture.webp',
     ringTextureUrl: '/textures/saturns_rings_texture.webp',
     spinDegPerSec: 26,
     ringsSpin: false,
@@ -35,11 +35,11 @@ const PLANET_CONFIG = {
     spinAxis: [0, -0.9, 0],
   },
   uranus: {
-    textureUrl: '/textures/uranus_texture.jpg',
+    textureUrl: '/textures/uranus_texture.webp',
     spinDegPerSec: -24,
   },
   neptune: {
-    textureUrl: '/textures/neptune_texture.jpg',
+    textureUrl: '/textures/neptune_texture.webp',
     spinDegPerSec: 20,
   },
 };

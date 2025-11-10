@@ -37,7 +37,7 @@ const PLANET_DATA = [
   {
     name: 'Saturn',
     radiusRelativeToEarth: 9.45,
-    textureUrl: '/textures/saturn_texture.jpg',
+    textureUrl: '/textures/saturn_texture.webp',
     ringTextureUrl: '/textures/saturns_rings_texture.webp',
     spinDegPerSec: 26,
     ringInnerScale: 1.4,
@@ -50,13 +50,13 @@ const PLANET_DATA = [
   {
     name: 'Uranus',
     radiusRelativeToEarth: 4.01,
-    textureUrl: '/textures/uranus_texture.jpg',
+    textureUrl: '/textures/uranus_texture.webp',
     spinDegPerSec: -24,
   },
   {
     name: 'Neptune',
     radiusRelativeToEarth: 3.88,
-    textureUrl: '/textures/neptune_texture.jpg',
+    textureUrl: '/textures/neptune_texture.webp',
     spinDegPerSec: 20,
   },
 ];

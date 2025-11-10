@@ -31,7 +31,7 @@ const PLANETS = [
   },
   {
     name: 'Saturn',
-    textureUrl: '/textures/saturn_texture.jpg',
+    textureUrl: '/textures/saturn_texture.webp',
     ringTextureUrl: '/textures/saturns_rings_texture.webp',
     spinDegPerSec: 26,
     ringInnerScale: 1.4,
@@ -42,12 +42,12 @@ const PLANETS = [
   },
   {
     name: 'Uranus',
-    textureUrl: '/textures/uranus_texture.jpg',
+    textureUrl: '/textures/uranus_texture.webp',
     spinDegPerSec: -24,
   },
   {
     name: 'Neptune',
-    textureUrl: '/textures/neptune_texture.jpg',
+    textureUrl: '/textures/neptune_texture.webp',
     spinDegPerSec: 20,
   },
 ];

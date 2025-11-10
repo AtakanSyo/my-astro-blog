@@ -147,9 +147,9 @@ export default function SolarSystemTopDown({
       Earth: '/textures/earth-texture-1.webp',
       Mars: '/textures/mars_texture.webp',
       Jupiter: '/textures/8k_jupiter.webp',
-      Saturn: '/textures/saturn_texture.jpg',
-      Uranus: '/textures/uranus_texture.jpg',
-      Neptune: '/textures/neptune_texture.jpg',
+      Saturn: '/textures/saturn_texture.webp',
+      Uranus: '/textures/uranus_texture.webp',
+      Neptune: '/textures/neptune_texture.webp',
     };
     const textures = Object.fromEntries(
       Object.entries(texturePaths).map(([key, url]) => [key, loadTexture(url)])

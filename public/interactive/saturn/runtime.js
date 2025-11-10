@@ -22,7 +22,7 @@ export async function run(canvas, { pausedRef, options = {} } = {}) {
   const SUN_INTENSITY     = options.lightIntensity ?? 2.0;
   const AMBIENT_INTENSITY = options.ambientIntensity ?? 0.08;
 
-  const TEX_ALBEDO        = options.albedoTexture ?? '/interactive/saturn/saturn_texture.jpg';
+  const TEX_ALBEDO        = options.albedoTexture ?? '/textures/saturn_texture.webp';
   const TEX_STARS         = options.starsTexture  ?? '/interactive/saturn/stars_texture.jpg';
 
   // Reduced motion?

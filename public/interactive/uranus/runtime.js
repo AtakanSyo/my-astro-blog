@@ -22,7 +22,7 @@ export async function run(canvas, { pausedRef, options = {} } = {}) {
   const AMBIENT_INTENSITY = options.ambientIntensity ?? 0.1; // Ambient fill
 
   // Assets (Mars)
-  const TEX_ALBEDO = options.albedoTexture ?? '/interactive/uranus/uranus_texture.jpg';
+  const TEX_ALBEDO = options.albedoTexture ?? '/textures/uranus_texture.webp';
   const TEX_STARS  = options.starsTexture  ?? '/interactive/uranus/stars_texture.jpg';
 
   // ---------------- Scene / Camera / Renderer ----------------
