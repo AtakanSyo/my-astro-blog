@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
-import { prepareScene, addSpinningPlanet } from '../lib/threeCore';
+import { prepareScene, addSpinningPlanet, addSaturn, createTopDownOrthoCamera } from '../lib/threeCore';
 import SimStage from '../lib/SimStage.jsx';
 
 const PLANET_DATA = [
@@ -32,13 +32,20 @@ const PLANET_DATA = [
     name: 'Jupiter',
     radiusRelativeToEarth: 11.21,
     textureUrl: '/textures/8k_jupiter.webp',
-    spinDegPerSec: 28,
+    spinDegPerSec: 14,
   },
   {
     name: 'Saturn',
     radiusRelativeToEarth: 9.45,
     textureUrl: '/textures/saturn_texture.jpg',
+    ringTextureUrl: '/textures/saturns_rings_texture.webp',
     spinDegPerSec: 26,
+    ringInnerScale: 1.4,
+    ringOuterScale: 2.6,
+    tiltDeg: [0, 10, 55.7],
+    spinAxis: [0, 1.0, 0],
+    ringsSpin: false,
+    ringAngle: 0,
   },
   {
     name: 'Uranus',
@@ -72,15 +79,29 @@ export default function SolarSystemRow({
     const canvas = canvasRef.current;
     if (!canvas || !container) return;
 
-    const { scene, renderer, textureLoader, start, stop, dispose } = prepareScene({
+    const gap = sizeScale * 0.9;
+    const roughWidth = PLANET_DATA.reduce((acc, planet, index) => {
+      const radius = planet.radiusRelativeToEarth * sizeScale;
+      if (index === 0) return radius * 2;
+      return acc + radius * 2 + gap;
+    }, 0);
+    const core = prepareScene({
       canvas,
       container,
       dprCap,
-      cameraConfig: {
-        position: { x: 0, y: 0, z: 8 },
-        fov: 45,
-      },
+      background: 0x000000,
+      cameraFactory: () =>
+        createTopDownOrthoCamera({
+          extent: 1.8,
+          height: 8,
+          margin: 1.1,
+          position: [0, 0, 8],
+          up: [0, 1, 0],
+          lookAt: [0, 0, 0],
+        }),
     });
+
+    const { scene, renderer, textureLoader, start, stop, dispose } = core;
 
     const ambient = new THREE.AmbientLight(0xffffff, 0.45);
     const keyLight = new THREE.DirectionalLight(0xffffff, 1.4);
@@ -89,7 +110,6 @@ export default function SolarSystemRow({
     rimLight.position.set(-2, 1, -3);
     scene.add(ambient, keyLight, rimLight);
 
-    const gap = sizeScale * 0.9;
     const placements = PLANET_DATA.map((planet, index) => {
       const radius = planet.radiusRelativeToEarth * sizeScale;
       if (index === 0) {
@@ -118,16 +138,36 @@ export default function SolarSystemRow({
       placement.position[0] -= centerOffset;
     });
 
-    const createdPlanets = placements.map((placement) =>
-      addSpinningPlanet(scene, {
+    const createdPlanets = placements.map((placement) => {
+      if (placement.name === 'Saturn' && placement.ringTextureUrl) {
+        return addSaturn(scene, {
+          textureUrl: placement.textureUrl,
+          ringTextureUrl: placement.ringTextureUrl,
+          position: placement.position,
+          radius: placement.radius,
+          spinSpeed: THREE.MathUtils.degToRad(placement.spinDegPerSec),
+          spinAxis: placement.spinAxis,
+          renderer,
+          textureLoader,
+          ringInnerScale: placement.ringInnerScale ?? 1.4,
+          ringOuterScale: placement.ringOuterScale ?? 2.6,
+          ringAngle: placement.ringAngle ?? 0,
+          tiltDeg: Array.isArray(placement.tiltDeg)
+            ? placement.tiltDeg
+            : [0, 0, placement.tiltDeg ?? 26.7],
+          ringsSpin: placement.ringsSpin ?? false,
+        });
+      }
+
+      return addSpinningPlanet(scene, {
         textureUrl: placement.textureUrl,
         position: placement.position,
         radius: placement.radius,
         spinSpeed: THREE.MathUtils.degToRad(placement.spinDegPerSec),
         renderer,
         textureLoader,
-      }),
-    );
+      });
+    });
 
     start((delta) => {
       if (pausedRef.current) return;

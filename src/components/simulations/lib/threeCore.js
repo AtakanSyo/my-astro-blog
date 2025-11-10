@@ -414,11 +414,11 @@ export function addSaturn(
     radius = 1,
     spinSpeed = 0.3,
     spinAxis = [0, 1, 0],
-    tiltDeg = 26.7,
+    tiltDeg = [0, 0, 26.7],
     ringInnerScale = 1.2,
     ringOuterScale = 2.3,
     ringAngle = 0,
-    ringsSpin = true,
+    ringsSpin = false,
     segments = 64,
     materialOptions = {},
     ringMaterialOptions = {},
@@ -434,6 +434,7 @@ export function addSaturn(
 
   const planetTexture = loader.load(textureUrl);
   planetTexture.colorSpace = THREE.SRGBColorSpace;
+  planetTexture.flipY = false;
   const maxAniso = renderer?.capabilities?.getMaxAnisotropy
     ? renderer.capabilities.getMaxAnisotropy()
     : 1;
@@ -443,6 +444,7 @@ export function addSaturn(
 
   const ringTexture = loader.load(ringTextureUrl);
   ringTexture.colorSpace = THREE.SRGBColorSpace;
+  ringTexture.flipY = false;
   ringTexture.anisotropy = maxAniso;
   ringTexture.wrapS = ringTexture.wrapT = THREE.ClampToEdgeWrapping;
   ringTexture.minFilter = THREE.LinearMipmapLinearFilter;
@@ -471,6 +473,22 @@ export function addSaturn(
     128,
     1,
   );
+  const uvAttr = ringGeometry.getAttribute('uv');
+  const posAttr = ringGeometry.getAttribute('position');
+  const innerRadius = radius * ringInnerScale;
+  const outerRadius = radius * ringOuterScale;
+  const radiusRange = Math.max(outerRadius - innerRadius, 1e-6);
+  if (uvAttr && posAttr) {
+    for (let i = 0; i < uvAttr.count; i += 1) {
+      const x = posAttr.getX(i);
+      const y = posAttr.getY(i);
+      const r = Math.sqrt(x * x + y * y);
+      const radial = THREE.MathUtils.clamp((r - innerRadius) / radiusRange, 0, 1);
+      uvAttr.setX(i, radial);
+      uvAttr.setY(i, 0.5);
+    }
+    uvAttr.needsUpdate = true;
+  }
   const ringMaterial = new THREE.MeshBasicMaterial({
     map: ringTexture,
     transparent: true,
@@ -483,10 +501,37 @@ export function addSaturn(
   ringMesh.position.copy(planetMesh.position);
   ringMesh.rotation.x = Math.PI / 2;
 
-  if (tiltDeg) {
-    const tilt = THREE.MathUtils.degToRad(tiltDeg);
-    planetMesh.rotation.z = tilt;
-    ringMesh.rotation.z = tilt;
+  if (tiltDeg !== undefined && tiltDeg !== null) {
+    let tiltEuler;
+    if (tiltDeg instanceof THREE.Euler) {
+      tiltEuler = tiltDeg.clone();
+    } else if (Array.isArray(tiltDeg)) {
+      tiltEuler = new THREE.Euler(
+        THREE.MathUtils.degToRad(tiltDeg[0] ?? 0),
+        THREE.MathUtils.degToRad(tiltDeg[1] ?? 0),
+        THREE.MathUtils.degToRad(tiltDeg[2] ?? 0),
+      );
+    } else if (tiltDeg instanceof THREE.Vector3) {
+      tiltEuler = new THREE.Euler(
+        THREE.MathUtils.degToRad(tiltDeg.x ?? 0),
+        THREE.MathUtils.degToRad(tiltDeg.y ?? 0),
+        THREE.MathUtils.degToRad(tiltDeg.z ?? 0),
+      );
+    } else if (typeof tiltDeg === 'object') {
+      tiltEuler = new THREE.Euler(
+        THREE.MathUtils.degToRad(tiltDeg.x ?? 0),
+        THREE.MathUtils.degToRad(tiltDeg.y ?? 0),
+        THREE.MathUtils.degToRad(tiltDeg.z ?? 0),
+      );
+    } else if (typeof tiltDeg === 'number') {
+      tiltEuler = new THREE.Euler(0, 0, THREE.MathUtils.degToRad(tiltDeg));
+    }
+
+    if (tiltEuler) {
+      const tiltQuat = new THREE.Quaternion().setFromEuler(tiltEuler);
+      planetMesh.applyQuaternion(tiltQuat);
+      ringMesh.applyQuaternion(tiltQuat);
+    }
   }
 
   scene.add(planetMesh);
@@ -511,9 +556,7 @@ export function addSaturn(
     const angle = spinSpeed * delta;
     if (angle !== 0) {
       planetMesh.rotateOnAxis(axis, angle);
-      if (ringsSpin) {
-        ringMesh.rotateOnAxis(axis, angle);
-      }
+      // Rings intentionally stay locked; spin only affects the planet body.
     }
   };
 

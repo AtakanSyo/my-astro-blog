@@ -34,6 +34,11 @@ const PLANETS = [
     textureUrl: '/textures/saturn_texture.jpg',
     ringTextureUrl: '/textures/saturns_rings_texture.webp',
     spinDegPerSec: 26,
+    ringInnerScale: 1.4,
+    ringOuterScale: 2.6,
+    tiltDeg: [0, 10, 60.7],
+    spinAxis: [0, 1.0, 0],
+    ringsSpin: false,
   },
   {
     name: 'Uranus',
@@ -52,7 +57,7 @@ export default function SolarSystemPlanetsInOrder({
   aspect = '21 / 9',
   dprCap = 1.5,
   planetRadius = 0.3,
-  spacingMultiplier = 3.9,
+  spacingMultiplier = 2.4,
   showPause = true,
 }) {
   const containerRef = useRef(null);
@@ -67,7 +72,6 @@ export default function SolarSystemPlanetsInOrder({
     if (!canvas || !container) return;
 
     const spacing = planetRadius * spacingMultiplier;
-    const extent = 2.3;
 
     const { scene, renderer, textureLoader, start, stop, dispose } = prepareScene({
       canvas,
@@ -76,7 +80,7 @@ export default function SolarSystemPlanetsInOrder({
       background: 0x000000,
       cameraFactory: () =>
         createTopDownOrthoCamera({
-          extent,
+          extent: 1.3,
           height: 6,
           margin: 1.1,
           position: [0, 0, 6],
@@ -109,11 +113,14 @@ export default function SolarSystemPlanetsInOrder({
         return addSaturn(scene, {
           ...common,
           ringTextureUrl: planet.ringTextureUrl,
-          ringInnerScale: 1.4,
-          ringOuterScale: 2.6,
-          tiltDeg: 26.7,
-          ringAngle: 45,
-          ringsSpin: false,
+          ringInnerScale: planet.ringInnerScale ?? 1.4,
+          ringOuterScale: planet.ringOuterScale ?? 2.6,
+          tiltDeg: Array.isArray(planet.tiltDeg)
+            ? planet.tiltDeg
+            : [0, 0, planet.tiltDeg ?? 26.7],
+          spinAxis: planet.spinAxis,
+          ringAngle: 0,
+          ringsSpin: planet.ringsSpin ?? false,
         });
       }
 

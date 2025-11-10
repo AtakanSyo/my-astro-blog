@@ -28,10 +28,11 @@ const PLANET_CONFIG = {
     textureUrl: '/textures/saturn_texture.jpg',
     ringTextureUrl: '/textures/saturns_rings_texture.webp',
     spinDegPerSec: 26,
-    ringsSpin: true,
+    ringsSpin: false,
     ringInnerScale: 1.4,
     ringOuterScale: 2.6,
-    tiltDeg: 26.7,
+    tiltDeg: [0, 10.0, 26.7],
+    spinAxis: [0, -0.9, 0],
   },
   uranus: {
     textureUrl: '/textures/uranus_texture.jpg',
@@ -90,13 +91,16 @@ export default function SinglePlanetSim({
           radius,
           position: [0, 0, 0],
           spinSpeed,
+          spinAxis: config.spinAxis,
           renderer,
           textureLoader,
           ringsSpin,
           ringAngle,
           ringInnerScale: config.ringInnerScale,
           ringOuterScale: config.ringOuterScale,
-          tiltDeg: config.tiltDeg,
+          tiltDeg: Array.isArray(config.tiltDeg)
+            ? config.tiltDeg
+            : [0, 0.0,  26.7],
         })
       : addSpinningPlanet(scene, {
           textureUrl: config.textureUrl,
