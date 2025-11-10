@@ -46,14 +46,6 @@ import SimPostSchema from "../../components/SimPostSchema.astro";
     Since the component exposes radii, intensities, and orbital periods through props, you can recreate specific discoveries like Kepler-444 or craft your
     own story-driven binary with custom colors.
   </p>
-
-  <h2 id="tech-notes">Tech notes</h2>
-  <p>
-    Built on the same Three.js infrastructure as the other simulations, this scene uses an orthographic camera, ACES tone mapping, and a pause-aware clock
-    so time never jumps. The companion and planet share an animation loop that advances in days-per-second units, and every buffer/geometry disposes cleanly
-    when the component unmounts. Low-intensity ambient light is configurable to keep the top-down view readable while still leaning on the stars for the
-    main highlights.
-  </p>
 </div>
 
 <SimPostSchema

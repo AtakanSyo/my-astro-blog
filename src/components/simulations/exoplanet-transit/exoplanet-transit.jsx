@@ -622,97 +622,103 @@ export default function ExoplanetTransitSim({
       showPause={showPause}
       style={{ width: '100%' }}
     >
-      <div
-        className="sim-overlay transit-readout"
-        style={{
-          position: 'absolute',
-          inset: 'auto 0 0 0',
-          margin: '0 auto',
-          padding: '14px 16px',
-          background: 'rgba(8, 10, 16, 0.78)',
-          border: '1px solid rgba(255, 255, 255, 0.08)',
-          borderRadius: 10,
-          boxShadow: '0 8px 28px rgba(0,0,0,0.35)',
-          backdropFilter: 'blur(6px)',
-          color: '#eef1ff',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 10,
-        }}
-      >
-
-          {/* Brightness + key stats (all in one flex block) */}
-          <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: '14px 22px',
-              fontSize: '.95rem',
-              width: '100%',
-            }}
-          >
-            {/* Relative Brightness (acts like title + value) */}
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'baseline',
-                gap: 10,
-                flex: '1 1 auto',
-                minWidth: 180,
-              }}
-            >
-              <span style={{ fontWeight: 700, letterSpacing: '.01em' }}>Relative Brightness</span>
-              <span
-                style={{
-                  fontVariantNumeric: 'tabular-nums',
-                  fontWeight: 700,
-                  fontSize: '1.05rem',
-                }}
-              >
-                {(brightness * 100).toFixed(2)}%
-              </span>
-            </div>
-
-            {/* Stats row */}
-            <div
-              style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: '12px 18px',
-                alignItems: 'center',
-                flex: '1 1 auto',
-                justifyContent: 'flex-end',
-              }}
-            >
-              <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
-                <span style={{ opacity: 0.85 }}>Phase:</span>
-                <span style={{ fontVariantNumeric: 'tabular-nums', fontWeight: 600 }}>
-                  {(phasePercent * 100).toFixed(1)}%
-                </span>
-              </div>
-
+      <style>
+        {`
+        .transit-overlay {
+          position: absolute;
+          inset: auto 0 0 0;
+          margin: 0 auto;
+          padding: 14px 16px;
+          background: rgba(8, 10, 16, 0.0);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 10px;
+          box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+          backdrop-filter: blur(6px);
+          color: #eef1ff;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+        .transit-stats {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: space-between;
+          gap: 14px 22px;
+          font-size: 0.95rem;
+          width: 100%;
+        }
+        .transit-brightness {
+          display: flex;
+          align-items: baseline;
+          gap: 10px;
+          flex: 1 1 auto;
+          min-width: 180px;
+        }
+        .transit-brightness span:first-child {
+          font-weight: 700;
+          letter-spacing: 0.01em;
+        }
+        .transit-brightness span:last-child {
+          font-variant-numeric: tabular-nums;
+          font-weight: 700;
+          font-size: 1.05rem;
+        }
+        .transit-meta {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 12px 18px;
+          align-items: center;
+          flex: 1 1 auto;
+          justify-content: flex-end;
+        }
+        .transit-meta span {
+          font-variant-numeric: tabular-nums;
+          font-weight: 600;
+        }
+        .transit-phase {
+          display: flex;
+          gap: 6px;
+          align-items: center;
+        }
+        .transit-phase .label {
+          opacity: 0.85;
+          font-weight: 400;
+        }
+        .transit-phase .value {
+          font-variant-numeric: tabular-nums;
+          font-weight: 600;
+        }
+        .transit-divider {
+          height: 1px;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.14), transparent);
+          margin: 2px 0 6px;
+        }
+        .transit-plot {
+          width: 100%;
+          height: 60px;
+        }
+        `}
+      </style>
+      <div className="sim-overlay transit-overlay">
+        <div className="transit-stats">
+          <div className="transit-brightness">
+            <span>Relative Brightness</span>
+            <span>{(brightness * 100).toFixed(2)}%</span>
+          </div>
+          <div className="transit-meta">
+            <div className="transit-phase">
+              <span className="label">Phase:</span>
+              <span className="value">{(phasePercent * 100).toFixed(1)}%</span>
             </div>
           </div>
-
-          {/* Divider */}
-          <div
-            role="presentation"
-            style={{
-              height: 1,
-              background:
-                'linear-gradient(90deg, transparent, rgba(255,255,255,.14), transparent)',
-              margin: '2px 0 6px',
-            }}
-          />
-
-          {/* Chart */}
-          <canvas
-            ref={chartRef}
-            aria-label="Light curve showing star brightness during transit"
-            style={{ width: '100%', height: 60 }}
-          />
+        </div>
+        <div className="transit-divider" role="presentation" />
+        <canvas
+          ref={chartRef}
+          aria-label="Light curve showing star brightness during transit"
+          className="transit-plot"
+        />
       </div>
     </SimStage>
   );

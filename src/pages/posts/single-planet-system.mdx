@@ -47,14 +47,6 @@ import SimPostSchema from "../../components/SimPostSchema.astro";
     Try watching for beats between rotation and orbital motion. Retrograde spins or slower days can be configured via props when the component
     is reused, making this a handy sandbox for storytelling or teaching orbital basics.
   </p>
-
-  <h2 id="tech-notes">Tech notes</h2>
-  <p>
-    The renderer reuses the same Three.js foundation as the multi-planet solar view but swaps the layout for a single ellipse defined by a
-    semi-major axis and eccentricity. The planet geometry carries a lightweight additive atmosphere shell, while a point light anchored to
-    the star supplies physically plausible shading. Pause-aware animation ensures time never jumps after idling, and ResizeObserver keeps the
-    orthographic camera framing consistent on every screen.
-  </p>
 </div>
 
 <SimPostSchema

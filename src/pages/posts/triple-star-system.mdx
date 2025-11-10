@@ -45,13 +45,6 @@ import SimPostSchema from "../../components/SimPostSchema.astro";
     You can tweak props to exaggerate the orbit radii, change colors, or even bind the planet to a different host star to explore other triple-star
     configurations.
   </p>
-
-  <h2 id="tech-notes">Tech notes</h2>
-  <p>
-    This scene reuses the shared SimStage + Three.js scaffold (ACES tone mapping, resize-aware orthographic camera, pause-aware animation loop).
-    Stars are defined through keyed configs so each orbit radius, shift, and period can be overridden. Everything disposes cleanly on unmount,
-    keeping GPU memory stable even if you flip between multiple simulations on the site.
-  </p>
 </div>
 
 <SimPostSchema

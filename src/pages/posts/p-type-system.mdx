@@ -46,13 +46,6 @@ import SimPostSchema from "../../components/SimPostSchema.astro";
     Want to experiment further? The component accepts overrides for stellar masses, separation, and orbital periods, making it easy to mimic
     famous systems like Kepler-16 or TOI-1338 with a few prop tweaks.
   </p>
-
-  <h2 id="tech-notes">Tech notes</h2>
-  <p>
-    The scene leans on the same Three.js scaffold as other simulations here: an orthographic camera, ACES tone mapping, and pause-aware animation loop.
-    Binary motion is computed from mass ratios so the barycentric wobble always looks correct, while elliptic geometry sets the planet’s dashed path.
-    Cleanup logic disposes of every geometry/material so you can embed the component on multiple pages without leaking GPU memory.
-  </p>
 </div>
 
 <SimPostSchema
