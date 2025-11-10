@@ -8,16 +8,16 @@ const DEFAULT_BINARY = Object.freeze({
   binaryDays: 40,
   starA: {
     name: 'Helios',
-    radius: 2.2,
+    radius: 1.1,
     color: 0xffd398,
-    intensity: 12,
+    intensity: 300,
     mass: 1,
   },
   starB: {
     name: 'Nyx',
     radius: 1.7,
     color: 0x7dc9ff,
-    intensity: 10,
+    intensity: 400,
     mass: 0.65,
   },
   planet: {
@@ -62,11 +62,10 @@ export default function PTypeSystem({
       backgroundColor: opts.backgroundColor ?? 0x01040a,
       daysPerSecond: opts.daysPerSecond ?? 5,
       orbitSegments: opts.orbitSegments ?? 256,
-      planetScale: opts.planetScale ?? 1.0,
+      planetScale: opts.planetScale ?? 1.3,
       atmosphereColor: opts.atmosphereColor ?? 0xff3a3b,
-      glowStrength: opts.glowStrength ?? 1.7,
-      rimLightColor: opts.rimLightColor ?? 0xff3a3b,
-      rimLightIntensity: opts.rimLightIntensity ?? 0.9,
+      glowStrength: opts.glowStrength ?? 1000.7,
+      ambientIntensity: opts.ambientIntensity ?? 0.1,
       planetColor: opts.planetColor ?? merged.planet.color ?? 0xff3a3b,
       starARadius: opts.starARadius ?? merged.starA.radius ?? 2.2,
       starBRadius: opts.starBRadius ?? merged.starB.radius ?? 1.7,
@@ -113,9 +112,10 @@ export default function PTypeSystem({
     camera.position.set(0, 60, 0);
     camera.lookAt(scene.position);
 
-    const rimLight = new THREE.DirectionalLight(cfg.rimLightColor, cfg.rimLightIntensity);
-    rimLight.position.set(-18, 26, -12);
-    scene.add(rimLight);
+    if (cfg.ambientIntensity > 0) {
+      const ambient = new THREE.AmbientLight(0xffffff, cfg.ambientIntensity);
+      scene.add(ambient);
+    }
 
     const starGroup = new THREE.Group();
     scene.add(starGroup);
