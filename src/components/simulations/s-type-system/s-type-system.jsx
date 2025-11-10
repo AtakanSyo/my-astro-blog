@@ -31,7 +31,7 @@ const DEFAULT_SYSTEM = Object.freeze({
     radiusEarth: 1.1,
     rotationHours: 26,
     tiltDegrees: 14,
-    color: 0x4fb3ff,
+    color: 0xff3a3b,
   },
 });
 
