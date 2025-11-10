@@ -175,7 +175,7 @@ export default function PTypeSystem({
     scene.add(orbitB);
 
     // Circumbinary disk
-    const diskGeo = new THREE.RingGeometry(sep * 0.3, semiMajor + 2, 64, 1);
+    const diskGeo = new THREE.RingGeometry(0.001, semiMajor + 2, 64, 1);
     const diskMat = new THREE.MeshBasicMaterial({
       color: 0xffffff,
       transparent: true,

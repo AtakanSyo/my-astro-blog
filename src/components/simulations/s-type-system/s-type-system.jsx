@@ -72,12 +72,14 @@ export default function STypeSystem({
       planetScale: opts.planetScale ?? 2.0,
       atmosphereColor: opts.atmosphereColor ?? 0x73d2ff,
       glowStrength: opts.glowStrength ?? 1.8,
-      ambientIntensity: opts.ambientIntensity ?? 0.05,
+      ambientIntensity: opts.ambientIntensity ?? 0.2,
       planetColor: opts.planetColor ?? merged.planet.color ?? 0x4fb3ff,
       primaryRadius: opts.primaryRadius ?? merged.primary.radius ?? 2.1,
       companionRadius: opts.companionRadius ?? merged.companion.radius ?? 1.4,
       primaryOrbitShift: opts.primaryOrbitShift ?? baseSeparation * 0.15,
       companionOrbitShift: opts.companionOrbitShift ?? baseSeparation * 0.15,
+      baryDiscThickness: opts.baryDiscThickness ?? 1.2,
+      baryDiscOpacity: opts.baryDiscOpacity ?? 0.05,
     };
 
     const totalMass = Math.max(
@@ -193,6 +195,23 @@ export default function STypeSystem({
     const primaryOrbit = new THREE.LineLoop(primaryOrbitGeo, primaryOrbitMat);
     primaryOrbit.computeLineDistances();
     scene.add(primaryOrbit);
+
+    // Shared barycentric disc
+    const baseDiscInner = Math.min(primaryOrbitRadius, companionOrbitRadius) * 0.4;
+    const baseDiscOuter = Math.max(primaryOrbitRadius, companionOrbitRadius) * 1.35;
+    const discInner = Math.max(0, baseDiscInner);
+    const discOuter = Math.max(discInner + 0.1, baseDiscOuter * cfg.baryDiscThickness);
+    const baryDiscGeo = new THREE.RingGeometry(0.001, discOuter, 128, 1);
+    const baryDiscMat = new THREE.MeshBasicMaterial({
+      color: 0xffffff,
+      transparent: true,
+      opacity: THREE.MathUtils.clamp(cfg.baryDiscOpacity, 0, 1),
+      side: THREE.DoubleSide,
+    });
+    const baryDisc = new THREE.Mesh(baryDiscGeo, baryDiscMat);
+    baryDisc.rotation.x = Math.PI / 2;
+    scene.add(baryDisc);
+
 
     // Planet orbit path around the primary
     const orbitPositions = new Float32Array(cfg.orbitSegments * 3);
@@ -350,6 +369,8 @@ export default function STypeSystem({
       compOrbitMat.dispose();
       primaryOrbitGeo.dispose();
       primaryOrbitMat.dispose();
+      baryDiscGeo.dispose();
+      baryDiscMat.dispose();
       orbitGeo.dispose();
       orbitMat.dispose();
       planetGeo.dispose();

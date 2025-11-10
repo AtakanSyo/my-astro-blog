@@ -104,12 +104,7 @@ export default function SinglePlanetSystem({
     scene.add(starMesh);
 
     // ---------- Ecliptic ring ----------
-    const eclipticGeo = new THREE.RingGeometry(
-      semiMajor - cfg.starRadius * 0.6,
-      semiMajor + cfg.starRadius * 0.6,
-      128,
-      1,
-    );
+    const eclipticGeo = new THREE.RingGeometry(0.001, semiMajor + cfg.starRadius * 0.6, 128, 1);
     const eclipticMat = new THREE.MeshBasicMaterial({
       color: 0xffffff,
       transparent: true,
