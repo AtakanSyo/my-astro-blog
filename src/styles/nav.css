@@ -172,12 +172,15 @@ header {
     display: block;
   }
 
+
   /* stack nav-items vertically, collapsed by default */
   .site-nav {
     position: absolute;
     top: var(--header-height);
-    left: 0; right: 0;
-    background: rgba(18, 18, 18, 0.95);
+    left: 0; 
+    right: 0;
+    gap: 0rem;
+    background: rgba(18, 18, 18, 0.99);
     backdrop-filter: blur(8px); /* slight glass effect */
     flex-direction: column;
     align-items: stretch;
@@ -190,6 +193,8 @@ header {
       opacity 0.3s ease,
       transform 0.3s ease;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 2rem;
+    padding-bottom: 2rem;
   }
 
   .site-nav.open {
@@ -200,10 +205,11 @@ header {
 
   .nav-item {
     width: 100%;
-    padding: 1rem 1.2rem;
+    padding: 1.4rem 1.8rem;
     color: #e4e4e4;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
     transition: background 0.2s ease, color 0.2s ease;
+    font-size: 1.2rem;
+    font-weight: 900;
   }
 
   .nav-item:hover {
@@ -231,7 +237,7 @@ header {
 
   .nav-search-input {
     width: 100%;
-    font-size: 16px;
+    font-size: 18px;
     background: #1f1f1f;
     color: #e4e4e4;
     border: 1px solid #444;
