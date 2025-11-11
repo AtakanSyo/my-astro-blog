@@ -4,83 +4,68 @@ title: "Neptune"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-08-09'
-description: "A lightweight, GPU-hybrid Neptune simulation rendered in WebGL2 by default, with optional WebGPU for high-end browsers."
+description: "Neptune rendered as a planetary sphere with accurate texture, plus details about its discovery, distance from the Sun, special qualities, moons, and name."
 slug: neptune
 imageDir: /images/neptune
 keywords:
+  - neptune
+  - ice giant
+  - planet
+  - astronomy
+  - webgl
 ---
 
-import SimCanvas from "../../components/SimCanvas.astro";
+import SinglePlanetSim from "../../components/simulations/single-planet/SinglePlanetSim.jsx";
 import SimPostSchema from "../../components/SimPostSchema.astro";
 
-<div class="sim-container centered_flex">
-  <p class="Tool-Explanation"></p>
+<SinglePlanetSim planet="Neptune" client:visible cameraPosition={{ x: 0, y: 0, z: 2.5 }} />
 
-  <div class="sim-stage" aria-label="Neptune simulation canvas" id="simulation">
-    <SimCanvas slug="neptune" />
-  </div>
+<figcaption class="sim-caption">Neptune rendered with a realistic planetary texture.</figcaption>
 
-  <figcaption class="sim-caption"></figcaption>
-</div>
+<h2>What you’re seeing</h2>
+<p>This simulation shows Neptune as a planetary sphere with its true high-resolution atmospheric texture. Unlike gas giants with prominent bands, Neptune’s appearance is deep blue with occasional bright storms and methane clouds.</p>
 
-<div class="sim-article">
-  <h2 id="about-this-page">About this page</h2>
-  <p>
-    Above is a <strong>GPU-accelerated Neptune visualization</strong>. The scene includes a physically-lit sphere with a 
-    subtle Fresnel-based atmospheric rim, realistic axial tilt, and a slow rotation scaled from Neptune’s real day length.
-    A dim, inside-out sphere provides the starfield background.
-  </p>
+<h2>Discovery</h2>
+<p>Neptune is the first planet discovered through mathematics rather than direct observation. In 1846, Urbain Le Verrier and John Couch Adams predicted its location based on disturbances in Uranus’s orbit. Johann Galle then observed Neptune precisely where the calculations indicated.</p>
 
-  <h3 id="what-youre-seeing">What you’re seeing</h3>
-  <p>
-    Neptune rotates with a configurable time scale while light from a fixed “Sun” source creates visible phases. 
-    The faint blue glow around the edge is an atmospheric effect simulated in a shader, and the stars are part of 
-    a large inverted sphere surrounding the planet.
-  </p>
+<h2>Distance from the Sun</h2>
+<p>Neptune is the <strong>8th planet from the Sun</strong>. It orbits at an average distance of about 4.5 billion km (30.1 AU). A Neptunian year lasts 165 Earth years, meaning the planet has completed less than one full orbit since its discovery.</p>
 
-  <h2 id="tech-notes">Tech notes</h2>
-  <p>
-    In <strong>WebGL2</strong> mode, the visualization uses <em>MeshStandardMaterial</em> with ACES tone mapping, sRGB texture loading, 
-    and a custom shader hook for slight saturation/contrast adjustments. The atmospheric glow is rendered as a separate 
-    back-sided sphere with a Fresnel term, and the starfield uses a basic textured sphere with low brightness.
-  </p>
+<h2>Special qualities</h2>
+<p>Neptune is an ice giant with dynamic weather and the fastest sustained winds in the Solar System, reaching speeds over 2,000 km/h. The planet generates more internal heat than it receives from the Sun, driving massive storms and cloud formations.</p>
 
-  <h3 id="compatibility">Compatibility</h3>
-  <p>
-    Works on all modern browsers supporting WebGL2. If WebGPU is enabled and available, the loader will attempt 
-    to run that version; otherwise, it falls back to WebGL2 automatically.
-  </p>
+<SinglePlanetSim
+  planet="Neptune"
+  client:visible
+  cameraPosition={{ x: 0, y: 0, z: 4 }}
+  textureContrast={1.0}
+  tiltDeg={[90, 0, 0]}
+/>
 
-  <h2 id="faq">FAQ</h2>
-  <p>
-    <strong>Why is the atmosphere faint?</strong> The glow intensity is tuned to be subtle, matching Neptune’s appearance 
-    in long-exposure images without overpowering the planet’s details.
-  </p>
-  <p>
-    <strong>Is this physically exact?</strong> No — it’s a stylized real-time visualization designed for smooth performance 
-    and visual clarity, rather than a perfect simulation.
-  </p>
+<h2>Moons</h2>
+<p>Neptune has 14 known moons. The largest, Triton, orbits in the opposite direction of Neptune’s rotation — a retrograde orbit — suggesting it was captured from the Kuiper Belt. Triton also features nitrogen geysers, making it one of the most intriguing bodies in planetary science.</p>
 
-  <h2 id="credits">Credits</h2>
-  <p>
-    Based on real-time rendering techniques from modern planetary shaders, inspired by space visualization tools 
-    and astrophotography references.
-  </p>
-</div>
+<h2>Size and mass</h2>
+<p>Neptune has a diameter of about 49,244 km and a mass roughly 17 times that of Earth. It is slightly smaller than Uranus but denser, with a more compressed mantle and deeper internal heating.</p>
+
+<h2>Chemistry and atmosphere</h2>
+<p>Neptune’s blue color comes from methane in the upper atmosphere absorbing red light, but its deeper hue compared to Uranus suggests additional chromophores or atmospheric processes. Beneath the clouds may exist a super-pressurized water–ammonia ocean capable of forming exotic “hot ice” phases.</p>
+
+<h2>Name and meaning</h2>
+<p>Neptune is named after the Roman god of the sea, reflecting its deep blue color. In Greek mythology, the equivalent deity is Poseidon.</p>
 
 <SimPostSchema
-  title="Neptune Simulation"
-  description="A lightweight, GPU-hybrid Neptune simulation with atmospheric glow and starfield background."
-  url="https://astrosyo.com/posts/learning-webgl"
-  datePublished="2025-08-09"
+  title="Neptune"
+  description="A planetary sphere of Neptune with accurate texture, plus details about its discovery, distance from the Sun, atmosphere, moons, and name."
+  url="https://astrosyo.com/posts/neptune"
+  datePublished="2025-11-11"
   authorName="Astrosyo"
   keywords={[
     "neptune",
-    "webgl2",
-    "webgpu",
-    "three.js",
-    "shader",
-    "astronomy visualization"
+    "ice giant",
+    "astronomy",
+    "webgl",
+    "education"
   ]}
   image="/images/neptune/cover.webp"
   articleSection="Astronomy"
@@ -89,11 +74,11 @@ import SimPostSchema from "../../components/SimPostSchema.astro";
   publisherLogo="/images/shared/logo.webp"
   hasPart={{
     "@type": "SoftwareApplication",
-    "name": "Neptune Simulation",
+    "name": "Neptune Sphere",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Any",
-    "browserRequirements": "Requires WebGL2; optional WebGPU",
-    "url": "https://astrosyo.com/posts/learning-webgl#simulation",
-    "description": "Interactive Neptune visualization with atmospheric glow and starfield background."
+    "browserRequirements": "Requires WebGL2",
+    "url": "https://astrosyo.com/posts/neptune#simulation",
+    "description": "Interactive planetary sphere of Neptune rendered with accurate texture."
   }}
 />
