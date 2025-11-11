@@ -3,12 +3,18 @@ layout: ../../layouts/simLayout.astro
 title: "Jupiter and Neptune Size Comparison"
 category: simulation
 writer: Astrosyo
-pubDate: '2025-08-20'
+pubDate: '2025-08-27'
 description: "A simulation showing the true scale difference between Jupiter and Neptune."
 slug: jupiter-neptune-size-comparison
 imageDir: /images/jupiter-neptune-size-comparison
 keywords:
-  - planet sizes
+  - jupiter
+  - neptune
+  - outer planets
+  - planet size comparison
+  - astronomy
+  - webgl
+  - simulation
 ---
 
 import Comparison from "../../components/simulations/jupiter-neptune-size-comparison/comparison.jsx";
@@ -16,30 +22,37 @@ import SimPostSchema from "../../components/SimPostSchema.astro";
 
 <Comparison client:load pausedInitially={true} />
 
-<figcaption class="sim-caption">Jupiter and Neptune rendered to scale. Jupiter’s radius is almost three times larger, and its volume is about twenty-four times greater.</figcaption>
+<figcaption class="sim-caption">Jupiter and Neptune rendered at true relative diameters, textured and rotating in place.</figcaption>
 
-<div class="sim-article">
-  <h2 id="about-this-simulation">About this simulation</h2>
-  <p>
-    This interactive scene places Jupiter and Neptune side by side so you can see their true difference in scale.
-    The sizes are based on real measurements: Jupiter’s radius is around 71,500 kilometers, while Neptune’s is about 24,600 kilometers.
-    That means Jupiter is nearly three times wider. When you take volume into account, the gap grows even larger, with Jupiter holding roughly twenty-four times more space than Neptune.
-  </p>
+<h2>What the simulation shows</h2>
+<p>This visualization places Neptune next to Jupiter using their real physical diameters and true 3D geometry. Both planets rotate on their axes, and no scaling is applied beyond their real sizes. Neptune is the smallest of the giant planets, while Jupiter is the largest planetary object in the Solar System. Seeing them side by side immediately communicates the difference—Neptune feels compact and delicate, while Jupiter appears overwhelmingly dominant.</p>
 
-  <h2 id="why-it-matters">Why this is interesting</h2>
-  <p>
-    Seeing these two worlds together highlights just how dominant Jupiter is in our Solar System.
-    Even though Neptune is called a “giant planet,” it looks modest when placed next to Jupiter.
-    Jupiter’s enormous size affects the orbits of other planets, shapes the asteroid belt, and even protects Earth by pulling in comets and other debris.
-  </p>
+<h2>The numbers behind the scale</h2>
+<p>Neptune’s diameter is approximately 49,244 km, while Jupiter’s is about 139,820 km. The diameter ratio between them is:</p>
 
-</div>
+$$
+\frac{D_J}{D_N} = \frac{139{,}820}{49{,}244} \approx 2.84
+$$
+
+<p>Volume scales with the cube of the diameter. When we apply that:</p>
+
+$$
+(2.84)^3 \approx 22.9
+$$
+
+<p>Meaning Jupiter could contain nearly twenty-three Neptune-sized volumes. Surface area scales with the square of the diameter:</p>
+
+$$
+(2.84)^2 \approx 8.1
+$$
+
+<p>So Jupiter’s visible disk is over eight times larger than Neptune’s. This simulation preserves those proportions exactly, letting your eyes absorb the magnitude of the difference without any exaggeration or diagram distortion.</p>
 
 <SimPostSchema
   title="Jupiter and Neptune Size Comparison"
   description="An interactive browser-based simulation that shows the true scale difference between Jupiter and Neptune."
   url="https://astrosyo.com/posts/jupiter-neptune-size-comparison"
-  datePublished="2025-08-18"
+  datePublished="2025-08-27"
   authorName="Astrosyo"
   keywords={[
     "jupiter",
