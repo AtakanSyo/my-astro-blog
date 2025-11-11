@@ -8,6 +8,7 @@ description: "A simulation showing the true scale difference between Jupiter and
 slug: jupiter-earth-size-comparison
 imageDir: /images/jupiter-earth-size-comparison
 keywords:
+  - Jupiter
 ---
 
 import Comparison from "../../components/simulations/jupiter-earth-size-comparison/comparison.jsx";
@@ -21,17 +22,26 @@ import SimPostSchema from "../../components/SimPostSchema.astro";
 <p>This scene places Jupiter and Earth side by side at their correct diameters, with physically sized spheres and photoreal textures, rotating about their own axes. The layout is intentionally compact—this is not their real orbital spacing—but the geometry is accurate: Earth’s diameter is ~12,742 km and Jupiter’s is ~139,820 km. Seeing both globes in the same frame removes the distortion of textbook cartoons and makes the scale difference intuitive; the smaller world is not “slightly” smaller, it is dwarfed.</p>
 
 <h2>The numbers behind the scale</h2>
+
 $$
 r \;=\; \frac{D_J}{D_E}
    \;=\;
    \frac{139{,}820}{12{,}742}
    \;\approx\; 10.97
 $$
-<p>Because volume scales with the cube of diameter, the volume ratio becomes</p>
+
+<p>
+  Because volume scales with the cube of diameter, the volume ratio becomes
+</p>
+
+
 $$
 r^3 \;\approx\; 10.97^3 \;\approx\; 1.32 \times 10^3
 $$
-<p>meaning Jupiter could fit over **one thousand Earth-sized volumes** inside it. Likewise, surface area scales with the square of diameter:</p>
+
+<p>
+  meaning Jupiter could fit over **one thousand Earth-sized volumes** inside it. Likewise, surface area scales with the square of diameter:
+</p>
 $$
 r^2 \;\approx\; 10.97^2 \;\approx\; 1.20 \times 10^2
 $$
