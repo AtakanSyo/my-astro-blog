@@ -6,6 +6,7 @@ import { site } from '../config/site.js';
 const site_description = site.description;
 const { title, category } = Astro.props;
 import NavScript from '../components/NavScript.astro';
+import SiteFooter from '../components/SiteFooter.astro';
 const orgJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
@@ -89,10 +90,7 @@ const bodyClasses = [
     <main>
       <slot />
     </main>
-
-    <footer class="site-footer centered_flex">
-      <p>© {new Date().getFullYear()} Astrosyo.</p>
-    </footer>
       <NavScript />
 	</body>
+    <SiteFooter />
 </html>

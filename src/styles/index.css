@@ -153,22 +153,6 @@
 @supports not (clip-path: polygon(0 0)) {
   .cta { clip-path: none; border-radius: 10px; }
 }
-
-/* ---- Socials ---- */
-.home-socials { margin: 1rem 0 3.5rem; }
-.home-socials-links {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-.social-link {
-  color: #fff;
-  opacity: 0.9;
-  transition: opacity 0.15s ease;
-}
-.social-link:hover,
-.social-link:focus-visible { opacity: 1; }
-
 /* ---- Category stacks ---- */
 .latest-section {
   display: grid;

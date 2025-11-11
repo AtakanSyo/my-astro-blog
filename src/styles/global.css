@@ -7,6 +7,7 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  width: 100%;
 }
 
 *, *::before, *::after {
@@ -145,3 +146,19 @@ footer {
   align-items: center;
   flex-direction: column;
 }
+
+/* ---- Socials ---- */
+
+.global-socials-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+.social-link {
+  color: #fff;
+  opacity: 0.9;
+  transition: opacity 0.15s ease;
+}
+.social-link:hover,
+.social-link:focus-visible { opacity: 1; }
+
