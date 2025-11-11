@@ -4,78 +4,66 @@ title: "Mars"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-08-09'
-description: "A lightweight, GPU-hybrid Mars visualization rendered in WebGL2 by default, with optional WebGPU for high-end browsers."
+description: "Mars rendered as a planetary sphere with accurate texture, plus details about its discovery, distance from the Sun, special qualities, moons, and name."
 slug: mars
 imageDir: /images/mars
 keywords:
+  - mars
+  - terrestrial planet
+  - planet
+  - astronomy
+  - webgl
 ---
 
-import SimCanvas from "../../components/SimCanvas.astro";
+import SinglePlanetSim from "../../components/simulations/single-planet/SinglePlanetSim.jsx";
 import SimPostSchema from "../../components/SimPostSchema.astro";
 
-<div class="sim-container centered_flex">
-  <p class="Tool-Explanation"></p>
+<SinglePlanetSim
+  planet="Mars"
+  client:visible
+  cameraPosition={{ x: 0, y: 0, z: 3.5 }}
+  textureContrast={0.73}
+  tiltDeg={[20, -20, -25]}
+/>
 
-  <div class="sim-stage" aria-label="Mars simulation canvas" id="simulation">
-    <SimCanvas slug="mars" />
-  </div>
+<figcaption class="sim-caption">Mars rendered with a realistic planetary texture.</figcaption>
 
-  <figcaption class="sim-caption"></figcaption>
-</div>
+<h2>What you’re seeing</h2>
+<p>This simulation shows Mars as a planetary sphere with its true-color texture applied. Major features like Olympus Mons, Valles Marineris, polar caps, and dust-stained plains are visible. No moons or atmosphere effects are added, keeping focus on the planet’s surface as seen from space.</p>
 
-<div class="sim-article">
-  <h2 id="about-this-page">About this page</h2>
-  <p>
-    Above is a <strong>GPU-accelerated Mars visualization</strong>. The scene includes a physically-lit sphere textured with realistic reddish-brown terrain colors, darker volcanic plains, 
-    and brighter dust-covered regions. A faint polar ice cap effect is visible near the poles. A dim, inside-out sphere provides the starfield background.
-  </p>
+<h2>Discovery</h2>
+<p>Mars has been known since antiquity and observed by many civilizations, including the Babylonians, Greeks, and Chinese. Telescopic observations from the 17th century onward revealed polar caps and seasonal changes, inspiring centuries of debate about climate and past habitability.</p>
 
-  <h3 id="what-youre-seeing">What you’re seeing</h3>
-  <p>
-    Mars rotates at a speed close to Earth’s day length, so its surface features drift past at a comfortable pace. The planet’s axial tilt produces gentle seasonal lighting effects,
-    and the simulated Sun creates visible shading across the surface.
-  </p>
+<h2>Distance from the Sun</h2>
+<p>Mars is the <strong>4th planet from the Sun</strong>. Its average orbital distance is about 227.9 million km (1.52 AU). A Martian year lasts 687 Earth days. Because of its elliptical orbit, Mars–Earth distance varies widely, producing favorable oppositions roughly every 26 months.</p>
 
-  <h2 id="tech-notes">Tech notes</h2>
-  <p>
-    In <strong>WebGL2</strong> mode, the visualization uses <em>MeshStandardMaterial</em> with ACES tone mapping, sRGB texture loading, and a small shader hook for color grading.
-    The polar caps are blended procedurally, and the starfield is a simple low-brightness textured sphere.
-    If WebGPU is enabled, the loader will attempt that path; otherwise, it falls back to WebGL2 automatically.
-  </p>
+<h2>Special qualities</h2>
+<p>Mars hosts the tallest volcano (Olympus Mons) and one of the largest canyon systems (Valles Marineris) in the Solar System. Thin atmosphere and frequent dust activity produce planet-encircling storms. Geological evidence indicates ancient rivers, lakes, and possibly seas, making Mars central to the search for past life.</p>
 
-  <h3 id="compatibility">Compatibility</h3>
-  <p>
-    Works on all modern browsers supporting WebGL2. If WebGPU is enabled and available, the loader will attempt 
-    to run that version; otherwise, it falls back to WebGL2 automatically.
-  </p>
+<h2>Moons</h2>
+<p>Mars has two small irregular moons, Phobos and Deimos, likely captured asteroids. Phobos orbits so close that it is slowly spiraling inward and may break up into a ring in tens of millions of years.</p>
 
-  <h2 id="faq">FAQ</h2>
-  <p>
-    <strong>Are the surface details real?</strong> The colors and broad features are based on Mars spacecraft imagery, but this is a stylized real-time rendering, not a photogrammetric model.
-  </p>
-  <p>
-    <strong>Is the polar cap accurate?</strong> It’s an artistic approximation, not a physically evolving seasonal cap.
-  </p>
+<h2>Size and mass</h2>
+<p>Mars has a diameter of 6,779 km and a mass about 10.7% of Earth’s. Gravity at the surface is roughly 38% of Earth’s, shaping dust transport, erosion, and potential human activity.</p>
 
-  <h2 id="credits">Credits</h2>
-  <p>
-    Inspired by Mars imagery from NASA, ESA, and planetary visualization tools, adapted for smooth WebGL2 rendering.
-  </p>
-</div>
+<h2>Chemistry and atmosphere</h2>
+<p>The surface is basaltic rock and dust rich in iron oxides, giving Mars its red hue. The atmosphere is thin and dominated by carbon dioxide (~95%), with nitrogen and argon making up most of the remainder. Seasonal CO₂ exchange at the poles drives pressure changes and weather patterns.</p>
+
+<h2>Name and meaning</h2>
+<p>Mars is named after the Roman god of war, reflecting its reddish, blood-like appearance. In many cultures, Mars’s color and wandering motion inspired myths linking it to conflict and omens.</p>
 
 <SimPostSchema
-  title="Mars Simulation"
-  description="A lightweight, GPU-hybrid Mars simulation with realistic terrain colors, polar caps, and a faint starfield."
+  title="Mars"
+  description="A planetary sphere of Mars with accurate texture, plus details about its discovery, distance from the Sun, special qualities, moons, and name."
   url="https://astrosyo.com/posts/mars"
-  datePublished="2025-08-09"
+  datePublished="2025-11-11"
   authorName="Astrosyo"
   keywords={[
     "mars",
-    "webgl2",
-    "webgpu",
-    "three.js",
-    "shader",
-    "astronomy visualization"
+    "terrestrial planet",
+    "astronomy",
+    "webgl",
+    "education"
   ]}
   image="/images/mars/cover.webp"
   articleSection="Astronomy"
@@ -84,11 +72,11 @@ import SimPostSchema from "../../components/SimPostSchema.astro";
   publisherLogo="/images/shared/logo.webp"
   hasPart={{
     "@type": "SoftwareApplication",
-    "name": "Mars Simulation",
+    "name": "Mars Sphere",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Any",
-    "browserRequirements": "Requires WebGL2; optional WebGPU",
+    "browserRequirements": "Requires WebGL2",
     "url": "https://astrosyo.com/posts/mars#simulation",
-    "description": "Interactive Mars visualization with realistic reddish terrain, polar caps, and a faint starfield."
+    "description": "Interactive planetary sphere of Mars rendered with accurate texture."
   }}
 />

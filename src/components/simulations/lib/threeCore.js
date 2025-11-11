@@ -281,7 +281,7 @@ export function addSpinningPlanet(
     radius = 1,
     spinSpeed = 0.3,
     spinAxis = [0, 1, 0],
-    tiltDeg = 0,
+    tiltDeg = [0,0,0],
     segments = 64,
     materialOptions = {},
     textureLoader,
@@ -337,7 +337,34 @@ export function addSpinningPlanet(
   }
 
   if (tiltDeg) {
-    mesh.rotation.z = THREE.MathUtils.degToRad(tiltDeg);
+    let tiltEuler;
+    if (tiltDeg instanceof THREE.Euler) {
+      tiltEuler = tiltDeg.clone();
+    } else if (Array.isArray(tiltDeg)) {
+      tiltEuler = new THREE.Euler(
+        THREE.MathUtils.degToRad(tiltDeg[0] ?? 0),
+        THREE.MathUtils.degToRad(tiltDeg[1] ?? 0),
+        THREE.MathUtils.degToRad(tiltDeg[2] ?? 0),
+      );
+    } else if (tiltDeg instanceof THREE.Vector3) {
+      tiltEuler = new THREE.Euler(
+        THREE.MathUtils.degToRad(tiltDeg.x ?? 0),
+        THREE.MathUtils.degToRad(tiltDeg.y ?? 0),
+        THREE.MathUtils.degToRad(tiltDeg.z ?? 0),
+      );
+    } else if (typeof tiltDeg === 'object') {
+      tiltEuler = new THREE.Euler(
+        THREE.MathUtils.degToRad(tiltDeg.x ?? 0),
+        THREE.MathUtils.degToRad(tiltDeg.y ?? 0),
+        THREE.MathUtils.degToRad(tiltDeg.z ?? 0),
+      );
+    } else if (typeof tiltDeg === 'number') {
+      tiltEuler = new THREE.Euler(0, 0, THREE.MathUtils.degToRad(tiltDeg));
+    }
+
+    if (tiltEuler) {
+      mesh.rotation.set(tiltEuler.x, tiltEuler.y, tiltEuler.z);
+    }
   }
 
   scene.add(mesh);

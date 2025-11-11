@@ -44,6 +44,32 @@ const PLANET_CONFIG = {
   },
 };
 
+function applyContrastMaterial(material, contrast) {
+  if (!material || typeof contrast !== 'number') return;
+  material.userData.uContrast = { value: contrast };
+  material.onBeforeCompile = (shader) => {
+    shader.uniforms.uContrast = material.userData.uContrast;
+    shader.fragmentShader = shader.fragmentShader
+      .replace(
+        '#include <common>',
+        `
+        #include <common>
+        uniform float uContrast;
+        `,
+      )
+      .replace(
+        '#include <map_fragment>',
+        `
+        #include <map_fragment>
+        vec3 c = diffuseColor.rgb;
+        c = (c - 0.5) * uContrast + 0.5;
+        diffuseColor.rgb = clamp(c, 0.0, 1.0);
+        `,
+      );
+  };
+  material.needsUpdate = true;
+}
+
 export default function SinglePlanetSim({
   id = 'single-planet',
   aspect = '16 / 9',
@@ -54,6 +80,8 @@ export default function SinglePlanetSim({
   ringsSpin = true,
   ringAngle = 0,
   cameraPosition,
+  textureContrast,
+  tiltDeg,
 }) {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
@@ -86,7 +114,7 @@ export default function SinglePlanetSim({
 
     const spinSpeed = THREE.MathUtils.degToRad(config.spinDegPerSec);
 
-    const saturnSpecific = planetKey === 'saturn'
+    const simHandle = planetKey === 'saturn'
       ? addSaturn(scene, {
           textureUrl: config.textureUrl,
           ringTextureUrl: config.ringTextureUrl,
@@ -100,9 +128,9 @@ export default function SinglePlanetSim({
           ringAngle,
           ringInnerScale: config.ringInnerScale,
           ringOuterScale: config.ringOuterScale,
-          tiltDeg: Array.isArray(config.tiltDeg)
-            ? config.tiltDeg
-            : [0, 0.0,  26.7],
+          tiltDeg:
+            tiltDeg ??
+            (Array.isArray(config.tiltDeg) ? config.tiltDeg : [0, 0.0, 26.7]),
         })
       : addSpinningPlanet(scene, {
           textureUrl: config.textureUrl,
@@ -111,19 +139,36 @@ export default function SinglePlanetSim({
           spinSpeed,
           renderer,
           textureLoader,
+          tiltDeg: tiltDeg ?? config.tiltDeg ?? 0,
         });
+
+    if (typeof textureContrast === 'number') {
+      const material =
+        planetKey === 'saturn' ? simHandle.planetMaterial : simHandle.material;
+      applyContrastMaterial(material, textureContrast);
+    }
 
     start((delta) => {
       if (pausedRef.current) return;
-      saturnSpecific.update(delta);
+      simHandle.update(delta);
     });
 
     return () => {
       stop();
-      saturnSpecific.dispose();
+      simHandle.dispose();
       dispose();
     };
-  }, [cameraPosition, config, dprCap, planetKey, radius, ringsSpin, ringAngle]);
+  }, [
+    cameraPosition,
+    config,
+    dprCap,
+    planetKey,
+    radius,
+    ringsSpin,
+    ringAngle,
+    textureContrast,
+    tiltDeg,
+  ]);
 
   const onToggle = () => {
     pausedRef.current = !pausedRef.current;
