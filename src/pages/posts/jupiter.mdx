@@ -4,80 +4,66 @@ title: "Jupiter"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-08-09'
-description: "A lightweight, GPU-hybrid Jupiter visualization rendered in WebGL2 by default, with optional WebGPU for high-end browsers."
+description: "Jupiter rendered as a planetary sphere with accurate texture, plus details about its discovery, distance from the Sun, special qualities, moons, and name."
 slug: jupiter
 imageDir: /images/jupiter
 keywords:
- - jupiter simulation
-youtube: https://www.youtube.com/watch?v=D7Mu2K3e6cQ
+  - jupiter
+  - gas giant
+  - planet
+  - astronomy
+  - webgl
 ---
 
-import SimCanvas from "../../components/SimCanvas.astro";
-import YouTubeButton from "../../components/YouTubeButton.astro";
+import SinglePlanetSim from "../../components/simulations/single-planet/SinglePlanetSim.jsx";
 import SimPostSchema from "../../components/SimPostSchema.astro";
 
-<div class="">
-  <p class="Tool-Explanation"></p>
+<SinglePlanetSim
+  planet="Jupiter"
+  client:visible
+  cameraPosition={{ x: 0, y: 0, z: 4 }}
+  textureContrast={1.0}
+  tiltDeg={[20, 20, -25]}
+/>
 
-  <div class="sim-stage" aria-label="Jupiter simulation canvas" id="simulation">
-    <SimCanvas slug="jupiter"/>
-  </div>
+<figcaption class="sim-caption">Jupiter rendered with a realistic planetary texture.</figcaption>
 
-  <figcaption class="sim-caption"></figcaption>
+<h2>What you’re seeing</h2>
+<p>This simulation shows Jupiter as a planetary sphere using a high-resolution texture that captures banded cloud belts, zones, and the Great Red Spot. The view focuses on the planet itself; rings and moons are omitted so the eye can read the cloud patterns and overall scale without distractions.</p>
 
-  </div>
+<h2>Discovery</h2>
+<p>Jupiter has been known since antiquity and recorded by many cultures, including Mesopotamian, Greek, Roman, Indian, and Chinese astronomers. With the telescope, Galileo’s 1610 observations of its four large moons provided pivotal evidence that not everything orbits Earth, accelerating the scientific revolution.</p>
 
-<div class="sim-article">
-  <h2 id="about-this-page">About this page</h2>
-  <p>
-    Above is a <strong>GPU-accelerated, real-time visualization of Jupiter</strong>, the largest planet in our Solar System. 
-    Known for its swirling cloud bands, powerful jet streams, and iconic Great Red Spot, Jupiter is a gas giant made mostly of hydrogen and helium. 
-    This simulation is designed to give you a sense of the planet’s fast rotation, atmospheric patterns, and position against the deep backdrop of space.
-  </p>
+<h2>Distance from the Sun</h2>
+<p>Jupiter is the <strong>5th planet from the Sun</strong>. Its average orbital distance is about 778 million km, or 5.2 AU. A Jovian year lasts roughly 11.86 Earth years, while the planet spins rapidly, completing one rotation in just under 10 hours.</p>
 
-  <h3 id="what-youre-seeing">What you’re seeing</h3>
-  <p>
-    Jupiter spins on its axis once every 9 hours and 56 minutes — so quickly that its equator bulges noticeably from the rapid rotation. 
-    The brownish <em>belts</em> and pale <em>zones</em> in the simulation represent powerful winds moving in opposite directions at different latitudes, creating turbulence and storms. 
-    One such storm, the <strong>Great Red Spot</strong>, has raged for at least 350 years and could fit Earth inside it. 
-    While this model uses stylized noise patterns for performance, the overall band structure is based on real spacecraft imagery.
-  </p>
+<h2>Special qualities</h2>
+<p>Jupiter is the largest planet, with powerful zonal winds, long-lived storms, and a deep atmosphere layered with ammonia, ammonium hydrosulfide, and water clouds. Its immense magnetic field creates intense radiation belts and spectacular auroras at the poles. The Great Red Spot is a centuries-old anticyclonic storm large enough to engulf Earth.</p>
 
-  <p>
-    The lighting in the simulation comes from a fixed “Sun” source, creating shadows and highlights that change as the planet rotates. 
-    A subtle limb-darkening effect makes the edges appear softer and more realistic, as light scatters through the atmosphere. 
-    The faint starfield in the background represents Jupiter’s position in the night sky.
-  </p>
+<h2>Moons</h2>
+<p>Jupiter has dozens of known moons, including the four Galilean satellites: Io, Europa, Ganymede, and Callisto. Ganymede is larger than Mercury, Europa likely harbors a global subsurface ocean, and Io is the most volcanically active body in the Solar System.</p>
 
-  <h2 id="observing-jupiter">Observing Jupiter</h2>
-  <p>
-    Jupiter is one of the brightest objects in the night sky and can be seen with the naked eye for most of the year. 
-    Even a small telescope will reveal its cloud bands and the four largest moons — Io, Europa, Ganymede, and Callisto — first discovered by Galileo in 1610. 
-    In fact, Jupiter’s moons change position night-to-night, and watching them orbit is one of the most rewarding beginner astronomy experiences.
-  </p>
+<h2>Size and mass</h2>
+<p>Jupiter’s equatorial diameter is about 139,820 km, and its mass is approximately 1.9 × 10^27 kg, equal to more than twice that of all other planets combined. Despite its size, its average density is only about a quarter that of Earth’s, consistent with a composition dominated by light gases.</p>
 
-  <h2 id="tech-notes">Tech notes</h2>
-  <p>
-    The simulation runs in <strong>WebGL2</strong> by default, using physically based rendering (PBR) with ACES tone mapping and sRGB color correction. 
-    A Fresnel-style rim term simulates limb darkening, while a textured, back-faced sphere provides the starfield. 
-    On compatible systems, enabling WebGPU can offer smoother performance and higher visual fidelity. 
-    This is not a scientific fluid-dynamics model but a lightweight real-time rendering designed for both beauty and accessibility.
-  </p>
-</div>
+<h2>Chemistry and atmosphere</h2>
+<p>The atmosphere is primarily hydrogen and helium with trace species that color the clouds and hazes. Deeper layers transition through molecular hydrogen to metallic hydrogen under extreme pressure, with a dense inner region that may contain heavy elements and ices. Complex chemistry and dynamics drive the changing tints of belts and zones.</p>
+
+<h2>Name and meaning</h2>
+<p>Named after the chief Roman god, Jupiter (Greek: Zeus) reflects the planet’s prominence in the night sky. Its brightness and steady motion made it a central figure in mythologies and calendars long before the telescope revealed its miniature planetary system.</p>
 
 <SimPostSchema
-  title="Jupiter Simulation"
-  description="A lightweight, GPU-hybrid Jupiter simulation with banded clouds, limb darkening, and a faint starfield."
+  title="Jupiter"
+  description="A planetary sphere of Jupiter with accurate texture, plus details about its discovery, distance from the Sun, atmosphere, moons, and name."
   url="https://astrosyo.com/posts/jupiter"
-  datePublished="2025-08-09"
+  datePublished="2025-11-11"
   authorName="Astrosyo"
   keywords={[
     "jupiter",
-    "webgl2",
-    "webgpu",
-    "three.js",
-    "shader",
-    "astronomy visualization"
+    "gas giant",
+    "astronomy",
+    "webgl",
+    "education"
   ]}
   image="/images/jupiter/cover.webp"
   articleSection="Astronomy"
@@ -86,11 +72,11 @@ import SimPostSchema from "../../components/SimPostSchema.astro";
   publisherLogo="/images/shared/logo.webp"
   hasPart={{
     "@type": "SoftwareApplication",
-    "name": "Jupiter Simulation",
+    "name": "Jupiter Sphere",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Any",
-    "browserRequirements": "Requires WebGL2; optional WebGPU",
+    "browserRequirements": "Requires WebGL2",
     "url": "https://astrosyo.com/posts/jupiter#simulation",
-    "description": "Interactive Jupiter visualization with banded clouds and a faint starfield."
+    "description": "Interactive planetary sphere of Jupiter rendered with accurate texture."
   }}
 />

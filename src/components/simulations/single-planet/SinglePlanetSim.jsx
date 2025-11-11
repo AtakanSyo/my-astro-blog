@@ -22,7 +22,7 @@ const PLANET_CONFIG = {
   },
   jupiter: {
     textureUrl: '/textures/8k_jupiter.webp',
-    spinDegPerSec: 28,
+    spinDegPerSec: 10,
   },
   saturn: {
     textureUrl: '/textures/saturn_texture.webp',
@@ -107,8 +107,8 @@ export default function SinglePlanetSim({
       },
     });
 
-    const ambient = new THREE.AmbientLight(0xffffff, 0.35);
-    const keyLight = new THREE.DirectionalLight(0xffffff, 1.4);
+    const ambient = new THREE.AmbientLight(0xffffff, 0.2);
+    const keyLight = new THREE.DirectionalLight(0xffffff, 1.7);
     keyLight.position.set(3, 2, 4);
     scene.add(ambient, keyLight);
 
