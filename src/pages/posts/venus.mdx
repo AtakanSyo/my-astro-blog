@@ -4,77 +4,60 @@ title: "Venus"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-08-14'
-description: "A lightweight, GPU-hybrid Venus visualization featuring a dense cloud deck, phase lighting, and fast atmospheric super-rotation."
+description: "Venus rendered as a planetary sphere with accurate texture, plus details about its discovery, distance from the Sun, atmosphere, and name."
 slug: venus
 imageDir: /images/venus
 keywords:
-  - venus simulation
-  - venus phases
-  - sulfuric acid clouds
-  - astronomy visualization
+  - venus
+  - terrestrial planet
+  - planet
+  - astronomy
+  - webgl
 ---
 
-import SimCanvas from "../../components/SimCanvas.astro";
+import SinglePlanetSim from "../../components/simulations/single-planet/SinglePlanetSim.jsx";
 import SimPostSchema from "../../components/SimPostSchema.astro";
 
-<div class="">
-  <p class="Tool-Explanation"></p>
+<SinglePlanetSim planet="Venus" client:visible cameraPosition={{ x: 0, y: 0, z: 3.5 }} />
 
-  <div class="sim-stage" aria-label="Venus simulation canvas" id="simulation">
-    <SimCanvas slug="venus"/>
-  </div>
+<figcaption class="sim-caption">Venus rendered with a realistic planetary texture.</figcaption>
 
-  <figcaption class="sim-caption"></figcaption></div>
+<h2>What you’re seeing</h2>
+<p>This simulation shows Venus as a planetary sphere using its real cloud texture. The surface is not visible — Venus is permanently hidden beneath a dense global layer of sulfuric acid clouds. The texture reveals swirling atmospheric patterns instead of land features.</p>
 
-<div class="sim-article">
-  <h2 id="about-this-page">About this page</h2>
-  <p>
-    Above is a <strong>GPU-accelerated, real-time visualization of Venus</strong>, Earth’s nearest planetary neighbor and the brightest natural object in our night sky after the Moon.
-    Unlike Jupiter’s banded clouds, Venus is cloaked in a <em>feature-poor but dynamic</em> global cloud deck of sulfuric-acid droplets above a thick CO<sub>2</sub> atmosphere.
-    This simulation emphasizes <strong>phase lighting</strong>, a high-albedo cloud layer, and the planet’s famously slow, retrograde rotation.
-  </p>
+<h2>Discovery</h2>
+<p>Venus has been known since prehistoric times. Civilizations including the Babylonians, Greeks, Maya, and Chinese tracked its motion. Because it appears near sunrise and sunset, early observers believed the morning and evening appearances were two different objects.</p>
 
-  <h3 id="what-youre-seeing">What you’re seeing</h3>
-  <p>
-    Venus rotates <em>backwards</em> (retrograde) once every ~243 Earth days, while it orbits the Sun in ~224.7 days—so a Venusian day is longer than its year.
-    Despite the slow spin, the <strong>upper atmosphere super-rotates</strong>, circling the planet in just a few Earth days. In this model, subtle moving textures hint at that
-    high-level wind flow without simulating full fluid dynamics.
-  </p>
-  <p>
-    The thick cloud layer reflects most sunlight, yielding a bright disk with <strong>pronounced phases</strong> as Venus swings around the Sun from our viewpoint.
-    Lighting comes from a fixed “Sun,” and the shader applies soft limb shading and gentle forward-scattering to evoke the hazy atmosphere.
-    Because the visible cloud deck hides the surface, no continents or land features are rendered.
-  </p>
+<h2>Distance from the Sun</h2>
+<p>Venus is the <strong>2nd planet from the Sun</strong>. Its average orbital distance is about 108 million km, or 0.72 AU. Venus orbits the Sun once every 225 Earth days and rotates extremely slowly — a Venusian day is longer than its year.</p>
 
-  <h2 id="observing-venus">Observing Venus</h2>
-  <p>
-    Venus is usually seen shortly after sunset or before dawn as the brilliant <em>Evening</em> or <em>Morning Star</em>, often reaching magnitude −4.
-    A small telescope will reveal its <strong>crescent-to-gibbous phases</strong>, similar to the Moon, though cloud details are subtle in visible light.
-    Ultraviolet imaging can reveal banded contrasts in the cloud tops, but to the eye the disk looks smooth and intensely bright.
-  </p>
+<h2>Special qualities</h2>
+<p>Venus is the hottest planet in the Solar System, even hotter than Mercury, due to its runaway greenhouse effect. Temperatures reach around 475°C, and the atmosphere is so dense that the surface pressure equals that of being nearly 1 km underwater on Earth. Venus also rotates backward compared to most planets, a motion known as retrograde rotation.</p>
 
-  <h2 id="tech-notes">Tech notes</h2>
-  <p>
-    The simulation runs in <strong>WebGL2</strong> by default with ACES tone mapping and sRGB output. A simple multi-layer shader approximates
-    <em>Rayleigh/Mie-like</em> scattering for a dense haze, with animated noise to suggest super-rotation. A back-faced sphere supplies a faint starfield for context.
-    On compatible systems, enabling WebGPU can improve performance and precision. This is a real-time visualization for education and aesthetics—not a CFD model.
-  </p>
-</div>
+<h2>Moons</h2>
+<p>Venus has no moons. Despite extensive observation, no natural satellites have ever been detected.</p>
+
+<h2>Size and mass</h2>
+<p>Venus has a diameter of 12,104 km, making it almost the same size as Earth. It is often called Earth’s “sister planet,” though their atmospheres and surface conditions could not be more different. Venus has a mass about 82% of Earth’s.</p>
+
+<h2>Chemistry and atmosphere</h2>
+<p>Venus’s atmosphere is composed primarily of carbon dioxide (over 96%), with thick clouds of sulfuric acid. The greenhouse effect traps heat so efficiently that no known probe has survived on the surface longer than a couple of hours. Lightning, super-rotating winds, and acid rain shape the upper atmosphere.</p>
+
+<h2>Name and meaning</h2>
+<p>Venus is named after the Roman goddess of love and beauty. Its brightness in the sky likely contributed to its association with deities of beauty in multiple cultures throughout history.</p>
 
 <SimPostSchema
-  title="Venus Simulation"
-  description="A GPU-hybrid Venus visualization with dense clouds, phase lighting, and an atmospheric super-rotation effect."
+  title="Venus"
+  description="A planetary sphere of Venus with accurate cloud texture, plus details about its discovery, distance from the Sun, atmosphere, and name."
   url="https://astrosyo.com/posts/venus"
-  datePublished="2025-08-09"
+  datePublished="2025-11-11"
   authorName="Astrosyo"
   keywords={[
     "venus",
-    "phases",
-    "webgl2",
-    "webgpu",
-    "three.js",
-    "shader",
-    "astronomy visualization"
+    "terrestrial planet",
+    "astronomy",
+    "webgl",
+    "education"
   ]}
   image="/images/venus/cover.webp"
   articleSection="Astronomy"
@@ -83,11 +66,11 @@ import SimPostSchema from "../../components/SimPostSchema.astro";
   publisherLogo="/images/shared/logo.webp"
   hasPart={{
     "@type": "SoftwareApplication",
-    "name": "Venus Simulation",
+    "name": "Venus Sphere",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Any",
-    "browserRequirements": "Requires WebGL2; optional WebGPU",
+    "browserRequirements": "Requires WebGL2",
     "url": "https://astrosyo.com/posts/venus#simulation",
-    "description": "Interactive Venus visualization with phase lighting and a dense, reflective cloud deck."
+    "description": "Interactive planetary sphere of Venus rendered with accurate texture."
   }}
 />

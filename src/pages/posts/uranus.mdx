@@ -16,12 +16,11 @@ keywords:
   - webgl
 ---
 
-import SimCanvas from "../../components/SimCanvas.astro";
+import SinglePlanetSim from "../../components/simulations/single-planet/SinglePlanetSim.jsx";
 import SimPostSchema from "../../components/SimPostSchema.astro";
 
-  <div class="sim-stage" aria-label="Uranus simulation canvas" id="simulation">
-    <SimCanvas slug="uranus"/>
-  </div>
+<SinglePlanetSim planet="Uranus" client:visible cameraPosition={{ x: 0, y: 0, z: 2.5 }} />
+
 
 <figcaption class="sim-caption">Uranus rendered with a realistic planetary texture.</figcaption>
 

@@ -53,6 +53,7 @@ export default function SinglePlanetSim({
   showPause = true,
   ringsSpin = true,
   ringAngle = 0,
+  cameraPosition,
 }) {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
@@ -68,12 +69,13 @@ export default function SinglePlanetSim({
     const canvas = canvasRef.current;
     if (!canvas || !container || !config) return;
 
+    const cameraPos = cameraPosition ?? { x: 0, y: 0, z: 4 };
     const { scene, renderer, textureLoader, start, stop, dispose } = prepareScene({
       canvas,
       container,
       dprCap,
       cameraConfig: {
-        position: { x: 0, y: 0, z: 4 },
+        position: cameraPos,
       },
     });
 
@@ -121,7 +123,7 @@ export default function SinglePlanetSim({
       saturnSpecific.dispose();
       dispose();
     };
-  }, [config, dprCap, planetKey, radius, ringsSpin, ringAngle]);
+  }, [cameraPosition, config, dprCap, planetKey, radius, ringsSpin, ringAngle]);
 
   const onToggle = () => {
     pausedRef.current = !pausedRef.current;
