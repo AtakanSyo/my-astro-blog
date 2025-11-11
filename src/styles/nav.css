@@ -176,7 +176,7 @@ header {
   /* stack nav-items vertically, collapsed by default */
   .site-nav {
     position: absolute;
-    top: var(--header-height);
+    top: 0;
     left: 0; 
     right: 0;
     gap: 0rem;
