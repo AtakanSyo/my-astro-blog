@@ -49,6 +49,7 @@ background: linear-gradient(160deg, rgb(24, 24, 24), rgb(26, 26, 26));  margin-t
   max-width: 800px;
   margin-inline: auto; /* center */
   border-radius: 8px;
+  margin-bottom: 1rem;
 }
 
 .sim-stage-fullscreen canvas{
