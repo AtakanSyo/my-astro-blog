@@ -22,6 +22,7 @@ html {
   --spacing: 1rem;
   --golden-ratio: 1.618;
   --header-height: 52px;
+  --header-height-mobile: 70px;
 
   --nav-bg: #1a1a1a;            /* dark navbar background */
   --nav-link-color: #fff;
