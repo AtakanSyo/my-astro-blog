@@ -46,6 +46,15 @@ import SimPostSchema from "../../components/SimPostSchema.astro";
 <h2>Size and mass</h2>
 <p>Mars has a diameter of 6,779 km and a mass about 10.7% of Earth’s. Gravity at the surface is roughly 38% of Earth’s, shaping dust transport, erosion, and potential human activity.</p>
 
+
+<SinglePlanetSim
+  planet="Mars"
+  client:visible
+  cameraPosition={{ x: 0, y: 0, z: 2.2 }}
+  textureContrast={0.7}
+  tiltDeg={[20, 20, 25]}
+/>
+
 <h2>Chemistry and atmosphere</h2>
 <p>The surface is basaltic rock and dust rich in iron oxides, giving Mars its red hue. The atmosphere is thin and dominated by carbon dioxide (~95%), with nitrogen and argon making up most of the remainder. Seasonal CO₂ exchange at the poles drives pressure changes and weather patterns.</p>
 
