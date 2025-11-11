@@ -50,6 +50,10 @@ const PLANET_CONFIG = {
     textureUrl: '/textures/earth_daytime_texture.webp',
     spinDegPerSec: 5,
   },
+  pluto: {
+    textureUrl: '/textures/plutomap2k.webp',
+    spinDegPerSec: 5,
+  },
 };
 
 function applyContrastMaterial(material, contrast) {
