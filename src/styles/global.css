@@ -67,7 +67,7 @@ main {
 }
 
 a {
-  color: var(--color-primary);
+  color: var(--brand-affiliate-button-red);
   text-decoration: none;
 }
 

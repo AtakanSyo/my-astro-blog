@@ -12,10 +12,6 @@ const PLANET_CONFIG = {
     textureUrl: '/textures/2k_venus_atmosphere.webp',
     spinDegPerSec: -2,
   },
-  earth: {
-    textureUrl: '/textures/earth_daytime_texture.webp',
-    spinDegPerSec: 12,
-  },
   mars: {
     textureUrl: '/textures/mars_texture.webp',
     spinDegPerSec: 10,
