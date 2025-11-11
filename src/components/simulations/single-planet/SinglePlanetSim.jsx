@@ -46,6 +46,10 @@ const PLANET_CONFIG = {
     textureUrl: '/textures/moon_texture.webp',
     spinDegPerSec: 10,
   },
+  earth: {
+    textureUrl: '/textures/earth_daytime_texture.webp',
+    spinDegPerSec: 5,
+  },
 };
 
 function applyContrastMaterial(material, contrast) {
