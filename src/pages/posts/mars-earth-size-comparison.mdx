@@ -20,48 +20,48 @@ import SimPostSchema from "../../components/SimPostSchema.astro";
 
 <Comparison client:load pausedInitially={true} />
 
-<figcaption class="sim-caption">Mars and Earth rendered to scale. Mars’s radius is about half of Earth’s, and its volume is just ~15% that of our planet.</figcaption>
+<figcaption class="sim-caption">Earth and Mars rendered at their true relative diameters, textured and rotating in place.</figcaption>
 
-<div class="sim-article">
+<h2>What the simulation shows</h2>
+<p>This scene places Mars next to Earth using their real physical diameters and full 3D geometry, each wrapped with detailed planetary textures. Earth rotates with its characteristic ocean–continent distribution, while Mars turns as a dry, cratered desert world. Maps and textbooks often show the two planets at similar sizes, but their true scale difference is much larger. Mars is not “almost like Earth,” but rather a smaller, colder world with far less surface area to work with. Seeing them side by side gives an immediate sense of proportion that diagrams struggle to convey.</p>
 
-<h2>How big are Earth and Mars, really?</h2>
+<h2>The numbers behind the scale</h2>
+<p>Earth’s diameter is approximately 12,742 km. Mars has a diameter of about 6,779 km. The diameter ratio between them is:</p>
 
-When the two planets appear in movies or graphics, Mars is usually shown as a slightly smaller twin of Earth. Once you place them at true scale, the illusion collapses. Earth’s mean radius is 6,371 kilometers. Mars’s radius is just 3,390 kilometers — almost exactly half. Halving the radius does not mean “half the size,” though, because volume increases with the cube of radius. Thanks to that cubic relationship, Earth has more than six times the volume of Mars. If Earth were hollow, you could place six Mars-sized spheres inside it and still have room left over.
+$$
+\frac{D_E}{D_M} = \frac{12{,}742}{6{,}779} \approx 1.88
+$$
 
-<h2>Mass and gravity</h2>
+<p>Volume scales with the cube of the diameter. When we apply that:</p>
 
-The mass difference is even more striking than the size difference. Earth has a mass of 5.97 × 10²⁴ kilograms. Mars has 6.39 × 10²³ kilograms — only about ten percent of Earth’s mass. Mass controls surface gravity, and you feel that difference instantly. On Earth, the surface gravity is 9.8 meters per second squared. On Mars, it is 3.7. A person weighing 70 kilograms on Earth would weigh around 26 kilograms on Mars. Everyday movements feel exaggerated, almost like slow motion, not because of reduced air resistance but because gravity simply has less authority there.
+$$
+(1.88)^3 \approx 6.6
+$$
 
-<h2>What the planets are made of</h2>
+<p>This means Earth could contain more than six Mars-sized volumes. Surface area, which is what we physically see, scales with the square of the diameter:</p>
 
-Both are rocky worlds, but their interiors evolved differently. Earth has a solid iron core wrapped in a molten outer core. That churning metal creates Earth’s magnetic field, which protects the atmosphere and helps maintain conditions suitable for liquid water and life. Above the mantle, Earth’s tectonic plates shift, collide, recycle rock, and continually shape the surface.
+$$
+(1.88)^2 \approx 3.5
+$$
 
-Mars also formed with an iron-rich core, but the planet is so much smaller that it cooled rapidly. The magnetic field faded. Without that protection, the atmosphere slowly escaped to space. Today the surface is coated in iron oxide — rust — giving Mars its deep red color. Geologically, Mars is quiet, but not boring. It hosts Olympus Mons, a volcano about 22 kilometers tall, and Valles Marineris, a canyon system wider than the United States.
-
-<h2>The size surprise</h2>
-
-Most people assume Mars is “a bit smaller than Earth,” something like a compact version of home. Seeing them side by side reveals the truth: Earth feels like a world; Mars feels like a worldlet. Its smaller radius led to lower mass, and the low mass led to weaker gravity. The weak gravity meant the atmosphere couldn’t stay thick, and without a thick atmosphere, Mars couldn’t hold onto liquid water on its surface. A chain reaction of consequences — all because the planet is small.
-
-Mars is Earth-like in terrain, in seasons, and in mystery. But when it comes to size, mass, and power, the difference is enormous.
-
-</div>
+<p>So Earth’s visible disk is about three and a half times larger than Mars’s. These exact proportions are preserved in the simulation, allowing you to feel the scale difference intuitively while rotating the worlds freely in 3D space.</p>
 
 <SimPostSchema
-  title="Mars and Earth Size Comparison"
-  description="An interactive browser-based simulation that shows the true scale difference between Mars and Earth."
-  url="https://astrosyo.com/posts/mars-earth-size-comparison"
-  datePublished="2025-08-20"
+  title="Earth and Mars Size Comparison"
+  description="An interactive browser-based simulation that shows the true scale difference between Earth and Mars."
+  url="https://astrosyo.com/posts/earth-mars-size-comparison"
+  datePublished="2025-09-01"
   authorName="Astrosyo"
   keywords={[
-    "mars",
     "earth",
+    "mars",
     "planet size comparison",
     "astronomy",
     "three.js",
     "webgl",
     "education"
   ]}
-  image="/images/mars-earth-size-comparison/cover.webp"
+  image="/images/earth-mars-size-comparison/cover.webp"
   articleSection="Astronomy"
   isAccessibleForFree={true}
   publisherName="Astrosyo"
@@ -72,7 +72,7 @@ Mars is Earth-like in terrain, in seasons, and in mystery. But when it comes to 
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Any",
     "browserRequirements": "Requires WebGL2",
-    "url": "https://astrosyo.com/posts/mars-earth-size-comparison#simulation",
-    "description": "Interactive visualization comparing Mars and Earth with accurate scale."
+    "url": "https://astrosyo.com/posts/earth-mars-size-comparison#simulation",
+    "description": "Interactive visualization comparing Earth and Mars with accurate scale."
   }}
 />
