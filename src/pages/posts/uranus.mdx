@@ -4,78 +4,64 @@ title: "Uranus"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-08-14'
-description: "A lightweight, GPU-hybrid Uranus visualization with its extreme axial tilt, subtle banding, and faint ring system."
+description: "Uranus rendered as a planetary sphere with accurate texture, plus details about its discovery, properties, and name."
 slug: uranus
 imageDir: /images/uranus
 keywords:
-  - uranus simulation
+  - uranus
   - ice giant
-  - axial tilt
-  - astronomy visualization
+  - planet
+  - planetary texture
+  - astronomy
+  - webgl
 ---
 
 import SimCanvas from "../../components/SimCanvas.astro";
 import SimPostSchema from "../../components/SimPostSchema.astro";
 
-<div class="">
-  <p class="Tool-Explanation"></p>
-
   <div class="sim-stage" aria-label="Uranus simulation canvas" id="simulation">
     <SimCanvas slug="uranus"/>
   </div>
 
-  <figcaption class="sim-caption"></figcaption></div>
+<figcaption class="sim-caption">Uranus rendered with a realistic planetary texture.</figcaption>
 
-<div class="sim-article">
-  <h2 id="about-this-page">About this page</h2>
-  <p>
-    Above is a <strong>GPU-accelerated, real-time visualization of Uranus</strong>, the pale-blue ice giant of our Solar System.
-    Uranus is unique for its <strong>extreme axial tilt</strong> of about 98°, causing it to essentially roll around the Sun on its side.
-    The simulation captures its smooth atmosphere, subtle high-altitude haze, and faint ring system.
-  </p>
+<h2>What you’re seeing</h2>
+<p>This simulation renders Uranus as a physically accurate planetary sphere with a real texture applied to its surface. No rings or moons are shown, and no artificial exaggeration is used. The goal is to present the planet exactly as it appears: a pale, muted blue-green world with subtle atmospheric structure.</p>
 
-  <h3 id="what-youre-seeing">What you’re seeing</h3>
-  <p>
-    Uranus has a featureless appearance in visible light, but its atmosphere contains faint cloud bands and occasional storms.
-    The blue-green color is due to methane in the upper atmosphere absorbing red light.
-    Its rotation period is about 17 hours, but because of the sideways tilt, the planet’s poles alternately point almost directly at the Sun during its 84-year orbit.
-  </p>
-  <p>
-    The model includes <strong>faint, narrow rings</strong> discovered in 1977, shown at an exaggerated brightness for visibility.
-    Lighting comes from a fixed Sun position, and the simulation incorporates a limb-darkening effect to soften the planet’s edges.
-  </p>
+<h2>Discovery</h2>
+<p>Uranus was discovered on March 13, 1781 by William Herschel — the first planet identified using a telescope. Before that, every known planet was visible to the naked eye. Herschel initially believed it to be a comet, but its slow, steady motion across the sky revealed it as a new planet.</p>
 
-  <h2 id="observing-uranus">Observing Uranus</h2>
-  <p>
-    Uranus is visible in dark skies with binoculars or a small telescope as a tiny bluish disk.
-    Even with larger amateur telescopes, surface detail is minimal, though the color is distinct.
-    The rings are far too faint to be seen without space telescopes or spacecraft like Voyager 2, which flew by in 1986.
-  </p>
+<h2>Distance from the Sun</h2>
+<p>Uranus is the <strong>7th planet from the Sun</strong>. On average, it orbits at a distance of about 2.87 billion km (or 19.2 AU). Because of this extreme distance, sunlight at Uranus is 400 times weaker than on Earth, and a single Uranian year lasts 84 Earth years — meaning Uranus completes just one orbit of the Sun in nearly a human lifetime.</p>
 
-  <h2 id="tech-notes">Tech notes</h2>
-  <p>
-    This visualization runs in <strong>WebGL2</strong> by default with ACES tone mapping and sRGB correction.
-    The shader blends a smooth gradient base with subtle noise to suggest atmospheric variation.
-    A transparent ring mesh with additive blending represents the ring system.
-    WebGPU support, if enabled, can improve performance and precision.
-    This is a visual approximation intended for educational purposes, not a fluid-dynamics or atmospheric simulation.
-  </p>
-</div>
+<h2>Special qualities</h2>
+<p>Uranus is tilted on its side with an axial tilt of about 98°, causing it to roll along its orbit like a spinning barrel. This creates extreme seasons, with each pole spending 42 years in continuous daylight followed by 42 years of darkness. It is classified as an ice giant rather than a gas giant.</p>
+
+<h2>Moons</h2>
+<p>Uranus has 27 known moons, named after characters from Shakespeare and Alexander Pope. Its largest moons — Titania, Oberon, Umbriel, Ariel, and Miranda — show evidence of complex geological activity and icy surfaces.</p>
+
+<h2>Size and mass</h2>
+<p>Uranus has a diameter of about 50,724 km and a mass roughly 14.5 times greater than Earth’s. Despite its large size, it is composed mainly of volatile ices — water, methane, and ammonia — giving it a surprisingly low density.</p>
+
+<h2>Chemistry and color</h2>
+<p>The planet’s muted blue-green color comes from methane in the upper atmosphere, which absorbs red light. Beneath the cloud layers lie high-pressure forms of water, ammonia, and methane, potentially forming a superionic “hot ice” mantle above a rocky core.</p>
+
+<h2>Name and meaning</h2>
+<p>The name Uranus comes from the Greek sky god Ouranos — father of Kronos (Saturn) and grandfather of Zeus (Jupiter). It remains the only planet named after a Greek deity rather than a Roman one.</p>
 
 <SimPostSchema
-  title="Uranus Simulation"
-  description="A GPU-hybrid Uranus visualization featuring its extreme axial tilt, smooth atmosphere, and faint rings."
+  title="Uranus"
+  description="A planetary sphere of Uranus with accurate texture, plus details about its discovery, distance from the Sun, properties, moons, and name."
   url="https://astrosyo.com/posts/uranus"
-  datePublished="2025-08-09"
+  datePublished="2025-11-11"
   authorName="Astrosyo"
   keywords={[
     "uranus",
     "ice giant",
-    "webgl2",
-    "webgpu",
-    "three.js",
-    "shader",
-    "astronomy visualization"
+    "planet",
+    "astronomy",
+    "webgl",
+    "education"
   ]}
   image="/images/uranus/cover.webp"
   articleSection="Astronomy"
@@ -84,11 +70,11 @@ import SimPostSchema from "../../components/SimPostSchema.astro";
   publisherLogo="/images/shared/logo.webp"
   hasPart={{
     "@type": "SoftwareApplication",
-    "name": "Uranus Simulation",
+    "name": "Uranus Sphere",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Any",
-    "browserRequirements": "Requires WebGL2; optional WebGPU",
+    "browserRequirements": "Requires WebGL2",
     "url": "https://astrosyo.com/posts/uranus#simulation",
-    "description": "Interactive Uranus visualization with axial tilt, subtle atmospheric bands, and a faint ring system."
+    "description": "Interactive planetary sphere of Uranus rendered with accurate texture."
   }}
 />
