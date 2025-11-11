@@ -6,9 +6,9 @@ import tailwindcss from '@tailwindcss/vite';
 import icon from 'astro-icon';
 import remarkSlug from 'remark-slug';
 import remarkAutolinkHeadings from 'remark-autolink-headings';
-import remarkInternalLinks from './src/plugins/remark-internal-links.js';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import forceUtf8ForHtml from "./src/plugins/vite-plugin-force-utf8.js";
 
 export default defineConfig({
   site: 'https://astrosyo.com',
@@ -16,7 +16,6 @@ export default defineConfig({
     mdx({
       remarkPlugins: [
         [remarkMath, { singleDollarTextMath: false }], // << disable $...$ inline math
-        remarkSlug,
         remarkSlug,
         remarkAutolinkHeadings,
       ],
@@ -28,5 +27,13 @@ export default defineConfig({
     react(),
     icon({ collections: ['logos','bi','feather','ion'] }),
   ],
-  vite: { plugins: [tailwindcss()] },
+  vite: {
+    plugins: [
+      tailwindcss(),
+      forceUtf8ForHtml(),
+    ],
+    esbuild: {
+      charset: "utf8",
+    },
+  },
 });

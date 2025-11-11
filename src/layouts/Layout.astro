@@ -32,7 +32,7 @@ const bodyClasses = [
 <!doctype html>
 <html lang="en">
 	<head>
-		<meta charset="UTF-8" />
+		<meta charset="UTF-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
@@ -52,7 +52,6 @@ const bodyClasses = [
           <img src="/images/shared/logo.svg" alt={site.name} />
         </a>
 
-        <!-- hamburger toggle -->
         <button class="nav-toggle" aria-label="Toggle menu">
           <span class="hamburger"></span>
         </button>
@@ -62,11 +61,11 @@ const bodyClasses = [
           <a href="/telescopes" class="nav-item">Telescopes</a>
           <a href="/authors" class="nav-item">Authors</a>
           <a href="/about" class="nav-item">About</a>
-          <!-- search icon -->
+
           <button class="nav-search-toggle" aria-label="Open search">
             🔎
           </button>
-          <!-- the search form, hidden by default -->
+
           <form action="/search" method="get" class="nav-search-form">
             <input
               type="search"
@@ -91,7 +90,6 @@ const bodyClasses = [
       <slot />
     </main>
 
-    <!-- footer -->
     <footer class="site-footer centered_flex">
       <p>© {new Date().getFullYear()} Astrosyo.</p>
     </footer>

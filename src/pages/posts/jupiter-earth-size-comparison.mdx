@@ -8,11 +8,6 @@ description: "A simulation showing the true scale difference between Jupiter and
 slug: jupiter-earth-size-comparison
 imageDir: /images/jupiter-earth-size-comparison
 keywords:
-  - jupiter
-  - earth
-  - planet sizes
-  - astronomy
-  - three.js
 ---
 
 import Comparison from "../../components/simulations/jupiter-earth-size-comparison/comparison.jsx";
@@ -20,26 +15,27 @@ import SimPostSchema from "../../components/SimPostSchema.astro";
 
 <Comparison client:load pausedInitially={true} />
 
-<figcaption class="sim-caption">Jupiter and Earth rendered to scale. Jupiter’s radius is more than eleven times larger, and its volume is over 1,300 times greater.</figcaption>
+<figcaption class="sim-caption">Jupiter and Earth rendered at true relative diameters, textured and spinning in place so the size contrast is instantly visible.</figcaption>
 
-<div class="sim-article">
-  <h2 id="about-this-simulation">About this simulation</h2>
-  <p>
-    This interactive scene places Jupiter and Earth side by side so you can see their vast difference in scale.
-    The sizes are based on real measurements: Jupiter’s mean radius is about 71,500 kilometers, while Earth’s is just 6,371 kilometers.
-    That means Jupiter is more than eleven times wider. When you take volume into account, the gap becomes even greater,
-    with Jupiter holding over 1,300 times the volume of Earth.
-  </p>
+<h2>What the simulation shows</h2>
+<p>This scene places Jupiter and Earth side by side at their correct diameters, with physically sized spheres and photoreal textures, rotating about their own axes. The layout is intentionally compact—this is not their real orbital spacing—but the geometry is accurate: Earth’s diameter is ~12,742 km and Jupiter’s is ~139,820 km. Seeing both globes in the same frame removes the distortion of textbook cartoons and makes the scale difference intuitive; the smaller world is not “slightly” smaller, it is dwarfed.</p>
 
-  <h2 id="why-it-matters">Why this is interesting</h2>
-  <p>
-    Seeing Earth next to Jupiter reveals just how enormous the largest planet in our Solar System really is.
-    Jupiter’s gravity and sheer size have shaped the Solar System’s architecture, influencing asteroid orbits and even protecting
-    Earth by deflecting or capturing comets and other debris. The comparison highlights the extraordinary diversity of planets
-    in our cosmic neighborhood.
-  </p>
-</div>
-
+<h2>The numbers behind the scale</h2>
+$$
+r \;=\; \frac{D_J}{D_E}
+   \;=\;
+   \frac{139{,}820}{12{,}742}
+   \;\approx\; 10.97
+$$
+<p>Because volume scales with the cube of diameter, the volume ratio becomes</p>
+$$
+r^3 \;\approx\; 10.97^3 \;\approx\; 1.32 \times 10^3
+$$
+<p>meaning Jupiter could fit over **one thousand Earth-sized volumes** inside it. Likewise, surface area scales with the square of diameter:</p>
+$$
+r^2 \;\approx\; 10.97^2 \;\approx\; 1.20 \times 10^2
+$$
+<p>so Jupiter’s visible disk covers about **120× more surface area** than Earth. The simulation preserves these exact proportions, letting your eyes absorb what the numbers struggle to convey.</p>
 <SimPostSchema
   title="Jupiter and Earth Size Comparison"
   description="An interactive browser-based simulation that shows the true scale difference between Jupiter and Earth."
