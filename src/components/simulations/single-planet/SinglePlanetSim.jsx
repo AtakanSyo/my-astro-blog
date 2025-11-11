@@ -27,8 +27,8 @@ const PLANET_CONFIG = {
   saturn: {
     textureUrl: '/textures/saturn_texture.webp',
     ringTextureUrl: '/textures/saturns_rings_texture.webp',
-    spinDegPerSec: 26,
-    ringsSpin: false,
+    spinDegPerSec: 12,
+    ringsSpin: true,
     ringInnerScale: 1.4,
     ringOuterScale: 2.6,
     tiltDeg: [0, 10.0, 26.7],
