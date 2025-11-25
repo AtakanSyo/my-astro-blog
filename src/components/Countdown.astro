@@ -49,6 +49,10 @@ const targetMs = targetDate && !isNaN(targetDate.getTime()) ? targetDate.getTime
       <div class="countdown__label">Hours</div>
     </div>
     <div class="countdown__cell">
+      <div class="countdown__value" data-part="minutes">00</div>
+      <div class="countdown__label">Minutes</div>
+    </div>
+    <div class="countdown__cell">
       <div class="countdown__value" data-part="seconds">00</div>
       <div class="countdown__label">Seconds</div>
     </div>
@@ -71,6 +75,7 @@ const targetMs = targetDate && !isNaN(targetDate.getTime()) ? targetDate.getTime
     const monthsEl  = root.querySelector('[data-part="months"]');
     const daysEl    = root.querySelector('[data-part="days"]');
     const hoursEl   = root.querySelector('[data-part="hours"]');
+    const minutesEl = root.querySelector('[data-part="minutes"]');
     const secondsEl = root.querySelector('[data-part="seconds"]');
     const nowEl     = root.querySelector('[data-now]');
     const statusEl  = root.querySelector('[data-location-status]');
@@ -81,9 +86,10 @@ const targetMs = targetDate && !isNaN(targetDate.getTime()) ? targetDate.getTime
 
     function calcParts(target, now) {
       if (!target || target <= now) {
-        return { months: 0, days: 0, hours: 0, seconds: 0 };
+        return { months: 0, days: 0, hours: 0, minutes: 0, seconds: 0 };
       }
 
+      // --- Months ---
       let months =
         (target.getFullYear() - now.getFullYear()) * 12 +
         (target.getMonth() - now.getMonth());
@@ -98,14 +104,37 @@ const targetMs = targetDate && !isNaN(targetDate.getTime()) ? targetDate.getTime
         anchor.setMonth(anchor.getMonth() + months);
       }
 
+      // Remaining ms after months
       let remaining = Math.max(0, target - anchor);
-      const days = Math.floor(remaining / 86_400_000);
-      remaining -= days * 86_400_000;
-      const hours = Math.floor(remaining / 3_600_000);
-      remaining -= hours * 3_600_000;
+
+      // --- Days ---
+      const dayMs = 86_400_000;    // 24 * 60 * 60 * 1000
+      const hourMs = 3_600_000;    // 60 * 60 * 1000
+      const minuteMs = 60_000;     // 60 * 1000
+
+      const days = Math.floor(remaining / dayMs);
+      remaining -= days * dayMs;
+
+      // --- Hours ---
+      const hours = Math.floor(remaining / hourMs);
+      remaining -= hours * hourMs;
+
+      // --- Minutes ---
+      const minutes = Math.floor(remaining / minuteMs);
+      remaining -= minutes * minuteMs;
+
+      // --- Seconds ---
       const seconds = Math.floor(remaining / 1_000);
 
-      return { months, days, hours, seconds };
+      return { months, days, hours, minutes, seconds };
+    }
+
+    function zeroOut() {
+      if (monthsEl)  monthsEl.textContent  = "0";
+      if (daysEl)    daysEl.textContent    = "0";
+      if (hoursEl)   hoursEl.textContent   = "00";
+      if (minutesEl) minutesEl.textContent = "00";
+      if (secondsEl) secondsEl.textContent = "00";
     }
 
     function update() {
@@ -113,23 +142,26 @@ const targetMs = targetDate && !isNaN(targetDate.getTime()) ? targetDate.getTime
       if (nowEl) nowEl.textContent = `Current time: ${now.toLocaleString()}`;
 
       if (!targetDate || Number.isNaN(targetDate.getTime())) {
-        // No valid target date, just keep showing current time
-        if (monthsEl)  monthsEl.textContent  = "0";
-        if (daysEl)    daysEl.textContent    = "0";
-        if (hoursEl)   hoursEl.textContent   = "00";
-        if (secondsEl) secondsEl.textContent = "00";
+        // No valid target: show zeros but keep current time updated
+        zeroOut();
         return;
       }
 
-      const { months, days, hours, seconds } = calcParts(targetDate, now);
+      const { months, days, hours, minutes, seconds } = calcParts(targetDate, now);
+
+      if (months <= 0 && days <= 0 && hours <= 0 && minutes <= 0 && seconds <= 0) {
+        zeroOut();
+        return;
+      }
 
       if (monthsEl)  monthsEl.textContent  = String(months);
       if (daysEl)    daysEl.textContent    = String(days);
       if (hoursEl)   hoursEl.textContent   = String(hours).padStart(2, "0");
+      if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, "0");
       if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, "0");
     }
 
-    // Start countdown (even if target is invalid, it will still keep current time updated)
+    // Start countdown
     update();
     const interval = window.setInterval(update, 1_000);
 
@@ -141,7 +173,7 @@ const targetMs = targetDate && !isNaN(targetDate.getTime()) ? targetDate.getTime
       window.clearInterval(interval);
     });
 
-    // Geolocation: same idea as your Pluto script
+    // Geolocation: just for status text, like your Pluto script
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         (pos) => {
