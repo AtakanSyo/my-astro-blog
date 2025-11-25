@@ -1,0 +1,149 @@
+---
+export interface Props {
+  target: string | Date;
+}
+
+import '../styles/countdown.css';
+
+const target = Astro.props.target;
+
+function parseTarget(value: string | Date | number | null | undefined): Date | null {
+  if (!value) return null;
+  if (value instanceof Date) return isNaN(value.getTime()) ? null : value;
+
+  if (typeof value === 'string') {
+    const trimmed = value.trim();
+    // Expecting day-month-year (e.g., "03-01-2026")
+    const match = /^(\d{1,2})-(\d{1,2})-(\d{4})$/.exec(trimmed);
+    if (match) {
+      const [, d, m, y] = match;
+      const dt = new Date(Number(y), Number(m) - 1, Number(d));
+      return isNaN(dt.getTime()) ? null : dt;
+    }
+    const parsed = new Date(trimmed);
+    return isNaN(parsed.getTime()) ? null : parsed;
+  }
+
+  const fallback = new Date(value);
+  return isNaN(fallback.getTime()) ? null : fallback;
+}
+
+const countdownId = `countdown-${Math.random().toString(36).slice(2)}`;
+const targetDate = parseTarget(target);
+const validTarget = targetDate && !isNaN(targetDate.getTime()) ? targetDate : null;
+const targetMs = validTarget ? validTarget.getTime() : null;
+---
+
+<div
+  id={countdownId}
+  class="countdown"
+  data-target-ms={targetMs ?? ''}>
+  <span class="countdown__now" data-now>Current time: --</span>
+  <span class="countdown__status" data-location-status>Using browser clock.</span>
+  <div class="countdown__grid" aria-live="polite">
+    <div class="countdown__cell">
+      <div class="countdown__value" data-part="months">0</div>
+      <div class="countdown__label">Months</div>
+    </div>
+    <div class="countdown__cell">
+      <div class="countdown__value" data-part="days">0</div>
+      <div class="countdown__label">Days</div>
+    </div>
+    <div class="countdown__cell">
+      <div class="countdown__value" data-part="hours">00</div>
+      <div class="countdown__label">Hours</div>
+    </div>
+    <div class="countdown__cell">
+      <div class="countdown__value" data-part="seconds">00</div>
+      <div class="countdown__label">Seconds</div>
+    </div>
+  </div>
+</div>
+
+{validTarget && (
+  <script is:inline>
+    (() => {
+      const root = document.getElementById({JSON.stringify(countdownId)});
+      if (!root) return;
+
+      const targetMs = Number(root.dataset.targetMs || '');
+      const targetDate = Number.isFinite(targetMs) ? new Date(targetMs) : null;
+      if (!targetDate || Number.isNaN(targetDate.getTime())) return;
+
+      const monthsEl  = root.querySelector('[data-part="months"]');
+      const daysEl    = root.querySelector('[data-part="days"]');
+      const hoursEl   = root.querySelector('[data-part="hours"]');
+      const secondsEl = root.querySelector('[data-part="seconds"]');
+      const nowEl     = root.querySelector('[data-now]');
+      const statusEl  = root.querySelector('[data-location-status]');
+
+      const setStatus = (msg) => {
+        if (statusEl) statusEl.textContent = msg;
+      };
+
+      function calcParts(target, now) {
+        if (target <= now) {
+          return { months: 0, days: 0, hours: 0, seconds: 0 };
+        }
+
+        let months =
+          (target.getFullYear() - now.getFullYear()) * 12 +
+          (target.getMonth() - now.getMonth());
+
+        let anchor = new Date(now);
+        anchor.setMonth(anchor.getMonth() + months);
+
+        // If we overshoot the target, pull back one month.
+        if (anchor > target) {
+          months -= 1;
+          anchor = new Date(now);
+          anchor.setMonth(anchor.getMonth() + months);
+        }
+
+        let remaining = Math.max(0, target - anchor);
+        const days = Math.floor(remaining / 86_400_000);
+        remaining -= days * 86_400_000;
+        const hours = Math.floor(remaining / 3_600_000);
+        remaining -= hours * 3_600_000;
+        const seconds = Math.floor(remaining / 1_000);
+
+        return { months, days, hours, seconds };
+      }
+
+      function update() {
+        const now = new Date();
+        const { months, days, hours, seconds } = calcParts(targetDate, now);
+
+        if (nowEl) nowEl.textContent = `Current time: ${now.toLocaleString()}`;
+        if (monthsEl)  monthsEl.textContent  = String(months);
+        if (daysEl)    daysEl.textContent    = String(days);
+        if (hoursEl)   hoursEl.textContent   = String(hours).padStart(2, "0");
+        if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, "0");
+      }
+
+      update();
+      const interval = window.setInterval(update, 1_000);
+
+      if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            const { latitude, longitude } = pos.coords;
+            setStatus(`Using location: ${latitude.toFixed(2)}, ${longitude.toFixed(2)}`);
+            update();
+          },
+          () => setStatus("Location permission denied — using browser clock.")
+        );
+      } else {
+        setStatus("Geolocation not supported — using browser clock.");
+      }
+
+      window.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "visible") update();
+      });
+
+      window.addEventListener("pagehide", () => {
+        window.clearInterval(interval);
+      });
+    })();
+  </script>
+)}
