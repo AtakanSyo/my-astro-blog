@@ -28,18 +28,13 @@ function parseTarget(value: string | Date | number | null | undefined): Date | n
   return isNaN(fallback.getTime()) ? null : fallback;
 }
 
-const countdownId = `countdown-${Math.random().toString(36).slice(2)}`;
 const targetDate = parseTarget(target);
-const validTarget = targetDate && !isNaN(targetDate.getTime()) ? targetDate : null;
-const targetMs = validTarget ? validTarget.getTime() : null;
+const targetMs = targetDate && !isNaN(targetDate.getTime()) ? targetDate.getTime() : null;
 ---
 
-<div
-  id={countdownId}
-  class="countdown"
-  data-target-ms={targetMs ?? ''}>
+<div class="countdown" data-target-ms={targetMs ?? ''}>
   <span class="countdown__now" data-now>Current time: --</span>
-  <span class="countdown__status" data-location-status>Using browser clock.</span>
+  <span class="countdown__status" data-location-status>Using browser clock (local time).</span>
   <div class="countdown__grid" aria-live="polite">
     <div class="countdown__cell">
       <div class="countdown__value" data-part="months">0</div>
@@ -60,90 +55,109 @@ const targetMs = validTarget ? validTarget.getTime() : null;
   </div>
 </div>
 
-{validTarget && (
-  <script is:inline>
-    (() => {
-      const root = document.getElementById({JSON.stringify(countdownId)});
-      if (!root) return;
+<script is:inline>
+  (() => {
+    const script = document.currentScript;
+    const root = script && script.previousElementSibling;
+    if (!root) return;
 
-      const targetMs = Number(root.dataset.targetMs || '');
-      const targetDate = Number.isFinite(targetMs) ? new Date(targetMs) : null;
-      if (!targetDate || Number.isNaN(targetDate.getTime())) return;
+    const targetMsAttr = root.getAttribute("data-target-ms");
+    const targetMs = targetMsAttr ? Number(targetMsAttr) : NaN;
+    const targetDate =
+      Number.isFinite(targetMs) && !Number.isNaN(targetMs)
+        ? new Date(targetMs)
+        : null;
 
-      const monthsEl  = root.querySelector('[data-part="months"]');
-      const daysEl    = root.querySelector('[data-part="days"]');
-      const hoursEl   = root.querySelector('[data-part="hours"]');
-      const secondsEl = root.querySelector('[data-part="seconds"]');
-      const nowEl     = root.querySelector('[data-now]');
-      const statusEl  = root.querySelector('[data-location-status]');
+    const monthsEl  = root.querySelector('[data-part="months"]');
+    const daysEl    = root.querySelector('[data-part="days"]');
+    const hoursEl   = root.querySelector('[data-part="hours"]');
+    const secondsEl = root.querySelector('[data-part="seconds"]');
+    const nowEl     = root.querySelector('[data-now]');
+    const statusEl  = root.querySelector('[data-location-status]');
 
-      const setStatus = (msg) => {
-        if (statusEl) statusEl.textContent = msg;
-      };
+    const setStatus = (msg) => {
+      if (statusEl) statusEl.textContent = msg;
+    };
 
-      function calcParts(target, now) {
-        if (target <= now) {
-          return { months: 0, days: 0, hours: 0, seconds: 0 };
-        }
+    function calcParts(target, now) {
+      if (!target || target <= now) {
+        return { months: 0, days: 0, hours: 0, seconds: 0 };
+      }
 
-        let months =
-          (target.getFullYear() - now.getFullYear()) * 12 +
-          (target.getMonth() - now.getMonth());
+      let months =
+        (target.getFullYear() - now.getFullYear()) * 12 +
+        (target.getMonth() - now.getMonth());
 
-        let anchor = new Date(now);
+      let anchor = new Date(now);
+      anchor.setMonth(anchor.getMonth() + months);
+
+      // If we overshoot the target, pull back one month.
+      if (anchor > target) {
+        months -= 1;
+        anchor = new Date(now);
         anchor.setMonth(anchor.getMonth() + months);
+      }
 
-        // If we overshoot the target, pull back one month.
-        if (anchor > target) {
-          months -= 1;
-          anchor = new Date(now);
-          anchor.setMonth(anchor.getMonth() + months);
+      let remaining = Math.max(0, target - anchor);
+      const days = Math.floor(remaining / 86_400_000);
+      remaining -= days * 86_400_000;
+      const hours = Math.floor(remaining / 3_600_000);
+      remaining -= hours * 3_600_000;
+      const seconds = Math.floor(remaining / 1_000);
+
+      return { months, days, hours, seconds };
+    }
+
+    function update() {
+      const now = new Date();
+      if (nowEl) nowEl.textContent = `Current time: ${now.toLocaleString()}`;
+
+      if (!targetDate || Number.isNaN(targetDate.getTime())) {
+        // No valid target date, just keep showing current time
+        if (monthsEl)  monthsEl.textContent  = "0";
+        if (daysEl)    daysEl.textContent    = "0";
+        if (hoursEl)   hoursEl.textContent   = "00";
+        if (secondsEl) secondsEl.textContent = "00";
+        return;
+      }
+
+      const { months, days, hours, seconds } = calcParts(targetDate, now);
+
+      if (monthsEl)  monthsEl.textContent  = String(months);
+      if (daysEl)    daysEl.textContent    = String(days);
+      if (hoursEl)   hoursEl.textContent   = String(hours).padStart(2, "0");
+      if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, "0");
+    }
+
+    // Start countdown (even if target is invalid, it will still keep current time updated)
+    update();
+    const interval = window.setInterval(update, 1_000);
+
+    window.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") update();
+    });
+
+    window.addEventListener("pagehide", () => {
+      window.clearInterval(interval);
+    });
+
+    // Geolocation: same idea as your Pluto script
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const { latitude, longitude } = pos.coords;
+          setStatus(
+            `Using browser clock (local time). Location: ${latitude.toFixed(
+              4
+            )}, ${longitude.toFixed(4)}`
+          );
+        },
+        () => {
+          setStatus("Using browser clock (local time). Location permission denied.");
         }
-
-        let remaining = Math.max(0, target - anchor);
-        const days = Math.floor(remaining / 86_400_000);
-        remaining -= days * 86_400_000;
-        const hours = Math.floor(remaining / 3_600_000);
-        remaining -= hours * 3_600_000;
-        const seconds = Math.floor(remaining / 1_000);
-
-        return { months, days, hours, seconds };
-      }
-
-      function update() {
-        const now = new Date();
-        const { months, days, hours, seconds } = calcParts(targetDate, now);
-
-        if (nowEl) nowEl.textContent = `Current time: ${now.toLocaleString()}`;
-        if (monthsEl)  monthsEl.textContent  = String(months);
-        if (daysEl)    daysEl.textContent    = String(days);
-        if (hoursEl)   hoursEl.textContent   = String(hours).padStart(2, "0");
-        if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, "0");
-      }
-
-      update();
-      const interval = window.setInterval(update, 1_000);
-
-      if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(
-          (pos) => {
-            const { latitude, longitude } = pos.coords;
-            setStatus(`Using location: ${latitude.toFixed(2)}, ${longitude.toFixed(2)}`);
-            update();
-          },
-          () => setStatus("Location permission denied — using browser clock.")
-        );
-      } else {
-        setStatus("Geolocation not supported — using browser clock.");
-      }
-
-      window.addEventListener("visibilitychange", () => {
-        if (document.visibilityState === "visible") update();
-      });
-
-      window.addEventListener("pagehide", () => {
-        window.clearInterval(interval);
-      });
-    })();
-  </script>
-)}
+      );
+    } else {
+      setStatus("Using browser clock (local time). Geolocation not supported.");
+    }
+  })();
+</script>
