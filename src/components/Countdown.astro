@@ -33,8 +33,8 @@ const targetMs = targetDate && !isNaN(targetDate.getTime()) ? targetDate.getTime
 ---
 
 <div class="countdown" data-target-ms={targetMs ?? ''}>
-  <span class="countdown__now" data-now>Current time: --</span>
-  <span class="countdown__status" data-location-status>Using browser clock (local time).</span>
+  <!-- <span class="countdown__now" data-now>Current time: --</span>
+  <span class="countdown__status" data-location-status>Using browser clock (local time).</span> -->
   <div class="countdown__grid" aria-live="polite">
     <div class="countdown__cell">
       <div class="countdown__value" data-part="months">0</div>

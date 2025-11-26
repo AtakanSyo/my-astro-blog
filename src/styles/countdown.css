@@ -1,15 +1,15 @@
 .countdown {
   border-radius: 16px;
-  padding: 20px;
   background: var(--card-bg);
   color: var(--color-text);
   border: 1px solid var(--card-border);
   box-shadow: 0 12px 45px var(--card-shadow);
   position: fixed;
   top: var(--header-height);
-  max-width: 300px;
+  max-width: 320px;
   width: 100%;
   margin-inline: auto;
+  opacity: 0.9;
 }
 
 .countdown__header {
@@ -59,12 +59,12 @@
 
 .countdown__grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 8px;
 }
 
 .countdown__cell {
-  padding: 6px 5px;
+  padding: 3px 2px;
   border-radius: 7px;
   background: var(--card-bg);
   border: 1px solid var(--gray-layer);
@@ -72,7 +72,7 @@
 }
 
 .countdown__value {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 700;
   letter-spacing: 0.02em;
   color: var(--color-text);
@@ -86,12 +86,8 @@
   color: var(--color-text);
 }
 
-@media (max-width: 540px) {
+@media (max-width: 768px) {
   .countdown {
-    padding: 16px;
-  }
-
-  .countdown__value {
-    font-size: 26px;
+    top: var(--header-height-mobile);
   }
 }
