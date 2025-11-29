@@ -36,7 +36,7 @@ const PLANET_CONFIG = {
   },
   neptune: {
     textureUrl: '/textures/neptune_texture.webp',
-    spinDegPerSec: 20,
+    spinDegPerSec: 7,
   },
   moon: {
     textureUrl: '/textures/moon_texture.webp',

@@ -21,9 +21,10 @@ import SimPostSchema from "../../components/SimPostSchema.astro";
 <SinglePlanetSim
   planet="Mars"
   client:visible
-  cameraPosition={{ x: 0, y: 0, z: 4 }}
+  cameraPosition={{ x: 0, y: 0, z: 3 }}
   textureContrast={0.7}
   tiltDeg={[20, -20, -25]}
+  ambientIntensity={0.0}
 />
 
 <figcaption class="sim-caption">Mars rendered with a realistic planetary texture.</figcaption>
@@ -50,9 +51,10 @@ import SimPostSchema from "../../components/SimPostSchema.astro";
 <SinglePlanetSim
   planet="Mars"
   client:visible
-  cameraPosition={{ x: 0, y: 0, z: 2.2 }}
+  cameraPosition={{ x: 0, y: 0, z: 4.5 }}
   textureContrast={0.7}
   tiltDeg={[20, 20, 25]}
+  ambientIntensity={0.0}
 />
 
 <h2>Chemistry and atmosphere</h2>
