@@ -18,7 +18,7 @@ const PLANET_CONFIG = {
   },
   jupiter: {
     textureUrl: '/textures/8k_jupiter.webp',
-    spinDegPerSec: 10,
+    spinDegPerSec: 5,
   },
   saturn: {
     textureUrl: '/textures/saturn_texture.webp',

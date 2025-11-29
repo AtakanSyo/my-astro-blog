@@ -21,9 +21,10 @@ import SimPostSchema from "../../components/SimPostSchema.astro";
 <SinglePlanetSim
   planet="Jupiter"
   client:visible
-  cameraPosition={{ x: 0, y: 0, z: 4 }}
-  textureContrast={1.0}
+  cameraPosition={{ x: 0, y: 0, z: 2.4 }}
+  textureContrast={1.2}
   tiltDeg={[20, 20, -25]}
+  ambientIntensity={0.0}
 />
 
 <figcaption class="sim-caption">Jupiter rendered with a realistic planetary texture.</figcaption>
