@@ -131,6 +131,7 @@ p {
   letter-spacing: 0.01em;                           /* slight readability boost */
   max-width: 65ch;                                  /* PERFECT reading width */
 }
+
 footer {
   margin-top: 2rem;
 }

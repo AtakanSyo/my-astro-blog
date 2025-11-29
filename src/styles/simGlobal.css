@@ -1,5 +1,24 @@
 
+.category-simulation h2,
+.category-simulation h3,
+.category-simulation h4,
+.category-simulation h5 {
+  align-self: center;
+  text-align: left;
+}
 
+.category-simulation h2,
+.category-simulation h3,
+.category-simulation h4,
+.category-simulation h5,
+.category-simulation p {
+  width: 90vw;
+  max-width: 720px;
+}
+
+.category-simulation {
+  max-width: 100%;
+}
 .sim-article-title{
   padding-top: 2em;
 }
@@ -16,7 +35,6 @@
 }
 
 .sim-article {
-  max-width: 800px;
   margin-bottom: 2rem;
 }
 
@@ -46,9 +64,9 @@
 /* Outer wrapper */
 .sim-stage {
   position: relative;
-background: linear-gradient(160deg, rgb(24, 24, 24), rgb(26, 26, 26));  margin-top: .5rem;
+  background: linear-gradient(160deg, rgb(24, 24, 24), rgb(26, 26, 26));  margin-top: .5rem;
   width: 100%;
-  max-width: 800px;
+  max-height: 60vh;
   margin-inline: auto; /* center */
   border-radius: 8px;
   margin-bottom: 1rem;
