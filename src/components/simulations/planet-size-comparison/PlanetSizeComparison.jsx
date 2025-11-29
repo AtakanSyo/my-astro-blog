@@ -17,6 +17,8 @@ export default function PlanetSizeComparison({
   secondaryContrast,
   orthoExtent,
   options = {},
+  directionalLightIntensity = 2.2,
+  ambientLightIntensity = 0.32,
 }) {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
@@ -294,10 +296,10 @@ export default function PlanetSizeComparison({
     stars.material.color.setScalar(cfg.starDim);
     scene.add(stars);
 
-    const sun = new THREE.DirectionalLight(0xffffff, 2.2);
+    const sun = new THREE.DirectionalLight(0xffffff, directionalLightIntensity);
     sun.position.set(5, 2, 3).normalize();
     scene.add(sun);
-    scene.add(new THREE.AmbientLight(0xffffff, 0.32));
+    scene.add(new THREE.AmbientLight(0xffffff, ambientLightIntensity));
 
     const syncLightUniforms = () => {
       atmosMat.uniforms.uLightDir.value.copy(sun.position.clone().normalize());
@@ -369,6 +371,8 @@ export default function PlanetSizeComparison({
     primaryContrast,
     secondaryContrast,
     orthoExtent,
+    directionalLightIntensity,
+    ambientLightIntensity,
   ]);
 
   const onToggle = () => {
