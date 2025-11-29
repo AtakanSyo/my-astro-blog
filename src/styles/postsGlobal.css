@@ -101,20 +101,13 @@ p {
   inset: 0;
   border-radius: inherit;
   padding: 2px; /* thin outline */
-  background: linear-gradient(
-    135deg,
-    #ff3b3b 0%,    /* vivid bright red */
-    #ff0080 35%,   /* cosmic hot pink */
-    #8b3dff 65%,   /* vivid violet / purple */
-    #ffb800 100%   /* golden orange glow */
-  );
-  background-size: 200% 200%;
+  background: var(--brand-red);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
           mask-composite: exclude;
   pointer-events: none;
   transition: opacity .18s ease, transform .18s ease, background-position .6s ease;
-  opacity: 0.75;
+  opacity: 1.0;
 }
 
 /* Inner sheen */
@@ -134,7 +127,7 @@ p {
 .social-share a:hover,
 .social-share button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(169,180,255,0.16), inset 0 1px 0 rgba(255,255,255,0.06);
+  box-shadow: 0 6px 14px rgba(169,180,255,0.16), inset 0 1px 0 rgba(255,255,255,0.06);
 }
 
 .social-share a:hover::before,
@@ -174,22 +167,6 @@ p {
   filter: grayscale(100%) brightness(100); /* turns everything black */
 
 }
-
-.social-share a:hover svg,
-.social-share button:hover svg {
-  transform: scale(1.04);
-  opacity: 0.95;
-}
-
-
-
-/* Compact variant (if needed) */
-.social-share--sm a,
-.social-share--sm button { --size: 34px; }
-
-/* ===============================
-   COPY TOAST (anchored to container)
-   =============================== */
 
 /* Anchor: wrapper around .social-share + toast */
 .social-share-container {
