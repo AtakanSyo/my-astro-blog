@@ -17,17 +17,27 @@ export default function SimStage({
   const stageClass = className ? `sim-stage centered_flex ${className}` : 'sim-stage centered_flex';
 
   const handleClick = () => {
-    // 🔍 Track with Umami (same style as your HTML CTAs)
     try {
       if (typeof window !== 'undefined' && window.umami?.track) {
-        const eventName = paused ? `sim-${id}-play` : `sim-${id}-pause`;
+        // get pathname (e.g. "/telescopes/jupiter")
+        const path = window.location.pathname;
+
+        // convert to a safe string: "telescopes-jupiter"
+        const pathKey = path === "/" 
+          ? "home"
+          : path.replace(/^\//, "").replace(/\//g, "-");
+
+        const eventName = paused
+          ? `sim-${id}-play-${pathKey}`
+          : `sim-${id}-pause-${pathKey}`;
+
         window.umami.track(eventName);
       }
     } catch (e) {
       // silently ignore analytics errors
     }
 
-    // 🔁 Still call the original toggle handler
+    // original toggle handler
     onToggle?.();
   };
 
