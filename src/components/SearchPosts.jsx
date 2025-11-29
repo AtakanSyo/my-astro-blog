@@ -1,5 +1,5 @@
 // src/components/SearchPosts.jsx
-import React, { useState, useMemo, useEffect, useCallback } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 
 export default function SearchPosts({ posts = [], limit = 50 }) {
   // ➊ Seed from URL
@@ -24,7 +24,8 @@ export default function SearchPosts({ posts = [], limit = 50 }) {
   // ➌ Filter & slice (now includes `writer` + categories)
   const filtered = useMemo(() => {
     const term = q.trim().toLowerCase();
-    return posts
+    const scored = posts
+      .map((p, idx) => ({ ...p, _idx: idx }))
       .filter((p) => {
         const fm = p.frontmatter || {};
         const title = (fm.title || '').toLowerCase();
@@ -39,18 +40,22 @@ export default function SearchPosts({ posts = [], limit = 50 }) {
           cats.includes(term)
         );
       })
-      .slice(0, limit);
+      .map((p) => {
+        const title = (p.frontmatter?.title || '').toLowerCase();
+        const titleHit = term && title.includes(term) ? 1 : 0;
+        return { ...p, _score: titleHit };
+      })
+      .sort((a, b) => {
+        if (b._score !== a._score) return b._score - a._score;
+        return a._idx - b._idx; // preserve original order when scores tie
+      })
+      .slice(0, limit)
+      .map(({ _idx, _score, ...rest }) => rest);
+    return scored;
   }, [q, posts, limit]);
 
-  // ➍ Highlight helper
-  const highlightText = useCallback((text, term) => {
-    if (!term) return text;
-    const safeTerm = term.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
-    const re = new RegExp(`(${safeTerm})`, 'gi');
-    return String(text).split(re).map((chunk, i) =>
-      re.test(chunk) ? <mark key={i}>{chunk}</mark> : chunk
-    );
-  }, []);
+  // ➍ Highlight helper disabled (returns plain text)
+  const highlightText = (text) => text;
 
   return (
     <div className="search-container">
