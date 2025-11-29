@@ -241,40 +241,29 @@ canvas { width: 100%; height: 100%; display: block; }
   transition: opacity 0.22s ease-out; /* <— slow fade when mouse leaves */
 }
 
-/* ----------------------------------------
-   PAUSED STATE  (aria-pressed = "false")
-   Pill should be visible, brighter on hover
------------------------------------------*/
+/* Paused State */
 .sim-stage .pill[aria-pressed="false"] {
   opacity: 0.6;
-  pointer-events: auto; /* allow hover + click */
+  pointer-events: auto;
 }
 
-.sim-stage .pill[aria-pressed="false"]:hover {
-  opacity: 1.0; /* brighten when paused */
+/* Running State */
+.sim-stage .pill[aria-pressed="true"] {
+  opacity: 0.0;
+  pointer-events: auto;
 }
 
 /* ----------------------------------------
-   RUNNING STATE (aria-pressed = "true")
-   Pill should be hidden, but appear on hover
+   DESKTOP ONLY
+   Enable hover effects above 768px
 -----------------------------------------*/
-.sim-stage .pill[aria-pressed="true"] {
-  opacity: 0.0; /* fully invisible while running */
-  pointer-events: auto; /* keeps hover + click active */
-}
-
-.sim-stage .pill[aria-pressed="true"]:hover {
-  opacity: 0.5; /* semi-visible hint on hover */
-}
-
-@media (hover: hover) and (pointer: fine) {
-
-  /* Paused hover */
+@media (min-width: 768px) {
+  /* Paused + hover */
   .sim-stage .pill[aria-pressed="false"]:hover {
     opacity: 1.0;
   }
 
-  /* Running hover */
+  /* Running + hover */
   .sim-stage .pill[aria-pressed="true"]:hover {
     opacity: 0.5;
   }
