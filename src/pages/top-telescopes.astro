@@ -87,11 +87,6 @@ const reviewPosts = allPosts
             <a href={url} class="post-card-link">
               <span class="top-ten-rank">#{index + 1}</span>
               <div class="post-card-title">{cleanTitle}</div>
-              <div class="post-card-meta">
-                {(frontmatter.writer && `By ${frontmatter.writer}`) || ''}
-                {frontmatter.writer && pubDate ? ' — ' : ''}
-                {pubDate ?? ''}
-              </div>
               {frontmatter.description && (
                 <p class="post-card-desc">{frontmatter.description}</p>
               )}
