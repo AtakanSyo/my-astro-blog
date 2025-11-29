@@ -16,9 +16,11 @@ import SimPostSchema from "../../components/SimPostSchema.astro";
 <SinglePlanetSim
   planet="Moon"
   client:visible
-  cameraPosition={{ x: 0, y: 0, z: 4 }}
+  cameraPosition={{ x: 0, y: 0, z: 3.2 }}
   textureContrast={0.9}
   tiltDeg={[0, 0, 0]}
+  ambientIntensity="0.1"
+  lightIntensity="1.5"
 />
 
 <figcaption class="sim-caption">The Moon rendered with a realistic planetary texture.</figcaption>

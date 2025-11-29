@@ -40,10 +40,10 @@ const PLANET_CONFIG = {
   },
   moon: {
     textureUrl: '/textures/moon_texture.webp',
-    spinDegPerSec: 10,
+    spinDegPerSec: 7,
   },
   earth: {
-    textureUrl: '/textures/earth_daytime_texture.webp',
+    textureUrl: '/textures/earth-texture-nasa.webp',
     spinDegPerSec: 5,
   },
   pluto: {
@@ -90,6 +90,8 @@ export default function SinglePlanetSim({
   cameraPosition,
   textureContrast,
   tiltDeg,
+  lightIntensity = 1.7,
+  ambientIntensity = 0.6,
 }) {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
@@ -115,8 +117,8 @@ export default function SinglePlanetSim({
       },
     });
 
-    const ambient = new THREE.AmbientLight(0xffffff, 0.2);
-    const keyLight = new THREE.DirectionalLight(0xffffff, 1.7);
+    const ambient = new THREE.AmbientLight(0xffffff, ambientIntensity);
+    const keyLight = new THREE.DirectionalLight(0xffffff, lightIntensity);
     keyLight.position.set(3, 2, 4);
     scene.add(ambient, keyLight);
 
