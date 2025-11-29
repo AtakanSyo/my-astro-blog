@@ -16,30 +16,34 @@ export default function SimStage({
   const hasControls = showPause || extraControls;
   const stageClass = className ? `sim-stage centered_flex ${className}` : 'sim-stage centered_flex';
 
-  const handleClick = () => {
-    try {
-      if (typeof window !== 'undefined' && window.umami?.track) {
-        // get pathname (e.g. "/telescopes/jupiter")
-        const path = window.location.pathname;
+const handleClick = () => {
+  try {
+    if (typeof window !== 'undefined' && window.umami?.track) {
+      const path = window.location.pathname;
 
-        // convert to a safe string: "telescopes-jupiter"
-        const pathKey = path === "/" 
-          ? "home"
-          : path.replace(/^\//, "").replace(/\//g, "-");
+      // compact page identifier: just the last segment
+      const slug = path === '/'
+        ? 'home'
+        : path
+            .split('/')
+            .filter(Boolean)
+            .pop(); // "jupiter-vs-earth-size"
 
-        const eventName = paused
-          ? `sim-${id}-play-${pathKey}`
-          : `sim-${id}-pause-${pathKey}`;
+      const baseName = paused
+        ? `sim-${id}-play`
+        : `sim-${id}-pause`;
 
-        window.umami.track(eventName);
-      }
-    } catch (e) {
-      // silently ignore analytics errors
+      window.umami.track(baseName, {
+        path,
+        slug,
+      });
     }
+  } catch (e) {
+    // ignore analytics errors
+  }
 
-    // original toggle handler
-    onToggle?.();
-  };
+  onToggle?.();
+};
 
   return (
     <div
