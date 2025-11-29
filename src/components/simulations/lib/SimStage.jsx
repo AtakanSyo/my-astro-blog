@@ -16,6 +16,21 @@ export default function SimStage({
   const hasControls = showPause || extraControls;
   const stageClass = className ? `sim-stage centered_flex ${className}` : 'sim-stage centered_flex';
 
+  const handleClick = () => {
+    // 🔍 Track with Umami (same style as your HTML CTAs)
+    try {
+      if (typeof window !== 'undefined' && window.umami?.track) {
+        const eventName = paused ? `sim-${id}-play` : `sim-${id}-pause`;
+        window.umami.track(eventName);
+      }
+    } catch (e) {
+      // silently ignore analytics errors
+    }
+
+    // 🔁 Still call the original toggle handler
+    onToggle?.();
+  };
+
   return (
     <div
       className={stageClass}
@@ -33,22 +48,18 @@ export default function SimStage({
               className="pill sim-controls-inline"
               type="button"
               aria-pressed={!paused}
-              onClick={onToggle}
+              onClick={handleClick}
             >
               {paused ? (
-                <>
-                  <Play size={16} strokeWidth={1.8} aria-hidden="true" />
-                </>
+                <Play size={16} strokeWidth={1.8} aria-hidden="true" />
               ) : (
-                <>
-                  <Pause size={16} strokeWidth={1.8} aria-hidden="true" />
-                </>
+                <Pause size={16} strokeWidth={1.8} aria-hidden="true" />
               )}
             </button>
           )}
         </div>
       )}
-     <div className="sim-controls-row-2">
+      <div className="sim-controls-row-2">
         {extraControls}
       </div>
 
