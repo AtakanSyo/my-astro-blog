@@ -15,10 +15,20 @@ keywords:
   - three.js
 ---
 
-import Comparison from "../../components/simulations/jupiter-venus-size-comparison/comparison.jsx";
+import PlanetSizeComparison from "../../components/simulations/planet-size-comparison/PlanetSizeComparison.jsx";
 import SimPostSchema from "../../components/SimPostSchema.astro";
 
-<Comparison client:load pausedInitially={true} />
+<PlanetSizeComparison
+  client:load
+  primaryTexture="/textures/jupiter_texture.webp"
+  secondaryTexture="/textures/2k_venus_atmosphere.webp"
+  primaryRadius={69911}
+  secondaryRadius={6052}
+  planetDistance={2.5}
+  primaryContrast={1.05}
+  secondaryContrast={0.95}
+  orthoExtent={3.0}
+/>
 
 <figcaption class="sim-caption">Jupiter and Venus shown at accurate relative scale.</figcaption>
 

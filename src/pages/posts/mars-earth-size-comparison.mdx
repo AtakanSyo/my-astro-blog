@@ -15,10 +15,20 @@ keywords:
   - three.js
 ---
 
-import Comparison from "../../components/simulations/mars-earth-size-comparison/comparison.jsx";
+import PlanetSizeComparison from "../../components/simulations/planet-size-comparison/PlanetSizeComparison.jsx";
 import SimPostSchema from "../../components/SimPostSchema.astro";
 
-<Comparison client:load pausedInitially={true} />
+<PlanetSizeComparison
+  client:load
+  primaryTexture="/textures/earth-texture-nasa.webp"
+  secondaryTexture="/textures/mars_texture.webp"
+  primaryRadius={6371}
+  secondaryRadius={3389}
+  planetDistance={1.8}
+  primaryContrast={0.95}
+  secondaryContrast={0.8}
+  orthoExtent={2.2}
+/>
 
 <figcaption class="sim-caption">Earth and Mars rendered at their true relative diameters.</figcaption>
 

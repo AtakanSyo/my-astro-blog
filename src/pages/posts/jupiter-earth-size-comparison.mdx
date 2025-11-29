@@ -11,10 +11,20 @@ keywords:
   - Jupiter
 ---
 
-import Comparison from "../../components/simulations/jupiter-earth-size-comparison/comparison.jsx";
+import PlanetSizeComparison from "../../components/simulations/planet-size-comparison/PlanetSizeComparison.jsx";
 import SimPostSchema from "../../components/SimPostSchema.astro";
 
-<Comparison client:load pausedInitially={true} />
+<PlanetSizeComparison
+  client:load
+  primaryTexture="/textures/jupiter_texture.webp"
+  secondaryTexture="/textures/earth-texture-nasa.webp"
+  primaryRadius={69911}
+  secondaryRadius={6371}
+  planetDistance={2.6}
+  primaryContrast={1.05}
+  secondaryContrast={0.95}
+  orthoExtent={3.2}
+/>
 
 <figcaption class="sim-caption">Jupiter and Earth rendered at true relative diameters, textured and spinning in place so the size contrast is instantly visible.</figcaption>
 

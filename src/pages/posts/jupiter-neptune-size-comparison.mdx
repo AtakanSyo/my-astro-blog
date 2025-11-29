@@ -17,10 +17,20 @@ keywords:
   - simulation
 ---
 
-import Comparison from "../../components/simulations/jupiter-neptune-size-comparison/comparison.jsx";
+import PlanetSizeComparison from "../../components/simulations/planet-size-comparison/PlanetSizeComparison.jsx";
 import SimPostSchema from "../../components/SimPostSchema.astro";
 
-<Comparison client:load pausedInitially={true} />
+<PlanetSizeComparison
+  client:load
+  primaryTexture="/textures/jupiter_texture.webp"
+  secondaryTexture="/textures/neptune_texture.webp"
+  primaryRadius={69911}
+  secondaryRadius={24622}
+  planetDistance={2.4}
+  primaryContrast={1.05}
+  secondaryContrast={0.95}
+  orthoExtent={2.8}
+/>
 
 <figcaption class="sim-caption">Jupiter and Neptune rendered at true relative diameters.</figcaption>
 
