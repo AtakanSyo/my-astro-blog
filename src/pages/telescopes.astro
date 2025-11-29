@@ -79,11 +79,6 @@ const sortedGrouped = Object.fromEntries(
             <div class="post-card post-card--review post-card--rankings">
               <a href={url} class="post-card-link">
                 <div class="post-card-title">{cleanTitle}</div>
-                {(writer || pubDate) && (
-                  <div class="post-card-meta">
-                    {pubDate ? new Date(pubDate).toLocaleDateString() : ''}
-                  </div>
-                )}
                 <p class="post-card-desc">{description}</p>
                 <div class="post-card-footer has-badge">
                   <div class="post-card-badges">
@@ -134,13 +129,6 @@ const sortedGrouped = Object.fromEntries(
               <div class="post-card post-card--review">
                 <a href={url} class="post-card-link">
                   <div class="post-card-title">{cleanTitle}</div>
-
-                  {(writer || pubDate) && (
-                    <div class="post-card-meta">
-                      {writer ? `By ${writer}` : ''}{writer && pubDate ? ' — ' : ''}
-                      {pubDate ? new Date(pubDate).toLocaleDateString() : ''}
-                    </div>
-                  )}
 
                   <p class="post-card-desc">{description}</p>
 
