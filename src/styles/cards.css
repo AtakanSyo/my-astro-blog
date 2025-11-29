@@ -105,21 +105,31 @@
   transition: transform .5s ease;
 }
 .post-card:hover .thumb img { transform: scale(1.04); }
-
 /* -------- Typography (shared) -------- */
 .post-card-title {
-  font-size: clamp(1.02rem, .6vw + 1rem, 1.18rem);
-  font-weight: 800;
-  letter-spacing: .01em;
+  font-size: clamp(1.08rem, .6vw + 1rem, 1.24rem);
+  font-weight: 900;
   margin: 0 0 .25rem;
   color: #f3f4f6;
+  height: 3.4em;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 .post-card-meta {
   font-size: clamp(.88rem, .4vw + .8rem, .96rem);
   color: #8a90a0;
   margin: 0 0 .55rem;
+  text-align: center;
 }
+
 .post-card-desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* number of lines you want */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
   font-size: clamp(.80rem, .3vw + .75rem, .93rem);
   line-height: 1.55;
   color: #b7bdc9;

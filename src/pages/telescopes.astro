@@ -76,19 +76,15 @@ const sortedGrouped = Object.fromEntries(
           ].filter(([, link]) => link);
 
           return (
-            <div class="post-card post-card--review">
+            <div class="post-card post-card--review post-card--rankings">
               <a href={url} class="post-card-link">
                 <div class="post-card-title">{cleanTitle}</div>
-
                 {(writer || pubDate) && (
                   <div class="post-card-meta">
-                    {writer ? `By ${writer}` : ''}{writer && pubDate ? ' — ' : ''}
                     {pubDate ? new Date(pubDate).toLocaleDateString() : ''}
                   </div>
                 )}
-
                 <p class="post-card-desc">{description}</p>
-
                 <div class="post-card-footer has-badge">
                   <div class="post-card-badges">
                     <span class="review-badge">Review</span>
@@ -97,16 +93,22 @@ const sortedGrouped = Object.fromEntries(
                   <div class="read-post">Read the review →</div>
                 </div>
               </a>
-
-              {affs.length > 0 && (
-                <div class="affiliate-links">
-                  {affs.map(([name, link]) => (
-                    <a href={link} class="affiliate-btn" target="_blank" rel="noopener">
+              <div class="affiliate-links">
+                {affs.length > 0 ? (
+                  affs.map(([name, link]) => (
+                    <a
+                      href={link}
+                      class="affiliate-btn"
+                      target="_blank"
+                      rel="noopener"
+                    >
                       Check on {name}
                     </a>
-                  ))}
-                </div>
-              )}
+                  ))
+                ) : (
+                  <span class="affiliate-placeholder"></span>
+                )}
+              </div>
             </div>
           );
         })}

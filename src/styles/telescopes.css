@@ -6,6 +6,20 @@
   margin-top: 6rem;
 }
 
+/* Rankings / All Telescopes layout */
+.post-group .post-grid {
+  display: grid;
+  gap: clamp(14px, 2vw, 22px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* Tablet + mobile → single column */
+@media (max-width: 720px) {
+  .post-group .post-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .page-telescope-reviews {
   background: #111;
   background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
@@ -13,6 +27,9 @@
   padding: 0px;
 }
 
+.post-card--rankings {
+  min-width: 320px;
+}
 
 .telescopes-toggle-container {
   max-width: 1200px;
@@ -114,27 +131,40 @@
   flex-wrap: wrap;
   gap: 0.5rem;
   padding: 0.75rem 1rem 1rem;
+  width: 100%;
+}
+
+
+.affiliate-placeholder {
+  display: block;
+  height: 3.8rem;   /* matches a single button row */
+  width: 100%;
+  opacity: 0;       /* keeps it invisible but preserves height */
+  pointer-events: none;
 }
 
 .affiliate-btn {
   flex: 1;
   text-align: center;
-  padding: 0.5rem;
+  padding: 0.6rem;
   background: #1f1f1f;
-  border: 1px solid var(--brand-red); /* subtle accent color border from the start */
+  border: 1px solid #1f1f1f; /* subtle accent color border from the start */
   border-radius: 6px;
   font-size: 0.875rem;
   color: #ffffff;
   font-weight: 600;
   text-decoration: none;
-  box-shadow: 0 0 4px rgba(93, 98, 210, 0.25); /* faint always-on glow */
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.5); /* faint always-on glow */
   transition:
     background-color 0.2s ease,
     transform 0.1s ease,
     box-shadow 0.2s ease,
     border-color 0.2s ease,
     color 0.2s ease;
+  max-width: 33%;
 }
+
+
 
 .affiliate-btn:hover {
   background-color: #2d2d2d;

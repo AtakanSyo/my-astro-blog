@@ -21,6 +21,7 @@
     "@tailwindcss/vite": "^4.1.11",
     "astro": "^5.16.0",
     "astro-icon": "^1.1.5",
+    "geist": "^1.5.1",
     "lil-gui": "^0.20.0",
     "lucide-react": "^0.539.0",
     "p5": "^2.0.3",

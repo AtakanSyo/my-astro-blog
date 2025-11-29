@@ -20,6 +20,12 @@
   background-size: 14px 14px;
 }
 
+@media (min-width: 1200px) {
+  .page-home {
+    max-width: 1000px;
+  }
+}
+
 /* ---- HERO ---- */
 .hero {
   max-width: var(--hero-max);
