@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 import SimStage from '../lib/SimStage.jsx';
 import { prepareScene, createTopDownOrthoCamera } from '../lib/threeCore.js';
@@ -22,6 +22,39 @@ export default function PlanetSizeComparison({
   const canvasRef = useRef(null);
   const simControlsRef = useRef(null);
 
+  // Memoize options so re-renders (e.g. play/pause) don't recreate the scene unless a field actually changed.
+  const memoOptions = useMemo(() => options ?? {}, [
+    options?.planetRadius,
+    options?.axialTiltDeg,
+    options?.rotationHours,
+    options?.timeScale,
+    options?.starDim,
+    options?.secondRadiusScale,
+    options?.atmosScale,
+    options?.starRadius,
+    options?.atmosIntensity,
+    options?.planetTexture,
+    options?.secondTexture,
+    options?.starsTexture,
+    options?.planetPosition,
+    options?.secondPosition,
+    options?.planetSat,
+    options?.planetContrast,
+    options?.planetBrightness,
+    options?.secondSat,
+    options?.secondContrast,
+    options?.secondBrightness,
+    options?.planetDistance,
+    options?.distancePadding,
+    options?.orthoExtent,
+    options?.orthoMargin,
+    options?.cameraPosition,
+    options?.cameraLookAt,
+    options?.cameraUp,
+    options?.cameraNear,
+    options?.cameraFar,
+  ]);
+
   const pausedRef = useRef(true);
   const [paused, setPaused] = useState(true);
   const madeVisibleRef = useRef(false);
@@ -44,28 +77,28 @@ export default function PlanetSizeComparison({
     const radiusRatio =
       Math.max(secondaryRadius, Number.EPSILON) / Math.max(primaryRadius, Number.EPSILON);
 
-    const planetRadius = options.planetRadius ?? 1;
+    const planetRadius = memoOptions.planetRadius ?? 1;
     const cfgBase = {
-      axialTiltDeg: options.axialTiltDeg ?? -28.32,
-      rotationHours: options.rotationHours ?? 16.11,
-      timeScale: options.timeScale ?? 2000,
-      starDim: options.starDim ?? 0.05,
+      axialTiltDeg: memoOptions.axialTiltDeg ?? -28.32,
+      rotationHours: memoOptions.rotationHours ?? 16.11,
+      timeScale: memoOptions.timeScale ?? 2000,
+      starDim: memoOptions.starDim ?? 0.05,
       planetRadius,
-      secondRadiusScale: options.secondRadiusScale ?? radiusRatio,
-      atmosScale: options.atmosScale ?? 1.015,
-      starRadius: options.starRadius ?? 200,
-      atmosIntensity: options.atmosIntensity ?? 0.2,
-      planetTexture: options.planetTexture ?? primaryTexture,
-      secondTexture: options.secondTexture ?? secondaryTexture,
-      starsTexture: options.starsTexture ?? '/textures/stars_texture.jpg',
-      planetPosition: options.planetPosition ?? [-1, 0, 0],
-      secondPosition: options.secondPosition ?? [1, 0, 0],
-      planetSat: options.planetSat ?? 1.2,
-      planetContrast: options.planetContrast ?? primaryContrast ?? 1.0,
-      planetBrightness: options.planetBrightness ?? 0.007,
-      secondSat: options.secondSat ?? 1.1,
-      secondContrast: options.secondContrast ?? secondaryContrast ?? 0.6,
-      secondBrightness: options.secondBrightness ?? 0.0,
+      secondRadiusScale: memoOptions.secondRadiusScale ?? radiusRatio,
+      atmosScale: memoOptions.atmosScale ?? 1.015,
+      starRadius: memoOptions.starRadius ?? 200,
+      atmosIntensity: memoOptions.atmosIntensity ?? 0.2,
+      planetTexture: memoOptions.planetTexture ?? primaryTexture,
+      secondTexture: memoOptions.secondTexture ?? secondaryTexture,
+      starsTexture: memoOptions.starsTexture ?? '/textures/stars_texture.jpg',
+      planetPosition: memoOptions.planetPosition ?? [-1, 0, 0],
+      secondPosition: memoOptions.secondPosition ?? [1, 0, 0],
+      planetSat: memoOptions.planetSat ?? 1.2,
+      planetContrast: memoOptions.planetContrast ?? primaryContrast ?? 1.0,
+      planetBrightness: memoOptions.planetBrightness ?? 0.007,
+      secondSat: memoOptions.secondSat ?? 1.1,
+      secondContrast: memoOptions.secondContrast ?? secondaryContrast ?? 0.6,
+      secondBrightness: memoOptions.secondBrightness ?? 0.0,
     };
 
     const R_PLANET = cfgBase.planetRadius;
@@ -73,23 +106,23 @@ export default function PlanetSizeComparison({
     const R_ATMOS = R_PLANET * cfgBase.atmosScale;
 
     const explicitDistance =
-      Number.isFinite(options.planetDistance) && !Number.isNaN(options.planetDistance)
-        ? options.planetDistance
+      Number.isFinite(memoOptions.planetDistance) && !Number.isNaN(memoOptions.planetDistance)
+        ? memoOptions.planetDistance
         : Number.isFinite(planetDistance) && !Number.isNaN(planetDistance)
           ? planetDistance
           : undefined;
     const minDistance =
       R_PLANET * cfgBase.atmosScale +
       R_PLANET_2 * cfgBase.atmosScale +
-      (options.distancePadding ?? 0.25);
+      (memoOptions.distancePadding ?? 0.25);
     const centerDistance = Math.max(explicitDistance ?? minDistance, minDistance);
     const defaultPositions = {
       a: [-centerDistance / 2, 0, 0],
       b: [centerDistance / 2, 0, 0],
     };
 
-    const planetPosition = options.planetPosition ?? defaultPositions.a;
-    const secondPosition = options.secondPosition ?? defaultPositions.b;
+    const planetPosition = memoOptions.planetPosition ?? defaultPositions.a;
+    const secondPosition = memoOptions.secondPosition ?? defaultPositions.b;
 
     const cfg = {
       ...cfgBase,
@@ -102,7 +135,7 @@ export default function PlanetSizeComparison({
       Math.abs(cfg.secondPosition[0]) + R_PLANET_2 * cfg.atmosScale,
     );
     const orthoExtentValue =
-      options.orthoExtent ?? orthoExtent ?? Math.max(halfSpan * 1.2, 1.5);
+      memoOptions.orthoExtent ?? orthoExtent ?? Math.max(halfSpan * 1.2, 1.5);
 
     const sceneCtx = prepareScene({
       canvas,
@@ -112,12 +145,12 @@ export default function PlanetSizeComparison({
       cameraFactory: () =>
         createTopDownOrthoCamera({
           extent: () => orthoExtentValue,
-          margin: options.orthoMargin ?? 1.05,
-          position: options.cameraPosition ?? [0, 0, 5],
-          lookAt: options.cameraLookAt ?? [0, 0, 0],
-          up: options.cameraUp ?? [0, 1, 0],
-          near: options.cameraNear ?? 0.01,
-          far: options.cameraFar ?? 50,
+          margin: memoOptions.orthoMargin ?? 1.05,
+          position: memoOptions.cameraPosition ?? [0, 0, 5],
+          lookAt: memoOptions.cameraLookAt ?? [0, 0, 0],
+          up: memoOptions.cameraUp ?? [0, 1, 0],
+          near: memoOptions.cameraNear ?? 0.01,
+          far: memoOptions.cameraFar ?? 50,
         }),
     });
 
@@ -327,7 +360,7 @@ export default function PlanetSizeComparison({
     };
   }, [
     dprCap,
-    options,
+    memoOptions,
     primaryRadius,
     secondaryRadius,
     primaryTexture,
