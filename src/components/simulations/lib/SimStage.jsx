@@ -46,9 +46,11 @@ export default function SimStage({
               )}
             </button>
           )}
-          {extraControls}
         </div>
       )}
+     <div className="sim-controls-row-2">
+        {extraControls}
+      </div>
 
       {children}
     </div>
