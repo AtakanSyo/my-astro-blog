@@ -482,6 +482,7 @@ p {
   border-radius: 12px;
   border: 1px solid rgba(255,255,255,0.12);
   box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+  gap: 1rem;
 }
 
 .feedback-cta {
@@ -499,7 +500,7 @@ p {
 .vendor-info {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 1rem;
 }
 
 @media (max-width: 600px) {
@@ -560,15 +561,22 @@ p {
   transform: translateY(-1px);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 720px) {
   .vendor-card {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.9rem;
+    margin: 1rem;
+    max-width: 90vw;
   }
 
   .vendor-button {
-    width: 100%;
+    width: 80%;
     text-align: center;
+    align-self: center;
+  }
+
+  .vendor-info {
+    gap: 0.2rem;
   }
 }
