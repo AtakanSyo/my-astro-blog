@@ -106,7 +106,7 @@ const countText =
             <a href={url} class="post-card-link">
               <div class="post-card-title">{frontmatter.title}</div>
               <div class="post-card-meta">
-                By {frontmatter.writer} — {new Date(frontmatter.pubDate).toLocaleDateString()}
+                {new Date(frontmatter.pubDate).toLocaleDateString()}
               </div>
 
               <p class="post-card-desc">{frontmatter.description}</p>
