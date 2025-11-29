@@ -152,16 +152,22 @@ const sortedGrouped = Object.fromEntries(
                     <div class="read-post">Read the review →</div>
                   </div>
                 </a>
-
-                {affs.length > 0 && (
-                  <div class="affiliate-links">
-                    {affs.map(([name, link]) => (
-                      <a href={link} class="affiliate-btn" target="_blank" rel="noopener">
+                <div class="affiliate-links">
+                  {affs.length > 0 ? (
+                    affs.map(([name, link]) => (
+                      <a
+                        href={link}
+                        class="affiliate-btn"
+                        target="_blank"
+                        rel="noopener"
+                      >
                         Check on {name}
                       </a>
-                    ))}
-                  </div>
-                )}
+                    ))
+                  ) : (
+                    <span class="affiliate-placeholder"></span>
+                  )}
+                </div>
               </div>
             );
           })}
