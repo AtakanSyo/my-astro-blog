@@ -240,55 +240,6 @@ export default function PlanetSizeComparison({
     const planetA = makePlanet(R_PLANET, matPlanet, cfg.axialTiltDeg, cfg.planetPosition);
     const planetB = makePlanet(R_PLANET_2, matSecond, cfg.axialTiltDeg, cfg.secondPosition);
 
-    const atmosMat = new THREE.ShaderMaterial({
-      transparent: true,
-      depthWrite: false,
-      uniforms: {
-        uLightDir: { value: new THREE.Vector3(1, 0.2, 0.7).normalize() },
-        uColor: { value: new THREE.Color(0x6db8ff) },
-        uIntensity: { value: cfg.atmosIntensity },
-      },
-      vertexShader: `
-        varying vec3 vWorldPos;
-        varying vec3 vNormal;
-        void main() {
-          vNormal = normalize(normalMatrix * normal);
-          vec4 wp = modelMatrix * vec4(position, 1.0);
-          vWorldPos = wp.xyz;
-          gl_Position = projectionMatrix * viewMatrix * wp;
-        }
-      `,
-      fragmentShader: `
-        uniform vec3 uLightDir;
-        uniform vec3 uColor;
-        uniform float uIntensity;
-        varying vec3 vWorldPos;
-        varying vec3 vNormal;
-        void main() {
-          vec3 V = normalize(cameraPosition - vWorldPos);
-          vec3 N = normalize(vNormal);
-          float fres = pow(1.0 - max(dot(N, V), 0.0), 2.5);
-          float fwd = pow(max(dot(N, normalize(uLightDir)), 0.0), 1.0);
-          float a = clamp(fres * (0.6 + 0.6 * fwd), 0.0, 1.0) * uIntensity;
-          gl_FragColor = vec4(uColor, a);
-        }
-      `,
-      side: THREE.BackSide,
-    });
-
-    const atmosphere = new THREE.Mesh(new THREE.SphereGeometry(R_ATMOS, 96, 96), atmosMat);
-    atmosphere.position.copy(planetA.position);
-    atmosphere.rotation.copy(planetA.rotation);
-    scene.add(atmosphere);
-
-    const atmosphereB = new THREE.Mesh(
-      new THREE.SphereGeometry(R_PLANET_2 * cfg.atmosScale, 96, 96),
-      atmosMat.clone()
-    );
-    atmosphereB.position.copy(planetB.position);
-    atmosphereB.rotation.copy(planetB.rotation);
-    scene.add(atmosphereB);
-
     const stars = new THREE.Mesh(
       new THREE.SphereGeometry(cfg.starRadius, 64, 64),
       new THREE.MeshBasicMaterial({ map: mapStars, side: THREE.BackSide })
@@ -301,11 +252,6 @@ export default function PlanetSizeComparison({
     scene.add(sun);
     scene.add(new THREE.AmbientLight(0xffffff, ambientLightIntensity));
 
-    const syncLightUniforms = () => {
-      atmosMat.uniforms.uLightDir.value.copy(sun.position.clone().normalize());
-    };
-    syncLightUniforms();
-
     const degPerSec = 360.0 / (cfg.rotationHours * 3600.0);
 
     let loopActive = false;
@@ -314,12 +260,6 @@ export default function PlanetSizeComparison({
 
       planetA.rotation.y += THREE.MathUtils.degToRad(spinDeg);
       planetB.rotation.y += THREE.MathUtils.degToRad(spinDeg);
-
-      atmosphere.rotation.y = planetA.rotation.y;
-      atmosphere.position.copy(planetA.position);
-
-      atmosphereB.rotation.y = planetB.rotation.y;
-      atmosphereB.position.copy(planetB.position);
 
       stars.rotation.y -= 0.003 * delta;
     };
@@ -348,12 +288,10 @@ export default function PlanetSizeComparison({
 
       planetA.geometry.dispose();
       planetB.geometry.dispose();
-      atmosphere.geometry.dispose();
       stars.geometry.dispose();
 
       matPlanet.dispose();
       matSecond.dispose();
-      atmosMat.dispose();
 
       mapPlanet?.dispose?.();
       mapSecond?.dispose?.();
