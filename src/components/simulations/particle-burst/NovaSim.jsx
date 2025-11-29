@@ -3,6 +3,9 @@ import * as THREE from 'three';
 import { prepareScene, createParticleBurst, addSpinningPlanet } from '../lib/threeCore';
 import SimStage from '../lib/SimStage.jsx';
 import { RotateCcw } from 'lucide-react';
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 
 export default function NovaSim({
   id = 'nova-sim',
@@ -24,7 +27,7 @@ export default function NovaSim({
 
   const burstConfig = useMemo(
     () => ({
-      count: 18000,
+      count: 60000,
       initialSpread: [0.1, 0.1, 0.1],
       lifeRange: [2, 3],
       size: 0.08,
@@ -50,13 +53,23 @@ export default function NovaSim({
     const canvas = canvasRef.current;
     if (!canvas || !container) return;
 
-    const { scene, start, stop, dispose } = prepareScene({
+    let composer = null;
+    let bloomPass = null;
+
+    const { scene, camera, renderer, start, stop, dispose, updateSize } = prepareScene({
       canvas,
       container,
       dprCap,
       background: 0x02030a,
       cameraConfig: {
         position: { x: 0, y: 0, z: 9 },
+      },
+      renderOverride: () => {
+        if (composer) {
+          composer.render();
+        } else {
+          renderer.render(scene, camera);
+        }
       },
     });
 
@@ -66,6 +79,29 @@ export default function NovaSim({
 
     sceneRef.current = scene;
     recreateBurst();
+
+    composer = new EffectComposer(renderer);
+    const renderPass = new RenderPass(scene, camera);
+    composer.addPass(renderPass);
+    bloomPass = new UnrealBloomPass(
+      new THREE.Vector2(1, 1),
+      0.001, // strength
+      0.01, // radius
+      0.0, // threshold
+    );
+    composer.addPass(bloomPass);
+
+    const syncComposerSize = () => {
+      updateSize();
+      const width = Math.max(1, container.clientWidth | 0);
+      const height = Math.max(1, container.clientHeight | 0);
+      composer.setSize(width, height);
+      bloomPass.setSize(width, height);
+    };
+
+    const composerObserver = new ResizeObserver(syncComposerSize);
+    composerObserver.observe(container);
+    syncComposerSize();
 
     let coreGlow = null;
     const typeKey = explosionType.toLowerCase();
@@ -96,6 +132,8 @@ export default function NovaSim({
       burstRef.current?.dispose?.();
       burstRef.current = null;
       coreGlow?.dispose?.();
+      try { composerObserver.disconnect(); } catch {}
+      composer?.dispose?.();
       dispose();
       sceneRef.current = null;
     };

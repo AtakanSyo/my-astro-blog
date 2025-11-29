@@ -18,6 +18,7 @@ import * as THREE from 'three';
  * @param {number} [params.dprCap=1.5] - Maximum device pixel ratio to render at.
  * @param {boolean} [params.alpha=true] - Whether the renderer should preserve alpha.
  * @param {boolean} [params.antialias=true] - Whether to enable antialiasing.
+ * @param {(ctx: { renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Camera }) => void} [params.renderOverride] - Custom render hook; when provided, replaces default renderer.render call.
  * @returns {{
  *   scene: THREE.Scene,
  *   camera: THREE.PerspectiveCamera,
@@ -40,6 +41,7 @@ export function prepareScene({
   alpha = true,
   antialias = true,
   cameraFactory,
+  renderOverride,
 } = {}) {
   if (!canvas) {
     throw new Error('prepareScene requires a canvas element.');
@@ -147,7 +149,11 @@ export function prepareScene({
     const delta = clock.getDelta();
     const elapsed = clock.elapsedTime;
     if (frameCallback) frameCallback(delta, elapsed);
-    renderer.render(scene, camera);
+    if (renderOverride) {
+      renderOverride({ renderer, scene, camera });
+    } else {
+      renderer.render(scene, camera);
+    }
   };
 
   const start = (cb) => {
@@ -165,7 +171,11 @@ export function prepareScene({
   };
 
   const renderOnce = () => {
-    renderer.render(scene, camera);
+    if (renderOverride) {
+      renderOverride({ renderer, scene, camera });
+    } else {
+      renderer.render(scene, camera);
+    }
   };
 
   const dispose = () => {
@@ -192,6 +202,7 @@ export function prepareScene({
     clock,
   };
 }
+
 
 /**
  * Convenience factory for a top-down orthographic camera that plugs into prepareScene's cameraFactory.
@@ -748,6 +759,13 @@ export function createParticleBurst(
   const colorsStart = new Float32Array(count * 3);
   const colorsMid = new Float32Array(count * 3);
   const colorsLate = new Float32Array(count * 3);
+  const nebulaTargets = new Float32Array(count * 3);
+  const nebulaSettleRates = new Float32Array(count);
+  const nebulaWobbleAmps = new Float32Array(count);
+  const nebulaWobbleFreqs = new Float32Array(count);
+  const nebulaWobblePhaseA = new Float32Array(count);
+  const nebulaWobblePhaseB = new Float32Array(count);
+  const nebulaWobblePhaseC = new Float32Array(count);
 
   const direction = new THREE.Vector3();
   const jetAxis = new THREE.Vector3(0, 1, 0);
@@ -758,6 +776,10 @@ export function createParticleBurst(
   const LIGHT_SPEED_KM = 299792;
   const MIN_SPEED_UNITS = 1e-4;
   const MIN_SPEED_KM = MIN_SPEED_UNITS / VELOCITY_SCALE;
+
+  const colorIntensity = 15; // push HDR values for post-bloom pipelines
+  const nebulaRadiusMin = 0.6;
+  const nebulaRadiusMax = 2.4;
 
   for (let i = 0; i < count; i += 1) {
     const idx = i * 3;
@@ -846,17 +868,64 @@ export function createParticleBurst(
     const midCol = palette ? pickColor(palette.mid, defaultColor) : startCol;
     const lateCol = palette ? pickColor(palette.late, defaultColor) : startCol;
 
-    colorsStart[idx] = startCol[0];
-    colorsStart[idx + 1] = startCol[1];
-    colorsStart[idx + 2] = startCol[2];
+    colorsStart[idx] = startCol[0] * colorIntensity;
+    colorsStart[idx + 1] = startCol[1] * colorIntensity;
+    colorsStart[idx + 2] = startCol[2] * colorIntensity;
 
-    colorsMid[idx] = midCol[0];
-    colorsMid[idx + 1] = midCol[1];
-    colorsMid[idx + 2] = midCol[2];
+    colorsMid[idx] = midCol[0] * colorIntensity;
+    colorsMid[idx + 1] = midCol[1] * colorIntensity;
+    colorsMid[idx + 2] = midCol[2] * colorIntensity;
 
-    colorsLate[idx] = lateCol[0];
-    colorsLate[idx + 1] = lateCol[1];
-    colorsLate[idx + 2] = lateCol[2];
+    colorsLate[idx] = lateCol[0] * colorIntensity;
+    colorsLate[idx + 1] = lateCol[1] * colorIntensity;
+    colorsLate[idx + 2] = lateCol[2] * colorIntensity;
+
+    const theta = Math.random() * Math.PI * 2;
+    const cosPhi = 1 - 2 * Math.random(); // uniform sphere
+    const sinPhi = Math.sqrt(Math.max(0, 1 - cosPhi * cosPhi));
+    const phi = Math.acos(cosPhi);
+    const baseDir = new THREE.Vector3(
+      Math.cos(theta) * sinPhi,
+      cosPhi,
+      Math.sin(theta) * sinPhi,
+    );
+    const warpDir = new THREE.Vector3().randomDirection();
+    const noiseMix = 0.25 + 0.35 * Math.random();
+    const bubbleDir = baseDir.addScaledVector(warpDir, noiseMix).normalize();
+
+    const freqA = randBetween(1.0, 3.2);
+    const freqB = randBetween(1.0, 2.6);
+    const freqC = randBetween(0.8, 2.0);
+    const phaseA = Math.random() * Math.PI * 2;
+    const phaseB = Math.random() * Math.PI * 2;
+    const phaseC = Math.random() * Math.PI * 2;
+
+    const trigMix =
+      0.35 * Math.sin(theta * freqA + phaseA) +
+      0.25 * Math.cos(phi * freqB + phaseB) +
+      0.2 * Math.sin((theta + phi) * freqC + phaseC);
+
+    const rBias = Math.pow(Math.random(), 0.55); // denser in the core
+    const targetRadius = THREE.MathUtils.lerp(nebulaRadiusMin, nebulaRadiusMax, rBias);
+    const warpedRadius = targetRadius * (1 + trigMix * 0.4);
+    const radius = THREE.MathUtils.clamp(warpedRadius, nebulaRadiusMin * 0.65, nebulaRadiusMax * 1.1);
+
+    const axisScale = new THREE.Vector3(
+      randBetween(0.65, 1.35),
+      randBetween(0.55, 1.25),
+      randBetween(0.7, 1.4),
+    );
+    const targetDir = bubbleDir.clone().multiply(axisScale).normalize().multiplyScalar(radius);
+    nebulaTargets[idx] = targetDir.x;
+    nebulaTargets[idx + 1] = targetDir.y;
+    nebulaTargets[idx + 2] = targetDir.z;
+
+    nebulaSettleRates[i] = randBetween(0.4, 0.8); // higher = faster settle
+    nebulaWobbleAmps[i] = randBetween(0.004, 0.012);
+    nebulaWobbleFreqs[i] = randBetween(0.15, 0.35);
+    nebulaWobblePhaseA[i] = Math.random() * Math.PI * 2;
+    nebulaWobblePhaseB[i] = Math.random() * Math.PI * 2;
+    nebulaWobblePhaseC[i] = Math.random() * Math.PI * 2;
   }
 
   const geometry = new THREE.BufferGeometry();
@@ -870,7 +939,7 @@ export function createParticleBurst(
 
   const material = new THREE.PointsMaterial({
     size,
-    color: new THREE.Color(color),
+    color: new THREE.Color(color).multiplyScalar(colorIntensity),
     transparent: true,
     opacity,
     depthWrite: false,
@@ -884,8 +953,10 @@ export function createParticleBurst(
       `
       #include <clipping_planes_fragment>
       vec2 centered = gl_PointCoord - 0.5;
-      float distSq = dot(centered, centered);
-      if (distSq > 0.25) discard;
+      float dist = length(centered);
+      float alphaFalloff = smoothstep(0.5, 0.0, dist); // soft edge to reduce pixelation
+      if (alphaFalloff <= 0.001) discard;
+      diffuseColor.a *= alphaFalloff;
       `
     );
   };
@@ -945,23 +1016,41 @@ export function createParticleBurst(
       const prevAge = ageAttr.array[i];
       const targetAge = prevAge + delta;
       const life = lifeAttr.array[i];
-
-      if (prevAge >= life) {
-        continue;
-      }
-
       const nextAge = Math.min(targetAge, life);
-      ageAttr.array[i] = nextAge;
+      ageAttr.array[i] = targetAge;
 
-      const speed = baseSpeeds[i];
-      if (!Number.isFinite(speed) || speed <= 0) continue;
-      const param = paramsA[i];
+      if (prevAge < life) {
+        const speed = baseSpeeds[i];
+        if (!Number.isFinite(speed) || speed <= 0) continue;
+        const param = paramsA[i];
 
-      const dist = distanceDelta(prevAge, nextAge, speed, param);
+        const dist = distanceDelta(prevAge, nextAge, speed, param);
 
-      posAttr.array[idx] += dirAttr.array[idx] * dist;
-      posAttr.array[idx + 1] += dirAttr.array[idx + 1] * dist;
-      posAttr.array[idx + 2] += dirAttr.array[idx + 2] * dist;
+        posAttr.array[idx] += dirAttr.array[idx] * dist;
+        posAttr.array[idx + 1] += dirAttr.array[idx + 1] * dist;
+        posAttr.array[idx + 2] += dirAttr.array[idx + 2] * dist;
+      } else {
+        // Post-burst settle: drift toward a target cloud point with gentle wobble.
+        const timeSinceSettle = Math.max(0, targetAge - life);
+        const settleRamp = THREE.MathUtils.clamp(timeSinceSettle / 1.2, 0, 1);
+        const settleFactor = (1 - Math.exp(-nebulaSettleRates[i] * delta)) * settleRamp * settleRamp;
+        const tx = nebulaTargets[idx];
+        const ty = nebulaTargets[idx + 1];
+        const tz = nebulaTargets[idx + 2];
+        posAttr.array[idx] += (tx - posAttr.array[idx]) * settleFactor;
+        posAttr.array[idx + 1] += (ty - posAttr.array[idx + 1]) * settleFactor;
+        posAttr.array[idx + 2] += (tz - posAttr.array[idx + 2]) * settleFactor;
+
+        const wobbleFade = Math.exp(-0.9 * timeSinceSettle); // quickly stabilizes after settling
+        const wobbleAmp = nebulaWobbleAmps[i] * wobbleFade;
+        const wobbleFreq = nebulaWobbleFreqs[i];
+        const wobbleX = Math.sin(targetAge * wobbleFreq + nebulaWobblePhaseA[i]) * wobbleAmp;
+        const wobbleY = Math.cos(targetAge * wobbleFreq + nebulaWobblePhaseB[i]) * wobbleAmp * 0.6;
+        const wobbleZ = Math.sin(targetAge * wobbleFreq * 1.3 + nebulaWobblePhaseC[i]) * wobbleAmp;
+        posAttr.array[idx] += wobbleX;
+        posAttr.array[idx + 1] += wobbleY;
+        posAttr.array[idx + 2] += wobbleZ;
+      }
 
       const totalLife = lifeAttr.array[i];
       const t = totalLife <= 0 ? 1 : Math.min(1, ageAttr.array[i] / totalLife);
