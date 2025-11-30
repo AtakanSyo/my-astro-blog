@@ -1,0 +1,90 @@
+---
+layout: ../../../layouts/simLayout.astro
+title: "Mars ve Merkür Boyut Karşılaştırması"
+category: simulation
+writer: Astrosyo
+pubDate: '2025-11-11'
+description: "Mars ve Merkür arasındaki gerçek boyut farkını gösteren bir simülasyon."
+slug: mars-mercury-size-comparison
+imageDir: /images/mars-mercury-size-comparison
+keywords:
+  - mars
+  - merkür
+  - gezegen boyut karşılaştırması
+  - astronomi
+  - webgl
+  - simülasyon
+---
+
+import PlanetSizeComparison from "../../../components/simulations/planet-size-comparison/PlanetSizeComparison.jsx";
+import SimPostSchema from "../../../components/SimPostSchema.astro";
+
+<PlanetSizeComparison
+  client:load
+  primaryTexture="/textures/mars_texture.webp"
+  secondaryTexture="/textures/mercury_texture.webp"
+  primaryRadius={3389}
+  secondaryRadius={2440}
+  planetDistance={2.2}
+  primaryContrast={0.7}
+  secondaryContrast={1.0}
+  orthoExtent={1.6}
+  ambientLightIntensity={0.13}
+/>
+
+<figcaption class="sim-caption">Mars ve Merkür, doğru orantılı boyutlarıyla gösterilmiştir.</figcaption>
+
+<h2>Simülasyon ne gösteriyor?</h2>
+<p>Bu görselleştirme Mars ve Merkür’ü gerçek fiziksel çapları ve tam 3B geometrileriyle yan yana yerleştirir. İnsanlı görevler için geleceğin olası hedefi olan Mars; paslı yüzeyi, dağları, kanyonları ve kutup buzullarıyla detaylı bir şekilde görünür. Merkür ise, yoğun kraterli, atmosferi olmayan ve büyük bir Ay'ı andıran gri bir dünya gibi görünür. Gerçek ölçekle görüldüğünde Mars’ın belirgin şekilde daha büyük olduğu fark edilir; Merkür çoğu kişinin düşündüğünden çok daha küçüktür. Her iki gezegen de kendi ekseni etrafında döner ve böylece karşılaştırmalı boyut algısı netleşir.</p>
+
+<h2>Ölçek farkının ardındaki sayılar</h2>
+<p>Merkür’ün çapı yaklaşık 4.880 km’dir. Mars’ın çapı ise yaklaşık 6.779 km’dir. Çap oranı şöyledir:</p>
+
+$$
+\frac{D_M}{D_{Me}} = \frac{6{,}779}{4{,}880} \approx 1.39
+$$
+
+<p>Hacim, çapın küpüyle ölçeklenir:</p>
+
+$$
+(1.39)^3 \approx 2.70
+$$
+
+<p>Bu, Mars’ın Merkür’ün neredeyse üç katı hacme sahip olduğu anlamına gelir. Görsel olarak algılanan büyüklüğü belirleyen yüzey alanı ise çapın karesiyle ölçeklenir:</p>
+
+$$
+(1.39)^2 \approx 1.93
+$$
+
+<p>Yani Mars, Merkür’ün neredeyse iki katı yüzey alanına sahiptir. Simülasyon bu oranları 3B uzayda aynen korur ve boyut farkı sadece sayılarla değil, görsel olarak da deneyimlenebilir.</p>
+
+<SimPostSchema
+  title="Mars ve Merkür Boyut Karşılaştırması"
+  description="Mars ve Merkür arasındaki gerçek ölçek farkını gösteren interaktif bir tarayıcı tabanlı simülasyon."
+  url="https://astrosyo.com/posts/mars-mercury-size-comparison"
+  datePublished="2025-09-20"
+  authorName="Astrosyo"
+  keywords={[
+    "mars",
+    "merkür",
+    "gezegen boyut karşılaştırması",
+    "astronomi",
+    "three.js",
+    "webgl",
+    "eğitim"
+  ]}
+  image="/images/mars-mercury-size-comparison/cover.webp"
+  articleSection="Astronomi"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.webp"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Planet Size Comparison",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires WebGL2",
+    "url": "https://astrosyo.com/posts/mars-mercury-size-comparison#simulation",
+    "description": "Mars ve Merkür’ü doğru ölçekle karşılaştıran interaktif görselleştirme."
+  }}
+/>

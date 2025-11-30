@@ -1,0 +1,99 @@
+---
+layout: ../../../layouts/simLayout.astro
+title: "Satürn"
+category: simulation
+writer: Astrosyo
+pubDate: '2025-11-11'
+description: "Gerçek dokusuyla modellenmiş bir Satürn küresi; keşfi, Güneş’e uzaklığı, halkaları, uyduları ve adının kökeni hakkında bilgiler."
+slug: saturn
+imageDir: /images/saturn
+keywords:
+  - satürn
+  - gaz devi
+  - halkalar
+  - gezegen
+  - astronomi
+  - webgl
+---
+
+import SinglePlanetSim from "../../../components/simulations/single-planet/SinglePlanetSim.jsx";
+import SimPostSchema from "../../../components/SimPostSchema.astro";
+
+<SinglePlanetSim planet="Saturn" client:visible cameraPosition={{ x: 0, y: 0, z: 2.5 }} textureContrast={1.4} />
+
+<figcaption class="sim-caption">Gerçekçi bir gezegen dokusuyla işlenmiş Satürn.</figcaption>
+
+<h2>Ne görüyorsunuz?</h2>
+<p>Bu simülasyon, Satürn’ü soluk bantlarını ve ince fırtınalarını vurgulayan gerçek renkli bir doku ile kaplanmış
+  gezegen küresi olarak gösteriyor. Karşılaştırmayı sade ve performanslı tutmak için ünlü halkalar ve uydular
+  burada çizilmemiş; odak Satürn’ün diski ve atmosfer tonlarıdır.</p>
+
+<h2>Keşif</h2>
+<p>Satürn, Babilli, Greko-Romen, Hint ve Çinli gökbilimciler tarafından antik çağlardan beri izlenmektedir.
+  17. yüzyıldan itibaren teleskoplu gözlemler, halka sisteminin gerçek doğasını ortaya çıkarmış ve daha sonra çok
+  çeşitli uydulardan oluşan bir aileyi gözler önüne sermiştir; böylece Satürn, parlak bir gezgin olmaktan çıkıp
+  karmaşık bir mini sisteme dönüşmüştür.</p>
+
+<h2>Güneş’e uzaklığı</h2>
+<p>Satürn, <strong>Güneş’e en yakın 6. gezegendir</strong>. Ortalama yörünge uzaklığı yaklaşık 1,43 milyar km’dir
+  (9,58 AB). Bir Satürn yılı yaklaşık 29,5 Dünya yılı sürerken, gezegen hızlı bir şekilde döner ve bir gününü
+  yaklaşık 10,7 saatte tamamlar.</p>
+
+<SinglePlanetSim planet="Saturn" client:visible cameraPosition={{ x: 0, y: 0, z: 10 }} />
+
+
+<h2>Special qualities</h2>
+<p>Satürn, buz ve tozdan oluşan geniş halka sistemiyle ünlüdür; uydularla olan rezonanslar, bu halkaları parlak ve
+  karanlık bantlara böler. Ayrıca en düşük yoğunluklu gezegendir; büyük oranda hidrojen ve helyumdan oluşan yapısı,
+  ortalama yoğunluğunu sudan bile daha düşük kılar.</p>
+
+<h2>Moons</h2>
+<p>Satürn, küçük düzensiz cisimlerden, Güneş Sistemi’ndeki ikinci en büyük uydu ve kalın atmosferli tek uydu olan
+  Titan’a kadar geniş bir uydu ailesine ev sahipliği yapar. Bir diğer önemli uydu olan Enceladus, yüzey altındaki
+  rezervuarlardan gelen su zengini püskürmeleri uzaya fışkırtır; bu da onu astrobiyoloji için birincil hedeflerden
+  biri hâline getirir.</p>
+
+<h2>Size and mass</h2>
+<p>Satürn’ün ekvatoral çapı yaklaşık 120.536 km’dir. Kütlesi yaklaşık 5,7 × 10^26 kg, yani Dünya’nın yaklaşık 95
+  katıdır. Buna rağmen düşük ortalama yoğunluğu, merkeze doğru artan basınç ve sıcaklıkla birlikte büyük oranda
+  hidrojen-helyum karışımından oluşan bir iç yapıya işaret eder.</p>
+
+<h2>Chemistry and atmosphere</h2>
+<p>Atmosfer, bantları ve sis tabakalarını renklendiren iz türlerle birlikte çoğunlukla hidrojen ve helyumdan
+  oluşur. Amonyak, su ve diğer yoğunlaşabilir bileşenler katmanlı bulut tabakaları oluştururken, daha derin
+  bölgelerde muazzam basınç altında metalik hidrojene doğru bir geçiş yaşanır.</p>
+
+<h2>Adı ve anlamı</h2>
+<p>Satürn’ün adı, Roma mitolojisinde tarım ve zaman tanrısı olan Saturnus’tan (Yunan mitolojisinde Kronos)
+  gelir ve bu ad, iç gezegenlere kıyasla gökyüzündeki yavaş hareketini yansıtır. İsim, klasik antik çağdan bu yana
+  farklı dillerde küçük değişikliklerle yaşatılmıştır.</p>
+
+<SimPostSchema
+  title="Satürn"
+  description="Gerçek dokusuyla modellenmiş Satürn küresi; keşfi, Güneş’e uzaklığı, halkaları, uyduları ve adının kökeni hakkında bilgiler."
+  url="https://astrosyo.com/posts/saturn"
+  datePublished="2025-11-11"
+  authorName="Astrosyo"
+  keywords={[
+    "satürn",
+    "gaz devi",
+    "halkalar",
+    "astronomi",
+    "webgl",
+    "eğitim"
+  ]}
+  image="/images/saturn/cover.webp"
+  articleSection="Astronomi"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.webp"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Satürn Küresi",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires WebGL2",
+    "url": "https://astrosyo.com/posts/saturn#simulation",
+    "description": "Gerçek dokusuyla işlenmiş, etkileşimli Satürn küresi."
+  }}
+/>

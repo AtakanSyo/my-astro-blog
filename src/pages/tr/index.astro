@@ -1,0 +1,223 @@
+---
+// imports stay the same
+import Layout from '../../layouts/Layout.astro';
+import '../../styles/index.css';
+import '../../styles/cards.css';
+import '../../styles/search.css';
+import { site } from '../../config/site.js';
+import { Instagram, Youtube } from "lucide-react";
+import fs from 'fs/promises';
+
+// 1) load and sort all posts
+const allPosts = await Astro.glob('./posts/*.{md,mdx}', { eager: true });
+allPosts.sort((a, b) => new Date(b.frontmatter.pubDate) - new Date(a.frontmatter.pubDate));
+
+// helpers
+function normalizeCat(cat) {
+  if (!cat) return [];
+  if (Array.isArray(cat)) return cat.filter(Boolean).map((c) => String(c).toLowerCase());
+  return [String(cat).toLowerCase()];
+}
+function hasCat(frontmatter, needle) {
+  return normalizeCat(frontmatter.category ?? frontmatter.categories).includes(needle);
+}
+function latestByCategory(key, n = 4) {
+  return allPosts.filter(({ frontmatter }) => hasCat(frontmatter, key)).slice(0, n);
+}
+
+// category config
+const CATS = [
+  { key: 'nasa',          label: 'NASA Yazıları',             cta: 'Yazıyı gör →' },
+  { key: 'reviews',       label: 'İncelemeler',               cta: 'İncelemeyi oku →' },
+  { key: 'simulation',    label: 'Simülasyonlar',             cta: 'Simülasyona git →' },
+  { key: 'informational', label: 'Bilgilendirici Yazılar',    cta: 'Rehberi oku →' },
+];
+
+const latestNasa = allPosts.find(({ frontmatter }) => hasCat(frontmatter, 'nasa'));
+---
+
+<Layout title="Ana Sayfa">
+  <section class="centered_flex home-main-section">
+    <section class="hero">
+      <span class="hero-kicker">{site.name}</span>
+      <h1 class="home-title">Yıldızlar için rehberin.</h1>
+      <p class="home-description">
+        Simülasyonlar, kozmik sayfalar ve teleskop incelemeleri.
+      </p>
+
+      <div class="cta-row">
+        <a
+          href="/tr/telescopes"
+          class="cta cta--primary"
+          onclick="umami?.track?.('explore-telescopes-cta-tr')"
+        >
+          🪐 Teleskopları Keşfet
+        </a>
+        <a
+          href="/tr/top-telescopes"
+          class="cta cta--dark"
+          onclick="umami?.track?.('top-ten-cta-tr')"
+        >
+          ⭐ En İyi 10 Teleskop
+        </a>
+        <a
+          href="/tr/about"
+          class="cta cta--ghost"
+          onclick="umami?.track?.('about-cta-tr')"
+        >
+          ℹ️ Hakkımızda
+        </a>
+      </div>
+
+      <div class="global-socials">
+        <div class="global-socials-links">
+          <a
+            href="https://www.instagram.com/astrosyo_"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-link"
+            aria-label="Instagram"
+          >
+            <Instagram size={42} />
+          </a>
+          <a
+            href="https://www.youtube.com/@atakansaracyakupoglu9930"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-link"
+            aria-label="YouTube"
+          >
+            <Youtube size={42} />
+          </a>
+          <a
+            href="https://www.tiktok.com/@astrosyo?_r=1&_t=ZS-917RKCaEM"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-link"
+            aria-label="TikTok"
+          >
+            <svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M14.25 4.5c.45.87 1.23 1.59 2.19 2.04.46.22.97.35 1.48.38V9.4c-1.17-.05-2.3-.43-3.3-1.08v5.47c0 3.02-2.45 5.46-5.47 5.46S3.68 16.81 3.68 13.79c0-2.51 1.71-4.65 4.12-5.24.66-.16 1.34-.16 1.99-.04v2.51a2.7 2.7 0 0 0-.99-.19c-1.5 0-2.72 1.22-2.72 2.72s1.22 2.72 2.72 2.72 2.72-1.22 2.72-2.72V3h3.01c.08.52.26 1.02.52 1.5z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Kategoriye göre en son yazılar -->
+    <section class="latest-section">
+      {CATS.map((cat) => {
+        const items = latestByCategory(cat.key, 4);
+        if (items.length === 0) return null;
+
+        return (
+          <section class="category-section">
+            <a href={`/tr/category/${cat.key.toLowerCase()}`} class="latest-link">
+              <h2 class="latest-title">{cat.label} →</h2>
+            </a>
+
+            <div class="post-grid category-grid">
+              {
+                items.map(({ frontmatter, url }) => {
+                  const isP5     = hasCat(frontmatter, 'simulation');
+                  const isReview = hasCat(frontmatter, 'reviews');
+                  const isInfo   = hasCat(frontmatter, 'informational');
+                  const isNasa   = hasCat(frontmatter, 'nasa');
+                  const isLatestNasa = isNasa && latestNasa && url === latestNasa.url;
+
+                  const cardClasses = [
+                    'post-card',
+                    isP5 && 'post-card--p5',
+                    isReview && 'post-card--review',
+                    isInfo && 'post-card--info',
+                    isNasa && 'post-card--nasa',
+                  ].filter(Boolean).join(' ');
+
+                  const ctaText =
+                    isP5 ? 'Simülasyona git →'
+                  : isReview ? 'İncelemeyi oku →'
+                  : isInfo ? 'Rehberi oku →'
+                  : isNasa ? 'Yazıyı gör →'
+                  : 'Yazının tamamını oku →';
+
+                  return (
+                    <div class={cardClasses}>
+                      <a href={url} class="post-card-link">
+                        <div class="post-card-title">{frontmatter.title}</div>
+                        <div class="post-card-meta">
+                          {new Date(frontmatter.pubDate).toLocaleDateString('tr-TR')}
+                        </div>
+                        <p class="post-card-desc">{frontmatter.description}</p>
+
+                        <div class={`post-card-footer ${(isP5 || isReview || isInfo || isNasa) ? 'has-badge' : ''}`}>
+                          <div class="post-card-badges">
+                            {isP5 && <span class="p5-badge">Simülasyon</span>}
+                            {isReview && <span class="review-badge">İnceleme</span>}
+                            {isInfo && <span class="info-badge">Bilgi</span>}
+                            {isNasa && <span class="nasa-badge">NASA</span>}
+                          </div>
+                          <div class="read-post">{ctaText}</div>
+                        </div>
+                      </a>
+                    </div>
+                  );
+                })
+              }
+            </div>
+            <span class="divider"></span>
+          </section>
+        );
+      })}
+    </section>
+
+    <!-- Bildirim / açıklama blokları (Türkçe) -->
+    <section class="home-notice home-notice-first">
+      <h3 class="home-notice-title">Neden bize güvenebilirsiniz?</h3>
+      <p class="home-notice-text">
+        Astrosyo, yazılım ve astronomi alanında uzman kişiler tarafından oluşturulmuş bir astronomi blogudur.
+        Yazarlarımız <strong>Atakan Saraçyakupoğlu</strong> ve <strong>Zane Landers</strong>,
+        teleskoplar ve gözlem ekipmanları hakkında güvenilir ürün içgörüleri, genel bakışlar ve incelemeler sunarak
+        gökyüzü gözlemlerinizde daha bilinçli seçimler yapmanıza yardımcı olmayı hedefler.
+      </p>
+    </section>
+
+    <section class="home-notice">
+      <h3 class="home-notice-title">İçerik Türlerimiz</h3>
+      <p class="home-notice-text">
+        <strong>İnceleme Yazıları</strong>, teleskoplar ve astronomi ekipmanlarını bizzat kullanarak yaptığımız
+        deneyimlere ve doğrudan testlere dayanır.
+        <strong>Genel Bakış Yazıları</strong> ise derinlemesine araştırma, üretici verileri, astronomi topluluğu geri
+        bildirimleri ve güvenilir kaynaklardan alınan bağımsız test sonuçlarına dayanır.
+        Her iki tür de size açık, dürüst ve gerçekten işinize yarayacak bilgiler sunmayı amaçlar.
+      </p>
+    </section>
+
+    <section class="home-notice">
+      <h3 class="home-notice-title">Puanlama Sistemimiz</h3>
+      <p class="home-notice-text">
+        İnceleme yazılarında verdiğimiz puanlar, doğrudan kendi kullanım deneyimlerimiz ve uzman görüşümüzü yansıtır.
+        Genel bakış yazılarındaki puanlar ise, saygın kaynaklardan ve doğrulanmış kullanıcı deneyimlerinden
+        derlenen içgörülerin bir sonucudur.
+      </p>
+    </section>
+
+    <section class="home-notice">
+      <h3 class="home-notice-title">Nereden satın almalı?</h3>
+      <p class="home-notice-text">
+        Güvenli kargo ve iade süreçleri açısından ana satıcı olarak HighPointScientific'i tercih etmenizi öneririz.
+        Amazon da bir seçenek olmakla birlikte, zaman zaman eksik parçalı astronomi ekipmanları gönderildiği ve
+        iade süreçlerinin daha karmaşık olabildiği durumlarla karşılaşılabilmektedir.
+      </p>
+    </section>
+
+    <section class="home-notice">
+      <h3 class="home-notice-title">Ortaklık (Affiliate) Bildirimi</h3>
+      <p class="home-notice-text">
+        Amazon, HighPointScientific ve Astroshop ile ortaklık (affiliate) anlaşmalarımız bulunmaktadır.
+        Sitemizdeki bir bağlantıya tıklayıp alışveriş yaptığınızda küçük bir komisyon alabiliriz.
+        Ancak içeriklerimiz tarafsız kalır — kısa vadeli affiliate gelirinden çok, sizin memnuniyetiniz ve
+        uzun vadeli güveniniz bizim için daha önemlidir.
+      </p>
+    </section>
+  </section>
+</Layout>

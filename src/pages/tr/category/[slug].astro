@@ -1,0 +1,130 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import '../../../styles/index.css';
+import '../../../styles/cards.css';
+import '../../../styles/category.css';
+import FloatingTelescopeIcons from "../../../components/FloatingTelescopeIcons.astro";
+
+export async function getStaticPaths() {
+  const all = await Astro.glob('../../posts/*.{md,mdx}', { eager: true });
+  const set = new Set();
+  for (const p of all) {
+    const c = p.frontmatter?.category;
+    if (typeof c === 'string' && c) set.add(c.toLowerCase());
+  }
+  return Array.from(set).map((slug) => ({ params: { slug } }));
+}
+
+const slug = (Astro.params.slug || '').toLowerCase();
+
+const labelMap = {
+  reviews: 'Teleskop ve Ekipman İncelemeleri',
+  nasa: 'NASA Yazıları',
+  informational: 'Astronomi Rehberleri ve Bilgiler',
+  simulation: 'Astrofizik Simülasyonları',
+};
+const categoryLabel = labelMap[slug] || `${slug.charAt(0).toUpperCase() + slug.slice(1)} Yazıları`;
+
+const posts = (await Astro.glob('../../posts/*.{md,mdx}', { eager: true }))
+  .filter((p) => typeof p.frontmatter?.category === 'string' && p.frontmatter.category.toLowerCase() === slug)
+  .sort((a, b) => new Date(b.frontmatter.pubDate) - new Date(a.frontmatter.pubDate));
+
+const count = posts.length;
+const countText =
+  slug === 'simulation'
+    ? `${count} simülasyonumuzu keşfedin.`
+    : slug === 'reviews'
+    ? `${count} incelememize göz atın.`
+    : slug === 'informational'
+    ? `${count} rehber yazımızı inceleyin.`
+    : slug === 'nasa'
+    ? `${count} NASA yazımıza göz atın.`
+    : `${count} yazımıza göz atın.`;
+---
+
+<Layout title="Kategori">
+
+  {slug === "reviews" && (
+      <FloatingTelescopeIcons
+      file="telescope-icons"
+      />
+  )}
+  {slug === "nasa" && (
+      <FloatingTelescopeIcons
+      file="nasa-icons"
+      />
+  )}
+  {slug === "simulation" && (
+      <FloatingTelescopeIcons
+      file="simulation-icons"
+      />
+  )}
+  {slug === "informational" && (
+      <FloatingTelescopeIcons
+      file="informational-icons"
+      />
+  )}
+
+
+  <h1 class="category-title">{categoryLabel}</h1>
+  <p class="category-count-text centered_flex">{countText}</p>
+
+  <div class="post-grid category-grid">
+    {posts.length === 0 ? (
+      <p>No posts.</p>
+    ) : (
+      posts.map(({ frontmatter, url }) => {
+        const cat = frontmatter.category?.toLowerCase();
+        const isP5 = cat === 'simulation';
+        const isReview = cat === 'reviews';
+        const isInfo = cat === 'informational';
+        const isNasa = cat === 'nasa';
+
+        const cardClasses = [
+          'post-card',
+          isP5 && 'post-card--p5',
+          isReview && 'post-card--review',
+          isInfo && 'post-card--info',
+          isNasa && 'post-card--nasa',
+        ]
+          .filter(Boolean)
+          .join(' ');
+
+        const ctaText =
+          isP5
+            ? 'Simülasyona git →'
+            : isReview
+            ? 'İncelemeyi oku →'
+            : isInfo
+            ? 'Rehberi oku →'
+            : isNasa
+            ? 'Yazıyı gör →'
+            : 'Yazının tamamını oku →';
+
+        return (
+          <div class={cardClasses}>
+            <a href={url} class="post-card-link">
+              <div class="post-card-title">{frontmatter.title}</div>
+              <div class="post-card-meta">
+                {new Date(frontmatter.pubDate).toLocaleDateString()}
+              </div>
+
+              <p class="post-card-desc">{frontmatter.description}</p>
+
+              <div class={`post-card-footer ${isP5 || isReview || isInfo || isNasa ? 'has-badge' : ''}`}>
+                <div class="post-card-badges">
+                  {isP5 && <span class="p5-badge">Simülasyon</span>}
+                  {isReview && <span class="review-badge">İnceleme</span>}
+                  {isInfo && <span class="info-badge">Bilgi</span>}
+                  {isNasa && <span class="nasa-badge">NASA</span>}
+                </div>
+
+                <div class="read-post">{ctaText}</div>
+              </div>
+            </a>
+          </div>
+        );
+      })
+    )}
+  </div>
+</Layout>

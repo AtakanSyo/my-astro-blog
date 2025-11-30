@@ -1,0 +1,61 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+import '../../styles/index.css';
+import '../../styles/cards.css';
+import '../../styles/about.css';
+---
+
+
+<Layout title="Astrosyo Hakkında">
+  <main class="about-page page-home">
+    <section class="hero about-hero">
+      <span class="hero-kicker">Astrosyo ile Tanışın</span>
+      <h1 class="home-title">Astrosyo'ya Hoş Geldiniz</h1>
+      <p class="home-description">
+        Astronomiyi herkes için erişilebilir, ilgi çekici ve eğlenceli kılmaya tutkuyla bağlıyız. İster meraklı bir
+        başlangıç seviyesinde olun ister yıllardır gökyüzünü gözlemleyen biri, rehberlerimiz, incelemelerimiz ve
+        simülasyonlarımız evreni daha güvenle keşfetmenize yardımcı olur.
+      </p>
+    </section>
+
+    <section class="about-grid">
+      <article class="about-card">
+        <h2>Misyonumuz</h2>
+        <p>
+          Gecenin gökyüzünün bitmeyen bir hayranlık kaynağı olduğuna inanıyoruz. Misyonumuz; dürüst ve derinlemesine
+          teleskop incelemeleri, pratik gözlem ipuçları ve sizi başınızı kaldırıp evreni öğrenmeye ve keşfetmeye
+          teşvik eden eğitici yazılar sunmaktır.
+        </p>
+      </article>
+
+      <article class="about-card">
+        <h2>Neler Sunuyoruz?</h2>
+        <ul class="about-list">
+          <li><strong>Teleskop İncelemeleri</strong> — Optikler, ayaklar ve aksesuarlar hakkında tarafsız değerlendirmeler.</li>
+          <li><strong>Nasıl Yapılır Rehberleri</strong> — Yeni başlayanlardan ileri seviyeye adım adım anlatımlar.</li>
+          <li><strong>Astrofotoğrafçılık İpuçları</strong> — Gökyüzünün etkileyici fotoğraflarını çekmek için teknikler.</li>
+          <li><strong>Astronomi Haberleri</strong> — Keşifler, gökyüzü olayları ve uzay görevleri hakkında güncellemeler.</li>
+        </ul>
+      </article>
+
+      <article class="about-card">
+        <h2>Ekiple Tanışın</h2>
+        <p>
+          Ekibimiz, yıllara dayanan gözlem deneyimini, akademik çalışmaları ve öğretme sevgisini bir araya getiriyor.
+          Ayna taşlamadan montaj tasarımına kadar her yazar, doğru ekipmanı ve gözlem yöntemlerini bulmanıza yardımcı
+          olacak kendine özgü bir bakış açısı sunar.
+        </p>
+      </article>
+
+      <article class="about-card about-card--cta">
+        <h2>Bize Katılın</h2>
+        <p>
+          Aylık gökyüzü rehberleri, özel indirimler ve kamera arkası içerikler için abone olun. Bizi sosyal medyada
+          takip edin ve Astrosyo topluluğunun bir parçası olun!
+        </p>
+        <a href="/tr/newsletter" class="cta cta--primary about-cta">Hemen Abone Ol</a>
+      </article>
+    </section>
+  </main>
+</Layout>

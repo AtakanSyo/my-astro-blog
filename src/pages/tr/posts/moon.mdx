@@ -1,0 +1,91 @@
+---
+layout: ../../../layouts/simLayout.astro
+title: "Ay"
+category: simulation
+writer: Astrosyo
+pubDate: '2025-11-11'
+description: "Ay'ın gerçekçi bir gezegen küresi olarak doğru dokularla modellenmiş hâli; keşfi, Dünya'ya olan uzaklığı, fiziksel özellikleri ve adının kökeni hakkında bilgiler."
+slug: moon
+imageDir: /images/moon
+keywords:
+---
+
+import SinglePlanetSim from "../../../components/simulations/single-planet/SinglePlanetSim.jsx";
+import SimPostSchema from "../../../components/SimPostSchema.astro";
+
+<SinglePlanetSim
+  planet="Moon"
+  client:visible
+  cameraPosition={{ x: 0, y: 0, z: 3.2 }}
+  textureContrast={0.9}
+  tiltDeg={[0, 0, 0]}
+  ambientIntensity="0.1"
+  lightIntensity="1.5"
+/>
+
+<figcaption class="sim-caption">Gerçekçi bir gezegen dokusuyla işlenmiş Ay.</figcaption>
+
+<h2>Ne görüyorsunuz?</h2>
+<p>Bu simülasyon, Ay’ı küresel ölçekte doğru bir doku ile kaplanmış bir küre olarak gösterir. Karanlık <em>maria</em>
+  (ay denizleri), yüksek alanlar, çarpma kraterleri ve uzak yüz ile yakın yüz arasındaki farklar seçilebilir. Atmosfer
+  render edilmez; bu da Ay’ın korunmasız, kayalık yüzeyini yansıtmayı amaçlar.</p>
+
+<h2>Keşif</h2>
+<p>Ay, Dünya’dan çıplak gözle bu kadar ayrıntılı görülebilen tek gök cismidir. Tarih öncesinden beri gözlemlenmiş ve
+  insanlığın ilk astronomik referansı olmuştur. 1600’lerdeki teleskoplu gözlemler, kraterli arazileri ve dağlık
+  bölgeleri ortaya çıkarmış, ilk bilimsel Ay haritalarının hazırlanmasına yol açmıştır.</p>
+
+<h2>Dünya’ya uzaklığı</h2>
+<p>Ay, Dünya’nın <strong>tek doğal uydusudur</strong>. Ortalama yaklaşık 384.400 km uzaklıkta dolanır. Yörüngesi eliptik
+  olduğu için bu uzaklık yerberi (Dünya’ya en yakın nokta) ve yeröte (en uzak nokta) arasında değişir; bu da Dünya’dan
+  bakıldığında “süper Ay” ve “mikro Ay” olarak adlandırılan görsel farklara neden olur.</p>
+
+<h2>Özel özellikleri</h2>
+<p>Gelgit kilitlenmesi nedeniyle Ay, Dünya’ya hep aynı yüzünü gösterir; bir yarımküre sürekli olarak bize dönükken,
+  uzak yüzü uzay aracı görüntüleri elde edilene kadar doğrudan görülememiştir. Ay, Dünya’nın eksen eğikliğini
+  dengeler, iklimi ılımlaştırır ve okyanus gelgitlerini sürükler.</p>
+
+<h2>Büyüklük ve kütle</h2>
+<p>Ay’ın çapı 3.474 km’dir ve onu Güneş Sistemi’ndeki en büyük beşinci uydu yapar. Kütlesi Dünya’nın yaklaşık %1,2’si
+  kadardır ve yüzeydeki yerçekimi Dünya’nın yaklaşık altıda biri seviyesindedir; bu durum Apollo görevleri sırasında
+  tozun nasıl hareket ettiğini ve astronotların yürüyüşünü doğrudan etkilemiştir.</p>
+
+<h2>Kimyası ve yüzeyi</h2>
+<p>Ay yüzeyi, silikat kayaçlar ve volkanik bazalt ovalarından oluşur. <em>Regolit</em> adı verilen üst katman, milyarlarca
+  yıl süren çarpışmalarla parçalanmış kayalardan oluşan tozlu bir örtüdür. Kalıcı bir atmosfer yoktur; yalnızca eser
+  miktarda gazlardan oluşan seyrek bir ekzosfer mevcuttur.</p>
+
+<h2>Adı ve anlamı</h2>
+<p>“Ay” kelimesi Türkçede gök cismini ifade ederken, İngilizce “Moon” sözcüğü Eski İngilizce <em>mōna</em> ve
+  Cermen dillerindeki <em>*mēnô</em> kökünden gelir. Mitolojide Ay, neredeyse tüm kültürlerde zaman tutma, takvimler ve
+  döngülerle ilişkilendirilmiştir. Bilimsel bağlamlarda Latin “Luna” ve Yunanca “Selene” isimleri, “lunar” ve
+  “selenoloji” gibi terimlerde karşımıza çıkar.</p>
+
+<SimPostSchema
+  title="Ay"
+  description="Dünya’nın uydusu Ay’ın gerçekçi dokularla işlenmiş küresi; tarihi, uzaklığı, jeolojisi ve adının kökeni hakkında bilgiler."
+  url="https://astrosyo.com/posts/moon"
+  datePublished="2025-11-11"
+  authorName="Astrosyo"
+  keywords={[
+    "ay",
+    "doğal uydu",
+    "astronomi",
+    "webgl",
+    "eğitim"
+  ]}
+  image="/images/moon/cover.webp"
+  articleSection="Astronomi"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.webp"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Ay Küresi",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires WebGL2",
+    "url": "https://astrosyo.com/posts/moon#simulation",
+    "description": "Doğru doku ile işlenmiş, etkileşimli bir Ay küresi."
+  }}
+/>

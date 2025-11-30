@@ -1,0 +1,92 @@
+---
+layout: ../../../layouts/simLayout.astro
+title: "Plüton"
+category: simulation
+writer: Astrosyo
+pubDate: '2025-11-11'
+description: "Sanatsal bir dokuyla modellenmiş Plüton küresi; keşfi, Güneş’e uzaklığı, özel özellikleri, uyduları ve adının kökeni hakkında bilgiler."
+slug: pluto
+imageDir: /images/pluto
+keywords:
+  - plüton
+  - cüce gezegen
+  - kuiper kuşağı
+  - astronomi
+  - webgl
+---
+
+import SinglePlanetSim from "../../../components/simulations/single-planet/SinglePlanetSim.jsx";
+import SimPostSchema from "../../../components/SimPostSchema.astro";
+
+<SinglePlanetSim planet="Pluto" client:visible cameraPosition={{ x: 0, y: 0, z: 3.5 }} />
+
+<figcaption class="sim-caption">Sanatsal bir gezegen dokusuyla işlenmiş Plüton.</figcaption>
+
+<h2>Ne görüyorsunuz?</h2>
+<p>Bu simülasyon, Plüton’u küresel bir dünya olarak gösterir. Burada kullanılan doku <strong>NASA’dan alınmış bilimsel
+  bir veri kümesi değildir</strong>. Bunun yerine, <a href="https://planetpixelemporium.com/pluto.html" target="_blank" rel="noopener noreferrer">buradan</a>
+  alınmış <strong>temsilî ve sanatsal bir doku</strong> kullanılır. Amaç, yalnızca görselleştirme amacıyla Plüton’un
+  genel görünümünü kabaca temsil etmektir.</p>
+
+<h2>Keşif</h2>
+<p>Plüton, 1930 yılında Clyde Tombaugh tarafından Lowell Gözlemevi’nde, öngörülen bir Neptün ötesi gezegen için
+  yapılan sistematik bir aramanın sonucunda keşfedildi. Bu keşif, Güneş Sistemi’nin Neptün’ün ötesine kadar
+  uzandığını doğruladı.</p>
+
+<h2>Güneş’e uzaklığı</h2>
+<p>Plüton, bir <strong>cüce gezegen</strong> olarak sınıflandırılır ve geleneksel olarak Güneş’ten dışarı doğru sayıldığında
+  <strong>9. büyük gökcismi</strong> olarak listelenir. Ortalama 5,9 milyar km (39,5 AB) uzaklıkta yörüngede dolaşır ve
+  Güneş etrafındaki bir turunu 248 Dünya yılında tamamlar. Yörüngesi oldukça eliptiktir; bu nedenle Plüton zaman
+  zaman Neptün’den bile Güneş’e daha yakın konuma gelir.</p>
+
+<h2>Özel özellikleri</h2>
+<p>Plüton’un yüzeyi şaşırtıcı derecede çeşitlidir: nitrojen buz ovaları, Rocky Dağları’ndan yüksek su-buz dağları
+  ve <em>tolin</em> adı verilen kırmızımsı organik moleküllerle kaplı bölgeler içerir. İnce bir nitrojen atmosferi vardır
+  ve Plüton Güneş’ten uzaklaştıkça bu atmosfer yüzeye çöker, donarak yüzeyi kaplar.</p>
+
+<h2>Uyduları</h2>
+<p>Plüton’un bilinen beş uydusu vardır: Charon, Styx, Nix, Kerberos ve Hydra. Plüton ve Charon, denge noktası
+  Plüton’un dışında kalan ortak bir kütle merkezi etrafında dönen ikili bir sistem oluşturur; bu da onları
+  klasik anlamda bir gezegen–uydu çiftinden çok, çift cüce gezegen gibi kılar.</p>
+
+<h2>Büyüklük ve kütle</h2>
+<p>Plüton’un çapı 2.376 km’dir; bu, onu Dünya’nın Ay’ından bile küçük yapar. Kütlesi Dünya’nın yalnızca yaklaşık
+  %0,2’si kadardır ve yüzey yerçekimi Dünya’nın yaklaşık %6’sına karşılık gelir.</p>
+
+<h2>Kimyası ve yüzeyi</h2>
+<p>Yüzey, nitrojen buzu, metan buzu ve temel kaya işlevi gören su-buz yamalarından oluşur. Krivolkanik
+  (cryovolcanic) süreçler ve nitrojen buzullarının akışı, Sputnik Planitia gibi geniş ölçekli yapıları şekillendirir.</p>
+
+<h2>Adı ve anlamı</h2>
+<p>Plüton adı, İngiltere’de yaşayan 11 yaşındaki Venetia Burney tarafından önerilmiştir; adın seçilmesinde, P.L.
+  baş harflerinin, aramayı başlatan Percival Lowell’ı onurlandırıyor olmasının da rolü vardır.</p>
+
+<SimPostSchema
+  title="Plüton"
+  description="Sanatsal bir dokuyla modellenmiş Plüton küresi; keşfi, Güneş’e uzaklığı, özel özellikleri, uyduları ve adının kökeni hakkında bilgiler."
+  url="https://astrosyo.com/posts/pluto"
+  datePublished="2025-11-11"
+  authorName="Astrosyo"
+  keywords={[
+    "plüton",
+    "cüce gezegen",
+    "kuiper kuşağı",
+    "astronomi",
+    "webgl",
+    "eğitim"
+  ]}
+  image="/images/pluto/cover.webp"
+  articleSection="Astronomi"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.webp"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Plüton Küresi",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires WebGL2",
+    "url": "https://astrosyo.com/posts/pluto#simulation",
+    "description": "Sanatsal bir dokuyla işlenmiş, etkileşimli Plüton küresi."
+  }}
+/>

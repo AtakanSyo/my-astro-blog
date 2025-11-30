@@ -1,0 +1,208 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import '../../styles/telescopes.css';
+import '../../styles/cards.css';
+
+const allPosts = await Astro.glob('./posts/*.{md,mdx}');
+const telescopePosts = allPosts.filter(p => p.frontmatter.subcategory === 'telescopes');
+const telescopeCount = telescopePosts.length;
+
+// ── SIRALANMIŞ “Tümü” GÖNDERİLER ──
+const sortedAll = [...telescopePosts].sort(
+  (a, b) => (b.frontmatter.rating?.overall ?? 0) - (a.frontmatter.rating?.overall ?? 0)
+);
+
+// ── TİPE GÖRE GRUPLA VE SIRALA ──
+const grouped = telescopePosts.reduce((acc, post) => {
+  const type = post.frontmatter.telescopeType || 'Other';
+  (acc[type] ??= []).push(post);
+  return acc;
+}, {});
+const types = Object.keys(grouped).sort();
+const sortedGrouped = Object.fromEntries(
+  types.map(type => [
+    type,
+    [...grouped[type]].sort(
+      (a, b) => (b.frontmatter.rating?.overall ?? 0) - (a.frontmatter.rating?.overall ?? 0)
+    ),
+  ])
+);
+---
+
+<Layout title="Teleskop İncelemeleri">
+
+  <h1 class="telescope-rankings-page-title">Teleskop Sıralamaları</h1>
+
+  <div class="telescopes-toggle-container">
+    <!-- geçiş düğmeleri -->
+    <div class="toggle-buttons" role="tablist" aria-label="Teleskop kategorileri">
+      <!-- "Tümü" düğmesi -->
+      <button data-type="all" class="icon-button active" role="tab" aria-selected="true">
+        <svg class="icon" width="28" height="28" aria-hidden="true">
+          <use href="/icons/telescope-icons.svg#all"></use>
+        </svg>
+        <span class="label">Tümü</span>
+      </button>
+
+      <!-- Her teleskop tipi için dinamik düğmeler -->
+      {types.map(t => {
+        const slug = t.toLowerCase().replace(/\s+/g, '-'); // örn. "Tabletop Dobsonian" → "tabletop-dobsonian"
+        return (
+          <button data-type={t} class="icon-button" role="tab" aria-selected="false">
+            <svg class="icon" width="28" height="28" aria-hidden="true">
+              <use href={`/icons/telescope-icons.svg#${slug}`}></use>
+            </svg>
+            <span class="label">{t}</span>
+          </button>
+        );
+      })}
+    </div>
+
+    <!-- açıklama alanı -->
+    <div id="type-description" class="type-description" data-count={telescopeCount}></div>
+
+    <!-- “Tümü” grubu -->
+    <div class="post-group" data-type="all">
+      <h2>Tüm Teleskoplar</h2>
+      <div class="post-grid">
+        {sortedAll.map(({ frontmatter, url }) => {
+          const { title, description, rating, writer, pubDate, affiliate = {} } = frontmatter;
+          const cleanTitle = title.replace(/ (Review|Overview)$/, '');
+          const score = rating?.overall ?? 'N/A';
+          const affs = [
+            ['Amazon', affiliate.amazon],
+            ['HighPoint', affiliate.highpointscientific],
+            ['Astroshop', affiliate.astroshop],
+          ].filter(([, link]) => link);
+
+          return (
+            <div class="post-card post-card--review post-card--rankings">
+              <a href={url} class="post-card-link">
+                <div class="post-card-title">{cleanTitle}</div>
+                <p class="post-card-desc">{description}</p>
+                <div class="post-card-footer has-badge">
+                  <div class="post-card-badges">
+                    <span class="review-badge">İnceleme</span>
+                    <span class="score-badge">{score}/10</span>
+                  </div>
+                  <div class="read-post">İncelemeyi oku →</div>
+                </div>
+              </a>
+              <div class="affiliate-links">
+                {affs.length > 0 ? (
+                  affs.map(([name, link]) => (
+                    <a
+                      href={link}
+                      class="affiliate-btn"
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      {name} üzerinde kontrol et
+                    </a>
+                  ))
+                ) : (
+                  <span class="affiliate-placeholder"></span>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+
+    {/* her tip için bir grup */}
+    {types.map(type => (
+      <div class="post-group" data-type={type} style="display:none;">
+        <h2>{type} Teleskoplar</h2>
+        <div class="post-grid">
+          {sortedGrouped[type].map(({ frontmatter, url }) => {
+            const { title, description, rating, writer, pubDate, affiliate = {} } = frontmatter;
+            const cleanTitle = title.replace(/ (Review|Overview)$/, '');
+            const score = rating?.overall ?? 'N/A';
+            const affs = [
+              ['Amazon', affiliate.amazon],
+              ['HighPoint', affiliate.highpointscientific],
+              ['Astroshop', affiliate.astroshop],
+            ].filter(([, link]) => link);
+
+            return (
+              <div class="post-card post-card--review">
+                <a href={url} class="post-card-link">
+                  <div class="post-card-title">{cleanTitle}</div>
+
+                  <p class="post-card-desc">{description}</p>
+
+                  <div class="post-card-footer has-badge">
+                    <div class="post-card-badges">
+                      <span class="review-badge">İnceleme</span>
+                      <span class="score-badge">{score}/10</span>
+                    </div>
+                    <div class="read-post">İncelemeyi oku →</div>
+                  </div>
+                </a>
+                <div class="affiliate-links">
+                  {affs.length > 0 ? (
+                    affs.map(([name, link]) => (
+                      <a
+                        href={link}
+                        class="affiliate-btn"
+                        target="_blank"
+                        rel="noopener"
+                      >
+                        {name} üzerinde kontrol et
+                      </a>
+                    ))
+                  ) : (
+                    <span class="affiliate-placeholder"></span>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <script type="module">
+    // tüm JS burada tanımlı
+
+    const descEl  = document.getElementById('type-description');
+    const TELESCOPE_COUNT = Number(descEl.dataset.count);
+    const formattedCount = new Intl.NumberFormat().format(TELESCOPE_COUNT);
+
+    const typeDescriptions = {
+      all: `Toplam ${formattedCount} teleskop incelemesini tek bir yerde keşfet; sana en uygun modeli bul.`,
+      Dobsonian: "Dobsonian teleskoplar, basit salıncak tipi ayaklar üzerindeki geniş aynalı Newton yansıtıcılardır—özellikle derin uzay taramaları için idealdir.",
+      "Tabletop Dobsonian": "Herhangi bir masanın üzerine koyup hemen kullanabileceğin kompakt bir Dobsonian—hızlı kurulum ve pratik gözlemler için.",
+      Refractor: "Refraktörler, gezegenler, Ay ve çift yıldızlar için yüksek kontrastlı, keskin görüntüler sağlayan hassas mercekler kullanır.",
+      Reflector: "Klasik Newton tipi yansıtıcı teleskoplar; uygun fiyata yüksek ışık toplama gücü sunarlar.",
+      "Maksutov-Cassegrain": "Maksutov teleskoplar, uzun odak uzaklıklarını kompakt tüplere sığdırarak keskin Ay ve gezegen görüntüleri sağlar.",
+      "Schmidt-Cassegrain": "Schmidt-Cassegrain teleskoplar, aynalar ve lensleri birleştiren kompakt ve çok yönlü tasarımlarıyla hem gezegen hem derin uzay hedefleri için uygundur.",
+      "Smart Telescope": "Uygulama kontrollü akıllı teleskoplar; hizalama ve takip işlemlerini otomatikleştirerek zahmetsiz seyir imkânı sunar.",
+      Other: "Alışılmışın dışında tasarımlar ve hibrit sistemler—farklı bir şey denemek istiyorsan buraya göz at.",
+    };
+
+    const buttons = document.querySelectorAll('.toggle-buttons button');
+    const groups  = document.querySelectorAll('.post-group');
+
+    function showGroup(type) {
+      groups.forEach(g => {
+        g.style.display = type === 'all'
+          ? (g.dataset.type == 'all' ? '' : 'none')
+          : (g.dataset.type == type ? '' : 'none');
+      });
+      descEl.textContent = typeDescriptions[type] || '';
+    }
+
+    buttons.forEach(btn =>
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        showGroup(btn.dataset.type);
+      })
+    );
+
+    showGroup('all');
+  </script>
+</Layout>

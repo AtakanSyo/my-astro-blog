@@ -1,0 +1,95 @@
+---
+layout: ../../../layouts/simLayout.astro
+title: "Venüs"
+category: simulation
+writer: Astrosyo
+pubDate: '2025-08-14'
+description: "Gerçek bulut dokusuyla modellenmiş bir Venüs küresi; keşfi, Güneş’e uzaklığı, atmosferi ve adının kökeni hakkında bilgiler."
+slug: venus
+imageDir: /images/venus
+keywords:
+  - venüs
+  - karasal gezegen
+  - gezegen
+  - astronomi
+  - webgl
+---
+
+import SinglePlanetSim from "../../../components/simulations/single-planet/SinglePlanetSim.jsx";
+import SimPostSchema from "../../../components/SimPostSchema.astro";
+
+<SinglePlanetSim 
+  planet="Venus" 
+  client:visible 
+  cameraPosition={{ x: 0, y: 0, z: 3.5 }} 
+  ambientIntensity={0.0}
+/>
+
+<figcaption class="sim-caption">Gerçekçi bir gezegen dokusuyla işlenmiş Venüs.</figcaption>
+
+<h2>Ne görüyorsunuz?</h2>
+<p>Bu simülasyon, Venüs’ü gerçek bulut dokusuyla kaplanmış bir gezegen küresi olarak gösteriyor. Yüzey görünmez;
+  Venüs, gezegenin tamamını saran yoğun bir sülfürik asit bulutu tabakasıyla kalıcı olarak örtülüdür. Doku, arazi
+  özellikleri yerine atmosferdeki girdaplı bulut desenlerini ortaya çıkarır.</p>
+
+<h2>Keşif</h2>
+<p>Venüs, tarih öncesi çağlardan beri bilinir. Babilliler, Yunanlılar, Maya uygarlığı ve Çinliler gibi pek çok
+  medeniyet, gökyüzündeki hareketini takip etmiştir. Güneş doğarken ve batarken parlak bir şekilde göründüğü için
+  erken dönem gözlemciler, sabah ve akşam görünüşlerini iki farklı gök cismi zannetmişlerdir.</p>
+
+<h2>Güneş’e uzaklığı</h2>
+<p>Venüs, <strong>Güneş’e en yakın 2. gezegendir</strong>. Ortalama yörünge uzaklığı yaklaşık 108 milyon km’dir
+  (0,72 AB). Venüs, Güneş etrafındaki bir turunu 225 Dünya gününde tamamlar ve son derece yavaş döner; bir Venüs
+  günü, Venüs yılından daha uzundur.</p>
+
+<h2>Özel özellikleri</h2>
+<p>Venüs, kontrolden çıkmış sera etkisi nedeniyle Güneş Sistemi’nin en sıcak gezegenidir; Merkür’den bile daha
+  sıcaktır. Sıcaklıklar yaklaşık 475°C’ye ulaşır ve atmosfer o kadar yoğundur ki, yüzeydeki basınç Dünya’da neredeyse
+  1 km su altındaki basınca denktir. Venüs ayrıca çoğu gezegenin tersine, geriye doğru döner; buna
+  <em>retrograd dönme</em> denir.</p>
+
+<h2>Uyduları</h2>
+<p>Venüs’ün hiç uydusu yoktur. Yoğun gözlemlere rağmen herhangi bir doğal uydu tespit edilmemiştir.</p>
+
+<h2>Büyüklük ve kütle</h2>
+<p>Venüs’ün çapı 12.104 km’dir; bu da onu neredeyse Dünya ile aynı boyuta getirir. Çoğu zaman Dünya’nın “kız
+  kardeş gezegeni” olarak anılsa da atmosferleri ve yüzey koşulları birbirinden dramatik biçimde farklıdır. Venüs’ün
+  kütlesi Dünya’nın yaklaşık %82’si kadardır.</p>
+
+<h2>Kimyası ve atmosferi</h2>
+<p>Venüs atmosferi ağırlıklı olarak karbondioksitten (%96’dan fazla) oluşur ve kalın sülfürik asit bulutları içerir.
+  Sera etkisi ısıyı o kadar verimli hapseder ki, yüzeye inen hiçbir uzay aracı birkaç saatten fazla hayatta
+  kalamamıştır. Yıldırımlar, süper hızlı (super-rotating) rüzgârlar ve asit yağmurları, üst atmosferi şekillendirir.</p>
+
+<h2>Adı ve anlamı</h2>
+<p>Gezegenin adı, Roma aşk ve güzellik tanrıçası Venüs’ten gelir. Gökyüzündeki olağanüstü parlaklığı, tarih boyunca
+  pek çok kültürde güzellik ve parlaklıkla ilişkilendirilmesine katkıda bulunmuştur.</p>
+
+<SimPostSchema
+  title="Venüs"
+  description="Gerçek bulut dokusuyla modellenmiş Venüs küresi; keşfi, Güneş’e uzaklığı, atmosferi ve adının kökeni hakkında bilgiler."
+  url="https://astrosyo.com/posts/venus"
+  datePublished="2025-11-11"
+  authorName="Astrosyo"
+  keywords={[
+    "venüs",
+    "karasal gezegen",
+    "astronomi",
+    "webgl",
+    "eğitim"
+  ]}
+  image="/images/venus/cover.webp"
+  articleSection="Astronomi"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.webp"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Venüs Küresi",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires WebGL2",
+    "url": "https://astrosyo.com/posts/venus#simulation",
+    "description": "Doğru dokuyla işlenmiş, etkileşimli Venüs küresi."
+  }}
+/>

@@ -36,4 +36,8 @@ export default defineConfig({
       charset: "utf8",
     },
   },
+  alias: {
+    '@layouts': './src/layouts',
+    '@components': './src/components',
+  },
 });

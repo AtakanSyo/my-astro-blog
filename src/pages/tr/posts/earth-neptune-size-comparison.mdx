@@ -1,0 +1,88 @@
+---
+layout: ../../../layouts/simLayout.astro
+title: "Dünya ve Neptün Boyut Karşılaştırması"
+category: simulation
+writer: Astrosyo
+pubDate: '2025-11-11'
+description: "Neptün ile Dünya arasındaki gerçek ölçek farkını gösteren bir simülasyon."
+slug: earth-neptune-size-comparison
+imageDir: /images/earth-neptune-size-comparison
+keywords:
+  - earth
+  - neptune
+  - planet sizes
+  - astronomy
+  - three.js
+---
+
+import PlanetSizeComparison from "../../../components/simulations/planet-size-comparison/PlanetSizeComparison.jsx";
+import SimPostSchema from "../../../components/SimPostSchema.astro";
+
+<PlanetSizeComparison
+  client:load
+  primaryTexture="/textures/neptune_texture.webp"
+  secondaryTexture="/textures/earth-texture-nasa.webp"
+  primaryRadius={24.622}
+  secondaryRadius={6.371}
+  planetDistance={2.0}
+  primaryContrast={1.0}
+  secondaryContrast={0.9}
+  orthoExtent={1.4}
+/>
+
+<figcaption class="sim-caption">Neptün ve Dünya, gerçek oransal çaplarıyla modellenmiş olarak.</figcaption>
+
+<h2>Simülasyon ne gösteriyor?</h2>
+<p>Bu görselleştirme Dünya ve Neptün’ü, fiziksel çapları ve gerçek 3B geometrileriyle yan yana yerleştiriyor. Dünya; okyanusları, kıtaları ve bulutlarıyla tanıdık ve dinamik bir yüzey sunarken, Neptün yüksek irtifa metan-buz bulutlarıyla kaplı soğuk, koyu mavi bir gezegen olarak görünür. Kitaplarda yer alan şemalar bu iki gezegen arasındaki gerçek boyut farkını nadiren doğru aktarır. Dünya küçük ve kompakt görünürken, Neptün devasa, katmanlı bir atmosfer–sıvı iç yapı küresi gibi hissedilir. Her iki gezegenin aynı kare içinde dönmesini görmek, ölçeği soyut olmaktan çıkarıp sezgisel hale getirir.</p>
+
+<h2>Ölçeğin arkasındaki sayılar</h2>
+<p>Dünya’nın çapı yaklaşık 12.742 km, Neptün’ün çapı ise yaklaşık 49.244 km’dir. Aralarındaki çap oranı şöyledir:</p>
+
+$$
+\frac{D_N}{D_E} = \frac{49{,}244}{12{,}742} \approx 3.86
+$$
+
+<p>Hacim çapın küpüyle ölçeklenir:</p>
+
+$$
+(3.86)^3 \approx 57.5
+$$
+
+<p>Bu, Neptün’ün hacim olarak elli yedi Dünya’yı içine alabilecek kadar büyük olduğu anlamına gelir. Yüzey alanı—bir gezegenin görünen disk büyüklüğünü belirleyen değer—çapın karesiyle artar:</p>
+
+$$
+(3.86)^2 \approx 14.9
+$$
+
+<p>Yani Neptün’ün görünür yüzeyi Dünya’nınkinden neredeyse on beş kat daha büyüktür. Bu oranlar simülasyonda birebir korunur, böylece ölçek farkı sayılardan çok görsel olarak deneyimlenebilir.</p>
+
+<SimPostSchema
+  title="Neptün ve Dünya Boyut Karşılaştırması"
+  description="Neptün ve Dünya arasındaki gerçek ölçek farkını gösteren etkileşimli bir tarayıcı tabanlı simülasyon."
+  url="https://astrosyo.com/posts/neptune-earth-size-comparison"
+  datePublished="2025-09-08"
+  authorName="Astrosyo"
+  keywords={[
+    "neptune",
+    "earth",
+    "planet size comparison",
+    "astronomy",
+    "three.js",
+    "webgl",
+    "education"
+  ]}
+  image="/images/neptune-earth-size-comparison/cover.webp"
+  articleSection="Astronomy"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.webp"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Planet Size Comparison",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires WebGL2",
+    "url": "https://astrosyo.com/posts/neptune-earth-size-comparison#simulation",
+    "description": "Neptün ve Dünya’yı doğru ölçeklerle karşılaştıran etkileşimli görselleştirme."
+  }}
+/>

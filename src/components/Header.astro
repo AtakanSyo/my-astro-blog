@@ -1,0 +1,77 @@
+---
+interface Props {
+  lang?: 'en' | 'tr';
+}
+
+const { lang = 'en' } = Astro.props;
+const isTr = lang === 'tr';
+
+// base prefix for URLs ('' or '/tr')
+const base = isTr ? '/tr' : '';
+
+// localized labels
+const labels = {
+  home:       isTr ? 'Ana Sayfa'   : 'Home',
+  telescopes: isTr ? 'Teleskoplar' : 'Telescopes',
+  authors:    isTr ? 'Yazarlar'    : 'Authors',
+  about:      isTr ? 'Hakkında'    : 'About',
+  searchPlaceholder: isTr ? 'Ara…' : 'Search…',
+  searchAria:        isTr ? 'Yazılarda ara' : 'Search posts',
+  menuToggleAria:    isTr ? 'Menüyü aç / kapa' : 'Toggle menu',
+  searchToggleAria:  isTr ? 'Aramayı aç' : 'Open search',
+  searchCloseAria:   isTr ? 'Aramayı kapat' : 'Close search',
+};
+
+// site name: use Astro.site or fallback
+const siteName =
+  Astro.site?.hostname ?? 'Astrosyo';
+---
+
+<header>
+  <div class="header-inner">
+    <a href={base + '/'} class="logo centered_flex">
+      <img src="/images/shared/logo.svg" alt={siteName} />
+    </a>
+
+    <button class="nav-toggle" aria-label={labels.menuToggleAria}>
+      <span class="hamburger"></span>
+    </button>
+
+    <nav class="site-nav">
+      <a href={base + '/'} class="nav-item">{labels.home}</a>
+      <a href={base + '/telescopes'} class="nav-item">
+        {labels.telescopes}
+      </a>
+      <a href={base + '/authors'} class="nav-item">
+        {labels.authors}
+      </a>
+      <a href={base + '/about'} class="nav-item">
+        {labels.about}
+      </a>
+
+      <button
+        class="nav-search-toggle"
+        aria-label={labels.searchToggleAria}
+      >
+        🔎
+      </button>
+
+      <form action={base + '/search'} method="get" class="nav-search-form">
+        <input
+          type="search"
+          name="q"
+          class="nav-search-input"
+          placeholder={labels.searchPlaceholder}
+          aria-label={labels.searchAria}
+        />
+        <button
+          type="button"
+          class="nav-search-close"
+          aria-label={labels.searchCloseAria}
+        >
+          ✕
+        </button>
+      </form>
+    </nav>
+  </div>
+</header>

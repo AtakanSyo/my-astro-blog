@@ -1,0 +1,99 @@
+---
+layout: ../../../layouts/simLayout.astro
+title: "Uranüs"
+category: simulation
+writer: Astrosyo
+pubDate: '2025-08-14'
+description: "Gerçek dokusuyla modellenmiş bir Uranüs küresi; keşfi, özellikleri, Güneş’e uzaklığı, uyduları ve adının kökeni hakkında bilgiler."
+slug: uranus
+imageDir: /images/uranus
+keywords:
+  - uranüs
+  - buz devi
+  - gezegen
+  - gezegen dokusu
+  - astronomi
+  - webgl
+---
+
+import SinglePlanetSim from "../../../components/simulations/single-planet/SinglePlanetSim.jsx";
+import SimPostSchema from "../../../components/SimPostSchema.astro";
+
+<SinglePlanetSim 
+  planet="Uranus" 
+  client:visible 
+  cameraPosition={{ x: 0, y: 0, z: 2.5 }}
+  ambientIntensity={0.0} 
+/>
+
+
+<figcaption class="sim-caption">Gerçekçi bir gezegen dokusuyla işlenmiş Uranüs.</figcaption>
+
+<h2>Ne görüyorsunuz?</h2>
+<p>Bu simülasyon, Uranüs’ü yüzeyine gerçek bir doku uygulanmış, fiziksel olarak doğru bir gezegen küresi olarak
+  gösteriyor. Halkalar ve uydular dahil edilmemiş, herhangi bir yapay abartma kullanılmamıştır. Amaç, gezegeni
+  olduğu gibi sunmaktır: soluk, pastel mavi-yeşil tonlarda, ince atmosferik yapılar barındıran bir dünya.</p>
+
+<h2>Keşif</h2>
+<p>Uranüs, 13 Mart 1781’de William Herschel tarafından keşfedildi ve teleskop kullanılarak tanımlanan ilk gezegen
+  oldu. Ondan önce bilinen tüm gezegenler çıplak gözle görülebiliyordu. Herschel başlangıçta cismi bir kuyruklu
+  yıldız sandı; ancak gökyüzünde yavaş ve düzenli hareketi, onun yeni bir gezegen olduğunu ortaya koydu.</p>
+
+<h2>Güneş’e uzaklığı</h2>
+<p>Uranüs, <strong>Güneş’e en yakın 7. gezegendir</strong>. Ortalama olarak yaklaşık 2,87 milyar km (19,2 AB)
+  uzaklıkta dolanır. Bu uç mesafe nedeniyle Uranüs’teki güneş ışığı, Dünya’ya kıyasla yaklaşık 400 kat daha zayıftır
+  ve bir Uranüs yılı 84 Dünya yılına denk gelir; yani gezegen, neredeyse bir insan ömrü süresince Güneş çevresinde
+  yalnızca bir tur atar.</p>
+
+<h2>Özel özellikleri</h2>
+<p>Uranüs, yaklaşık 98°’lik eksen eğikliğiyle adeta yan yatmış bir gezegendir; yörüngesi boyunca dönen bir varil
+  gibi yuvarlanır. Bu, her bir kutbun 42 yıl boyunca aralıksız gündüz, ardından 42 yıl boyunca aralıksız gece
+  yaşamasına yol açan uç mevsimler yaratır. Kompozisyonu nedeniyle bir gaz devi değil, bir buz devi olarak sınıflanır.</p>
+
+<h2>Uyduları</h2>
+<p>Uranüs’ün, Shakespeare ve Alexander Pope’un eserlerindeki karakterlerden adlarını alan 27 bilinen uydusu vardır.
+  En büyük uyduları Titania, Oberon, Umbriel, Ariel ve Miranda, karmaşık jeolojik etkinliklerin ve buzlu yüzeylerin
+  izlerini gösterir.</p>
+
+<h2>Büyüklük ve kütle</h2>
+<p>Uranüs’ün çapı yaklaşık 50.724 km’dir ve kütlesi Dünya’nın yaklaşık 14,5 katıdır. Büyük boyutuna rağmen çoğunlukla
+  su, metan ve amonyak gibi uçucu buzlardan oluşur; bu da şaşırtıcı derecede düşük bir yoğunluk anlamına gelir.</p>
+
+<h2>Kimyası ve rengi</h2>
+<p>Gezegenin soluk mavi-yeşil rengi, üst atmosferdeki metanın kırmızı ışığı soğurmasından kaynaklanır. Bulut
+  katmanlarının altında, su, amonyak ve metanın yüksek basınçlı fazları bulunur; bunlar, kayalık bir çekirdeğin
+  üzerinde süper iyonik “sıcak buz”dan oluşan bir manto oluşturuyor olabilir.</p>
+
+<h2>Adı ve anlamı</h2>
+<p>Uranüs adı, Yunan gök tanrısı Ouranos’tan gelir; Ouranos, Kronos’un (Satürn) babası, Zeus’un (Jüpiter) ise
+  büyükbabasıdır. Uranüs, adı Roma tanrılarından değil de doğrudan bir Yunan tanrısından gelen tek gezegendir.</p>
+
+<SimPostSchema
+  title="Uranüs"
+  description="Gerçek dokusuyla modellenmiş Uranüs küresi; keşfi, Güneş’e uzaklığı, özellikleri, uyduları ve adının kökeni hakkında bilgiler."
+  url="https://astrosyo.com/posts/uranus"
+  datePublished="2025-11-11"
+  authorName="Astrosyo"
+  keywords={[
+    "uranüs",
+    "buz devi",
+    "gezegen",
+    "astronomi",
+    "webgl",
+    "eğitim"
+  ]}
+  image="/images/uranus/cover.webp"
+  articleSection="Astronomi"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.webp"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Uranüs Küresi",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires WebGL2",
+    "url": "https://astrosyo.com/posts/uranus#simulation",
+    "description": "Gerçek dokusuyla işlenmiş, etkileşimli Uranüs küresi."
+  }}
+/>

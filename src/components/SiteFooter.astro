@@ -1,6 +1,7 @@
 ---
 import { site } from '../config/site.js';
 import { Instagram, Youtube } from "lucide-react";
+import LanguageSwitch from './LanguageSwitch.astro';
 
 const currentYear = new Date().getFullYear();
 const sitemapLinks = [
@@ -11,6 +12,9 @@ const sitemapLinks = [
   { label: 'About', href: '/about' },
   { label: 'Search', href: '/search' },
 ];
+const pathname = Astro.url.pathname;
+const isTr = pathname.startsWith('/tr');
+const lang = isTr ? 'tr' : 'en';
 ---
 
 <footer class="site-footer centered_flex">
@@ -39,6 +43,7 @@ const sitemapLinks = [
         </div>
       </div>
 
+  <LanguageSwitch currentLang={lang} currentPath={pathname} />
   <div class="footer-bottom">
     <p>© {currentYear} {site.name}. All rights reserved.</p>
   </div>

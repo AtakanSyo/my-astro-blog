@@ -1,0 +1,110 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="Yazarlarımız">
+  <main class="authors-page">
+    <!-- First author -->
+     <h1>Yazarlarımızla Tanışın</h1>
+    <section class="author">
+      <img src="/images/authors/zane-landers.webp" alt="Yazar Zane Landers" />
+      <div class="bio">
+        <h2>Zane Landers</h2>
+        <p>
+          Zane Landers, Arizona'dan amatör bir gökbilimci ve teleskop yapımcısıdır. 40 inç açıklığa kadar
+          Dobsonian teleskoplar inşa eder ve bunlarla düzenli gözlemler yapar; aynalarını kendi taşlar.
+          Önemli yayınlarda yer almış olup değişen yıldız gözlemcilerini ve karanlık gökyüzünün
+          korunmasını savunur.
+        </p>
+      </div>
+    </section>
+
+    <!-- Third author -->
+    <section class="author">
+      <img
+        src="/images/authors/atakan-saracyakupoglu.webp"
+        alt="Atakan Saracyakupoglu"
+      />
+      <div class="bio">
+        <h2>Atakan Saracyakupoglu</h2>
+        <p>
+          Atakan Saracyakupoglu, Sabancı Üniversitesi'nde astrofizik yüksek lisans öğrencisidir ve özellikle
+          teleskop simülasyonları ile teknik analizler üzerine çalışmaktadır.
+        </p>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+:root {
+  --bg-page: rgb(18, 18, 18);
+  --card-bg: #1a1a1a;
+  --text-color: #ffffff;
+  --muted: #aaa;
+  --accent-color:rgb(228 228 228);
+  --card-radius: 14px;
+}
+
+/* Page shell */
+.authors-page {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+  background: var(--bg-page);
+}
+
+/* Author card */
+.author {
+  display: flex;
+  gap: 1.5rem;
+  background: var(--card-bg);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--card-radius);
+  padding: 1.5rem;
+  align-items: center;
+}
+
+/* Portraits */
+.author img {
+  width: clamp(140px, 20vw, 200px);
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Bio text */
+.bio {
+  flex: 1;
+}
+
+.bio h2 {
+  margin: 0 0 .5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent-color);
+}
+
+.bio p {
+  margin: 0;
+  line-height: 1.6;
+  font-size: 1rem;
+  color: var(--muted);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .author {
+    flex-direction: column;
+    text-align: center;
+  }
+  .author img {
+    width: 100%;
+    max-width: 260px;
+    border-radius: 12px;
+  }
+}
+</style>

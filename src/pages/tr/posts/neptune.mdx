@@ -1,0 +1,104 @@
+---
+layout: ../../../layouts/simLayout.astro
+title: "Neptün"
+category: simulation
+writer: Astrosyo
+pubDate: '2025-08-09'
+description: "Gerçek dokusuyla modellenmiş bir Neptün küresi; keşfi, Güneş’e uzaklığı, özel özellikleri, uyduları ve adının kökeni hakkında bilgiler."
+slug: neptune
+imageDir: /images/neptune
+keywords:
+  - neptün
+  - buz devi
+  - gezegen
+  - astronomi
+  - webgl
+---
+
+import SinglePlanetSim from "../../../components/simulations/single-planet/SinglePlanetSim.jsx";
+import SimPostSchema from "../../../components/SimPostSchema.astro";
+
+<SinglePlanetSim 
+planet="Neptune" 
+client:visible 
+cameraPosition={{ x: 0, y: 0, z: 2.5 }} 
+ambientIntensity={0.0}
+/>
+
+<figcaption class="sim-caption">Gerçekçi bir gezegen dokusuyla işlenmiş Neptün.</figcaption>
+
+<h2>Ne görüyorsunuz?</h2>
+<p>Bu simülasyon, Neptün’ü atmosferine ait yüksek çözünürlüklü gerçek bir doku ile kaplanmış bir gezegen küresi
+  olarak gösteriyor. Belirgin bantlara sahip gaz devlerinin aksine Neptün, derin bir mavi tonunda görünür; ara sıra
+  parlak fırtınalar ve metan bulutlarıyla süslenmiştir.</p>
+
+<h2>Keşif</h2>
+<p>Neptün, doğrudan gözlemden ziyade matematiksel tahminlerle keşfedilen ilk gezegendir. 1846’da Urbain Le Verrier
+  ve John Couch Adams, Uranüs’ün yörüngesindeki düzensizlikleri analiz ederek Neptün’ün konumunu öngördüler.
+  Ardından Johann Galle, gezegeni tam da bu hesaplamaların işaret ettiği bölgede gözlemledi.</p>
+
+<h2>Güneş’e uzaklığı</h2>
+<p>Neptün, <strong>Güneş’e en yakın 8. gezegendir</strong>. Ortalama yaklaşık 4,5 milyar km (30,1 AB) uzaklıkta
+  dolanır. Bir Neptün yılı 165 Dünya yılına eşdeğerdir; bu da gezegenin keşfinden bu yana Güneş etrafında hâlâ
+  tam bir tur bile tamamlamamış olduğu anlamına gelir.</p>
+
+<h2>Özel özellikleri</h2>
+<p>Neptün, dinamik hava olaylarına sahip bir buz devidir ve Güneş Sistemi’ndeki en hızlı sürekli rüzgârlara sahiptir;
+  hızları saatte 2.000 km’yi aşabilir. Gezegen, Güneş’ten aldığı ışıktan daha fazla iç ısı üretir; bu da
+  devasa fırtınaları ve bulut oluşumlarını besler.</p>
+
+<SinglePlanetSim
+  planet="Neptune"
+  client:visible
+  cameraPosition={{ x: 0, y: 0, z: 4 }}
+  textureContrast={1.0}
+  tiltDeg={[45, 0, 0]}
+/>
+
+<h2>Moons</h2>
+<p>Neptün’ün bilinen 14 uydusu vardır. En büyüğü olan Triton, Neptün’ün dönüşünün ters yönünde — retrograd bir
+  yörüngede — dolanır; bu da onun muhtemelen Kuiper Kuşağı’ndan yakalandığını düşündürür. Triton’da görülen nitrojen
+  gayzerleri, onu gezegen bilimi açısından en ilgi çekici gökcisimlerinden biri hâline getirir.</p>
+
+<h2>Size and mass</h2>
+<p>Neptün’ün çapı yaklaşık 49.244 km’dir ve kütlesi Dünya’nın yaklaşık 17 katıdır. Uranüs’ten biraz daha küçük
+  olmasına rağmen daha yoğundur; bu da daha sıkışık bir manto ve daha derin iç ısınma ile ilişkilidir.</p>
+
+<h2>Chemistry and atmosphere</h2>
+<p>Neptün’ün mavi rengi, üst atmosferdeki metanın kırmızı ışığı soğurmasından kaynaklanır; ancak Uranüs’e kıyasla
+  daha koyu tonda olması, ek kromoforların veya farklı atmosfer süreçlerinin rol oynadığını düşündürür. Bulutların
+  altında, aşırı basınç altındaki su–amonyak karışımından oluşan ve “sıcak buz” olarak adlandırılan egzotik fazları
+  barındırabilecek bir okyanus bulunuyor olabilir.</p>
+
+<h2>Adı ve anlamı</h2>
+<p>Neptün’ün adı, derin mavi rengini yansıtır şekilde Roma deniz tanrısından gelir. Yunan mitolojisindeki karşılığı,
+  denizler tanrısı Poseidon’dur.</p>
+
+<SimPostSchema
+  title="Neptün"
+  description="Gerçek dokusuyla modellenmiş Neptün küresi; keşfi, Güneş’e uzaklığı, atmosferi, uyduları ve adının kökeni hakkında bilgiler."
+  url="https://astrosyo.com/posts/neptune"
+  datePublished="2025-11-11"
+  authorName="Astrosyo"
+  keywords={[
+    "neptün",
+    "buz devi",
+    "astronomi",
+    "webgl",
+    "eğitim"
+  ]}
+  image="/images/neptune/cover.webp"
+  articleSection="Astronomi"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.webp"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Neptün Küresi",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires WebGL2",
+    "url": "https://astrosyo.com/posts/neptune#simulation",
+    "description": "Gerçek dokusuyla işlenmiş, etkileşimli Neptün küresi."
+  }}
+/>

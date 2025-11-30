@@ -9,6 +9,12 @@ const site_description = site.description;
 const { title, category } = Astro.props;
 import NavScript from '../components/NavScript.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import Header from '../components/Header.astro';
+
+const pathname = Astro.url.pathname;
+const isTr = pathname.startsWith('/tr');
+const lang = isTr ? 'tr' : 'en';
+
 const orgJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
@@ -33,7 +39,7 @@ const bodyClasses = [
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
 	<head>
 		<meta charset="UTF-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -51,50 +57,11 @@ const bodyClasses = [
     </script>	
 </head>
 	  <body class={bodyClasses}>
-    <header>
-      <div class="header-inner">
-        <a href="/" class="logo centered_flex">
-          <img src="/images/shared/logo.svg" alt={site.name} />
-        </a>
-
-        <button class="nav-toggle" aria-label="Toggle menu">
-          <span class="hamburger"></span>
-        </button>
-
-        <nav class="site-nav">
-          <a href="/" class="nav-item">Home</a>
-          <a href="/telescopes" class="nav-item">Telescopes</a>
-          <a href="/authors" class="nav-item">Authors</a>
-          <a href="/about" class="nav-item">About</a>
-
-          <button class="nav-search-toggle" aria-label="Open search">
-            🔎
-          </button>
-
-          <form action="/search" method="get" class="nav-search-form">
-            <input
-              type="search"
-              name="q"
-              class="nav-search-input"
-              placeholder="Search…"
-              aria-label="Search posts"
-            />
-            <button
-              type="button"
-              class="nav-search-close"
-              aria-label="Close search"
-            >
-              ✕
-            </button>
-          </form>
-        </nav>
-      </div>
-    </header>
-
+      <Header lang={lang} />
     <main>
       <slot />
     </main>
       <NavScript />
 	</body>
-    <SiteFooter />
+    <SiteFooter lang={lang} currentPath={pathname} />
 </html>

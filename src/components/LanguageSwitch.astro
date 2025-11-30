@@ -1,0 +1,84 @@
+---
+interface Props {
+  currentLang?: 'en' | 'tr';
+  currentPath?: string;
+}
+
+const { currentLang = 'en', currentPath = '/' } = Astro.props;
+const safePath = currentPath || '/';
+---
+
+<div
+  id="lang-switch"
+  class="lang-switch"
+  data-current-path={safePath}
+  data-current-lang={currentLang}
+>
+  <button
+    type="button"
+    data-target-lang="en"
+    aria-pressed={currentLang === 'en'}
+  >
+    EN
+  </button>
+  <button
+    type="button"
+    data-target-lang="tr"
+    aria-pressed={currentLang === 'tr'}
+  >
+    TR
+  </button>
+</div>
+
+<script>
+  const maxAge = 60 * 60 * 24 * 365; // 1 year
+
+  function setLangCookie(lang) {
+    document.cookie = `lang=${lang}; path=/; max-age=${maxAge}`;
+  }
+
+  function computeTargetPath(lang, path) {
+    let target = '/';
+
+    if (lang === 'tr') {
+      // Go to Turkish
+      if (path.startsWith('/tr')) {
+        // Already /tr/... → stay
+        target = path;
+      } else if (path === '/') {
+        target = '/tr/';
+      } else {
+        // /posts/foo → /tr/posts/foo
+        target = '/tr' + path;
+      }
+    } else {
+      // Go to English
+      if (path.startsWith('/tr')) {
+        const withoutTr = path.slice(3) || '/'; // remove "/tr"
+        target = withoutTr === '' ? '/' : withoutTr;
+      } else {
+        target = path;
+      }
+    }
+
+    return target;
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('lang-switch');
+    if (!container) return;
+
+    const currentPath = container.dataset.currentPath || '/';
+
+    container.addEventListener('click', (event) => {
+      const btn = event.target.closest('button[data-target-lang]');
+      if (!btn) return;
+
+      const lang = btn.dataset.targetLang;
+      setLangCookie(lang);
+
+      const target = computeTargetPath(lang, currentPath);
+      window.location.href = target;
+    });
+  });
+</script>

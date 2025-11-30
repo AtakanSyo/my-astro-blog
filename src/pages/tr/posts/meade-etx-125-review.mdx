@@ -1,0 +1,120 @@
+---
+category: reviews
+subcategory: telescopes
+reviewType: research
+layout: ../../../layouts/ReviewPostLayout.astro
+title: Meade ETX 125 İncelemesi
+telescopeType: Maksutov-Cassegrain
+writer: Astrosyo
+brand: Meade
+rating:
+  overall: 7.4
+  optics: 8.5
+  mount: 6.5
+  mechanics: 7
+  accessories: 6
+  value: 6
+affiliate:
+  amazon: ''
+  highpointscientific: ''
+  astroshop: ''
+cover_image: /images/meade-etx-125-review/cover.webp
+specs:
+  aperture: 125 mm
+  focalLength: 1900 mm
+  focalRatio: f/15
+pubDate: '2025-11-04'
+description: >-
+  Meade’ın ETX 125’i, daha ucuz ETX serisindeki plastik motorları ve zayıf tripod sorunlarını sonunda çözüyor, ancak bu iyileştirmeler kompakt bir gezegen teleskobu için çoğu gözlemcinin ödemek isteyeceğinden daha yüksek bir fiyat etiketine neden oluyor.
+slug: meade-etx-125-review
+imageDir: /images/meade-etx-125-review
+keywords:
+  - Meade ETX 125
+  - Maksutov-Cassegrain teleskop
+  - bilgisayarlı teleskop
+  - gezegen teleskobu
+---
+
+import Affiliates from '../../../components/Affiliates.astro'
+import Ratings from '../../../components/Ratings.astro'
+import ProsCons from '../../../components/ProsCons.astro'
+import QuickSpecs from '../../../components/QuickSpecs.astro'
+
+<p class="highlight">Meade ETX 125, yapı kalitesi ve performans açısından ETX 80 ve ETX 90’a kıyasla büyük bir sıçrama olsa da fiyatındaki artış onu daha güçlü rakipler arasında garip bir konuma yerleştiriyor.</p>
+
+<QuickSpecs
+  items={[
+    '125 mm (4.9”) açıklık',
+    '1900 mm odak uzaklığı (f/15)',
+    'Maksutov-Cassegrain optik tasarım',
+    'Tek kollu GoTo montu',
+    'Çelik tripod ve metal dişli sistemi'
+  ]}
+/>
+
+<ProsCons
+  pros={[
+    'Uzun odak uzaklığı sayesinde keskin, difraksiyon sivri uçları olmayan gezegen görüntüleri',
+    'Metal aktarım sistemi ve çelik tripod, küçük ETX modellerine kıyasla çok daha sağlam hissettiriyor',
+    'GoTo ve AutoStar hizalaması hâlâ hızlı ve güvenilir'
+  ]}
+  cons={[
+    'Fiyatı, çoğu hedefte ondan daha iyi performans gösteren 10” Dobson’larla yarışıyor',
+    'Harici güç gerektiriyor; sekiz adet AA pil bir gecede bitiyor',
+    'Dar görüş alanı ve mütevazı açıklık derin uzay performansını sınırlandırıyor'
+  ]}
+/>
+
+<Ratings rating={frontmatter.rating} />
+
+<Affiliates affiliate={frontmatter.affiliate} />
+
+<h2>İnceleme</h2>
+
+<p>Meade, daha ucuz ETX modellerinin iki büyük kusurunu—plastik dişli aktarma sistemi ve zayıf alüminyum tripodu—ETX 125’te metal motorlar ve çelik ayaklı bir destekle çözmüş. Sonuç, seleflerine göre daha sessiz çalışan, daha sağlam ve güven veren tek kollu bir GoTo montu. Ne yazık ki bu yükseltmeler fiyatı yaklaşık 700 dolara çıkarıyor; bu, ETX 80’in maliyetinin iki katından fazla.</p>
+
+<p>Meade servisine kolay erişimi olan ve indirim kovalama sabrı bulunan gözlemciler için ETX 125 taşınabilir bir gezegen avcısı olarak cazip olabilir. Ancak tam fiyatıyla, aynı bütçeyle çok daha fazla ışık toplayan ve daha esnek kullanım sunan 10 inç Dobsonlar veya premium 6 inç reflektörler karşısında önermek zor.</p>
+
+<h2>Optik</h2>
+
+<p>ETX 125, Meade’in UHTC kaplamalı 125 mm Maksutov-Cassegrain optiğini ve etkileyici bir 1900 mm odak uzaklığını kullanıyor. Bu kombinasyon, difraksiyon sivri uçları veya kromatik sapma olmadan jilet gibi keskin görüntüler sunuyor—gezegenler ve Ay için tam olarak istenen şey. İnce detaylar yüksek büyütmelerde bile net kalıyor ve odaklama oldukça kolay.</p>
+
+<p>Ancak uzun odak uzaklığı son derece dar bir görüş alanı anlamına geliyor. Büyük bulutsular ve galaksiler göz merceğine sığmıyor; 5 inç açıklık ise çok sönük derin uzay hedeflerini yeterince parlak gösteremiyor. ETX 125 açıkça gezegen uzmanı bir teleskop.</p>
+
+<h2>Gezegen Performansı</h2>
+
+<p>Güneş Sistemi hedeflerinde ETX 125 parlıyor. Jüpiter’in Galile uydularını, bulut kuşaklarını ve Büyük Kırmızı Leke’yi; Satürn’ün halkalarını ve Titan’ı; Venüs’ün evrelerini; Mars’taki büyük yüzey detaylarını; Ay’daki birçok krateri ve dağ zincirini net şekilde gösteriyor. Uzun odak uzaklığı, gezegen gözlemi için gereken yüksek büyütmelere ulaşmayı kolaylaştırıyor.</p>
+
+<img
+  class="post-image post-image-md"
+  src={frontmatter.imageDir + '/lunar-surface.webp'}
+  alt="Meade ETX 125 ile çekilmiş Ay yüzeyi."
+/>
+
+<h2>Derin Uzay Performansı</h2>
+
+<p>ETX 125’i derin uzay hedeflerine çevirdiğinizde tablo değişiyor. Dar görüş alanı, Samanyolu’nu taramayı veya geniş bulutsuları kadraja almayı zorlaştırıyor; mütevazı açıklık ise galaksi ve kümeleri sönük bırakıyor. Genel amaçlı bir derin uzay teleskobu arayanlar başka seçeneklere yönelmeli.</p>
+
+<h2>Astrofotoğrafçılık</h2>
+
+<p>ETX 125, dahili flip ayna veya arka port aracılığıyla DSLR gövdeleri kabul ediyor; bu da Ay veya gezegenlerin hızlı çekimlerini mümkün kılıyor. Uzun pozlama astrofotoğrafçılığı ise bu teleskobun alanı değil: mont hassas takip için tasarlanmadığından 20 dakikadan uzun pozlamalar kayma yapıyor. Meade bir ekvatoryal kama plakası dahil etmiş olsa da pratikte doğru kutup hizası yapmak oldukça zor.</p>
+
+<h2>Mont ve Tripod</h2>
+
+<p>Mont, plastik ağırlıklı ETX 80 ve 90’a göre ciddi şekilde geliştirilmiş. Kavramalar sağlam, bağlantılar güven veriyor ve metal dişli sistemi daha akıcı bir hareket sağlıyor. Çelik tripod da aynı derecede güven verici. En büyük eksik ise güç kaynağı: Meade ETX 125’i dahili bir batarya olmadan gönderiyor; bu da kullanıcıları bir gecede sekiz adet AA pili tüketmeye ya da harici güç kaynağı kullanmaya zorluyor.</p>
+
+<h2>GoTo ve AudioStar</h2>
+
+<p>GoTo ve AutoStar takip sistemi ETX ailesinin en güçlü satış noktalarından biri olmaya devam ediyor. Hizalama hızlı—kuzeye çevir, konumunu gir, birkaç yıldızı ortala—ve teleskop hedefleri göz merceğine getirip 15–20 dakika civarında takibini sürdürüyor. Dahili "sesli tur" ise çoğu gözlemcinin modern mobil uygulamalar karşısında pek kullanmadığı bir özellik.</p>
+
+<h2>Aksesuarlar</h2>
+
+<p>Meade kutuya 26 mm ve 9.7 mm Plössl göz mercekleri, kırmızı nokta bulucu ve dahili flip ayna ekliyor. Göz mercekleri başlangıç için yeterli; ancak ciddi kullanıcılar daha kaliteli okülerlere yükseltmek isteyecektir. Flip ayna gündüz kara gözlemleri veya hızlı kamera geçişleri için işe yarayabilir, ancak DSLR’ı doğrudan arka porta takmak astrofotoğrafçılık için daha parlak görüntü sağlar.</p>
+
+<h2>Eksiler</h2>
+
+<p>ETX 125’in en büyük eksiği fiyatı. Yapı kalitesindeki iyileştirmeler hoş olsa da 700 dolarlık etiketi haklı çıkarmıyor; aynı fiyata daha büyük ve çok daha yetenekli teleskoplar bulunabiliyor. Pil konusu da sinir bozucu—her gece AA pil tüketmek hem masraflı hem de zahmetli, harici güç kaynağı ise ek bir maliyet. Son olarak, dar görüş alanı ve sınırlı açıklık derin uzay performansını belirgin şekilde geride bırakıyor.</p>
+
+<h2>Sonuç</h2>
+
+<p>Güç sorununu çözebilirseniz ETX 125, kompakt ve bilgisayarlı bir yapıda mükemmel gezegen performansı sunuyor. Ancak mevcut fiyatıyla daha iyi seçenekler var. 10 inç bir Dobson veya kaliteli bir 6 inç reflektör aynı bütçeyle çok daha fazla yetenek sağlar. ETX 125’in taşınabilirliğine ve GoTo konforuna gerçekten ihtiyacınız yoksa, bütçenizi daha büyük bir açıklığa veya daha sağlam bir astro-imaging kurulumuna saklamanız daha mantıklı olacaktır.</p>

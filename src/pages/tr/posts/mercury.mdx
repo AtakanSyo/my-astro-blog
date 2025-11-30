@@ -1,0 +1,97 @@
+---
+layout: ../../../layouts/simLayout.astro
+title: "Merkür"
+category: simulation
+writer: Astrosyo
+pubDate: '2025-08-14'
+description: "Gerçek dokusuyla modellenmiş bir Merkür küresi; keşfi, Güneş’e uzaklığı, özel özellikleri ve adının kökeni hakkında bilgiler."
+slug: mercury
+imageDir: /images/mercury
+keywords:
+  - merkür
+  - karasal gezegen
+  - gezegen
+  - astronomi
+  - webgl
+---
+
+import SinglePlanetSim from "../../../components/simulations/single-planet/SinglePlanetSim.jsx";
+import SimPostSchema from "../../../components/SimPostSchema.astro";
+
+<SinglePlanetSim 
+  planet="Mercury" 
+  client:visible 
+  cameraPosition={{ x: 0, y: 0, z: 2.5 }} 
+  ambientIntensity={0.0}
+/>
+
+<figcaption class="sim-caption">Gerçekçi bir gezegen dokusuyla işlenmiş Merkür.</figcaption>
+
+<h2>Ne görüyorsunuz?</h2>
+<p>Bu simülasyonda Merkür, gerçek gezegen dokusuyla kaplanmış basit bir küre olarak gösteriliyor. Yüzey yoğun
+  şekilde kraterlidir ve görünüşü, Dünya’nın Ay’ının daha büyük bir versiyonunu andırır. Amaç, Merkür’ü olduğu
+  gibi göstermek: gri, darbe almış ve neredeyse tamamen havasız.</p>
+
+<h2>Keşif</h2>
+<p>Merkür, Sümerliler ve Antik Yunanlılar da dâhil olmak üzere pek çok uygarlık tarafından antik çağlardan beri
+  bilinir. Güneş’e çok yakın olduğu için yalnızca gün batımından hemen sonra veya gün doğumundan hemen önce
+  kısa süreliğine görülebilir; bu da erken dönem gökbilimcilerin, akşam ve sabah görünümlerini iki farklı gök cismi
+  sanmasına yol açmıştır.</p>
+
+<h2>Güneş’e uzaklığı</h2>
+<p>Merkür, <strong>Güneş’e en yakın 1. gezegendir</strong>. Ortalama yörünge uzaklığı yaklaşık 57,9 milyon km’dir
+  (0,39 AB). Bu yakınlık nedeniyle Merkür, Dünya’nın aldığı güneş ışığının altı katından fazlasını alır ve bir
+  Merkür yılı yalnızca 88 Dünya günüdür; bu da onu Güneş Sistemi’ndeki en kısa yörüngeye sahip gezegen yapar.</p>
+
+<h2>Özel özellikleri</h2>
+<p>Merkür’ün yüzey sıcaklık salınımları, Güneş Sistemi’ndeki en uç değerler arasındadır. Isıyı tutacak neredeyse
+  hiç atmosferi olmadığından aydınlık tarafta sıcaklıklar 430°C’ye çıkabilirken, gece tarafı –180°C’ye kadar
+  düşer. Gezegenin içinin büyük bölümünü kaplayan şaşırtıcı derecede büyük bir demir çekirdeği vardır; bu da
+  Merkür’ü boyutuna göre olağanüstü yoğun kılar.</p>
+
+<h2>Uyduları</h2>
+<p>Merkür’ün hiçbir uydusu yoktur. Güneş’e olan aşırı yakınlığı, uzun vadede kararlı uydu yörüngelerini
+  imkânsız hâle getirir.</p>
+
+<h2>Büyüklük ve kütle</h2>
+<p>Merkür’ün çapı 4.880 km’dir; bu da onu Güneş Sistemi’ndeki en küçük gezegen yapar. Küçük olmasına rağmen,
+  demir açısından zengin çekirdeği nedeniyle son derece yoğundur. Merkür’ün kütlesi Dünya’nın yaklaşık %5,5’i
+  olmasına karşın yoğunluğu çok daha büyük gezegenlerle yarışır.</p>
+
+<h2>Kimyası ve yüzeyi</h2>
+<p>Yüzey, büyük oranda dev bir metal çekirdeğin üzerinde yer alan silikat kayalardan oluşur. Merkür’ün kalın bir
+  atmosferi yoktur; bunun yerine, Güneş rüzgârının yüzeyden söküp attığı atomlardan oluşan, son derece seyrek bir
+  ekzosfere sahiptir. Bu zayıf örtü, sürekli soyulup yeniden oluşur.</p>
+
+<h2>Adı ve anlamı</h2>
+<p>Gezegenin adı, hızlılığıyla bilinen Roma haberci tanrısı Mercurius’tan gelir. Bu ad, Merkür’ün gökyüzünde
+  hızla hareket etmesini ve Güneş çevresindeki kısa yörünge periyodunu yansıtır.</p>
+
+<SimPostSchema
+  title="Merkür"
+  description="Gerçek dokusuyla modellenmiş Merkür küresi; keşfi, Güneş’e uzaklığı, özel özellikleri ve adının kökeni hakkında bilgiler."
+  url="https://astrosyo.com/posts/mercury"
+  datePublished="2025-11-11"
+  authorName="Astrosyo"
+  keywords={[
+    "merkür",
+    "karasal gezegen",
+    "astronomi",
+    "webgl",
+    "eğitim"
+  ]}
+  image="/images/mercury/cover.webp"
+  articleSection="Astronomi"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.webp"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Merkür Küresi",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires WebGL2",
+    "url": "https://astrosyo.com/posts/mercury#simulation",
+    "description": "Doğru dokuyla işlenmiş etkileşimli Merkür küresi."
+  }}
+/>

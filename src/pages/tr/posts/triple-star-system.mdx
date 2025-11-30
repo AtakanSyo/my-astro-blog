@@ -1,0 +1,77 @@
+---
+layout: ../../../layouts/simLayout.astro
+title: "Triple Star System Simulation"
+category: simulation
+writer: Astrosyo
+pubDate: '2025-11-10'
+description: "Three suns chase each other around a barycenter while a lone planet clings to one star’s offset orbit."
+slug: triple-star-system
+imageDir: /images/triple-star-system
+keywords:
+  - triple star
+  - multi-star system
+  - exoplanet
+  - three.js
+  - astronomy visualization
+---
+
+import TripleStarSystem from "../../../components/simulations/triple-star-system/triple-star-system.jsx";
+import SimPostSchema from "../../../components/SimPostSchema.astro";
+
+<TripleStarSystem client:load showPause={true} />
+
+<figcaption class="sim-caption">
+  Three suns orbit the same barycenter with phased trails, while the planet sticks to the golden primary’s moving ellipse.
+</figcaption>
+
+<div class="sim-article">
+  <h2 id="about-this-simulation">About this simulation</h2>
+  <p>
+    Triple systems are wild: each star traces its own loop around a shared center of mass. This visualization staggers all three orbits with
+    shifting radii and phases so you can watch them weave around the barycenter. A single planet remains bound to the primary star, carrying its
+    dashed orbital path wherever the host goes.
+  </p>
+  <p>
+    Each sun carries its own point light and emissive glow, so the planet’s shading shifts as the stars swing by. A faint barycentric disc highlights
+    the central reference point, and dashed rings show the distinct orbital radii for every body.
+  </p>
+
+  <h3 id="what-to-look-for">What to look for</h3>
+  <p>
+    Track how the planet’s ellipse moves with the primary star—pause when another sun passes nearby to imagine dramatic sky shows. Because each star
+    uses a different orbital period and phase offset, conjunctions happen frequently; the paused state helps you study those alignments.
+  </p>
+  <p>
+    You can tweak props to exaggerate the orbit radii, change colors, or even bind the planet to a different host star to explore other triple-star
+    configurations.
+  </p>
+</div>
+
+<SimPostSchema
+  title="Triple Star System Simulation"
+  description="Explore a triple-star barycentric dance where three suns orbit the same center and a planet clings to just one of them."
+  url="https://astrosyo.com/posts/triple-star-system"
+  datePublished="2025-11-10"
+  authorName="Astrosyo"
+  keywords={[
+    "triple star",
+    "multi-star system",
+    "exoplanet",
+    "three.js",
+    "astronomy visualization"
+  ]}
+  image="/images/triple-star-system/cover.webp"
+  articleSection="Astronomy"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.webp"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Triple Star System Simulation",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires WebGL2",
+    "url": "https://astrosyo.com/posts/triple-star-system#simulation",
+    "description": "Interactive triple-star visualization with a planet bound to a single host star."
+  }}
+/>

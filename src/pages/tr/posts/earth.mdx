@@ -1,0 +1,76 @@
+---
+layout: ../../../layouts/simLayout.astro
+title: "Dünya"
+category: simulation
+writer: Astrosyo
+pubDate: '2025-11-11'
+description: "Gerçekçi dokularla oluşturulmuş bir Dünya küresi simülasyonu; keşfi, Güneş’e olan uzaklığı, özel özellikleri, uyduları, büyüklüğü ve adının kökeni hakkında bilgiler."
+slug: dunya
+imageDir: /images/earth
+keywords:
+  - dünya
+  - karasal gezegen
+  - mavi mermer
+  - astronomi
+  - webgl
+---
+
+import SinglePlanetSim from "../../../components/simulations/single-planet/SinglePlanetSim.jsx";
+import SimPostSchema from "../../../components/SimPostSchema.astro";
+
+<SinglePlanetSim planet="Earth" client:visible cameraPosition={{ x: 0, y: 0, z: 3 }} lightIntensity="5.0" />
+
+<figcaption class="sim-caption">Gerçekçi bir gezegen dokusuyla işlenmiş Dünya.</figcaption>
+
+<h2>Ne görüyorsunuz?</h2>
+<p>Bu simülasyon Dünya’yı gerçek bulut ve yüzey dokusuyla oluşturulmuş bir gezegen küresi olarak gösterir. Kıtalar, okyanuslar ve kutup buzulları seçilebilir. Diskin etrafında ince bir atmosfer parıltısı vardır ve bu, Dünya’ya uzaydan bakıldığında görülen karakteristik mavi hâlesini verir.</p>
+
+<h2>Keşif</h2>
+<p>Dünya, üzerinde yaşadığımız için insanlığın ilk tanıdığı gezegendir. Antik uygarlıklar uzun süre Dünya’nın evrenin merkezinde olduğunu düşündü; ancak gökbilimsel gözlemler ve Güneş merkezli model, Dünya’nın Güneş etrafında dönen gezegenlerden biri olduğunu ortaya koydu. Küresel yapısı, Antik Yunan’dan beri yapılan gözlemlerle anlaşılmıştır.</p>
+
+<h2>Güneş’e uzaklığı</h2>
+<p>Dünya, <strong>Güneş’e en yakın 3. gezegendir</strong>. Ortalama yörünge uzaklığı yaklaşık 149.6 milyon km’dir (tanım gereği 1 AB). Dünya bu yörüngeyi 365.25 günde tamamlar; bu da takvim yılı ve artık yıl düzenini oluşturur.</p>
+
+<h2>Özel özellikleri</h2>
+<p>Dünya, yüzeyinde kalıcı sıvı suya ve karmaşık yaşamı destekleyen bir biyosfere sahip tek bilinen gezegendir. Manyetik alanı yüzeyi yüklü parçacıklardan korur, atmosferi ise sıcaklıkların yaşama uygun kalmasını sağlar. Tektonik faaliyet karbonu geri dönüştürür ve jeolojik zaman ölçeklerinde iklimin dengede kalmasına yardımcı olur.</p>
+
+<h2>Uyduları</h2>
+<p>Dünya’nın bir doğal uydusu vardır: Ay. Ay’ın kütleçekimi Dünya’nın eksen eğikliğini dengeler ve gelgitlere neden olarak iklimi ve biyolojik ritimleri etkiler.</p>
+
+<h2>Büyüklük ve kütle</h2>
+<p>Dünya’nın çapı 12.742 km’dir. Yaklaşık 5.97 × 10<sup>24</sup> kg’lık kütlesi, onu karasal gezegenler arasında en güçlü yerçekimine sahip gezegen yapar ve bu sayede yoğun bir atmosferi tutabilir.</p>
+
+<h2>Kimyası ve atmosferi</h2>
+<p>Dünya atmosferi çoğunlukla azot (%78) ve oksijenden (%21) oluşur. Karbondioksit gibi eser gazlar sera etkisini düzenler. Yüzeyin %71’i okyanus, geri kalanı ise erozyon, volkanizma ve levha tektoniği ile şekillenmiş kıtalardır.</p>
+
+<h2>Adı ve anlamı</h2>
+<p>“Dünya” kelimesi, Eski İngilizce <em>eorþe</em> ve Cermen dillerindeki <em>erde</em> sözcüklerinden gelir ve “toprak” anlamı taşır. Dünya, adı Yunan veya Roma tanrılarından gelmeyen tek gezegendir. Bilimsel bağlamlarda Latin kökenli Terra adı da kullanılır; “karasal” (terrestrial) kelimesi buradan gelir.</p>
+
+<SimPostSchema
+  title="Dünya"
+  description="Gerçekçi dokularla oluşturulmuş etkileşimli bir Dünya küresi, keşfi, özellikleri ve Güneş'e olan uzaklığı hakkında bilgiler."
+  url="https://astrosyo.com/posts/earth"
+  datePublished="2025-11-11"
+  authorName="Astrosyo"
+  keywords={[
+    "dünya",
+    "karasal gezegen",
+    "astronomi",
+    "webgl",
+    "eğitim"
+  ]}
+  image="/images/earth/cover.webp"
+  articleSection="Astronomi"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.webp"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Dünya Küresi",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires WebGL2",
+    "url": "https://astrosyo.com/posts/earth#simulation",
+    "description": "Gerçekçi bir dokuyla işlenmiş etkileşimli Dünya küresi."
+  }}
+/>
