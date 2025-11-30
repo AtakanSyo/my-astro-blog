@@ -48,7 +48,7 @@
   margin:0 0 clamp(14px, 1.3vw, 18px);
   font-size:clamp(2.75rem, 5.5vw + 0.9rem, 5.25rem);font-weight:800;letter-spacing:.01em;
   text-transform:uppercase;line-height:.95;
-  background: linear-gradient(95deg, #fff 0%, color-mix(in oklab, #fff 70%, #9aa4ff) 35%, color-mix(in oklab, #fff 70%, #c40523) 120%);
+  background: linear-gradient(95deg, #fff 0%, color-mix(in oklab, #fff 100%, var(--brand-red)) 35%, color-mix(in oklab, #fff 70%, var(--brand-red-darker)) 120%);
   -webkit-background-clip:text;background-clip:text;color:transparent;
 }
 
