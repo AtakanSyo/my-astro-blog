@@ -172,14 +172,12 @@ h1 .review-tag {
   margin-left: 0.85rem;
   padding: 0.32rem 0.8rem;
   border-radius: 999px;
-  background: rgba(255, 58, 59, 0.12);
-  border: 1px solid rgba(255, 58, 59, 0.35);
+  border: 1px solid var(--brand-red);
   font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: color-mix(in oklab, var(--brand-red) 90%, white 10%);
-  box-shadow: 0 6px 14px rgba(255, 58, 59, 0.18);
+  color: var(--brand-red);
 }
 
 .ratings-grid {
@@ -246,24 +244,20 @@ h1 .review-tag {
   --rating-muted: #b3b3b3;
 }
 
-/* Row container */
 .ratings-row {
-  display: flex;
-  gap: 18px;
+  display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+  gap: 1rem;
   border-radius: 18px;
-  padding: 9px 11px;
-  max-width: min(90vw, 600px);
-  overflow-x: scroll;
-  justify-content: center;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  padding: 1rem;
+  overflow-x: auto; /* keeps scrolling if needed on small screens */
 }
-
 /* Each bar card */
 .vbar-card {
-  background: var(--rating-card);
-  border: 1px solid var(--rating-border);
-  border-radius: 12px;
   min-width: 70px;
-  padding: 6px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -314,9 +308,10 @@ h1 .review-tag {
 }
 
 /* Subtle emphasis on Overall (not changing bar color) */
-.vbar-card[data-key="overall"] {
+/* .vbar-card[data-key="overall"] {
   border: 2px solid rgba(255, 255, 255, 0.15);
-}
+  padding: 6px;
+} */
 
 /* ===============================
    PROS & CONS (split cards)

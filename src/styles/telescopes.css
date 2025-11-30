@@ -103,9 +103,9 @@
 
 .toggle-buttons button:hover,
 .toggle-buttons button.active {
-  background: var(--brand-red-v2);
+  background: var(--brand-red-darker);
   color: white;
-  border-color: var(--brand-red-v2);
+  border-color: var(--brand-red-darker);
 }
 
 /*─────────────────────────────────────────────────
@@ -212,7 +212,7 @@
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: var(--cosmic-gradient);
+  background: var(--brand-red);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
           mask-composite: exclude;

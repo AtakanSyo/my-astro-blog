@@ -22,13 +22,14 @@
   cursor: pointer;
 
   /* glassy neutral surface (same for all) */
-  background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.028));
+  background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.018));
   /*background: var(--bg);*/
   /*border: 1px solid rgba(255,255,255,0.20);*/
   border-radius: 14px;
 
   /* shared depth */
-  box-shadow: 0 0px 1px 1px rgba(255,255,255,0.20);
+  box-shadow: 0 0px 1px 1px rgba(255,255,255,0.30);
+
 
   /* shared motion */
   transition:
@@ -108,12 +109,13 @@
 }
 .post-card:hover .thumb img { transform: scale(1.04); }
 /* -------- Typography (shared) -------- */
+
 .post-card-title {
   font-size: clamp(1.08rem, .6vw + 1rem, 1.24rem);
   font-weight: 900;
   margin: 0 0 .25rem;
   color: #f3f4f6;
-  height: 3.4em;
+  height: 3.2em;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -244,10 +246,9 @@
 .review-badge,
 .info-badge,
 .nasa-badge {
-  background: var(--brand-red-bg);
   /*color: color-mix(in oklab, var(--brand-red) 92%, white);*/
-  color: var(--brand-red);
-  border-color: var(--brand-red-bg);
+  color:var(--brand-red);
+  border-color: var(--brand-red);
 }
 
 /* IG badge keeps the gradient text but matches structure */

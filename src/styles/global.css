@@ -34,11 +34,12 @@ html {
   --card-border: #333;
   --card-shadow: rgba(0, 0, 0, 0.5);
   --gray-layer: rgba(255,255,255,0.06);
-
-  --brand-red: #ff3a3b;
-  --brand-red-bg: rgba(196,3,35,0.30);
+  /*“Stellar Plasma Gold” — #F6C177 */
+  /*“Hydrogen Beta Blue” — #7DA6FF*/
+  --brand-red: #F6C177;
+  --brand-red-bg: rgba(0,0,0,0);
   --brand-affiliate-button-red: #ff5252;
-  --brand-red-darker: #c40523; /* brand accent (blue-ish) */
+  --brand-red-darker: #805129; /* brand accent (blue-ish) */
   --brand-red-v2: #e1142f;
   --cosmic-gradient: linear-gradient(
     135deg,
