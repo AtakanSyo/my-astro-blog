@@ -181,9 +181,8 @@
   line-height: 1.2;
   font-weight: 900;
   background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.028));
-  border: 1px solid gray;
+  border-bottom: 2px solid gray;
   display: inline-block;
-  border-radius: 999px;
   padding: 1rem;
 }
 

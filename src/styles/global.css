@@ -28,7 +28,7 @@ html {
   --nav-link-color: #fff;
   --nav-link-hover: rgba(255, 255, 255, 0.8);
 
-  --bg: rgb(6,6,6);
+  --bg: rgb(0,0,0);
   --card-bg: #1f1f1f;           /* dark cards */
   --card-radius: 12px;
   --card-border: #333;
