@@ -6,7 +6,7 @@ import '../../../styles/category.css';
 import FloatingTelescopeIcons from "../../../components/FloatingTelescopeIcons.astro";
 
 export async function getStaticPaths() {
-  const all = await Astro.glob('../../posts/*.{md,mdx}', { eager: true });
+  const all = await Astro.glob('../../tr/posts/*.{md,mdx}', { eager: true });
   const set = new Set();
   for (const p of all) {
     const c = p.frontmatter?.category;
@@ -25,7 +25,7 @@ const labelMap = {
 };
 const categoryLabel = labelMap[slug] || `${slug.charAt(0).toUpperCase() + slug.slice(1)} Yazıları`;
 
-const posts = (await Astro.glob('../../posts/*.{md,mdx}', { eager: true }))
+const posts = (await Astro.glob('../../tr/posts/*.{md,mdx}', { eager: true }))
   .filter((p) => typeof p.frontmatter?.category === 'string' && p.frontmatter.category.toLowerCase() === slug)
   .sort((a, b) => new Date(b.frontmatter.pubDate) - new Date(a.frontmatter.pubDate));
 
