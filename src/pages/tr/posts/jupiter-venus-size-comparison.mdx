@@ -1,17 +1,17 @@
 ---
 layout: ../../../layouts/simLayout.astro
-title: "Jupiter and Venus Size Comparison"
+title: "Jüpiter ve Venüs Boyut Karşılaştırması"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-09-25'
-description: "A simulation showing the immense scale difference between Jupiter and Venus, with context on mass, gravity, and appearance."
+description: "Jüpiter ile Venüs arasındaki muazzam ölçek farkını; kütle, yerçekimi ve görünüş bağlamıyla birlikte gösteren bir simülasyon."
 slug: jupiter-venus-size-comparison
 imageDir: /images/jupiter-venus-size-comparison
 keywords:
-  - jupiter
-  - venus
-  - planet sizes
-  - astronomy
+  - jüpiter
+  - venüs
+  - gezegen boyutları
+  - astronomi
   - three.js
 ---
 
@@ -30,59 +30,59 @@ import SimPostSchema from "../../../components/SimPostSchema.astro";
   orthoExtent={1.1}
 />
 
-<figcaption class="sim-caption">Jupiter and Venus shown at accurate relative scale.</figcaption>
+<figcaption class="sim-caption">Jüpiter ve Venüs, gerçek göreli ölçeklerinde gösteriliyor.</figcaption>
 
-<h2>What the simulation shows</h2>
-<p>Venus is often called Earth’s twin because of its similar diameter, but that comparison collapses when Venus is placed next to Jupiter. This visualization renders both planets using their exact physical diameters and true 3D geometry. Jupiter’s massive storm bands and swirling atmosphere dominate nearly the entire frame, while Venus appears as a small, smooth world with a uniform cloud layer. The contrast illustrates how Jupiter belongs to a completely different category of planet—one where sheer scale defines its gravitational influence and role in shaping the Solar System.</p>
+<h2>Simülasyon ne gösteriyor?</h2>
+<p>Venüs, benzer çapı nedeniyle sık sık Dünya’nın ikizi olarak anılır; ancak Venüs, Jüpiter’in yanına konduğunda bu benzetme çöker. Bu görselleştirme, her iki gezegeni de gerçek fiziksel çapları ve doğru 3B geometrileriyle render eder. Jüpiter’in dev fırtına bantları ve dönen atmosferi çerçevenin neredeyse tamamına hâkim olurken, Venüs tekdüze bir bulut tabakasıyla kaplı küçük, pürüzsüz bir dünya gibi görünür. Bu zıtlık, Jüpiter’in tamamen farklı bir gezegen sınıfına ait olduğunu; salt ölçeğin bile yerçekimsel etkisini ve Güneş Sistemi’ni şekillendirmedeki rolünü tanımladığını gösterir.</p>
 
-<h2>The numbers behind the scale</h2>
-<p>Venus has a diameter of approximately 12,104 km. Jupiter’s diameter is about 139,820 km. The ratio of their diameters is:</p>
+<h2>Ölçeğin arkasındaki sayılar</h2>
+<p>Venüs’ün çapı yaklaşık 12.104 km’dir. Jüpiter’in çapı ise yaklaşık 139.820 km’dir. Çap oranı şöyledir:</p>
 
 $$
 \frac{D_J}{D_V} = \frac{139{,}820}{12{,}104} \approx 11.56
 $$
 
-<p>Volume scales with the cube of the diameter:</p>
+<p>Hacim, çapın küpüyle ölçeklenir:</p>
 
 $$
 (11.56)^3 \approx 1.54 \times 10^3
 $$
 
-<p>This means Jupiter could contain more than 1,500 Venus-sized volumes. Surface area, which defines how large the planet’s visible face appears, scales with the square of the diameter:</p>
+<p>Bu, Jüpiter’in içine 1.500’den fazla Venüs büyüklüğünde hacim sığabileceği anlamına gelir. Bir gezegenin görünen yüzünün ne kadar büyük göründüğünü belirleyen yüzey alanı ise çapın karesiyle artar:</p>
 
 $$
 (11.56)^2 \approx 133.6
 $$
 
-<p>So Jupiter’s visible disk covers more than one hundred thirty times the area of Venus’s. These exact proportions are preserved in the simulation, allowing scale—not symbolism—to tell the story. When the planets rotate side by side, the size difference becomes undeniable.</p>
+<p>Yani Jüpiter’in görünen diski, Venüs’ünkinden yüz otuz kattan fazla alan kaplar. Bu oranlar simülasyonda birebir korunur; böylece hikâyeyi semboller değil, doğrudan ölçeğin kendisi anlatır. Gezegenler yan yana dönerken boyut farkı inkâr edilemez hâle gelir.</p>
 
 <SimPostSchema
-  title="Jupiter and Venus Size Comparison"
-  description="An interactive browser-based simulation that shows the true scale difference between Jupiter and Venus."
+  title="Jüpiter ve Venüs Boyut Karşılaştırması"
+  description="Jüpiter ile Venüs arasındaki gerçek ölçek farkını gösteren etkileşimli bir tarayıcı tabanlı simülasyon."
   url="https://astrosyo.com/posts/jupiter-venus-size-comparison"
   datePublished="2025-09-05"
   authorName="Astrosyo"
   keywords={[
-    "jupiter",
-    "venus",
-    "planet size comparison",
-    "astronomy",
+    "jüpiter",
+    "venüs",
+    "gezegen boyut karşılaştırması",
+    "astronomi",
     "three.js",
     "webgl",
-    "education"
+    "eğitim"
   ]}
   image="/images/jupiter-venus-size-comparison/cover.webp"
-  articleSection="Astronomy"
+  articleSection="Astronomi"
   isAccessibleForFree={true}
   publisherName="Astrosyo"
   publisherLogo="/images/shared/logo.webp"
   hasPart={{
     "@type": "SoftwareApplication",
-    "name": "Planet Size Comparison",
+    "name": "Gezegen Boyut Karşılaştırması",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Any",
     "browserRequirements": "Requires WebGL2",
     "url": "https://astrosyo.com/posts/jupiter-venus-size-comparison#simulation",
-    "description": "Interactive visualization comparing Jupiter and Venus with accurate scale."
+    "description": "Jüpiter ve Venüs’ü doğru ölçekle karşılaştıran etkileşimli görselleştirme."
   }}
 />

@@ -1,20 +1,20 @@
 ---
 layout: ../../../layouts/simLayout.astro
-title: "Jupiter and Saturn Size Comparison"
+title: "Jüpiter ve Satürn Boyut Karşılaştırması"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-09-22'
-description: "A simulation showing the true scale difference between Jupiter and Saturn."
+description: "Jüpiter ile Satürn arasındaki gerçek ölçek farkını gösteren bir simülasyon."
 slug: jupiter-saturn-size-comparison
 imageDir: /images/jupiter-saturn-size-comparison
 keywords:
-  - jupiter
-  - saturn
-  - gas giants
-  - planet size comparison
-  - astronomy
+  - jüpiter
+  - satürn
+  - gaz devleri
+  - gezegen boyut karşılaştırması
+  - astronomi
   - webgl
-  - simulation
+  - simülasyon
 ---
 
 import SaturnComparison from "../../../components/simulations/saturn-size-comparison/SaturnComparison.jsx";
@@ -34,60 +34,67 @@ import SimPostSchema from "../../../components/SimPostSchema.astro";
   orthoExtent={1.4}
 />
 
-<figcaption class="sim-caption">Jupiter and Saturn shown at accurate relative size.</figcaption>
+<figcaption class="sim-caption">Jüpiter ve Satürn, gerçek göreli boyutlarında gösteriliyor.</figcaption>
 
-<h2>What the simulation shows</h2>
-<p>This visualization places Saturn next to Jupiter using their real physical diameters and true 3D geometry. Jupiter appears as a massive, turbulent atmosphere with deeply colored storm bands, while Saturn presents a smoother golden appearance. Saturn’s rings are intentionally not included in the diameter comparison to keep the measurement planet-to-planet. When seen side by side, Saturn looks large by itself, but Jupiter makes it feel almost modest in scale. The simulation captures this difference without exaggeration or artistic distortion.</p>
+<h2>Simülasyon ne gösteriyor?</h2>
+<p>Bu görselleştirme, Satürn’ü Jüpiter’in yanına, gerçek fiziksel çapları ve doğru 3B geometrileriyle yerleştirir.
+  Jüpiter, derin renkli fırtına bantlarına sahip dev, çalkantılı bir atmosfer olarak görünürken; Satürn daha sakin,
+  altın tonlarında bir görünüme sahiptir. Çap karşılaştırmasını gezegen–gezegen düzeyinde tutmak için Satürn’ün
+  halkaları bilerek hesaba katılmaz. Yan yana bakıldığında Satürn tek başına büyük görünür; ancak Jüpiter’in yanında
+  ölçeği neredeyse mütevazı kalır. Simülasyon bu farkı abartı ya da sanatsal çarpıtma olmadan yakalar.</p>
 
-<h2>The numbers behind the scale</h2>
-<p>Saturn’s diameter is approximately 120,536 km. Jupiter’s diameter is about 139,820 km. The diameter ratio between them is:</p>
+<h2>Ölçeğin arkasındaki sayılar</h2>
+<p>Satürn’ün çapı yaklaşık 120.536 km’dir. Jüpiter’in çapı yaklaşık 139.820 km’dir. Aralarındaki çap oranı şöyledir:</p>
 
 $$
 \frac{D_J}{D_S} = \frac{139{,}820}{120{,}536} \approx 1.16
 $$
 
-<p>Volume scales with the cube of the diameter:</p>
+<p>Hacim, çapın küpüyle ölçeklenir:</p>
 
 $$
 (1.16)^3 \approx 1.56
 $$
 
-<p>This means Jupiter has about one and a half times the volume of Saturn. Surface area, which determines how large the visible planetary face appears, scales with the square of the diameter:</p>
+<p>Bu, Jüpiter’in Satürn’ün hacminin yaklaşık bir buçuk katına sahip olduğu anlamına gelir. Bir gezegenin görünen
+  yüzünün ne kadar büyük göründüğünü belirleyen yüzey alanı ise çapın karesiyle artar:</p>
 
 $$
 (1.16)^2 \approx 1.35
 $$
 
-<p>So Jupiter’s visible disk is roughly 35% larger than Saturn’s. With both rendered at true scale in 3D space, the simulation makes the size difference intuitive at a glance, revealing why Jupiter is often called the king of the planets.</p>
+<p>Yani Jüpiter’in görünen diski Satürn’ünkinden yaklaşık %35 daha büyüktür. Her iki gezegen de 3B uzayda gerçek
+  ölçekte modellendiğinde, simülasyon bu boyut farkını bir bakışta sezilebilir hâle getirir ve Jüpiter’in neden
+  gezegenlerin “kralı” olarak anıldığını görsel olarak ortaya koyar.</p>
 
 <SimPostSchema
-  title="Jupiter and Saturn Size Comparison"
-  description="An interactive browser-based simulation that shows the true scale difference between Jupiter and Saturn."
+  title="Jüpiter ve Satürn Boyut Karşılaştırması"
+  description="Jüpiter ile Satürn arasındaki gerçek ölçek farkını gösteren etkileşimli bir tarayıcı tabanlı simülasyon."
   url="https://astrosyo.com/posts/jupiter-saturn-size-comparison"
   datePublished="2025-09-22"
   authorName="Astrosyo"
   keywords={[
-    "jupiter",
-    "saturn",
-    "gas giants",
-    "planet size comparison",
-    "astronomy",
+    "jüpiter",
+    "satürn",
+    "gaz devleri",
+    "gezegen boyut karşılaştırması",
+    "astronomi",
     "three.js",
     "webgl",
-    "education"
+    "eğitim"
   ]}
   image="/images/jupiter-saturn-size-comparison/cover.webp"
-  articleSection="Astronomy"
+  articleSection="Astronomi"
   isAccessibleForFree={true}
   publisherName="Astrosyo"
   publisherLogo="/images/shared/logo.webp"
   hasPart={{
     "@type": "SoftwareApplication",
-    "name": "Planet Size Comparison",
+    "name": "Gezegen Boyut Karşılaştırması",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Any",
     "browserRequirements": "Requires WebGL2",
     "url": "https://astrosyo.com/posts/jupiter-saturn-size-comparison#simulation",
-    "description": "Interactive visualization comparing Jupiter and Saturn with accurate scale."
+    "description": "Jüpiter ve Satürn’ü doğru ölçekle karşılaştıran etkileşimli görselleştirme."
   }}
 />

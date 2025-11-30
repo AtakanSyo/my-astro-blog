@@ -1,20 +1,20 @@
 ---
 layout: ../../../layouts/simLayout.astro
-title: "Jupiter and Neptune Size Comparison"
+title: "Jüpiter ve Neptün Boyut Karşılaştırması"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-08-27'
-description: "A simulation showing the true scale difference between Jupiter and Neptune."
+description: "Jüpiter ile Neptün arasındaki gerçek ölçek farkını gösteren bir simülasyon."
 slug: jupiter-neptune-size-comparison
 imageDir: /images/jupiter-neptune-size-comparison
 keywords:
-  - jupiter
-  - neptune
-  - outer planets
-  - planet size comparison
-  - astronomy
+  - jüpiter
+  - neptün
+  - dış gezegenler
+  - gezegen boyut karşılaştırması
+  - astronomi
   - webgl
-  - simulation
+  - simülasyon
 ---
 
 import PlanetSizeComparison from "../../../components/simulations/planet-size-comparison/PlanetSizeComparison.jsx";
@@ -32,59 +32,59 @@ import SimPostSchema from "../../../components/SimPostSchema.astro";
   orthoExtent={1.2}
 />
 
-<figcaption class="sim-caption">Jupiter and Neptune rendered at true relative diameters.</figcaption>
+<figcaption class="sim-caption">Jüpiter ve Neptün, gerçek göreli çaplarıyla gösteriliyor.</figcaption>
 
-<h2>What the simulation shows</h2>
-<p>This visualization places Neptune next to Jupiter using their real physical diameters and true 3D geometry. Both planets rotate on their axes, and no scaling is applied beyond their real sizes. Neptune is the smallest of the giant planets, while Jupiter is the largest planetary object in the Solar System. Seeing them side by side immediately communicates the difference—Neptune feels compact and delicate, while Jupiter appears overwhelmingly dominant.</p>
+<h2>Simülasyon ne gösteriyor?</h2>
+<p>Bu görselleştirme, Neptün’ü Jüpiter’in yanına, gerçek fiziksel çapları ve doğru 3B geometrileriyle yerleştirir. Her iki gezegen de kendi ekseni etrafında döner ve gerçek boyutlarının ötesinde ek bir ölçekleme uygulanmaz. Neptün, dev gezegenlerin en küçüğüyken, Jüpiter Güneş Sistemi’ndeki en büyük gezegensel cisimdir. Yan yana görmek, farkı anında ortaya koyar—Neptün kompakt ve narin görünürken, Jüpiter ezici derecede baskın görünür.</p>
 
-<h2>The numbers behind the scale</h2>
-<p>Neptune’s diameter is approximately 49,244 km, while Jupiter’s is about 139,820 km. The diameter ratio between them is:</p>
+<h2>Ölçeğin arkasındaki sayılar</h2>
+<p>Neptün’ün çapı yaklaşık 49.244 km, Jüpiter’in çapı ise yaklaşık 139.820 km’dir. Çap oranı şöyledir:</p>
 
 $$
 \frac{D_J}{D_N} = \frac{139{,}820}{49{,}244} \approx 2.84
 $$
 
-<p>Volume scales with the cube of the diameter. When we apply that:</p>
+<p>Hacim, çapın küpüyle ölçeklenir. Bunu uyguladığımızda:</p>
 
 $$
 (2.84)^3 \approx 22.9
 $$
 
-<p>Meaning Jupiter could contain nearly twenty-three Neptune-sized volumes. Surface area scales with the square of the diameter:</p>
+<p>Bu, Jüpiter’in içine neredeyse yirmi üç Neptün büyüklüğünde hacim sığabileceği anlamına gelir. Yüzey alanı ise çapın karesiyle ölçeklenir:</p>
 
 $$
 (2.84)^2 \approx 8.1
 $$
 
-<p>So Jupiter’s visible disk is over eight times larger than Neptune’s. This simulation preserves those proportions exactly, letting your eyes absorb the magnitude of the difference without any exaggeration or diagram distortion.</p>
+<p>Yani Jüpiter’in görünen diski Neptün’ünkinden sekiz kattan fazla büyüktür. Bu simülasyon bu oranları aynen korur; böylece gözleriniz, herhangi bir abartı veya diyagram çarpıtması olmadan farkın büyüklüğünü doğrudan kavrayabilir.</p>
 
 <SimPostSchema
-  title="Jupiter and Neptune Size Comparison"
-  description="An interactive browser-based simulation that shows the true scale difference between Jupiter and Neptune."
+  title="Jüpiter ve Neptün Boyut Karşılaştırması"
+  description="Jüpiter ile Neptün arasındaki gerçek ölçek farkını gösteren etkileşimli bir tarayıcı tabanlı simülasyon."
   url="https://astrosyo.com/posts/jupiter-neptune-size-comparison"
   datePublished="2025-08-27"
   authorName="Astrosyo"
   keywords={[
-    "jupiter",
-    "neptune",
-    "planet size comparison",
-    "astronomy",
+    "jüpiter",
+    "neptün",
+    "gezegen boyut karşılaştırması",
+    "astronomi",
     "three.js",
     "webgl",
-    "education"
+    "eğitim"
   ]}
   image="/images/jupiter-neptune-size-comparison/cover.webp"
-  articleSection="Astronomy"
+  articleSection="Astronomi"
   isAccessibleForFree={true}
   publisherName="Astrosyo"
   publisherLogo="/images/shared/logo.webp"
   hasPart={{
     "@type": "SoftwareApplication",
-    "name": "Planet Size Comparison",
+    "name": "Gezegen Boyut Karşılaştırması",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Any",
     "browserRequirements": "Requires WebGL2",
     "url": "https://astrosyo.com/posts/jupiter-neptune-size-comparison#simulation",
-    "description": "Interactive visualization comparing Jupiter and Neptune with accurate scale."
+    "description": "Jüpiter ve Neptün’ü doğru ölçekle karşılaştıran etkileşimli görselleştirme."
   }}
 />

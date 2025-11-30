@@ -1,18 +1,18 @@
 ---
 layout: ../../../layouts/simLayout.astro
-title: "Single-Planet Star System"
+title: "Tek Gezegenli Yıldız Sistemi"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-11-10'
-description: "Follow a lone exoplanet as it sweeps along an eccentric orbit and shows off its tilted, glowing atmosphere."
+description: "Eksantrik bir yörüngede dolanan, eğik ve parıldayan atmosferini sergileyen yalnız bir ötegezegeni takip edin."
 slug: single-planet-system
 imageDir: /images/single-planet-system
 keywords:
-  - exoplanet
-  - orbital mechanics
-  - astronomy visualization
+  - ötegezegen
+  - yörünge mekaniği
+  - astronomi görselleştirmesi
   - three.js
-  - space simulation
+  - uzay simülasyonu
 ---
 
 import SinglePlanetSystem from "../../../components/simulations/single-planet-system/single-planet.jsx";
@@ -21,59 +21,62 @@ import SimPostSchema from "../../../components/SimPostSchema.astro";
 <SinglePlanetSystem client:load showPause={true} />
 
 <figcaption class="sim-caption">
-  A luminous star anchors the scene while a single world traces a stretched orbit, rolls beneath realistic lighting, and keeps its atmosphere aglow.
+  Parlak bir yıldız sahnenin merkezinde sabit dururken, tek bir dünya uzamış bir yörünge çizer, gerçekçi ışıklandırmanın altında döner ve atmosferi parıldamaya devam eder.
 </figcaption>
 
 <div class="sim-article">
-  <h2 id="about-this-simulation">About this simulation</h2>
+  <h2 id="about-this-simulation">Bu simülasyon hakkında</h2>
   <p>
-    This minimalist scene showcases a one-planet stellar neighborhood viewed straight down from interstellar space.
-    The star stays fixed at the focus of an eccentric orbit, while the planet glides along the path with a configurable orbital period,
-    axial tilt, and day length. The orbit is scaled for readability, but the timing stays consistent—pause and resume whenever you want
-    to inspect where the planet is along its year.
+    Bu minimalist sahne, galaksiler arası boşluktan yukarıdan bakılan tek gezegenli bir yıldız çevresini sergiler.
+    Yıldız, eksantrik bir yörüngenin odağında sabit kalırken, gezegen ayarlanabilir yörünge periyodu, eksen eğikliği ve
+    gün uzunluğuyla bu yol boyunca süzülür. Yörünge okunabilir olması için ölçeklenmiştir, ancak zamanlama tutarlıdır—
+    gezegenin “yılı” boyunca nerede olduğunu incelemek istediğinizde istediğiniz an duraklatıp devam ettirebilirsiniz.
   </p>
   <p>
-    Because there is only one world to watch, you can pay close attention to how the star's light rakes across the surface as the planet rotates.
-    A subtle additive atmosphere keeps the limb glowing, and a dashed orbit line makes it easy to see where apoapsis and periapsis fall.
+    Yalnızca tek bir dünya olduğu için, gezegen dönerken yıldız ışığının yüzey üzerinde nasıl süpürme yaptığını dikkatle
+    izleyebilirsiniz. İnce bir ek atmosfer katmanı, ufuk çizgisinin parıldamasını sağlar ve kesik yörünge çizgisi,
+    apoapsis ve periapsis noktalarının nerede olduğunu kolayca görmenize yardımcı olur.
   </p>
 
-  <h3 id="what-to-look-for">What to look for</h3>
+  <h3 id="what-to-look-for">Nelere dikkat etmeli?</h3>
   <p>
-    Notice how the orbital speed stays uniform even though the path stretches into an ellipse—this keeps the visualization calm and legible.
-    Toggle the pause control when the planet is closest to the star to compare its scale against the stellar disk. Because axial tilt is applied,
-    the day/night terminator sweeps diagonally, hinting at seasons you might expect on such a world.
+    Yörünge yolu elipse uzarken bile hızın sabit kaldığına dikkat edin—bu, görselleştirmenin sakin ve okunaklı
+    kalmasını sağlar. Gezegen yıldıza en yakın konumdayken duraklatma kontrolünü kullanarak, gezegenin ölçeğini
+    yıldız diskiyle karşılaştırın. Eksen eğikliği uygulandığı için gece/gündüz hattı (terminatör) yüzey üzerinde
+    çapraz bir şekilde süpürür; bu da böyle bir dünyada beklenebilecek mevsimlere dair ipuçları verir.
   </p>
   <p>
-    Try watching for beats between rotation and orbital motion. Retrograde spins or slower days can be configured via props when the component
-    is reused, making this a handy sandbox for storytelling or teaching orbital basics.
+    Dönme ile yörünge hareketi arasındaki “ritimleri” izlemeyi deneyin. Bileşen yeniden kullanılırken prop’lar
+    aracılığıyla geriye doğru (retrograd) dönüşler veya daha yavaş günler ayarlanabilir; bu da sahneyi hikâye
+    anlatımı veya temel yörünge kavramlarını öğretmek için kullanışlı bir oyun alanı hâline getirir.
   </p>
 </div>
 
 <SimPostSchema
-  title="Single-Planet Star System"
-  description="Watch a lone exoplanet orbit its star along an eccentric path with axial tilt, atmospheric glow, and pause-aware controls."
+  title="Tek Gezegenli Yıldız Sistemi"
+  description="Eksantrik yörüngede yıldızının etrafında dolanan yalnız bir ötegezegeni, eksen eğikliği, atmosfer parıltısı ve duraklatma kontrollü bir sahneyle izleyin."
   url="https://astrosyo.com/posts/single-planet-system"
   datePublished="2025-11-10"
   authorName="Astrosyo"
   keywords={[
-    "exoplanet",
-    "orbital mechanics",
-    "astronomy visualization",
+    "ötegezegen",
+    "yörünge mekaniği",
+    "astronomi görselleştirmesi",
     "three.js",
-    "space simulation"
+    "uzay simülasyonu"
   ]}
   image="/images/single-planet-system/cover.webp"
-  articleSection="Astronomy"
+  articleSection="Astronomi"
   isAccessibleForFree={true}
   publisherName="Astrosyo"
   publisherLogo="/images/shared/logo.webp"
   hasPart={{
     "@type": "SoftwareApplication",
-    "name": "Single-Planet Star System",
+    "name": "Tek Gezegenli Yıldız Sistemi",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Any",
     "browserRequirements": "Requires WebGL2",
     "url": "https://astrosyo.com/posts/single-planet-system#simulation",
-    "description": "Interactive single-planet orbit visualized with an orthographic Three.js camera and pause-aware timing."
+    "description": "Tek gezegenli yörüngenin ortografik Three.js kamera ve duraklatılabilir zamanlama ile etkileşimli görselleştirilmesi."
   }}
 />
