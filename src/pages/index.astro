@@ -27,10 +27,10 @@ function latestByCategory(key, n = 4) {
 
 // category config
 const CATS = [
-  { key: 'nasa',          label: 'NASA',           cta: 'See the article →' },
+  { key: 'nasa',          label: 'NASA Posts',           cta: 'See the article →' },
   { key: 'reviews',        label: 'Reviews',        cta: 'Read the review →' },
   { key: 'simulation',    label: 'Simulations',    cta: 'Go to the simulation →' },
-  { key: 'informational', label: 'Informational',         cta: 'Read the guide →' },
+  { key: 'informational', label: 'Informational Posts',         cta: 'Read the guide →' },
 ];
 
 const latestNasa = allPosts.find(({ frontmatter }) => hasCat(frontmatter, 'nasa'));
@@ -128,6 +128,7 @@ const latestNasa = allPosts.find(({ frontmatter }) => hasCat(frontmatter, 'nasa'
                 })
               }
             </div>
+          <span class="divider"></span>
           </section>
         );
       })}

@@ -23,11 +23,12 @@
 
   /* glassy neutral surface (same for all) */
   background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.028));
-  border: 1px solid rgba(255,255,255,0.20);
+  /*background: var(--bg);*/
+  /*border: 1px solid rgba(255,255,255,0.20);*/
   border-radius: 14px;
 
   /* shared depth */
-  box-shadow: 0 1px 1px rgba(255,255,255,0.20);
+  box-shadow: 0 0px 1px 1px rgba(255,255,255,0.20);
 
   /* shared motion */
   transition:
@@ -37,6 +38,7 @@
     background .22s ease,
     filter .22s ease;
   isolation: isolate;
+  padding: 0.3rem;
 }
 
 /* subtle star speckles (same for all) */
@@ -213,8 +215,12 @@
 ========================================================= */
 
 /* Base (no modifier): core red */
-.post-card .post-card-link::after { color: color-mix(in oklab, var(--brand-red) 78%, white); }
-.post-card .read-post { color: color-mix(in oklab, var(--brand-red) 86%, white); }
+
+.post-card .read-post { 
+  /*color: color-mix(in oklab, var(--brand-red) 86%, white);*/ 
+  color: var(--brand-red);
+  font-weight: 700;
+}
 .card-btn { background: linear-gradient(180deg, var(--brand-red), color-mix(in oklab, var(--brand-red) 85%, #6c0a18)); }
 .card-btn:hover { background: linear-gradient(180deg, color-mix(in oklab, var(--brand-red) 98%, #ff5a5a 2%), color-mix(in oklab, var(--brand-red) 90%, #6c0a18)); }
 
@@ -239,7 +245,8 @@
 .info-badge,
 .nasa-badge {
   background: var(--brand-red-bg);
-  color: color-mix(in oklab, var(--brand-red) 92%, white);
+  /*color: color-mix(in oklab, var(--brand-red) 92%, white);*/
+  color: var(--brand-red);
   border-color: var(--brand-red-bg);
 }
 

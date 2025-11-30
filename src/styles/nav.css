@@ -5,7 +5,7 @@ header {
   position: fixed;
   top: 0; left: 0; right: 0;
   height: var(--header-height);
-  background: rgba(18, 18, 18, 0.9); /* dark translucent */
+  background: var(--nav-bg); /* dark translucent */
   backdrop-filter: saturate(180%) blur(10px);
   z-index: 1000;
 
