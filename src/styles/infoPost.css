@@ -164,7 +164,7 @@ figcaption {
   padding: 10px 16px;
   border-radius: 10px;
   border: none;
-  background: var(--brand-red, #ff5a5f);
+  background: var(--brand-red-darker);
   color: white;
   font-weight: 600;
   cursor: pointer;
