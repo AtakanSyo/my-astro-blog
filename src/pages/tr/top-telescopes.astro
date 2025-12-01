@@ -80,7 +80,7 @@ const reviewPosts = allPosts
         ].filter(([, link]) => link);
 
         const cleanTitle = frontmatter.title
-          ? frontmatter.title.replace(/\s+(Review|Overview)$/i, '')
+          ? frontmatter.title.replace(/\s+(İncelemesi|Genel Bakış)$/i, '')
           : 'Untitled Telescope';
 
         return (

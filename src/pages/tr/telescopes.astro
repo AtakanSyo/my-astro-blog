@@ -67,7 +67,7 @@ const sortedGrouped = Object.fromEntries(
       <div class="post-grid">
         {sortedAll.map(({ frontmatter, url }) => {
           const { title, description, rating, writer, pubDate, affiliate = {} } = frontmatter;
-          const cleanTitle = title.replace(/ (Review|Overview)$/, '');
+          const cleanTitle = title.replace(/ (İncelemesi|Genel Bakış)$/, '');
           const score = rating?.overall ?? 'N/A';
           const affs = [
             ['Amazon', affiliate.amazon],
