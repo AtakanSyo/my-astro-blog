@@ -2,30 +2,35 @@
 import '../styles/global.css';  // ← pulls in your global styles
 import '../styles/nav.css';
 import '../styles/footer.css';
-/* In your layout head */
 
 import { site } from '../config/site.js';
 const site_description = site.description;
-const { title, category } = Astro.props;
+const site_url = site.url ?? 'https://astrosyo.com';
+
+const { title, category, lang: frontmatterLang } = Astro.props;
+
 import NavScript from '../components/NavScript.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import Header from '../components/Header.astro';
 
 const pathname = Astro.url.pathname;
-const isTr = pathname.startsWith('/tr');
-const lang = isTr ? 'tr' : 'en';
+
+// Eğer frontmatter.lang varsa onu kullan, yoksa URL'den tahmin et
+const isTrPath = pathname.startsWith('/tr');
+const lang = frontmatterLang ?? (isTrPath ? 'tr' : 'en');
 
 const orgJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "Astrosyo",
-  "url": "https://astrosyo.com",
+  "url": site_url,
   "potentialAction": {
     "@type": "SearchAction",
-    "target": "https://astrosyo.com/search?q={search_term_string}",
+    "target": `${site_url}/search?q={search_term_string}`,
     "query-input": "required name=search_term_string"
   }
-}
+};
+
 function slugify(str) {
   return str.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, '');
 }
@@ -36,17 +41,50 @@ const bodyClasses = [
 ]
   .filter(Boolean)
   .join(' ');
+
+// --------- CANONICAL & HREFLANG URL'LERİ ---------
+
+// İngilizce yol: /tr/... ise /... haline çevir, değilse olduğu gibi
+const enPath = isTrPath
+  ? (pathname === '/tr' ? '/' : pathname.replace(/^\/tr/, '') || '/')
+  : pathname;
+
+// Türkçe yol: /tr/... ise olduğu gibi, değilse başına /tr ekle
+const trPath = isTrPath
+  ? pathname
+  : (pathname === '/' ? '/tr' : `/tr${pathname}`);
+
+// Tam URL'ler
+const enUrl = `${site_url}${enPath}`;
+const trUrl = `${site_url}${trPath}`;
+
+// Sayfanın kendi canonical URL'i: tr sayfadaysak trUrl, yoksa enUrl
+const canonicalUrl = lang === 'tr' ? trUrl : enUrl;
+
+// Dinamik <title>
+const pageTitle = title ? `${title} | Astrosyo` : 'Astrosyo';
 ---
 
 <!doctype html>
 <html lang={lang}>
-	<head>
-		<meta charset="UTF-8"/>
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={site_description} />
     <meta property="og:description" content={site_description} />
-		<title>Astrosyo</title>
+
+    <title>{pageTitle}</title>
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Hreflang Etiketleri -->
+    <link rel="alternate" href={enUrl} hreflang="en" />
+    <link rel="alternate" href={trUrl} hreflang="tr" />
+    <link rel="alternate" href={enUrl} hreflang="x-default" />
+
     <script type="application/ld+json" set:html={JSON.stringify(orgJsonLd)} />
     <script
       defer
@@ -54,14 +92,14 @@ const bodyClasses = [
       data-website-id="7f187073-b57a-4268-9c53-94c815af943f"
       data-host-url="https://cloud.umami.is"
     >
-    </script>	
-</head>
-	  <body class={bodyClasses}>
-      <Header lang={lang} />
+    </script>
+  </head>
+  <body class={bodyClasses}>
+    <Header lang={lang} />
     <main>
       <slot />
     </main>
-      <NavScript />
-	</body>
+    <NavScript />
     <SiteFooter lang={lang} currentPath={pathname} />
+  </body>
 </html>

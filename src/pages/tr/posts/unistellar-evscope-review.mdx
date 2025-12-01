@@ -3,8 +3,8 @@ category: reviews
 subcategory: telescopes
 reviewType: hands-on
 layout: ../../../layouts/ReviewPostLayout.astro
-title: Unistellar Evscope Review
-telescopeType: Smart Telescope
+title: Unistellar eVscope İncelemesi
+telescopeType: Akıllı Teleskop
 writer: Zane Landers
 brand: UniStellar
 rating:
@@ -22,36 +22,48 @@ specs:
   focalLength: '500'
 pubDate: '2025-07-26'
 description: >-
-  The Unistellar eVscope is a product built largely on marketing hype and the
-  laziness of its target demographic, providing lackluster images built on
-  misleading promises and using components that cost roughly one-tenth to buy
-  yourself as what Unistellar tricks you into purchasing.
+  Unistellar eVscope, büyük ölçüde pazarlama söylemleri ve hedef kitlesinin
+  tembelliği üzerine kurulmuş; zayıf görüntüleri yanıltıcı vaatlerle satan ve
+  bileşen maliyeti kabaca toplam fiyatın onda biri olan parçalarla
+  oluşturulmuş bir üründür.
 slug: unistellar-evscope-review
 imageDir: /images/unistellar-evscope-review
 keywords:
-  - Unistellar Evscope
+  - Unistellar eVscope
 prosCons:
   pros:
-    - "Requires essentially no effort, brainpower, or dark skies to use"
-    - "Produces low-quality images that may impress non-astronomers"
+    - "Kullanmak için neredeyse hiç emek, bilgi ya da karanlık gökyüzü gerektirmez"
+    - "Astronomiyle ilgisi olmayanları etkileyebilecek düşük kaliteli görüntüler üretir"
   cons:
-    - "A complete rip-off-"
-    - "Low-quality images that even a DSLR and wind-up star tracker can beat"
-    - "Not a substitute for actual observation through an eyepiece"
+    - "Fiyatına göre tam bir soygun"
+    - "Basit bir DSLR ve ucuz bir yıldız takip sistemi bile daha iyi sonuç verir"
+    - "Gerçek bir göz merceğinden bakarak gözlem yapmanın yerini tutmaz"
 quickSpecs:
-  - "114mm (4.5”) Aperture"
-  - "500mm Focal Length"
-  - "f/3.9"
-  - "Built-in electronic “eyepiece” on base model"
+  - "114 mm (4,5”) Açıklık"
+  - "500 mm Odak Uzaklığı"
+  - "f/3,9"
+  - "Temel modelde gövdeye entegre elektronik “göz merceği”"
+lang: tr
 ---
 import Affiliates from '../../../components/Affiliates.astro'
 import Ratings from '../../../components/Ratings.astro'
 import ProsCons from '../../../components/ProsCons.astro'
 import QuickSpecs from '../../../components/QuickSpecs.astro'
 
-<h2>Introduction</h2>
+<h2>Giriş</h2>
 
-<p class="highlight">The Unistellar eVscope is a product built largely on marketing hype and the laziness of its target demographic, providing lackluster images built on misleading promises and using components that cost roughly one-tenth to buy yourself as what Unistellar tricks you into purchasing. It is a scam marginally better than other crowdfunded products like solar roadways or artificial gills, designed to con those with more money than common sense into buying a bloated, barely functional product that rips away the entire point of purchasing a telescope in the first place. A real high-quality telescope is cheaper; a real astrophotography rig is more capable.</p>
+<p class="highlight">
+Unistellar eVscope, büyük ölçüde pazarlama abartısı ve hedef kitlesinin
+tembelliği üzerine inşa edilmiş; yanıltıcı vaatlere dayanan, bileşenleri
+ayrı ayrı aldığınızda toplam fiyatın yaklaşık onda birine mal olabilecek
+parçalardan oluşan ve buna rağmen fahiş fiyattan satılan bir üründür. Birçok
+kitlesel fonlama “mucizesi” gibi, gerçek anlamda yeni bir şey icat etmekten
+ziyade, daha çok parası olan ama daha az sorgulayan kullanıcıları pahalı,
+zar zor çalışan bir ürüne yönlendirmeyi başarıyor. Gerçek, yüksek kaliteli
+bir teleskop ondan daha ucuz; ciddi bir astrofotoğrafi düzeneği ise ondan
+çok daha yeteneklidir.
+</p>
+
 <QuickSpecs items={frontmatter.quickSpecs} />
 
 <ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
@@ -60,32 +72,149 @@ import QuickSpecs from '../../../components/QuickSpecs.astro'
 
 <Affiliates affiliate={frontmatter.affiliate} />
 
-<h2>Optics</h2>
+<h2>Optikler</h2>
 
-<p>The eVscope is a 114mm f/3.9, using a primary mirror identical to scopes like Orion’s StarBlast or Zhumell’s Z114. The primary mirror focuses light directly onto a Sony IMX224 sensor, an uncooled, small sensor used in the ZWO ASI224MC planetary camera. There is no secondary mirror, focuser, ability to install filters, or any kind of field flattener, derotator, or coma corrector. The sensor feeds the image into an onboard computer, which live stacks a series of short (under 30 second) exposures—it can’t take longer exposures due to the alt-azimuth design of the scope’s mount—and feeds them either to your phone/tablet or onto a tiny LCD screen and loupe that mimics an eyepiece. Unistellar calls this whole setup “enhanced vision technology” that makes the telescope “more powerful,” but really it’s just a cheap camera sensor and some very basic live stacking and automatic image processing.</p>
+<p>
+eVscope, Orion StarBlast veya Zhumell Z114 gibi teleskoplarda kullanılanlarla
+aynı birincil aynaya sahip 114 mm f/3,9’luk bir sistemdir. Birincil ayna,
+ışığı doğrudan Sony IMX224 sensöre odaklar; bu sensör, ZWO ASI224MC gezegen
+kamerasında da kullanılan, soğutmasız küçük bir sensördür. Sistemde ikincil
+ayna yoktur; odaklayıcı, takılıp çıkarılabilir filtre yuvası, alan düzleyici,
+saha döndürücü (derotator) ya da koma düzeltici bulunmaz. Sensör, görüntüyü
+gömülü bir bilgisayara iletir; burada 30 saniyenin altında kısa pozlar
+halinde “canlı yığma” (live stacking) yapılır. Alt‑azimut montaj tasarımı
+nedeniyle 30 saniyeden uzun pozlar mümkün değildir. Ortaya çıkan görüntü,
+telefon/tablet ekranınıza veya eyepçik taklidi yapan küçük bir LCD ekran ve
+büyüteç kombinasyonuna gönderilir. Unistellar, bu düzeneği “enhanced vision
+technology” ve teleskobu “daha güçlü” yapan bir yenilik olarak pazarlasa da,
+özünde ucuz bir kamera sensörü ve son derece temel bir canlı yığma/
+otomatik işleme yazılımından ibarettir.
+</p>
 
-<p>The images of deep-sky objects with the eVscope are noisy and low-quality, stars are bloated and full of coma, and views of the Moon and planets are a joke due to the short 450mm focal length of the scope. Better astrophotos can be achieved with a DSLR, kit lens, and star tracker, while better lunar and planetary views can be produced by even a cheap 60mm refractor. The IMX224 sensor is cheap, not designed for time exposures, and full of noise, producing images that have more colored pixels of noise than bloated stars.</p>
+<p>
+eVscope’un derin uzay görüntüleri gürültülü ve düşük kalitelidir; yıldızlar
+şişkin ve yoğun koma kusuruna sahiptir. Ay ve gezegen görüntüleri ise,
+500 mm’lik kısa odak uzaklığı nedeniyle ciddi anlamda şaka düzeyindedir.
+Basit bir DSLR, kit lens ve ucuz bir yıldız takip cihazıyla çok daha iyi
+astrofotoğraflar çekilebilir; Ay ve gezegenlerde ise ucuz bir 60 mm
+refraktör bile eVscope’tan daha iyi görüntüler üretir. IMX224 sensörü,
+uzun pozlara uygun olmayan, gürültü düzeyi yüksek ve çoğu zaman yıldızların
+kendilerinden daha çok renkli gürültü pikseli üreten ucuz bir sensördür.
+</p>
 
-<p>The “views” of large deep-sky objects are technically more detailed than through a “regular telescope” but lacking in resolution, aesthetic beauty, or the simple fact that in a real telescope and eyepiece those photons may have traveled thousands or millions of light-years to hit your eyeball, a precious experience the eVscope rips away in its ViewMaster-like novelty eyepiece or by simply sending them to your device, the brightness of which will blow out your natural night vision and make seeing the real night sky impossible.</p>
+<p>
+Büyük derin uzay cisimlerinin “görüntüleri”, teknik olarak sıradan bir
+teleskop ve göz merceğiyle gördüklerinizden daha fazla detay içerse de,
+çözünürlük, estetik ve en önemlisi gerçeklik duygusundan yoksundur.
+Gerçek bir teleskop ve göz merceğiyle baktığınızda, o fotonların binlerce
+veya milyonlarca ışık yılı yol kat edip sonunda gözünüze ulaştığını bilmek
+eşsiz bir deneyimdir; eVscope ise bu deneyimi, ViewMaster benzeri “oyuncak”
+göz merceği veya doğrudan ekranınıza gönderdiği aşırı parlak görüntülerle
+sizden çalar ve doğal gece görüşünüzü bozarak gerçek gökyüzünü görmenizi
+zorlaştırır.
+</p>
 
-<p>If your goal is to view pretty pictures of space without effort, consider saving $3,000 and just looking at Hubble pictures or AstroBin.com’s highlights on your TV or computer. If your goal is good astrophotography, $3,000 or more will buy you a good equatorial mount, scope, and camera along with a copy of PixInsight processing software to get you started. If you want to look at the Universe for real, a 10” or 12” Dobsonian costs less than half as much as the eVscope and you can spend the rest of your budget on eyepieces and tanks of gas to get you to dark skies if you lack them at home.</p>
+<p>
+Amacınız emek harcamadan “uzay fotoğrafları” görmekse, birkaç bin dolar
+harcamak yerine Hubble görüntülerine veya AstroBin.com’daki seçme
+astrofotoğraflara televizyonunuzdan bakmayı tercih edebilirsiniz. Eğer
+hedefiniz iyi astrofotoğrafi ise, 3.000 $ ve üzeri bir bütçe, size iyi bir
+ekvatoryal mont, teleskop, kamera ve PixInsight gibi bir işleme yazılımını
+beraberce aldırabilir. Evde karanlık gökyüzünüz yoksa, aynı bütçeyle 10" veya
+12" bir Dobsonian alıp kalan parayı da göz mercekleri ve karanlık bölgelere
+giderken harcayacağınız benzin için kullanmak, çok daha mantıklıdır.
+</p>
 
-<p>In heavy light pollution, the eVscope’s image quality does in fact suffer—something the manufacturers would prefer you not know—and under extremely bad viewing conditions some users have reported that the scope actually downloads images from the Web to make up for its inability.</p>
-<img class="post-image post-image-sm" src="/images/unistellar-evscope-review/mount.webp" alt="Mount" />
-<h2>Mount</h2>
+<p>
+Ağır ışık kirliliği altında eVscope’un görüntü kalitesi daha da düşer—
+üreticilerin özellikle vurgulamak istemediği bir gerçek. Çok kötü gökyüzü
+koşullarında bazı kullanıcılar, teleskobun yetersiz kaldığı durumlarda
+internetten görüntü indirip gösterdiğini bile rapor etmiştir.
+</p>
 
-<p>The eVscope’s mount uses cheap servo motors and software which is closely based on the cheap GoTo mounts from manufacturers such as Celestron sold with small scopes of 6” or less aperture. Its tracking quality is not the best, and being an alt-azimuth design it prevents the scope from taking exposures longer than 30 seconds. It’s attached to a cheap photo tripod that lacks a center brace or spreader, certainly not the most stable. The only good thing we have to say about it is that a battery is built in, though this could be of concern with regards to longevity.</p>
-<h2>Accessories</h2>
+<img
+  class="post-image post-image-sm"
+  src="/images/unistellar-evscope-review/mount.webp"
+  alt="Montaj"
+/>
 
-<p>The eVscope comes with a backpack and no other accessories. There’s no ability to swap any part of the eVscope yourself, or even install a broadband light pollution filter; the telescope is a useless door stop if something breaks and Unistellar is unwilling to repair it. But don’t worry, you can always buy a newer version of the eVscope for even more money and a marginal improvement in quality.</p>
-<h2>What can you see?</h2>
+<h2>Mont</h2>
 
-<p>As previously noted, the eVscope’s image quality is a joke. The Moon shows craters - but nothing a pair of 10x50 binoculars can’t show. The planets are smeared and hard to even recognize; Mercury, Mars, Uranus, and Neptune are mere smudges while even the rings of Saturn or the cloud belts on Jupiter are blurry and barely recognizable. Deep-sky objects - provided they are large such as the Orion Nebula or Andromeda Galaxy - show lots of detail under most conditions but amid a curtain of noise and absence of fine detail. And again, this isn’t “enhanced vision technology” - this isn’t built on a night vision photointensifier tube that captures real photons, nor a simple glass eyepiece - it’s merely fancy and misleading terminology for the age-old revolutionary technology of photography. And again, if photography is your goal, an eVscope’s pictures will be laughed out of the room by anyone who actually takes astrophotography seriously.</p>
-<h2>Drawbacks</h2>
+<p>
+eVscope’un montu, Celestron gibi üreticilerin küçük açıklıklı (6" ve altı)
+teleskoplarla birlikte verdikleri ucuz GoTo montlara oldukça benzeyen, ucuz
+servo motorlar ve basit bir yazılım kullanır. Takip hassasiyeti vasattır ve
+alt‑azimut tasarım, teleskobun 30 saniyeden uzun pozlar çekmesini engeller.
+Tüm sistem, ortasında gergi desteği olmayan ucuz bir fotoğraf üçayağına
+bağlıdır; bu da kararlılık açısından pek güven vermez. Olumlu sayılabilecek
+tek nokta, dahili bir bataryaya sahip olmasıdır; ancak bu da uzun vadeli
+dayanıklılık açısından soru işaretleri yaratır.
+</p>
 
-<p>The eVscope is laughably overpriced, laughably incapable, impossible to modify or repair, and would be an outright scam were it not for the fact that it does indeed spit out pictures with pretty much no human effort besides plopping the telescope down and turning it on.</p>
-<h2>Conclusion</h2>
+<h2>Aksesuarlar</h2>
 
-<p>The Unistellar eVscope is not a new, revolutionary invention besides being a revolutionary new way to con people out of their money and take away the fundamental joys and experience of viewing the night sky - or eliminate the true art of astrophotography - for an even higher price tag than anyone else has managed to achieve in the past.</p>
-<p>If your goal is viewing the night sky, a big Dobsonian telescope is a much better choice than the eVscope, while astrophotography depends on your budget, goals, and level of interest.</p>
-<p>If you must have an all-in-one astrophotography-only rig, the Vaonis Stellina combines high-quality optics with a much better sensor, broadband light pollution filter, features like a derotator to allow for long exposures, and the ability to process the raw images yourself. It doesn’t have a fake eyepiece nor sell itself quite as extremely as a revolutionary new experience, and won’t compare to a dedicated astrophotography rig at its price level, but it can at least satisfy the lazy.</p>
+<p>
+eVscope, bir sırt çantası ve başka hiçbir aksesuar olmadan gelir. Kullanıcı
+olarak teleskopun hiçbir parçasını kendiniz değiştiremez, hatta geniş bant
+ışık kirliliği filtresi bile takamazsınız; herhangi bir bileşen arızalandığında
+ve Unistellar tamir etmediğinde, elinizde pahalı ve işlevsiz bir süs eşyası
+kalır. Elbette, her seferinde biraz daha pahalı olan yeni eVscope versiyonunu
+alıp çok küçük bir “güncelleme”ye daha para harcamak her zaman mümkün.
+</p>
+
+<h2>Neler Görebilirsiniz?</h2>
+
+<p>
+Daha önce de belirtildiği gibi, eVscope’un görüntü kalitesi oldukça
+zayıftır. Ay’da kraterler görülür ama bunlar, basit bir 10x50 dürbünün
+göstermediklerinden fazla değildir. Gezegenler, bulanık lekeler hâlinde
+zor seçilir; Merkür, Mars, Uranüs ve Neptün neredeyse tanınmaz; Satürn’ün
+halkaları veya Jüpiter’in bulut kuşakları ise silik ve belirsizdir. Derin
+uzay cisimleri, özellikle Orion Bulutsusu veya Andromeda Galaksisi gibi
+büyük hedefler, çoğu koşulda oldukça detaylı görünse de, yoğun gürültü ve
+ince detay eksikliği bu görüntüleri estetik olmaktan uzaklaştırır.
+</p>
+
+<p>
+Üstelik bütün bunlar, pazarlamada öne sürüldüğü gibi “gelişmiş görüş” değildir;
+ne gerçek fotonları güçlendiren bir gece görüş tüpü ne de basit bir cam
+göz merceği söz konusudur; yalnızca fotoğrafçılığın eski ama tanıdık
+teknolojisinin üzerine oturtulmuş, abartılı bir pazarlama jargonudur. Eğer
+amacınız gerçekten astrofotoğrafi ise, eVscope ile çekilen görüntüler,
+astrofotoğrafiyle ciddi şekilde uğraşan herkes tarafından muhtemelen
+ciddiye alınmayacaktır.
+</p>
+
+<h2>Dezavantajlar</h2>
+
+<p>
+eVscope, fiyatına göre komik denecek derecede pahalı, yetenekleri
+bakımından sınırlı, modifiye edilmesi veya tamir edilmesi neredeyse
+imkânsız bir sistemdir. Tek “avantajı”, teleskopu yere koyup açmanız
+haricinde sizden neredeyse hiçbir çaba istemeden bir şekilde görüntü
+üretebilmesidir; bu da onu bazı kullanıcılar için cazip kılabilir, ancak
+ürünü hak ettiği eleştiriden muaf tutmaz.
+</p>
+
+<h2>Sonuç</h2>
+
+<p>
+Unistellar eVscope, gökyüzünü gözlemleme deneyimini veya gerçek anlamda
+astrofotoğrafi sanatını daha erişilebilir kılmaktan çok, bunları pahalı ve
+kapalı bir kutunun içine hapsederek basitleştiren bir üründür. Gece
+gökyüzüne gerçekten bakmak istiyorsanız, büyük bir Dobsonian teleskop
+eVscope’tan çok daha iyi bir seçimdir; astrofotoğrafi tarafında ise
+izlemeniz gereken yol, bütçenize, hedeflerinize ve ne kadar emek vermek
+istediğinize bağlıdır.
+</p>
+
+<p>
+Mutlaka hepsi bir arada bir astrofotoğrafi sistemi istiyorsanız, Vaonis
+Stellina; daha kaliteli optikler, çok daha iyi bir sensör, geniş bant ışık
+kirliliği filtresi, uzun pozlara imkân tanıyan derotator benzeri özellikler
+ve ham görüntüleri kendiniz işlemenize olanak tanıyan bir yapı sunar. Fiyatına
+göre tam teşekküllü bir astrofotoğrafi düzeneğiyle boy ölçüşemez; fakat en
+azından, eVscope kadar abartılı bir pazarlama söylemine dayanmaz ve emek
+harcamak istemeyen kullanıcıları belirli ölçüde tatmin edebilir.
+</p>
+
