@@ -3,22 +3,40 @@ interface Props {
   email?: string;
 }
 
+// detect language from URL: paths starting with /tr use Turkish
+const isTr = Astro.url.pathname.startsWith('/tr');
+
+// default email
 const DEFAULT_EMAIL = 'astrosyo@astrosyo.com';
 const { email = DEFAULT_EMAIL } = Astro.props;
-const mailto = `mailto:${email}?subject=${encodeURIComponent('Feedback for Astrosyo Reviews')}`;
+
+// localized text
+const t = {
+  title:        isTr ? 'Astrosyo için geri bildiriminiz mi var?' : 'Have feedback for Astrosyo?',
+  subtitle:     isTr ? 'Her mesajı okuyoruz' : 'We read every note',
+  desc:         isTr
+    ? 'Güncellememiz gerektiğini düşündüğünüz bir şey mi var, veya görüşlerinizi paylaşmak mı istiyorsunuz? Bize hızlıca yazabilirsiniz.'
+    : 'Spot something we should update or want to share your thoughts? Drop us a quick line.',
+  button:       isTr ? 'Bize e-posta gönderin ↗' : 'Email us ↗',
+  subject:      isTr ? 'Astrosyo İncelemeleri İçin Geri Bildirim' : 'Feedback for Astrosyo Reviews'
+};
+
+// build mailto link with localized subject
+const mailto = `mailto:${email}?subject=${encodeURIComponent(t.subject)}`;
 ---
+
 <section class="feedback-cta centered_flex">
   <div class="vendor-card feedback-card">
     <div class="vendor-info">
-      <div class="vendor-name">Have feedback for Astrosyo?</div>
-      <span class="vendor-label">We read every note</span>
+      <div class="vendor-name">{t.title}</div>
+      <span class="vendor-label">{t.subtitle}</span>
       <p class="vendor-desc">
-        Spot something we should update or want to share your thoughts? Drop us a quick line.
+        {t.desc}
       </p>
     </div>
 
     <a class="vendor-button" href={mailto}>
-      Email us ↗
+      {t.button}
     </a>
   </div>
 </section>

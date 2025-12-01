@@ -13,20 +13,32 @@ const { files, heading, showAffiliateLinks = true } = Astro.props as Props;
 
 const requestedFiles = Array.isArray(files) ? files : [files];
 
+// detect language from URL
+const isTr = Astro.url.pathname.startsWith('/tr');
+
 function normalizeFileName(name: string | undefined | null) {
   if (!name) return null;
-  return name
-    .replace(/\\/g, '/')
-    .split('/')
-    .pop()
-    ?.replace(/\.mdx?$/i, '')
-    ?.trim()
-    .toLowerCase() ?? null;
+  return (
+    name
+      .replace(/\\/g, '/')
+      .split('/')
+      .pop()
+      ?.replace(/\.mdx?$/i, '')
+      ?.trim()
+      .toLowerCase() ?? null
+  );
 }
 
 function slugFromUrl(url: string | undefined | null) {
   if (!url) return null;
-  return url.replace(/\/+$/, '').split('/').filter(Boolean).pop()?.toLowerCase() ?? null;
+  return (
+    url
+      .replace(/\/+$/, '')
+      .split('/')
+      .filter(Boolean)
+      .pop()
+      ?.toLowerCase() ?? null
+  );
 }
 
 const normalizedNames = requestedFiles
@@ -35,7 +47,12 @@ const normalizedNames = requestedFiles
 
 const uniqueOrder = Array.from(new Set(normalizedNames));
 
-const allPosts = await Astro.glob('../pages/posts/*.{md,mdx}', { eager: true });
+// --- language-aware posts glob (must be static literals) ---
+const enPosts = await Astro.glob('../pages/posts/*.{md,mdx}', { eager: true });
+const trPosts = await Astro.glob('../pages/tr/posts/*.{md,mdx}', { eager: true });
+const allPosts = isTr ? trPosts : enPosts;
+// -----------------------------------------------------------
+
 type PostEntry = (typeof allPosts)[number];
 
 const postLookup = new Map<string, PostEntry>();
@@ -60,31 +77,46 @@ function formatScore(value: unknown) {
   if (value === null || value === undefined || value === '') return null;
   if (typeof value === 'number' && Number.isFinite(value)) {
     const normalized = Math.max(0, Math.min(10, value));
-    return Number.isInteger(normalized) ? `${normalized}/10` : `${normalized.toFixed(1)}/10`;
+    return Number.isInteger(normalized)
+      ? `${normalized}/10`
+      : `${normalized.toFixed(1)}/10`;
   }
   const num = Number.parseFloat(String(value));
   if (!Number.isNaN(num)) {
     const normalized = Math.max(0, Math.min(10, num));
-    return Number.isInteger(normalized) ? `${normalized}/10` : `${normalized.toFixed(1)}/10`;
+    return Number.isInteger(normalized)
+      ? `${normalized}/10`
+      : `${normalized.toFixed(1)}/10`;
   }
   return String(value);
 }
 
 const containerClass =
   selectedPosts.length > 1 ? 'post-grid review-link-grid' : 'review-link-single';
+
+// localized UI labels
+const labels = {
+  empty: isTr
+    ? 'Eşleşen inceleme yazısı bulunamadı.'
+    : 'No matching review posts found.',
+  untitled: isTr ? 'İsimsiz İnceleme' : 'Untitled Review',
+  byPrefix: isTr ? 'Yazar: ' : 'By ',
+  reviewBadge: isTr ? 'İnceleme' : 'Review',
+  readReview: isTr ? 'İncelemeyi oku →' : 'Read the review →',
+};
 ---
 
 {heading && <h2 class="review-link-heading">{heading}</h2>}
 
 {selectedPosts.length === 0 ? (
-  <div class="review-link-empty">No matching review posts found.</div>
+  <div class="review-link-empty">{labels.empty}</div>
 ) : (
   <div class={containerClass}>
     {selectedPosts.map((post) => {
       const { frontmatter, url } = post;
       const title = frontmatter?.title
         ? frontmatter.title.replace(/\s+(Review|Overview)$/i, '')
-        : 'Untitled Review';
+        : labels.untitled;
       const description = frontmatter?.description;
       const writer = frontmatter?.writer;
       const pubDate = frontmatter?.pubDate
@@ -105,7 +137,7 @@ const containerClass =
 
             {(writer || pubDate) && (
               <div class="post-card-meta">
-                {writer ? `By ${writer}` : ''}
+                {writer ? `${labels.byPrefix}${writer}` : ''}
                 {writer && pubDate ? ' — ' : ''}
                 {pubDate ?? ''}
               </div>
@@ -115,18 +147,23 @@ const containerClass =
 
             <div class="post-card-footer has-badge">
               <div class="post-card-badges">
-                <span class="review-badge">Review</span>
+                <span class="review-badge">{labels.reviewBadge}</span>
                 {scoreLabel && <span class="score-badge">{scoreLabel}</span>}
               </div>
-              <div class="read-post">Read the review →</div>
+              <div class="read-post">{labels.readReview}</div>
             </div>
           </a>
 
           {showAffiliateLinks && affiliates.length > 0 && (
             <div class="affiliate-links">
               {affiliates.map(([label, link]) => (
-                <a href={link} class="affiliate-btn" target="_blank" rel="noopener">
-                  Check on {label}
+                <a
+                  href={link}
+                  class="affiliate-btn"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  {isTr ? `${label} üzerinde kontrol et` : `Check on ${label}`}
                 </a>
               ))}
             </div>

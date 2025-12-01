@@ -7,11 +7,43 @@ export interface Props {
     amazon?: string;
     highpointscientific?: string;
     astroshop?: string;
-    // add any others…
   };
 }
+
 const { affiliate } = Astro.props as Props;
 
+// detect language from URL
+const isTr = Astro.url.pathname.startsWith('/tr');
+
+const labels = {
+  title: isTr ? 'Satın Alınabilecek Mağazalar' : 'Available at These Vendors',
+  amazon: {
+    name: isTr ? 'Amazon' : 'Amazon',
+    sub: isTr ? 'Geniş ürün yelpazesi' : 'Huge marketplace',
+    desc: isTr
+      ? 'Küçük ve orta ölçekli alışverişler için önerilir.'
+      : 'Recommended for smaller purchases.',
+    button: isTr ? 'Fiyatı kontrol et ↗' : 'Check price ↗'
+  },
+  highpoint: {
+    name: isTr ? 'HighPoint Scientific' : 'HighPoint Scientific',
+    sub: isTr ? 'Astronomi odaklı mağaza' : 'Astronomy-focused store',
+    desc: isTr
+      ? 'Mükemmel müşteri desteği ve uzman rehberliği sunar.'
+      : 'Great customer support & expert guidance.',
+    button: isTr ? 'Fiyatı kontrol et ↗' : 'Check price ↗'
+  },
+  astroshop: {
+    name: isTr ? 'AstroShop' : 'AstroShop',
+    sub: isTr ? 'Avrupa' : 'Europe',
+    desc: isTr
+      ? 'Avrupa’daki müşteriler için önerilir.'
+      : 'Recommended for EU customers.',
+    button: isTr ? 'Fiyatı kontrol et ↗' : 'Check price ↗'
+  }
+};
+
+// check if we have at least one affiliate
 const hasAffiliate =
   affiliate.amazon ||
   affiliate.highpointscientific ||
@@ -21,17 +53,17 @@ const hasAffiliate =
 {hasAffiliate && (
 <section class="affiliate-section centered_flex">
 
-  <h3 class="affiliate-section-title">Available at These Vendors</h3>
+  <h3 class="affiliate-section-title">{labels.title}</h3>
 
   <ul class="affiliate-vendors">
 
     {affiliate.amazon && (
       <li class="vendor-card">
-        
+
         <div class="vendor-info">
-          <h4 class="vendor-name">Amazon</h4>
-          <span class="vendor-label">Huge marketplace</span>
-          <p class="vendor-desc">Recommended for smaller purchases.</p>
+          <h4 class="vendor-name">{labels.amazon.name}</h4>
+          <span class="vendor-label">{labels.amazon.sub}</span>
+          <p class="vendor-desc">{labels.amazon.desc}</p>
         </div>
 
         <a
@@ -40,18 +72,18 @@ const hasAffiliate =
           rel="noopener noreferrer"
           class="vendor-button"
         >
-          Check price ↗
+          {labels.amazon.button}
         </a>
       </li>
     )}
 
     {affiliate.highpointscientific && (
       <li class="vendor-card">
-        
+
         <div class="vendor-info">
-          <h4 class="vendor-name">HighPoint Scientific</h4>
-          <span class="vendor-label">Astronomy-focused store</span>
-          <p class="vendor-desc">Great customer support & expert guidance.</p>
+          <h4 class="vendor-name">{labels.highpoint.name}</h4>
+          <span class="vendor-label">{labels.highpoint.sub}</span>
+          <p class="vendor-desc">{labels.highpoint.desc}</p>
         </div>
 
         <a
@@ -60,18 +92,18 @@ const hasAffiliate =
           rel="noopener noreferrer"
           class="vendor-button"
         >
-          Check price ↗
+          {labels.highpoint.button}
         </a>
       </li>
     )}
 
     {affiliate.astroshop && (
       <li class="vendor-card">
-        
+
         <div class="vendor-info">
-          <h4 class="vendor-name">AstroShop</h4>
-          <span class="vendor-label">Europe</span>
-          <p class="vendor-desc">Recommended for EU customers.</p>
+          <h4 class="vendor-name">{labels.astroshop.name}</h4>
+          <span class="vendor-label">{labels.astroshop.sub}</span>
+          <p class="vendor-desc">{labels.astroshop.desc}</p>
         </div>
 
         <a
@@ -80,7 +112,7 @@ const hasAffiliate =
           rel="noopener noreferrer"
           class="vendor-button"
         >
-          Check price ↗
+          {labels.astroshop.button}
         </a>
       </li>
     )}
