@@ -278,3 +278,65 @@ export const spiralGalaxy = /* glsl */`
         gl_FragColor = vec4(pos, 1.0);
     }
 `;
+
+
+
+export const pyramidTrainShader = /* glsl */`
+    uniform float uTime;
+    
+    // This is the static texture we created in JS (The Track)
+    uniform sampler2D texturePath; 
+
+    // Helper to convert a 1D progress (0..1) into 2D Texture UVs
+    vec2 getUVFromProgress(float t) {
+        // We assume the texture is square (WIDTH x WIDTH)
+        // You need to hardcode WIDTH here or pass it as uniform, 
+        // but typically 1024.0 or similar.
+        float width = resolution.x; // GPGPU renderer provides 'resolution'
+        
+        // Calculate total index
+        float totalPixels = width * width;
+        float index = t * totalPixels;
+        
+        // Map to X, Y
+        float x = mod(index, width);
+        float y = floor(index / width);
+        
+        // Normalize to 0..1 UV space
+        return vec2((x + 0.5) / width, (y + 0.5) / width);
+    }
+
+    float rand(vec2 co) {
+        return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);
+    }
+
+    void main() {
+        vec2 uv = gl_FragCoord.xy / resolution.xy;
+        
+        // 1. Determine "Seat Number"
+        // Each particle has a fixed random offset on the track
+        float particleOffset = rand(uv); 
+        
+        // 2. Drive the Train
+        float speed = 0.05; // Loops the track every 20 seconds
+        float globalProgress = uTime * speed;
+        
+        // 3. Calculate current track position (0.0 to 1.0)
+        // fract() ensures it loops 0 -> 1 -> 0
+        float currentProgress = fract(globalProgress + particleOffset);
+        
+        // 4. Look up the XYZ coordinate from the Path Texture
+        vec2 trackUV = getUVFromProgress(currentProgress);
+        vec3 trackPos = texture2D(texturePath, trackUV).xyz;
+        
+        // 5. Add some "Jitter" (Optional)
+        // Makes the line look like a fuzzy glowing beam instead of a laser
+        vec3 jitter = vec3(
+            rand(uv + uTime) - 0.5,
+            rand(uv - uTime) - 0.5,
+            rand(uv * 2.0) - 0.5
+        ) * 0.2; // 0.2 width
+
+        gl_FragColor = vec4(trackPos + jitter, 1.0);
+    }
+`;

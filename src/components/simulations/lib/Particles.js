@@ -313,3 +313,61 @@ export function runVortexSimulation(container = document.body) {
 
     return { scene, camera, renderer, gpuCompute };
 }
+
+
+export function createPyramidPathTexture(gpuCompute) {
+    const tex = gpuCompute.createTexture();
+    const data = tex.image.data;
+    
+    // Pyramid Dimensions
+    const w = 15.0; // Base half-width
+    const h = 25.0; // Height
+
+    // Keyframes: The corners of the pyramid
+    const corners = [
+        new THREE.Vector3(-w, 0, -w), // Base 1
+        new THREE.Vector3( 0, h,  0), // Apex
+        new THREE.Vector3( w, 0, -w), // Base 2
+        new THREE.Vector3( w, 0,  w), // Base 3
+        new THREE.Vector3( 0, h,  0), // Apex (Again)
+        new THREE.Vector3(-w, 0,  w), // Base 4
+        new THREE.Vector3(-w, 0, -w)  // Back to Base 1 (Loop Closed)
+    ];
+
+    // Total pixels available in the texture
+    const totalPixels = data.length / 4;
+    
+    // Helper to get point on the path
+    // We treat the 'corners' array as a sequence of connected lines
+    function getPointOnPath(t) {
+        // t is 0.0 to 1.0
+        const totalSegments = corners.length - 1;
+        const scaledT = t * totalSegments;
+        const index = Math.floor(scaledT);
+        const segmentT = scaledT - index; // Progress on current line segment (0..1)
+        
+        const start = corners[index];
+        const end = corners[min(index + 1, totalSegments)]; // Safety clamp
+        
+        return new THREE.Vector3().lerpVectors(start, end, segmentT);
+    }
+    
+    // Safety min function since JS Math.min doesn't handle objects well
+    function min(a, b) { return a < b ? a : b; }
+
+    for (let i = 0; i < totalPixels; i++) {
+        const i4 = i * 4;
+        
+        // Calculate progress (0.0 to 1.0) along the ENTIRE texture
+        const progress = i / totalPixels;
+        
+        const pos = getPointOnPath(progress);
+
+        data[i4]     = pos.x;
+        data[i4 + 1] = pos.y;
+        data[i4 + 2] = pos.z;
+        data[i4 + 3] = 1.0; // W
+    }
+    
+    return tex;
+}
