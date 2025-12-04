@@ -69,7 +69,7 @@ export const renderVertexShader = /* glsl */`
         vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
         gl_Position = projectionMatrix * mvPosition;
         
-        gl_PointSize = 120.0 / -mvPosition.z;
+        gl_PointSize = 120.0 / -mvPosition.z; // adjusting point size.
     }
 `;
 
@@ -90,7 +90,7 @@ export const renderFragmentShader = /* glsl */`
 
         // 3. MIXING LOGIC
         // Map radius to a 0.0 -> 1.0 gradient
-        float t = smoothstep(2.0, 25.0, vRadius); 
+        float t = 1.0 - exp(-vRadius * 0.5);
         
         vec3 baseColor = mix(colorCore, colorArm, t);
 
@@ -103,7 +103,7 @@ export const renderFragmentShader = /* glsl */`
         
         // If probability is high, mix in the red color
         // Threshold 0.8 means roughly 20% of outer stars will have a red tint
-        float redMix = smoothstep(0.1, 0.95, redProbability);
+        float redMix = smoothstep(0.3, 0.95, redProbability);
         
         vec3 finalColor = mix(baseColor, colorH2, redMix);
 
