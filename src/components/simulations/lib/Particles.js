@@ -69,7 +69,7 @@ export const renderVertexShader = /* glsl */`
         vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
         gl_Position = projectionMatrix * mvPosition;
         
-        gl_PointSize = 60.0 / -mvPosition.z;
+        gl_PointSize = 120.0 / -mvPosition.z;
     }
 `;
 
@@ -140,8 +140,8 @@ export function createInitialPositionTextureSpiral(gpuCompute) {
     const data = tex.image.data;
 
     // CONSTANTS: MUST MATCH SHADER EXACTLY
-    const armCount = 8.0;
-    const twist = 16.0; // Updated from 6.0 to match the 'spiralGalaxy' shader code provided earlier
+    const armCount = 10.0;
+    const twist = 32.0; // Updated from 6.0 to match the 'spiralGalaxy' shader code provided earlier
     const maxRadius = 35.0; // Slightly larger to match shader fade-out
 
     for (let i = 0; i < data.length; i += 4) {
@@ -171,7 +171,7 @@ export function createInitialPositionTextureSpiral(gpuCompute) {
         } else {
             // VOID SPAWN: Wide spread (anywhere else)
             // We push them roughly pi/2 away from the arm center
-            const voidSpread = (Math.random() - 0.5) * 2.5; 
+            const voidSpread = (Math.random() - 0.5) * 0.5; 
             angleOffset = voidSpread + (Math.PI / armCount);
         }
 

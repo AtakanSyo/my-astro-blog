@@ -216,7 +216,7 @@ export const spiralGalaxy = /* glsl */`
         // ============================================
         // 1) STRUCTURE DEFINITION
         // ============================================
-        float armCount = 8.0;
+        float armCount = 6.0;
         float twist = 16.0;
         float patternSpeed = 0.05; 
 
