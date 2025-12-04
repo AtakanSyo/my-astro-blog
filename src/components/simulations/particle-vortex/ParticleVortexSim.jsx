@@ -36,7 +36,7 @@ export default function ParticleVortexSim({
         fov: 60,
         near: 0.1,
         far: 1000,
-        position: { x: 0, y: 20, z: 40 },
+        position: { x: 0, y: 30, z: 40 },
         lookAt: { x: 0, y: 0, z: 0 },
       },
     });
