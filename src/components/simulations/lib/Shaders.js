@@ -280,6 +280,7 @@ export const spiralGalaxy = /* glsl */`
     }
 `;
 
+
 export const pyramidTrainShader = /* glsl */`
     uniform float uTime;
     
