@@ -2,12 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import SimStage from '../lib/SimStage.jsx';
 import { prepareScene } from '../lib/threeCore.js';
-import { 
-  initCompute, 
-  createParticlePoints, 
-  createPyramidPathTexture 
-} from '../lib/Particles.js';
-import { pyramidTrainShader } from '../lib/Shaders.js';
+import { createParticlePoints } from '../lib/particles.js';
+import { initCompute } from '../lib/gpu.js';
+import { pyramidTrainShader } from "../lib/shaders.js";
+
 
 export default function PyramidTrainSim({
   id = 'pyramid-train',
