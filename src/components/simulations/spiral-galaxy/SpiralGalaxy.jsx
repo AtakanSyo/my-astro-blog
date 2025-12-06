@@ -2,14 +2,15 @@ import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import SimStage from '../lib/SimStage.jsx';
 import { prepareScene } from '../lib/threeCore.js';
-import { initCompute, createParticlePoints } from '../lib/Particles.js';
-import { spiralGalaxy } from '../lib/Shaders.js';
+import { createParticlePoints } from '../lib/particles.js';
+import { initCompute } from '../lib/gpu.js';
+import { spiralGalaxy } from "../lib/shaders.js";
 
 /**
  * GPU-based particle vortex simulation using Three.js and GPUComputationRenderer.
  * Particles orbit and spiral inward, then respawn into the outer ring.
  */
-export default function ParticleVortexSim({
+export default function SpiralGalaxySim({
   id = 'particle-vortex',
   aspect = '16 / 9',
   showPause = true,
@@ -43,7 +44,10 @@ export default function ParticleVortexSim({
 
     const { scene, renderer, start, stop, renderOnce, dispose } = core;
 
-    const { gpuCompute, posVar } = initCompute(renderer, spiralGalaxy);
+    const TEXTURE_WIDTH = 512;
+    const initParticlePosIdx = 1;
+
+    const { gpuCompute, posVar } = initCompute(renderer, spiralGalaxy, initParticlePosIdx, TEXTURE_WIDTH);
     const { points, material } = createParticlePoints();
 
     // Subtle base color tint via fog for depth.
