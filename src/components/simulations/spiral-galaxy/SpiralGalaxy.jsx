@@ -15,6 +15,7 @@ export default function SpiralGalaxySim({
   aspect = '16 / 9',
   showPause = true,
   dprCap = 1.5,
+  cameraConfig, // 👈 optional prop
 }) {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
@@ -28,18 +29,20 @@ export default function SpiralGalaxySim({
     const canvas = canvasRef.current;
     if (!container || !canvas) return;
 
+    const defaultCameraConfig = {
+      fov: 60,
+      near: 0.1,
+      far: 1000,
+      position: { x: 0, y: 30, z: 40 },
+      lookAt: { x: 0, y: 0, z: 0 },
+    };
+
     const core = prepareScene({
       canvas,
       container,
       dprCap,
       background: 0x000000,
-      cameraConfig: {
-        fov: 60,
-        near: 0.1,
-        far: 1000,
-        position: { x: 0, y: 30, z: 40 },
-        lookAt: { x: 0, y: 0, z: 0 },
-      },
+      cameraConfig: cameraConfig ?? defaultCameraConfig,
     });
 
     const { scene, renderer, start, stop, renderOnce, dispose } = core;
@@ -84,7 +87,7 @@ export default function SpiralGalaxySim({
       dispose();
       coreHandleRef.current = null;
     };
-  }, [dprCap]);
+  }, [dprCap, cameraConfig]);
 
   useEffect(() => {
     pausedRef.current = paused;

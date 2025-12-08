@@ -232,7 +232,7 @@ export const spiralGalaxy = /* glsl */`
         armProximity = pow(armProximity, 1.0); 
 
         // Core Fix
-        float coreRadius = 1.2;
+        float coreRadius = 0.0;
         float coreFade = smoothstep(0.0, coreRadius, r); 
         float effectiveProximity = mix(1.0, armProximity, coreFade);
 

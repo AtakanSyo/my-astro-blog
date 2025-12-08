@@ -83,7 +83,7 @@ export function createInitialPositionTextureSpiral(gpuCompute) {
     const maxRadius = 25.0;
 
     for (let i = 0; i < data.length; i += 4) {
-        const r = (Math.random() * Math.random() * Math.random()) * maxRadius + 0.5;
+        const r = (Math.random() * Math.random() * Math.random()) * maxRadius;
 
         const logR = Math.log(r);
         const spiralAngle = -(twist * logR) / armCount;
