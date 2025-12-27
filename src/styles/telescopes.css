@@ -3,8 +3,8 @@
 ─────────────────────────────────────────────────*/
 
 .telescope-rankings-page-title {
-  margin-top: 6rem;
   text-align: center;
+  margin-top: 2rem;
 }
 
 /* Rankings / All Telescopes layout */
@@ -38,7 +38,6 @@
 .page-telescope-reviews {
   background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
   background-size: 28px 28px;
-  padding: 0px;
 }
 
 .post-card--rankings {
@@ -231,4 +230,10 @@
   color: var(--rate-color);
   background: rgba(255,255,255,0.04);
   border: 1px solid color-mix(in oklab, var(--rate-color) 70%, rgba(255,255,255,0.12));
+}
+
+.telescopes-only-mobile { display: none; }
+@media (max-width: 640px) {
+  .telescopes-only-desktop { display: none; }
+  .telescopes-only-mobile { display: block; }
 }

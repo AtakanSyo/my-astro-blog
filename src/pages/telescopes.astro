@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import '../styles/telescopes.css';
 import '../styles/cards.css';
+import FloatingIcons from "../components/FloatingIcons.astro";
 
 const allPosts = await Astro.glob('./posts/*.{md,mdx}');
 const telescopePosts = allPosts.filter(p => p.frontmatter.subcategory === 'telescopes');
@@ -57,7 +58,19 @@ function scoreToHue(score: number | null): number {
 
 <Layout title="Telescope Reviews">
 
-  <h1 class="telescope-rankings-page-title fade-up">Telescope Rankings</h1>
+  <section class="rankings-title-wrap">
+
+    <div class="telescopes-only-desktop">
+      <FloatingIcons file="telescope-icons" count={60} height="50px" />
+    </div>
+    <div class="telescopes-only-mobile">
+      <FloatingIcons file="telescope-icons" count={18} height="50px" />
+    </div>
+
+    <h1 class="telescope-rankings-page-title fade-up">
+      Telescope Rankings
+    </h1>
+  </section>
 
   <div class="telescopes-toggle-container">
     <!-- toggle buttons -->
