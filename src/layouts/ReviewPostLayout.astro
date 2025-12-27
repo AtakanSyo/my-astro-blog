@@ -94,8 +94,8 @@ const overallHue = scoreToHue(overallNum);
 <Layout title={title} category={Astro.props.frontmatter?.category}>
 
 <div class="centered_flex">
-<div class="review-post-starter">
-  <h1 class="fade-up">
+
+  <h1 class="fade-up review-title">
     {title}
     {Astro.props.frontmatter.reviewType && (
       <span class={`review-tag ${Astro.props.frontmatter.reviewType}`}>
@@ -103,6 +103,8 @@ const overallHue = scoreToHue(overallNum);
       </span>
     )}
   </h1>
+
+<div class="review-post-starter">
 
   <div class="review-post-starter-content">
     <div class="centered_flex">
