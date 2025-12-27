@@ -12,6 +12,7 @@
   margin: auto;
   text-align: left;
   width: 100%;
+  display: inline-block;
 }
 
 /* Highlighted callout paragraphs */
@@ -193,12 +194,21 @@ h1 .review-tag {
   --rate-lit: 62%;   /* higher = more vibrant on dark bg */
 }
 
-.ratings-row{
+.ratings-row {
   display: flex;
+  justify-content: center;
   gap: 12px;
   padding: 8px 0;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  flex-wrap: wrap;
+}
+
+/* Optional: only allow horizontal scroll on larger screens */
+@media (min-width: 640px) {
+  .ratings-row {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 }
 
 .rating-tile{
