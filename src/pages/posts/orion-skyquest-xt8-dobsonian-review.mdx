@@ -24,8 +24,8 @@ pubDate: '2025-08-08'
 description: >-
   Research-based review of the Orion SkyQuest XT8 — a powerful and affordable
   8-inch Dobsonian for serious beginners.
-slug: orion-8945-skyquest-xt8-classic-dobsonian-telescope-review
-imageDir: /images/orion-8945-skyquest-xt8-classic-dobsonian-telescope-review
+slug: orion-skyquest-xt8-dobsonian-review
+imageDir: /images/orion-skyquest-xt8-dobsonian-review
 keywords:
   - Orion SkyQuest XT8
   - Orion Dobsonian
@@ -57,10 +57,6 @@ import ProsCons from '../../components/ProsCons.astro'
 import QuickSpecs from '../../components/QuickSpecs.astro'
 import Ratings from '../../components/Ratings.astro'
 
-<section class="review-disclaimer">
-  Disclaimer: This review is based on detailed analysis of manufacturer specifications, astronomy community feedback, and independent testing data from trusted sources. Our review combines expert insights, verified customer feedback, and technical specifications to provide a complete picture of the product.
-</section>
-
 <p>If you’re looking for a well-built, powerful telescope in the $300–$400 range, the Orion SkyQuest XT8 Classic Dobsonian is one of the most frequently recommended models. It offers impressive optical power for the price, with an unusually large 8-inch (203 mm) aperture in this price bracket. Many owners describe it as an excellent choice for serious beginners, capable of showing detailed views of Jupiter, Saturn, the Moon, galaxies, and nebulae.</p>
 
 <p>For those willing to spend about $100 more, the Zhumell Z8 Deluxe offers similar power with a richer accessory package — but the XT8 still holds strong value thanks to Orion’s solid build quality and optics.</p>
@@ -70,6 +66,9 @@ import Ratings from '../../components/Ratings.astro'
 <ProsCons pros={frontmatter.prosCons?.pros} cons={frontmatter.prosCons?.cons} />
 
 <Ratings rating={frontmatter.rating} />
+
+<img class="post-image post-image-md" src={frontmatter.imageDir + '/front.webp'} alt="Orion SkyQuest XT8"></img>
+
 
 <h2>In-Depth Review</h2>
 <p>The XT8 is designed to provide maximum optical power for the money. Its 8-inch aperture gathers a huge amount of light, making it well-suited for observing planets and bright deep-sky objects. Under good conditions, users report sharp, clear views of Jupiter’s cloud bands, Saturn’s rings, and the Moon’s craters and maria. Deep-sky performance is also strong: galaxies, nebulae, and star clusters are well within reach.</p>
@@ -94,3 +93,7 @@ import Ratings from '../../components/Ratings.astro'
 <p>At around $370, the Orion SkyQuest XT8 Classic Dobsonian offers a level of optical performance that rivals $500+ models, provided you’re willing to upgrade accessories over time. Its sturdy build, excellent optics, and upgrade-friendly design make it a long-term investment for beginners and budget-conscious intermediates.</p>
 
 <p>Verdict: With a few strategic accessory enhancements, the XT8 becomes a lifetime telescope — highly recommended for anyone seeking maximum aperture for the dollar.</p>
+
+<section class="review-disclaimer">
+  Disclaimer: This review is based on detailed analysis of manufacturer specifications, astronomy community feedback, and independent testing data from trusted sources. Our review combines expert insights, verified customer feedback, and technical specifications to provide a complete picture of the product.
+</section>
