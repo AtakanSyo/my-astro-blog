@@ -1,18 +1,19 @@
 
-h1, h2, h3, h4, h5 {
+.category-reviews h1,
+.category-reviews h2,
+.category-reviews h3,
+.category-reviews h4,
+.category-reviews h5 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   padding-top: 1rem;
+  padding-bottom: 0.8rem;
+  max-width: 700px;
+  margin: auto;
+  text-align: left;
+  width: 100%;
 }
 
-.category-reviews {
-  width: 90vw;
-  max-width: 1200px;
-}
-
-.review-post{
-  max-width: 800px;
-}
 /* Highlighted callout paragraphs */
 .highlight {
   background: rgba(255,255,255,0.06);

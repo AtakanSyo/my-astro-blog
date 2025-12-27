@@ -19,20 +19,13 @@
   background-size: 14px 14px;
 }
 
-@media (min-width: 1200px) {
-  .page-home {
-    max-width: 1000px;
-  }
-}
-
 /* ---- HERO ---- */
 .hero {
-  max-width: var(--hero-max);
-  margin: 8vh auto 5vh;
-  padding: 0 1rem;
+  margin-top: 4rem;
   text-align: center;
   position: relative;
   isolation: isolate;
+  width: 100%;
 }
 
 .hero-kicker {
@@ -45,7 +38,6 @@
 }
 
 .home-title{
-  margin:0 0 clamp(14px, 1.3vw, 18px);
   font-size:clamp(2.2rem, 5.5vw + 0.9rem, 4.4rem);
   font-weight:500;
   text-transform:uppercase;
@@ -166,6 +158,7 @@
   gap: 2.5rem;
   width: 100%;
   margin-top: 2rem;
+  padding: 1rem;
 }
 
 .category-section {

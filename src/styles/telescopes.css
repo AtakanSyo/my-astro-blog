@@ -4,6 +4,7 @@
 
 .telescope-rankings-page-title {
   margin-top: 6rem;
+  text-align: center;
 }
 
 /* Rankings / All Telescopes layout */
@@ -20,6 +21,20 @@
   }
 }
 
+/* Large screens → 3 columns */
+@media (min-width: 1024px) {
+  .post-group .post-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Ultra-wide screens → 4 columns */
+@media (min-width: 1400px) {
+  .post-group .post-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
 .page-telescope-reviews {
   background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
   background-size: 28px 28px;
@@ -31,7 +46,6 @@
 }
 
 .telescopes-toggle-container {
-  max-width: 1200px;
   min-height: 100vh;
   margin-top: 2rem;
   padding: 1rem;

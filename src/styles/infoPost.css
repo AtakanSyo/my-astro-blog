@@ -3,6 +3,21 @@ p {
   width: 100%;
 }
 
+.category-informational h1,
+.category-informational h2,
+.category-informational h3,
+.category-informational h4,
+.category-informational h5 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 1rem;
+  padding-bottom: 0.8rem;
+  max-width: 700px;
+  margin: auto;
+  text-align: left;
+  width: 100%;
+}
+
 /* Center any content that uses .centered_flex */
 .centered_flex {
   display: flex;

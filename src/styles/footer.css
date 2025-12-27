@@ -3,7 +3,7 @@
    =========================== */
 
 .site-footer {
-  width: 100vw;
+  width: 100%;
   padding: 3rem 1rem;
   background: #0d0d0d;          /* dark background */
   color: #d6d6d6;               /* soft gray text */
