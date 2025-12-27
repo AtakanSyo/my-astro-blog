@@ -28,7 +28,8 @@
 
   /* shared depth */
   /* box-shadow: 0 0px 1px 1px rgba(255,255,255,0.20); */
-  border-bottom: 2px solid gray;
+  border: 1px solid gray;
+  border-radius: 8px;
 
   /* shared motion */
   transition:
