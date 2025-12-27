@@ -232,32 +232,6 @@
   color: #999;
 }
 
-/* ---- Notices ---- */
-.home-notice {
-  max-width: 600px;
-  margin: 2rem auto;
-  padding: 1rem 1.5rem;
-  color: var(--color-text);
-  background: var(-bg);
-  border-left: 4px solid var(--brand-red-darker);
-  border-radius: 4px;
-  line-height: 1.5;
-}
-.home-notice-title {
-  margin: 0 0 0.5rem;
-  font-size: 1.2rem;
-  color: var(--color-muted);
-  font-weight: 500;
-}
-.home-notice-text { 
-  font-size: 1.1rem;
-  margin: 0; 
-}
-
-.home-notice-first {
-  margin-top: 6rem;
-}
-
 /* ---- Reduced motion ---- */
 @media (prefers-reduced-motion: reduce) {
   .cta { transition: none; }
