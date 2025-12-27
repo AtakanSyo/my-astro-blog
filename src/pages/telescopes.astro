@@ -27,6 +27,32 @@ const sortedGrouped = Object.fromEntries(
     ),
   ])
 );
+
+function parseScore(v: number | string | undefined): number | null {
+  if (v === undefined || v === null || v === '') return null;
+  if (typeof v === 'number') return Math.max(0, Math.min(10, v));
+
+  const s = String(v).trim().toLowerCase();
+  const m = s.match(/^(\d+(?:\.\d+)?)(?:\s*\/\s*(\d+(?:\.\d+)?))?$/);
+  if (m) {
+    const num = parseFloat(m[1]);
+    const den = m[2] ? parseFloat(m[2]) : 10;
+    if (!isNaN(num) && !isNaN(den) && den > 0) {
+      return Math.max(0, Math.min(10, (num / den) * 10));
+    }
+  }
+
+  const map: Record<string, number> = {
+    a: 9.5, 'a-': 9, 'b+': 8.5, b: 8, 'b-': 7.5, c: 7, 'c-': 6.5,
+  };
+  return map[s] ?? null;
+}
+
+function scoreToHue(score: number | null): number {
+  // 0→120 (red→green). Default to neutral hue if missing.
+  if (score === null) return 210;
+  return Math.round((score / 10) * 120);
+}
 ---
 
 <Layout title="Telescope Reviews">
@@ -68,7 +94,10 @@ const sortedGrouped = Object.fromEntries(
         {sortedAll.map(({ frontmatter, url }) => {
           const { title, description, rating, writer, pubDate, affiliate = {} } = frontmatter;
           const cleanTitle = title.replace(/ (Review|Overview)$/, '');
-          const score = rating?.overall ?? 'N/A';
+          const scoreRaw = rating?.overall;
+          const scoreNum = parseScore(scoreRaw);
+          const scoreText = scoreNum !== null ? scoreNum.toFixed(1) : 'N/A';
+          const hue = scoreToHue(scoreNum);
           const affs = [
             ['Amazon', affiliate.amazon],
             ['HighPoint', affiliate.highpointscientific],
@@ -83,7 +112,9 @@ const sortedGrouped = Object.fromEntries(
                 <div class="post-card-footer has-badge">
                   <div class="post-card-badges">
                     <span class="review-badge">Review</span>
-                    <span class="score-badge">{score}/10</span>
+                    <span class="score-badge" style={`--h:${hue}`}>
+                      {scoreText}/10
+                    </span>
                   </div>
                   <div class="read-post">Read the review →</div>
                 </div>
@@ -118,7 +149,10 @@ const sortedGrouped = Object.fromEntries(
           {sortedGrouped[type].map(({ frontmatter, url }) => {
             const { title, description, rating, writer, pubDate, affiliate = {} } = frontmatter;
             const cleanTitle = title.replace(/ (Review|Overview)$/, '');
-            const score = rating?.overall ?? 'N/A';
+            const scoreRaw = rating?.overall;
+            const scoreNum = parseScore(scoreRaw);
+            const scoreText = scoreNum !== null ? scoreNum.toFixed(1) : 'N/A';
+            const hue = scoreToHue(scoreNum);
             const affs = [
               ['Amazon', affiliate.amazon],
               ['HighPoint', affiliate.highpointscientific],
@@ -135,7 +169,9 @@ const sortedGrouped = Object.fromEntries(
                   <div class="post-card-footer has-badge">
                     <div class="post-card-badges">
                       <span class="review-badge">Review</span>
-                      <span class="score-badge">{score}/10</span>
+                      <span class="score-badge" style={`--h:${hue}`}>
+                        {scoreText}/10
+                      </span>
                     </div>
                     <div class="read-post">Read the review →</div>
                   </div>

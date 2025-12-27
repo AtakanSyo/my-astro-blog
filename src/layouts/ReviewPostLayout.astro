@@ -55,6 +55,33 @@ const jsonLdProduct = {
     }
   }
 };
+
+function parseScore(v) {
+  if (v === undefined || v === null || v === '') return null;
+  if (typeof v === 'number' && Number.isFinite(v)) return Math.max(0, Math.min(10, v));
+
+  const s = String(v).trim().toLowerCase();
+  const m = s.match(/^(\d+(?:\.\d+)?)(?:\s*\/\s*(\d+(?:\.\d+)?))?$/);
+  if (m) {
+    const num = parseFloat(m[1]);
+    const den = m[2] ? parseFloat(m[2]) : 10;
+    if (!Number.isNaN(num) && !Number.isNaN(den) && den > 0) {
+      return Math.max(0, Math.min(10, (num / den) * 10));
+    }
+  }
+
+  const map = { a: 9.5, 'a-': 9, 'b+': 8.5, b: 8, 'b-': 7.5, c: 7, 'c-': 6.5 };
+  return map[s] ?? null;
+}
+
+function scoreToHue(score) {
+  if (score === null) return 210; // neutral fallback
+  return Math.round((score / 10) * 120); // red→green
+}
+
+const overallNum = parseScore(rating?.overall);
+const overallText = overallNum !== null ? overallNum.toFixed(1) : 'N/A';
+const overallHue = scoreToHue(overallNum);
 ---
 
 <head>
@@ -90,9 +117,9 @@ const jsonLdProduct = {
   </div>
     <div class="review-meta centered_flex">
     
-      <div class="main-rating-card rating-card centered_flex">
+      <div class="main-rating-card rating-card centered_flex" style={`--h:${overallHue}`}>
         <span class="category">Overall</span>
-        <span class="score">{rating.overall}/10</span>
+        <span class="score">{overallText}/10</span>
       </div>
       <p class="post-starter-description">{Astro.props.frontmatter.description}</p>
       <div class="share-header"><span class="share-label">Share:</span></div>

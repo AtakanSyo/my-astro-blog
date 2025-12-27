@@ -52,6 +52,12 @@ const reviewPosts = allPosts
   .filter((post) => post.score !== null && hasCat(post.frontmatter ?? {}, 'reviews'))
   .sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
   .slice(0, 10);
+
+function scoreToHue(score) {
+  // 0→120 (red→green); fallback to a neutral blue if missing
+  if (score === null || score === undefined) return 210;
+  return Math.round((score / 10) * 120);
+}
 ---
 
 <Layout title="Top 10 Telescope Picks">
@@ -72,6 +78,7 @@ const reviewPosts = allPosts
         const descriptor = scoreDescriptor(score);
         const pubDate = frontmatter.pubDate ? new Date(frontmatter.pubDate).toLocaleDateString() : null;
         const affiliate = frontmatter.affiliate ?? {};
+        const hue = scoreToHue(score);
         const affs = [
           ['Amazon', affiliate.amazon],
           ['HighPoint', affiliate.highpointscientific],
@@ -94,7 +101,9 @@ const reviewPosts = allPosts
               <div class="post-card-footer has-badge">
                 <div class="post-card-badges">
                   <span class="review-badge">Review</span>
-                  <span class="score-badge">{score?.toFixed(1)}/10</span>
+                  <span class="score-badge" style={`--h:${hue}`}>
+                    {score?.toFixed(1)}/10
+                  </span>
                   {descriptor && <span class="top-ten-chip">{descriptor}</span>}
                   {frontmatter.brand && <span class="top-ten-chip">{frontmatter.brand}</span>}
                   {frontmatter.telescopeType && <span class="top-ten-chip">{frontmatter.telescopeType}</span>}

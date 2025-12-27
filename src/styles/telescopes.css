@@ -203,35 +203,7 @@
   color: #e4e4e4;
 }
 
-/* Reuse your .post-card styles as-is. Just add this: */
 
-.score-badge {
-  position: relative;
-  display: inline-block;
-  background: #000;        /* inner bg like your dark theme */
-  color: #fff;
-  font-weight: 700;
-  font-size: 0.85rem;
-  padding: 0.15rem 0.5rem;
-  border-radius: 0.35rem;
-
-  /* gradient outline (same technique as .rating-card/.telescopes-rating) */
-  border: 1px solid transparent;
-  background-clip: padding-box;
-}
-
-.score-badge::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: var(--brand-red);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-          mask-composite: exclude;
-  pointer-events: none;
-}
 
 /* Optional: align affiliate row with card spacing */
 .post-card + .affiliate-links {
@@ -239,4 +211,24 @@
   gap: 0.5rem;
   flex-wrap: wrap;
   margin-top: 0.5rem;
+}
+
+.score-badge{
+  --rate-color: hsl(var(--h, 0) 100% 62%);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 8px 12px;     /* slightly bigger */
+  border-radius: 999px;
+
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+
+  color: var(--rate-color);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid color-mix(in oklab, var(--rate-color) 70%, rgba(255,255,255,0.12));
 }

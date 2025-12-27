@@ -180,134 +180,57 @@ h1 .review-tag {
   letter-spacing: 0.12em;
   color: var(--brand-red);
 }
-
-.ratings-grid {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-/* ===============================
-   MAIN RATING CARD (hero version)
-   =============================== */
-
 :root{
-  --rating-card-bg: rgb(22,22,22);
+  --text-primary: rgba(255,255,255,0.92);
+  --text-muted: rgba(255,255,255,0.62);
+
+  --tile-radius: 14px;
+  --tile-bg: rgba(255,255,255,0.03);
+  --tile-border: rgba(255,255,255,0.10);
+
+  /* Vibrant color tuning */
+  --rate-sat: 100%;
+  --rate-lit: 62%;   /* higher = more vibrant on dark bg */
 }
 
-.rating-card {
-  position: relative;
-  border-radius: 0.75rem;
-  padding: 0.9rem 1.2rem;
-  width: 8rem;
-
-  /* Two-layer background: inner fill + gradient border */
-  border: 2px solid transparent; /* controls border thickness */
-  background:
-    linear-gradient(var(--rating-card-bg), var(--rating-card-bg)) padding-box,                 /* inner fill */
-    var(--brand-red);                                               /* gradient border */
-
+.ratings-row{
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  /* Prevent any weird overlap/scrolling */
-  isolation: isolate;
-  overflow: hidden;
-
-  box-shadow:
-    0 0 3px var(--brand-red); /* faint brand-colored glow */
+  gap: 12px;
+  padding: 8px 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
+.rating-tile{
+  min-width: 108px;
+  padding: 16px 14px 14px;   /* more breathing room */
+  border-radius: var(--tile-radius);
 
-
-.rating-card .category {
-  font-size: 0.82rem;
-  margin-bottom: 0.4rem;
-  color: #ccc;
-  text-align: center;
+  background: var(--tile-bg);
+  border: 1px solid var(--tile-border);
 }
 
-.rating-card .score {
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: #ffffff;
+/* apply the rating hue only to border + score */
+.rating-tile{
+  --rate-color: hsl(var(--h, 0) var(--rate-sat) var(--rate-lit));
+  border-color: color-mix(in oklab, var(--rate-color) 70%, rgba(255,255,255,0.10));
 }
 
-/* ---- Dark theme + gray neutral UI ---- */
-:root {
-  --rating-bg: #111;
-  --rating-card: #181818;
-  --rating-border: rgba(255, 255, 255, 0.08);
-  --rating-text: #f5f5f5;
-  --rating-muted: #b3b3b3;
-}
-
-.ratings-row {
-  display: inline-flex;
-  width: fit-content;
-  max-width: 100%;
-  margin: 0 auto;
-  gap: 1rem;
-  border-radius: 18px;
-  border: 2px solid rgba(255, 255, 255, 0.15);
-  padding: 1rem;
-  overflow-x: auto; /* keeps scrolling if needed on small screens */
-}
-/* Each bar card */
-.vbar-card {
-  min-width: 60px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-}
-
-/* Score number */
-.vbar-score {
-  font-weight: 700;
-  font-size: 1rem;
+.rating-score{
+  color: var(--rate-color);
+  font-size: 1.35rem;
+  font-weight: 900;
+  letter-spacing: -0.01em;
   font-variant-numeric: tabular-nums;
-  color: var(--rating-text);
+  line-height: 1;
 }
 
-/* Vertical bar frame */
-.vbar {
-  position: relative;
-  width: 16px;
-  height: 90px;
-  border-radius: 999px;
-  background: #2c2c2c;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  overflow: hidden;
+.rating-label{
+  margin-top: 8px;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  line-height: 1.2;
 }
-
-/* ---- ORIGINAL COLOR LOGIC STAYS (hue-mapped score) ---- */
-.vbar-fill {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: var(--p, 0%);
-  border-radius: inherit;
-  background: linear-gradient(
-    to top,
-    hsl(var(--h, 0) 80% 45%) 0%,
-    hsl(var(--h, 0) 78% 50%) 50%,
-    hsl(var(--h, 0) 76% 55%) 100%
-  );
-  transition: height 250ms ease-in-out;
-}
-
-/* Label */
-.vbar-label {
-  font-size: 0.75rem;
-  color: var(--rating-muted);
-  text-align: center;
-}
-
 /* Subtle emphasis on Overall (not changing bar color) */
 /* .vbar-card[data-key="overall"] {
   border: 2px solid rgba(255, 255, 255, 0.15);
@@ -616,4 +539,33 @@ figcaption {
     max-width: 100%;
     align-self: center;
   }
+}
+
+.main-rating-card{
+  --rate-color: hsl(var(--h, 0) 100% 62%);
+
+  border: 1px solid
+    color-mix(in oklab, var(--rate-color) 70%, rgba(255,255,255,0.12));
+  background: rgba(255,255,255,0.03);
+
+  border-radius: 18px;          /* was 16px */
+  padding: 20px 22px 18px;      /* more presence */
+  gap: 6px;                     /* nicer vertical rhythm */
+}
+
+/* Category label */
+.main-rating-card .category{
+  font-size: 0.85rem;           /* was smaller */
+  letter-spacing: 0.02em;
+  opacity: 0.65;
+}
+
+/* The score itself */
+.main-rating-card .score{
+  color: var(--rate-color);
+  font-size: 2.2rem;            /* ⭐ main upgrade (was ~1.6–1.8) */
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
 }
