@@ -3,7 +3,7 @@ import Layout from '../../../layouts/Layout.astro';
 import '../../../styles/index.css';
 import '../../../styles/cards.css';
 import '../../../styles/category.css';
-import FloatingTelescopeIcons from "../../../components/FloatingTelescopeIcons.astro";
+import FloatingIcons from "../../../components/FloatingIcons.astro";
 
 export async function getStaticPaths() {
   const all = await Astro.glob('../../tr/posts/*.{md,mdx}', { eager: true });
@@ -45,22 +45,22 @@ const countText =
 <Layout title="Kategori">
 
   {slug === "reviews" && (
-      <FloatingTelescopeIcons
+      <FloatingIcons
       file="telescope-icons"
       />
   )}
   {slug === "nasa" && (
-      <FloatingTelescopeIcons
+      <FloatingIcons
       file="nasa-icons"
       />
   )}
   {slug === "simulation" && (
-      <FloatingTelescopeIcons
+      <FloatingIcons
       file="simulation-icons"
       />
   )}
   {slug === "informational" && (
-      <FloatingTelescopeIcons
+      <FloatingIcons
       file="informational-icons"
       />
   )}
