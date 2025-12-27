@@ -78,15 +78,7 @@
   position: relative;
   z-index: 1;
 }
-.post-card-link::after {
-  content: "→";
-  position: absolute; top: 12px; right: 12px;
-  opacity: 0;
-  transform: translateY(2px);
-  transition: opacity .18s ease, transform .18s ease, color .18s ease;
-  font-size: 1.15rem;
-  color: #8a90a0; /* overridden by variants only in color */
-}
+
 .post-card:hover .post-card-link::after {
   opacity: .95;
   transform: translateY(0);
