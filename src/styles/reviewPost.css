@@ -325,39 +325,6 @@ h1 .review-tag {
 .pros-cons .pros-block li::before { background: var(--brand-red); box-shadow: 0 0 0 2px rgba(60,214,128,0.18); }
 .pros-cons .cons-block li::before { background: var(--brand-red); box-shadow: 0 0 0 2px rgba(255,107,107,0.18); }
 
-/* Base class (shared styles) */
-.post-image {
-  max-width: 100%;
-  height: auto;
-  padding: 0.5rem;
-  border-radius: 8px;
-  background: #1f1f1f;
-  border: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
-}
-
-.post-starter-image {
-  height: auto;
-  margin: 1rem 0;
-  border-radius: 8px;
-  max-height: 50vh;
-  max-width: 90vw;
-  background: #1f1f1f;
-  border: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
-  padding: 0.5rem;
-  
-}
-
-
-/* Size variants */
-.post-image-sm { max-width: 300px; }
-.post-image-md { max-width: 600px; }
-.post-image-lg { max-width: 1000px; }
-
-@media (max-width: 768px) {
-  .post-image-lg , .post-image-md, .post-image-sm{ max-width: 100%; }
-}
 
 figure {
   padding: 1rem;

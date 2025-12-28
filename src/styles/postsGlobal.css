@@ -328,73 +328,6 @@ p {
   border-color: rgba(255, 255, 255, 0.08);
 }
 
-.simple-table {
-  width: 100%;
-  margin: 1.5rem 0 2.5rem;
-}
-
-.simple-table__title {
-  margin: 0 0 0.75rem;
-  font-size: 1.4rem;
-  font-weight: 700;
-}
-
-.simple-table__wrap {
-  overflow-x: auto;
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(10, 12, 28, 0.72));
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.28);
-}
-
-.simple-table__table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 480px;
-}
-
-.simple-table__caption {
-  margin: 0;
-  padding: 0.75rem 1rem 1rem;
-  font-size: 0.9rem;
-  color: rgba(220, 226, 244, 0.82);
-  text-align: left;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.simple-table__table thead th {
-  text-align: left;
-  padding: 0.9rem 1rem;
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(0, 0, 0, 0.25);
-}
-
-.simple-table__table tbody td {
-  padding: 0.85rem 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  font-size: 0.94rem;
-  color: rgba(228, 231, 244, 0.92);
-}
-
-.simple-table__table tbody tr:last-child td {
-  border-bottom: none;
-}
-
-.simple-table__table tbody tr:nth-child(even) {
-  background: rgba(255, 255, 255, 0.02);
-}
-
-.simple-table__table td::before {
-  content: attr(data-label) ": ";
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.75);
-  margin-right: 0.35rem;
-  display: none;
-}
-
 @media (max-width: 600px) {
   .info-stepper__item {
     flex-direction: column;
@@ -556,4 +489,38 @@ p {
   .vendor-info {
     gap: 0.2rem;
   }
+}
+
+/* Base class (shared styles) */
+.post-image {
+  max-width: 100%;
+  height: auto;
+  padding: 0.5rem;
+  border-radius: 8px;
+  background: #1f1f1f;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+}
+
+.post-starter-image {
+  height: auto;
+  margin: 1rem 0;
+  border-radius: 8px;
+  max-height: 50vh;
+  max-width: 90vw;
+  background: #1f1f1f;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+  padding: 0.5rem;
+  
+}
+
+
+/* Size variants */
+.post-image-sm { max-width: 300px; }
+.post-image-md { max-width: 600px; }
+.post-image-lg { max-width: 1000px; }
+
+@media (max-width: 768px) {
+  .post-image-lg , .post-image-md, .post-image-sm{ max-width: 100%; }
 }
