@@ -75,9 +75,11 @@ const latestNasa = allPosts.find(({ frontmatter }) => hasCat(frontmatter, 'nasa'
         return (
           <section class="category-section">
 
-            <a href={`/category/${cat.key.toLowerCase()}`} class="latest-link">
-              <h2 class="latest-title">{cat.label} →</h2>
-            </a>
+            <h2>
+              <a href={`/category/${cat.key.toLowerCase()}`} class="latest-title">
+                {cat.label} →
+              </a>
+            </h2>
 
             <div class="post-grid category-grid">
               {
