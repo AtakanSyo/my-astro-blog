@@ -6,7 +6,6 @@ import '../styles/cards.css';
 import '../styles/search.css';
 import { site } from '../config/site.js';
 import { Instagram, Youtube } from "lucide-react";
-import fs from 'fs/promises';
 
 // 1) load and sort all posts
 const allPosts = await Astro.glob('./posts/*.{md,mdx}', { eager: true });
@@ -87,7 +86,7 @@ const latestNasa = allPosts.find(({ frontmatter }) => hasCat(frontmatter, 'nasa'
                   const isReview = hasCat(frontmatter, 'reviews');
                   const isInfo   = hasCat(frontmatter, 'informational');
                   const isNasa   = hasCat(frontmatter, 'nasa');
-                  const isLatestNasa = isNasa && latestNasa && url === latestNasa.url;
+                  const thumb = frontmatter.thumbnail;
 
                   const cardClasses = [
                     'post-card',
@@ -107,6 +106,16 @@ const latestNasa = allPosts.find(({ frontmatter }) => hasCat(frontmatter, 'nasa'
                   return (
                     <div class={cardClasses}>
                       <a href={url} class="post-card-link">
+                        {frontmatter.thumbnail && (
+                          <div class="post-card-thumb">
+                            <img
+                              src={frontmatter.thumbnail}
+                              alt={frontmatter.title}
+                              loading="lazy"
+                              decoding="async"
+                            />
+                          </div>
+                        )}
                         <div class="post-card-title">{frontmatter.title}</div>
                         <div class="post-card-meta">
                           {new Date(frontmatter.pubDate).toLocaleDateString()}
