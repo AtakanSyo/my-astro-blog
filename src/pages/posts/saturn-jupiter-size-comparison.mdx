@@ -26,6 +26,7 @@ import SimPostSchema from "../../components/SimPostSchema.astro";
   saturnTexture="/textures/saturn_texture.webp"
   saturnRingTexture="/textures/saturns_rings_texture.webp"
   secondaryTexture="/textures/jupiter_texture.webp"
+  options={{ cameraPosition: [0, 0, 7] }}
   saturnRadius={58232}
   secondaryRadius={69911}
   planetDistance={3.4}
@@ -46,6 +47,21 @@ import SimPostSchema from "../../components/SimPostSchema.astro";
   but Jupiter makes it feel almost modest in scale. The simulation captures this difference 
   without exaggeration or artistic distortion.</p>
 
+<SaturnComparison
+  client:load
+  saturnTexture="/textures/saturn_texture.webp"
+  saturnRingTexture="/textures/saturns_rings_texture.webp"
+  secondaryTexture="/textures/jupiter_texture.webp"
+  options={{ cameraPosition: [0, 12, 0] }}
+  saturnRadius={58232}
+  secondaryRadius={69911}
+  planetDistance={4}
+  saturnContrast={1.05}
+  secondaryContrast={1.0}
+  saturnTiltDeg={[0, 0, 0]}
+  orthoExtent={2.4}
+/>
+
 <h2>The numbers behind the scale</h2>
 <p>Saturn’s diameter is approximately 120,536 km. Jupiter’s diameter is about 139,820 km. The diameter ratio between them is:</p>
 
@@ -65,7 +81,27 @@ $$
 (1.16)^2 \approx 1.35
 $$
 
-<p>So Jupiter’s visible disk is roughly 35% larger than Saturn’s. With both rendered at true scale in 3D space, the simulation makes the size difference intuitive at a glance, revealing why Jupiter is often called the king of the planets.</p>
+<p>So Jupiter’s visible disk is roughly 35% larger than Saturn’s. With both rendered at true scale in 3D space, the simulation makes the size difference intuitive at a glance,
+   revealing why Jupiter is often called the king of the planets.</p>
+  
+<SaturnComparison
+  client:load
+  saturnTexture="/textures/saturn_texture.webp"
+  saturnRingTexture="/textures/saturns_rings_texture.webp"
+  secondaryTexture="/textures/jupiter_texture.webp"
+  options={{ cameraPosition: [0, -6, -6] }}
+  saturnRadius={58232}
+  secondaryRadius={69911}
+  planetDistance={4}
+  saturnContrast={1.05}
+  secondaryContrast={1.0}
+  saturnTiltDeg={[0, 0, 0]}
+  orthoExtent={2.4}
+/>
+
+Beyond raw size, the contrast between Jupiter and Saturn reflects how differently they shaped the Solar System around them. Jupiter’s immense gravity influenced the orbits of nearby material, likely limiting the mass available for other planets to grow and helping sculpt the asteroid belt. Saturn, while still dominant on a planetary scale, played a more localized role. Their size difference is therefore not just a numerical curiosity, but a record of how the early Solar System evolved under competing gravitational giants.
+
+Viewed in isolation, Saturn feels enormous and commanding. Only when placed beside Jupiter at true scale does perspective shift, revealing how subtle differences in diameter translate into dramatic differences in volume, mass, and influence. This is why side-by-side comparisons matter in astronomy: scale is rarely intuitive, and our perception is easily misled without a direct reference. By removing artistic exaggeration and focusing purely on physical proportions, this visualization lets the Solar System speak for itself.
 
 <SimPostSchema
   title="Jupiter and Saturn Size Comparison"
