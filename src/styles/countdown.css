@@ -1,15 +1,43 @@
 .countdown {
-  border-radius: 16px;
-  background: var(--card-bg);
+  box-sizing: border-box;
+  border-radius: 18px;
+  background: linear-gradient(
+      135deg,
+      color-mix(in oklab, var(--color-primary) 22%, transparent),
+      transparent 60%
+    ),
+    var(--card-bg);
   color: var(--color-text);
-  border: 1px solid var(--card-border);
-  box-shadow: 0 12px 45px var(--card-shadow);
-  position: fixed;
+  border: 1px solid color-mix(in oklab, var(--card-border) 70%, var(--color-primary) 30%);
+  box-shadow: 0 16px 55px var(--card-shadow);
   top: var(--header-height);
-  max-width: 320px;
+  max-width: 400px;
   width: 100%;
   margin-inline: auto;
   opacity: 0.9;
+  padding: 16px;
+  transition: opacity 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.countdown * {
+  box-sizing: border-box;
+}
+
+.countdown-title {
+  text-align: center;
+  font-weight: bold;
+  padding-bottom: 1rem;
+}
+
+.countdown > * {
+  position: relative;
+  z-index: 1;
+}
+
+.countdown:hover {
+  opacity: 1;
+  border-color: color-mix(in oklab, var(--card-border) 55%, var(--color-primary) 45%);
+  box-shadow: 0 18px 65px var(--card-shadow);
 }
 
 .countdown__header {
@@ -19,7 +47,7 @@
 .countdown__now {
   display: block;
   margin-bottom: 6px;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--color-text);
   opacity: 0.85;
 }
@@ -27,14 +55,14 @@
 .countdown__status {
   display: block;
   margin-bottom: 8px;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--color-text);
   opacity: 0.7;
 }
 
 .countdown__eyebrow {
   text-transform: uppercase;
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.08em;
   color: var(--color-primary);
   margin: 0 0 4px;
@@ -43,13 +71,13 @@
 
 .countdown__title {
   margin: 0;
-  font-size: 22px;
+  font-size: 26px;
   letter-spacing: -0.02em;
 }
 
 .countdown__meta {
   margin: 6px 0 0;
-  font-size: 14px;
+  font-size: 15px;
   color: var(--color-text);
 }
 
@@ -59,35 +87,48 @@
 
 .countdown__grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 8px;
+  grid-template-columns: repeat(auto-fit, minmax(72px, 1fr));
+  gap: 10px;
 }
 
 .countdown__cell {
-  padding: 3px 2px;
-  border-radius: 7px;
-  background: var(--card-bg);
-  border: 1px solid var(--gray-layer);
+  padding: 8px 6px;
+  border-radius: 10px;
+  background: color-mix(in oklab, var(--card-bg) 86%, var(--color-primary) 14%);
+  border: 1px solid color-mix(in oklab, var(--gray-layer) 75%, var(--color-primary) 25%);
   text-align: center;
 }
 
 .countdown__value {
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 700;
   letter-spacing: 0.02em;
   color: var(--color-text);
 }
 
 .countdown__label {
-  margin-top: 3px;
-  font-size: 11px;
+  margin-top: 4px;
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--color-text);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 480px) {
   .countdown {
-    top: var(--header-height-mobile);
+    max-width: 300px;
+    padding: 12px;
+  }
+
+  .countdown__grid {
+    gap: 8px;
+  }
+
+  .countdown__value {
+    font-size: 18px;
+  }
+
+  .countdown__label {
+    font-size: 11px;
   }
 }
