@@ -87,14 +87,6 @@ export default function SearchPosts({ posts = [], limit = 50 }) {
     const isInfo   = cats.includes('informational') || cats.includes('info');
     const isNasa   = cats.includes('nasa');
 
-    const cardClasses = [
-      'post-card',
-      isP5 && 'post-card--p5',
-      isReview && 'post-card--review',
-      isInfo && 'post-card--info',
-      isNasa && 'post-card--nasa',
-    ].filter(Boolean).join(' ');
-
     const ctaText =
       isP5 ? 'Go to the simulation →'
       : isReview ? 'Read the review →'
@@ -103,34 +95,37 @@ export default function SearchPosts({ posts = [], limit = 50 }) {
       : 'Read full post →';
 
     return (
-      <div className={cardClasses} key={p.url}>
+      <div className="post-card" key={p.url}>
         <a href={p.url} className="post-card-link">
           {/* Title with highlights */}
-          <div className="post-card-title">
-            {highlightText(fm.title ?? '', q)}
-          </div>
-
-          {/* Meta: Writer with highlights + date */}
-          <div className="post-card-meta">
-            By {highlightText(fm.writer ?? 'Unknown', q)} — {p.dateStr}
-          </div>
-
-          {/* Description with highlights */}
-          {fm.description && (
-            <p className="post-card-desc">
-              {highlightText(fm.description, q)}
-            </p>
-          )}
-
-          {/* Footer: badges (left) + CTA (right) */}
-          <div className={`post-card-footer ${(isP5 || isReview || isInfo || isNasa) ? 'has-badge' : ''}`}>
-            <div className="post-card-badges">
-              {isP5 && <span className="p5-badge">Simulation</span>}
-              {isReview && <span className="review-badge">Review</span>}
-              {isInfo && <span className="info-badge">Info</span>}
-              {isNasa && <span className="nasa-badge">NASA</span>}
+            <div class="post-card-info">
+              
+            <div className="post-card-title">
+              {highlightText(fm.title ?? '', q)}
             </div>
-            <div className="read-post">{ctaText}</div>
+
+            {/* Meta: Writer with highlights + date */}
+            <div className="post-card-meta">
+              By {highlightText(fm.writer ?? 'Unknown', q)} — {p.dateStr}
+            </div>
+
+            {/* Description with highlights */}
+            {fm.description && (
+              <p className="post-card-desc">
+                {highlightText(fm.description, q)}
+              </p>
+            )}
+
+            {/* Footer: badges (left) + CTA (right) */}
+            <div className={`post-card-footer ${(isP5 || isReview || isInfo || isNasa) ? 'has-badge' : ''}`}>
+              <div className="post-card-badges">
+                {isP5 && <span className="p5-badge">Simulation</span>}
+                {isReview && <span className="review-badge">Review</span>}
+                {isInfo && <span className="info-badge">Info</span>}
+                {isNasa && <span className="nasa-badge">NASA</span>}
+              </div>
+              <div className="read-post">{ctaText}</div>
+            </div>
           </div>
         </a>
       </div>

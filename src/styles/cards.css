@@ -20,7 +20,6 @@
   flex-direction: column;
   overflow: hidden;
   cursor: pointer;
-
   /* glassy neutral surface (same for all) */
   /* background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.018)); */
   /*background: var(--bg);*/
@@ -29,8 +28,7 @@
   /* shared depth */
   /* box-shadow: 0 0px 1px 1px rgba(255,255,255,0.20); */
   border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 8px;
-
+  border-radius: 14px;
   /* shared motion */
   transition:
     transform .22s ease,
@@ -39,7 +37,6 @@
     background .22s ease,
     filter .22s ease;
   isolation: isolate;
-  padding: 0.3rem;
 }
 
 /* subtle star speckles (same for all) */
@@ -73,7 +70,6 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: clamp(12px, 2vw, 16px);
   text-decoration: none;
   color: inherit;
   position: relative;
@@ -86,19 +82,22 @@
 }
 
 /* -------- Optional thumbnail (shared) -------- */
-.post-card .thumb {
+.post-card-thumb {
   overflow: hidden;
-  aspect-ratio: 16 / 9;
-  border-radius: 10px;
-  margin: -0.5rem -0.5rem clamp(12px, 1.5vw, 16px);
-  border: 1px solid rgba(255,255,255,0.10);
+  aspect-ratio: 1.5 / 1;
+  border-radius: 8px;
   background: #0b0e15;
+  object-fit: cover;
+  object-position: center 0%;
+  overflow: hidden;
 }
-.post-card .thumb img {
+
+.post-card-thumb img {
   width: 100%; height: 100%; object-fit: cover;
   transition: transform .5s ease;
 }
-.post-card:hover .thumb img { transform: scale(1.04); }
+
+.post-card:hover .post-card-thumb img { transform: scale(1.04); }
 /* -------- Typography (shared) -------- */
 
 .post-card-title {
@@ -123,14 +122,17 @@
 
 .post-card-desc {
   display: -webkit-box;
-  -webkit-line-clamp: 3; /* number of lines you want */
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+
   font-size: clamp(.80rem, .3vw + .75rem, .93rem);
   line-height: 1.55;
+  min-height: calc(1.55em * 3); /* 👈 reserve 3 lines */
+
   color: #b7bdc9;
   margin: 0 0 .5rem;
-  text-indent: 1.25rem; /* adjust value until you like it */
+  text-indent: 1.25rem;
 }
 
 /* -------- Text CTA (shared) -------- */
@@ -156,7 +158,7 @@
   align-items: center;
   justify-content: flex-end;
   gap: .75rem;
-  padding-top: .25rem;
+  padding: 1rem;
 }
 .post-card-footer.has-badge { justify-content: space-between; }
 .post-card-badges { display: flex; gap: .4rem; align-items: center; }
@@ -294,19 +296,6 @@
   .post-card-desc { color: #69738c; }
 }
 
-.post-card-thumb {
-  aspect-ratio: 1.5 / 1;
-  width: 100%;
-  overflow: hidden;
-  border-radius: 14px;
+.post-card-info {
+  margin: 1rem;
 }
-
-.post-card-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 0%;
-  display: block;
-  border-radius: 14px;
-}
-

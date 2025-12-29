@@ -183,6 +183,7 @@
 /* Grid: 4 across on wide, 2×2 on smaller */
 .category-grid {
   display: grid;
+  align-items: stretch;  /* usually default, but safe */
   gap: 1rem;
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }

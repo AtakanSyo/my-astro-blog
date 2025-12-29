@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import '../styles/telescopes.css';
-import '../styles/cards.css';
+import ReviewCard from '../components/reviewCard.astro';
 
 const allPosts = await Astro.glob('./posts/*.{md,mdx}');
 const telescopePosts = allPosts.filter(p => p.frontmatter.subcategory === 'telescopes');
@@ -107,37 +107,14 @@ function scoreToHue(score: number | null): number {
           ].filter(([, link]) => link);
 
           return (
-            <div class="post-card post-card--review post-card--rankings">
-              <a href={url} class="post-card-link">
-                <div class="post-card-title">{cleanTitle}</div>
-                <p class="post-card-desc">{description}</p>
-                <div class="post-card-footer has-badge">
-                  <div class="post-card-badges">
-                    <span class="review-badge">Review</span>
-                    <span class="score-badge" style={`--h:${hue}`}>
-                      {scoreText}/10
-                    </span>
-                  </div>
-                  <div class="read-post">Read the review →</div>
-                </div>
-              </a>
-              <div class="affiliate-links">
-                {affs.length > 0 ? (
-                  affs.map(([name, link]) => (
-                    <a
-                      href={link}
-                      class="affiliate-btn"
-                      target="_blank"
-                      rel="noopener"
-                    >
-                      Check on {name}
-                    </a>
-                  ))
-                ) : (
-                  <span class="affiliate-placeholder"></span>
-                )}
-              </div>
-            </div>
+            <ReviewCard
+              url={url}
+              title={cleanTitle}
+              description={description}
+              scoreText={scoreText}
+              hue={hue}
+              affiliates={affs}
+            />
           );
         })}
       </div>
@@ -162,39 +139,14 @@ function scoreToHue(score: number | null): number {
             ].filter(([, link]) => link);
 
             return (
-              <div class="post-card post-card--review">
-                <a href={url} class="post-card-link">
-                  <div class="post-card-title">{cleanTitle}</div>
-
-                  <p class="post-card-desc">{description}</p>
-
-                  <div class="post-card-footer has-badge">
-                    <div class="post-card-badges">
-                      <span class="review-badge">Review</span>
-                      <span class="score-badge" style={`--h:${hue}`}>
-                        {scoreText}/10
-                      </span>
-                    </div>
-                    <div class="read-post">Read the review →</div>
-                  </div>
-                </a>
-                <div class="affiliate-links">
-                  {affs.length > 0 ? (
-                    affs.map(([name, link]) => (
-                      <a
-                        href={link}
-                        class="affiliate-btn"
-                        target="_blank"
-                        rel="noopener"
-                      >
-                        Check on {name}
-                      </a>
-                    ))
-                  ) : (
-                    <span class="affiliate-placeholder"></span>
-                  )}
-                </div>
-              </div>
+              <ReviewCard
+                url={url}
+                title={cleanTitle}
+                description={description}
+                scoreText={scoreText}
+                hue={hue}
+                affiliates={affs}
+              />
             );
           })}
         </div>
