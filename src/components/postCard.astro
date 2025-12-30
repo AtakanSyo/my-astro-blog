@@ -23,6 +23,7 @@ const title = frontmatter.title ?? "";
 const description = frontmatter.description ?? "";
 const thumbnail = frontmatter.thumbnail ?? "";
 const pubDate = frontmatter.pubDate;
+const hasThumb = Boolean(thumbnail);
 
 const computedDateText =
   dateText ??
@@ -38,13 +39,19 @@ const variantClasses = [
   isNasa && "post-card--nasa",
 ].filter(Boolean).join(" ");
 
-const cardClass = ["post-card", variantClasses, extraClass].filter(Boolean).join(" ");
+const cardClass = [
+  "post-card",
+  variantClasses,
+  !hasThumb && "post-card--no-thumb",
+  extraClass
+].filter(Boolean).join(" ");
+const linkClass = ["post-card-link", hasThumb && "post-card-link--overlay"].filter(Boolean).join(" ");
 
 import '../styles/cards.css';
 ---
 
 <div class={cardClass}>
-  <a href={url} class="post-card-link">
+  <a href={url} class={linkClass}>
     {thumbnail && (
       <div class="post-card-thumb">
         <img
@@ -59,15 +66,15 @@ import '../styles/cards.css';
     <div class="post-card-info">
       <div class="post-card-title">{title}</div>
 
-      {computedDateText && (
+      <!-- {computedDateText && (
         <div class="post-card-meta">{computedDateText}</div>
-      )}
+      )} -->
 
       {description && (
         <p class="post-card-desc">{description}</p>
       )}
 
-      <div class={`post-card-footer ${hasBadge ? "has-badge" : ""}`}>
+      <!-- <div class={`post-card-footer ${hasBadge ? "has-badge" : ""}`}>
         <div class="post-card-badges">
           {isP5 && <span class="p5-badge">Simulation</span>}
           {isReview && <span class="review-badge">Review</span>}
@@ -75,7 +82,7 @@ import '../styles/cards.css';
           {isNasa && <span class="nasa-badge">NASA</span>}
         </div>
         <div class="read-post">{ctaText}</div>
-      </div>
+      </div> -->
     </div>
   </a>
 </div>

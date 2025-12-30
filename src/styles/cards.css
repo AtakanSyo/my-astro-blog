@@ -39,6 +39,41 @@
   isolation: isolate;
 }
 
+.post-card--no-thumb {
+  position: relative;
+  min-height: unset;
+
+  background:
+    radial-gradient(
+      120% 120% at 15% 0%,
+      rgba(255, 255, 255, 0.04),
+      rgba(255, 255, 255, 0)
+    ),
+    linear-gradient(
+      145deg,
+      #141414,
+      #0a0a0a
+    );
+
+  border-radius: 16px;
+  padding: 18px 20px;
+
+  border: 1px solid rgba(255, 255, 255, 0.05);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+.post-card--no-thumb a{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
 /* subtle star speckles (same for all) */
 .post-card::after {
   content: "";
@@ -98,6 +133,67 @@
 }
 
 .post-card:hover .post-card-thumb img { transform: scale(1.04); }
+
+/* -------- Overlay variant (PostCard.astro) -------- */
+.post-card-link--overlay {
+  position: relative;
+  display: block;
+  min-height: 280px;
+}
+
+.post-card-link--overlay .post-card-thumb {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  aspect-ratio: auto;
+}
+
+.post-card-link--overlay .post-card-thumb img {
+  width: 100%;
+  height: 100%;
+}
+
+.post-card-link--overlay .post-card-info {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+
+  margin: 0;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  border-radius: 0 0 14px 14px;
+
+  background: linear-gradient(
+    to top,
+    rgba(10, 12, 20, 0.78) 0%,
+    rgba(10, 12, 20, 0.22) 70%,
+    rgba(10, 12, 20, 0.00) 100%
+  );
+}
+
+@supports ((-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))) {
+  .post-card-link--overlay .post-card-info {
+    background: rgba(10, 12, 20, 0.44);
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+  }
+}
+
+.post-card-link--overlay .post-card-title {
+  margin-top: 0;
+  text-align: left;
+  justify-content: flex-start;
+  min-height: 2rem; /* always 2 lines tall */
+}
+
+.post-card-link--overlay .post-card-meta {
+  text-align: left;
+}
+
+.post-card-link--overlay .post-card-desc {
+  text-indent: 0;
+}
 /* -------- Typography (shared) -------- */
 
 .post-card-title {
@@ -122,13 +218,13 @@
 
 .post-card-desc {
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 
   font-size: clamp(.80rem, .3vw + .75rem, .93rem);
   line-height: 1.55;
-  min-height: calc(1.55em * 3); /* 👈 reserve 3 lines */
+  min-height: calc(1.55em * 2); /* 👈 reserve 3 lines */
 
   color: #b7bdc9;
   margin: 0 0 .5rem;
@@ -296,6 +392,3 @@
   .post-card-desc { color: #69738c; }
 }
 
-.post-card-info {
-  margin: 1rem;
-}

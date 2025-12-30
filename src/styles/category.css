@@ -2,6 +2,94 @@
   min-height: 100vh;
 }
 
+/* Bento-style category page layout.
+   Category pages use `class="post-grid category-grid"`; these rules override
+   the base `.post-grid` grid template to create a bento mosaic. */
+.category-grid {
+  --bento-gap: clamp(12px, 2vw, 18px);
+  --bento-radius: 18px;
+
+  display: grid;
+  gap: var(--bento-gap);
+  grid-auto-flow: dense;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+
+  padding: clamp(0.75rem, 2.2vw, 1.5rem);
+  margin: clamp(1rem, 2.4vw, 2rem);
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+  border-radius: var(--bento-radius);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    radial-gradient(1200px 500px at 10% 0%, rgba(255,255,255,0.06), transparent 60%),
+    radial-gradient(900px 420px at 90% 20%, rgba(255,255,255,0.04), transparent 55%),
+    rgba(255, 255, 255, 0.015);
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+@supports ((-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))) {
+  .category-grid {
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+  }
+}
+
+/* Default tile sizing: 3 per row on wide screens (12-col grid). */
+.category-grid > .post-card {
+  grid-column: span 4;
+  min-height: 220px;
+}
+
+/* Featured bento tiles (pattern repeats every 10 cards). */
+.category-grid > .post-card:nth-child(10n + 1) {
+  grid-column: span 8;
+  grid-row: span 3;
+  min-height: 360px;
+}
+
+.category-grid > .post-card:nth-child(10n + 2) {
+  grid-column: span 4;
+  grid-row: span 2;
+  min-height: 360px;
+}
+
+/* Medium screens: 2 tiles per row. */
+@media (max-width: 1024px) {
+  .category-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .category-grid > .post-card {
+    grid-column: span 3;
+  }
+
+  .category-grid > .post-card:nth-child(10n + 1),
+  .category-grid > .post-card:nth-child(10n + 2) {
+    grid-column: span 3;
+    grid-row: span 1;
+    min-height: 280px;
+  }
+}
+
+/* Small screens: single column (no spanning). */
+@media (max-width: 640px) {
+  .category-grid {
+    grid-template-columns: 1fr;
+    padding: 0.75rem;
+    margin: 1rem;
+  }
+
+  .category-grid > .post-card,
+  .category-grid > .post-card:nth-child(10n + 1),
+  .category-grid > .post-card:nth-child(10n + 2) {
+    grid-column: auto;
+    grid-row: auto;
+    min-height: 0;
+  }
+}
+
 .category-title {
   color: white;
   font-size: clamp(2.2rem, 5vw, 3rem);
@@ -30,13 +118,4 @@
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.category-grid {
-  padding-top: 1rem;
-  padding-bottom: 2rem;
-  display: grid;
-  gap: clamp(14px, 2vw, 22px);
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  margin: 2rem;
 }

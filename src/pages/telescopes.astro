@@ -93,30 +93,30 @@ function scoreToHue(score: number | null): number {
     <div class="post-group" data-type="all">
       <h2>All Telescopes</h2>
       <div class="post-grid">
-        {sortedAll.map(({ frontmatter, url }) => {
-          const { title, description, rating, writer, pubDate, affiliate = {} } = frontmatter;
-          const cleanTitle = title.replace(/ (Review|Overview)$/, '');
-          const scoreRaw = rating?.overall;
-          const scoreNum = parseScore(scoreRaw);
-          const scoreText = scoreNum !== null ? scoreNum.toFixed(1) : 'N/A';
-          const hue = scoreToHue(scoreNum);
+	        {sortedAll.map(({ frontmatter, url }) => {
+	          const { title, description, rating, writer, pubDate, affiliate = {}, thumbnail } = frontmatter;
+	          const cleanTitle = title.replace(/ (Review|Overview)$/, '');
+	          const scoreRaw = rating?.overall;
+	          const scoreNum = parseScore(scoreRaw);
+	          const scoreText = scoreNum !== null ? scoreNum.toFixed(1) : 'N/A';
+	          const hue = scoreToHue(scoreNum);
           const affs = [
             ['Amazon', affiliate.amazon],
             ['HighPoint', affiliate.highpointscientific],
             ['Astroshop', affiliate.astroshop],
           ].filter(([, link]) => link);
 
-          return (
-            <ReviewCard
-              url={url}
-              title={cleanTitle}
-              description={description}
-              scoreText={scoreText}
-              hue={hue}
-              affiliates={affs}
-            />
-          );
-        })}
+	          return (
+	            <ReviewCard
+	              url={url}
+	              title={cleanTitle}
+	              description={description}
+	              scoreText={scoreText}
+	              hue={hue}
+	              affiliates={affs}
+	            />
+	          );
+	        })}
       </div>
     </div>
 
@@ -124,32 +124,32 @@ function scoreToHue(score: number | null): number {
     {types.map(type => (
       <div class="post-group" data-type={type} style="display:none;">
         <h2>{type} Telescopes</h2>
-        <div class="post-grid">
-          {sortedGrouped[type].map(({ frontmatter, url }) => {
-            const { title, description, rating, writer, pubDate, affiliate = {} } = frontmatter;
-            const cleanTitle = title.replace(/ (Review|Overview)$/, '');
-            const scoreRaw = rating?.overall;
-            const scoreNum = parseScore(scoreRaw);
-            const scoreText = scoreNum !== null ? scoreNum.toFixed(1) : 'N/A';
-            const hue = scoreToHue(scoreNum);
+	        <div class="post-grid">
+	          {sortedGrouped[type].map(({ frontmatter, url }) => {
+	            const { title, description, rating, writer, pubDate, affiliate = {}, thumbnail } = frontmatter;
+	            const cleanTitle = title.replace(/ (Review|Overview)$/, '');
+	            const scoreRaw = rating?.overall;
+	            const scoreNum = parseScore(scoreRaw);
+	            const scoreText = scoreNum !== null ? scoreNum.toFixed(1) : 'N/A';
+	            const hue = scoreToHue(scoreNum);
             const affs = [
               ['Amazon', affiliate.amazon],
               ['HighPoint', affiliate.highpointscientific],
               ['Astroshop', affiliate.astroshop],
             ].filter(([, link]) => link);
 
-            return (
-              <ReviewCard
-                url={url}
-                title={cleanTitle}
-                description={description}
-                scoreText={scoreText}
-                hue={hue}
-                affiliates={affs}
-              />
-            );
-          })}
-        </div>
+	            return (
+	              <ReviewCard
+	                url={url}
+	                title={cleanTitle}
+	                description={description}
+	                scoreText={scoreText}
+	                hue={hue}
+	                affiliates={affs}
+	              />
+	            );
+	          })}
+	        </div>
       </div>
     ))}
   </div>

@@ -9,6 +9,7 @@
  * - description: string
  * - scoreText: string | number (e.g. 8.5)
  * - hue: number (for your --h CSS var)
+ * - thumbnail: string (optional)
  * - affiliates: Array<[name: string, link: string]>
  * - ctaText: string (optional, defaults to "Read the review →")
  * - class: string (optional extra classes)
@@ -20,19 +21,32 @@ const {
   description = "",
   scoreText,
   hue = 0,
+  thumbnail = "",
   affiliates = [],
   ctaText = "Read review →",
   class: extraClass = "",
 } = Astro.props;
 
 const affs = Array.isArray(affiliates) ? affiliates : [];
+const hasThumb = Boolean(thumbnail);
+const linkClass = ["post-card-link", hasThumb && "post-card-link--overlay"].filter(Boolean).join(" ");
 
 import '../styles/cards.css';
 import '../styles/reviewCard.css';
 ---
 
 <div class="post-card post-card--review">
-  <a href={url} class="post-card-link">
+  <a href={url} class={linkClass}>
+    <!-- {thumbnail && (
+      <div class="post-card-thumb">
+        <img
+          src={thumbnail}
+          alt={title}
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    )} -->
     <div class="post-card-info">
     <div class="post-card-title">{title}</div>
 
