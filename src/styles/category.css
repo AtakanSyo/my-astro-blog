@@ -1,6 +1,5 @@
 .page-category {
   min-height: 100vh;
-  justify-content: space-between;
 }
 
 .category-title {
@@ -36,4 +35,8 @@
 .category-grid {
   padding-top: 1rem;
   padding-bottom: 2rem;
+  display: grid;
+  gap: clamp(14px, 2vw, 22px);
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  margin: 2rem;
 }

@@ -180,20 +180,6 @@
   gap: 1rem;
 }
 
-/* Grid: 4 across on wide, 2×2 on smaller */
-.category-grid {
-  display: grid;
-  align-items: stretch;  /* usually default, but safe */
-  gap: 1rem;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-@media (max-width: 1024px) {
-  .category-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-
-/* Tighten card spacing inside category lists */
-.category-grid .post-card { height: 100%; }
-
 /* ---- Posts (generic cards) ---- */
 .home-post-list {
   display: grid;
