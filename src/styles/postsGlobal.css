@@ -514,7 +514,13 @@ p {
 /* Size variants */
 .post-image-sm { max-width: 300px; }
 .post-image-md { max-width: 600px; }
-.post-image-lg { max-width: 1000px; }
+.post-image-lg {
+  max-height: 80vh;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  display: block;
+}
 
 @media (max-width: 768px) {
   .post-image-lg , .post-image-md, .post-image-sm{ max-width: 100%; }

@@ -81,17 +81,6 @@ p {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Base class (shared styles) */
-.post-image {
-  max-width: 100%;
-  height: auto;
-  padding: 0.5rem;
-  border-radius: 8px;
-  background: #1f1f1f;
-  border: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
-}
-
 .info-post-starter-image {
   height: auto;
   margin: 1rem 0;

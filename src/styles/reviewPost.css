@@ -444,21 +444,6 @@ figcaption {
   color: var(--brand-red);
 }
 
-.post .post-image {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 12px;
-  background: #1f1f1f;
-  border: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
-  transition: transform .18s ease, box-shadow .18s ease;
-  margin: 1rem;
-  border-style: solid;
-  border-color: rgba(255,255,255,0.08);
-  border-width: 1px;
-}
-
 /* =============================
    Review Post Starter Layout
    ============================= */
