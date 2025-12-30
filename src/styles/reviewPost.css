@@ -325,18 +325,6 @@ h1 .review-tag {
 .pros-cons .pros-block li::before { background: var(--brand-red); box-shadow: 0 0 0 2px rgba(60,214,128,0.18); }
 .pros-cons .cons-block li::before { background: var(--brand-red); box-shadow: 0 0 0 2px rgba(255,107,107,0.18); }
 
-
-figure {
-  padding: 1rem;
-}
-
-figcaption {
-  font-style: italic;
-  text-align: center;
-  margin-top: 8px;
-  color: #aaa;
-}
-
 .includes {
   margin: 2em 0;
 }

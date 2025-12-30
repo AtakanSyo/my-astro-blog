@@ -71,7 +71,7 @@ function scoreToHue(score) {
       </p>
     </div>
 
-    <div class="post-grid top-ten-grid">
+    <div class="top-ten-grid">
       {reviewPosts.map((post, index) => {
         const { frontmatter, score, url } = post;
         const descriptor = scoreDescriptor(score);
