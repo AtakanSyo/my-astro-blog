@@ -4,7 +4,7 @@ title: "Earth and Neptune Size Comparison"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-11-11'
-description: "A simulation showing the true scale difference between Neptune and Earth."
+description: "The true scale difference between Neptune and Earth."
 slug: earth-neptune-size-comparison
 imageDir: /images/earth-neptune-size-comparison
 thumbnail: /images/earth-neptune-size-comparison/thumbnail.webp
@@ -55,6 +55,19 @@ $$
 $$
 (3.86)^2 \approx 14.9
 $$
+
+<PlanetSizeComparison
+  client:load
+  primaryTexture="/textures/neptune_texture.webp"
+  secondaryTexture="/textures/earth-texture-nasa.webp"
+  options={{ cameraPosition: [0, 6, 0] }}
+  primaryRadius={24.622}
+  secondaryRadius={6.371}
+  planetDistance={2.0}
+  primaryContrast={1.0}
+  secondaryContrast={0.9}
+  orthoExtent={2.0}
+/>
 
 <p>So Neptune’s visible face is nearly fifteen times larger than Earth's. These exact proportions are preserved in the simulation, allowing the scale difference to be experienced visually rather than interpreted numerically.</p>
 
