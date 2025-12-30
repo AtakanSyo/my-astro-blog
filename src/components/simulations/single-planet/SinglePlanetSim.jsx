@@ -88,6 +88,7 @@ export default function SinglePlanetSim({
   ringsSpin = true,
   ringAngle = 0,
   cameraPosition,
+  cameraLookAt,
   textureContrast,
   tiltDeg,
   lightIntensity = 1.7,
@@ -114,6 +115,7 @@ export default function SinglePlanetSim({
       dprCap,
       cameraConfig: {
         position: cameraPos,
+        lookAt: cameraLookAt,
       },
     });
 
@@ -169,6 +171,7 @@ export default function SinglePlanetSim({
       dispose();
     };
   }, [
+    cameraLookAt,
     cameraPosition,
     config,
     dprCap,
