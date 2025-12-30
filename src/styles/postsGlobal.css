@@ -495,11 +495,8 @@ p {
 .post-image {
   max-width: 100%;
   height: auto;
-  padding: 0.5rem;
   border-radius: 8px;
-  background: #1f1f1f;
   border: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
 }
 
 .post-starter-image {
@@ -514,8 +511,6 @@ p {
   padding: 0.5rem;
   
 }
-
-
 /* Size variants */
 .post-image-sm { max-width: 300px; }
 .post-image-md { max-width: 600px; }
@@ -523,4 +518,22 @@ p {
 
 @media (max-width: 768px) {
   .post-image-lg , .post-image-md, .post-image-sm{ max-width: 100%; }
+}
+
+figure {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+figcaption {
+  font-style: italic;
+  text-align: center;
+  margin-top: 8px;
+  color: gray;
+  max-width: 800px;
 }
