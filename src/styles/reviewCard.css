@@ -130,3 +130,9 @@
   display: block;
   height: 3.5rem;
 }
+
+
+.post-card--review .post-card-desc {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
