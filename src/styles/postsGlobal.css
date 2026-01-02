@@ -395,6 +395,28 @@ p {
   gap: 1rem;
 }
 
+.vendor-card-link {
+  display: flex;
+  width: 100%;
+  color: inherit;
+  text-decoration: none;
+  transition: transform .18s ease, box-shadow .25s ease;
+}
+
+.vendor-card-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.35);
+}
+
+.vendor-card-link:active {
+  transform: translateY(-1px);
+}
+
+.vendor-card-link:focus-visible {
+  outline: 2px solid var(--brand-red);
+  outline-offset: 3px;
+}
+
 .feedback-cta {
   width: 80vw;
   margin: 0.5rem;
@@ -455,20 +477,11 @@ p {
   font-weight: 900;
   font-size: 0.9rem;
   text-decoration: none;
-
-  color: var(--brand-red);
-  border: 1px solid var(--brand-red);
-
+  color: white;
   background: transparent;
   backdrop-filter: blur(5px);
 
   transition: box-shadow .25s ease, transform .18s ease;
-}
-
-.vendor-button:hover {
-  background: rgba(255,255,255,0.12);
-  border-color: var(--brand-red);
-  transform: translateY(-1px);
 }
 
 @media (max-width: 720px) {

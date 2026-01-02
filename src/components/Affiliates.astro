@@ -1,7 +1,5 @@
 ---
 // src/components/Affiliates.astro
-import { Icon } from 'astro-icon/components';
-
 export interface Props {
   affiliate: {
     amazon?: string;
@@ -58,61 +56,58 @@ const hasAffiliate =
   <ul class="affiliate-vendors">
 
     {affiliate.amazon && (
-      <li class="vendor-card">
-
-        <div class="vendor-info">
-          <h4 class="vendor-name">{labels.amazon.name}</h4>
-          <span class="vendor-label">{labels.amazon.sub}</span>
-          <p class="vendor-desc">{labels.amazon.desc}</p>
-        </div>
-
+      <li>
         <a
           href={affiliate.amazon}
           target="_blank"
           rel="noopener noreferrer"
-          class="vendor-button"
+          class="vendor-card vendor-card-link"
         >
-          {labels.amazon.button}
+          <div class="vendor-info">
+            <h4 class="vendor-name">{labels.amazon.name}</h4>
+            <span class="vendor-label">{labels.amazon.sub}</span>
+            <p class="vendor-desc">{labels.amazon.desc}</p>
+          </div>
+
+          <span class="vendor-button">{labels.amazon.button}</span>
         </a>
       </li>
     )}
 
     {affiliate.highpointscientific && (
-      <li class="vendor-card">
-
-        <div class="vendor-info">
-          <h4 class="vendor-name">{labels.highpoint.name}</h4>
-          <span class="vendor-label">{labels.highpoint.sub}</span>
-          <p class="vendor-desc">{labels.highpoint.desc}</p>
-        </div>
-
+      <li>
         <a
           href={affiliate.highpointscientific}
           target="_blank"
           rel="noopener noreferrer"
-          class="vendor-button"
+          class="vendor-card vendor-card-link"
         >
-          {labels.highpoint.button}
+          <div class="vendor-info">
+            <h4 class="vendor-name">{labels.highpoint.name}</h4>
+            <span class="vendor-label">{labels.highpoint.sub}</span>
+            <p class="vendor-desc">{labels.highpoint.desc}</p>
+          </div>
+
+          <span class="vendor-button">{labels.highpoint.button}</span>
         </a>
       </li>
     )}
 
     {affiliate.astroshop && (
-      <li class="vendor-card">
-
-        <div class="vendor-info">
-          <h4 class="vendor-name">{labels.astroshop.name}</h4>
-          <span class="vendor-label">{labels.astroshop.sub}</span>
-          <p class="vendor-desc">{labels.astroshop.desc}</p>
-        </div>
-
+      <li>
         <a
           href={affiliate.astroshop}
           target="_blank"
           rel="noopener noreferrer"
-          class="vendor-button"
+          class="vendor-card vendor-card-link"
         >
-          {labels.astroshop.button}
+          <div class="vendor-info">
+            <h4 class="vendor-name">{labels.astroshop.name}</h4>
+            <span class="vendor-label">{labels.astroshop.sub}</span>
+            <p class="vendor-desc">{labels.astroshop.desc}</p>
+          </div>
+
+          <span class="vendor-button">{labels.astroshop.button}</span>
         </a>
       </li>
     )}
