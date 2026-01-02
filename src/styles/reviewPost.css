@@ -146,7 +146,7 @@ h1 .review-tag {
   letter-spacing: .1px;
   position: relative;
   isolation: isolate;
-
+  background: rgb(12,12,12);
   max-width: 90vw;
 }
 
@@ -286,6 +286,7 @@ h1 .review-tag {
   box-shadow: var(--shadow);
   position: relative;
   overflow: hidden;
+  background: rgb(12,12,12);
 }
 
 .pros-cons h3 {
