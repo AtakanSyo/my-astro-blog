@@ -417,6 +417,10 @@ p {
   outline-offset: 3px;
 }
 
+.vendor-card-link .vendor-button {
+  display: inline-flex;
+}
+
 .feedback-cta {
   width: 80vw;
   margin: 0.5rem;

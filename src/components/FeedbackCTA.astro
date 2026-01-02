@@ -26,7 +26,7 @@ const mailto = `mailto:${email}?subject=${encodeURIComponent(t.subject)}`;
 ---
 
 <section class="feedback-cta centered_flex">
-  <div class="vendor-card feedback-card">
+  <a class="vendor-card vendor-card-link feedback-card" href={mailto}>
     <div class="vendor-info">
       <div class="vendor-name">{t.title}</div>
       <span class="vendor-label">{t.subtitle}</span>
@@ -35,8 +35,6 @@ const mailto = `mailto:${email}?subject=${encodeURIComponent(t.subject)}`;
       </p>
     </div>
 
-    <a class="vendor-button" href={mailto}>
-      {t.button}
-    </a>
-  </div>
+    <span class="vendor-button">{t.button}</span>
+  </a>
 </section>
