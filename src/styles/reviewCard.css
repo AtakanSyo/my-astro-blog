@@ -125,3 +125,8 @@
     backdrop-filter: blur(10px);
   }
 }
+
+.post-card--review .post-card-thumb-spacer {
+  display: block;
+  height: 3.5rem;
+}
