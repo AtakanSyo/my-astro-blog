@@ -37,7 +37,13 @@ import '../styles/reviewCard.css';
 
 <div class="post-card post-card--review">
   <a href={url} class={linkClass}>
-    <!-- {thumbnail && (
+    {scoreText !== undefined && scoreText !== null && scoreText !== "" && (
+      <span class="score-badge" style={`--h:${hue}`}>
+        {scoreText}/10
+      </span>
+    )}
+
+    {thumbnail && (
       <div class="post-card-thumb">
         <img
           src={thumbnail}
@@ -46,24 +52,12 @@ import '../styles/reviewCard.css';
           decoding="async"
         />
       </div>
-    )} -->
+    )}
     <div class="post-card-info">
     <div class="post-card-title">{title}</div>
 
     {description && <p class="post-card-desc">{description}</p>}
-
-    <div class="post-card-footer has-badge">
-      <div class="post-card-badges">
-        <span class="review-badge">Review</span>
-
-        {scoreText !== undefined && scoreText !== null && scoreText !== "" && (
-          <span class="score-badge" style={`--h:${hue}`}>
-            {scoreText}/10
-          </span>
-        )}
-      </div>
-      <div class="read-post">{ctaText}</div>
-    </div>
+xw
   </div>
   </a>
   <div class="affiliate-links">
