@@ -45,12 +45,6 @@
   border-left: 3px solid #8ab4ff;
 }
 
-.post-starter-description {
-  font-style: italic;
-  color: rgba(220, 226, 244, 0.75);
-  font-size: 0.95rem;
-}
-
 .writer{
   text-align: center;
 }
@@ -376,15 +370,6 @@ h1 .review-tag {
 .affiliate-section-title {
   margin-bottom: 0.4rem;
   font-size: 1.3rem;
-}
-
-.affiliate-vendors {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  width: 100%;
-  padding: 0;
-  list-style: none;
 }
 
 .accessory-box {
