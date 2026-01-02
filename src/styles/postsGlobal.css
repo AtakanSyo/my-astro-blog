@@ -19,6 +19,15 @@ p {
   font-weight: 900;
 }
 
+.post h2,
+.post h3,
+.post h4,
+.post h5,
+.post p {
+  margin: 1rem;
+}
+
+
 .post-description {
   font-style: italic;
   color: rgba(220, 226, 244, 0.75);
@@ -440,9 +449,13 @@ p {
 }
 
 @media (max-width: 600px) {
-  .feedback-card .vendor-info {
+  .feedback-card .vendor-info{
     max-width: 90vw;
     margin: 0.5rem;
+  }
+
+  .vendor-card-link {
+    width: 90%;
   }
 }
 
