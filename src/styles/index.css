@@ -180,52 +180,10 @@
   gap: 1rem;
 }
 
-/* ---- Posts (generic cards) ---- */
-.home-post-list {
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-}
-
-.home-post-link {
-  display: block;
-  padding: 1rem;
-  color: inherit;
-  text-decoration: none;
-  background: #fff;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.home-post-link:hover,
-.home-post-link:focus-visible {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
-}
-
-.home-post-link-title {
-  margin: 0 0 0.5rem;
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-
-.home-post-link-writer {
-  margin: 0 0 0.5rem;
-  font-size: 0.9rem;
-  color: #666;
-}
-
-.home-post-link time {
-  font-size: 0.85rem;
-  color: #999;
-}
-
 /* ---- Reduced motion ---- */
 @media (prefers-reduced-motion: reduce) {
   .cta { transition: none; }
   .cta:hover { transform: none; }
-  .home-post-link { transition: none; }
-  .home-post-link:hover { transform: none; }
 }
 
 .latest-title:hover {
@@ -233,7 +191,6 @@
 }
 
 .latest-title {
-
   display: inline-block;
   width: fit-content;
   text-decoration: none;

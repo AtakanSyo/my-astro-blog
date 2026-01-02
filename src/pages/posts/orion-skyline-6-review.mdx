@@ -13,9 +13,9 @@ rating:
   mount: 9.5
   accessories: 9
 affiliate:
-  amazon: 'https://amzn.to/3TT7iXM'
-  highpointscientific: ''
-cover_image: /images/orion_skyline_6_review/cover.webp
+  amazon: https://amzn.to/3TT7iXM
+cover_image: /images/orion-skyline-6-review/thumbnail.webp
+thumbnail: /images/orion-skyline-6-review/thumbnail.webp
 specs:
   aperture: 152
   focalLength: 1200
@@ -48,6 +48,7 @@ import Affiliates from '../../components/Affiliates.astro'
 import Ratings from '../../components/Ratings.astro'
 import ProsCons from '../../components/ProsCons.astro'
 import QuickSpecs from '../../components/QuickSpecs.astro'
+import GenericTable from '../../components/GenericTable.astro'
 
 <h2>Introduction</h2>
 
@@ -65,14 +66,20 @@ import QuickSpecs from '../../components/QuickSpecs.astro'
 The Orion SkyLine 6 is a 6” (152mm) f/7.9 Newtonian reflector with a focal length of 1200mm.
 A 6” f/8 primary mirror is very easy to manufacture, deviating from spherical only slightly as a parabola. As such, manufacturers of scopes like the Orion SkyLine 6 are able to make them very accurately and the mirrors tend to suffer from very few hiccups in quality; they are usually very smooth and well-made. The SkyLine 6 provides razor-sharp views and achieving them is easy thanks to the scope’s Crayford focuser and well-designed collimation system, which doesn’t require any tools for adjusting the primary. The secondary mirror requires a hex key to adjust for collimation by default, and this is probably the way you should leave it.
 While only a 1.25” focuser, the Crayford focuser on the SkyLine 6” is high-quality and much better than the cheap plastic rack-and-pinion or helical focusers found on most 6” and smaller aperture instruments sold to beginners. A 2” focuser and eyepieces would weigh down the front end and require a bigger secondary mirror, and in any case are a bit overkill for this telescope anyway. The Crayford focuser on the SkyLine 6” uses no lubricant or gears, and has multiple tension adjustments - you can set an overall minimum amount of friction with a hex key (helpful if you almost always use heavy eyepieces) and then adjust the tension - or simply lock the focuser in place - with two small thumb screws.
+<img class="post-image post-image-lg" src={frontmatter.imageDir + '/sider.webp'} alt="Bearings"></img>
+
 <h2>Mount</h2>
 <p>Most Dobsonians manufactured by commercial entities have tiny altitude bearings, which make the scope easy to move but also allow for the center of gravity to rapidly shift outside of them and cause the scope to tip over when a heavy eyepiece is used. Other manufacturers solve this problem with a simple brake clutch that keeps the scope in place at the expense of stiff and jerky motions, or with bearings that can slide along the tube. Orion uses spring-tensioning on many of their Dobsonian telescopes such as the SkyLine 6 to keep the scope balanced with most eyepieces and provide smooth motions. The scope is easy to aim and stays put when you let go of it, and you should have no trouble tracking manually even at 300x magnification.</p>
-<img class="post-image post-image-sm" src="/images/orion_skyline_6_review/accessories.webp" alt="Accessories"></img>
-<h2>Accessories</h2>
-
-The SkyLine 6 includes:
-<p>Two 1.25” Plossl eyepieces - a 25mm (48x) and 9mm (133x)
-A 6x30 straight-through finderscope</p>
+<img class="post-image post-image-lg" src={frontmatter.imageDir + '/accessories.webp'} alt="Accessories"></img>
+<GenericTable
+  title="Included Accessories"
+  headers={['Accessory', 'Notes']}
+  rows={[
+    ['25mm Plössl eyepiece', 'Provides 48x'],
+    ['9mm Plössl eyepiece', 'Provides 133x'],
+    ['6x30 straight-through finderscope', 'Crosshair finder for aiming'],
+  ]}
+/>
 <p>The two Plossl eyepieces included with the SkyLine 6 are really all you need starting out - the 25mm is great for low-power viewing of deep-sky objects, and the 9mm provides enough magnification for viewing the planets and smaller deep-sky objects like globular clusters - though a 6mm “redline” would be a good aftermarket addition, providing 200x magnification. Both eyepieces are well-made with multi-coatings and blackened lens edges, though the 9mm is a bit short on eye relief and requires you to jam your eye into it to take in the entire field of view.</p>
 <p>The included 6x30 finder provides an upside-down image with crosshairs and a field of about 7 degrees, similar to a pair of 7x50 binoculars. However, the image is rather dim and with only 30mm of aperture you can’t see much more than your naked eye can. A red dot finder or Telrad is easier to use, and a 9x50 shows more stars and deep-sky objects, but the 6x30 does the job.</p>
 <h2>What can you see?</h2>
@@ -87,4 +94,3 @@ A 6x30 straight-through finderscope</p>
 <h2>Conclusion</h2>
 
 <p>The Orion SkyLine 6” is a great scope, and one that we certainly recommend, though we’d recommend seeing if the Apertura DT6 is in stock at a lower price before purchasing. An 8” or 10” scope from Orion, Apertura, or another manufacturer may also be worth considering, as one will have basically the same size tube and mount but provide much better views due to the greater light gathering ability and resolving power that more aperture brings.</p>
-
