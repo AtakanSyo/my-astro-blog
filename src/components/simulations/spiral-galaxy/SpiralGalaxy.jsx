@@ -19,10 +19,10 @@ export default function SpiralGalaxySim({
 }) {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
-  const pausedRef = useRef(true);
+  const pausedRef = useRef(showPause);
   const hasPlayedRef = useRef(false);
   const coreHandleRef = useRef(null);
-  const [paused, setPaused] = useState(true);
+  const [paused, setPaused] = useState(showPause);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -92,6 +92,13 @@ export default function SpiralGalaxySim({
   useEffect(() => {
     pausedRef.current = paused;
   }, [paused]);
+
+  useEffect(() => {
+    if (showPause) return;
+    const el = containerRef.current?.closest('.sim-stage') ?? containerRef.current;
+    if (el && !el.classList.contains('is-visible')) el.classList.add('is-visible');
+    hasPlayedRef.current = true;
+  }, [showPause]);
 
   useEffect(() => {
     const handle = coreHandleRef.current;

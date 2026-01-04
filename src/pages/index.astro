@@ -5,9 +5,11 @@ import '../styles/index.css';
 import '../styles/cards.css';
 import '../styles/search.css';
 import '../styles/category.css';
+import '../styles/simGlobal.css';
 import { site } from '../config/site.js';
 import { Instagram, Youtube } from "lucide-react";
 import PostCard from "../components/postCard.astro"; // ✅ new
+import SpiralGalaxy from "../components/simulations/spiral-galaxy/SpiralGalaxy.jsx";
 
 
 // 1) load and sort all posts
@@ -41,33 +43,42 @@ const latestNasa = allPosts.find(({ frontmatter }) => hasCat(frontmatter, 'nasa'
 
 <Layout title="Home">
   <section class="centered_flex home-main-section">
-    <section class="hero centered_flex fade-up">
-      <span class="hero-kicker">{site.name}</span>
-      <h1 class="home-title">{site.description}</h1>
-      <p class="home-description">Simulations, cosmic insights, and telescope reviews.</p>
+    <div class="home-hero-sim">
+      <section class="hero centered_flex fade-up">
+        <span class="hero-kicker">{site.name}</span>
+        <h1 class="home-title">{site.description}</h1>
+        <p class="home-description">Simulations, cosmic insights, and telescope reviews.</p>
 
-      <div class="cta-row">
-        <a href="/telescopes" class="cta cta--primary" onclick="umami?.track?.('explore-telescopes-cta')">🪐 Explore Telescopes</a>
-        <a href="/top-telescopes" class="cta cta--dark" onclick="umami?.track?.('top-ten-cta')">⭐ Top 10 Telescope Picks</a>
-        <a href="/about" class="cta cta--ghost" onclick="umami?.track?.('about-cta')">ℹ️ About Us</a>
-      </div>
-
-      <div class="global-socials">
-        <div class="global-socials-links">
-          <a href="https://www.instagram.com/astrosyo_" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
-            <Instagram size={42} />
-          </a>
-          <a href="https://www.youtube.com/@atakansaracyakupoglu9930" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="YouTube">
-            <Youtube size={42} />
-          </a>
-          <a href="https://www.tiktok.com/@astrosyo?_r=1&_t=ZS-917RKCaEM" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="TikTok">
-            <svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M14.25 4.5c.45.87 1.23 1.59 2.19 2.04.46.22.97.35 1.48.38V9.4c-1.17-.05-2.3-.43-3.3-1.08v5.47c0 3.02-2.45 5.46-5.47 5.46S3.68 16.81 3.68 13.79c0-2.51 1.71-4.65 4.12-5.24.66-.16 1.34-.16 1.99-.04v2.51a2.7 2.7 0 0 0-.99-.19c-1.5 0-2.72 1.22-2.72 2.72s1.22 2.72 2.72 2.72 2.72-1.22 2.72-2.72V3h3.01c.08.52.26 1.02.52 1.5z" />
-            </svg>
-          </a>
+        <div class="cta-row">
+          <a href="/telescopes" class="cta" onclick="umami?.track?.('explore-telescopes-cta')">🪐 Explore Telescopes</a>
+          <a href="/top-telescopes" class="cta" onclick="umami?.track?.('top-ten-cta')">⭐ Top 10 Telescope Picks</a>
+          <a href="/about" class="cta" onclick="umami?.track?.('about-cta')">ℹ️ About Us</a>
         </div>
-      </div>
-    </section>
+
+        <div class="global-socials">
+          <div class="global-socials-links">
+            <a href="https://www.instagram.com/astrosyo_" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
+              <Instagram size={42} />
+            </a>
+            <a href="https://www.youtube.com/@atakansaracyakupoglu9930" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="YouTube">
+              <Youtube size={42} />
+            </a>
+            <a href="https://www.tiktok.com/@astrosyo?_r=1&_t=ZS-917RKCaEM" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="TikTok">
+              <svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M14.25 4.5c.45.87 1.23 1.59 2.19 2.04.46.22.97.35 1.48.38V9.4c-1.17-.05-2.3-.43-3.3-1.08v5.47c0 3.02-2.45 5.46-5.47 5.46S3.68 16.81 3.68 13.79c0-2.51 1.71-4.65 4.12-5.24.66-.16 1.34-.16 1.99-.04v2.51a2.7 2.7 0 0 0-.99-.19c-1.5 0-2.72 1.22-2.72 2.72s1.22 2.72 2.72 2.72 2.72-1.22 2.72-2.72V3h3.01c.08.52.26 1.02.52 1.5z" />
+              </svg>
+            </a>
+          </div>
+        </div>
+	      </section>
+	
+	      <section class="home-sim-section">
+	        <SpiralGalaxy client:load showPause={false} aspect="1.1 / 1" />
+	        <a class="home-sim-link" href="/posts/spiral-galaxies">
+	          Go to the featured simulation →
+	        </a>
+	      </section>
+	    </div>
 
     <!-- Latest by category (stacked sections) -->
     <section class="latest-section">
