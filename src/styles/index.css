@@ -27,6 +27,8 @@
   isolation: isolate;
   width: 100%;
   overflow: hidden;
+  overflow: clip;
+  contain: paint;
 }
 
 .hero::before {
@@ -35,11 +37,12 @@
   inset: 0;
   z-index: -1;
   background-image: url('/images/index/image.webp');
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  filter: blur(3px) brightness(0.55);
-  transform: scale(1.03);
+  background-color: #000;
+  filter: brightness(0.55);
+  transform: none;
 }
 
 .hero-kicker {
@@ -79,16 +82,26 @@
 /* ---- CTA Row ---- */
 .cta-row {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* exactly 3 CTAs per row */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
   justify-content: center;
   align-items: stretch;
-  justify-items: stretch;
+  justify-items: center;
   margin: 0 auto 3rem;
+}
+
+.cta-row > .cta {
+  width: 100%;
+  max-width: 380px;
+}
+
+.cta-row > .cta:last-child {
+  grid-column: 1 / -1;
+  justify-self: center;
 }
 @media (max-width: 820px) {
   .cta-row { 
-  grid-template-columns: repeat(1, 1fr); /* exactly 3 CTAs per row */
+  grid-template-columns: repeat(1, 1fr);
   }
 }
 
@@ -103,22 +116,28 @@
   min-height: 3.25rem;
 
   padding: 1.05rem 1.35rem;
-  border: 0;
+  border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 999px;
 
-  color: #fff;
+  color: rgba(255, 255, 255, 0.92);
   text-transform: uppercase;
   letter-spacing: 0.06em;
   font-weight: 800;
   font-size: clamp(0.9rem, 1.2vw + 0.5rem, 1.05rem);
 
-  background: linear-gradient(180deg, #1e2028, #141723);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  background:
+    linear-gradient(180deg, rgba(8, 10, 12, 0.86), rgba(8, 10, 12, 0.58));
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10);
   transform: translateZ(0);
 
   transition:
     transform 0.18s ease,
     box-shadow 0.22s ease,
+    border-color 0.22s ease,
     background 0.18s ease,
     filter 0.18s ease,
     opacity 0.18s ease;
@@ -131,6 +150,9 @@
 
 .cta:hover {
   transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.24);
+  background:
+    linear-gradient(180deg, rgba(10, 12, 14, 0.90), rgba(10, 12, 14, 0.64));
 }
 
 .cta:active {
@@ -146,21 +168,26 @@
 
 /* CTA Variants */
 .cta--primary {
-  background: var(--brand-red-darker);
+  border-color: color-mix(in oklab, var(--brand-red) 45%, rgba(255, 255, 255, 0.14));
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.42),
+    inset 0 1px 0 rgba(255, 255, 255, 0.10),
+    0 0 0 1px color-mix(in oklab, var(--brand-red) 14%, transparent);
 }
 
 .cta--dark {
-  background: #2a2a2a;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+  border-color: rgba(255, 255, 255, 0.12);
 }
 
 .cta--ghost {
   background: transparent;
-  outline: 2px solid rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.22);
 }
 
 .cta--ghost:hover {
   background: rgba(255, 255, 255, 0.08);
-  outline-color: rgba(255, 255, 255, 0.35);
+  border-color: rgba(255, 255, 255, 0.35);
 }
 
 @supports not (clip-path: polygon(0 0)) {
