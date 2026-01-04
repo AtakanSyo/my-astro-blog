@@ -96,8 +96,8 @@ export default function SinglePlanetSim({
 }) {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
-  const pausedRef = useRef(true);
-  const [paused, setPaused] = useState(true);
+  const pausedRef = useRef(showPause);
+  const [paused, setPaused] = useState(showPause);
   const madeVisibleRef = useRef(false);
 
   const planetKey = planet.toLowerCase();
@@ -182,6 +182,15 @@ export default function SinglePlanetSim({
     textureContrast,
     tiltDeg,
   ]);
+
+  useEffect(() => {
+    if (showPause) return;
+    pausedRef.current = false;
+    setPaused(false);
+    const el = containerRef.current?.closest('.sim-stage') ?? containerRef.current;
+    if (el && !el.classList.contains('is-visible')) el.classList.add('is-visible');
+    madeVisibleRef.current = true;
+  }, [showPause]);
 
   const onToggle = () => {
     pausedRef.current = !pausedRef.current;
