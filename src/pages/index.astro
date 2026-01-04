@@ -4,6 +4,7 @@ import Layout from '../layouts/Layout.astro';
 import '../styles/index.css';
 import '../styles/cards.css';
 import '../styles/search.css';
+import '../styles/category.css';
 import { site } from '../config/site.js';
 import { Instagram, Youtube } from "lucide-react";
 import PostCard from "../components/postCard.astro"; // ✅ new
@@ -22,7 +23,7 @@ function normalizeCat(cat) {
 function hasCat(frontmatter, needle) {
   return normalizeCat(frontmatter.category ?? frontmatter.categories).includes(needle);
 }
-function latestByCategory(key, n = 4) {
+function latestByCategory(key, n = 6) {
   return allPosts.filter(({ frontmatter }) => hasCat(frontmatter, key)).slice(0, n);
 }
 
@@ -83,7 +84,7 @@ const latestNasa = allPosts.find(({ frontmatter }) => hasCat(frontmatter, 'nasa'
               </a>
             </h2>
 
-            <div class="post-grid home-grid">
+            <div class="post-grid">
               {
                 items.map(({ frontmatter, url }) => {
                   const isP5     = hasCat(frontmatter, 'simulation');

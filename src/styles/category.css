@@ -22,6 +22,7 @@
   box-shadow:
     0 20px 60px rgba(0,0,0,0.35),
     inset 0 1px 0 rgba(255,255,255,0.06);
+    
 }
 
 @supports ((-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))) {
