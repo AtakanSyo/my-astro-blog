@@ -31,14 +31,8 @@
   contain: paint;
 }
 
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background-color: #000;
-  filter: brightness(0.55);
-  transform: none;
+.page-home .hero::before {
+  display: none;
 }
 
 .hero-kicker {
@@ -79,16 +73,16 @@
 .cta-row {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem;
+  gap: 0.6rem;
   justify-content: center;
   align-items: stretch;
   justify-items: center;
-  margin: 0 auto 3rem;
+  margin: 0 auto 2rem;
 }
 
 .cta-row > .cta {
   width: 100%;
-  max-width: 520px;
+  max-width: 440px;
 }
 
 /* ---- CTA Buttons ---- */
@@ -99,17 +93,17 @@
   justify-content: center;
   gap: 0.6rem;
   width: 100%;
-  min-height: 3.25rem;
+  min-height: 2.65rem;
 
-  padding: 1.05rem 1.35rem;
+  padding: 0.72rem 1.05rem;
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 999px;
 
   color: rgba(255, 255, 255, 0.92);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  font-weight: 800;
-  font-size: clamp(0.9rem, 1.2vw + 0.5rem, 1.05rem);
+  letter-spacing: 0.04em;
+  font-weight: 750;
+  font-size: clamp(0.82rem, 0.75vw + 0.55rem, 0.95rem);
 
   background:
     linear-gradient(180deg, rgba(8, 10, 12, 0.86), rgba(8, 10, 12, 0.58));
@@ -143,6 +137,15 @@
 
 .cta:active {
   transform: translateY(0);
+}
+
+/* ---- CTA gradients (home; unified) ---- */
+.page-home .cta-row > .cta {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(0, 0, 0, 0.18));
+}
+
+.page-home .cta-row > .cta:hover {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(0, 0, 0, 0.24));
 }
 
 .cta:focus-visible {
@@ -182,18 +185,48 @@
 /* ---- Category stacks ---- */
 .home-hero-sim {
   width: 100%;
-  max-width: var(--hero-max);
   margin: 4rem auto 0;
   padding: 0 1rem;
   display: grid;
   gap: 1.5rem;
 }
 
-@media (min-width: 1024px) {
-  .home-hero-sim {
-    grid-template-columns: 1fr 1fr;
-    align-items: stretch;
-  }
+.hero-sim-wrap {
+  width: 100%;
+  height: 70vh;
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  background: rgba(0, 0, 0, 0.20);
+}
+
+.hero-sim-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-sim-bg .sim-stage {
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.hero-sim-bg canvas {
+  opacity: 1;
+}
+
+.page-home .hero {
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.page-home .home-description {
+  max-width: 56ch;
 }
 
 .latest-section {
@@ -207,23 +240,6 @@
 .category-section {
   display: grid;
   gap: 1rem;
-}
-
-.home-sim-section {
-  width: 100%;
-  margin: 0;
-  padding: 1.25rem 1rem;
-  display: grid;
-  gap: 1rem;
-
-  position: relative;
-  border-radius: 18px;
-  background: rgba(0, 0, 0, 0.24);
-}
-
-.home-sim-title {
-  margin: 0;
-  color: white;
 }
 
 .home-sim-link {
