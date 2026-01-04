@@ -189,6 +189,12 @@
 }
 
 
+/* =========================
+   PREMIUM COSMIC CTAs + SOCIALS
+   (low-gradient, high-craft)
+   ========================= */
+
+/* --- CTA ROW LAYOUT --- */
 .cta-row {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -196,7 +202,9 @@
   margin: 3.5rem 0 3rem;
 }
 
+/* --- CTA BASE --- */
 .cta {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -204,22 +212,167 @@
   padding: 20px 22px;
   border-radius: 14px;
 
-  font-size: 1.05rem;
-  font-weight: 900;
   text-decoration: none;
-  text-transform: uppercase;
+  background: #0f1220;
 
+  /* Text stays premium-white */
   color: #f1f3f8;
-
-  border: 1px solid rgba(255,255,255,0.08);
-
-  box-shadow:
-    0 10px 30px rgba(0,0,0,0.45),
-    inset 0 1px 0 rgba(255,255,255,0.04);
 
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease,
     border-color 0.2s ease;
-  text-align: center;
+}
+
+/* Subtle colored tint overlay */
+.cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+
+  /* uses --accent defined per CTA */
+  background: var(--accent);
+  opacity: 0.08;
+
+  pointer-events: none;
+}
+
+.cta-label {
+  font-size: 1.05rem;
+  font-weight: 560;
+  letter-spacing: -0.01em;
+}
+
+/* Arrow micro-motion */
+.cta-arrow {
+  opacity: 0.45;
+  transform: translateX(0);
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* Hover: lift + accent border */
+.cta:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--accent) 55%, rgba(255,255,255,0.15));
+  box-shadow:
+    0 16px 42px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.cta:hover .cta-arrow {
+  transform: translateX(4px);
+  opacity: 0.75;
+}
+
+/* Focus for keyboard nav (premium accessibility) */
+.cta:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--accent) 65%, white 10%);
+  outline-offset: 3px;
+}
+
+/* Deep electric blue — telescopes */
+.cta-blue {
+  --accent: #2f6bff;
+}
+
+/* Bright stellar gold — top picks */
+.cta-amber {
+  --accent: #ffb000;
+}
+
+/* Hot nebula magenta — simulations */
+.cta-magenta {
+  --accent: #e12dff;
+}
+
+/* Luminous cyan — about */
+.cta-cyan {
+  --accent: #00d4ff;
+}
+
+/* =========================
+   SOCIALS (quiet authority)
+   ========================= */
+
+.global-socials {
+  display: flex;
+  justify-content: center;
+  margin: 2.5rem 0 3.5rem;
+}
+
+.global-socials-links {
+  display: flex;
+  gap: 28px;
+  padding: 16px 22px;
+
+  border-radius: 999px;
+  background: #0b0e18;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  box-shadow:
+    0 12px 34px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.social-link {
+  color: #9fa8c7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease,
+    opacity 0.2s ease;
+  opacity: 0.95;
+}
+
+.social-link:hover {
+  color: #ffffff;
+  transform: translateY(-2px);
+  opacity: 1;
+}
+
+.social-link:focus-visible {
+  outline: 2px solid rgba(255,255,255,0.35);
+  outline-offset: 4px;
+  border-radius: 10px;
+}
+
+/* =========================
+   MOBILE POLISH
+   ========================= */
+@media (max-width: 600px) {
+  .cta-row {
+    gap: 14px;
+  }
+
+  .cta {
+    padding: 16px 18px;
+    border-radius: 13px;
+  }
+
+  .cta-label {
+    font-size: 1rem;
+  }
+
+  .global-socials-links {
+    gap: 20px;
+    padding: 12px 18px;
+  }
+}
+
+/* Optional: reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .cta,
+  .cta-arrow,
+  .social-link {
+    transition: none;
+  }
+  .cta:hover,
+  .social-link:hover {
+    transform: none;
+  }
 }
