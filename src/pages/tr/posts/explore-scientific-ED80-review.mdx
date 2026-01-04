@@ -1,62 +1,77 @@
 ---
 category: reviews
 subcategory: telescopes
-reviewType: research
+reviewType: hands-on
 layout: ../../../layouts/ReviewPostLayout.astro
-title: Explore Scientific ED80 Essentials Triplet İncelemesi
+title: Explore Scientific ED80 Review
 telescopeType: Refractor
-writer: Astrosyo
+writer: Zane Landers
 brand: Explore Scientific
 rating:
-  overall: 5.5
-  optics: 6
-  mount: 0
-  accessories: 5
+  overall: 7.5
+  optics: 8
+  mechanics: 8
+  value: 7
 affiliate:
-  amazon:
-  highpointscientific:
-  astroshop:
+  amazon: 'https://amzn.to/4faixVE'
+  highpointscientific: >-
+    https://www.highpointscientific.com/explore-scientific-80-mm-essential-ed-triplet-refractor-ota-with-accessories-es-ed0806-02?rfsn=7304485.fd6b10
+  astroshop: >-
+    https://www.astroshop.eu/telescopes/explore-scientific-apochromatic-refractor-ap-80-480-ed-alu-ota/p,44829?affiliate_id=TelescopesToBuy
 cover_image: /images/explore-scientific-ED80-review/cover.webp
 specs:
-  aperture: 80 mm
-  focalLength: 480 mm
-pubDate: '2025-09-10'
+  aperture: '80'
+  focalLength: '480'
+pubDate: '2025-07-27'
 description: >-
-  Explore Scientific ED80 Essentials Triplet, kâğıt üzerinde astrofotoğrafi
-  için cazip görünse de, optik ve mekanik sınırlamaları nedeniyle çoğu kullanıcı
-  için daha iyi alternatiflerin bulunduğu bir 80 mm triplet refraktördür.
-slug: explore-scientific-ED80-review
-imageDir: /images/explore-scientific-ED80-review
+  The Explore Scientific ED80 Essentials Triplet is a poor choice for most
+  astrophotography work compared to competing telescopes.
+slug: explore-scientific-ed80-review
+imageDir: /images/explore-scientific-ed80-review
 keywords:
   - Explore Scientific ED80
-  - triplet refraktör
-  - astrofotoğrafi teleskobu
 prosCons:
   pros:
-    - "Triplet optik tasarım (renk düzeltmesi, basit doubletlere göre daha iyi)"
-    - "Kısa odak uzaklığı sayesinde geniş alanlı gözlem"
-    - "2” diyagonal ve aksesuarlarla uyumlu"
+    - "Decent optics"
+    - "Decently priced and easy to use for beginner astrophotographers"
+    - "Works with smaller equatorial mounts"
+    - "Great for visual observation"
   cons:
-    - "Lens hücresi vidaları ışık yoluna girerek parlak yıldızlarda istenmeyen ışık saçılmaları oluşturabiliyor"
-    - "Odaklayıcı rotasyon noktası tek bir vidaya dayalı; ağır yüklerde esneme riski"
-    - "Uygun flattener/reducer seçenekleri sınırlı ve görüntü alanı küçük"
+    - "Pretty much no optical improvements over a good doublet, but heavier"
+    - "Vignettes with full-frame sensors and cannot be used with a focal reducer"
+    - "Mediocre focuser"
+    - "Annoying mounting hardware"
+    - "Needs a good mount and autoguiding"
+quickSpecs:
+  - "80 mm (3.2”) Aperture"
+  - "480 mm Focal Length"
+  - "f/6"
+  - "Triplet FCD-1 (FPL-51 equiv.) optics"
+  - "Refractor"
+  - "Astrograph"
+  - "Dual-speed rotatable 2” Crayford focuser"
 lang: tr
 ---
 
 import Affiliates from '../../../components/Affiliates.astro'
 import Ratings from '../../../components/Ratings.astro'
-import QuickSpecs from '../../../components/QuickSpecs.astro'
 import ProsCons from '../../../components/ProsCons.astro'
+import QuickSpecs from '../../../components/QuickSpecs.astro'
 
-<h2>Giriş</h2>
-<p>
-Explore Scientific ED80 Essentials Triplet, geniş alanlı astrofotoğrafi ve
-görsel gözlem için kompakt bir 80 mm triplet refraktör olarak pazarlanır.
-Triplet tasarım, klasik doublet refraktörlere kıyasla daha iyi renk
-düzeltmesi sunmayı hedeflese de, bu modelin optik ve mekanik tasarımında
-yapılan bazı tercihlerin kullanıcı deneyimini sınırladığı yönünde çok sayıda
-geri bildirim bulunmaktadır.
-</p>
+<h2>Introduction</h2>
+
+<p class="highlight">The Explore Scientific ED80 Essentials Triplet is a poor choice for most astrophotography work compared to competing telescopes, and the scope's triplet optical design has little correlation with high quality.</p>
+
+<p>The Explore Scientific ED80 Essentials Triplet is a compact ED triplet refractor sold 
+  at a similar price tag to many 80 mm ED doublets, and unsurprisingly concessions have been made 
+  to make this possible. The ED80 Essentials Triplet offers roughly equal quality views and images 
+  to most 80 mm doublets at its price range but is heavier and less compact, with a variety of issues 
+  that make it less than ideal for the price. The more expensive FCD100 glass upgrade improves the optics 
+  but has a lot of competition and suffers from similar mechanical drawbacks to the Essentials version. 
+  Either is unsuitable for use with a reducer-flattener or large full-frame camera sensors, 
+  both of which are major disadvantages compared to most competing imaging telescopes. The Explore 
+  Scientific triplet refractors make great scopes for visual observation and were seemingly designed for 
+  such, with imaging capabilities as more of an afterthought.</p>
 
 <QuickSpecs items={frontmatter.quickSpecs} />
 
@@ -66,120 +81,50 @@ geri bildirim bulunmaktadır.
 
 <Affiliates affiliate={frontmatter.affiliate} />
 
-<h2>Optik Performans</h2>
+<img
+  class="post-image post-image-sm"
+  src="/images/explore-scientific-ED80-review/optics.webp"
+  alt="Optics"
+/>
+
+<h2>Optics</h2>
 <p>
-ED80 Essentials Triplet’in triplet objektif tasarımı, özellikle mavi ve
-mor bölgede renk sapmasını azaltmayı amaçlar. 80 mm açıklık ve 480 mm odak
-uzaklığı (yaklaşık f/6) ile, geniş alanlı nebula ve yıldız kümesi görüntüleri
-için uygun bir kombinasyon sunar. Ancak kullanıcı raporları, lens hücresini
-fixlemek için kullanılan bazı vidaların ışık yoluna girdiğini ve parlak
-yıldızlarda tuhaf ışık saçılmaları, çarpraz benzeri artefaktlar oluşturduğunu
-belirtmektedir. Vidaları gevşetmek bu etkiyi azaltabilir; fakat bu sefer
-objektifin hücre içinde gevşeyip kolimasyon hatası oluşturma riski artar.
+  The Explore Scientific ED80 Essentials Triplet is a 3.2” apochromatic refractor telescope with a focal length of 480 mm and an f/6 focal ratio. While triplet refractors are typically known for superior chromatic aberration control compared to doublets, the ED80 Essentials Triplet will produce blue halos around bright celestial objects visually and will show noticeable chromatic aberration comparable to a typical ED doublet refractor in images. This is a consequence of the cheap FCD-1 glass used in the telescope, which is roughly equivalent to the cheaper FPL-51 glass used in the most inexpensive ED doublets and sure to be a disappointment if you expect the triplet design to mean improvement over a similarly priced doublet. The FCD-100 glass used in the more expensive ED80 offered by Explore Scientific does clean up the image, but not without significant expense.
+</p>
+<p>
+  At f/6, a field flattener is certainly necessary with the ED80 Essentials Triplet to eliminate field curvature in your images. Unfortunately, Explore Scientific does not offer their own dedicated, optically optimized reducer-flattener anymore, and you will not be happy with the images produced by a 0.8× reducer-flattener from another manufacturer; the only choice for an optimized flattener at all is Explore Scientific’s in-house unit. The size of the illuminated image circle of the ED80 is not specified by Explore Scientific but is around 21 mm, which will vignette with full-frame sensors.
+</p>
+<p>
+  Another major issue with the ED80 Essentials Triplet is that the screws used to hold and adjust the objective lens in its cell poke into the light path. This introduces odd spikes and crosses on bright stars in your astrophotos. Backing off the screws can reduce the problem but will leave the lens loose in its cell and may introduce collimation issues. The only real fix is to stop down the telescope’s aperture by a few millimeters, which consequently reduces your speed for photography and your light-gathering or resolving power for visual.
 </p>
 
+<h2>Mechanics</h2>
 <p>
-Üretici, tam olarak ne kadar geniş bir görüntü dairesi aydınlatıldığını açıkça
-belirtmemektedir; ancak pratikte APS-C sensörler için kabul edilebilir, tam
-kare (full-frame) sensörlerde ise belirgin vinyet ve kenar sorunları
-rapor edilmiştir.
+  The ED80 Essentials Triplet is equipped with a 2” dual-speed Crayford focuser with a brass compression ring, which can be rotated to adjust your framing for images. While this focuser is generally effective, it has been known to slip under heavy loads, while the single thumb screw that enables rotation can easily slip or cause the focuser assembly to become tilted. The FCD100 version has a 2.5” Crayford focuser with a hexagonal drawtube which is stiffer but suffers from the same issues with its rotation axis relying on a lone screw. You also get thread-on extension tubes to reach focus with certain cameras or eyepieces, which may require additional focus travel.
+</p>
+<p>
+  The ED80 Essentials Triplet features an unusually wide and stubby dew shield that retracts for transport. The dew shield does a poor job of preventing condensation or blocking stray light due to its narrower design and also gets in the way of mounting tube rings to the telescope, which is why the ED80 uses a simple ring and “foot” style dovetail like small, cheap 60–72 mm ED doublets. This design can sag and also prevents the installation of a second dovetail atop the tube to attach a guide scope to.
 </p>
 
-<h2>Düzleyici (Flattener) ve Reducer Kullanımı</h2>
+<h2>Mounting Options</h2>
 <p>
-ED80 Essentials Triplet, alan düzleştirici (field flattener) ve odak
-düşürücü (reducer) kullanımı olmadan, görüntü alanının kenarlarında alan
-eğriliği ve yıldızlarda uzama gösterebilir. Explore Scientific, bu model
-için kendi optimize ettiği bir düzleyici üretmiş olsa da, bu aksesuar her
-zaman kolay bulunmamaktadır. Üçüncü parti 0,8× reducer-flattener’larla,
-özellikle görüntü alanının köşelerinde yeterli düzeltme sağlanamadığı ve
-ek optik bozulmalar oluştuğu rapor edilmektedir.
+  In addition to the tube itself and a Vixen-style dovetail bar, you also get a finder/guide scope mounting shoe capable of fitting almost any style bracket, along with a 2” dielectric star diagonal and 1.25” adapter for visual use. Weighing 7.5 lbs without the addition of any camera, guide scope, or accessories such as a flattener or the provided star diagonal, the ED80 Essentials Triplet requires an EQ5-class mount like the Sky-Watcher HEQ5 Pro or Celestron Advanced VX for astrophotography use. For visual use, Explore Scientific’s own Twilight I or a similar heavy-duty alt-azimuth mount is ideal.
 </p>
 
+<h2>What You Can See</h2>
 <p>
-Bu nedenle, cihazı yalnızca fotoğraf odaklı kullanmayı planlayan kullanıcılar
-için, ED80 yerine doğrudan daha iyi belgelenmiş ve flattener’ı yaygın olan bir
-triplet veya Petzval 80 mm refraktör tercih etmek daha mantıklı olabilir.
+  While an 80 mm refractor is hardly a capable instrument for deep-sky visual astronomy—especially at the high price tag of the ED80 Essentials Triplet—this scope can still provide enjoyable views with the right eyepieces. The short focal length makes it ideal for wide-field, low-power viewing of nebulae or star clusters, and the 2” diagonal enables you to achieve the widest possible field of view with 2” oculars. You can split double stars at high magnification even from the city and view nebulae like the Veil or North America Nebula with a UHC filter under dark skies. Globular star clusters, planetary nebulae, and galaxies will appear as dim, detail-less smudges on these small sensors, however.
+</p>
+<p>
+  Within the Solar System, the ED80 is sufficiently powerful to reveal phases of Mercury and Venus, detailed lunar features such as craters and ridges, Mars’s ice caps and dark markings, Jupiter’s cloud belts and Great Red Spot, and Saturn’s rings and Cassini Division. A larger telescope is necessary to resolve Uranus and Neptune clearly or observe their moons.
 </p>
 
-<h2>Mekanik Yapı</h2>
+<h2>Drawbacks</h2>
 <p>
-ED80 Essentials Triplet, 2” çift hızlı Crayford odaklayıcıya sahiptir ve pirinç
-sıkıştırma halkalı (compression ring) kelepçesiyle göz merceği ya da kamera
-bağlantısını güvenceye alır. Odaklayıcı gövdesi, kadrajı döndürebilmeniz için
-rotasyon özelliğine sahiptir; ancak bu rotasyon noktası tek bir sıkma vidasına
-dayandığından, ağır kamera ve aksesuar yüklerinde esneme ve kayma riski
-oluşturabilir. Bazı kullanıcılar, özellikle uzun pozlamalı astrofotoğrafide
-odaklama pozisyonunun zamanla kaydığını bildirmektedir.
+  The small illuminated image circle, combined with optical issues and vignetting induced by any attempt to use a third-party reducer-flattener, confines the field of view severely for deep-sky imaging and limits you to smaller sensors like APS-C DSLRs. The scope is also prone to mechanical flexure due to its higher weight and the poorly designed focus rotator and dovetail foot. Visual observers seeking an economical option are better served by a larger catadioptric or Dobsonian telescope, and imagers should consider a better-quality triplet or a well-made doublet or Petzval 80 mm refractor instead.
 </p>
 
+<h2>Conclusion</h2>
 <p>
-Tüp, geniş ve nispeten kısa bir çiğlenme kalkanına (dew shield) sahiptir.
-Kalkan taşımayı kolaylaştırmak için geriye doğru kısaltılabilir; ancak kalkanın
-tasarımı, hem çiğ (dew) oluşumunu önleme hem de dağınık ışığı engelleme
-konusunda ortalama bir performans sunar. Tüpün alt kısmında yer alan basit
-“ayak” tarzı dovetail, küçük ED doublet’lerdeki tasarımın ölçeklendirilmiş
-bir versiyonu gibidir ve daha ağır yüklerde esnemeye ve küçük hizalama
-değişimlerine neden olabilir.
+  The Explore Scientific ED80 Essentials Triplet is hardly the bargain it may appear to be. Astrophotographers and visual observers alike would best be served by a different telescope with fewer mechanical and optical concessions.
 </p>
-
-<h2>Montaj ve Kullanım</h2>
-<p>
-ED80 Essentials Triplet tüpü, yaklaşık 7,5 lb (3,5 kg) civarında bir ağırlığa
-sahiptir (kamera, kılavuz teleskop ve düzleyici hariç). Astrofotoğrafi için,
-Sky-Watcher HEQ5 Pro veya Celestron Advanced VX gibi en az EQ5 sınıfında bir
-eşitlik montu önerilir. Görsel gözlem için Explore Scientific’in Twilight I
-gibi orta–ağır hizmet tipi bir alt-az mont yeterli olabilir.
-</p>
-
-<p>
-Tüp üzerinde standart bulucu ayakları ve 2” dielektrik yıldız diyagonali
-bulunur. Görsel kullanımda, 2” geniş alanlı göz mercekleri ile düşük
-büyütmelerde etkileyici açık küme ve nebula görüntüleri almak mümkündür;
-ancak 80 mm açıklık, derin uzay cisimlerinde detay açısından sınırlıdır.
-</p>
-
-<h2>Ne Görebilirsiniz?</h2>
-<p>
-Görsel kullanımda, ED80 Essentials Triplet bir “gösteri” derin uzay
-teleskopu olmasa da, kısa odak uzaklığı sayesinde geniş alanlı gözlemler için
-keyifli bir araçtır. Uygun 2” göz mercekleri ile Pegasus bölgesindeki büyük
-açık kümeler, Cygnus’taki nebula kompleksleri veya yaz üçgeni çevresindeki
-zengin yıldız alanları düşük büyütmelerde hoş görüntüler sunar.
-</p>
-
-<p>
-Güneş Sistemi tarafında; Merkür ve Venüs’ün evreleri, Ay’daki kraterler ve
-dağ sıraları, Mars’ın karşıtlık döneminde kutup buzulları ve koyu–açık yüzey
-alanları, Jüpiter’in bulut kuşakları ve Büyük Kırmızı Leke, Satürn’ün
-halkaları ve Cassini Boşluğu gözlemlenebilir. Uranüs ve Neptün, 80 mm
-apertürde küçük, sönük diskler hâlinde görünecek ve ayrıntı göstermeyecektir.
-</p>
-
-<h2>Eksiler</h2>
-<p>
-ED80 Essentials Triplet’in en büyük sorunları, lens hücresindeki vidaların
-ışık yoluna girmesinden kaynaklanan parlak yıldız artefaktları, odaklayıcı
-rotasyon sisteminin ağır yüklerde esnemeye yatkın olması ve fotoğraf için
-optimum düzleyici/reducer seçeneklerinin oldukça sınırlı olmasıdır. Ayrıca
-aydınlatılan görüntü dairesinin nispeten küçük olması, tam kare sensörlerde
-kabul edilemez seviyede vinyet ve köşe bozulmaları ile sonuçlanır.
-</p>
-
-<h2>Sonuç</h2>
-<p>
-Explore Scientific ED80 Essentials Triplet, etiket fiyatı ve pazarlama dili
-ile ilk bakışta cazip görünse de, hem görsel gözlemciler hem de
-astrofotoğrafçılar için daha az ödün veren 80 mm seçeneği bulmak zor değildir.
-Daha iyi belgelenmiş optiklere ve daha güvenilir mekanik tasarıma sahip
-alternatif tripletler, iyi yapılmış doubletler veya Petzval tasarımlar,
-çoğu kullanıcı için ED80 Essentials Triplet’ten daha mantıklı bir seçim
-olacaktır.
-</p>
-
-<section class="review-disclaimer">
-  <strong>Not:</strong> Bu inceleme; resmi teknik veriler, kullanıcı
-  geri bildirimleri ve bağımsız değerlendirmelere dayanmaktadır. Bu modeli
-  birebir test etmedik; ancak çoklu kaynaklara dayanarak olabildiğince
-  dengeli ve açık bir genel bakış sunmayı amaçladık.
-</section>

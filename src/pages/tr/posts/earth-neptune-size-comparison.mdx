@@ -1,10 +1,10 @@
 ---
 layout: ../../../layouts/simLayout.astro
-title: "Dünya ve Neptün Boyut Karşılaştırması"
+title: "Earth and Neptune Size Comparison"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-11-11'
-description: "Neptün ile Dünya arasındaki gerçek ölçek farkını gösteren bir simülasyon."
+description: "The true scale difference between Neptune and Earth."
 slug: earth-neptune-size-comparison
 imageDir: /images/earth-neptune-size-comparison
 thumbnail: /images/earth-neptune-size-comparison/thumbnail.webp
@@ -32,35 +32,48 @@ import SimPostSchema from "../../../components/SimPostSchema.astro";
   orthoExtent={1.4}
 />
 
-<figcaption class="sim-caption">Neptün ve Dünya, gerçek oransal çaplarıyla modellenmiş olarak.</figcaption>
+<figcaption class="sim-caption">Neptune and Earth rendered at their true relative diameters.</figcaption>
 
-<h2>Simülasyon ne gösteriyor?</h2>
-<p>Bu görselleştirme Dünya ve Neptün’ü, fiziksel çapları ve gerçek 3B geometrileriyle yan yana yerleştiriyor. Dünya; okyanusları, kıtaları ve bulutlarıyla tanıdık ve dinamik bir yüzey sunarken, Neptün yüksek irtifa metan-buz bulutlarıyla kaplı soğuk, koyu mavi bir gezegen olarak görünür. Kitaplarda yer alan şemalar bu iki gezegen arasındaki gerçek boyut farkını nadiren doğru aktarır. Dünya küçük ve kompakt görünürken, Neptün devasa, katmanlı bir atmosfer–sıvı iç yapı küresi gibi hissedilir. Her iki gezegenin aynı kare içinde dönmesini görmek, ölçeği soyut olmaktan çıkarıp sezgisel hale getirir.</p>
+<h2>What the simulation shows</h2>
+<p>This visualization places Earth and Neptune next to each other using their exact physical diameters and true 3D geometry. Earth shows its familiar dynamic surface with oceans, continents, and clouds, while Neptune appears as a cold, deep-blue world with high-altitude methane ice clouds. Textbook diagrams rarely capture the true size difference between the two. Earth looks small and compact, while Neptune feels like a massive, layered sphere of atmosphere and fluid interior. Seeing both planets rotating in the same frame makes the physical scale intuitive rather than abstract.</p>
 
-<h2>Ölçeğin arkasındaki sayılar</h2>
-<p>Dünya’nın çapı yaklaşık 12.742 km, Neptün’ün çapı ise yaklaşık 49.244 km’dir. Aralarındaki çap oranı şöyledir:</p>
+<h2>The numbers behind the scale</h2>
+<p>Earth’s diameter is approximately 12,742 km, while Neptune’s is about 49,244 km. The diameter ratio between them is:</p>
 
 $$
 \frac{D_N}{D_E} = \frac{49{,}244}{12{,}742} \approx 3.86
 $$
 
-<p>Hacim çapın küpüyle ölçeklenir:</p>
+<p>Volume scales with the cube of the diameter:</p>
 
 $$
 (3.86)^3 \approx 57.5
 $$
 
-<p>Bu, Neptün’ün hacim olarak elli yedi Dünya’yı içine alabilecek kadar büyük olduğu anlamına gelir. Yüzey alanı—bir gezegenin görünen disk büyüklüğünü belirleyen değer—çapın karesiyle artar:</p>
+<p>This means Neptune could contain more than fifty-seven Earth-sized volumes. Surface area, which determines how large each planet’s visible disk appears, scales with the square of the diameter:</p>
 
 $$
 (3.86)^2 \approx 14.9
 $$
 
-<p>Yani Neptün’ün görünür yüzeyi Dünya’nınkinden neredeyse on beş kat daha büyüktür. Bu oranlar simülasyonda birebir korunur, böylece ölçek farkı sayılardan çok görsel olarak deneyimlenebilir.</p>
+<PlanetSizeComparison
+  client:load
+  primaryTexture="/textures/neptune_texture.webp"
+  secondaryTexture="/textures/earth-texture-nasa.webp"
+  options={{ cameraPosition: [0, 6, 0] }}
+  primaryRadius={24.622}
+  secondaryRadius={6.371}
+  planetDistance={2.0}
+  primaryContrast={1.0}
+  secondaryContrast={0.9}
+  orthoExtent={2.0}
+/>
+
+<p>So Neptune’s visible face is nearly fifteen times larger than Earth's. These exact proportions are preserved in the simulation, allowing the scale difference to be experienced visually rather than interpreted numerically.</p>
 
 <SimPostSchema
-  title="Neptün ve Dünya Boyut Karşılaştırması"
-  description="Neptün ve Dünya arasındaki gerçek ölçek farkını gösteren etkileşimli bir tarayıcı tabanlı simülasyon."
+  title="Neptune and Earth Size Comparison"
+  description="An interactive browser-based simulation that shows the true scale difference between Neptune and Earth."
   url="https://astrosyo.com/posts/neptune-earth-size-comparison"
   datePublished="2025-09-08"
   authorName="Astrosyo"
@@ -85,6 +98,6 @@ $$
     "operatingSystem": "Any",
     "browserRequirements": "Requires WebGL2",
     "url": "https://astrosyo.com/posts/neptune-earth-size-comparison#simulation",
-    "description": "Neptün ve Dünya’yı doğru ölçeklerle karşılaştıran etkileşimli görselleştirme."
+    "description": "Interactive visualization comparing Neptune and Earth with accurate scale."
   }}
 />

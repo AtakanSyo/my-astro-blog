@@ -1,19 +1,19 @@
 ---
 layout: ../../../layouts/simLayout.astro
-title: "S-Tip Yıldız Sistemi Simülasyonu"
+title: "S-Type Star System Simulation"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-11-10'
-description: "Bir gezegenin yalnızca ana yıldızın etrafında döndüğü, eşlikçi bir Güneş’in ise yakında geniş bir yörüngede dolaştığı ikili yıldız sistemini izleyin."
+description: "Watch a binary star where one planet orbits only the primary while a companion sun loops nearby."
 slug: s-type-system
 imageDir: /images/s-type-system
 thumbnail: /images/s-type-system/thumbnail.webp
 keywords:
   - s-type
-  - ikili yıldız
-  - ötegezegen
+  - binary star
+  - exoplanet
   - three.js
-  - astronomi görselleştirmesi
+  - astronomy visualization
 lang: tr
 ---
 
@@ -23,63 +23,58 @@ import SimPostSchema from "../../../components/SimPostSchema.astro";
 <STypeSystem client:load showPause={true} />
 
 <figcaption class="sim-caption">
-  Sistemin barymerkezi etrafında kaymış yörüngelerde dolanan iki yıldızdan biri sola, diğeri sağa ötelenmiştir; yalnız gezegen ise altın renkli ana yıldızın etrafına sıkıca bağlı kalır.
+  Two suns orbit the system barycenter on offset loops—one shifted left, the other right—while a lone planet clings to the golden primary.
 </figcaption>
 
 <div class="sim-article">
-  <h2 id="about-this-simulation">Bu simülasyon hakkında</h2>
+  <h2 id="about-this-simulation">About this simulation</h2>
   <p>
-    S-tip sistemlerde gezegenler, yakınlarda bir yıldız eşlikçisi bulunsa bile yalnızca tek bir yıldıza bağlı kalır.
-    Burada her iki yıldız da ortak bir barymerkez etrafında dolanır: altın renkli ana yıldız sağa itilmiş bir
-    yörünge çizer, mavi eşlikçi ise bunu solda ayna gibi yansıtır ve tek bir gezegen, hafif eksantrik bir elips
-    üzerinde ana yıldızla birlikte hareket eder. Hizalanmaları incelemek için duraklatma kontrolünü kullanabilir
-    ya da ikili sistemin “dansını” izlemek için tekrar başlatabilirsiniz.
+    S-type systems keep their planets bound to just one star even though a stellar companion is nearby. Here, both stars orbit a shared barycenter:
+    the golden primary traces a loop nudged to the right, the blue companion mirrors it on the left, and a single planet rides along with the primary
+    on a slightly eccentric ellipse. Use the pause control to inspect alignments or resume to watch the binary dance unfold.
   </p>
   <p>
-    Her yıldıza bağlı noktasal ışık kaynakları, gezegen ve yıldızlar üzerinde gördüğünüz gölgelendirmeyi üretir;
-    hafif bir ortam aydınlatması ise ikili aydınlatmayı bastırmadan gece tarafını görünür tutar. Kesik yörünge
-    kılavuzları, hangi cismin hangisinin etrafında döndüğünü takip etmeyi kolaylaştırır.
+    Point lights tied to each star produce the shading you see on the planet and stars, while a faint ambient fill keeps the nightside visible without
+    overpowering the binary lighting. Dashed orbital guides make it easy to track which body orbits which.
   </p>
 
-  <h3 id="what-to-look-for">Nelere dikkat etmeli?</h3>
+  <h3 id="what-to-look-for">What to look for</h3>
   <p>
-    Her bir yıldız yörüngesinin, başlangıç noktasının zıt taraflarına kaydırıldığını fark edin; bu, barymerkezi
-    okumayı kolaylaştırır. Gezegenin kesik yörüngesi hareket eden ana yıldıza “yapışık” kalır, böylece aslında
-    hangi yıldızın etrafında döndüğünü her zaman net bir şekilde görebilirsiniz. Eşlikçi yıldız ana yıldızın
-    arkasından geçerken duraklatıp, dramatik “çift gün batımı” gökyüzlerini hayal edin.
+    Notice how each stellar orbit is shifted to opposite sides of the origin, making the barycenter easy to read. The planet’s dashed path stays glued
+    to the moving primary, so you always know which star it truly orbits. Pause when the companion sweeps behind the primary to imagine dramatic
+    double-sunset skies.
   </p>
   <p>
-    Bileşen, yarıçaplar, parlaklıklar ve yörünge periyotlarını prop’lar üzerinden dışa açtığı için Kepler-444 gibi
-    belirli keşifleri yeniden canlandırabilir ya da kendi hikâye odaklı ikili sisteminizi özel renklerle
-    tasarlayabilirsiniz.
+    Since the component exposes radii, intensities, and orbital periods through props, you can recreate specific discoveries like Kepler-444 or craft your
+    own story-driven binary with custom colors.
   </p>
 </div>
 
 <SimPostSchema
-  title="S-Tip Yıldız Sistemi Simülasyonu"
-  description="Gezegenin yalnızca bir yıldızın etrafında döndüğü, eşlikçi yıldızın ise daha geniş bir yörüngede yanından geçtiği ikili yıldız sistemini keşfedin."
+  title="S-Type Star System Simulation"
+  description="Explore a binary star where the planet orbits only one sun while the companion sweeps past on a wider track."
   url="https://astrosyo.com/posts/s-type-system"
   datePublished="2025-11-10"
   authorName="Astrosyo"
   keywords={[
     "s-type",
-    "ikili yıldız",
-    "ötegezegen",
+    "binary star",
+    "exoplanet",
     "three.js",
-    "astronomi görselleştirmesi"
+    "astronomy visualization"
   ]}
   image="/images/s-type-system/cover.webp"
-  articleSection="Astronomi"
+  articleSection="Astronomy"
   isAccessibleForFree={true}
   publisherName="Astrosyo"
   publisherLogo="/images/shared/logo.webp"
   hasPart={{
     "@type": "SoftwareApplication",
-    "name": "S-Tip Yıldız Sistemi Simülasyonu",
+    "name": "S-Type Star System Simulation",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Any",
     "browserRequirements": "Requires WebGL2",
     "url": "https://astrosyo.com/posts/s-type-system#simulation",
-    "description": "Tek bir gezegenin ana yıldız etrafında döndüğü etkileşimli ikili yıldız gösterimi."
+    "description": "Interactive binary star demo where a single planet orbits the primary sun."
   }}
 />

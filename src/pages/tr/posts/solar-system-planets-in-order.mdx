@@ -1,17 +1,17 @@
 ---
 layout: ../../../layouts/simLayout.astro
-title: "Güneş Sistemi Gezegenleri Sırayla"
+title: "Solar System Planets In Order"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-11-05'
-description: "Güneş Sistemi gezegenlerini aynı görünen boyutta yan yana dizerek renkleri, bulut bantlarını ve yüzey detaylarını karşılaştırın."
+description: "Line up the Solar System planets at a uniform size to compare colors, cloud bands, and surface detail side by side."
 slug: solar-system-planets-in-order
 imageDir: /images/solar-system-planets-in-order
 thumbnail: /images/solar-system-planets-in-order/thumbnail.webp
 keywords:
-  - güneş sistemi
-  - gezegen karşılaştırması
-  - astronomi görselleştirmesi
+  - solar system
+  - planetary comparison
+  - astronomy visualization
   - three.js
   - webgl
 lang: tr
@@ -22,54 +22,49 @@ import SimPostSchema from "../../../components/SimPostSchema.astro";
 
 <SolarSystemPlanetsInOrder client:load />
 
-<figcaption class="sim-caption">
-  Her gezegen aynı görünen yarıçapla gösterilir; böylece tamamen renge, dokuya ve atmosfer karakterine odaklanabilirsiniz.
-  Soldan sağa sıra: Merkür, Venüs, Dünya, Mars, Jüpiter, Satürn, Uranüs, Neptün.
-</figcaption>
+<figcaption class="sim-caption">Each planet appears at the same apparent radius so you can focus entirely on color, texture, and atmospheric personality. Order, left to right: Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune.</figcaption>
 
 <div class="sim-article">
-  <h2 id="same-size-different-worlds">Aynı boyut, farklı dünyalar</h2>
+  <h2 id="same-size-different-worlds">Same size, different worlds</h2>
   <p>
-    Çap farklarını ortadan kaldırdığınızda, yeni bir karşılaştırma türü ortaya çıkar. Tüm gezegenler aynı silueti
-    paylaştığında Jüpiter’in pas tonlarındaki kuşakları, Dünya’nın mavi okyanusları veya Mars’ın toz fırtınaları gibi
-    detaylar sahnenin merkezine yerleşir. Diğerleriyle ters yönde yavaşça dönerken Venüs ve Uranüs’ün geriye dönük
-    (retrograd) dönüşlerini bile fark edebilirsiniz.
+    Strip away diameter differences and a new kind of comparison emerges. When every planet shares the same silhouette, details like
+    Jupiter’s rust-colored belts, Earth’s blue oceans, or Mars’s dust storms jump to center stage. You can even spot the retrograde
+    rotation of Venus and Uranus as they slowly turn opposite the others.
   </p>
 
-  <h3 id="color-palette">Renk paleti turu</h3>
+  <h3 id="color-palette">Color palette tour</h3>
   <p>
-    Sırada ilerleyerek Merkür’ün kavrulmuş grilerinden, Venüs’ün kalın bulutlarına ve Dünya’nın canlı mavilerine
-    doğru ilerleyin. Dış gezegenler soluk pastel tonlarda parlar: Jüpiter okr ve krem tonları arasında geçiş yaparken,
-    Satürn yağlı sarımsı tonlar gösterir; Uranüs ve Neptün ise buzlu camgöbeğine yaklaşır. Eşit boyutlandırma, dikkatinizi
-    bu ince ton geçişlerinde tutar.
+    Move along the row from Mercury’s scorched greys through Venus’s thick clouds and Earth’s vibrant blues. The outer worlds glow with
+    muted pastels: Jupiter shifts between ochres and creams, Saturn shows buttery shades, while Uranus and Neptune lean toward icy cyan.
+    Uniform sizing keeps your eye on those subtle gradients.
   </p>
 </div>
 
 <SimPostSchema
-  title="Güneş Sistemi Gezegenleri Sırayla"
-  description="Tüm Güneş Sistemi gezegenlerini aynı görünen boyutta görerek renklerini ve bulut desenlerini karşılaştırın."
+  title="Solar System Planets In Order"
+  description="Compare the colors and cloud patterns of every Solar System planet by seeing them all at the same apparent size."
   url="https://astrosyo.com/posts/solar-system-planets-in-order"
   datePublished="2025-11-05"
   authorName="Astrosyo"
   keywords={[
-    "güneş sistemi",
-    "gezegen karşılaştırması",
-    "astronomi görselleştirmesi",
+    "solar system",
+    "planetary comparison",
+    "astronomy visualization",
     "three.js",
     "webgl"
   ]}
   image="/images/solar-system-planets-in-order/cover.webp"
-  articleSection="Astronomi"
+  articleSection="Astronomy"
   isAccessibleForFree={true}
   publisherName="Astrosyo"
   publisherLogo="/images/shared/logo.webp"
   hasPart={{
     "@type": "SoftwareApplication",
-    "name": "Güneş Sistemi Gezegenleri Sırayla",
+    "name": "Solar System Planets In Order",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Any",
     "browserRequirements": "Requires WebGL2",
     "url": "https://astrosyo.com/posts/solar-system-planets-in-order#simulation",
-    "description": "Renk ve doku farklarını vurgulamak için eşit yarıçaplarda gösterilen Güneş Sistemi gezegenlerinden oluşan lineer galeri."
+    "description": "A linear gallery of Solar System planets displayed at equal radii to highlight differences in color and texture."
   }}
 />

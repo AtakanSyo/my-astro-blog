@@ -1,19 +1,19 @@
 ---
 layout: ../../../layouts/simLayout.astro
-title: "Merkür ve Jüpiter Boyut Karşılaştırması"
+title: "Mercury and Jupiter Size Comparison"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-09-18'
-description: "Merkür ile Jüpiter arasındaki gerçek ölçek farkını gösteren bir simülasyon."
+description: "A simulation showing the true scale difference between Mercury and Jupiter."
 slug: mercury-jupiter-size-comparison
 imageDir: /images/mercury-jupiter-size-comparison
 keywords:
-  - merkür
-  - jüpiter
-  - gezegen boyut karşılaştırması
-  - astronomi
+  - mercury
+  - jupiter
+  - planet size comparison
+  - astronomy
   - webgl
-  - simülasyon
+  - simulation
 lang: tr
 ---
 
@@ -32,66 +32,59 @@ import SimPostSchema from "../../../components/SimPostSchema.astro";
   orthoExtent={1.2}
 />
 
-<figcaption class="sim-caption">Merkür ve Jüpiter, gerçek göreli boyutlarında gösteriliyor.</figcaption>
+<figcaption class="sim-caption">Mercury and Jupiter shown at accurate relative size.</figcaption>
 
-<h2>Simülasyon ne gösteriyor?</h2>
-<p>Bu görselleştirme, Merkür ve Jüpiter’i gerçek fiziksel çapları ve tam 3B geometrileriyle yan yana yerleştirir.
-  Güneş Sistemi’nin en küçük gezegeni Merkür, kraterlerle kaplı, kavrulmuş bir yüzeyle görünürken; en büyük gezegen
-  Jüpiter, sahneyi derin atmosfer bantları ve devasa bulut sistemleriyle doldurur. Ders kitabı illüstrasyonları,
-  Merkür’ü fark edilir kılmak için çoğu zaman olduğundan büyük çizer; ancak gerçek ölçekte Jüpiter’in yanında
-  render edildiğinde neredeyse gözden kaybolur. İkisini birlikte dönerken görmek, Merkür’ün Güneş Sistemi’nin devi
-  karşısında ne kadar küçük olduğunu güçlü bir şekilde vurgular.</p>
+<h2>What the simulation shows</h2>
+<p>This visualization places Mercury and Jupiter side by side using their real physical diameters and full 3D geometry. Mercury, the smallest planet in the Solar System, displays a cratered and scorched surface. Jupiter, the largest planet, fills the frame with deep atmospheric bands and massive cloud systems. Textbook illustrations often exaggerate Mercury to make it visible, but when rendered at true scale next to Jupiter, it nearly vanishes. Seeing them rotate together emphasizes how tiny Mercury really is compared to the giant of the Solar System.</p>
 
-<h2>Ölçeğin arkasındaki sayılar</h2>
-<p>Merkür’ün çapı yaklaşık 4.880 km’dir. Jüpiter’in çapı ise yaklaşık 139.820 km’dir. Çap oranı şöyledir:</p>
+<h2>The numbers behind the scale</h2>
+<p>Mercury’s diameter is approximately 4,880 km. Jupiter’s diameter is about 139,820 km. The ratio of their diameters is:</p>
 
 $$
 \frac{D_J}{D_M} = \frac{139{,}820}{4{,}880} \approx 28.7
 $$
 
-<p>Hacim, çapın küpüyle ölçeklenir:</p>
+<p>Volume scales with the cube of the diameter:</p>
 
 $$
 (28.7)^3 \approx 23{,}600
 $$
 
-<p>Bu, Jüpiter’in içine yirmi üç binin üzerinde Merkür büyüklüğünde hacim sığabileceği anlamına gelir. Bir gezegenin
-  görünen yüzünün ne kadar büyük göründüğünü belirleyen yüzey alanı ise çapın karesiyle artar:</p>
+<p>This means Jupiter could contain more than twenty-three thousand Mercury-sized volumes. Surface area, which determines how large a planet's visible face appears, scales with the square of the diameter:</p>
 
 $$
 (28.7)^2 \approx 823
 $$
 
-<p>Yani Jüpiter’in görünen diski Merkür’ünkinden sekiz yüzden fazla kat büyüktür. Simülasyon bu oranları birebir
-  korur; böylece ölçek farkı, matematiksel olarak hesaplamak yerine doğrudan görsel olarak anlaşılabilir.</p>
+<p>So Jupiter’s visible disk is more than eight hundred times larger than Mercury’s. The simulation preserves these exact ratios, allowing the scale difference to be understood visually rather than mathematically.</p>
 
 <SimPostSchema
-  title="Merkür ve Jüpiter Boyut Karşılaştırması"
-  description="Merkür ile Jüpiter arasındaki gerçek ölçek farkını gösteren etkileşimli bir tarayıcı tabanlı simülasyon."
+  title="Mercury and Jupiter Size Comparison"
+  description="An interactive browser-based simulation that shows the true scale difference between Mercury and Jupiter."
   url="https://astrosyo.com/posts/mercury-jupiter-size-comparison"
   datePublished="2025-09-18"
   authorName="Astrosyo"
   keywords={[
-    "merkür",
-    "jüpiter",
-    "gezegen boyut karşılaştırması",
-    "astronomi",
+    "mercury",
+    "jupiter",
+    "planet size comparison",
+    "astronomy",
     "three.js",
     "webgl",
-    "eğitim"
+    "education"
   ]}
   image="/images/mercury-jupiter-size-comparison/cover.webp"
-  articleSection="Astronomi"
+  articleSection="Astronomy"
   isAccessibleForFree={true}
   publisherName="Astrosyo"
   publisherLogo="/images/shared/logo.webp"
   hasPart={{
     "@type": "SoftwareApplication",
-    "name": "Gezegen Boyut Karşılaştırması",
+    "name": "Planet Size Comparison",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Any",
     "browserRequirements": "Requires WebGL2",
     "url": "https://astrosyo.com/posts/mercury-jupiter-size-comparison#simulation",
-    "description": "Merkür ve Jüpiter’i doğru ölçekle karşılaştıran etkileşimli görselleştirme."
+    "description": "Interactive visualization comparing Mercury and Jupiter with accurate scale."
   }}
 />

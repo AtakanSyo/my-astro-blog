@@ -1,20 +1,20 @@
 ---
 layout: ../../../layouts/simLayout.astro
-title: "Dünya ve Ay Boyut Karşılaştırması"
+title: "Earth and Moon Size Comparison"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-09-15'
-description: "Dünya ile Ay arasındaki gerçek ölçek farkını gösteren bir simülasyon."
+description: "A simulation showing the true scale difference between Earth and the Moon."
 slug: earth-moon-size-comparison
 imageDir: /images/earth-moon-size-comparison
 thumbnail: /images/earth-moon-size-comparison/thumbnail.webp
 keywords:
-  - dünya
-  - ay
-  - gezegen boyut karşılaştırması
-  - astronomi
+  - earth
+  - moon
+  - planet size comparison
+  - astronomy
   - webgl
-  - simülasyon
+  - simulation
 lang: tr
 ---
 
@@ -33,65 +33,59 @@ import SimPostSchema from "../../../components/SimPostSchema.astro";
   orthoExtent={1.4}
 />
 
-<figcaption class="sim-caption">Dünya ve Ay, gerçek göreli boyutlarında gösteriliyor.</figcaption>
+<figcaption class="sim-caption">Earth and the Moon shown at accurate relative size.</figcaption>
 
-<h2>Simülasyon ne gösteriyor?</h2>
-<p>Bu görselleştirme, Dünya ve Ay’ı gerçek fiziksel çapları ve doğru 3B geometrileriyle yan yana yerleştirir. Ay,
-  kraterlerle kaplı, havasız bir dünya olarak görünürken; Dünya okyanuslarını, kıtalarını ve atmosferik bulutlarını
-  sergiler. Çizimlerde ve şemalarda Ay çoğu zaman gerçekte olduğundan çok daha büyük çizilir; bu da ne kadar küçük
-  olduğunu hafife almayı kolaylaştırır. İki gövde yan yana dönerken gerçek ölçek farkı görsel olarak hemen ortaya
-  çıkar.</p>
+<h2>What the simulation shows</h2>
+<p>This visualization places Earth and the Moon next to each other at their real physical diameters and true 3D geometry. The Moon appears as a cratered, airless world, while Earth shows its oceans, continents, and atmospheric clouds. In illustrations and diagrams, the Moon is often drawn much larger than reality, making it easy to underestimate how small it actually is. When the two bodies rotate side by side, the true scale becomes visually obvious.</p>
 
-<h2>Ölçeğin arkasındaki sayılar</h2>
-<p>Dünya’nın çapı yaklaşık 12.742 km’dir. Ay’ın çapı ise yaklaşık 3.474 km’dir. Çap oranı şöyledir:</p>
+<h2>The numbers behind the scale</h2>
+<p>Earth’s diameter is approximately 12,742 km. The Moon has a diameter of about 3,474 km. The ratio of their diameters is:</p>
 
 $$
 \frac{D_E}{D_M} = \frac{12{,}742}{3{,}474} \approx 3.67
 $$
 
-<p>Hacim, çapın küpüyle ölçeklenir:</p>
+<p>Volume scales with the cube of the diameter:</p>
 
 $$
 (3.67)^3 \approx 49.4
 $$
 
-<p>Bu, Dünya’nın hacminin Ay’ınkinden neredeyse elli kat büyük olduğu anlamına gelir. Bir cismin görsel olarak ne
-  kadar büyük göründüğünü belirleyen yüzey alanı ise çapın karesiyle artar:</p>
+<p>This means Earth’s volume is almost fifty times greater than the Moon’s. Surface area, which determines how large each object appears visually, scales with the square of the diameter:</p>
 
 $$
 (3.67)^2 \approx 13.5
 $$
 
-<p>Yani Dünya’nın görünen diski Ay’ınkinden on üç kattan fazla büyüktür. Simülasyon bu oranları birebir korur; böylece
-  ölçek farkını yalnızca sayılardan hayal etmek yerine, doğrudan görsel olarak deneyimleyebilirsiniz.</p>
+<p>So Earth’s visible disk is more than thirteen times larger than the Moon’s. The simulation preserves these exact proportions, letting you experience the scale difference directly instead of imagining it from numbers.</p>
 
 <SimPostSchema
-  title="Dünya ve Ay Boyut Karşılaştırması"
-  description="Dünya ile Ay arasındaki gerçek ölçek farkını gösteren etkileşimli bir tarayıcı tabanlı simülasyon."
+  title="Earth and Moon Size Comparison"
+  description="An interactive browser-based simulation that shows the true scale difference between Earth and the Moon."
   url="https://astrosyo.com/posts/earth-moon-size-comparison"
   datePublished="2025-09-15"
   authorName="Astrosyo"
   keywords={[
-    "dünya",
-    "ay",
-    "gezegen boyut karşılaştırması",
-    "astronomi",
+    "earth",
+    "moon",
+    "planet size comparison",
+    "astronomy",
     "three.js",
     "webgl",
-    "eğitim"
+    "education"
   ]}
   image="/images/earth-moon-size-comparison/cover.webp"
-  articleSection="Astronomi"
+  articleSection="Astronomy"
   isAccessibleForFree={true}
   publisherName="Astrosyo"
   publisherLogo="/images/shared/logo.webp"
   hasPart={{
     "@type": "SoftwareApplication",
-    "name": "Gezegen Boyut Karşılaştırması",
+    "name": "Planet Size Comparison",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Any",
     "browserRequirements": "Requires WebGL2",
     "url": "https://astrosyo.com/posts/earth-moon-size-comparison#simulation",
-    "description": "Dünya ve Ay’ı doğru ölçekle karşılaştıran etkileşimli görselleştirme."
+    "description": "Interactive visualization comparing Earth and the Moon with accurate scale."
   }}
 />

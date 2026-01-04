@@ -1,17 +1,17 @@
 ---
 layout: ../../../layouts/simLayout.astro
-title: "Jüpiter"
+title: "Jupiter"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-08-09'
-description: "Gerçek dokusuyla modellenmiş bir Jüpiter küresi; keşfi, Güneş’e uzaklığı, özel özellikleri, uyduları ve adının kökeni hakkında bilgiler."
+description: "Jupiter rendered as a planetary sphere with accurate texture, plus details about its discovery, distance from the Sun, special qualities, moons, and name."
 slug: jupiter
 imageDir: /images/jupiter
 keywords:
-  - jüpiter
-  - gaz devi
-  - gezegen
-  - astronomi
+  - jupiter
+  - gas giant
+  - planet
+  - astronomy
   - webgl
 lang: tr
 ---
@@ -28,75 +28,57 @@ import SimPostSchema from "../../../components/SimPostSchema.astro";
   ambientIntensity={0.0}
 />
 
-<figcaption class="sim-caption">Gerçekçi bir gezegen dokusuyla işlenmiş Jüpiter.</figcaption>
+<figcaption class="sim-caption">Jupiter rendered with a realistic planetary texture.</figcaption>
 
-<h2>Ne görüyorsunuz?</h2>
-<p>Bu simülasyon, Jüpiter’i bantlı bulut kuşaklarını, zonları ve Büyük Kırmızı Leke’yi gösteren yüksek çözünürlüklü bir
-  doku ile kaplanmış gezegen küresi olarak sunar. Görünüm tamamen gezegenin kendisine odaklanır; bulut desenlerini ve
-  genel ölçeyi daha iyi okuyabilmeniz için halkalar ve uydular eklenmemiştir.</p>
+<h2>What you’re seeing</h2>
+<p>This simulation shows Jupiter as a planetary sphere using a high-resolution texture that captures banded cloud belts, zones, and the Great Red Spot. The view focuses on the planet itself; rings and moons are omitted so the eye can read the cloud patterns and overall scale without distractions.</p>
 
-<h2>Keşif</h2>
-<p>Jüpiter, Mezopotamya, Yunan, Roma, Hint ve Çinli gökbilimciler dâhil olmak üzere birçok kültür tarafından antik
-  çağlardan beri bilinip kaydedilmiştir. Teleskobun icadıyla birlikte, Galileo’nun 1610’da dört büyük uydusunu
-  gözlemlemesi, her şeyin Dünya etrafında dönmediğini gösteren kritik kanıtı sağlamış ve bilimsel devrimi hızlandırmıştır.</p>
+<h2>Discovery</h2>
+<p>Jupiter has been known since antiquity and recorded by many cultures, including Mesopotamian, Greek, Roman, Indian, and Chinese astronomers. With the telescope, Galileo’s 1610 observations of its four large moons provided pivotal evidence that not everything orbits Earth, accelerating the scientific revolution.</p>
 
-<h2>Güneş’e uzaklığı</h2>
-<p>Jüpiter, <strong>Güneş’e en yakın 5. gezegendir</strong>. Ortalama yörünge uzaklığı yaklaşık 778 milyon km’dir
-  (5,2 AB). Bir Jüpiter yılı yaklaşık 11,86 Dünya yılı sürerken, gezegen kendi ekseni etrafında son derece hızlı
-  döner ve bir dönüşünü 10 saatten biraz daha kısa sürede tamamlar.</p>
+<h2>Distance from the Sun</h2>
+<p>Jupiter is the <strong>5th planet from the Sun</strong>. Its average orbital distance is about 778 million km, or 5.2 AU. A Jovian year lasts roughly 11.86 Earth years, while the planet spins rapidly, completing one rotation in just under 10 hours.</p>
 
-<h2>Özel özellikleri</h2>
-<p>Jüpiter, güçlü zonal rüzgârları, uzun ömürlü fırtınaları ve amonyak, amonyum hidrosülfür ve su bulutlarından oluşan
-  katmanlı derin atmosferiyle Güneş Sistemi’ndeki en büyük gezegendir. Devasa manyetik alanı, yoğun radyasyon kuşakları
-  ve kutuplarda etkileyici kutup ışıkları üretir. Büyük Kırmızı Leke, Dünya’yı içine alabilecek büyüklükte, yüzyıllardır
-  devam eden antisiklonik bir fırtınadır.</p>
+<h2>Special qualities</h2>
+<p>Jupiter is the largest planet, with powerful zonal winds, long-lived storms, and a deep atmosphere layered with ammonia, ammonium hydrosulfide, and water clouds. Its immense magnetic field creates intense radiation belts and spectacular auroras at the poles. The Great Red Spot is a centuries-old anticyclonic storm large enough to engulf Earth.</p>
 
-<h2>Uyduları</h2>
-<p>Jüpiter’in bilinen düzinelerce uydusu vardır; bunların arasında en ünlüleri dört Galilei uydusu Io, Europa,
-  Ganymede ve Callisto’dur. Ganymede, Merkür’den bile büyüktür; Europa’nın, altında küresel bir okyanus barındıran
-  buzlu bir kabuğa sahip olduğu düşünülür; Io ise Güneş Sistemi’ndeki en yoğun volkanik faaliyete sahip gökcismidir.</p>
+<h2>Moons</h2>
+<p>Jupiter has dozens of known moons, including the four Galilean satellites: Io, Europa, Ganymede, and Callisto. Ganymede is larger than Mercury, Europa likely harbors a global subsurface ocean, and Io is the most volcanically active body in the Solar System.</p>
 
-<h2>Büyüklük ve kütle</h2>
-<p>Jüpiter’in ekvatoral çapı yaklaşık 139.820 km’dir ve kütlesi yaklaşık 1,9 × 10^27 kg’dır; bu, diğer tüm gezegenlerin
-  toplam kütlesinin iki katından fazlasına karşılık gelir. Buna karşın ortalama yoğunluğu Dünya’nın yalnızca dörtte
-  biri kadardır; bu da bileşiminin büyük ölçüde hafif gazlardan oluştuğunu gösterir.</p>
+<h2>Size and mass</h2>
+<p>Jupiter’s equatorial diameter is about 139,820 km, and its mass is approximately 1.9 × 10^27 kg, equal to more than twice that of all other planets combined. Despite its size, its average density is only about a quarter that of Earth’s, consistent with a composition dominated by light gases.</p>
 
-<h2>Kimyası ve atmosferi</h2>
-<p>Atmosfer çoğunlukla hidrojen ve helyumdan oluşur; iz miktarda bulunan diğer türler bulutları ve sis tabakalarını
-  renklendirir. Daha derin katmanlarda moleküler hidrojen, aşırı basınç altında metalik hidrojene dönüşür; ağır
-  elementler ve buzlar içerebilecek yoğun bir iç bölgeyi çevreler. Karmaşık kimya ve dinamik süreçler, kuşakların ve
-  zonların tonlarının zaman içinde değişmesine yol açar.</p>
+<h2>Chemistry and atmosphere</h2>
+<p>The atmosphere is primarily hydrogen and helium with trace species that color the clouds and hazes. Deeper layers transition through molecular hydrogen to metallic hydrogen under extreme pressure, with a dense inner region that may contain heavy elements and ices. Complex chemistry and dynamics drive the changing tints of belts and zones.</p>
 
-<h2>Adı ve anlamı</h2>
-<p>Jüpiter’in adı, Roma mitolojisindeki baş tanrıdan gelir (Yunan mitolojisinde Zeus). Geceleri gökyüzündeki
-  baskın parlaklığı, onu teleskoplar minyatür bir gezegen sistemi gösterene kadar pek çok mitoloji ve takvim sisteminin
-  merkezine yerleştirmiştir.</p>
+<h2>Name and meaning</h2>
+<p>Named after the chief Roman god, Jupiter (Greek: Zeus) reflects the planet’s prominence in the night sky. Its brightness and steady motion made it a central figure in mythologies and calendars long before the telescope revealed its miniature planetary system.</p>
 
 <SimPostSchema
-  title="Jüpiter"
-  description="Gerçek dokusuyla modellenmiş Jüpiter küresi; keşfi, Güneş’e uzaklığı, atmosferi, uyduları ve adının kökeni hakkında bilgiler."
+  title="Jupiter"
+  description="A planetary sphere of Jupiter with accurate texture, plus details about its discovery, distance from the Sun, atmosphere, moons, and name."
   url="https://astrosyo.com/posts/jupiter"
   datePublished="2025-11-11"
   authorName="Astrosyo"
   keywords={[
-    "jüpiter",
-    "gaz devi",
-    "astronomi",
+    "jupiter",
+    "gas giant",
+    "astronomy",
     "webgl",
-    "eğitim"
+    "education"
   ]}
   image="/images/jupiter/cover.webp"
-  articleSection="Astronomi"
+  articleSection="Astronomy"
   isAccessibleForFree={true}
   publisherName="Astrosyo"
   publisherLogo="/images/shared/logo.webp"
   hasPart={{
     "@type": "SoftwareApplication",
-    "name": "Jüpiter Küresi",
+    "name": "Jupiter Sphere",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Any",
     "browserRequirements": "Requires WebGL2",
     "url": "https://astrosyo.com/posts/jupiter#simulation",
-    "description": "Gerçek dokusuyla işlenmiş, etkileşimli Jüpiter küresi."
+    "description": "Interactive planetary sphere of Jupiter rendered with accurate texture."
   }}
 />

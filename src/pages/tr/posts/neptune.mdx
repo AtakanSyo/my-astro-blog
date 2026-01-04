@@ -1,17 +1,17 @@
 ---
 layout: ../../../layouts/simLayout.astro
-title: "Neptün"
+title: "Neptune"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-08-09'
-description: "Gerçek dokusuyla modellenmiş bir Neptün küresi; keşfi, Güneş’e uzaklığı, özel özellikleri, uyduları ve adının kökeni hakkında bilgiler."
+description: "Neptune rendered as a planetary sphere with accurate texture, plus details about its discovery, distance from the Sun, special qualities, moons, and name."
 slug: neptune
 imageDir: /images/neptune
 keywords:
-  - neptün
-  - buz devi
-  - gezegen
-  - astronomi
+  - neptune
+  - ice giant
+  - planet
+  - astronomy
   - webgl
 lang: tr
 ---
@@ -26,27 +26,19 @@ cameraPosition={{ x: 0, y: 0, z: 2.5 }}
 ambientIntensity={0.0}
 />
 
-<figcaption class="sim-caption">Gerçekçi bir gezegen dokusuyla işlenmiş Neptün.</figcaption>
+<figcaption class="sim-caption">Neptune rendered with a realistic planetary texture.</figcaption>
 
-<h2>Ne görüyorsunuz?</h2>
-<p>Bu simülasyon, Neptün’ü atmosferine ait yüksek çözünürlüklü gerçek bir doku ile kaplanmış bir gezegen küresi
-  olarak gösteriyor. Belirgin bantlara sahip gaz devlerinin aksine Neptün, derin bir mavi tonunda görünür; ara sıra
-  parlak fırtınalar ve metan bulutlarıyla süslenmiştir.</p>
+<h2>What you’re seeing</h2>
+<p>This simulation shows Neptune as a planetary sphere with its true high-resolution atmospheric texture. Unlike gas giants with prominent bands, Neptune’s appearance is deep blue with occasional bright storms and methane clouds.</p>
 
-<h2>Keşif</h2>
-<p>Neptün, doğrudan gözlemden ziyade matematiksel tahminlerle keşfedilen ilk gezegendir. 1846’da Urbain Le Verrier
-  ve John Couch Adams, Uranüs’ün yörüngesindeki düzensizlikleri analiz ederek Neptün’ün konumunu öngördüler.
-  Ardından Johann Galle, gezegeni tam da bu hesaplamaların işaret ettiği bölgede gözlemledi.</p>
+<h2>Discovery</h2>
+<p>Neptune is the first planet discovered through mathematics rather than direct observation. In 1846, Urbain Le Verrier and John Couch Adams predicted its location based on disturbances in Uranus’s orbit. Johann Galle then observed Neptune precisely where the calculations indicated.</p>
 
-<h2>Güneş’e uzaklığı</h2>
-<p>Neptün, <strong>Güneş’e en yakın 8. gezegendir</strong>. Ortalama yaklaşık 4,5 milyar km (30,1 AB) uzaklıkta
-  dolanır. Bir Neptün yılı 165 Dünya yılına eşdeğerdir; bu da gezegenin keşfinden bu yana Güneş etrafında hâlâ
-  tam bir tur bile tamamlamamış olduğu anlamına gelir.</p>
+<h2>Distance from the Sun</h2>
+<p>Neptune is the <strong>8th planet from the Sun</strong>. It orbits at an average distance of about 4.5 billion km (30.1 AU). A Neptunian year lasts 165 Earth years, meaning the planet has completed less than one full orbit since its discovery.</p>
 
-<h2>Özel özellikleri</h2>
-<p>Neptün, dinamik hava olaylarına sahip bir buz devidir ve Güneş Sistemi’ndeki en hızlı sürekli rüzgârlara sahiptir;
-  hızları saatte 2.000 km’yi aşabilir. Gezegen, Güneş’ten aldığı ışıktan daha fazla iç ısı üretir; bu da
-  devasa fırtınaları ve bulut oluşumlarını besler.</p>
+<h2>Special qualities</h2>
+<p>Neptune is an ice giant with dynamic weather and the fastest sustained winds in the Solar System, reaching speeds over 2,000 km/h. The planet generates more internal heat than it receives from the Sun, driving massive storms and cloud formations.</p>
 
 <SinglePlanetSim
   planet="Neptune"
@@ -57,49 +49,42 @@ ambientIntensity={0.0}
 />
 
 <h2>Moons</h2>
-<p>Neptün’ün bilinen 14 uydusu vardır. En büyüğü olan Triton, Neptün’ün dönüşünün ters yönünde — retrograd bir
-  yörüngede — dolanır; bu da onun muhtemelen Kuiper Kuşağı’ndan yakalandığını düşündürür. Triton’da görülen nitrojen
-  gayzerleri, onu gezegen bilimi açısından en ilgi çekici gökcisimlerinden biri hâline getirir.</p>
+<p>Neptune has 14 known moons. The largest, Triton, orbits in the opposite direction of Neptune’s rotation — a retrograde orbit — suggesting it was captured from the Kuiper Belt. Triton also features nitrogen geysers, making it one of the most intriguing bodies in planetary science.</p>
 
 <h2>Size and mass</h2>
-<p>Neptün’ün çapı yaklaşık 49.244 km’dir ve kütlesi Dünya’nın yaklaşık 17 katıdır. Uranüs’ten biraz daha küçük
-  olmasına rağmen daha yoğundur; bu da daha sıkışık bir manto ve daha derin iç ısınma ile ilişkilidir.</p>
+<p>Neptune has a diameter of about 49,244 km and a mass roughly 17 times that of Earth. It is slightly smaller than Uranus but denser, with a more compressed mantle and deeper internal heating.</p>
 
 <h2>Chemistry and atmosphere</h2>
-<p>Neptün’ün mavi rengi, üst atmosferdeki metanın kırmızı ışığı soğurmasından kaynaklanır; ancak Uranüs’e kıyasla
-  daha koyu tonda olması, ek kromoforların veya farklı atmosfer süreçlerinin rol oynadığını düşündürür. Bulutların
-  altında, aşırı basınç altındaki su–amonyak karışımından oluşan ve “sıcak buz” olarak adlandırılan egzotik fazları
-  barındırabilecek bir okyanus bulunuyor olabilir.</p>
+<p>Neptune’s blue color comes from methane in the upper atmosphere absorbing red light, but its deeper hue compared to Uranus suggests additional chromophores or atmospheric processes. Beneath the clouds may exist a super-pressurized water–ammonia ocean capable of forming exotic “hot ice” phases.</p>
 
-<h2>Adı ve anlamı</h2>
-<p>Neptün’ün adı, derin mavi rengini yansıtır şekilde Roma deniz tanrısından gelir. Yunan mitolojisindeki karşılığı,
-  denizler tanrısı Poseidon’dur.</p>
+<h2>Name and meaning</h2>
+<p>Neptune is named after the Roman god of the sea, reflecting its deep blue color. In Greek mythology, the equivalent deity is Poseidon.</p>
 
 <SimPostSchema
-  title="Neptün"
-  description="Gerçek dokusuyla modellenmiş Neptün küresi; keşfi, Güneş’e uzaklığı, atmosferi, uyduları ve adının kökeni hakkında bilgiler."
+  title="Neptune"
+  description="A planetary sphere of Neptune with accurate texture, plus details about its discovery, distance from the Sun, atmosphere, moons, and name."
   url="https://astrosyo.com/posts/neptune"
   datePublished="2025-11-11"
   authorName="Astrosyo"
   keywords={[
-    "neptün",
-    "buz devi",
-    "astronomi",
+    "neptune",
+    "ice giant",
+    "astronomy",
     "webgl",
-    "eğitim"
+    "education"
   ]}
   image="/images/neptune/cover.webp"
-  articleSection="Astronomi"
+  articleSection="Astronomy"
   isAccessibleForFree={true}
   publisherName="Astrosyo"
   publisherLogo="/images/shared/logo.webp"
   hasPart={{
     "@type": "SoftwareApplication",
-    "name": "Neptün Küresi",
+    "name": "Neptune Sphere",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Any",
     "browserRequirements": "Requires WebGL2",
     "url": "https://astrosyo.com/posts/neptune#simulation",
-    "description": "Gerçek dokusuyla işlenmiş, etkileşimli Neptün küresi."
+    "description": "Interactive planetary sphere of Neptune rendered with accurate texture."
   }}
 />

@@ -1,17 +1,17 @@
 ---
 layout: ../../../layouts/simLayout.astro
-title: "Satürn ve Uranüs Boyut Karşılaştırması"
+title: "Saturn and Uranus Size Comparison"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-11-11'
-description: "Satürn ile Uranüs arasındaki gerçek ölçek farkını gösteren bir simülasyon."
+description: "A simulation showing the true scale difference between Saturn and Uranus."
 slug: saturn-uranus-size-comparison
 imageDir: /images/saturn-uranus-size-comparison
 keywords:
-  - satürn
-  - uranüs
-  - gezegen boyutları
-  - astronomi
+  - saturn
+  - uranus
+  - planet sizes
+  - astronomy
   - three.js
 lang: tr
 ---
@@ -33,65 +33,59 @@ import SimPostSchema from "../../../components/SimPostSchema.astro";
   orthoExtent={1.2}
 />
 
-<figcaption class="sim-caption">Satürn ve Uranüs, gerçek göreli çaplarıyla ve doğru dokularla dönerek gösteriliyor.</figcaption>
+<figcaption class="sim-caption">Saturn and Uranus shown at their true relative diameters, rotating in place with proper textures.</figcaption>
 
-<h2>Simülasyon ne gösteriyor?</h2>
-<p>Bu görselleştirme, Satürn ve Uranüs’ü gerçek fiziksel çapları ve 3B geometrileri kullanılarak yan yana yerleştirir.
-  Satürn, bantlı bulut yapıları ve ince fırtınalarıyla dev, altın tonlu bir dünya gibi görünürken; Uranüs neredeyse
-  hiç belirgin atmosferik kontrast göstermeyen, pürüzsüz, soluk mavi bir küre olarak karşımıza çıkar. Satürn’ün boyutunu
-  abartmak için halkalar hesaba katılmaz—sadece gezegenin küresi dikkate alınır. İki gezegen yan yana dönerken ölçek
-  farkı hemen sezilebilir hâle gelir.</p>
+<h2>What the simulation shows</h2>
+<p>This visualization places Saturn and Uranus side by side using their exact physical diameters and real 3D geometry. Saturn appears as a huge golden world with banded cloud structures and subtle storms, while Uranus shows up as a smooth pale-blue sphere with almost no visible atmospheric contrast. The rings are not used to exaggerate Saturn’s size here—only the planet’s sphere is considered. When the two planets rotate next to each other, the scale difference becomes immediately obvious.</p>
 
-<h2>Ölçeğin arkasındaki sayılar</h2>
-<p>Uranüs’ün çapı yaklaşık 50.724 km’dir. Satürn’ün çapı ise yaklaşık 120.536 km’dir. Çap oranı şöyledir:</p>
+<h2>The numbers behind the scale</h2>
+<p>Uranus has a diameter of approximately 50,724 km. Saturn’s diameter is about 120,536 km. The ratio of their diameters is:</p>
 
 $$
 \frac{D_S}{D_U} = \frac{120{,}536}{50{,}724} \approx 2.38
 $$
 
-<p>Hacim, çapın küpüyle ölçeklenir:</p>
+<p>Volume scales with the cube of the diameter:</p>
 
 $$
 (2.38)^3 \approx 13.5
 $$
 
-<p>Bu, Satürn’ün hacim olarak on üçten fazla Uranüs büyüklüğünde gezegeni içine alabilecek kadar büyük olduğu anlamına
-  gelir. Bir gezegenin görünen disk boyutunu belirleyen yüzey alanı ise çapın karesiyle artar:</p>
+<p>This means Saturn could contain more than thirteen Uranus-sized volumes. Surface area, which determines how large each planet’s visible disk appears, scales with the square of the diameter:</p>
 
 $$
 (2.38)^2 \approx 5.66
 $$
 
-<p>Yani Satürn’ün görünen yüzeyi, Uranüs’ünkinden beş buçuk katın üzerinde büyüktür. Simülasyon bu oranları birebir
-  korur; böylece ölçek farkı, sayılardan çok görsel olarak deneyimlenir.</p>
+<p>So Saturn’s visible face is more than five and a half times larger than Uranus’s. The simulation preserves these exact proportions, letting the scale difference be felt visually rather than evaluated numerically.</p>
 
 <SimPostSchema
-  title="Satürn ve Uranüs Boyut Karşılaştırması"
-  description="Satürn ile Uranüs arasındaki gerçek ölçek farkını gösteren etkileşimli bir tarayıcı tabanlı simülasyon."
+  title="Saturn and Uranus Size Comparison"
+  description="An interactive browser-based simulation that shows the true scale difference between Saturn and Uranus."
   url="https://astrosyo.com/posts/saturn-uranus-size-comparison"
   datePublished="2025-09-10"
   authorName="Astrosyo"
   keywords={[
-    "satürn",
-    "uranüs",
-    "gezegen boyut karşılaştırması",
-    "astronomi",
+    "saturn",
+    "uranus",
+    "planet size comparison",
+    "astronomy",
     "three.js",
     "webgl",
-    "eğitim"
+    "education"
   ]}
   image="/images/saturn-uranus-size-comparison/cover.webp"
-  articleSection="Astronomi"
+  articleSection="Astronomy"
   isAccessibleForFree={true}
   publisherName="Astrosyo"
   publisherLogo="/images/shared/logo.webp"
   hasPart={{
     "@type": "SoftwareApplication",
-    "name": "Gezegen Boyut Karşılaştırması",
+    "name": "Planet Size Comparison",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Any",
     "browserRequirements": "Requires WebGL2",
     "url": "https://astrosyo.com/posts/saturn-uranus-size-comparison#simulation",
-    "description": "Satürn ve Uranüs’ü doğru ölçekle karşılaştıran etkileşimli görselleştirme."
+    "description": "Interactive visualization comparing Saturn and Uranus with accurate scale."
   }}
 />

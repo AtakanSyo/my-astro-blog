@@ -1,18 +1,18 @@
 ---
 layout: ../../../layouts/simLayout.astro
-title: "Yukarıdan Güneş Sistemi Simülasyonu"
+title: "Top-Down Solar System Simulation"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-11-02'
-description: "Tüm büyük gezegenlerin yörüngelerini, fiziksel olarak doğru aydınlatılmış dokular ve zamana sadık hareketle yukarıdan, sade bir bakış açısından izleyin."
+description: "Watch every major planet trace its orbit from a clean, top-down perspective with physically lit textures and time-accurate motion."
 slug: solar-system-topdown
 imageDir: /images/solar-system-topdown
 keywords:
-  - güneş sistemi
-  - gezegen yörüngeleri
-  - astronomi görselleştirmesi
+  - solar system
+  - planetary orbits
+  - astronomy visualization
   - three.js
-  - uzay bilimi
+  - space science
 lang: tr
 ---
 
@@ -21,47 +21,61 @@ import SimPostSchema from "../../../components/SimPostSchema.astro";
 
 <SolarSystemTopDown client:load showPause={true} />
 
-<figcaption class="sim-caption">Sıkıştırılmış ama orantılı bir Güneş Sistemi: yörünge periyotları doğrudur, gezegen yarıçapları ölçeklenmiştir ve gölgelendirme tek bir ışık kaynağıyla sağlanır.</figcaption>
+<figcaption class="sim-caption">A compressed but proportional Solar System: orbital periods are accurate, planetary radii are scaled, and a single light source powers the shading.</figcaption>
 
 <div class="sim-article">
-  <h2 id="about-this-simulation">Bu simülasyon hakkında</h2>
-  <p>Bu sahne, Güneş Sistemi’ne temiz, kuş bakışı bir görünüm sunar. Yörüngeler arası mesafe, tüm gezegenler ekrana sığacak şekilde sıkıştırılmıştır; ancak yörünge hızları, sıralama ve gün uzunlukları gerçek değerlere sadık kalır. Tuvalin altındaki oynat düğmesine dokunarak her gezegenin Güneş etrafındaki yolunu çizerken izleebilirsiniz.</p>
-  <p>Gezegen dokuları uzay aracı görüntülerinden alınır ve Güneş’in merkezine sabitlenmiş parlak bir noktasal ışıkla gölgelenir. Sonuç, göreli gün uzunluklarını, eksen yönelimlerini ve her bir dünyanın uzaydaki aynı noktadan ne sıklıkla geçtiğini okumayı kolaylaştırır.</p>
+  <h2 id="about-this-simulation">About this simulation</h2>
+  <p>
+    This scene gives you a clean, bird's-eye view of our Solar System. The orbital spacing is compressed so that every planet fits onscreen,
+    but orbital speeds, ordering, and day lengths stay faithful to real values. Tap the play button beneath the canvas to watch each planet trace its path around the Sun.
+  </p>
+  <p>
+    Planet textures are drawn from spacecraft imagery and shaded by a single, bright point-light anchored at the Sun's center. The result makes it easy to read
+    relative day lengths, axial directions, and how frequently each world swings past the same point in space.
+  </p>
 
-  <h3 id="what-to-look-for">Nelere dikkat etmeli?</h3>
-  <p>Aşırılıklara dikkat edin: Merkür, Güneş etrafında birkaç saniyede bir tur atarken, Neptün dış kenarda ağır ağır ilerler. Gaz devleri, geniş yörüngelerine rağmen belirgin şekilde daha hızlı dönüşleriyle orta mesafelerde baskın hâle gelir. Sistem gerçek zamanlı çalıştığından hizalanmaları incelemek için duraklatabilir, ardından rezonansları ve kavuşumları izlemek için devam ettirebilirsiniz.</p>
-  <p><strong>İç gezegenler</strong> Güneş’e sıkı sıkıya sarılır ve yörünge periyodunun mesafeyle nasıl arttığını ortaya koyar. <strong>Gaz devleri</strong> ölçek sıkıştırmasına rağmen dramatik biçimde büyük görünür ve gerçek çaplarını vurgular. <strong>Aydınlatma</strong>, gezegenler dönerken ve yörüngede ilerlerken her küre üzerinde gün doğumu ve gün batımının nasıl süpürerek ilerlediğini gösterir.</p>
+  <h3 id="what-to-look-for">What to look for</h3>
+  <p>
+    Keep an eye on the extremes: Mercury laps the Sun every few seconds while Neptune creeps along the outer edge. Gas giants dominate the
+    middle distances with noticeably faster rotation despite their wide orbits. Because the system runs in real time, you can pause to inspect alignments
+    and then resume to watch resonances and conjunctions unfold.
+  </p>
+  <p><strong>Inner planets</strong> hug the Sun tightly, revealing how orbital period grows with distance. <strong>Gas giants</strong> appear dramatically larger even with scale compression, highlighting their true diameters. <strong>Lighting</strong> shows sunrise and sunset sweeping across each globe as they rotate while orbiting.</p>
 
-  <h2 id="tech-notes">Teknik notlar</h2>
-  <p>Görselleştirme, ekliptiğe yukarıdan bakan ortografik bir kamerayla Three.js üzerinde çalışır. Gezegen mesh’leri, sRGB renk eşlemesi ve anizotropik filtreleme ile yüksek çözünürlüklü dokuları yeniden kullanır; böylece uzaklaştırıldığında bile net kalırlar. Tohumlanmış sahte rastgele faz, yeniden yüklemeler arasında gezegenlerin başlangıç konumlarını tutarlı tutar ve duraklatmayı dikkate alan animasyon döngüsü, tuvalden uzaklaştığınızda zaman sıçramalarını engeller.</p>
+  <h2 id="tech-notes">Tech notes</h2>
+  <p>
+    The visualization runs in Three.js with an orthographic camera looking straight down on the ecliptic. Planet meshes reuse high-resolution textures with
+    sRGB color mapping and anisotropic filtering so they stay crisp when zoomed out. A seeded pseudo-random phase keeps planetary starting positions consistent
+    between reloads, and a pause-aware animation loop prevents time jumps when you step away from the canvas.
+  </p>
 </div>
 
 <SimPostSchema
-  title="Yukarıdan Güneş Sistemi Simülasyonu"
-  description="Yörünge periyotlarını, dönüş hızlarını ve gezegen dokularını koruyan hafif bir Three.js sahnesinde yukarıdan Güneş Sistemi modeliyle etkileşime geçin."
+  title="Top-Down Solar System Simulation"
+  description="Interact with a top-down Solar System model that preserves orbital periods, rotation rates, and planet textures in a lightweight Three.js scene."
   url="https://astrosyo.com/posts/solar-system-topdown"
   datePublished="2025-08-24"
   authorName="Astrosyo"
   keywords={[
-    "güneş sistemi",
-    "gezegen yörüngeleri",
-    "astronomi görselleştirmesi",
+    "solar system",
+    "planetary orbits",
+    "astronomy visualization",
     "three.js",
-    "uzay bilimi",
+    "space science",
     "webgl"
   ]}
   image="/images/solar-system-topdown/cover.webp"
-  articleSection="Astronomi"
+  articleSection="Astronomy"
   isAccessibleForFree={true}
   publisherName="Astrosyo"
   publisherLogo="/images/shared/logo.webp"
   hasPart={{
     "@type": "SoftwareApplication",
-    "name": "Yukarıdan Güneş Sistemi Simülasyonu",
+    "name": "Top-Down Solar System Simulation",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Any",
     "browserRequirements": "Requires WebGL2",
     "url": "https://astrosyo.com/posts/solar-system-topdown#simulation",
-    "description": "Zamana sadık yörünge hareketine sahip etkileşimli, yukarıdan Güneş Sistemi görselleştirmesi."
+    "description": "Interactive, top-down Solar System visualization with time-accurate orbital motion."
   }}
 />

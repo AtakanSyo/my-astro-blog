@@ -1,18 +1,18 @@
 ---
 layout: ../../../layouts/simLayout.astro
-title: "Satürn"
+title: "Saturn"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-11-11'
-description: "Gerçek dokusuyla modellenmiş bir Satürn küresi; keşfi, Güneş’e uzaklığı, halkaları, uyduları ve adının kökeni hakkında bilgiler."
+description: "Saturn rendered as a planetary sphere with accurate texture, plus details about its discovery, distance from the Sun, rings, moons, and name."
 slug: saturn
 imageDir: /images/saturn
 keywords:
-  - satürn
-  - gaz devi
-  - halkalar
-  - gezegen
-  - astronomi
+  - saturn
+  - gas giant
+  - rings
+  - planet
+  - astronomy
   - webgl
 lang: tr
 ---
@@ -22,79 +22,61 @@ import SimPostSchema from "../../../components/SimPostSchema.astro";
 
 <SinglePlanetSim planet="Saturn" client:visible cameraPosition={{ x: 0, y: 0, z: 2.5 }} textureContrast={1.4} />
 
-<figcaption class="sim-caption">Gerçekçi bir gezegen dokusuyla işlenmiş Satürn.</figcaption>
+<figcaption class="sim-caption">Saturn rendered with a realistic planetary texture.</figcaption>
 
-<h2>Ne görüyorsunuz?</h2>
-<p>Bu simülasyon, Satürn’ü soluk bantlarını ve ince fırtınalarını vurgulayan gerçek renkli bir doku ile kaplanmış
-  gezegen küresi olarak gösteriyor. Karşılaştırmayı sade ve performanslı tutmak için ünlü halkalar ve uydular
-  burada çizilmemiş; odak Satürn’ün diski ve atmosfer tonlarıdır.</p>
+<h2>What you’re seeing</h2>
+<p>This simulation shows Saturn as a planetary sphere using a true-color texture highlighting its muted bands and subtle storms. To keep the comparison clean and performant, the famous rings and moons are not rendered here; the focus is the planet’s disk and atmospheric tones.</p>
 
-<h2>Keşif</h2>
-<p>Satürn, Babilli, Greko-Romen, Hint ve Çinli gökbilimciler tarafından antik çağlardan beri izlenmektedir.
-  17. yüzyıldan itibaren teleskoplu gözlemler, halka sisteminin gerçek doğasını ortaya çıkarmış ve daha sonra çok
-  çeşitli uydulardan oluşan bir aileyi gözler önüne sermiştir; böylece Satürn, parlak bir gezgin olmaktan çıkıp
-  karmaşık bir mini sisteme dönüşmüştür.</p>
+<h2>Discovery</h2>
+<p>Saturn has been known since antiquity, tracked by Babylonian, Greco-Roman, Indian, and Chinese astronomers. Telescopic observations from the 17th century revealed the ring system’s true nature and later uncovered a family of diverse moons, transforming Saturn from a bright wanderer into a complex mini-system.</p>
 
-<h2>Güneş’e uzaklığı</h2>
-<p>Satürn, <strong>Güneş’e en yakın 6. gezegendir</strong>. Ortalama yörünge uzaklığı yaklaşık 1,43 milyar km’dir
-  (9,58 AB). Bir Satürn yılı yaklaşık 29,5 Dünya yılı sürerken, gezegen hızlı bir şekilde döner ve bir gününü
-  yaklaşık 10,7 saatte tamamlar.</p>
+<h2>Distance from the Sun</h2>
+<p>Saturn is the <strong>6th planet from the Sun</strong>. Its average orbital distance is about 1.43 billion km (9.58 AU). One Saturnian year lasts roughly 29.5 Earth years, while the planet rotates quickly, completing a day in about 10.7 hours.</p>
 
 <SinglePlanetSim planet="Saturn" client:visible cameraPosition={{ x: 0, y: 0, z: 10 }} />
 
 
 <h2>Special qualities</h2>
-<p>Satürn, buz ve tozdan oluşan geniş halka sistemiyle ünlüdür; uydularla olan rezonanslar, bu halkaları parlak ve
-  karanlık bantlara böler. Ayrıca en düşük yoğunluklu gezegendir; büyük oranda hidrojen ve helyumdan oluşan yapısı,
-  ortalama yoğunluğunu sudan bile daha düşük kılar.</p>
+<p>Saturn is renowned for its extensive ring system composed of ice and dust, structured into bright and dark bands by resonances with moons. It is also the least dense planet; its bulk composition of hydrogen and helium yields a density lower than water, an oft-quoted outreach comparison.</p>
 
 <h2>Moons</h2>
-<p>Satürn, küçük düzensiz cisimlerden, Güneş Sistemi’ndeki ikinci en büyük uydu ve kalın atmosferli tek uydu olan
-  Titan’a kadar geniş bir uydu ailesine ev sahipliği yapar. Bir diğer önemli uydu olan Enceladus, yüzey altındaki
-  rezervuarlardan gelen su zengini püskürmeleri uzaya fışkırtır; bu da onu astrobiyoloji için birincil hedeflerden
-  biri hâline getirir.</p>
+<p>Saturn hosts a large retinue of moons, from tiny irregular bodies to Titan, the second-largest moon in the Solar System and the only one with a thick atmosphere. Enceladus, another standout, vents water-rich plumes from subsurface reservoirs, making it a prime astrobiology target.</p>
 
 <h2>Size and mass</h2>
-<p>Satürn’ün ekvatoral çapı yaklaşık 120.536 km’dir. Kütlesi yaklaşık 5,7 × 10^26 kg, yani Dünya’nın yaklaşık 95
-  katıdır. Buna rağmen düşük ortalama yoğunluğu, merkeze doğru artan basınç ve sıcaklıkla birlikte büyük oranda
-  hidrojen-helyum karışımından oluşan bir iç yapıya işaret eder.</p>
+<p>Saturn’s equatorial diameter is about 120,536 km. Its mass is approximately 5.7 × 10^26 kg, around 95 times Earth’s. Despite its size, the low mean density reflects a hydrogen-helium interior with increasing pressure and temperature toward the center.</p>
 
 <h2>Chemistry and atmosphere</h2>
-<p>Atmosfer, bantları ve sis tabakalarını renklendiren iz türlerle birlikte çoğunlukla hidrojen ve helyumdan
-  oluşur. Amonyak, su ve diğer yoğunlaşabilir bileşenler katmanlı bulut tabakaları oluştururken, daha derin
-  bölgelerde muazzam basınç altında metalik hidrojene doğru bir geçiş yaşanır.</p>
+<p>The atmosphere is dominated by hydrogen and helium with trace species that color the bands and hazes. Ammonia, water, and other condensates form layered cloud decks, while deeper regions transition toward metallic hydrogen under immense pressure.</p>
 
-<h2>Adı ve anlamı</h2>
-<p>Satürn’ün adı, Roma mitolojisinde tarım ve zaman tanrısı olan Saturnus’tan (Yunan mitolojisinde Kronos)
-  gelir ve bu ad, iç gezegenlere kıyasla gökyüzündeki yavaş hareketini yansıtır. İsim, klasik antik çağdan bu yana
-  farklı dillerde küçük değişikliklerle yaşatılmıştır.</p>
+<h2>Name and meaning</h2>
+<p>Saturn takes its name from the Roman god of agriculture and time (Greek: Kronos), reflecting the planet’s slow motion across the sky compared with the inner planets. The name has persisted across languages since classical antiquity.</p>
 
 <SimPostSchema
-  title="Satürn"
-  description="Gerçek dokusuyla modellenmiş Satürn küresi; keşfi, Güneş’e uzaklığı, halkaları, uyduları ve adının kökeni hakkında bilgiler."
+  title="Saturn"
+  description="A planetary sphere of Saturn with accurate texture, plus details about its discovery, distance from the Sun, rings, moons, and name."
   url="https://astrosyo.com/posts/saturn"
   datePublished="2025-11-11"
   authorName="Astrosyo"
   keywords={[
-    "satürn",
-    "gaz devi",
-    "halkalar",
-    "astronomi",
+    "saturn",
+    "gas giant",
+    "rings",
+    "astronomy",
     "webgl",
-    "eğitim"
+    "education"
   ]}
   image="/images/saturn/cover.webp"
-  articleSection="Astronomi"
+  articleSection="Astronomy"
   isAccessibleForFree={true}
   publisherName="Astrosyo"
   publisherLogo="/images/shared/logo.webp"
   hasPart={{
     "@type": "SoftwareApplication",
-    "name": "Satürn Küresi",
+    "name": "Saturn Sphere",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Any",
     "browserRequirements": "Requires WebGL2",
     "url": "https://astrosyo.com/posts/saturn#simulation",
-    "description": "Gerçek dokusuyla işlenmiş, etkileşimli Satürn küresi."
+    "description": "Interactive planetary sphere of Saturn rendered with accurate texture."
   }}
 />

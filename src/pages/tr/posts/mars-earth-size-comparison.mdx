@@ -1,17 +1,17 @@
 ---
 layout: ../../../layouts/simLayout.astro
-title: "Mars ve Dünya Boyut Karşılaştırması"
+title: "Mars and Earth Size Comparison"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-08-20'
-description: "Mars ile Dünya arasındaki gerçek ölçek farkını gösteren bir simülasyon."
+description: "The true scale difference between Mars and Earth."
 slug: mars-earth-size-comparison
 imageDir: /images/mars-earth-size-comparison
 keywords:
   - mars
-  - dünya
-  - gezegen boyutları
-  - astronomi
+  - earth
+  - planet sizes
+  - astronomy
   - three.js
 lang: tr
 ---
@@ -31,67 +31,85 @@ import SimPostSchema from "../../../components/SimPostSchema.astro";
   orthoExtent={1.6}
 />
 
-<figcaption class="sim-caption">Dünya ve Mars, gerçek göreli çaplarıyla modellenmiş olarak.</figcaption>
+<figcaption class="sim-caption">Earth and Mars rendered at their true relative diameters.</figcaption>
 
-<h2>Simülasyon ne gösteriyor?</h2>
-<p>Bu sahne, Mars’ı Dünya’nın yanına, gerçek fiziksel çapları ve tam 3B geometrileri kullanılarak yerleştirir; her
-  ikisi de ayrıntılı gezegen dokularıyla kaplanmıştır. Dünya, kendine özgü okyanus–kıta dağılımıyla dönerken, Mars
-  kuru, kraterli bir çöl dünyası gibi dönmektedir. Haritalar ve ders kitapları çoğu zaman bu iki gezegeni benzer
-  boyutlarda çizse de, gerçek ölçek farkı çok daha büyüktür. Mars “Dünya’ya neredeyse benzeyen” bir gezegen değil,
-  daha küçük, daha soğuk ve kullanılabilir yüzey alanı çok daha az olan bir dünyadır. Yan yana görmek, bu orantıyı
-  diyagramların zor aktardığı kadar sezgisel hâle getirir.</p>
+<h2>What the simulation shows</h2>
+<p>This scene places Mars next to Earth using their real physical diameters and full 3D geometry, each wrapped with detailed planetary textures. Earth rotates with its characteristic ocean–continent distribution, while Mars turns as a dry, cratered desert world. Maps and textbooks often show the two planets at similar sizes, but their true scale difference is much larger. Mars is not “almost like Earth,” but rather a smaller, colder world with far less surface area to work with. Seeing them side by side gives an immediate sense of proportion that diagrams struggle to convey.</p>
 
-<h2>Ölçeğin arkasındaki sayılar</h2>
-<p>Dünya’nın çapı yaklaşık 12.742 km’dir. Mars’ın çapı ise yaklaşık 6.779 km’dir. Aralarındaki çap oranı şöyledir:</p>
+<PlanetSizeComparison
+  client:load
+  primaryTexture="/textures/earth-texture-nasa.webp"
+  secondaryTexture="/textures/mars_texture.webp"
+  options={{ cameraPosition: [0, 7, 0] }}
+  primaryRadius={6371}
+  secondaryRadius={3389}
+  planetDistance={2.4}
+  primaryContrast={0.95}
+  secondaryContrast={0.8}
+  orthoExtent={1.6}
+/>
+
+<h2>The numbers behind the scale</h2>
+<p>Earth’s diameter is approximately 12,742 km. Mars has a diameter of about 6,779 km. The diameter ratio between them is:</p>
 
 $$
 \frac{D_E}{D_M} = \frac{12{,}742}{6{,}779} \approx 1.88
 $$
 
-<p>Hacim, çapın küpüyle ölçeklenir. Bunu uyguladığımızda:</p>
+<p>Volume scales with the cube of the diameter. When we apply that:</p>
 
 $$
 (1.88)^3 \approx 6.6
 $$
 
-<p>Bu, Dünya’nın hacim olarak Mars büyüklüğünde altıdan fazla gezegeni içine alabilecek kadar büyük olduğu anlamına
-  gelir. Fiziksel olarak gördüğümüz disk büyüklüğünü belirleyen yüzey alanı ise çapın karesiyle artar:</p>
+<p>This means Earth could contain more than six Mars-sized volumes. Surface area, which is what we physically see, scales with the square of the diameter:</p>
 
 $$
 (1.88)^2 \approx 3.5
 $$
 
-<p>Yani Dünya’nın görünen yüzeyi, Mars’ınkinden yaklaşık üç buçuk kat daha büyüktür. Bu oranlar simülasyonda birebir
-  korunur; böylece gezegenleri 3B uzayda serbestçe döndürürken ölçek farkını sayılardan çok görsel olarak
-  hissedebilirsiniz.</p>
+<PlanetSizeComparison
+  client:load
+  primaryTexture="/textures/earth-texture-nasa.webp"
+  secondaryTexture="/textures/mars_texture.webp"
+  options={{ cameraPosition: [0, -7, -7] }}
+  primaryRadius={6371}
+  secondaryRadius={3389}
+  planetDistance={2.4}
+  primaryContrast={0.95}
+  secondaryContrast={0.8}
+  orthoExtent={1.6}
+/>
+
+<p>So Earth’s visible disk is about three and a half times larger than Mars’s. These exact proportions are preserved in the simulation, allowing you to feel the scale difference intuitively while rotating the worlds freely in 3D space.</p>
 
 <SimPostSchema
-  title="Dünya ve Mars Boyut Karşılaştırması"
-  description="Dünya ile Mars arasındaki gerçek ölçek farkını gösteren etkileşimli bir tarayıcı tabanlı simülasyon."
+  title="Earth and Mars Size Comparison"
+  description="An interactive browser-based simulation that shows the true scale difference between Earth and Mars."
   url="https://astrosyo.com/posts/earth-mars-size-comparison"
   datePublished="2025-09-01"
   authorName="Astrosyo"
   keywords={[
-    "dünya",
+    "earth",
     "mars",
-    "gezegen boyut karşılaştırması",
-    "astronomi",
+    "planet size comparison",
+    "astronomy",
     "three.js",
     "webgl",
-    "eğitim"
+    "education"
   ]}
   image="/images/earth-mars-size-comparison/cover.webp"
-  articleSection="Astronomi"
+  articleSection="Astronomy"
   isAccessibleForFree={true}
   publisherName="Astrosyo"
   publisherLogo="/images/shared/logo.webp"
   hasPart={{
     "@type": "SoftwareApplication",
-    "name": "Gezegen Boyut Karşılaştırması",
+    "name": "Planet Size Comparison",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Any",
     "browserRequirements": "Requires WebGL2",
     "url": "https://astrosyo.com/posts/earth-mars-size-comparison#simulation",
-    "description": "Dünya ve Mars’ı doğru ölçekle karşılaştıran etkileşimli görselleştirme."
+    "description": "Interactive visualization comparing Earth and Mars with accurate scale."
   }}
 />

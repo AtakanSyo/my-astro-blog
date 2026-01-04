@@ -4,14 +4,14 @@ title: "Mars"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-08-09'
-description: "Gerçek dokusuyla modellenmiş bir Mars küresi; keşfi, Güneş’e uzaklığı, özel özellikleri, uyduları ve adının kökeni hakkında bilgiler."
+description: "Mars rendered as a planetary sphere with accurate texture, plus details about its discovery, distance from the Sun, special qualities, moons, and name."
 slug: mars
 imageDir: /images/mars
 keywords:
   - mars
-  - karasal gezegen
-  - gezegen
-  - astronomi
+  - terrestrial planet
+  - planet
+  - astronomy
   - webgl
 lang: tr
 ---
@@ -28,38 +28,25 @@ import SimPostSchema from "../../../components/SimPostSchema.astro";
   ambientIntensity={0.0}
 />
 
-<figcaption class="sim-caption">Gerçekçi bir gezegen dokusuyla işlenmiş Mars.</figcaption>
+<figcaption class="sim-caption">Mars rendered with a realistic planetary texture.</figcaption>
 
-<h2>Ne görüyorsunuz?</h2>
-<p>Bu simülasyon, Mars’ı gerçek renk dokusuyla kaplanmış bir gezegen küresi olarak gösteriyor. Olympus Mons, Valles
-  Marineris, kutup buzulları ve tozla kaplanmış ovalar gibi büyük ölçekli yapılar seçilebilir. Yüzeyden dikkatin
-  dağılmaması için uydular ve atmosferik efektler eklenmemiştir; gezegen uzaydan bakıldığı hâliyle gösterilir.</p>
+<h2>What you’re seeing</h2>
+<p>This simulation shows Mars as a planetary sphere with its true-color texture applied. Major features like Olympus Mons, Valles Marineris, polar caps, and dust-stained plains are visible. No moons or atmosphere effects are added, keeping focus on the planet’s surface as seen from space.</p>
 
-<h2>Keşif</h2>
-<p>Mars, antik çağlardan beri bilinir ve Babilliler, Yunanlılar, Çinliler gibi pek çok uygarlık tarafından
-  gözlemlenmiştir. 17. yüzyıldan itibaren teleskoplu gözlemler, kutup buzullarını ve mevsimsel değişimleri ortaya
-  çıkarmış; bu da iklim ve geçmişte yaşanmış olası yaşanabilirlik üzerine yüzyıllarca süren tartışmalara yol açmıştır.</p>
+<h2>Discovery</h2>
+<p>Mars has been known since antiquity and observed by many civilizations, including the Babylonians, Greeks, and Chinese. Telescopic observations from the 17th century onward revealed polar caps and seasonal changes, inspiring centuries of debate about climate and past habitability.</p>
 
-<h2>Güneş’e uzaklığı</h2>
-<p>Mars, <strong>Güneş’e en yakın 4. gezegendir</strong>. Ortalama yörünge uzaklığı yaklaşık 227,9 milyon km’dir
-  (1,52 AB). Bir Mars yılı 687 Dünya günü sürer. Eliptik yörüngesi nedeniyle Mars–Dünya arasındaki uzaklık geniş
-  aralıklarda değişir ve yaklaşık her 26 ayda bir “elverişli karşı konumlar” (oppozisyonlar) oluşur.</p>
+<h2>Distance from the Sun</h2>
+<p>Mars is the <strong>4th planet from the Sun</strong>. Its average orbital distance is about 227.9 million km (1.52 AU). A Martian year lasts 687 Earth days. Because of its elliptical orbit, Mars–Earth distance varies widely, producing favorable oppositions roughly every 26 months.</p>
 
-<h2>Özel özellikleri</h2>
-<p>Mars, Güneş Sistemi’ndeki en yüksek volkan olan Olympus Mons’a ve en büyük kanyon sistemlerinden biri olan
-  Valles Marineris’e ev sahipliği yapar. İnce atmosferi ve sık yaşanan toz etkinlikleri, gezegenin tamamını
-  sarabilen fırtınalara neden olur. Jeolojik kanıtlar, geçmişte nehirler, göller ve muhtemel denizlerin var olduğuna
-  işaret eder; bu da Mars’ı geçmiş yaşam izleri arayışının merkezine yerleştirir.</p>
+<h2>Special qualities</h2>
+<p>Mars hosts the tallest volcano (Olympus Mons) and one of the largest canyon systems (Valles Marineris) in the Solar System. Thin atmosphere and frequent dust activity produce planet-encircling storms. Geological evidence indicates ancient rivers, lakes, and possibly seas, making Mars central to the search for past life.</p>
 
-<h2>Uyduları</h2>
-<p>Mars’ın, muhtemelen yakalanmış asteroitler olan iki küçük ve düzensiz uydusu vardır: Phobos ve Deimos. Phobos,
-  gezegene o kadar yakın bir yörüngede dolanır ki çok yavaş bir şekilde içe doğru sarmal çizer; on milyonlarca yıl
-  içinde parçalanıp bir halka sistemine dönüşebilir.</p>
+<h2>Moons</h2>
+<p>Mars has two small irregular moons, Phobos and Deimos, likely captured asteroids. Phobos orbits so close that it is slowly spiraling inward and may break up into a ring in tens of millions of years.</p>
 
-<h2>Büyüklük ve kütle</h2>
-<p>Mars’ın çapı 6.779 km’dir ve kütlesi Dünya’nın yaklaşık %10,7’si kadardır. Yüzey yerçekimi Dünya’nın yaklaşık
-  %38’i seviyesindedir; bu da tozun nasıl taşındığını, erozyonu ve gelecekteki olası insan faaliyetlerini doğrudan
-  etkiler.</p>
+<h2>Size and mass</h2>
+<p>Mars has a diameter of 6,779 km and a mass about 10.7% of Earth’s. Gravity at the surface is roughly 38% of Earth’s, shaping dust transport, erosion, and potential human activity.</p>
 
 
 <SinglePlanetSim
@@ -71,41 +58,37 @@ import SimPostSchema from "../../../components/SimPostSchema.astro";
   ambientIntensity={0.0}
 />
 
-<h2>Kimyası ve rengi</h2>
-<p>Yüzey, Mars’a kırmızı rengini veren demir oksit açısından zengin bazaltik kayalar ve tozdan oluşur. Atmosfer
-  incedir ve büyük ölçüde karbondioksitten (~%95) oluşur; geri kalan kısmın çoğunu azot ve argon oluşturur. Kutuplarda
-  mevsimsel CO₂ buharlaşması ve donması, basınç değişimlerini ve hava desenlerini yönlendirir.</p>
+<h2>Chemistry and atmosphere</h2>
+<p>The surface is basaltic rock and dust rich in iron oxides, giving Mars its red hue. The atmosphere is thin and dominated by carbon dioxide (~95%), with nitrogen and argon making up most of the remainder. Seasonal CO₂ exchange at the poles drives pressure changes and weather patterns.</p>
 
-<h2>Adı ve anlamı</h2>
-<p>Mars’ın adı, kızıl, kanı andıran görünüşüyle ilişkilendirilen Roma savaş tanrısından gelir. Pek çok kültürde,
-  gezegenin rengi ve gökyüzünde “dolaşan yıldız” gibi davranan hareketi, onu çatışma ve uğur/tuğra işaretleriyle
-  ilişkilendiren efsanelere ilham vermiştir.</p>
+<h2>Name and meaning</h2>
+<p>Mars is named after the Roman god of war, reflecting its reddish, blood-like appearance. In many cultures, Mars’s color and wandering motion inspired myths linking it to conflict and omens.</p>
 
 <SimPostSchema
   title="Mars"
-  description="Gerçek dokusuyla modellenmiş Mars küresi; keşfi, Güneş’e uzaklığı, özel özellikleri, uyduları ve adının kökeni hakkında bilgiler."
+  description="A planetary sphere of Mars with accurate texture, plus details about its discovery, distance from the Sun, special qualities, moons, and name."
   url="https://astrosyo.com/posts/mars"
   datePublished="2025-11-11"
   authorName="Astrosyo"
   keywords={[
     "mars",
-    "karasal gezegen",
-    "astronomi",
+    "terrestrial planet",
+    "astronomy",
     "webgl",
-    "eğitim"
+    "education"
   ]}
   image="/images/mars/cover.webp"
-  articleSection="Astronomi"
+  articleSection="Astronomy"
   isAccessibleForFree={true}
   publisherName="Astrosyo"
   publisherLogo="/images/shared/logo.webp"
   hasPart={{
     "@type": "SoftwareApplication",
-    "name": "Mars Küresi",
+    "name": "Mars Sphere",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Any",
     "browserRequirements": "Requires WebGL2",
     "url": "https://astrosyo.com/posts/mars#simulation",
-    "description": "Gerçek dokusuyla işlenmiş, etkileşimli Mars küresi."
+    "description": "Interactive planetary sphere of Mars rendered with accurate texture."
   }}
 />

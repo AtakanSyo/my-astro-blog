@@ -1,13 +1,13 @@
 ---
 layout: ../../../layouts/simLayout.astro
-title: "Sarmal Galaksiler"
+title: "Spiral Galaxies"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-12-04'
-description: "Sarmal galaksilerin yapısı, dinamiği, oluşumu ve evrimi üzerine ansiklopedik bir genel bakış."
+description: "An overview of spiral galaxies: structure, dynamics, formation, and evolution."
 slug: spiral-galaxies
-imageDir: /images/spiral-galaxies
 thumbnail: /images/spiral-galaxies/thumbnail.webp
+imageDir: /images/spiral-galaxies
 keywords:
 lang: tr
 ---
@@ -18,115 +18,128 @@ import SimPostSchema from "../../../components/SimPostSchema.astro";
 <SpiralGalaxy client:visible showPause={true} />
 
 <figcaption class="sim-caption">
-  Sarmal galaksilerin büyük ölçekli yapısından ve döngüsel hareketinden esinlenen stilize bir görselleştirme.
+  A stylized visualization inspired by the large-scale structure and rotational patterns of spiral galaxies.
 </figcaption>
 
-<div class="sim-article">
 
-  <h2 id="overview">Genel Bakış</h2>
+  <h2 id="overview">Overview</h2>
   <p>
-    <strong>Sarmal galaksiler</strong>, evrendeki en tanınabilir yapılardan biridir. Işıldayan bir merkezî çıkıntıdan 
-    dışa doğru kıvrılan yıldız, gaz ve toz kollarıyla karakterize edilen bu galaksiler, yakın evrendeki 
-    tüm galaksilerin yaklaşık <em>üçte ikisini</em> oluşturur. Samanyolu da bir çubuklu sarmal galaksidir ve 
-    morfolojisi hâlen devam eden yıldız oluşumunu, açısal momentum dağılımını ve karanlık madde 
-    halolarının etkisini yansıtan geniş bir nüfusun parçasıdır.
+    <strong>Spiral galaxies</strong> are among the most recognizable structures in the universe. 
+    Characterized by 
+    sweeping arms of stars, gas, and dust winding outward from a luminous central bulge, 
+    they make up roughly 
+    <em>two-thirds</em> of all galaxies in the local cosmos. 
+    The Milky Way, our home galaxy, is itself a barred 
+    spiral, part of a vast population whose morphology reflects ongoing star 
+    formation, angular momentum 
+    distribution, and the influence of dark matter halos.
   </p>
 
-  <h2 id="structure">Yapı</h2>
+  <h2 id="structure">Structure</h2>
   <p>
-    Tipik bir sarmal galaksi birkaç temel bileşenden oluşur:
+    A typical spiral galaxy consists of several key components:
   </p>
   <ul>
     <li>
-      <strong>Galaktik Çıkıntı (Bulge):</strong> Merkezde bulunan, yaşlı yıldızlardan oluşan yoğun küresel bölge.  
-      Çubuklu sarmallarda bu çıkıntı, gazı merkeze yönlendiren çubuk benzeri bir yapıya uzar.
+      <strong>Galactic Bulge:</strong> A dense, spheroidal region at the center dominated by older stars.  
+      In barred spirals, this bulge is elongated into a bar structure that channels gas toward the core.
     </li>
     <li>
-      <strong>Sarmal Kollar:</strong> Gaz, toz ve genç mavi yıldızlarla zengin kıvrımlı bölgeler. Bu kollar 
-      katı yapılar değildir; yörüngede ilerleyen maddenin sıkıştığı <em>yoğunluk dalgaları</em> şeklinde oluşurlar.
+      <strong>Spiral Arms:</strong> Curved lanes rich in gas, dust, and young, blue stars. These arms are 
+      not rigid structures but <em>density waves</em>—regions where material becomes compressed as it orbits.
     </li>
     <li>
-      <strong>Galaktik Disk:</strong> Yıldızların ve yıldızlararası maddenin yer aldığı ince, dönen bir düzlem. 
-      Yıldız oluşumunun büyük kısmı burada gerçekleşir.
+      <strong>Galactic Disk:</strong> A thin, rotating plane of stars and interstellar matter where most 
+      star formation occurs.
     </li>
     <li>
-      <strong>Karanlık Madde Halosu:</strong> Galaksinin dönüş eğrisini şekillendiren ve diski kararlı kılan, 
-      görünmez ancak kütleçekimsel etkisi büyük bir bileşen.
+      <strong>Dark Matter Halo:</strong> An extended, invisible component whose gravitational influence 
+      shapes the rotation curve of the galaxy and stabilizes the disk.
     </li>
   </ul>
 
-  <h2 id="dynamics">Dinamikler ve Dönme</h2>
+  <SpiralGalaxy
+    client:visible 
+    showPause={true} 
+    cameraConfig={{
+      fov: 50,
+      near: 0.1,
+      far: 1500,
+      position: { x: 0, y: 60, z: 0 },
+      lookAt: { x: 0, y: 0, z: 0 },
+    }}
+  />
+
+  <h2 id="dynamics">Dynamics and Rotation</h2>
   <p>
-    Sarmal galaksilerin dönme hareketi, kütle dağılımlarını anlamanın temel yollarından biridir.  
-    Gözlemler, dış bölgelerin iç bölgeler kadar hızlı döndüğünü gösterir—bu durum yalnızca görünür maddeyle 
-    açıklanamaz. Bu uyumsuzluk, galaksiyi saran büyük bir <strong>karanlık madde</strong> halosunun varlığına 
-    dair en erken kanıtlardan birini sağlamıştır.
+    The rotation of spiral galaxies is a fundamental clue to their mass distribution. Observations show that 
+    the outer regions rotate nearly as fast as the inner regions—a phenomenon inconsistent with the visible 
+    matter alone. This discrepancy provided early evidence for the existence of 
+    <strong>dark matter</strong>, which forms a massive halo enveloping the galaxy.
   </p>
   <p>
-    Sarmal kollar, sabit yıldız toplulukları olmadıkları için uzun süre varlıklarını korurlar; yıldızlar ve gaz, 
-    dönen yoğunluk dalgalarından geçerken bu desenler ortaya çıkar. Bu süreç, yoğun trafikte araçların 
-    belirli bölgelerde birikmesine benzetilebilir.
+    Spiral arms persist because they are not fixed collections of stars; instead, they are patterns formed as 
+    stars and gas pass through rotating density waves, similar to how cars bunch up in slow-moving traffic.
   </p>
 
-  <h2 id="formation">Oluşum ve Evrim</h2>
+  <h2 id="formation">Formation and Evolution</h2>
   <p>
-    Sarmal galaksilerin, kozmik tarihin erken dönemlerinde dönen gaz bulutlarının çökmesiyle oluştuğu düşünülmektedir. 
-    Milyarlarca yıl boyunca devam eden gaz birikimi, küçük birleşmeler ve iç dinamik süreçler bugünkü 
-    görünümlerini şekillendirmiştir. Devam eden yıldız oluşumları, gazını büyük ölçüde tüketmiş olan 
-    eliptik galaksilerden ayırt edici temel özelliklerden biridir.
+    Spiral galaxies are thought to form from the collapse of rotating gas clouds early in cosmic history. 
+    Over billions of years, continued accretion of gas, minor mergers, 
+    and internal dynamical processes 
+    have shaped their current appearance. Their ongoing star formation distinguishes them from elliptical 
+    galaxies, which have largely exhausted their gas reservoirs.
   </p>
 
-  <h2 id="types">Sınıflandırma</h2>
+  <h2 id="types">Classification</h2>
   <p>
-    Astronomlar, sarmal galaksileri Hubble dizisine göre sınıflandırır:
+    Astronomers classify spiral galaxies using the Hubble sequence:
   </p>
   <ul>
-    <li><strong>SA / SB / SAB:</strong> Çubuksuz, çubuklu ve zayıf çubuklu sarmallar.</li>
-    <li><strong>a / b / c:</strong> Kolların ne kadar sıkı sarıldığına ve çıkıntının büyüklüğüne göre alt sınıflar.</li>
+    <li><strong>SA / SB / SAB:</strong> Unbarred, barred, and weakly barred spirals.</li>
+    <li><strong>a / b / c:</strong> A scale indicating how tightly the arms are wound and the size of the bulge.</li>
   </ul>
   <p>
-    Örneğin bir <strong>SBc</strong> galaksisi belirgin bir çubuğa, gevşek sarmal kollara ve nispeten küçük bir 
-    çıkıntıya sahiptir.
+    For example, an <strong>SBc</strong> galaxy features a prominent bar, loose spiral arms, and a relatively 
+    small bulge.
   </p>
 
-  <h2 id="what-to-look-for">Neye Dikkat Etmeli?</h2>
+  <h2 id="what-to-look-for">What to Look For</h2>
   <p>
-    Gözlemler yaparken veya astrofotoğrafçılık görüntülerini incelerken, parlak yıldız oluşum bölgeleri ile 
-    alttaki yapıyı izleyen koyu toz şeritleri arasındaki kontrasta dikkat edilmelidir.  
-    Merkezî çıkıntı genellikle yaşlı yıldızlar nedeniyle daha sıcak, sarımsı bir ışıltıyla parıldar.
+    When observing real spiral galaxies—through telescopes or astrophotography—note the contrast between 
+    brightly lit star-forming arms and the darker dust lanes that trace the underlying structure.  
+    The central bulge often shines with a warmer, more yellow light due to its older stellar population.
   </p>
   <p>
-    Kenardan görülen sarmal galaksilerde diski kesen ince toz şeritleri belirgindir; yüzeyden 
-    (face-on) bakıldığında ise sarmal desenin tüm geometrik güzelliği ortaya çıkar.
+    Edge-on views reveal thin dust lanes cutting across the disk, while face-on views showcase the full 
+    geometric beauty of the spiral pattern.
   </p>
-
-</div>
 
 <SimPostSchema
-  title="Sarmal Galaksiler"
-  description="Sarmal galaksilerin yapısı, dönüşü, karanlık madde haloları ve kozmik evrimdeki rolleri üzerine ansiklopedik bir genel bakış."
+  title="Spiral Galaxies"
+  description="An encyclopedic overview of spiral galaxies: their structure, rotation, dark matter halos, and role in cosmic evolution."
   url="https://astrosyo.com/posts/spiral-galaxies"
   datePublished="2025-12-04"
   authorName="Astrosyo"
   keywords={[
-    "galaksiler",
-    "sarmal galaksiler",
-    "astrofizik",
-    "kozmoloji",
-    "astronomi"
+    "galaxies",
+    "spiral galaxies",
+    "astrophysics",
+    "cosmology",
+    "astronomy"
   ]}
   image="/images/spiral-galaxies/cover.webp"
-  articleSection="Astronomi"
+  articleSection="Astronomy"
   isAccessibleForFree={true}
   publisherName="Astrosyo"
   publisherLogo="/images/shared/logo.webp"
   hasPart={{
     "@type": "SoftwareApplication",
-    "name": "Etkileşimli Sarmal Galaksi Görselleştirmesi",
+    "name": "Interactive Spiral Galaxy Visualization",
     "applicationCategory": "EducationalApplication",
     "operatingSystem": "Any",
-    "browserRequirements": "WebGL2 gerektirir",
+    "browserRequirements": "Requires WebGL2",
     "url": "https://astrosyo.com/posts/spiral-galaxies#simulation",
-    "description": "Sarmal galaksilerin döngüsel yapısından esinlenen stilize bir görselleştirme."
+    "description": "A stylized visualization inspired by the rotational structure of spiral galaxies."
   }}
 />
