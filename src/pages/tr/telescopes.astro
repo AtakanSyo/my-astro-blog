@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import '../../styles/telescopes.css';
-import '../../styles/cards.css';
+import ReviewCard from '../../components/reviewCard.astro';
 
 const allPosts = await Astro.glob('./posts/*.{md,mdx}');
 const telescopePosts = allPosts.filter(p => p.frontmatter.subcategory === 'telescopes');
@@ -57,7 +57,9 @@ function scoreToHue(score: number | null): number {
 
 <Layout title="Teleskop İncelemeleri">
 
-  <h1 class="telescope-rankings-page-title fade-up">Teleskop Sıralamaları</h1>
+    <h1 class="telescope-rankings-page-title fade-up">
+      Teleskop Sıralamaları
+    </h1>
 
   <div class="telescopes-toggle-container">
     <!-- geçiş düğmeleri -->
@@ -91,53 +93,31 @@ function scoreToHue(score: number | null): number {
     <div class="post-group" data-type="all">
       <h2>Tüm Teleskoplar</h2>
       <div class="post-grid">
-        {sortedAll.map(({ frontmatter, url }) => {
-          const { title, description, rating, writer, pubDate, affiliate = {} } = frontmatter;
-          const cleanTitle = title.replace(/ (İncelemesi|Genel Bakış)$/, '');
-          const scoreRaw = rating?.overall;
-          const scoreNum = parseScore(scoreRaw);
-          const scoreText = scoreNum !== null ? scoreNum.toFixed(1) : 'N/A';
-          const hue = scoreToHue(scoreNum);
+	        {sortedAll.map(({ frontmatter, url }) => {
+	          const { title, description, rating, writer, pubDate, affiliate = {}, thumbnail } = frontmatter;
+	          const cleanTitle = title.replace(/ (İncelemesi|Genel Bakış)$/, '');
+	          const scoreRaw = rating?.overall;
+	          const scoreNum = parseScore(scoreRaw);
+	          const scoreText = scoreNum !== null ? scoreNum.toFixed(1) : 'N/A';
+	          const hue = scoreToHue(scoreNum);
           const affs = [
             ['Amazon', affiliate.amazon],
             ['HighPoint', affiliate.highpointscientific],
             ['Astroshop', affiliate.astroshop],
           ].filter(([, link]) => link);
 
-          return (
-            <div class="post-card post-card--review post-card--rankings">
-              <a href={url} class="post-card-link">
-                <div class="post-card-title">{cleanTitle}</div>
-                <p class="post-card-desc">{description}</p>
-                <div class="post-card-footer has-badge">
-                  <div class="post-card-badges">
-                    <span class="review-badge">İnceleme</span>
-                    <span class="score-badge" style={`--h:${hue}`}>
-                      {scoreText}/10
-                    </span>
-                  </div>
-                  <div class="read-post">İncelemeyi oku →</div>
-                </div>
-              </a>
-              <div class="affiliate-links">
-                {affs.length > 0 ? (
-                  affs.map(([name, link]) => (
-                    <a
-                      href={link}
-                      class="affiliate-btn"
-                      target="_blank"
-                      rel="noopener"
-                    >
-                      {name} üzerinde kontrol et
-                    </a>
-                  ))
-                ) : (
-                  <span class="affiliate-placeholder"></span>
-                )}
-              </div>
-            </div>
-          );
-        })}
+	          return (
+	            <ReviewCard
+	              url={url}
+	              title={cleanTitle}
+	              description={description}
+	              scoreText={scoreText}
+	              hue={hue}
+	              thumbnail={thumbnail}
+	              affiliates={affs}
+	            />
+	          );
+	        })}
       </div>
     </div>
 
@@ -145,57 +125,33 @@ function scoreToHue(score: number | null): number {
     {types.map(type => (
       <div class="post-group" data-type={type} style="display:none;">
         <h2>{type} Teleskoplar</h2>
-        <div class="post-grid">
-          {sortedGrouped[type].map(({ frontmatter, url }) => {
-            const { title, description, rating, writer, pubDate, affiliate = {} } = frontmatter;
-            const cleanTitle = title.replace(/ (Review|Overview)$/, '');
-            const scoreRaw = rating?.overall;
-            const scoreNum = parseScore(scoreRaw);
-            const scoreText = scoreNum !== null ? scoreNum.toFixed(1) : 'N/A';
-            const hue = scoreToHue(scoreNum);
+	        <div class="post-grid">
+	          {sortedGrouped[type].map(({ frontmatter, url }) => {
+	            const { title, description, rating, writer, pubDate, affiliate = {}, thumbnail } = frontmatter;
+	            const cleanTitle = title.replace(/ (İncelemesi|Genel Bakış)$/, '');
+	            const scoreRaw = rating?.overall;
+	            const scoreNum = parseScore(scoreRaw);
+	            const scoreText = scoreNum !== null ? scoreNum.toFixed(1) : 'N/A';
+	            const hue = scoreToHue(scoreNum);
             const affs = [
               ['Amazon', affiliate.amazon],
               ['HighPoint', affiliate.highpointscientific],
               ['Astroshop', affiliate.astroshop],
             ].filter(([, link]) => link);
 
-            return (
-              <div class="post-card post-card--review">
-                <a href={url} class="post-card-link">
-                  <div class="post-card-title">{cleanTitle}</div>
-
-                  <p class="post-card-desc">{description}</p>
-
-                  <div class="post-card-footer has-badge">
-                    <div class="post-card-badges">
-                      <span class="review-badge">İnceleme</span>
-                      <span class="score-badge" style={`--h:${hue}`}>
-                        {scoreText}/10
-                      </span>
-                    </div>
-                    <div class="read-post">İncelemeyi oku →</div>
-                  </div>
-                </a>
-                <div class="affiliate-links">
-                  {affs.length > 0 ? (
-                    affs.map(([name, link]) => (
-                      <a
-                        href={link}
-                        class="affiliate-btn"
-                        target="_blank"
-                        rel="noopener"
-                      >
-                        {name} üzerinde kontrol et
-                      </a>
-                    ))
-                  ) : (
-                    <span class="affiliate-placeholder"></span>
-                  )}
-                </div>
-              </div>
-            );
-          })}
-        </div>
+	            return (
+	              <ReviewCard
+	                url={url}
+	                title={cleanTitle}
+	                description={description}
+	                scoreText={scoreText}
+	                hue={hue}
+	                thumbnail={thumbnail}
+	                affiliates={affs}
+	              />
+	            );
+	          })}
+	        </div>
       </div>
     ))}
   </div>

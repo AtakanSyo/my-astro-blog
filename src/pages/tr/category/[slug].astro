@@ -4,6 +4,7 @@ import '../../../styles/index.css';
 import '../../../styles/cards.css';
 import '../../../styles/category.css';
 import FloatingIcons from "../../../components/FloatingIcons.astro";
+import PostCard from "../../../components/postCard.astro";
 
 export async function getStaticPaths() {
   const all = await Astro.glob('../../tr/posts/*.{md,mdx}', { eager: true });
@@ -32,14 +33,14 @@ const posts = (await Astro.glob('../../tr/posts/*.{md,mdx}', { eager: true }))
 const count = posts.length;
 const countText =
   slug === 'simulation'
-    ? `${count} simülasyonumuzu keşfedin.`
+    ? `${count} ${count === 1 ? 'simülasyonumuzu' : 'simülasyonumuzu'} keşfedin.`
     : slug === 'reviews'
-    ? `${count} incelememize göz atın.`
+    ? `${count} ${count === 1 ? 'incelememize' : 'incelememize'} göz atın.`
     : slug === 'informational'
-    ? `${count} rehber yazımızı inceleyin.`
+    ? `${count} ${count === 1 ? 'rehber yazımızı' : 'rehber yazımızı'} inceleyin.`
     : slug === 'nasa'
-    ? `${count} NASA yazımıza göz atın.`
-    : `${count} yazımıza göz atın.`;
+    ? `${count} NASA ${count === 1 ? 'yazımıza' : 'yazımıza'} göz atın.`
+    : `${count} ${count === 1 ? 'yazımıza' : 'yazımıza'} göz atın.`;
 ---
 
 <Layout title="Kategori">
@@ -69,7 +70,7 @@ const countText =
   <h1 class="category-title">{categoryLabel}</h1>
   <p class="category-count-text centered_flex">{countText}</p>
 
-  <div class="post-grid category-grid">
+  <div class="category-grid">
     {posts.length === 0 ? (
       <p>No posts.</p>
     ) : (
@@ -80,49 +81,28 @@ const countText =
         const isInfo = cat === 'informational';
         const isNasa = cat === 'nasa';
 
-        const cardClasses = [
-          'post-card',
-          isP5 && 'post-card--p5',
-          isReview && 'post-card--review',
-          isInfo && 'post-card--info',
-          isNasa && 'post-card--nasa',
-        ]
-          .filter(Boolean)
-          .join(' ');
-
         const ctaText =
           isP5
             ? 'Simülasyona git →'
-            : isReview
+          : isReview
             ? 'İncelemeyi oku →'
-            : isInfo
+          : isInfo
             ? 'Rehberi oku →'
-            : isNasa
+          : isNasa
             ? 'Yazıyı gör →'
-            : 'Yazının tamamını oku →';
+          : 'Yazının tamamını oku →';
 
         return (
-          <div class={cardClasses}>
-            <a href={url} class="post-card-link">
-              <div class="post-card-title">{frontmatter.title}</div>
-              <div class="post-card-meta">
-                {new Date(frontmatter.pubDate).toLocaleDateString()}
-              </div>
-
-              <p class="post-card-desc">{frontmatter.description}</p>
-
-              <div class={`post-card-footer ${isP5 || isReview || isInfo || isNasa ? 'has-badge' : ''}`}>
-                <div class="post-card-badges">
-                  {isP5 && <span class="p5-badge">Simülasyon</span>}
-                  {isReview && <span class="review-badge">İnceleme</span>}
-                  {isInfo && <span class="info-badge">Bilgi</span>}
-                  {isNasa && <span class="nasa-badge">NASA</span>}
-                </div>
-
-                <div class="read-post">{ctaText}</div>
-              </div>
-            </a>
-          </div>
+          <PostCard
+            url={url}
+            frontmatter={frontmatter}
+            isP5={isP5}
+            isReview={isReview}
+            isInfo={isInfo}
+            isNasa={isNasa}
+            ctaText={ctaText}
+            dateText={new Date(frontmatter.pubDate).toLocaleDateString('tr-TR')}
+          />
         );
       })
     )}

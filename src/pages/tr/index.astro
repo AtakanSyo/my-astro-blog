@@ -4,9 +4,12 @@ import Layout from '../../layouts/Layout.astro';
 import '../../styles/index.css';
 import '../../styles/cards.css';
 import '../../styles/search.css';
+import '../../styles/category.css';
+import '../../styles/simGlobal.css';
 import { site } from '../../config/site.js';
 import { Instagram, Youtube } from "lucide-react";
-import fs from 'fs/promises';
+import PostCard from "../../components/postCard.astro";
+import SpiralGalaxy from "../../components/simulations/spiral-galaxy/SpiralGalaxy.jsx";
 
 // 1) load and sort all posts
 const allPosts = await Astro.glob('./posts/*.{md,mdx}', { eager: true });
@@ -21,16 +24,16 @@ function normalizeCat(cat) {
 function hasCat(frontmatter, needle) {
   return normalizeCat(frontmatter.category ?? frontmatter.categories).includes(needle);
 }
-function latestByCategory(key, n = 4) {
+function latestByCategory(key, n = 6) {
   return allPosts.filter(({ frontmatter }) => hasCat(frontmatter, key)).slice(0, n);
 }
 
 // category config
 const CATS = [
-  { key: 'nasa',          label: 'NASA Yazıları',             cta: 'Yazıyı gör →' },
   { key: 'reviews',       label: 'İncelemeler',               cta: 'İncelemeyi oku →' },
   { key: 'simulation',    label: 'Simülasyonlar',             cta: 'Simülasyona git →' },
   { key: 'informational', label: 'Bilgilendirici Yazılar',    cta: 'Rehberi oku →' },
+  { key: 'nasa',          label: 'NASA Yazıları',             cta: 'Yazıyı gör →' },
 ];
 
 const latestNasa = allPosts.find(({ frontmatter }) => hasCat(frontmatter, 'nasa'));
@@ -38,71 +41,72 @@ const latestNasa = allPosts.find(({ frontmatter }) => hasCat(frontmatter, 'nasa'
 
 <Layout title="Ana Sayfa">
   <section class="centered_flex home-main-section">
-    <section class="hero centered_flex">
-      <span class="hero-kicker">{site.name}</span>
-      <h1 class="home-title">Yıldızlar için rehberin.</h1>
-      <p class="home-description">
-        Simülasyonlar, kozmik sayfalar ve teleskop incelemeleri.
-      </p>
+    <div class="home-hero-sim">
+      <div class="hero-sim-wrap">
+        <div class="hero-sim-bg" aria-hidden="true">
+          <SpiralGalaxy
+            client:load
+            showPause={false}
+            cameraConfig={{
+              position: { x: 0, y: 18, z: 24 },
+              lookAt: { x: 0, y: 0, z: 0 },
+            }}
+          />
+        </div>
 
-      <div class="cta-row">
-        <a
-          href="/tr/telescopes"
-          class="cta cta--primary"
-          onclick="umami?.track?.('explore-telescopes-cta-tr')"
-        >
-          🪐 Teleskopları Keşfet
-        </a>
-        <a
-          href="/tr/top-telescopes"
-          class="cta cta--dark"
-          onclick="umami?.track?.('top-ten-cta-tr')"
-        >
-          ⭐ En İyi 10 Teleskop
-        </a>
-        <a
-          href="/tr/about"
-          class="cta cta--ghost"
-          onclick="umami?.track?.('about-cta-tr')"
-        >
-          ℹ️ Hakkımızda
+        <section class="hero centered_flex fade-up">
+          <span class="hero-kicker">{site.name}</span>
+          <h1 class="home-title">Yıldızlar için rehberin.</h1>
+          <p class="home-description">Simülasyonlar, kozmik sayfalar ve teleskop incelemeleri.</p>
+        </section>
+
+        <a class="home-sim-link" href="/tr/posts/spiral-galaxies">
+          Öne çıkan simülasyona git →
         </a>
       </div>
 
+      <!-- CTA ROW -->
+      <div class="cta-row">
+        <a href="/tr/telescopes" class="cta cta-blue" onclick="umami?.track?.('explore-telescopes-cta-tr')">
+          <span class="cta-label">🪐 Teleskopları Keşfet</span>
+          <span class="cta-arrow">→</span>
+        </a>
+
+        <a href="/tr/top-telescopes" class="cta cta-amber" onclick="umami?.track?.('top-ten-cta-tr')">
+          <span class="cta-label">⭐ En İyi 10 Teleskop</span>
+          <span class="cta-arrow">→</span>
+        </a>
+
+        <a href="/tr/category/simulation" class="cta cta-magenta" onclick="umami?.track?.('simulation-category-cta-tr')">
+          <span class="cta-label">🌀 Simülasyonlar</span>
+          <span class="cta-arrow">→</span>
+        </a>
+
+        <a href="/tr/about" class="cta cta-cyan" onclick="umami?.track?.('about-cta-tr')">
+          <span class="cta-label">ℹ️ Hakkımızda</span>
+          <span class="cta-arrow">→</span>
+        </a>
+      </div>
+
+      <!-- SOCIALS -->
       <div class="global-socials">
         <div class="global-socials-links">
-          <a
-            href="https://www.instagram.com/astrosyo_"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="social-link"
-            aria-label="Instagram"
-          >
-            <Instagram size={42} />
+          <a href="https://www.instagram.com/astrosyo_" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
+            <Instagram size={36} />
           </a>
-          <a
-            href="https://www.youtube.com/@atakansaracyakupoglu9930"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="social-link"
-            aria-label="YouTube"
-          >
-            <Youtube size={42} />
+
+          <a href="https://www.youtube.com/@atakansaracyakupoglu9930" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="YouTube">
+            <Youtube size={36} />
           </a>
-          <a
-            href="https://www.tiktok.com/@astrosyo?_r=1&_t=ZS-917RKCaEM"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="social-link"
-            aria-label="TikTok"
-          >
-            <svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+
+          <a href="https://www.tiktok.com/@astrosyo?_r=1&_t=ZS-917RKCaEM" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="TikTok">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
               <path d="M14.25 4.5c.45.87 1.23 1.59 2.19 2.04.46.22.97.35 1.48.38V9.4c-1.17-.05-2.3-.43-3.3-1.08v5.47c0 3.02-2.45 5.46-5.47 5.46S3.68 16.81 3.68 13.79c0-2.51 1.71-4.65 4.12-5.24.66-.16 1.34-.16 1.99-.04v2.51a2.7 2.7 0 0 0-.99-.19c-1.5 0-2.72 1.22-2.72 2.72s1.22 2.72 2.72 2.72 2.72-1.22 2.72-2.72V3h3.01c.08.52.26 1.02.52 1.5z" />
             </svg>
           </a>
         </div>
       </div>
-    </section>
+    </div>
 
     <!-- Kategoriye göre en son yazılar -->
     <section class="latest-section">
@@ -112,26 +116,19 @@ const latestNasa = allPosts.find(({ frontmatter }) => hasCat(frontmatter, 'nasa'
 
         return (
           <section class="category-section">
-            <a href={`/tr/category/${cat.key.toLowerCase()}`} class="latest-link">
-              <h2 class="latest-title">{cat.label} →</h2>
-            </a>
+            <h2>
+              <a href={`/tr/category/${cat.key.toLowerCase()}`} class="latest-title">
+                {cat.label} →
+              </a>
+            </h2>
 
-            <div class="post-grid category-grid">
+            <div class="post-grid">
               {
                 items.map(({ frontmatter, url }) => {
                   const isP5     = hasCat(frontmatter, 'simulation');
                   const isReview = hasCat(frontmatter, 'reviews');
                   const isInfo   = hasCat(frontmatter, 'informational');
                   const isNasa   = hasCat(frontmatter, 'nasa');
-                  const isLatestNasa = isNasa && latestNasa && url === latestNasa.url;
-
-                  const cardClasses = [
-                    'post-card',
-                    isP5 && 'post-card--p5',
-                    isReview && 'post-card--review',
-                    isInfo && 'post-card--info',
-                    isNasa && 'post-card--nasa',
-                  ].filter(Boolean).join(' ');
 
                   const ctaText =
                     isP5 ? 'Simülasyona git →'
@@ -141,25 +138,15 @@ const latestNasa = allPosts.find(({ frontmatter }) => hasCat(frontmatter, 'nasa'
                   : 'Yazının tamamını oku →';
 
                   return (
-                    <div class={cardClasses}>
-                      <a href={url} class="post-card-link">
-                        <div class="post-card-title">{frontmatter.title}</div>
-                        <div class="post-card-meta">
-                          {new Date(frontmatter.pubDate).toLocaleDateString('tr-TR')}
-                        </div>
-                        <p class="post-card-desc">{frontmatter.description}</p>
-
-                        <div class={`post-card-footer ${(isP5 || isReview || isInfo || isNasa) ? 'has-badge' : ''}`}>
-                          <div class="post-card-badges">
-                            {isP5 && <span class="p5-badge">Simülasyon</span>}
-                            {isReview && <span class="review-badge">İnceleme</span>}
-                            {isInfo && <span class="info-badge">Bilgi</span>}
-                            {isNasa && <span class="nasa-badge">NASA</span>}
-                          </div>
-                          <div class="read-post">{ctaText}</div>
-                        </div>
-                      </a>
-                    </div>
+                    <PostCard
+                      url={url}
+                      frontmatter={frontmatter}
+                      isP5={isP5}
+                      isReview={isReview}
+                      isInfo={isInfo}
+                      isNasa={isNasa}
+                      ctaText={ctaText}
+                    />
                   );
                 })
               }
@@ -169,4 +156,5 @@ const latestNasa = allPosts.find(({ frontmatter }) => hasCat(frontmatter, 'nasa'
         );
       })}
     </section>
+  </section>
 </Layout>
