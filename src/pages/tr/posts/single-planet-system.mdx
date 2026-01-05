@@ -1,10 +1,10 @@
 ---
 layout: ../../../layouts/simLayout.astro
-title: "Single-Planet Star System"
+title: "Tek Gezegenli Yıldız Sistemi"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-11-10'
-description: "Follow a lone exoplanet as it sweeps along an eccentric orbit and shows off its tilted, glowing atmosphere."
+description: "Eliptik bir yörüngede dolanan tek bir ötegezegeni izleyin; eğik ekseni ve parıldayan atmosferiyle kendini belli etsin."
 slug: single-planet-system
 imageDir: /images/single-planet-system
 keywords:
@@ -22,37 +22,36 @@ import SimPostSchema from "../../../components/SimPostSchema.astro";
 <SinglePlanetSystem client:load showPause={true} />
 
 <figcaption class="sim-caption">
-  A luminous star anchors the scene while a single world traces a stretched orbit, rolls beneath realistic lighting, and keeps its atmosphere aglow.
+  Parlak bir yıldız sahneyi sabitler; tek bir dünya uzamış bir yörüngede iz bırakır, gerçekçi ışık altında döner ve atmosferi kenarlarda parıldar.
 </figcaption>
 
 <div class="sim-article">
-  <h2 id="about-this-simulation">About this simulation</h2>
+  <h2 id="about-this-simulation">Bu simülasyon hakkında</h2>
   <p>
-    This minimalist scene showcases a one-planet stellar neighborhood viewed straight down from interstellar space.
-    The star stays fixed at the focus of an eccentric orbit, while the planet glides along the path with a configurable orbital period,
-    axial tilt, and day length. The orbit is scaled for readability, but the timing stays consistent—pause and resume whenever you want
-    to inspect where the planet is along its year.
+    Bu minimalist sahne, yıldızlararası uzaydan tam tepeden bakılan tek gezegenli bir “yıldız mahallesini” gösterir.
+    Yıldız, eliptik yörüngenin odağında sabit kalırken gezegen; ayarlanabilir yörünge periyodu, eksen eğikliği ve gün uzunluğuyla yol boyunca süzülür.
+    Yörünge okunabilirlik için ölçeklenmiştir; ancak zamanlama tutarlıdır — gezegenin yılının hangi noktasında olduğunu incelemek için istediğiniz an durdurup devam edebilirsiniz.
   </p>
   <p>
-    Because there is only one world to watch, you can pay close attention to how the star's light rakes across the surface as the planet rotates.
-    A subtle additive atmosphere keeps the limb glowing, and a dashed orbit line makes it easy to see where apoapsis and periapsis fall.
+    İzlenecek yalnızca tek bir dünya olduğu için, gezegen dönerken yıldız ışığının yüzeyin üzerinde nasıl kaydığını daha net fark edebilirsiniz.
+    İnce “eklemeli” (additive) atmosfer, kenar çizgisini (limb) parıldatır; kesik yörünge çizgisi ise apoapsis ve periapsisin nerede olduğunu görmeyi kolaylaştırır.
   </p>
 
-  <h3 id="what-to-look-for">What to look for</h3>
+  <h3 id="what-to-look-for">Neye dikkat etmeli?</h3>
   <p>
-    Notice how the orbital speed stays uniform even though the path stretches into an ellipse—this keeps the visualization calm and legible.
-    Toggle the pause control when the planet is closest to the star to compare its scale against the stellar disk. Because axial tilt is applied,
-    the day/night terminator sweeps diagonally, hinting at seasons you might expect on such a world.
+    Yol bir elipse uzasa bile yörünge hızının sabit kaldığına dikkat edin — bu, görselleştirmeyi sakin ve okunur tutar.
+    Gezegen yıldıza en yakınken durdurup gezegenin ölçeğini yıldız diskiyle karşılaştırın. Eksen eğikliği uygulandığı için,
+    gece-gündüz terminatörü diyagonal biçimde kayar; bu da böyle bir dünyada bekleyebileceğiniz mevsimlere dair ipucu verir.
   </p>
   <p>
-    Try watching for beats between rotation and orbital motion. Retrograde spins or slower days can be configured via props when the component
-    is reused, making this a handy sandbox for storytelling or teaching orbital basics.
+    Dönüş ile yörünge hareketi arasındaki “ritimleri” izlemeyi deneyin. Bileşen yeniden kullanıldığında prop’larla retrograd dönüşler veya daha yavaş günler ayarlanabilir;
+    bu da onu hikâye anlatımı ya da yörünge temellerini öğretmek için kullanışlı bir “kum havuzu” yapar.
   </p>
 </div>
 
 <SimPostSchema
-  title="Single-Planet Star System"
-  description="Watch a lone exoplanet orbit its star along an eccentric path with axial tilt, atmospheric glow, and pause-aware controls."
+  title="Tek Gezegenli Yıldız Sistemi"
+  description="Tek bir ötegezegenin yıldızının etrafında eliptik bir yolda dolanmasını izleyin: eksen eğikliği, atmosfer parıltısı ve durdurulabilir kontrollerle."
   url="https://astrosyo.com/posts/single-planet-system"
   datePublished="2025-11-10"
   authorName="Astrosyo"
@@ -75,6 +74,6 @@ import SimPostSchema from "../../../components/SimPostSchema.astro";
     "operatingSystem": "Any",
     "browserRequirements": "Requires WebGL2",
     "url": "https://astrosyo.com/posts/single-planet-system#simulation",
-    "description": "Interactive single-planet orbit visualized with an orthographic Three.js camera and pause-aware timing."
+    "description": "Ortografik Three.js kamera ve durdurulabilir zamanlama ile görselleştirilmiş etkileşimli tek gezegen yörüngesi."
   }}
 />

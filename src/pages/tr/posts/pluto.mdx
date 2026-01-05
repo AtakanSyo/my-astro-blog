@@ -1,10 +1,10 @@
 ---
 layout: ../../../layouts/simLayout.astro
-title: "Pluto"
+title: "Plüton"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-11-11'
-description: "Pluto rendered as a planetary sphere with texture, plus details about its discovery, distance from the Sun, special qualities, moons, and name."
+description: "Dokulu bir küre olarak render edilmiş Plüton; keşfi, Güneş’e uzaklığı, öne çıkan özellikleri, uyduları ve adı hakkında bilgiler."
 slug: pluto
 imageDir: /images/pluto
 keywords:
@@ -21,34 +21,34 @@ import SimPostSchema from "../../../components/SimPostSchema.astro";
 
 <SinglePlanetSim planet="Pluto" client:visible cameraPosition={{ x: 0, y: 0, z: 3.5 }} />
 
-<figcaption class="sim-caption">Pluto rendered with a planetary texture.</figcaption>
+<figcaption class="sim-caption">Plüton, gezegensi bir doku ile render edildi.</figcaption>
 
-<h2>What you’re seeing</h2>
-<p>This simulation shows Pluto as a spherical world. The texture used here is <strong>not a scientifically accurate dataset from NASA</strong>. Instead, it is a <strong>mock artistic texture</strong> sourced from <a href="https://planetpixelemporium.com/pluto.html" target="_blank" rel="noopener noreferrer">here</a>. It is intended to represent Pluto’s general appearance for visualization purposes only.</p>
-<h2>Discovery</h2>
-<p>Pluto was discovered in 1930 by Clyde Tombaugh at Lowell Observatory after a systematic search for a predicted trans-Neptunian planet. The discovery confirmed that the Solar System extended beyond Neptune.</p>
+<h2>Ne görüyorsunuz?</h2>
+<p>Bu simülasyon, Plüton’u küresel bir dünya olarak gösterir. Burada kullanılan doku <strong>NASA’dan alınmış bilimsel olarak birebir doğru bir veri seti değildir</strong>. Bunun yerine <a href="https://planetpixelemporium.com/pluto.html" target="_blank" rel="noopener noreferrer">buradan</a> alınmış <strong>temsili/artistik bir doku</strong> kullanılmıştır. Amaç, yalnızca görselleştirme için Plüton’un genel görünümünü temsil etmektir.</p>
+<h2>Keşif</h2>
+<p>Plüton, 1930’da Lowell Gözlemevi’nde Clyde Tombaugh tarafından, Neptün ötesinde olduğu öngörülen bir gezegeni sistematik biçimde arama çalışmaları sonucunda keşfedildi. Bu keşif, Güneş Sistemi’nin Neptün’ün ötesine uzandığını doğruladı.</p>
 
-<h2>Distance from the Sun</h2>
-<p>Pluto is classified as a <strong>dwarf planet</strong> and is the <strong>9th major body</strong> traditionally listed when counting outward from the Sun. It orbits at an average distance of 5.9 billion km (39.5 AU), completing one orbit every 248 Earth years. Its orbit is eccentric, meaning Pluto periodically comes closer to the Sun than Neptune.</p>
+<h2>Güneş’e uzaklık</h2>
+<p>Plüton bir <strong>cüce gezegen</strong> olarak sınıflandırılır ve geleneksel sayımda Güneş’ten dışarı doğru gidildiğinde listelenen <strong>9. büyük cisim</strong> olarak anılagelmiştir. Ortalama 5,9 milyar km (39,5 AB) uzaklıkta dolanır ve bir turunu 248 Dünya yılında tamamlar. Yörüngesi eliptiktir; bu yüzden Plüton, belirli dönemlerde Neptün’den daha içeri (Güneş’e daha yakın) konuma gelebilir.</p>
 
-<h2>Special qualities</h2>
-<p>Pluto has a surprisingly varied surface: nitrogen ice plains, water-ice mountains taller than the Rockies, and regions coated in reddish organic molecules called tholins. It has a thin nitrogen atmosphere that collapses and freezes to the surface as Pluto moves farther from the Sun.</p>
+<h2>Özel nitelikler</h2>
+<p>Plüton’un yüzeyi şaşırtıcı derecede çeşitlidir: azot buzundan oluşan düzlükler, Rocky Dağları’ndan daha yüksek olabilen su-buzu dağları ve “tholin” adı verilen kırmızımsı organik moleküllerle kaplı bölgeler. İnce bir azot atmosferi vardır; Plüton Güneş’ten uzaklaştıkça bu atmosfer çöker ve yüzeye donabilir.</p>
 
-<h2>Moons</h2>
-<p>Pluto has five known moons: Charon, Styx, Nix, Kerberos, and Hydra. Pluto and Charon form a binary system — they orbit a point of balance outside Pluto’s surface, making them more like a double dwarf planet than planet and moon.</p>
+<h2>Uydular</h2>
+<p>Plüton’un bilinen beş uydusu vardır: Charon, Styx, Nix, Kerberos ve Hydra. Plüton ile Charon bir ikili sistem oluşturur — her ikisi de Plüton’un yüzeyinin dışında kalan bir denge noktası etrafında döner; bu da onları gezegen-uydu ikilisinden ziyade “çift cüce gezegen”e daha çok benzetir.</p>
 
-<h2>Size and mass</h2>
-<p>Pluto has a diameter of 2,376 km, smaller than Earth’s Moon. Its mass is only about 0.2% of Earth’s, and surface gravity is roughly 6% of Earth’s.</p>
+<h2>Boyut ve kütle</h2>
+<p>Plüton’un çapı 2.376 km’dir; Dünya’nın Ay’ından daha küçüktür. Kütlesi Dünya’nın yalnızca yaklaşık %0,2’si kadardır ve yüzey çekimi Dünya’nın yaklaşık %6’sına karşılık gelir.</p>
 
-<h2>Chemistry and surface</h2>
-<p>The surface is composed of nitrogen ice, methane ice, and patches of water ice acting as bedrock. Cryovolcanic processes and nitrogen glacial flow shape large-scale features such as Sputnik Planitia.</p>
+<h2>Kimya ve yüzey</h2>
+<p>Yüzey; azot buzu, metan buzu ve “anakaya” gibi davranan su buzunun yer yer görüldüğü alanlardan oluşur. Kriovolkanik süreçler ve azot buzullarının akışı, Sputnik Planitia gibi büyük ölçekli yapıların şekillenmesinde rol oynar.</p>
 
-<h2>Name and meaning</h2>
-<p>The name Pluto was suggested by 11-year-old Venetia Burney in England and chosen partly because the initials P.L. honored Percival Lowell, who initiated the search that led to Pluto’s discovery.</p>
+<h2>Adı ve anlamı</h2>
+<p>“Plüton” adı, İngiltere’de yaşayan 11 yaşındaki Venetia Burney tarafından önerildi. Adın seçilmesinde, baş harflerinin (P.L.) Plüton’un keşfine giden arayışı başlatan Percival Lowell’a bir saygı niteliği taşıması da etkili oldu.</p>
 
 <SimPostSchema
-  title="Pluto"
-  description="A planetary sphere of Pluto with mock texture, plus details about its discovery, distance from the Sun, special qualities, moons, and name."
+  title="Plüton"
+  description="Temsili/artistik doku ile render edilmiş Plüton küresi; keşfi, Güneş’e uzaklığı, öne çıkan özellikleri, uyduları ve adı hakkında bilgiler."
   url="https://astrosyo.com/posts/pluto"
   datePublished="2025-11-11"
   authorName="Astrosyo"
@@ -72,6 +72,6 @@ import SimPostSchema from "../../../components/SimPostSchema.astro";
     "operatingSystem": "Any",
     "browserRequirements": "Requires WebGL2",
     "url": "https://astrosyo.com/posts/pluto#simulation",
-    "description": "Interactive planetary sphere of Pluto rendered with a mock artistic texture."
+    "description": "Temsili/artistik bir doku ile render edilmiş etkileşimli Plüton küresi."
   }}
 />
