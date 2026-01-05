@@ -1,10 +1,10 @@
 ---
 layout: ../../../layouts/simLayout.astro
-title: "Jupiter and Earth Size Comparison"
+title: "Jüpiter ve Dünya Boyut Karşılaştırması"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-08-20'
-description: "A simulation showing the true scale difference between Jupiter and Earth."
+description: "Jüpiter ile Dünya arasındaki gerçek ölçek farkını gösteren bir simülasyon."
 slug: jupiter-earth-size-comparison
 imageDir: /images/jupiter-earth-size-comparison
 keywords:
@@ -28,12 +28,12 @@ import SimPostSchema from "../../../components/SimPostSchema.astro";
   options={{ rotationHours: 24 }}
 />
 
-<figcaption class="sim-caption">Jupiter and Earth rendered at true relative diameters, textured and spinning in place so the size contrast is instantly visible.</figcaption>
+<figcaption class="sim-caption">Jüpiter ve Dünya, gerçek göreli çaplarıyla render edildi; dokular ve kendi eksenlerinde dönme hareketi sayesinde boyut farkı anında görünür.</figcaption>
 
-<h2>What the simulation shows</h2>
-<p>This scene places Jupiter and Earth side by side at their correct diameters, with physically sized spheres and photoreal textures, rotating about their own axes. The layout is intentionally compact—this is not their real orbital spacing—but the geometry is accurate: Earth’s diameter is ~12,742 km and Jupiter’s is ~139,820 km. Seeing both globes in the same frame removes the distortion of textbook cartoons and makes the scale difference intuitive; the smaller world is not “slightly” smaller, it is dwarfed.</p>
+<h2>Simülasyon ne gösteriyor?</h2>
+<p>Bu sahne, Jüpiter ile Dünya’yı doğru çaplarıyla yan yana yerleştirir: fiziksel olarak doğru boyutlandırılmış küreler, fotogerçekçi dokular ve kendi eksenleri etrafında dönme hareketi. Yerleşim kasıtlı olarak “yakın” tutulmuştur — bu, gerçek yörünge mesafeleri değildir — ancak geometri doğrudur: Dünya’nın çapı ~12.742 km, Jüpiter’in çapı ise ~139.820 km’dir. İki küreyi aynı karede görmek, ders kitabı çizimlerinin yarattığı algı bozulmasını ortadan kaldırır; küçük olan dünya yalnızca “biraz” küçük değildir, gerçekten cüce kalır.</p>
 
-<h2>The numbers behind the scale</h2>
+<h2>Ölçeğin arkasındaki sayılar</h2>
 
 $$
 r \;=\; \frac{D_J}{D_E}
@@ -42,25 +42,23 @@ r \;=\; \frac{D_J}{D_E}
    \;\approx\; 10.97
 $$
 
-<p>
-  Because volume scales with the cube of diameter, the volume ratio becomes
-</p>
-
+<p>Hacim, çapın küpü ile ölçeklendiği için hacim oranı:</p>
 
 $$
 r^3 \;\approx\; 10.97^3 \;\approx\; 1.32 \times 10^3
 $$
 
-<p>
-  meaning Jupiter could fit over **one thousand Earth-sized volumes** inside it. Likewise, surface area scales with the square of diameter:
-</p>
+<p>yani Jüpiter’in içine **bin Dünya hacminden fazla** sığabilir. Benzer şekilde yüzey alanı çapın karesi ile ölçeklenir:</p>
+
 $$
 r^2 \;\approx\; 10.97^2 \;\approx\; 1.20 \times 10^2
 $$
-<p>so Jupiter’s visible disk covers about **120× more surface area** than Earth. The simulation preserves these exact proportions, letting your eyes absorb what the numbers struggle to convey.</p>
+
+<p>Dolayısıyla Jüpiter’in görünen diski, Dünya’dan yaklaşık **120× daha fazla yüzey alanı** kaplar. Simülasyon bu oranları birebir korur; böylece sayılarla anlatması zor olan farkı gözünüzle “hissedebilirsiniz”.</p>
+
 <SimPostSchema
-  title="Jupiter and Earth Size Comparison"
-  description="An interactive browser-based simulation that shows the true scale difference between Jupiter and Earth."
+  title="Jüpiter ve Dünya Boyut Karşılaştırması"
+  description="Jüpiter ile Dünya arasındaki gerçek ölçek farkını gösteren etkileşimli, tarayıcı tabanlı bir simülasyon."
   url="https://astrosyo.com/posts/jupiter-earth-size-comparison"
   datePublished="2025-08-20"
   authorName="Astrosyo"
@@ -85,6 +83,7 @@ $$
     "operatingSystem": "Any",
     "browserRequirements": "Requires WebGL2",
     "url": "https://astrosyo.com/posts/jupiter-earth-size-comparison#simulation",
-    "description": "Interactive visualization comparing Jupiter and Earth with accurate scale."
+    "description": "Jüpiter ve Dünya’yı doğru ölçekle karşılaştıran etkileşimli görselleştirme."
   }}
 />
+
