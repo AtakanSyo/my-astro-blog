@@ -1,10 +1,10 @@
 ---
 layout: ../../../layouts/simLayout.astro
-title: "Mars and Mercury Size Comparison"
+title: "Mars ve Merkür Boyut Karşılaştırması"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-11-11'
-description: "The true scale difference between Mars and Mercury."
+description: "Mars ile Merkür arasındaki gerçek ölçek farkı."
 slug: mars-mercury-size-comparison
 imageDir: /images/mars-mercury-size-comparison
 thumbnail: /images/mars-mercury-size-comparison/thumbnail.webp
@@ -34,10 +34,10 @@ import SimPostSchema from "../../../components/SimPostSchema.astro";
   ambientLightIntensity={0.13}
 />
 
-<figcaption class="sim-caption">Mars and Mercury shown at accurate relative size.</figcaption>
+<figcaption class="sim-caption">Mars ve Merkür doğru göreli boyutla gösteriliyor.</figcaption>
 
-<h2>What the simulation shows</h2>
-<p>This visualization places Mars and Mercury next to each other using their real physical diameters and full 3D geometry. Mars, famous for being a potential target for future human missions, appears rusty and textured with mountains, canyons, and polar caps. Mercury, on the other hand, looks like a heavily cratered, airless world resembling an oversized Moon. When seen at true scale, Mars is noticeably larger, making Mercury appear far smaller than people often imagine. Both rotate in place, giving a clear sense of their comparative sizes.</p>
+<h2>Simülasyon ne gösteriyor?</h2>
+<p>Bu görselleştirme, Mars ve Merkür’ü gerçek fiziksel çapları ve tam 3B geometrileriyle yan yana yerleştirir. Gelecekteki insan görevleri için olası hedeflerden biri olmasıyla öne çıkan Mars, pas rengi görünümüyle; dağlar, kanyonlar ve kutup başlıklarıyla dokulu bir gezegen gibi görünür. Merkür ise aşırı kraterli, havasız ve “büyütülmüş Ay”ı andıran bir dünyadır. Gerçek ölçekle bakıldığında Mars belirgin biçimde daha büyüktür; bu da Merkür’ün insanların çoğu zaman hayal ettiğinden daha küçük kaldığını gösterir. İkisi de yerinde döner; böylece boyut kıyasını net biçimde görürsünüz.</p>
 
 <PlanetSizeComparison
   client:load
@@ -53,24 +53,25 @@ import SimPostSchema from "../../../components/SimPostSchema.astro";
   ambientLightIntensity={0.13}
 />
 
-<h2>The numbers behind the scale</h2>
-<p>Mercury’s diameter is approximately 4,880 km. Mars has a diameter of about 6,779 km. The ratio of their diameters is:</p>
+<h2>Ölçeğin arkasındaki sayılar</h2>
+<p>Merkür’ün çapı yaklaşık 4.880 km’dir. Mars’ın çapı yaklaşık 6.779 km’dir. Çap oranı:</p>
 
 $$
 \frac{D_M}{D_{Me}} = \frac{6{,}779}{4{,}880} \approx 1.39
 $$
 
-<p>Volume scales with the cube of the diameter:</p>
+<p>Hacim, çapın küpü ile ölçeklenir:</p>
 
 $$
 (1.39)^3 \approx 2.70
 $$
 
-<p>This means Mars has almost three times the volume of Mercury. Surface area, which determines how large each planet appears visually, scales with the square of the diameter:</p>
+<p>Bu, Mars’ın hacminin Merkür’ün yaklaşık üç katı olduğu anlamına gelir. Yüzey alanı ise çapın karesi ile ölçeklenir:</p>
 
 $$
 (1.39)^2 \approx 1.93
 $$
+
 <PlanetSizeComparison
   client:load
   primaryTexture="/textures/mars_texture.webp"
@@ -83,11 +84,12 @@ $$
   orthoExtent={4.3}
   ambientLightIntensity={0.13}
 />
-<p>So Mars has nearly twice the visible surface area of Mercury. The simulation preserves these exact proportions in 3D space, letting the size difference be experienced visually rather than interpreted through numbers.</p>
+
+<p>Dolayısıyla Mars’ın görünen yüzey alanı Merkür’ün neredeyse iki katıdır. Simülasyon bu oranları 3B uzayda birebir korur; böylece farkı sayılardan “yorumlamak” yerine görsel olarak deneyimlersiniz.</p>
 
 <SimPostSchema
-  title="Mars and Mercury Size Comparison"
-  description="An interactive browser-based simulation that shows the true scale difference between Mars and Mercury."
+  title="Mars ve Merkür Boyut Karşılaştırması"
+  description="Mars ile Merkür arasındaki gerçek ölçek farkını gösteren etkileşimli, tarayıcı tabanlı bir simülasyon."
   url="https://astrosyo.com/posts/mars-mercury-size-comparison"
   datePublished="2025-09-20"
   authorName="Astrosyo"
@@ -112,6 +114,7 @@ $$
     "operatingSystem": "Any",
     "browserRequirements": "Requires WebGL2",
     "url": "https://astrosyo.com/posts/mars-mercury-size-comparison#simulation",
-    "description": "Interactive visualization comparing Mars and Mercury with accurate scale."
+    "description": "Mars ve Merkür’ü doğru ölçekle karşılaştıran etkileşimli görselleştirme."
   }}
 />
+

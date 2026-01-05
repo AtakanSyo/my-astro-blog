@@ -1,10 +1,10 @@
 ---
 layout: ../../../layouts/simLayout.astro
-title: "Lunar Phases"
+title: "Ayın Evreleri"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-12-01'
-description: "An overview of the phases of our Moon."
+description: "Ayımızın evrelerine genel bir bakış."
 slug: lunar-phases
 thumbnail: /images/lunar-phases/thumbnail.webp
 imageDir: /images/lunar-phases
@@ -31,75 +31,66 @@ import SimPostSchema from "../../../components/SimPostSchema.astro";
   sunIntensity={2.2}
 />
 
-<figcaption class="sim-caption">A real-time visualization of lunar phases.</figcaption>
+<figcaption class="sim-caption">Ay evrelerinin gerçek zamanlı görselleştirmesi.</figcaption>
 
 <p>
-The Moon has been our closest celestial companion for billions of years. Its changing appearance in the night sky — from thin crescents to bright full moons — has inspired calendars, festivals, and myths across human history. Yet the mechanics behind these phases are elegantly simple.
+Ay, milyarlarca yıldır en yakın göksel yol arkadaşımız. Gece gökyüzündeki görünümünün ince hilallerden parlak dolunaylara doğru değişimi; insanlık tarihinde takvimlere, festivallere ve mitlere ilham verdi. Oysa evrelerin arkasındaki mekanik oldukça zarif bir şekilde basittir.
 </p>
 
 <hr />
 
-<h2>🌙 <strong>Why Does the Moon Have Phases?</strong></h2>
+<h2>🌙 <strong>Ayın Neden Evreleri Var?</strong></h2>
 
 <p>
-The Moon doesn’t produce light; it reflects sunlight. As the Moon orbits Earth, we see different portions of its sunlit half,
- depending on the geometry between the Sun, the Earth (our viewpoint), and the Moon itself. Even though 
- the Moon always shows the same face toward Earth due to tidal locking, the illuminated fraction 
- changes continuously over roughly 29.53 days — the duration of a synodic month.
+Ay ışık üretmez; Güneş ışığını yansıtır. Ay Dünya’nın etrafında dolanırken, Güneş, Dünya (bizim bakış noktamız) ve Ay arasındaki geometriye bağlı olarak Ay’ın “aydınlanan yarısının” farklı kısımlarını görürüz. Ay gelgit kilitlenmesi nedeniyle Dünya’ya her zaman aynı yüzünü dönük tutsa da, gördüğümüz aydınlanmış kısım yaklaşık 29,53 gün boyunca (sinodik ay) sürekli değişir.
 </p>
 
 <p>
-In essence, the phase we see is determined by the angle between the Sun and the Earth as viewed from the Moon.
- This shifting geometry creates the gradual transition we observe from thin crescents to full illumination.
+Özetle gördüğümüz evre, Ay’dan bakıldığında Güneş ile Dünya arasındaki açı tarafından belirlenir. Bu açı değiştikçe hilalden dolunaya doğru (ve tekrar geri) gördüğümüz geçiş ortaya çıkar.
 </p>
 
 <hr />
 
 <figure>
-   <img class="post-image post-image-lg" src={frontmatter.imageDir + '/lunar-phases.webp'} alt="Phases of the Moon"></img>
-   <figcaption>Courtesy of Penguin Books / from The Book of the Moon by Dr. 
-    Maggie Aderin-Pocock, used in “A guide to the eight phases of the Moon,” Penguin.co.uk, 
-    30 October 2018.</figcaption>
+   <img class="post-image post-image-lg" src={frontmatter.imageDir + '/lunar-phases.webp'} alt="Ayın evreleri"></img>
+   <figcaption>Penguin Books izniyle / Dr. Maggie Aderin-Pocock’un The Book of the Moon kitabından; “A guide to the eight phases of the Moon,” Penguin.co.uk, 30 Ekim 2018.</figcaption>
 </figure>
 
-<h2>🌗 <strong>The Eight Classic Phases</strong></h2>
+<h2>🌗 <strong>Sekiz Klasik Evre</strong></h2>
 
 <p>
-During a full lunar cycle, the Moon transitions through eight commonly recognized stages. These include the New Moon,
- where the Moon lies between Earth and the Sun and appears completely dark; the Waxing Crescent, when a thin arc of 
- sunlight begins to appear on the right; the First Quarter, in which half of the lunar face becomes illuminated; and 
- the Waxing Gibbous phase, where the bright region grows larger.
+Tam bir Ay döngüsü boyunca Ay, yaygın biçimde adlandırılan sekiz evreden geçer. Bunlar; Ay’ın Dünya ile Güneş arasına girdiği ve tamamen karanlık göründüğü Yeni Ay, sağ tarafta ince bir aydınlık yayının belirdiği Büyüyen Hilal, Ay yüzünün yarısının aydınlandığı İlk Dördün ve aydınlık bölgenin daha da büyüdüğü Büyüyen Şişkin Ay evrelerini içerir.
 </p>
 
 <p>
-At the midpoint lies the Full Moon, when the Earth is positioned between the Sun and the Moon and the entire near side reflects sunlight. After this, the cycle reverses: the Waning Gibbous phase brings a gradual shrink in brightness, followed by the Last Quarter, where the left half is illuminated, and finally the Waning Crescent, the final thin arc before returning to the New Moon.
+Ortada Dolunay vardır: Dünya, Güneş ile Ay’ın arasına girer ve Ay’ın bize dönük yüzünün tamamı Güneş ışığını yansıtır. Sonrasında döngü tersine döner: Küçülen Şişkin Ay ile parlaklık yavaş yavaş azalır; ardından sol yarının aydınlandığı Son Dördün gelir ve döngü, Yeni Ay’a dönmeden önceki son ince yay olan Küçülen Hilal ile tamamlanır.
 </p>
 
 <p>
-Although these phases are given distinct names, the transition between them is entirely continuous. The simulation allows you to see this smooth progression with complete clarity.
+Bu evreler ayrı isimlerle anılsa da aralarındaki geçiş tamamen süreklidir. Simülasyon, bu pürüzsüz ilerleyişi net biçimde görmenizi sağlar.
 </p>
 
 <hr />
 
-<h2>🛰️ <strong>How the Simulation Works</strong></h2>
+<h2>🛰️ <strong>Simülasyon Nasıl Çalışıyor?</strong></h2>
 
 <p>
-This 3D visualization is designed to show the Moon’s phases exactly as we experience them from Earth. The model uses high-resolution NASA lunar textures that reveal mountains, maria, and craters with realistic shading and depth.
+Bu 3B görselleştirme, Ay’ın evrelerini Dünya’dan deneyimlediğimiz şekilde göstermeyi amaçlar. Model; dağları, “maria” bölgelerini ve kraterleri gerçekçi gölgelendirme ile ortaya çıkaran yüksek çözünürlüklü NASA Ay dokularını kullanır.
 </p>
 
 <hr />
 
-<h2>📡 <strong>Sources</strong></h2>
+<h2>📡 <strong>Kaynaklar</strong></h2>
 
 <p>
-High-resolution lunar textures and scientific data used in this simulation are provided by NASA’s Scientific Visualization Studio and the USGS Astrogeology Science Center.
+Bu simülasyonda kullanılan yüksek çözünürlüklü Ay dokuları ve bilimsel veriler, NASA Scientific Visualization Studio ve USGS Astrogeology Science Center tarafından sağlanmıştır.
 </p>
 
 <hr />
 
 <SimPostSchema
-  title="Moon Phases Simulation"
-  description="An interactive WebGL Moon phases demo: the camera stays fixed while the light source orbits to show waxing and waning illumination."
+  title="Ay Evreleri Simülasyonu"
+  description="Etkileşimli WebGL Ay evreleri demosu: kamera sabit kalırken ışık kaynağı yörüngede dolaşır ve büyüyen/küçülen aydınlanmayı gösterir."
   url="https://astrosyo.com/posts/moon-phases-simulation"
   datePublished="2025-11-11"
   authorName="Astrosyo"
@@ -122,6 +113,7 @@ High-resolution lunar textures and scientific data used in this simulation are p
     "operatingSystem": "Any",
     "browserRequirements": "Requires WebGL2",
     "url": "https://astrosyo.com/posts/moon-phases-simulation#simulation",
-    "description": "Interactive Moon phases generated by orbiting a light source around a fixed Moon."
+    "description": "Sabit bir Ay etrafında ışık kaynağını döndürerek Ay evrelerini üreten etkileşimli simülasyon."
   }}
 />
+
