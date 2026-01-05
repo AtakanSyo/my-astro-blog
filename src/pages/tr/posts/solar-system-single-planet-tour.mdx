@@ -1,10 +1,10 @@
 ---
 layout: ../../../layouts/simLayout.astro
-title: "Solar System Single-Planet Tour"
+title: "Güneş Sistemi Tek Gezegen Turu"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-11-05'
-description: "Explore each Solar System planet in isolation; spin them up one by one and learn what makes every world unique."
+description: "Güneş Sistemi’ndeki her gezegeni tek tek inceleyin; her birini döndürün ve her dünyayı benzersiz kılan özellikleri öğrenin."
 slug: solar-system-single-planet-tour
 imageDir: /images/solar-system-single-planet-tour
 keywords:
@@ -19,69 +19,69 @@ lang: tr
 import SinglePlanetSim from "../../../components/simulations/single-planet/SinglePlanetSim.jsx";
 import SimPostSchema from "../../../components/SimPostSchema.astro";
 
-<figcaption class="sim-caption">Click play on each globe to watch the planet rotate. Work your way from Mercury’s cratered surface to Neptune’s windswept blues.</figcaption>
+<figcaption class="sim-caption">Her kürede oynat’a tıklayarak gezegenin dönmesini izleyin. Merkür’ün kraterli yüzeyinden Neptün’ün rüzgârla yoğrulmuş mavilerine doğru ilerleyin.</figcaption>
 
 <div class="sim-article">
-  <h2 id="mercury">Mercury</h2>
+  <h2 id="mercury">Merkür</h2>
   <SinglePlanetSim planet="Mercury" client:visible />
   <p>
-    Mercury is the tiniest world and hugs the Sun at blistering proximity. Its cratered face resembles the Moon, and a slow rotation means
-    long days that bake one hemisphere while the other freezes. Notice the muted grays that speak to its battered, iron-rich crust.
+    Merkür en küçük dünyadır ve Güneş’e kavurucu bir yakınlıkla “yapışır”. Kraterli yüzeyi Ay’ı andırır; yavaş dönüşü ise bir yarımkürenin uzun süre
+    kızışıp diğerinin donmasına neden olan uzun günler demektir. Demirce zengin ve yıpranmış kabuğunu anlatan o mat grilere dikkat edin.
   </p>
 
-  <h2 id="venus">Venus</h2>
+  <h2 id="venus">Venüs</h2>
   <SinglePlanetSim planet="Venus" client:visible ringsSpin={false} />
   <p>
-    Venus glows with sulfurous clouds that hide a crushing atmosphere. It spins backward—retrograde—so sunrise comes in the west.
-    The thick, swirling cloud deck gives it a buttery, featureless sheen that hints at the superheated world beneath.
+    Venüs, ezici bir atmosferi gizleyen sülfürlü bulutlarla parlar. Ters yönde (retrograd) döndüğü için güneş batıdan doğar.
+    Kalın ve girdaplı bulut tabakası, altındaki aşırı ısınmış dünyayı ima eden “tereyağımsı”, özelliksiz bir parlaklık verir.
   </p>
 
-  <h2 id="earth">Earth</h2>
+  <h2 id="earth">Dünya</h2>
   <SinglePlanetSim planet="Earth" client:visible />
   <p>
-    Ocean blues, cloud whites, and landmass browns make Earth instantly recognizable. Its moderate spin feeds a dynamic climate and
-    a magnetosphere that protects life from solar radiation. Pause the rotation to pick out continents and iconic weather systems.
+    Okyanus mavileri, bulut beyazları ve kara parçalarının kahverengileri Dünya’yı anında tanınır kılar. Orta hızdaki dönüşü; dinamik bir iklimi ve
+    yaşamı Güneş radyasyonundan koruyan bir manyetosferi besler. Kıtaları ve ikonik hava sistemlerini seçmek için dönüşü duraklatın.
   </p>
 
   <h2 id="mars">Mars</h2>
   <SinglePlanetSim planet="Mars" client:visible />
   <p>
-    Mars is a rusty desert etched with dried riverbeds, volcanoes, and polar ice caps. Its thin atmosphere allows dust storms to sweep across
-    the planet, tinting everything in shades of butterscotch. Watch how quickly a sol passes compared to Earth’s day.
+    Mars, kurumuş nehir yatakları, volkanlar ve kutup buzullarıyla işlenmiş paslı bir çöldür. İnce atmosferi, gezegenin tamamına yayılan toz fırtınalarına
+    izin verir; her şeyi karamelsi tonlara boyar. Bir Mars gününün (sol) Dünya gününe kıyasla ne kadar hızlı geçtiğine dikkat edin.
   </p>
 
-  <h2 id="jupiter">Jupiter</h2>
+  <h2 id="jupiter">Jüpiter</h2>
   <SinglePlanetSim planet="Jupiter" client:visible />
   <p>
-    Jupiter is the heavyweight champion: a gas giant with alternating light and dark belts forged by jet streams. The Great Red Spot has raged
-    for centuries, and the rapid rotation gives the planet a noticeable equatorial bulge. Clouds stretch in ribbons, revealing the complex weather beneath.
+    Jüpiter ağır sıklet şampiyonudur: jet akımlarıyla şekillenen açık-koyu bantlara sahip bir gaz devidir. Büyük Kırmızı Leke yüzyıllardır sürer ve hızlı dönüş,
+    gezegene belirgin bir ekvator şişkinliği verir. Bulutlar şeritler hâlinde uzanır ve alttaki karmaşık hava dinamiklerini ele verir.
   </p>
 
-  <h2 id="saturn">Saturn</h2>
+  <h2 id="saturn">Satürn</h2>
   <SinglePlanetSim planet="Saturn" client:visible />
   <p>
-    Saturn’s golden hues and iconic rings make it the showpiece of the Solar System. The rings are made of countless ice and rock fragments,
-    and the planet itself rotates quickly enough to flatten slightly at the poles. Tilt the rings by pausing and panning to appreciate their layered texture.
+    Satürn’ün altın tonları ve ikonik halkaları onu Güneş Sistemi’nin vitrin parçası yapar. Halkalar sayısız buz ve kaya parçasından oluşur; gezegenin kendisi de
+    kutuplardan hafifçe basık görünecek kadar hızlı döner. Halkaların katmanlı dokusunu görmek için duraklatıp kaydırarak (pan) açıyı değiştirin.
   </p>
 
-  <h2 id="uranus">Uranus</h2>
+  <h2 id="uranus">Uranüs</h2>
   <SinglePlanetSim planet="Uranus" client:visible ringsSpin={false} />
   <p>
-    Uranus rolls through space on its side, likely tipped by an ancient collision. Its pale cyan tone comes from methane haze high in the atmosphere.
-    The extreme axial tilt leads to seasons that last decades, bathing each pole in sunlight or darkness for years at a time.
+    Uranüs, muhtemelen kadim bir çarpışma sonucu yana yatmış şekilde uzayda “yuvarlanır”. Soluk camgöbeği tonu, atmosferin üst katmanlarındaki metan pusundan gelir.
+    Aşırı eksen eğikliği onlarca yıl süren mevsimler yaratır; her kutbu yıllarca güneş ışığına ya da karanlığa gömer.
   </p>
 
-  <h2 id="neptune">Neptune</h2>
+  <h2 id="neptune">Neptün</h2>
   <SinglePlanetSim planet="Neptune" client:visible />
   <p>
-    Neptune is the outer sentinel with deep azure clouds driven by the fastest winds in the Solar System. Dark storm spots appear and vanish,
-    and the planet’s internal heat keeps its atmosphere swirling even so far from the Sun. Let it spin to follow those shifting bands.
+    Neptün, Güneş Sistemi’ndeki en hızlı rüzgârların sürüklediği derin lacivert bulutlara sahip dış bekçidir. Koyu fırtına lekeleri belirir ve kaybolur;
+    gezegenin iç ısısı da Güneş’ten bu kadar uzakta bile atmosferini hareketli tutar. Değişen bantları takip etmek için dönmesine izin verin.
   </p>
 </div>
 
 <SimPostSchema
-  title="Solar System Single-Planet Tour"
-  description="Spin up each Solar System planet one at a time and learn what defines its appearance, rotation, and personality."
+  title="Güneş Sistemi Tek Gezegen Turu"
+  description="Güneş Sistemi’ndeki her gezegeni tek tek döndürün ve görünümünü, dönüşünü ve karakterini belirleyen özellikleri öğrenin."
   url="https://astrosyo.com/posts/solar-system-single-planet-tour"
   datePublished="2025-11-05"
   authorName="Astrosyo"
@@ -104,6 +104,6 @@ import SimPostSchema from "../../../components/SimPostSchema.astro";
     "operatingSystem": "Any",
     "browserRequirements": "Requires WebGL2",
     "url": "https://astrosyo.com/posts/solar-system-single-planet-tour#simulation",
-    "description": "A collection of single-planet simulations highlighting the unique character of each Solar System world."
+    "description": "Güneş Sistemi’ndeki her dünyanın benzersiz karakterini öne çıkaran tek-gezegen simülasyonlarından oluşan bir koleksiyon."
   }}
 />

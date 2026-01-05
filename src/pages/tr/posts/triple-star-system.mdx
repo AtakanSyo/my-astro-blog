@@ -1,10 +1,10 @@
 ---
 layout: ../../../layouts/simLayout.astro
-title: "Triple Star System Simulation"
+title: "Üçlü Yıldız Sistemi Simülasyonu"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-11-10'
-description: "Three suns chase each other around a barycenter while a lone planet clings to one star’s offset orbit."
+description: "Üç güneş ortak kütle merkezi etrafında birbirini kovalarken, yalnız bir gezegen bir yıldızın kayık yörüngesine tutunur."
 slug: triple-star-system
 imageDir: /images/triple-star-system
 keywords:
@@ -22,35 +22,35 @@ import SimPostSchema from "../../../components/SimPostSchema.astro";
 <TripleStarSystem client:load showPause={true} />
 
 <figcaption class="sim-caption">
-  Three suns orbit the same barycenter with phased trails, while the planet sticks to the golden primary’s moving ellipse.
+  Üç güneş, fazlı izlerle aynı barycenter etrafında dönerken gezegen altın renkli ana yıldızın hareketli elipsine bağlı kalır.
 </figcaption>
 
 <div class="sim-article">
-  <h2 id="about-this-simulation">About this simulation</h2>
+  <h2 id="about-this-simulation">Bu simülasyon hakkında</h2>
   <p>
-    Triple systems are wild: each star traces its own loop around a shared center of mass. This visualization staggers all three orbits with
-    shifting radii and phases so you can watch them weave around the barycenter. A single planet remains bound to the primary star, carrying its
-    dashed orbital path wherever the host goes.
+    Üçlü sistemler “çılgın”dır: her yıldız, paylaşılan bir kütle merkezi etrafında kendi döngüsünü çizer. Bu görselleştirme, üç yörüngeyi değişen yarıçaplar ve
+    fazlarla kaydırarak barycenter etrafında nasıl örüldüklerini izlemenizi sağlar. Tek bir gezegen ana yıldıza bağlı kalır ve ev sahibi nereye giderse kesikli
+    yörünge izini de oraya taşır.
   </p>
   <p>
-    Each sun carries its own point light and emissive glow, so the planet’s shading shifts as the stars swing by. A faint barycentric disc highlights
-    the central reference point, and dashed rings show the distinct orbital radii for every body.
+    Her güneş, kendi noktasal ışığını ve emissive parıltısını taşır; böylece yıldızlar yanından geçerken gezegenin gölgelemesi değişir. Soluk bir barycenter diski
+    merkezi referans noktasını vurgular; kesikli halkalar da her gövdenin farklı yörünge yarıçaplarını gösterir.
   </p>
 
-  <h3 id="what-to-look-for">What to look for</h3>
+  <h3 id="what-to-look-for">Nelere bakmalı</h3>
   <p>
-    Track how the planet’s ellipse moves with the primary star—pause when another sun passes nearby to imagine dramatic sky shows. Because each star
-    uses a different orbital period and phase offset, conjunctions happen frequently; the paused state helps you study those alignments.
+    Gezegenin elipsinin ana yıldızla birlikte nasıl yer değiştirdiğini izleyin — başka bir güneş yakından geçerken durdurup dramatik gökyüzü manzaralarını hayal edin.
+    Her yıldız farklı bir yörünge periyodu ve faz kayması kullandığı için kavuşumlar sık olur; duraklatma, bu hizalanmaları incelemenizi sağlar.
   </p>
   <p>
-    You can tweak props to exaggerate the orbit radii, change colors, or even bind the planet to a different host star to explore other triple-star
-    configurations.
+    Yörünge yarıçaplarını abartmak, renkleri değiştirmek veya gezegeni farklı bir ev sahibi yıldıza bağlayarak başka üçlü-yıldız düzenlerini keşfetmek için
+    prop değerleriyle oynayabilirsiniz.
   </p>
 </div>
 
 <SimPostSchema
-  title="Triple Star System Simulation"
-  description="Explore a triple-star barycentric dance where three suns orbit the same center and a planet clings to just one of them."
+  title="Üçlü Yıldız Sistemi Simülasyonu"
+  description="Üç güneşin aynı merkez etrafında döndüğü ve bir gezegenin yalnızca birine tutunduğu üçlü yıldızlı barycenter dansını keşfedin."
   url="https://astrosyo.com/posts/triple-star-system"
   datePublished="2025-11-10"
   authorName="Astrosyo"
@@ -73,6 +73,6 @@ import SimPostSchema from "../../../components/SimPostSchema.astro";
     "operatingSystem": "Any",
     "browserRequirements": "Requires WebGL2",
     "url": "https://astrosyo.com/posts/triple-star-system#simulation",
-    "description": "Interactive triple-star visualization with a planet bound to a single host star."
+    "description": "Bir gezegenin tek bir ev sahibi yıldıza bağlı olduğu etkileşimli üçlü-yıldız görselleştirmesi."
   }}
 />
