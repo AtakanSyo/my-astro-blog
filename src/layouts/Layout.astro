@@ -93,6 +93,21 @@ const pageTitle = title ? `${title} | Astrosyo` : 'Astrosyo';
       data-host-url="https://cloud.umami.is"
     >
     </script>
+	<script is:inline>
+	(() => {
+		// Avoid double-install (Astro view transitions / partial reloads, etc.)
+		if (window.__umamiEngaged10Installed) return;
+		window.__umamiEngaged10Installed = true;
+
+		// Fire once after 10s of the page being open (and visible)
+		setTimeout(() => {
+		if (document.visibilityState !== "visible") return;
+		if (window.umami?.track) {
+			window.umami.track("engaged_10s");
+		}
+		}, 10000);
+	})();
+	</script>
   </head>
   <body class={bodyClasses}>
     <Header lang={lang} />
