@@ -4,20 +4,16 @@ title: "Jupiter"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-08-09'
-description: "Jupiter rendered as a planetary sphere with accurate texture, plus details about its discovery, distance from the Sun, special qualities, moons, and name."
+description: "The largest planet in the Solar System."
 slug: jupiter
 imageDir: /images/jupiter
-keywords:
-  - jupiter
-  - gas giant
-  - planet
-  - astronomy
-  - webgl
+thumbnail: /images/jupiter/thumbnail.webp
 lang: en
 ---
 
 import SinglePlanetSim from "../../components/simulations/single-planet/SinglePlanetSim.jsx";
 import SimPostSchema from "../../components/SimPostSchema.astro";
+import PlanetSizeComparison from "../../components/simulations/planet-size-comparison/PlanetSizeComparison.jsx";
 
 <SinglePlanetSim
   planet="Jupiter"
@@ -28,31 +24,26 @@ import SimPostSchema from "../../components/SimPostSchema.astro";
   ambientIntensity={0.0}
 />
 
-<figcaption class="sim-caption">Jupiter rendered with a realistic planetary texture.</figcaption>
+<p>Jupiter was discovered by ancient civilizations in ancient times. 
+  However, first detailed observations of it were made by Galileo Galeli, in 1610, 
+  by a telescope made by Galileo himself.</p>
 
-<h2>What you’re seeing</h2>
-<p>This simulation shows Jupiter as a planetary sphere using a high-resolution texture that captures banded cloud belts, zones, and the Great Red Spot. The view focuses on the planet itself; rings and moons are omitted so the eye can read the cloud patterns and overall scale without distractions.</p>
+<PlanetSizeComparison
+  client:load
+  primaryTexture="/textures/jupiter_texture.webp"
+  secondaryTexture="/textures/earth-texture-nasa.webp"
+  primaryRadius={139822}
+  secondaryRadius={12742}
+  planetDistance={1.2}
+  primaryContrast={1.05}
+  secondaryContrast={0.95}
+  orthoExtent={1.2}
+  options={{ rotationHours: 24 }}
+/>
 
-<h2>Discovery</h2>
-<p>Jupiter has been known since antiquity and recorded by many cultures, including Mesopotamian, Greek, Roman, Indian, and Chinese astronomers. With the telescope, Galileo’s 1610 observations of its four large moons provided pivotal evidence that not everything orbits Earth, accelerating the scientific revolution.</p>
-
-<h2>Distance from the Sun</h2>
-<p>Jupiter is the <strong>5th planet from the Sun</strong>. Its average orbital distance is about 778 million km, or 5.2 AU. A Jovian year lasts roughly 11.86 Earth years, while the planet spins rapidly, completing one rotation in just under 10 hours.</p>
-
-<h2>Special qualities</h2>
-<p>Jupiter is the largest planet, with powerful zonal winds, long-lived storms, and a deep atmosphere layered with ammonia, ammonium hydrosulfide, and water clouds. Its immense magnetic field creates intense radiation belts and spectacular auroras at the poles. The Great Red Spot is a centuries-old anticyclonic storm large enough to engulf Earth.</p>
-
-<h2>Moons</h2>
-<p>Jupiter has dozens of known moons, including the four Galilean satellites: Io, Europa, Ganymede, and Callisto. Ganymede is larger than Mercury, Europa likely harbors a global subsurface ocean, and Io is the most volcanically active body in the Solar System.</p>
-
-<h2>Size and mass</h2>
-<p>Jupiter’s equatorial diameter is about 139,820 km, and its mass is approximately 1.9 × 10^27 kg, equal to more than twice that of all other planets combined. Despite its size, its average density is only about a quarter that of Earth’s, consistent with a composition dominated by light gases.</p>
-
-<h2>Chemistry and atmosphere</h2>
-<p>The atmosphere is primarily hydrogen and helium with trace species that color the clouds and hazes. Deeper layers transition through molecular hydrogen to metallic hydrogen under extreme pressure, with a dense inner region that may contain heavy elements and ices. Complex chemistry and dynamics drive the changing tints of belts and zones.</p>
-
-<h2>Name and meaning</h2>
-<p>Named after the chief Roman god, Jupiter (Greek: Zeus) reflects the planet’s prominence in the night sky. Its brightness and steady motion made it a central figure in mythologies and calendars long before the telescope revealed its miniature planetary system.</p>
+<p>Jupiter’s scale is almost overwhelming, its diameter is about 143,000 km, more 
+  than 11 times that of Earth, and its volume is so vast that over 1,300 Earths could fit 
+  inside it.</p>
 
 <SimPostSchema
   title="Jupiter"
