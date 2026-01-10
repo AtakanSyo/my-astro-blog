@@ -12,6 +12,7 @@ lang: en
 ---
 
 import SinglePlanetSim from "../../components/simulations/single-planet/SinglePlanetSim.jsx";
+import JupiterMagneticFieldSim from "../../components/simulations/single-planet/JupiterMagneticFieldSim.jsx";
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import PlanetSizeComparison from "../../components/simulations/planet-size-comparison/PlanetSizeComparison.jsx";
 
@@ -37,13 +38,43 @@ import PlanetSizeComparison from "../../components/simulations/planet-size-compa
   planetDistance={1.2}
   primaryContrast={1.05}
   secondaryContrast={0.95}
-  orthoExtent={1.2}
+  orthoExtent={1.5}
   options={{ rotationHours: 24 }}
 />
 
 <p>Jupiter’s scale is almost overwhelming, its diameter is about 143,000 km, more 
   than 11 times that of Earth, and its volume is so vast that over 1,300 Earths could fit 
   inside it.</p>
+
+
+<JupiterMagneticFieldSim
+  client:visible
+  cameraPosition={{ x: 0, y: 0, z: 7.4 }}
+  textureContrast={1.2}
+  tiltDeg={[20, 20, -25]}
+  ambientIntensity={0.0}
+/>
+
+<p>Jupiter’s magnetic field is so enormous that, if it were visible, it would appear larger than the Sun in our sky. 
+  It is the strongest planetary magnetic field in the Solar System—about 20,000 times more powerful than Earth’s. Jupiter’s 
+  magnetosphere extends millions of kilometers into space and even reaches the orbit of Saturn on the 
+  side facing the Sun.</p>
+
+
+<SinglePlanetSim
+  planet="Jupiter"
+  spinDegPerSec={0}
+  client:visible
+  cameraLookAt={{ x: 0, y: 0, z: 0 }}
+  cameraPosition={{ x: 2.0, y: -2.0, z: 1.0 }}
+  textureContrast={1.4}
+  tiltDeg={[20, 20, -25]}
+  ambientIntensity={1.0}
+/>
+
+Jupiter hosts one of the largest storms ever observed by humanity.
+Its size is so immense that it can engulf the entire Earth 
+(about 16,000 km wide), larger than our planet’s diameter.
 
 <SimPostSchema
   title="Jupiter"

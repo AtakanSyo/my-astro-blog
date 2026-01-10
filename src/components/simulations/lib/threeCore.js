@@ -291,6 +291,7 @@ export function addSpinningPlanet(
     position = [0, 0, 0],
     radius = 1,
     spinSpeed = 0.3,
+    initialSpinDeg = 0,
     spinAxis = [0, 1, 0],
     tiltDeg = [0,0,0],
     segments = 64,
@@ -388,6 +389,11 @@ export function addSpinningPlanet(
         Array.isArray(spinAxis) ? spinAxis[2] ?? 0 : spinAxis.z ?? 0,
       ).normalize();
 
+  if (initialSpinDeg) {
+    const angleRad = THREE.MathUtils.degToRad(initialSpinDeg);
+    mesh.rotateOnAxis(axis, angleRad);
+  }
+
   const update = (delta) => {
     if (!delta) return;
     const angle = spinSpeed * delta;
@@ -451,6 +457,7 @@ export function addSaturn(
     position = [0, 0, 0],
     radius = 1,
     spinSpeed = 0.3,
+    initialSpinDeg = 0,
     spinAxis = [0, 1, 0],
     tiltDeg = [0, 0, 26.7],
     ringInnerScale = 1.2,
@@ -585,6 +592,12 @@ export function addSaturn(
 
   if (ringAngle) {
     const angleRad = THREE.MathUtils.degToRad(ringAngle);
+    planetMesh.rotateOnAxis(axis, angleRad);
+    ringMesh.rotateOnAxis(axis, angleRad);
+  }
+
+  if (initialSpinDeg) {
+    const angleRad = THREE.MathUtils.degToRad(initialSpinDeg);
     planetMesh.rotateOnAxis(axis, angleRad);
     ringMesh.rotateOnAxis(axis, angleRad);
   }

@@ -85,8 +85,11 @@ export default function SinglePlanetSim({
   planet = 'earth',
   radius = 1,
   showPause = true,
+  extensions = [],
   ringsSpin = true,
   ringAngle = 0,
+  spinDegPerSec,
+  initialSpinDeg = 0,
   cameraPosition,
   cameraLookAt,
   textureContrast,
@@ -109,7 +112,7 @@ export default function SinglePlanetSim({
     if (!canvas || !container || !config) return;
 
     const cameraPos = cameraPosition ?? { x: 0, y: 0, z: 4 };
-    const { scene, renderer, textureLoader, start, stop, dispose } = prepareScene({
+    const { scene, camera, renderer, textureLoader, start, stop, dispose } = prepareScene({
       canvas,
       container,
       dprCap,
@@ -124,7 +127,9 @@ export default function SinglePlanetSim({
     keyLight.position.set(3, 2, 4);
     scene.add(ambient, keyLight);
 
-    const spinSpeed = THREE.MathUtils.degToRad(config.spinDegPerSec);
+    const spinSpeed = THREE.MathUtils.degToRad(
+      typeof spinDegPerSec === 'number' ? spinDegPerSec : config.spinDegPerSec,
+    );
 
     const simHandle = planetKey === 'saturn'
       ? addSaturn(scene, {
@@ -133,6 +138,7 @@ export default function SinglePlanetSim({
           radius,
           position: [0, 0, 0],
           spinSpeed,
+          initialSpinDeg,
           spinAxis: config.spinAxis,
           renderer,
           textureLoader,
@@ -149,6 +155,7 @@ export default function SinglePlanetSim({
           radius,
           position: [0, 0, 0],
           spinSpeed,
+          initialSpinDeg,
           renderer,
           textureLoader,
           tiltDeg: tiltDeg ?? config.tiltDeg ?? 0,
@@ -160,13 +167,51 @@ export default function SinglePlanetSim({
       applyContrastMaterial(material, textureContrast);
     }
 
-    start((delta) => {
+    const extensionFns = Array.isArray(extensions) ? extensions : [];
+    const extensionHandles = extensionFns
+      .filter(Boolean)
+      .map((ext) => {
+        if (typeof ext !== 'function') return null;
+        try {
+          return (
+            ext({
+              THREE,
+              scene,
+              camera,
+              renderer,
+              textureLoader,
+              simHandle,
+              planetKey,
+              radius,
+            }) ?? null
+          );
+        } catch {
+          return null;
+        }
+      })
+      .filter(Boolean);
+
+    start((delta, elapsed) => {
       if (pausedRef.current) return;
       simHandle.update(delta);
+      for (const handle of extensionHandles) {
+        try {
+          handle?.update?.(delta, elapsed);
+        } catch {
+          // ignore extension errors
+        }
+      }
     });
 
     return () => {
       stop();
+      for (const handle of extensionHandles) {
+        try {
+          handle?.dispose?.();
+        } catch {
+          // ignore extension errors
+        }
+      }
       simHandle.dispose();
       dispose();
     };
@@ -175,10 +220,13 @@ export default function SinglePlanetSim({
     cameraPosition,
     config,
     dprCap,
+    extensions,
+    initialSpinDeg,
     planetKey,
     radius,
     ringsSpin,
     ringAngle,
+    spinDegPerSec,
     textureContrast,
     tiltDeg,
   ]);
