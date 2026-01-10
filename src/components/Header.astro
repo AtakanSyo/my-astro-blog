@@ -3,7 +3,7 @@ interface Props {
   lang?: 'en' | 'tr';
 }
 
-import logoUrl from '../assets/images/shared/logo.svg';
+import logoUrl from '../assets/images/shared/logo.svg?url';
 
 const { lang = 'en' } = Astro.props;
 const isTr = lang === 'tr';
