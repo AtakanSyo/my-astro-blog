@@ -13,6 +13,7 @@ lang: en
 
 import SinglePlanetSim from "../../components/simulations/single-planet/SinglePlanetSim.jsx";
 import JupiterMagneticFieldSim from "../../components/simulations/single-planet/JupiterMagneticFieldSim.jsx";
+import JupiterMoonsSim from "../../components/simulations/single-planet/JupiterMoonsSim.jsx";
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import PlanetSizeComparison from "../../components/simulations/planet-size-comparison/PlanetSizeComparison.jsx";
 
@@ -75,6 +76,19 @@ import PlanetSizeComparison from "../../components/simulations/planet-size-compa
 Jupiter hosts one of the largest storms ever observed by humanity.
 Its size is so immense that it can engulf the entire Earth 
 (about 16,000 km wide), larger than our planet’s diameter.
+
+<JupiterMoonsSim client:visible 
+cameraPosition={{ x: 0, y: 0, z: 20 }} 
+moonsOptions={{ layout: 'line', distanceScale: 1.0, 
+sizeScale: 1.0 }} />
+
+Jupiter has 95 known moons, making it the planet with the most 
+satellites in our Solar System; among them are the four Galilean 
+moons—Io, Europa, Ganymede, and Callisto—each a world of its own, 
+ranging from Io’s intense volcanism to Europa’s hidden ocean, 
+while dozens of smaller, irregular moons orbit farther out, 
+likely captured asteroids and comet fragments, giving Jupiter 
+the character of a miniature solar system.
 
 <SimPostSchema
   title="Jupiter"
