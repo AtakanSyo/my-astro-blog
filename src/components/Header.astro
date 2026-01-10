@@ -1,11 +1,12 @@
 ---
 interface Props {
   lang?: 'en' | 'tr';
+  currentPath?: string;
 }
 
 import logoUrl from '../assets/images/shared/logo.svg?url';
 
-const { lang = 'en' } = Astro.props;
+const { lang = 'en', currentPath = '' } = Astro.props as Props;
 const isTr = lang === 'tr';
 
 // base prefix for URLs ('' or '/tr')
@@ -27,33 +28,68 @@ const labels = {
 // site name: use Astro.site or fallback
 const siteName =
   Astro.site?.hostname ?? 'Astrosyo';
+
+function normalizePath(path: string) {
+  if (!path) return '/';
+  const withoutQuery = path.split('?')[0]?.split('#')[0] ?? path;
+  return withoutQuery.length > 1 ? withoutQuery.replace(/\/+$/, '') : withoutQuery;
+}
+
+function isCurrent(href: string) {
+  return normalizePath(currentPath) === normalizePath(href);
+}
 ---
 
 <header>
   <div class="header-inner">
-    <a href={base + '/'} class="logo centered_flex">
+    <a href={base + '/'} class="logo centered_flex" aria-label={labels.home}>
       <img src={logoUrl} alt={siteName} />
     </a>
 
-    <button class="nav-toggle" aria-label={labels.menuToggleAria}>
+    <button
+      class="nav-toggle"
+      type="button"
+      aria-label={labels.menuToggleAria}
+      aria-controls="site-nav"
+      aria-expanded="false"
+    >
       <span class="hamburger"></span>
     </button>
 
-    <nav class="site-nav">
-      <a href={base + '/'} class="nav-item">{labels.home}</a>
-      <a href={base + '/telescopes'} class="nav-item">
+    <nav class="site-nav" id="site-nav">
+      <a
+        href={base + '/'}
+        class="nav-item"
+        aria-current={isCurrent(base + '/') ? 'page' : undefined}
+      >
+        {labels.home}
+      </a>
+      <a
+        href={base + '/telescopes'}
+        class="nav-item"
+        aria-current={isCurrent(base + '/telescopes') ? 'page' : undefined}
+      >
         {labels.telescopes}
       </a>
-      <a href={base + '/authors'} class="nav-item">
+      <a
+        href={base + '/authors'}
+        class="nav-item"
+        aria-current={isCurrent(base + '/authors') ? 'page' : undefined}
+      >
         {labels.authors}
       </a>
-      <a href={base + '/about'} class="nav-item">
+      <a
+        href={base + '/about'}
+        class="nav-item"
+        aria-current={isCurrent(base + '/about') ? 'page' : undefined}
+      >
         {labels.about}
       </a>
 
       <button
         class="nav-search-toggle"
         aria-label={labels.searchToggleAria}
+        type="button"
       >
         🔎
       </button>

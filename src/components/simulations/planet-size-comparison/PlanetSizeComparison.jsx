@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
-import SimStage from '../lib/SimStage.jsx';
+import SimStage from '../lib/simStage.jsx';
 import { prepareScene, createTopDownOrthoCamera } from '../lib/threeCore.js';
 
 export default function PlanetSizeComparison({

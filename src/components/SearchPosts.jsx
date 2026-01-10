@@ -1,7 +1,23 @@
 // src/components/SearchPosts.jsx
-import React, { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 
-export default function SearchPosts({ posts = [], limit = 50 }) {
+/**
+ * @typedef {{
+ *   url: string;
+ *   frontmatter?: {
+ *     title?: string;
+ *     description?: string;
+ *     writer?: string;
+ *     category?: string | string[];
+ *     categories?: string | string[];
+ *     thumbnail?: string;
+ *   };
+ *   dateStr?: string;
+ * }} SearchPost
+ */
+
+/** @param {{ posts?: SearchPost[]; limit?: number }} props */
+export default function SearchPosts({ posts = /** @type {SearchPost[]} */ ([]), limit = 50 }) {
   // ➊ Seed from URL
   const getInitialQ = () => {
     if (typeof window === 'undefined') return '';
@@ -61,11 +77,13 @@ export default function SearchPosts({ posts = [], limit = 50 }) {
     <div className="search-container">
       <form
         className="search-form"
+        role="search"
         onSubmit={(e) => e.preventDefault()}
       >
         <input
           type="search"
           placeholder="🔎 Search posts…"
+          aria-label="Search posts"
           value={q}
           maxLength={100}
           onChange={(e) => setQ(e.currentTarget.value.slice(0, 100))}

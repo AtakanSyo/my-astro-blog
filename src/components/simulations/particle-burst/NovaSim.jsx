@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { prepareScene, createParticleBurst, addSpinningPlanet } from '../lib/threeCore';
-import SimStage from '../lib/SimStage.jsx';
+import SimStage from '../lib/simStage.jsx';
 import { RotateCcw } from 'lucide-react';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';

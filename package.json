@@ -6,6 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "check": "astro check",
+    "clean:vite": "rm -rf node_modules/.vite .astro",
     "astro": "astro"
   },
   "dependencies": {

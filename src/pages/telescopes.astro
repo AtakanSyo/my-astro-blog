@@ -3,7 +3,9 @@ import Layout from '../layouts/Layout.astro';
 import '../styles/telescopes.css';
 import ReviewCard from '../components/reviewCard.astro';
 
-const allPosts = await Astro.glob('./posts/*.{md,mdx}');
+const allPosts = Object.values(
+  import.meta.glob('./posts/*.{md,mdx}', { eager: true })
+) as any[];
 const telescopePosts = allPosts.filter(p => p.frontmatter.subcategory === 'telescopes');
 const telescopeCount = telescopePosts.length;
 

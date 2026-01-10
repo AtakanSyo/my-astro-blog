@@ -7,7 +7,25 @@ import { site } from '../config/site.js';
 const defaultDescription = site.description;
 const site_url = site.url ?? 'https://astrosyo.com';
 
-const { title, category, lang: frontmatterLang, description } = Astro.props;
+interface Props {
+  title?: string;
+  description?: string;
+  category?: string | string[];
+  lang?: 'en' | 'tr';
+  image?: string;
+  ogType?: 'website' | 'article';
+  noIndex?: boolean;
+}
+
+const {
+  title,
+  category,
+  lang: frontmatterLang,
+  description,
+  image,
+  ogType = 'website',
+  noIndex = false,
+} = Astro.props as Props;
 
 import NavScript from '../components/NavScript.astro';
 import SiteFooter from '../components/SiteFooter.astro';
@@ -18,6 +36,7 @@ const pathname = Astro.url.pathname;
 // Eğer frontmatter.lang varsa onu kullan, yoksa URL'den tahmin et
 const isTrPath = pathname.startsWith('/tr');
 const lang = frontmatterLang ?? (isTrPath ? 'tr' : 'en');
+const isProd = import.meta.env.PROD;
 
 const orgJsonLd = {
   "@context": "https://schema.org",
@@ -31,13 +50,16 @@ const orgJsonLd = {
   }
 };
 
-function slugify(str) {
+function slugify(str: string) {
   return str.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, '');
 }
 
 const bodyClasses = [
   title ? `page-${slugify(title)}` : '',
-  category ? `category-${category.toLowerCase()}` : '',
+  (() => {
+    const cat = Array.isArray(category) ? category[0] : category;
+    return cat ? `category-${cat.toLowerCase()}` : '';
+  })(),
 ]
   .filter(Boolean)
   .join(' ');
@@ -64,6 +86,17 @@ const canonicalUrl = lang === 'tr' ? trUrl : enUrl;
 // Dinamik <title>
 const pageTitle = title ? `${title} | Astrosyo` : 'Astrosyo';
 const pageDescription = description ?? defaultDescription;
+
+function toAbsoluteUrl(maybeUrl?: string) {
+  if (!maybeUrl) return undefined;
+  if (/^https?:\/\//i.test(maybeUrl)) return maybeUrl;
+  const path = maybeUrl.startsWith('/') ? maybeUrl : `/${maybeUrl}`;
+  return `${site_url}${path}`;
+}
+
+const ogImage = toAbsoluteUrl(image);
+const ogLocale = lang === 'tr' ? 'tr_TR' : 'en_US';
+const skipText = lang === 'tr' ? 'İçeriğe atla' : 'Skip to content';
 ---
 
 <!doctype html>
@@ -74,7 +107,21 @@ const pageDescription = description ?? defaultDescription;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={pageDescription} />
+
+    {noIndex && <meta name="robots" content="noindex,nofollow" />}
+
+    <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content={ogLocale} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+
+    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
 
     <title>{pageTitle}</title>
 
@@ -86,33 +133,38 @@ const pageDescription = description ?? defaultDescription;
     <link rel="alternate" href={trUrl} hreflang="tr" />
     <link rel="alternate" href={enUrl} hreflang="x-default" />
 
-    <script type="application/ld+json" set:html={JSON.stringify(orgJsonLd)} />
-    <script
-      defer
-      src="https://cloud.umami.is/script.js"
-      data-website-id="7f187073-b57a-4268-9c53-94c815af943f"
-      data-host-url="https://cloud.umami.is"
-    >
-    </script>
-	<script is:inline>
-	(() => {
-		// Avoid double-install (Astro view transitions / partial reloads, etc.)
-		if (window.__umamiEngaged10Installed) return;
-		window.__umamiEngaged10Installed = true;
+    <script type="application/ld+json">{JSON.stringify(orgJsonLd)}</script>
 
-		// Fire once after 10s of the page being open (and visible)
-		setTimeout(() => {
-		if (document.visibilityState !== "visible") return;
-		if (window.umami?.track) {
-			window.umami.track("engaged_10s");
-		}
-		}, 10000);
-	})();
-	</script>
+    {isProd && (
+      <script
+        defer
+        src="https://cloud.umami.is/script.js"
+        data-website-id="7f187073-b57a-4268-9c53-94c815af943f"
+        data-host-url="https://cloud.umami.is"
+      ></script>
+    )}
+    {isProd && (
+      <script is:inline>
+        {`(() => {
+  // Avoid double-install (Astro view transitions / partial reloads, etc.)
+  if (window.__umamiEngaged10Installed) return;
+  window.__umamiEngaged10Installed = true;
+
+  // Fire once after 10s of the page being open (and visible)
+  setTimeout(() => {
+    if (document.visibilityState !== "visible") return;
+    if (window.umami?.track) {
+      window.umami.track("engaged_10s");
+    }
+  }, 10000);
+})();`}
+      </script>
+    )}
   </head>
   <body class={bodyClasses}>
-    <Header lang={lang} />
-    <main>
+    <a class="skip-link" href="#main-content">{skipText}</a>
+    <Header lang={lang} currentPath={pathname} />
+    <main id="main-content">
       <slot />
     </main>
     <NavScript />

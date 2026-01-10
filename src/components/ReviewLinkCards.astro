@@ -48,8 +48,12 @@ const normalizedNames = requestedFiles
 const uniqueOrder = Array.from(new Set(normalizedNames));
 
 // --- language-aware posts glob (must be static literals) ---
-const enPosts = await Astro.glob('../pages/posts/*.{md,mdx}', { eager: true });
-const trPosts = await Astro.glob('../pages/tr/posts/*.{md,mdx}', { eager: true });
+const enPosts = Object.values(
+  import.meta.glob('../pages/posts/*.{md,mdx}', { eager: true })
+) as any[];
+const trPosts = Object.values(
+  import.meta.glob('../pages/tr/posts/*.{md,mdx}', { eager: true })
+) as any[];
 const allPosts = isTr ? trPosts : enPosts;
 // -----------------------------------------------------------
 
@@ -161,7 +165,7 @@ const labels = {
                   href={link}
                   class="affiliate-btn"
                   target="_blank"
-                  rel="noopener"
+                  rel="noopener noreferrer sponsored nofollow"
                 >
                   {isTr ? `${label} üzerinde kontrol et` : `Check on ${label}`}
                 </a>

@@ -189,3 +189,22 @@ footer {
   background-color: rgb(255,255,255,0.1); /* gray */
   margin-top: 1rem;
 }
+
+/* Accessible skip link */
+.skip-link {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 1000;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  background: #111;
+  color: #fff;
+  transform: translateY(-150%);
+  transition: transform 0.15s ease;
+}
+.skip-link:focus {
+  transform: translateY(0);
+  outline: 2px solid var(--brand-red);
+  outline-offset: 2px;
+}

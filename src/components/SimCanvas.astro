@@ -12,25 +12,28 @@ const { slug, aspect = "16/9", showPause = true } = Astro.props;
   )}
 </div>
 
-<script type="module" client:load define:vars={{ id, slug }}>
-  (async () => {
+<script is:inline type="module" define:vars={{ id, slug }}>
+  const init = async () => {
     const canvas = document.getElementById(id);
     const pauseBtn = document.getElementById(`pause-${id}`);
-    const stage   = document.getElementById(`stage-${id}`);
+    const stage = document.getElementById(`stage-${id}`);
     if (!canvas) return;
+    if (canvas.dataset.simInitialized === 'true') return;
+    canvas.dataset.simInitialized = 'true';
 
     // One-time: on the FIRST Play click, reveal the canvas smoothly.
     // Uses {once:true} so your loader keeps owning the button afterwards.
     if (pauseBtn && stage) {
-      pauseBtn.addEventListener(
-        'click',
-        () => stage.classList.add('is-visible'),
-        { once: true }
-      );
+      pauseBtn.addEventListener('click', () => stage.classList.add('is-visible'), { once: true });
     }
 
     // ✅ dynamic import with a variable path (your existing loader)
     const mod = await import(`/interactive/${slug}/loader.js`);
     (mod.default || mod)(canvas, pauseBtn);
-  })().catch(err => console.error('SimCanvas load failed:', err));
+  };
+
+  init().catch((err) => console.error('SimCanvas load failed:', err));
+  document.addEventListener('astro:page-load', () => {
+    init().catch((err) => console.error('SimCanvas load failed:', err));
+  });
 </script>

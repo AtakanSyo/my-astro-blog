@@ -4,7 +4,7 @@ interface Props {
   currentPath?: string;
 }
 
-const { currentLang = 'en', currentPath = '/' } = Astro.props;
+const { currentLang = 'en', currentPath = '/' } = Astro.props as Props;
 const safePath = currentPath || '/';
 ---
 
@@ -32,12 +32,13 @@ const safePath = currentPath || '/';
 
 <script>
   const maxAge = 60 * 60 * 24 * 365; // 1 year
+  type Lang = 'en' | 'tr';
 
-  function setLangCookie(lang) {
+  function setLangCookie(lang: Lang) {
     document.cookie = `lang=${lang}; path=/; max-age=${maxAge}`;
   }
 
-  function computeTargetPath(lang, path) {
+  function computeTargetPath(lang: Lang, path: string) {
     let target = '/';
 
     if (lang === 'tr') {
@@ -65,20 +66,24 @@ const safePath = currentPath || '/';
   }
 
   document.addEventListener('DOMContentLoaded', () => {
-    const container = document.getElementById('lang-switch');
+    const container = document.getElementById('lang-switch') as HTMLElement | null;
     if (!container) return;
 
     const currentPath = container.dataset.currentPath || '/';
 
-    container.addEventListener('click', (event) => {
-      const btn = event.target.closest('button[data-target-lang]');
+    container.addEventListener('click', (event: MouseEvent) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+
+      const btn = target.closest('button[data-target-lang]') as HTMLButtonElement | null;
       if (!btn) return;
 
-      const lang = btn.dataset.targetLang;
+      const lang = btn.dataset.targetLang as Lang | undefined;
+      if (!lang) return;
       setLangCookie(lang);
 
-      const target = computeTargetPath(lang, currentPath);
-      window.location.href = target;
+      const targetPath = computeTargetPath(lang, currentPath);
+      window.location.href = targetPath;
     });
   });
 </script>

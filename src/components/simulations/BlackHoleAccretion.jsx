@@ -1,7 +1,7 @@
 // GravityLens.jsx
 import { useEffect, useRef, useState, useMemo } from "react";
 import * as THREE from "three";
-import SimStage from "./lib/SimStage.jsx";
+import SimStage from "./lib/simStage.jsx";
 
 /**
  * Thin-lens gravitational lens (Einstein ring) with a lensed background star texture.

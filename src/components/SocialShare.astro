@@ -7,6 +7,7 @@ const fullUrl = site.url + url;
 // URL-encode once for re-use
 const eUrl = encodeURIComponent(fullUrl);
 const eTitle = encodeURIComponent(frontmatter.title);
+const toastText = frontmatter?.lang === 'tr' ? 'Bağlantı kopyalandı!' : 'Link copied!';
 ---
 
 <!-- Container with relative positioning for toast placement -->
@@ -47,9 +48,9 @@ const eTitle = encodeURIComponent(frontmatter.title);
     </a>
 
     <button
-      id="copy-btn"
       class="social-btn"
       data-url={fullUrl}
+      data-copy-btn
       type="button"
       aria-label="Copy post link"
       title="Copy post link"
@@ -59,25 +60,46 @@ const eTitle = encodeURIComponent(frontmatter.title);
   </div>
 
   <!-- Non-intrusive toast notification, positioned relative to the container -->
-  <div id="copy-toast" role="status" class="copy-toast">Link copied!</div>
+  <div class="copy-toast" role="status" aria-live="polite" aria-atomic="true" hidden>
+    {toastText}
+  </div>
 </div>
 
 <!-- Client-side logic to handle copy and show toast -->
-<script is:inline client:load>
-  const copyBtn = document.getElementById('copy-btn');
-  const FULL_URL = copyBtn.dataset.url;
-  const toast = document.getElementById('copy-toast');
-  copyBtn.addEventListener('click', () => {
-    navigator.clipboard.writeText(FULL_URL);
-    // Position toast next to button
-    const rect = copyBtn.getBoundingClientRect();
-    const containerRect = copyBtn.closest('.social-share-container').getBoundingClientRect();
-    const top = rect.bottom - containerRect.top + 8; // 8px below
-    const left = rect.right - containerRect.left - toast.offsetWidth;
-    toast.style.top = `${top}px`;
-    toast.style.left = `${left}px`;
+<script is:inline>
+  (() => {
+    const root = document.currentScript?.closest('.social-share-container');
+    if (!root) return;
 
-    toast.classList.add('visible');
-    setTimeout(() => toast.classList.remove('visible'), 1000);
-  });
+    const copyBtn = root.querySelector('[data-copy-btn]');
+    const toast = root.querySelector('.copy-toast');
+    const fullUrl = copyBtn?.dataset?.url;
+    if (!copyBtn || !toast || !fullUrl) return;
+
+    const showToast = () => {
+      // Position toast next to button
+      const rect = copyBtn.getBoundingClientRect();
+      const containerRect = root.getBoundingClientRect();
+      const top = rect.bottom - containerRect.top + 8; // 8px below
+      const left = rect.right - containerRect.left - toast.offsetWidth;
+      toast.style.top = `${top}px`;
+      toast.style.left = `${left}px`;
+
+      toast.hidden = false;
+      toast.classList.add('visible');
+      setTimeout(() => {
+        toast.classList.remove('visible');
+        toast.hidden = true;
+      }, 1000);
+    };
+
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(fullUrl);
+      } catch {
+        window.prompt('Copy link:', fullUrl);
+      }
+      showToast();
+    });
+  })();
 </script>

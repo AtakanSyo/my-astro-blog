@@ -7,7 +7,9 @@ import FloatingIcons from "../../../components/FloatingIcons.astro";
 import PostCard from "../../../components/postCard.astro";
 
 export async function getStaticPaths() {
-  const all = await Astro.glob('../../tr/posts/*.{md,mdx}', { eager: true });
+  const all = Object.values(
+    import.meta.glob('../../tr/posts/*.{md,mdx}', { eager: true })
+  ) as any[];
   const set = new Set();
   for (const p of all) {
     const c = p.frontmatter?.category;
@@ -16,9 +18,9 @@ export async function getStaticPaths() {
   return Array.from(set).map((slug) => ({ params: { slug } }));
 }
 
-const slug = (Astro.params.slug || '').toLowerCase();
+const slug = String(Astro.params.slug ?? '').toLowerCase();
 
-const labelMap = {
+const labelMap: Record<string, string> = {
   reviews: 'Teleskop ve Ekipman İncelemeleri',
   nasa: 'NASA Yazıları',
   informational: 'Astronomi Rehberleri ve Bilgiler',
@@ -26,9 +28,13 @@ const labelMap = {
 };
 const categoryLabel = labelMap[slug] || `${slug.charAt(0).toUpperCase() + slug.slice(1)} Yazıları`;
 
-const posts = (await Astro.glob('../../tr/posts/*.{md,mdx}', { eager: true }))
+const posts = (Object.values(
+  import.meta.glob('../../tr/posts/*.{md,mdx}', { eager: true })
+) as any[])
   .filter((p) => typeof p.frontmatter?.category === 'string' && p.frontmatter.category.toLowerCase() === slug)
-  .sort((a, b) => new Date(b.frontmatter.pubDate) - new Date(a.frontmatter.pubDate));
+  .sort(
+    (a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime()
+  );
 
 const count = posts.length;
 const countText =

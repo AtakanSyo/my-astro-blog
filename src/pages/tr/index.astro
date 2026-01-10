@@ -12,19 +12,23 @@ import PostCard from "../../components/postCard.astro";
 import SpiralGalaxy from "../../components/simulations/spiral-galaxy/SpiralGalaxy.jsx";
 
 // 1) load and sort all posts
-const allPosts = await Astro.glob('./posts/*.{md,mdx}', { eager: true });
-allPosts.sort((a, b) => new Date(b.frontmatter.pubDate) - new Date(a.frontmatter.pubDate));
+const allPosts = Object.values(
+  import.meta.glob('./posts/*.{md,mdx}', { eager: true })
+) as any[];
+allPosts.sort(
+  (a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime()
+);
 
 // helpers
-function normalizeCat(cat) {
+function normalizeCat(cat: unknown): string[] {
   if (!cat) return [];
   if (Array.isArray(cat)) return cat.filter(Boolean).map((c) => String(c).toLowerCase());
   return [String(cat).toLowerCase()];
 }
-function hasCat(frontmatter, needle) {
+function hasCat(frontmatter: any, needle: string) {
   return normalizeCat(frontmatter.category ?? frontmatter.categories).includes(needle);
 }
-function latestByCategory(key, n = 6) {
+function latestByCategory(key: string, n = 6) {
   return allPosts.filter(({ frontmatter }) => hasCat(frontmatter, key)).slice(0, n);
 }
 

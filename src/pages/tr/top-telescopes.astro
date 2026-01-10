@@ -5,19 +5,21 @@ import '../../styles/cards.css';
 import '../../styles/telescopes.css';
 import '../../styles/topTelescopes.css';
 
-const allPosts = await Astro.glob('./posts/*.{md,mdx}', { eager: true });
+const allPosts = Object.values(
+  import.meta.glob('./posts/*.{md,mdx}', { eager: true })
+) as any[];
 
-function normalizeCat(cat) {
+function normalizeCat(cat: unknown): string[] {
   if (!cat) return [];
   if (Array.isArray(cat)) return cat.filter(Boolean).map((c) => String(c).toLowerCase());
   return [String(cat).toLowerCase()];
 }
 
-function hasCat(frontmatter, needle) {
+function hasCat(frontmatter: any, needle: string) {
   return normalizeCat(frontmatter.category ?? frontmatter.categories).includes(needle);
 }
 
-function parseScore(value) {
+function parseScore(value: unknown): number | null {
   if (value === undefined || value === null || value === '') return null;
   if (typeof value === 'number' && Number.isFinite(value)) return Math.max(0, Math.min(10, value));
   const text = String(value).trim().toLowerCase();
@@ -29,11 +31,11 @@ function parseScore(value) {
       return Math.max(0, Math.min(10, (numerator / denominator) * 10));
     }
   }
-  const lookup = { a: 9.5, 'a-': 9, 'b+': 8.5, b: 8, 'b-': 7.5, c: 7, 'c-': 6.5 };
+  const lookup: Record<string, number> = { a: 9.5, 'a-': 9, 'b+': 8.5, b: 8, 'b-': 7.5, c: 7, 'c-': 6.5 };
   return lookup[text] ?? null;
 }
 
-function scoreDescriptor(score) {
+function scoreDescriptor(score: number | null) {
   if (score === null) return null;
   if (score >= 9) return 'kozmos seviyesi';
   if (score >= 8) return 'çok güçlü bir tercih';
@@ -53,7 +55,7 @@ const reviewPosts = allPosts
   .sort((a, b) => (b.score ?? 0) - (a.score ?? 0))
   .slice(0, 10);
 
-function scoreToHue(score) {
+function scoreToHue(score: number | null | undefined) {
   // 0→120 (kırmızı→yeşil); eksikse nötr maviye düş
   if (score === null || score === undefined) return 210;
   return Math.round((score / 10) * 120);
@@ -116,7 +118,7 @@ function scoreToHue(score) {
             {affs.length > 0 && (
               <div class="affiliate-links">
                 {affs.map(([name, link]) => (
-                    <a href={link} class="affiliate-btn" target="_blank" rel="noopener">
+                    <a href={link} class="affiliate-btn" target="_blank" rel="noopener noreferrer sponsored nofollow">
                     {name} üzerinde kontrol et
                   </a>
                 ))}

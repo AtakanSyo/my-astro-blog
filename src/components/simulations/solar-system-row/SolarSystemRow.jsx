@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { prepareScene, addSpinningPlanet, addSaturn, createTopDownOrthoCamera } from '../lib/threeCore';
-import SimStage from '../lib/SimStage.jsx';
+import SimStage from '../lib/simStage.jsx';
 
 const PLANET_DATA = [
   {

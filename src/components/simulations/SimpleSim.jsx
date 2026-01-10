@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
-import SimStage from './lib/SimStage.jsx';
+import SimStage from './lib/simStage.jsx';
 
 // React component: renders a 3D rainbow-shaded sphere with play/pause control
 export default function SimpleSim({

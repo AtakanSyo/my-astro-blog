@@ -4,14 +4,12 @@ import path from "node:path";
 import fg from "fast-glob";
 import matter from "gray-matter";
 
-/**
- * Adds a disclaimer block to MD/MDX files where frontmatter writer === "Zane Landers".
- * - Idempotent (won’t duplicate the disclaimer—uses a marker comment).
- * - Creates a .bak backup next to each modified file.
- *
- * Usage:
- *   node scripts/add-zane-disclaimer.mjs "src/**/*.{md,mdx}"
- */
+// Adds a disclaimer block to MD/MDX files where frontmatter writer === "Zane Landers".
+// - Idempotent (won’t duplicate the disclaimer—uses a marker comment).
+// - Creates a .bak backup next to each modified file.
+//
+// Usage (example):
+//   node scripts/add-zane-disclaimer.mjs "src/posts/*.{md,mdx}"
 
 const GLOB = process.argv[2] || "src/**/*.{md,mdx}";
 const MARKER = "<!-- zane-disclaimer -->";

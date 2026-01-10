@@ -17,7 +17,10 @@ interface Step {
   badge?: string;
 }
 
-const { steps = [] as Step[], class: extraClass = '' } = Astro.props;
+const { steps = [], class: extraClass = '' } = Astro.props as {
+  steps?: Step[];
+  class?: string;
+};
 ---
 
 <div class={['info-stepper', extraClass].filter(Boolean).join(' ')}>

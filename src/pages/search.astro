@@ -6,9 +6,11 @@ import '../styles/cards.css';
 import '../styles/search.css';
 import '../styles/searchPage.css';
 // 1) Glob & sort at build time
-const allPosts = await Astro.glob('./posts/*.{md,mdx}', { eager: true });
+const allPosts = Object.values(
+  import.meta.glob('./posts/*.{md,mdx}', { eager: true })
+) as any[];
 allPosts.sort(
-  (a, b) => new Date(b.frontmatter.pubDate) - new Date(a.frontmatter.pubDate)
+  (a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime()
 );
 
 // 2) Map into a shape that includes a formatted date string
@@ -21,7 +23,14 @@ const posts = allPosts.map((p) => {
   });
   return {
     url:       p.url,
-    frontmatter: p.frontmatter,
+    frontmatter: {
+      title: p.frontmatter.title,
+      description: p.frontmatter.description,
+      writer: p.frontmatter.writer,
+      category: p.frontmatter.category,
+      categories: p.frontmatter.categories,
+      thumbnail: p.frontmatter.thumbnail,
+    },
     dateStr,
   };
 });

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
-import SimStage from '../lib/SimStage.jsx';
+import SimStage from '../lib/simStage.jsx';
 import { prepareScene } from '../lib/threeCore.js';
 import { createParticlePoints } from '../lib/particles.js';
 import { initCompute } from '../lib/gpu.js';

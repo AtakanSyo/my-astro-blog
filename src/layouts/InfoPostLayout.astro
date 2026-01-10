@@ -5,12 +5,13 @@ import '../styles/infoPost.css';  // ← pulls in your global styles
 import SocialShare from '../components/SocialShare.astro';
 import FeedbackCTA from '../components/FeedbackCTA.astro';
 
+const { url } = Astro.props;
+
 const {
   title,
   description,
   writer,
   pubDate,
-  url,
   cover_image,
 } = Astro.props.frontmatter;
 
@@ -22,23 +23,27 @@ const {
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css"
   />
-  <link
-    rel="preload"
-    as="image"
-    href={cover_image}
-  />
+  {cover_image && <link rel="preload" as="image" href={cover_image} />}
 </head>
 
-<Layout title={title} description={description} category={Astro.props.frontmatter?.category}>
+<Layout
+  title={title}
+  description={description}
+  category={Astro.props.frontmatter?.category}
+  image={cover_image}
+  ogType="article"
+>
   <article class="post centered_flex">
-    <img
-      src={cover_image}
-      class="info-post-starter-image"
-      alt={title + ' cover'}
-      fetchpriority="high"
-      loading="eager"       
-      decoding="async"      
-    />
+    {cover_image && (
+      <img
+        src={cover_image}
+        class="info-post-starter-image"
+        alt={title + ' cover'}
+        fetchpriority="high"
+        loading="eager"
+        decoding="async"
+      />
+    )}
 
     <h1>{title}</h1>
     <p class="post-description">{description}</p>

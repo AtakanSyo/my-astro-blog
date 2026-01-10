@@ -12,15 +12,20 @@
  * - class?: string (additional class names)
  */
 
+type Tone = 'default' | 'bright' | 'muted';
+
 interface Card {
   title: string;
   body: string;
-  tone?: 'default' | 'bright' | 'muted';
+  tone?: Tone;
 }
 
-const { cards = [] as Card[], class: extraClass = '' } = Astro.props;
+const { cards = [], class: extraClass = '' } = Astro.props as {
+  cards?: Card[];
+  class?: string;
+};
 
-const toneClass: Record<Card['tone'], string> = {
+const toneClass: Record<Tone, string> = {
   default: '',
   bright: 'info-card--bright',
   muted: 'info-card--muted',

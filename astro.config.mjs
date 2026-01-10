@@ -29,6 +29,15 @@ export default defineConfig({
     icon({ collections: ['logos','bi','feather','ion'] }),
   ],
   vite: {
+    optimizeDeps: {
+      // Prevent mid-navigation re-optimizations that can yield 504 "Outdated Optimize Dep"
+      // and break island hydration on first load during dev.
+      include: [
+        'three',
+        'three/addons/misc/GPUComputationRenderer.js',
+        'lucide-react',
+      ],
+    },
     resolve: {
       alias: {
         '@layouts': fileURLToPath(new URL('./src/layouts', import.meta.url)),

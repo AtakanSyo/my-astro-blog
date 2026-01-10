@@ -3,18 +3,27 @@ import { site } from '../config/site.js';
 import { Instagram, Youtube } from "lucide-react";
 import LanguageSwitch from './LanguageSwitch.astro';
 
+interface Props {
+  lang?: 'en' | 'tr';
+  currentPath?: string;
+}
+
 const currentYear = new Date().getFullYear();
-const sitemapLinks = [
-  { label: 'Home', href: '/' },
-  { label: 'Telescopes', href: '/telescopes' },
-  { label: 'Simulations', href: '/category/simulation' },
-  { label: 'Authors', href: '/authors' },
-  { label: 'About', href: '/about' },
-  { label: 'Search', href: '/search' },
-];
+
 const pathname = Astro.url.pathname;
-const isTr = pathname.startsWith('/tr');
+const { lang: langProp, currentPath = pathname } = Astro.props as Props;
+const isTr = (langProp ?? (pathname.startsWith('/tr') ? 'tr' : 'en')) === 'tr';
 const lang = isTr ? 'tr' : 'en';
+const base = isTr ? '/tr' : '';
+
+const sitemapLinks = [
+  { label: isTr ? 'Ana Sayfa' : 'Home', href: base + '/' },
+  { label: isTr ? 'Teleskoplar' : 'Telescopes', href: base + '/telescopes' },
+  { label: isTr ? 'Simülasyonlar' : 'Simulations', href: base + '/category/simulation' },
+  { label: isTr ? 'Yazarlar' : 'Authors', href: base + '/authors' },
+  { label: isTr ? 'Hakkında' : 'About', href: base + '/about' },
+  { label: isTr ? 'Arama' : 'Search', href: base + '/search' },
+];
 ---
 
 <footer class="site-footer centered_flex">
