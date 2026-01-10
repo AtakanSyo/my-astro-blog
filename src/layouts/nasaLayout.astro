@@ -18,8 +18,6 @@ const {
 ---
 
 <head>
-  <title>{title}</title>
-  <meta name="description" content={description} />
     <script type="importmap">
       {
         "imports": {
@@ -30,13 +28,13 @@ const {
     </script>
 </head>
 
-<Layout title={title} category={Astro.props.frontmatter?.category}>
+<Layout title={title} description={description} category={Astro.props.frontmatter?.category}>
   <article class="post nasa-post centered_flex">
 
     <h1 class="nasa-article-title">{title}</h1>
     <p class="post-description">{description}</p>
     <p class="writer">Published by {writer}</p>
-    <SocialShare frontmatter={Astro.props.frontmatter} url={url} client:load />
+    <SocialShare frontmatter={Astro.props.frontmatter} url={url} />
     <slot />
   </article>
   <FeedbackCTA />

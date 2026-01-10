@@ -85,13 +85,11 @@ const overallHue = scoreToHue(overallNum);
 ---
 
 <head>
-  <title>{title}</title>
-  <meta name="description" content={description} />
   <script type="application/ld+json" set:html={JSON.stringify(jsonLdProduct, null, 2)}></script>
   <link rel="preload" as="image" href={cover_image} />
 </head>
 
-<Layout title={title} category={Astro.props.frontmatter?.category}>
+<Layout title={title} description={description} category={Astro.props.frontmatter?.category}>
 
 <div class="centered_flex">
 
@@ -125,7 +123,7 @@ const overallHue = scoreToHue(overallNum);
       </div>
       <p class="post-starter-description">{Astro.props.frontmatter.description}</p>
       <div class="share-header"><span class="share-label">Share:</span></div>
-      <SocialShare frontmatter={Astro.props.frontmatter} url={url} client:load />
+      <SocialShare frontmatter={Astro.props.frontmatter} url={url} />
       <p class="writer">{writerLine}</p>
     </div>
   </div>

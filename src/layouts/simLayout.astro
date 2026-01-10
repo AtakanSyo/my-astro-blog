@@ -18,8 +18,6 @@ const {
 ---
 
 <head>
-  <title>{title}</title>
-  <meta name="description" content={description} />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css"
@@ -34,7 +32,7 @@ const {
     </script>
 </head>
 
-<Layout title={title} category={Astro.props.frontmatter?.category}>
+<Layout title={title} description={description} category={Astro.props.frontmatter?.category}>
   <article class="post sim-post centered_flex">
 
     <h1 class="sim-article-title fade-up">{title}</h1>
@@ -44,7 +42,7 @@ const {
       <p class="writer">Created by {writer}</p>
     )} -->
     
-    <SocialShare frontmatter={Astro.props.frontmatter} url={url} client:load />
+    <SocialShare frontmatter={Astro.props.frontmatter} url={url} />
     <slot />
   </article>
   <FeedbackCTA />

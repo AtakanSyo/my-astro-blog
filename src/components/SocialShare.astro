@@ -14,9 +14,9 @@ const eTitle = encodeURIComponent(frontmatter.title);
   <div class="social-share">
     <a
       class="social-btn"
-      href={`https://www.facebook.com/sharer.php?u=${fullUrl}`}
+      href={`https://www.facebook.com/sharer.php?u=${eUrl}`}
       target="_blank"
-      rel="noopener"
+      rel="noopener noreferrer"
       aria-label="Share on Facebook"
       title="Share on Facebook"
     >
@@ -26,9 +26,9 @@ const eTitle = encodeURIComponent(frontmatter.title);
 
     <a
       class="social-btn"
-      href={`https://twitter.com/intent/tweet?url=${fullUrl}&text=${eTitle}`}
+      href={`https://twitter.com/intent/tweet?url=${eUrl}&text=${eTitle}`}
       target="_blank"
-      rel="noopener"
+      rel="noopener noreferrer"
       aria-label="Share on Twitter"
       title="Share on Twitter"
     >
@@ -37,9 +37,9 @@ const eTitle = encodeURIComponent(frontmatter.title);
 
     <a
       class="social-btn"
-      href={`https://wa.me/?text=${eTitle}%20${fullUrl}`}
+      href={`https://wa.me/?text=${eTitle}%20${eUrl}`}
       target="_blank"
-      rel="noopener"
+      rel="noopener noreferrer"
       aria-label="Share on WhatsApp"
       title="Share on WhatsApp"
     >
@@ -78,7 +78,6 @@ const eTitle = encodeURIComponent(frontmatter.title);
     toast.style.left = `${left}px`;
 
     toast.classList.add('visible');
-    console.log("hi")
     setTimeout(() => toast.classList.remove('visible'), 1000);
   });
 </script>

@@ -1,52 +1,51 @@
-# Astro Starter Kit: Basics
+# Astrosyo
 
-```sh
-npm create astro@latest -- --template basics
-```
+Astrosyo is an Astro-powered astronomy site featuring:
+- MDX articles (informational posts, reviews, NASA posts)
+- Interactive simulations (React islands with Three.js / p5)
+- EN + TR routes with `hreflang` and canonical URLs
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+Production site: `https://astrosyo.com`
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Requirements
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+- Node.js `24` (see `.nvmrc` / `.node-version`)
+- npm
 
-## 🚀 Project Structure
+## Commands
 
-Inside of your Astro project, you'll see the following folders and files:
+| Command | Action |
+| :-- | :-- |
+| `npm install` | Install dependencies |
+| `npm run dev` | Start dev server at `http://localhost:4321` |
+| `npm run build` | Build to `./dist/` |
+| `npm run preview` | Preview the production build |
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+## Content
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+- English posts: `src/pages/posts/*.mdx`
+- Turkish posts: `src/pages/tr/posts/*.mdx`
+- Category pages: `src/pages/category/[slug].astro` and `src/pages/tr/category/[slug].astro`
 
-## 🧞 Commands
+Frontmatter conventions used across posts (varies by layout):
+- `title`, `description`, `pubDate`, `writer`, `category`
+- Images typically come from `public/images/<slug>/` (e.g. `cover.webp`, `thumbnail.webp`)
 
-All commands are run from the root of the project, from a terminal:
+Common category keys:
+- `reviews`
+- `simulation`
+- `informational`
+- `nasa`
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## Layouts & styling
 
-## 👀 Want to learn more?
+- Base layout + global SEO/analytics: `src/layouts/Layout.astro`
+- Post layouts: `src/layouts/ReviewPostLayout.astro`, `src/layouts/InfoPostLayout.astro`, `src/layouts/nasaLayout.astro`, `src/layouts/simLayout.astro`
+- CSS lives under `src/styles/` and is imported per-page/layout.
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## Scripts
+
+Utility scripts for frontmatter/content maintenance:
+- `scripts/` (Node)
+- `update_frontmatter.py` (Python)
+- `inject-reviewType.js`, `fix-reviewType.js` (repo root)

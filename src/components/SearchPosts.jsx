@@ -98,7 +98,7 @@ export default function SearchPosts({ posts = [], limit = 50 }) {
       <div className="post-card" key={p.url}>
         <a href={p.url} className="post-card-link">
           {/* Title with highlights */}
-            <div class="post-card-info">
+            <div className="post-card-info">
               
             <div className="post-card-title">
               {highlightText(fm.title ?? '', q)}

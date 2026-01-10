@@ -4,10 +4,10 @@ import '../styles/nav.css';
 import '../styles/footer.css';
 
 import { site } from '../config/site.js';
-const site_description = site.description;
+const defaultDescription = site.description;
 const site_url = site.url ?? 'https://astrosyo.com';
 
-const { title, category, lang: frontmatterLang } = Astro.props;
+const { title, category, lang: frontmatterLang, description } = Astro.props;
 
 import NavScript from '../components/NavScript.astro';
 import SiteFooter from '../components/SiteFooter.astro';
@@ -63,6 +63,7 @@ const canonicalUrl = lang === 'tr' ? trUrl : enUrl;
 
 // Dinamik <title>
 const pageTitle = title ? `${title} | Astrosyo` : 'Astrosyo';
+const pageDescription = description ?? defaultDescription;
 ---
 
 <!doctype html>
@@ -72,8 +73,8 @@ const pageTitle = title ? `${title} | Astrosyo` : 'Astrosyo';
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={site_description} />
-    <meta property="og:description" content={site_description} />
+    <meta name="description" content={pageDescription} />
+    <meta property="og:description" content={pageDescription} />
 
     <title>{pageTitle}</title>
 

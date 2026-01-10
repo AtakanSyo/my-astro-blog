@@ -26,14 +26,11 @@ const posts = allPosts.map((p) => {
   };
 });
 
-// Grab “q” as before…
-const url = new URL(Astro.request.url);
-const q   = url.searchParams.get('q') || '';
 ---
 <Layout title="Search">
   <section class="container search-page" style="padding:2rem 1rem;">
     <h1>Search All Posts</h1>
     <!-- Hydrate a React island that does the filtering -->
-    <SearchPosts client:only="react" posts={posts} initialQuery={q} limit={100} />
+    <SearchPosts client:only="react" posts={posts} limit={100} />
   </section>
 </Layout>
