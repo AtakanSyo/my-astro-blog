@@ -1,6 +1,9 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import "../../styles/authors.css";
+import { Image } from "astro:assets";
+import zaneImg from "../../assets/images/authors/zane-landers.webp";
+import atakanImg from "../../assets/images/authors/atakan-saracyakupoglu.webp";
 ---
 
 <Layout title="Yazarlarımız">
@@ -8,7 +11,12 @@ import "../../styles/authors.css";
     <!-- First author -->
      <h1>Yazarlarımızla Tanışın</h1>
     <section class="author">
-      <img src="/images/authors/zane-landers.webp" alt="Yazar Zane Landers" />
+      <Image
+        src={zaneImg}
+        alt="Yazar Zane Landers"
+        widths={[160, 200, 260, 320]}
+        sizes="(max-width: 768px) 260px, 200px"
+      />
       <div class="bio">
         <h2>Zane Landers</h2>
         <p>
@@ -22,9 +30,12 @@ import "../../styles/authors.css";
 
     <!-- Third author -->
     <section class="author">
-      <img
-        src="/images/authors/atakan-saracyakupoglu.webp"
+      <Image
+        src={atakanImg}
         alt="Atakan Saracyakupoglu"
+        widths={[160, 200, 260, 320]}
+        sizes="(max-width: 768px) 260px, 200px"
+        loading="lazy"
       />
       <div class="bio">
         <h2>Atakan Saracyakupoglu</h2>

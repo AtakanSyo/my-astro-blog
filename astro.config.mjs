@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import { fileURLToPath } from 'node:url';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import react from '@astrojs/react';
@@ -28,6 +29,12 @@ export default defineConfig({
     icon({ collections: ['logos','bi','feather','ion'] }),
   ],
   vite: {
+    resolve: {
+      alias: {
+        '@layouts': fileURLToPath(new URL('./src/layouts', import.meta.url)),
+        '@components': fileURLToPath(new URL('./src/components', import.meta.url)),
+      },
+    },
     plugins: [
       tailwindcss(),
       forceUtf8ForHtml(),
@@ -35,9 +42,5 @@ export default defineConfig({
     esbuild: {
       charset: "utf8",
     },
-  },
-  alias: {
-    '@layouts': './src/layouts',
-    '@components': './src/components',
   },
 });

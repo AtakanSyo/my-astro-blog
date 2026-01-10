@@ -49,6 +49,10 @@ import Ratings from '../../components/Ratings.astro'
 import ProsCons from '../../components/ProsCons.astro'
 import QuickSpecs from '../../components/QuickSpecs.astro'
 import GenericTable from '../../components/GenericTable.astro'
+import { Image } from 'astro:assets'
+
+import siderImg from '../../assets/images/orion-skyline-6-review/sider.webp'
+import accessoriesImg from '../../assets/images/orion-skyline-6-review/accessories.webp'
 
 <h2>Introduction</h2>
 
@@ -110,11 +114,24 @@ An internal hex screw sets the baseline friction (useful if you regularly use he
 eyepieces), while two small thumb screws allow fine tension adjustment or complete locking
 of the focuser.
 </p>
-<img class="post-image post-image-lg" src={frontmatter.imageDir + '/sider.webp'} alt="Bearings"></img>
+<Image
+  class="post-image post-image-lg"
+  src={siderImg}
+  alt="Bearings"
+  widths={[640, 960, 1280]}
+  sizes="(max-width: 768px) 100vw, 900px"
+/>
 
 <h2>Mount</h2>
 <p>Most Dobsonians manufactured by commercial entities have tiny altitude bearings, which make the scope easy to move but also allow for the center of gravity to rapidly shift outside of them and cause the scope to tip over when a heavy eyepiece is used. Other manufacturers solve this problem with a simple brake clutch that keeps the scope in place at the expense of stiff and jerky motions, or with bearings that can slide along the tube. Orion uses spring-tensioning on many of their Dobsonian telescopes such as the SkyLine 6 to keep the scope balanced with most eyepieces and provide smooth motions. The scope is easy to aim and stays put when you let go of it, and you should have no trouble tracking manually even at 300x magnification.</p>
-<img class="post-image post-image-lg" src={frontmatter.imageDir + '/accessories.webp'} alt="Accessories"></img>
+<Image
+  class="post-image post-image-lg"
+  src={accessoriesImg}
+  alt="Accessories"
+  widths={[640, 960, 1280]}
+  sizes="(max-width: 768px) 100vw, 900px"
+  loading="lazy"
+/>
 <GenericTable
   title="Included Accessories"
   headers={['Accessory', 'Notes']}

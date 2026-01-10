@@ -3,6 +3,8 @@ interface Props {
   lang?: 'en' | 'tr';
 }
 
+import logoUrl from '../assets/images/shared/logo.svg';
+
 const { lang = 'en' } = Astro.props;
 const isTr = lang === 'tr';
 
@@ -30,7 +32,7 @@ const siteName =
 <header>
   <div class="header-inner">
     <a href={base + '/'} class="logo centered_flex">
-      <img src="/images/shared/logo.svg" alt={siteName} />
+      <img src={logoUrl} alt={siteName} />
     </a>
 
     <button class="nav-toggle" aria-label={labels.menuToggleAria}>
