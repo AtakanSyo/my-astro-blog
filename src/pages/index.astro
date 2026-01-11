@@ -9,7 +9,7 @@ import '../styles/simGlobal.css';
 import { site } from '../config/site.js';
 import { Instagram, Youtube } from "lucide-react";
 import PostCard from "../components/postCard.astro"; // ✅ new
-import SpiralGalaxy from "../components/simulations/spiral-galaxy/SpiralGalaxy.jsx";
+import SinglePlanetSim from "../components/simulations/single-planet/SinglePlanetSim.jsx";
 
 
 // 1) load and sort all posts
@@ -48,13 +48,16 @@ const CATS = [
     <div class="home-hero-sim">
       <div class="hero-sim-wrap">
         <div class="hero-sim-bg" aria-hidden="true">
-          <SpiralGalaxy
+          <SinglePlanetSim
             client:load
             showPause={false}
-            cameraConfig={{
-              position: { x: 0, y: 18, z: 24 },
-              lookAt: { x: 0, y: 0, z: 0 },
-            }}
+            planet="Jupiter"
+            cameraPosition={{ x: 0, y: 0, z: 3.4 }}
+            cameraLookAt={{ x: 0, y: 0, z: 0 }}
+            textureContrast={1.2}
+            tiltDeg={[20, 20, -25]}
+            spinDegPerSec={5}
+            ambientIntensity={0.0}
           />
         </div>
 
@@ -65,7 +68,7 @@ const CATS = [
 
         </section>
 
-        <a class="home-sim-link" href="/posts/spiral-galaxies">
+        <a class="home-sim-link" href="/posts/jupiter">
           Go to the featured story →
         </a>
       </div>

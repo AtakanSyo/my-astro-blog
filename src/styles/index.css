@@ -29,6 +29,13 @@
   overflow: hidden;
   overflow: clip;
   contain: paint;
+
+  /* soft fade: slightly dark → fully transparent */
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.12) 10%,
+    rgba(0, 0, 0, 0)
+  );
 }
 
 .page-home .hero::before {
@@ -105,11 +112,6 @@
 
 .hero-sim-bg canvas {
   opacity: 1;
-}
-
-.page-home .hero {
-  z-index: 1;
-  background: rgba(0, 0, 0, 0.22);
 }
 
 .page-home .home-description {
