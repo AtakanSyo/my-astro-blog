@@ -24,7 +24,7 @@ const labelMap: Record<string, string> = {
   reviews: 'Telescope & Gear Reviews',
   nasa: 'NASA Articles',
   informational: 'Astronomy Guides & Insights',
-  simulation: 'Astrophysics Simulations',
+  simulation: 'Science Stories',
 };
 const categoryLabel = labelMap[slug] || `${slug.charAt(0).toUpperCase() + slug.slice(1)} Posts`;
 
@@ -39,7 +39,7 @@ const posts = (Object.values(
 const count = posts.length;
 const countText =
   slug === 'simulation'
-    ? `Check out our ${count} ${count === 1 ? 'simulation' : 'simulations'}.`
+    ? `Check out our ${count} ${count === 1 ? 'story' : 'stories'}.`
     : slug === 'reviews'
     ? `Check out our ${count} ${count === 1 ? 'review' : 'reviews'}.`
     : slug === 'informational'
@@ -89,7 +89,7 @@ const countText =
 
         const ctaText =
           isP5
-            ? 'Go to the simulation →'
+            ? 'Go to the story →'
             : isReview
             ? 'Read the review →'
             : isInfo
