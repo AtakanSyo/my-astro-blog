@@ -10,6 +10,17 @@ html {
   width: 100%;
 }
 
+/* Hide scrollbar on all browsers */
+html, body {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;             /* Chrome, Safari */
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
