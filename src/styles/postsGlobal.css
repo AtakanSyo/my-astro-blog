@@ -34,6 +34,40 @@ p {
   text-align: center;
 }
 
+.post-image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  width: 100%;
+}
+
+.post-image-grid-figure {
+  width: min(1080px, 90vw);
+  margin: 1rem auto;
+}
+
+.post-image-grid-figure .post-image-grid {
+  margin: 0;
+}
+
+.post-image-grid-caption p{
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--secondary-text-color);
+  text-align: center;
+  font-size: 0.8rem;
+  color: gray;
+}
+
+.post-image-grid img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.2);
+}
+
 /* Decorative arrow */
 .post a[href^="/posts/"]::after {
   content: ' ↗';

@@ -1,4 +1,5 @@
 import { Pause, Play } from 'lucide-react';
+import { useEffect, useRef } from 'react';
 
 export default function SimStage({
   id,
@@ -9,17 +10,55 @@ export default function SimStage({
   onToggle,
   showPause = true,
   extraControls = null,
+  autoplayOnView = true,
+  autoplayThreshold = 0.25,
   className = '',
   style = {},
   children = null,
 }) {
   const hasControls = showPause || extraControls;
   const stageClass = className ? `sim-stage centered_flex ${className}` : 'sim-stage centered_flex';
+  const hasAutoPlayedRef = useRef(false);
+  const hasEverPlayedRef = useRef(false);
 
-const handleClick = () => {
-  try {
-    if (typeof window !== 'undefined' && window.umami?.track) {
-      const path = window.location.pathname;
+  useEffect(() => {
+    if (!paused) hasEverPlayedRef.current = true;
+  }, [paused]);
+
+  useEffect(() => {
+    if (!autoplayOnView) return undefined;
+    if (!containerRef?.current) return undefined;
+    if (hasAutoPlayedRef.current) return undefined;
+    // Only autoplay on first entry, never after a user has started/paused manually.
+    if (hasEverPlayedRef.current) return undefined;
+    if (!paused) return undefined;
+    if (typeof window === 'undefined' || typeof IntersectionObserver === 'undefined') return undefined;
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches) return undefined;
+
+    const el = containerRef.current;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (!entry?.isIntersecting) return;
+        if (hasAutoPlayedRef.current) return;
+
+        if (paused && typeof onToggle === 'function') {
+          hasAutoPlayedRef.current = true;
+          observer.disconnect();
+          onToggle();
+        }
+      },
+      { threshold: autoplayThreshold },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [autoplayOnView, autoplayThreshold, containerRef, onToggle, paused]);
+
+	const handleClick = () => {
+	  try {
+	    if (typeof window !== 'undefined' && window.umami?.track) {
+	      const path = window.location.pathname;
 
       // compact page identifier: just the last segment
       const slug = path === '/'
@@ -55,7 +94,7 @@ const handleClick = () => {
       <canvas id={id} ref={canvasRef} />
 
       {hasControls && (
-        <div className="sim-controls-row">
+        <div className="sim-controls-row centered_flex">
           {showPause && (
             <button
               id={`pause-${id}`}

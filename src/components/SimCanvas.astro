@@ -27,9 +27,36 @@ const { slug, aspect = "16/9", showPause = true } = Astro.props;
       pauseBtn.addEventListener('click', () => stage.classList.add('is-visible'), { once: true });
     }
 
-    // ✅ dynamic import with a variable path (your existing loader)
-    const mod = await import(`/interactive/${slug}/loader.js`);
-    (mod.default || mod)(canvas, pauseBtn);
+    const start = async () => {
+      if (canvas.dataset.simStarted === 'true') return;
+      canvas.dataset.simStarted = 'true';
+
+      // ✅ dynamic import with a variable path (your existing loader)
+      const mod = await import(`/interactive/${slug}/loader.js`);
+      await (mod.default || mod)(canvas, pauseBtn);
+
+      // Start playing immediately once it's in view.
+      if (pauseBtn) pauseBtn.click();
+    };
+
+    // Respect reduced motion: don't autoplay.
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches) return;
+
+    if (typeof IntersectionObserver === 'undefined' || !stage) {
+      await start();
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (!entry?.isIntersecting) return;
+        observer.disconnect();
+        start().catch((err) => console.error('SimCanvas start failed:', err));
+      },
+      { threshold: 0.25 },
+    );
+    observer.observe(stage);
   };
 
   init().catch((err) => console.error('SimCanvas load failed:', err));

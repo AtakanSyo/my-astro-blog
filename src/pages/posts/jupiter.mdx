@@ -20,16 +20,47 @@ import PlanetSizeComparison from "../../components/simulations/planet-size-compa
 <SinglePlanetSim
   planet="Jupiter"
   client:visible
-  cameraPosition={{ x: 0, y: 0, z: 2.4 }}
+  cameraPosition={{ x: 0, y: 0, z: 3.4 }}
   textureContrast={1.2}
   tiltDeg={[20, 20, -25]}
   ambientIntensity={0.0}
 />
 
 <p>Jupiter was discovered by ancient civilizations in ancient times. 
-  However, first detailed observations of it were made by Galileo Galeli, in 1610, 
-  by a telescope made by Galileo himself.</p>
+	  However, first detailed observations of it were made 
+	  by Galileo Galeli, in 1610, 
+	  by a telescope made by Galileo himself.</p>
 
+<figure class="post-image-grid-figure">
+  <div class="post-image-grid" aria-label="Galileo's early Jupiter sketches">
+    <img
+      src="/images/jupiter/galileo-sketch-1.webp"
+      alt="Galileo sketch of Jupiter with early observations"
+      loading="lazy"
+      decoding="async"
+    />
+    <img
+      src="/images/jupiter/galileo-sketch-2.webp"
+      alt="Galileo sketch of Jupiter showing changing positions of its moons"
+      loading="lazy"
+      decoding="async"
+    />
+    <img
+      src="/images/jupiter/galileo-sketch-3.webp"
+      alt="Galileo sketch of Jupiter continuing the observation series"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+  <figcaption class="post-image-grid-caption">
+    Galileo’s sketches of the moons of Jupiter made on the nights of February 3 and 4, 1610. (Ori means Orient, or East, Occ Occident, or West). Image Credit: Octavo Corp./Warnock Library)
+  </figcaption>
+</figure>
+
+He laid out sketches of what he saw, 4 bright dots next to the large 
+  brightness in the middle. These bright dots would later 
+  come out to be the largest moons of Jupiter.
+	
 <PlanetSizeComparison
   client:load
   primaryTexture="/textures/jupiter_texture.webp"
@@ -39,56 +70,58 @@ import PlanetSizeComparison from "../../components/simulations/planet-size-compa
   planetDistance={1.2}
   primaryContrast={1.05}
   secondaryContrast={0.95}
-  orthoExtent={1.5}
+  orthoExtent={1}
   options={{ rotationHours: 24 }}
 />
 
-<p>Jupiter’s scale is almost overwhelming, its diameter is about 143,000 km, more 
-  than 11 times that of Earth, and its volume is so vast that over 1,300 Earths could fit 
+<p>Jupiter’s scale is almost overwhelming, its diameter 
+  is about 143,000 km, more 
+  than 11 times that of Earth, and its volume is so vast that over 
+  1,300 Earths could fit 
   inside it.</p>
 
+<figure>
+  <img
+    class="post-image post-image-md"
+    src="/images/jupiter/the-great-red-spot.webp"
+    alt="Jupiter's Great Red Spot"
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption>Jupiter’s Great Red Spot, photographed by Juno.</figcaption>
+</figure>
 
-<JupiterMagneticFieldSim
-  client:visible
-  cameraPosition={{ x: 0, y: 0, z: 7.4 }}
-  textureContrast={1.2}
-  tiltDeg={[20, 20, -25]}
-  ambientIntensity={0.0}
-/>
-
-<p>Jupiter’s magnetic field is so enormous that, if it were visible, it would appear larger than the Sun in our sky. 
-  It is the strongest planetary magnetic field in the Solar System—about 20,000 times more powerful than Earth’s. Jupiter’s 
-  magnetosphere extends millions of kilometers into space and even reaches the orbit of Saturn on the 
-  side facing the Sun.</p>
-
-
-<SinglePlanetSim
-  planet="Jupiter"
-  spinDegPerSec={0}
-  client:visible
-  cameraLookAt={{ x: 0, y: 0, z: 0 }}
-  cameraPosition={{ x: 2.0, y: -2.0, z: 1.0 }}
-  textureContrast={1.4}
-  tiltDeg={[20, 20, -25]}
-  ambientIntensity={1.0}
-/>
 
 Jupiter hosts one of the largest storms ever observed by humanity.
 Its size is so immense that it can engulf the entire Earth 
 (about 16,000 km wide), larger than our planet’s diameter.
 
-<JupiterMoonsSim client:visible 
-cameraPosition={{ x: 0, y: 0, z: 20 }} 
-moonsOptions={{ layout: 'line', distanceScale: 1.0, 
-sizeScale: 1.0 }} />
+<figure>
+  <JupiterMoonsSim
+    client:visible
+    cameraPosition={{ x: 0, y: 0, z: 40 }}
+    moonsOptions={{ layout: 'line', distanceScale: 1.0, sizeScale: 10.0 }}
+  />
+  <figcaption>Jupiter's 4 largest moons. Moon sizes scaled by 10
+    for visibility.</figcaption>
+</figure>
 
 Jupiter has 95 known moons, making it the planet with the most 
 satellites in our Solar System; among them are the four Galilean 
-moons—Io, Europa, Ganymede, and Callisto—each a world of its own, 
-ranging from Io’s intense volcanism to Europa’s hidden ocean, 
-while dozens of smaller, irregular moons orbit farther out, 
-likely captured asteroids and comet fragments, giving Jupiter 
-the character of a miniature solar system.
+moons—Io, Europa, Ganymede, and Callisto.
+
+<figure>
+  <JupiterMoonsSim
+    client:visible
+    cameraPosition={{ x: 0, y: 0, z: 20 }}
+    moonsOptions={{ layout: 'line', distanceScale: 1.0, sizeScale: 1.0 }}
+  />
+  <figcaption>Jupiter's 4 largest moons. Moon sizes to scale.</figcaption>
+</figure>
+
+If the sizes of the moon and the distance between the planet 
+were kept to scale, the moons would hardly be visible. This explains why
+Galileo needed to build a telescope of his own to observe these moons.
 
 <SimPostSchema
   title="Jupiter"
