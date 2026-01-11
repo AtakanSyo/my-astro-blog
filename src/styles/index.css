@@ -225,20 +225,6 @@
     border-color 0.2s ease;
 }
 
-/* Subtle colored tint overlay */
-.cta::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-
-  /* uses --accent defined per CTA */
-  background: var(--accent);
-  opacity: 0.06;
-
-  pointer-events: none;
-}
-
 .cta-label {
   font-size: 1.05rem;
   font-weight: 560;
@@ -274,22 +260,22 @@
 
 /* Deep electric blue — telescopes */
 .cta-blue {
-  --accent: #6a3bd9;
+  --accent: #3b6cff; /* ionized starlight blue */
 }
 
 /* Bright stellar gold — top picks */
 .cta-amber {
-  --accent: #9b4de3;
+  --accent: #ffb703; /* supernova gold */
 }
 
 /* Hot nebula magenta — simulations */
 .cta-magenta {
-  --accent: #e24fae;
+  --accent: #ff3fa4; /* energized nebula pink */
 }
 
 /* Luminous cyan — about */
 .cta-cyan {
-  --accent: #ffad72;
+  --accent: #2ee6ff; /* plasma cyan */
 }
 
 /* =========================
