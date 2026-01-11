@@ -27,7 +27,7 @@
 
   /* shared depth */
   /* box-shadow: 0 0px 1px 1px rgba(255,255,255,0.20); */
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.1);
   border-radius: 14px;
   /* shared motion */
   transition:
@@ -165,19 +165,12 @@
   border-radius: 0 0 14px 14px;
 
   background: linear-gradient(
-    to top,
-    rgba(10, 12, 20, 0.78) 0%,
-    rgba(10, 12, 20, 0.22) 70%,
-    rgba(10, 12, 20, 0.00) 100%
+    to bottom,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0.3) 30%,    
+    rgba(0, 0, 0, 0.5) 60%,
+    rgba(0, 0, 0, 0.6) 75%
   );
-}
-
-@supports ((-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px))) {
-  .post-card-link--overlay .post-card-info {
-    background: rgba(10, 12, 20, 0.44);
-    -webkit-backdrop-filter: blur(3px);
-    backdrop-filter: blur(3px);
-  }
 }
 
 .post-card-link--overlay .post-card-title {
