@@ -13,11 +13,11 @@ const { email = DEFAULT_EMAIL } = Astro.props;
 // localized text
 const t = {
   title:        isTr ? 'Astrosyo için geri bildiriminiz mi var?' : 'Found a mistake?',
-  subtitle:     isTr ? 'Her mesajı okuyoruz' : 'We read every note',
+  subtitle:     isTr ? 'Her mesajı okuyorum' : 'I read every email',
   desc:         isTr
     ? 'Güncellememiz gerektiğini düşündüğünüz bir şey mi var, veya görüşlerinizi paylaşmak mı istiyorsunuz? astrosyo.contact@gmail.com adresine bir email gönderin.'
-    : 'Spot something we should update or want to share your thoughts? Send an email to astrosyo.contact@gmail.com.',
-  button:       isTr ? 'Bize e-posta gönderin ↗' : 'Email us ↗',
+    : 'Spot something I should update or want to share your thoughts? Send an email to astrosyo.contact@gmail.com.',
+  button:       isTr ? 'e-posta gönderin ↗' : 'Send an email ↗',
   subject:      isTr ? 'Astrosyo İncelemeleri İçin Geri Bildirim' : 'Feedback for Astrosyo Reviews'
 };
 
@@ -30,9 +30,9 @@ const mailto = `mailto:${email}?subject=${encodeURIComponent(t.subject)}`;
     <div class="vendor-info">
       <div class="vendor-name">{t.title}</div>
       <span class="vendor-label">{t.subtitle}</span>
-      <p class="vendor-desc">
+      <span class="vendor-desc">
         {t.desc}
-      </p>
+      </span>
     </div>
 
     <span class="vendor-button">{t.button}</span>

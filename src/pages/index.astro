@@ -35,8 +35,8 @@ function latestByCategory(key: string, n = 6) {
 
 // category config
 const CATS = [
+  { key: 'simulation',    label: 'Science Stories',    cta: 'Go to the simulation →' },
   { key: 'reviews',        label: 'Reviews',        cta: 'Read the review →' },
-  { key: 'simulation',    label: 'Simulations',    cta: 'Go to the simulation →' },
   { key: 'informational', label: 'Informational Posts',         cta: 'Read the guide →' },
   { key: 'nasa',          label: 'NASA Posts',           cta: 'See the article →' },
 ];
@@ -61,12 +61,12 @@ const CATS = [
         <section class="hero centered_flex fade-up">
           <span class="hero-kicker">{site.name}</span>
           <h1 class="home-title">{site.description}</h1>
-          <p class="home-description">Simulations, cosmic insights, and telescope reviews.</p>
+          <p class="home-description">Science stories and telescope reviews.</p>
 
         </section>
 
         <a class="home-sim-link" href="/posts/spiral-galaxies">
-          Go to the featured simulation →
+          Go to the featured story →
         </a>
       </div>
 
@@ -83,7 +83,7 @@ const CATS = [
             </a>
 
             <a href="https://www.astrosyo.com/category/simulation" class="cta cta-magenta" onclick="umami?.track?.('simulation-category-cta')">
-              <span class="cta-label">🌀 Simulations</span>
+              <span class="cta-label">🌀 Science Stories</span>
               <span class="cta-arrow">→</span>
             </a>
 
