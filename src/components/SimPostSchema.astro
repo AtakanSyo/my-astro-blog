@@ -14,6 +14,7 @@ interface Props {
   sameAs?: string[];              // social/profile URLs for author or site
   publisherName?: string;         // optional organization/publisher
   publisherLogo?: string;         // absolute or site-root path to logo
+  hasPart?: unknown;              // optional: embed a SoftwareApplication, etc.
 }
 
 const {
@@ -30,7 +31,8 @@ const {
   isAccessibleForFree = true,
   sameAs = [],
   publisherName,
-  publisherLogo
+  publisherLogo,
+  hasPart
 } = Astro.props;
 
 const images = Array.isArray(image) ? image : [image].filter(Boolean);
@@ -48,6 +50,7 @@ const schema: Record<string, any> = {
   "author": { "@type": "Person", "name": authorName, ...(sameAs.length ? { sameAs } : {}) },
   ...(images.length ? { image: images } : {}),
   ...(kw ? { keywords: kw } : {}),
+  ...(hasPart ? { hasPart } : {}),
   "articleSection": articleSection,
   "isAccessibleForFree": String(isAccessibleForFree)
 };
