@@ -1,0 +1,84 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import '../../styles/index.css';
+import '../../styles/cards.css';
+import '../../styles/science-stories.css';
+import FloatingIcons from "../../components/FloatingIcons.astro";
+
+const posts = (Object.values(
+  import.meta.glob('./posts/*.{md,mdx}', { eager: true })
+) as any[])
+  .filter(
+    (p) =>
+      typeof p.frontmatter?.category === 'string' &&
+      p.frontmatter.category.toLowerCase() === 'simulation',
+  )
+  .sort(
+    (a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime(),
+  );
+
+const count = posts.length;
+const title = 'Bilim Hikayeleri';
+const description = 'Etkileşimli simülasyonlar ve bilim hikayeleri.';
+---
+
+<Layout title={title} description={description} category="simulation" lang="tr">
+  <section class="science-stories-page">
+    <FloatingIcons file="simulation-icons" />
+
+    <header class="science-stories-header">
+      <h1 class="science-stories-title">{title}</h1>
+      <p class="science-stories-subtitle">
+        Etkileşimli simülasyonlar ve bilim hikayeleri.
+      </p>
+      <p class="science-stories-count">
+      {count} {count === 1 ? 'hikayemizi' : 'hikayemizi'} keşfedin.
+      </p>
+    </header>
+
+    <div class="science-stories-list" role="list">
+      {posts.length === 0 ? (
+        <p>Yazı yok.</p>
+      ) : (
+        posts.map(({ frontmatter, url }) => {
+          const postTitle = frontmatter?.title ?? 'Başlıksız';
+          const postDesc = frontmatter?.description ?? '';
+          const postDate = frontmatter?.pubDate
+            ? new Date(frontmatter.pubDate).toLocaleDateString('tr-TR')
+            : '';
+          const thumbnail = frontmatter?.thumbnail ?? frontmatter?.image ?? '';
+
+          return (
+            <a class="science-story" href={url} role="listitem">
+              <div class="science-story-media">
+                {thumbnail ? (
+                  <img
+                    src={thumbnail}
+                    alt={postTitle}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : (
+                  <div class="science-story-media-fallback" aria-hidden="true"></div>
+                )}
+              </div>
+
+              <div class="science-story-body">
+                <div class="science-story-meta">
+                  <span class="science-story-badge">Simülasyon</span>
+                  {postDate && <span class="science-story-date">{postDate}</span>}
+                </div>
+                <h2 class="science-story-title">{postTitle}</h2>
+                {postDesc && <p class="science-story-desc">{postDesc}</p>}
+              </div>
+
+              <div class="science-story-cta" aria-hidden="true">
+                Aç →
+              </div>
+            </a>
+          );
+        })
+      )}
+    </div>
+  </section>
+</Layout>
