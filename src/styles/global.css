@@ -34,6 +34,8 @@ body::-webkit-scrollbar {
   --header-height: 52px;
   --header-height-mobile: 70px;
 
+  --off-white-bone: #EDE6D8;
+  --off-white: #F2EFEA;
   --nav-bg: rgb(18,18,18,0,8);  
 
   --bg: rgb(0,0,0);
@@ -42,7 +44,7 @@ body::-webkit-scrollbar {
   --card-shadow: rgba(0, 0, 0, 0.5);
   --gray-layer: rgba(255,255,255,0.06);
 
-  --brand-color-on-black: #F2C98F;
+  --brand-color-on-black: #FFC44D;
   --brand-color: #F6C177;
   --brand-color-darker: #805129;
   --brand-color-darker-v2: #BB874F;
@@ -81,6 +83,7 @@ a {
 h1, h2, h3, h4, h5, h6 {
   margin-top: var(--spacing);
   margin-bottom: calc(var(--spacing) / 2);
+  color: var(--off-white)
 }
 
 h1 {

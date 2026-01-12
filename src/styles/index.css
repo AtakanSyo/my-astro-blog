@@ -135,17 +135,17 @@
   right: 4rem;
   bottom: 1rem;
 
-  padding: 0.6rem 0.85rem;
-  border: 1px solid var(--brand-color-on-black);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
+  padding: 0.4rem 0.8rem;
 
-  color: var(--brand-color-on-black);
-  font-weight: 900;
+  background-color: var(--off-white);
+
+  color: black;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.01rem;
 
   border-radius: 14px;
+
+  font-size: 1rem;
 }
 
 .home-sim-link:hover {
