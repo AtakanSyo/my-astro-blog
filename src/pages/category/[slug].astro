@@ -36,17 +36,17 @@ const posts = (Object.values(
     (a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime()
   );
 
-const count = posts.length;
-const countText =
-  slug === 'simulation'
-    ? `Check out our ${count} ${count === 1 ? 'story' : 'stories'}.`
-    : slug === 'reviews'
-    ? `Check out our ${count} ${count === 1 ? 'review' : 'reviews'}.`
-    : slug === 'informational'
-    ? `Check out our ${count} ${count === 1 ? 'guide' : 'guides'}.`
-    : slug === 'nasa'
-    ? `Check out our ${count} NASA ${count === 1 ? 'feature' : 'features'}.`
-    : `Check out our ${count} ${count === 1 ? 'post' : 'posts'}.`;
+// const count = posts.length;
+// const countText =
+//   slug === 'simulation'
+//     ? `Check out our ${count} ${count === 1 ? 'story' : 'stories'}.`
+//     : slug === 'reviews'
+//     ? `Check out our ${count} ${count === 1 ? 'review' : 'reviews'}.`
+//     : slug === 'informational'
+//     ? `Check out our ${count} ${count === 1 ? 'guide' : 'guides'}.`
+//     : slug === 'nasa'
+//     ? `Check out our ${count} NASA ${count === 1 ? 'feature' : 'features'}.`
+//     : `Check out our ${count} ${count === 1 ? 'post' : 'posts'}.`;
 ---
 
 <Layout title="Category">
@@ -74,7 +74,7 @@ const countText =
 
 
   <h1 class="category-title">{categoryLabel}</h1>
-  <p class="category-count-text centered_flex">{countText}</p>
+  <!-- <p class="category-count-text centered_flex">{countText}</p> -->
 
   <div class="category-grid">
     {posts.length === 0 ? (
