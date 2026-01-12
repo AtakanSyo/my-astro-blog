@@ -144,7 +144,7 @@ p {
   inset: 0;
   border-radius: inherit;
   padding: 2px; /* thin outline */
-  background: var(--brand-red);
+  background: var(--brand-color);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
           mask-composite: exclude;
@@ -466,7 +466,7 @@ p {
 }
 
 .vendor-card-link:focus-visible {
-  outline: 2px solid var(--brand-red);
+  outline: 2px solid var(--brand-color);
   outline-offset: 3px;
 }
 
@@ -519,7 +519,7 @@ p {
 
   /* red family tint, same style as badges */
   background: var(--brand-red-bg);
-  color: color-mix(in oklab, var(--brand-red) 92%, white);
+  color: color-mix(in oklab, var(--brand-color) 92%, white);
   border-color: var(--brand-red-bg);
 
   text-transform: uppercase;

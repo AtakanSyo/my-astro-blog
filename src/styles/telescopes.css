@@ -136,9 +136,9 @@
 
 .toggle-buttons button:hover,
 .toggle-buttons button.active {
-  background: var(--brand-red-darker-v2);
+  background: var(--brand-color-darker-v2);
   color: white;
-  border-color: var(--brand-red-darker-v2);
+  border-color: var(--brand-color-darker-v2);
 }
 
 /*─────────────────────────────────────────────────

@@ -29,7 +29,7 @@
 /* Highlighted callout paragraphs */
 .highlight {
   background: rgba(255,255,255,0.06);
-  border-left: 4px solid var(--brand-red);
+  border-left: 4px solid var(--brand-color);
   padding: 0.75rem 1rem;
   margin: 1.5rem 0;
   width: 100%;
@@ -66,14 +66,14 @@ h1 .review-tag {
 }
 
 .review-tag.hands-on {
-  color: var(--brand-red);
-  border-color: var(--brand-red);
+  color: var(--brand-color);
+  border-color: var(--brand-color);
   background: #121212;
 }
 
 .review-tag.research {
-  color: var(--brand-red);
-  border-color: var(--brand-red);
+  color: var(--brand-color);
+  border-color: var(--brand-color);
   background: #121212;
 }
 
@@ -117,7 +117,7 @@ h1 .review-tag {
   height: 2px;
   width: 72px;
   margin-top: .45rem;
-  background: linear-gradient(90deg, var(--brand-red), transparent);
+  background: linear-gradient(90deg, var(--brand-color), transparent);
   opacity: .8;
 }
 
@@ -149,7 +149,7 @@ h1 .review-tag {
   width: .4rem;
   height: .4rem;
   border-radius: 50%;
-  background: var(--brand-red);
+  background: var(--brand-color);
   box-shadow: 0 0 10px rgba(169,180,255,.6);
   margin-right: .5rem;
   display: inline-block;
@@ -179,12 +179,12 @@ h1 .review-tag {
   margin-left: 0.85rem;
   padding: 0.32rem 0.8rem;
   border-radius: 999px;
-  border: 1px solid var(--brand-red);
+  border: 1px solid var(--brand-color);
   font-size: 0.78rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  color: var(--brand-red);
+  color: var(--brand-color);
 }
 :root{
   --text-primary: rgba(255,255,255,0.92);
@@ -317,8 +317,8 @@ h1 .review-tag {
   box-shadow: 0 0 0 2px rgba(169,180,255,0.15);
 }
 
-.pros-cons .pros-block li::before { background: var(--brand-red); box-shadow: 0 0 0 2px rgba(60,214,128,0.18); }
-.pros-cons .cons-block li::before { background: var(--brand-red); box-shadow: 0 0 0 2px rgba(255,107,107,0.18); }
+.pros-cons .pros-block li::before { background: var(--brand-color); box-shadow: 0 0 0 2px rgba(60,214,128,0.18); }
+.pros-cons .cons-block li::before { background: var(--brand-color); box-shadow: 0 0 0 2px rgba(255,107,107,0.18); }
 
 .includes {
   margin: 2em 0;
@@ -406,16 +406,16 @@ h1 .review-tag {
 
 .review-disclaimer {
   background-color: var(--bg);
-  border-left: 4px solid var(--brand-red);
+  border-left: 4px solid var(--brand-color);
   padding: 0.8rem 1rem;
   margin-bottom: 1.5rem;
   font-size: 0.95rem;
-  color: var(--brand-red);
+  color: var(--brand-color);
   border-radius: 4px;
 }
 
 .review-disclaimer strong {
-  color: var(--brand-red);
+  color: var(--brand-color);
 }
 
 /* =============================

@@ -71,7 +71,7 @@
 
 .affiliate-btn:hover {
   background-color: #2d2d2d;
-  border-color: var(--brand-red); /* slightly brighter accent */
+  border-color: var(--brand-color); /* slightly brighter accent */
   color: #ffffff;
   box-shadow: 0 0 8px rgba(93, 98, 210, 0.4);
   transform: translateY(-1px);

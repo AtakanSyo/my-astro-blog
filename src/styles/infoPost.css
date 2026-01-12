@@ -28,7 +28,7 @@ p {
 
 .highlight {
   background: rgba(255,255,255,0.06);
-  border-left: 4px solid var(--brand-red);
+  border-left: 4px solid var(--brand-color);
   padding: 0.75rem 1rem;
   margin: 1.5rem 0;
   width: 100%;
@@ -137,7 +137,7 @@ p {
 }
 
 .info-input-field:focus {
-  border-color: var(--brand-red, #ff5a5f);
+  border-color: var(--brand-color, #ff5a5f);
   outline: none;
   background: rgba(255,255,255,0.18);
 }
@@ -148,7 +148,7 @@ p {
   padding: 10px 16px;
   border-radius: 10px;
   border: none;
-  background: var(--brand-red-darker);
+  background: var(--brand-color-darker);
   color: white;
   font-weight: 600;
   cursor: pointer;

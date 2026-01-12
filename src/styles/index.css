@@ -55,7 +55,7 @@
   font-weight: 900;
   letter-spacing: 0.1rem;
   text-transform:uppercase;
-  background: linear-gradient(95deg, #fff 0%, color-mix(in oklab, #fff 100%, var(--brand-red)) 35%, color-mix(in oklab, #fff 70%, var(--brand-red-darker)) 120%);
+  background: linear-gradient(95deg, #fff 0%, color-mix(in oklab, #fff 100%, var(--brand-color)) 35%, color-mix(in oklab, #fff 70%, var(--brand-color-darker)) 120%);
   -webkit-background-clip:text;background-clip:text;color:transparent;
 }
 
@@ -132,21 +132,20 @@
 
 .home-sim-link {
   position: absolute;
-  right: 12px;
-  bottom: 12px;
+  right: 4rem;
+  bottom: 1rem;
 
   padding: 0.6rem 0.85rem;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--brand-color-on-black);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
 
-  color: rgba(255, 255, 255, 0.9);
-  font-weight: 800;
-  letter-spacing: 0.02em;
+  color: var(--brand-color-on-black);
+  font-weight: 900;
   text-transform: uppercase;
-  font-size: 0.85rem;
+  letter-spacing: 0.01rem;
+
+  border-radius: 14px;
 }
 
 .home-sim-link:hover {
@@ -198,9 +197,10 @@
 /* --- CTA ROW LAYOUT --- */
 .cta-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 18px;
   margin: 3.5rem 0 3rem;
+  max-width: 1200px;
 }
 
 /* --- CTA BASE --- */
@@ -214,10 +214,10 @@
   border-radius: 14px;
 
   text-decoration: none;
-  background: #0f1220;
 
   /* Text stays premium-white */
   color: #f1f3f8;
+  border: 1px solid rgba(255, 255, 255, 0.25);
 
   transition:
     transform 0.2s ease,
@@ -233,7 +233,6 @@
 
 /* Arrow micro-motion */
 .cta-arrow {
-  opacity: 0.45;
   transform: translateX(0);
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
@@ -250,32 +249,6 @@
 .cta:hover .cta-arrow {
   transform: translateX(4px);
   opacity: 0.75;
-}
-
-/* Focus for keyboard nav (premium accessibility) */
-.cta:focus-visible {
-  outline: 2px solid color-mix(in srgb, var(--accent) 65%, white 10%);
-  outline-offset: 3px;
-}
-
-/* Deep electric blue — telescopes */
-.cta-blue {
-  --accent: #3b6cff; /* ionized starlight blue */
-}
-
-/* Bright stellar gold — top picks */
-.cta-amber {
-  --accent: #ffb703; /* supernova gold */
-}
-
-/* Hot nebula magenta — simulations */
-.cta-magenta {
-  --accent: #ff3fa4; /* energized nebula pink */
-}
-
-/* Luminous cyan — about */
-.cta-cyan {
-  --accent: #2ee6ff; /* plasma cyan */
 }
 
 /* =========================
@@ -340,18 +313,5 @@
   .global-socials-links {
     gap: 20px;
     padding: 12px 18px;
-  }
-}
-
-/* Optional: reduce motion for accessibility */
-@media (prefers-reduced-motion: reduce) {
-  .cta,
-  .cta-arrow,
-  .social-link {
-    transition: none;
-  }
-  .cta:hover,
-  .social-link:hover {
-    transform: none;
   }
 }
