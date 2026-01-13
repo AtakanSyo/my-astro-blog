@@ -703,6 +703,25 @@ figcaption {
   transform: translate(-50%, 0);
 }
 
+@media (max-width: 721px) {
+  .ref-icon::after {
+    position: fixed;
+    left: 50%;
+    bottom: 1.5rem;
+
+    max-width: calc(100vw - 2rem);
+    white-space: normal;
+    text-align: center;
+
+    transform: translateX(-50%) translateY(6px);
+  }
+
+  .ref-icon:hover::after,
+  .ref-icon:focus-visible::after {
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
 .contrib-range {
   position: relative;
   padding: 0.05em 0.12em;
