@@ -680,7 +680,7 @@ figcaption {
   content: attr(data-credit);
   position: absolute;
   left: 50%;
-  bottom: 1.6em;
+  bottom: 2em;
   white-space: nowrap;
 
   opacity: 0;
