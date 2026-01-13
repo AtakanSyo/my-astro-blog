@@ -730,11 +730,6 @@ figcaption {
   border-radius: 4px;
 }
 
-/* adjust 72px to your header height */
-.references li[id] {
-  scroll-margin-top: 40vh;
-}
-
 /* creates “room above” the target so it lands lower on the screen */
 .anchor-center {
   display: block;
