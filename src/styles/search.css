@@ -35,7 +35,7 @@
 
 .search-input:focus {
   border-color: transparent;
-  box-shadow: 0 0 0 3px var(--brand-color); /* soft blue glow */
+  box-shadow: 0 0 0 3px rgb(var(--brand-color)); /* soft blue glow */
 }
 
 .search-clear {
@@ -70,13 +70,13 @@
 }
 
 .search-btn:hover {
-  background: var(--brand-color);
+  background: rgb(var(--brand-color));
   transform: translateY(-1px);
 }
 
 .search-btn:focus {
   outline: none;
-  box-shadow: 0 0 0 3px var(--brand-color);
+  box-shadow: 0 0 0 3px rgb(var(--brand-color));
 }
 
 .search-count {

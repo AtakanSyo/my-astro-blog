@@ -144,7 +144,7 @@ p {
   inset: 0;
   border-radius: inherit;
   padding: 2px; /* thin outline */
-  background: var(--brand-color);
+  background: rgb(var(--brand-color));
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
           mask-composite: exclude;
@@ -466,7 +466,7 @@ p {
 }
 
 .vendor-card-link:focus-visible {
-  outline: 2px solid var(--brand-color);
+  outline: 2px solid rgb(var(--brand-color));
   outline-offset: 3px;
 }
 
@@ -519,7 +519,7 @@ p {
 
   /* red family tint, same style as badges */
   background: var(--brand-red-bg);
-  color: color-mix(in oklab, var(--brand-color) 92%, white);
+  color: color-mix(in oklab, rgb(var(--brand-color)) 92%, white);
   border-color: var(--brand-red-bg);
 
   text-transform: uppercase;
@@ -663,7 +663,7 @@ figcaption {
   vertical-align: super;
 
   text-decoration: none;
-  color: var(--brand-color);
+  color: rgb(var(--brand-color) / 0.9);
   cursor: pointer;
 
 
@@ -701,4 +701,12 @@ figcaption {
 .ref-icon:focus-visible::after {
   opacity: 1;
   transform: translate(-50%, 0);
+}
+
+.contrib-range {
+  position: relative;
+  padding: 0.05em 0.12em;
+  border-radius: 3px;
+  background: rgb(var(--brand-color) / 0.2);
+  border-radius: 4px;
 }

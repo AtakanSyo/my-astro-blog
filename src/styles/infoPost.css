@@ -28,7 +28,7 @@ p {
 
 .highlight {
   background: rgba(255,255,255,0.06);
-  border-left: 4px solid var(--brand-color);
+  border-left: 4px solid rgb(var(--brand-color));
   padding: 0.75rem 1rem;
   margin: 1.5rem 0;
   width: 100%;
@@ -137,7 +137,7 @@ p {
 }
 
 .info-input-field:focus {
-  border-color: var(--brand-color, #ff5a5f);
+  border-color: rgb(var(--brand-color, 255 90 95));
   outline: none;
   background: rgba(255,255,255,0.18);
 }

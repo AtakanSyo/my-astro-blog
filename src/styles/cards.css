@@ -96,7 +96,7 @@
 .post-card:focus-within {
   outline: none;
   box-shadow:
-    0 0 0 3px color-mix(in oklab, var(--brand-color) 55%, transparent),
+    0 0 0 3px color-mix(in oklab, rgb(var(--brand-color)) 55%, transparent),
     0 20px 44px rgba(0,0,0,0.5);
 }
 
@@ -113,7 +113,7 @@
 
 .post-card:hover .post-card-link::after {
   transform: translateY(0);
-  color: color-mix(in oklab, var(--brand-color) 78%, white);
+  color: color-mix(in oklab, rgb(var(--brand-color)) 78%, white);
 }
 
 /* -------- Optional thumbnail (shared) -------- */
@@ -230,7 +230,7 @@
   font-size: .92rem;
   font-weight: 800;
   text-align: right;
-  color: color-mix(in oklab, var(--brand-color) 86%, white); /* variants override with different red tint only */
+  color: color-mix(in oklab, rgb(var(--brand-color)) 86%, white); /* variants override with different red tint only */
   opacity: .85;
   letter-spacing: .01em;
   transition: opacity .18s ease, letter-spacing .18s ease;
@@ -303,11 +303,11 @@
 
 .post-card .read-post { 
   /*color: color-mix(in oklab, var(--brand-color) 86%, white);*/ 
-  color: var(--brand-color);
+  color: rgb(var(--brand-color));
   font-weight: 700;
 }
-.card-btn { background: linear-gradient(180deg, var(--brand-color), color-mix(in oklab, var(--brand-color) 85%, #6c0a18)); }
-.card-btn:hover { background: linear-gradient(180deg, color-mix(in oklab, var(--brand-color) 98%, #ff5a5a 2%), color-mix(in oklab, var(--brand-color) 90%, #6c0a18)); }
+.card-btn { background: linear-gradient(180deg, rgb(var(--brand-color)), color-mix(in oklab, rgb(var(--brand-color)) 85%, #6c0a18)); }
+.card-btn:hover { background: linear-gradient(180deg, color-mix(in oklab, rgb(var(--brand-color)) 98%, #ff5a5a 2%), color-mix(in oklab, rgb(var(--brand-color)) 90%, #6c0a18)); }
 
 /* -------- Badges (same style, red family tints per variant) -------- */
 .p5-badge,
@@ -330,8 +330,8 @@
 .info-badge,
 .nasa-badge {
   /*color: color-mix(in oklab, var(--brand-color) 92%, white);*/
-  color:var(--brand-color);
-  border-color: var(--brand-color);
+  color: rgb(var(--brand-color));
+  border-color: rgb(var(--brand-color));
 }
 
 /* IG badge keeps the gradient text but matches structure */
@@ -358,7 +358,7 @@
 /* -------- Accessibility / Motion (shared) -------- */
 .post-card-link:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px color-mix(in oklab, var(--brand-color) 55%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in oklab, rgb(var(--brand-color)) 55%, transparent);
   border-radius: 12px;
 }
 @media (prefers-reduced-motion: reduce) {

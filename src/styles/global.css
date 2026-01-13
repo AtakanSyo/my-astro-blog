@@ -45,7 +45,7 @@ body::-webkit-scrollbar {
   --gray-layer: rgba(255,255,255,0.06);
 
   --brand-color-on-black: #FFC44D;
-  --brand-color: #F6C177;
+  --brand-color: 246 193 119; /* from #F6C177 */
   --brand-color-darker: #805129;
   --brand-color-darker-v2: #BB874F;
 }
@@ -207,6 +207,6 @@ footer {
 }
 .skip-link:focus {
   transform: translateY(0);
-  outline: 2px solid var(--brand-color);
+  outline: 2px solid rgb(var(--brand-color));
   outline-offset: 2px;
 }

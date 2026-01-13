@@ -82,7 +82,7 @@
 }
 
 .countdown__meta--error {
-  color: var(--brand-color);
+  color: rgb(var(--brand-color));
 }
 
 .countdown__grid {
