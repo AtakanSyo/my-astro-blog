@@ -4,15 +4,10 @@ title: "Mars"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-08-09'
-description: "Mars rendered as a planetary sphere with accurate texture, plus details about its discovery, distance from the Sun, special qualities, moons, and name."
+description: "The red planet."
 slug: mars
 imageDir: /images/mars
-keywords:
-  - mars
-  - terrestrial planet
-  - planet
-  - astronomy
-  - webgl
+thumbnail: /images/mars/thumbnail.webp
 lang: en
 ---
 
@@ -28,22 +23,36 @@ import SimPostSchema from "../../components/SimPostSchema.astro";
   ambientIntensity={0.0}
 />
 
-<figcaption class="sim-caption">Mars rendered with a realistic planetary texture.</figcaption>
-
-<h2>What you’re seeing</h2>
-<p>This simulation shows Mars as a planetary sphere with its true-color texture applied. Major features like Olympus Mons, Valles Marineris, polar caps, and dust-stained plains are visible. No moons or atmosphere effects are added, keeping focus on the planet’s surface as seen from space.</p>
-
 <h2>Discovery</h2>
-<p>Mars has been known since antiquity and observed by many civilizations, including the Babylonians, Greeks, and Chinese. Telescopic observations from the 17th century onward revealed polar caps and seasonal changes, inspiring centuries of debate about climate and past habitability.</p>
+<p>Mars has been known since antiquity and observed by many civilizations, 
+  including the Babylonians, Greeks, and Chinese.</p>
+
+<h2>Name and Meaning</h2>
+<p>Mars is named after the Roman god of war, reflecting its reddish, blood-like appearance. In many cultures, Mars’s color and wandering motion inspired myths linking it to conflict and omens.</p>
+
 
 <h2>Distance from the Sun</h2>
-<p>Mars is the <strong>4th planet from the Sun</strong>. Its average orbital distance is about 227.9 million km (1.52 AU). A Martian year lasts 687 Earth days. Because of its elliptical orbit, Mars–Earth distance varies widely, producing favorable oppositions roughly every 26 months.</p>
+<p>Mars is the <strong>4th planet from the Sun</strong>. Its average orbital distance is about 
+  227.9 million km (1.52 AU). A Martian year lasts 687 Earth days. Because of its elliptical orbit, 
+  The distance between Mars and Earth varies widely, producing favorable oppositions 
+  roughly every 26 months.</p>
 
-<h2>Special qualities</h2>
-<p>Mars hosts the tallest volcano (Olympus Mons) and one of the largest canyon systems (Valles Marineris) in the Solar System. Thin atmosphere and frequent dust activity produce planet-encircling storms. Geological evidence indicates ancient rivers, lakes, and possibly seas, making Mars central to the search for past life.</p>
+<h2>A Martian Day (Sol)</h2>
+<p>A <em>sol</em>, the scientific term for a day on Mars, lasts about 24 hours and 39 minutes,
+making it roughly 4 minutes longer than a day on Earth.</p>
 
-<h2>Moons</h2>
-<p>Mars has two small irregular moons, Phobos and Deimos, likely captured asteroids. Phobos orbits so close that it is slowly spiraling inward and may break up into a ring in tens of millions of years.</p>
+<img
+  class="post-image post-image-sm"
+  src="/images/mars/moons.webp"
+  alt="Mars's moons Phobos and Deimos"
+  loading="lazy"
+  decoding="async"
+/>
+
+<h2>Mars' Moons</h2>
+<p>Mars has two small irregular moons, Phobos and Deimos, likely captured asteroids. 
+  Phobos orbits so close that it is slowly spiraling inward and may break up into a ring 
+  in tens of millions of years.</p>
 
 <h2>Size and mass</h2>
 <p>Mars has a diameter of 6,779 km and a mass about 10.7% of Earth’s. Gravity at the surface is roughly 38% of Earth’s, shaping dust transport, erosion, and potential human activity.</p>
@@ -60,10 +69,6 @@ import SimPostSchema from "../../components/SimPostSchema.astro";
 
 <h2>Chemistry and atmosphere</h2>
 <p>The surface is basaltic rock and dust rich in iron oxides, giving Mars its red hue. The atmosphere is thin and dominated by carbon dioxide (~95%), with nitrogen and argon making up most of the remainder. Seasonal CO₂ exchange at the poles drives pressure changes and weather patterns.</p>
-
-<h2>Name and meaning</h2>
-<p>Mars is named after the Roman god of war, reflecting its reddish, blood-like appearance. In many cultures, Mars’s color and wandering motion inspired myths linking it to conflict and omens.</p>
-
 <SimPostSchema
   title="Mars"
   description="A planetary sphere of Mars with accurate texture, plus details about its discovery, distance from the Sun, special qualities, moons, and name."
