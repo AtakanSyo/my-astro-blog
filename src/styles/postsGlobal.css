@@ -483,7 +483,7 @@ p {
 }
 
 .feedback-card .vendor-info {
-  max-width: 70%;
+  max-width: 60%;
 }
 
 .vendor-info {
@@ -530,6 +530,7 @@ p {
   font-size: 0.85rem;
   opacity: 0.8;
   max-width: 90%;
+  margin: 1rem;
 }
 
 .vendor-button {
@@ -541,6 +542,7 @@ p {
   color: white;
   background: transparent;
   backdrop-filter: blur(5px);
+  line-height: 1;
 
   transition: box-shadow .25s ease, transform .18s ease;
 }
@@ -550,14 +552,11 @@ p {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.9rem;
-    margin: 1rem;
-    max-width: 90vw;
   }
 
   .vendor-button {
     width: 80%;
     text-align: center;
-    align-self: center;
   }
 
   .vendor-info {
