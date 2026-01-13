@@ -125,13 +125,9 @@ const CATS = [
 
         return (
           <section class="category-section">
-
-            <h2>
-              <a href={`/category/${cat.key.toLowerCase()}`} class="latest-title">
-                {cat.label} →
-              </a>
+            <h2 class="home-category-title">
+              <a href={`/category/${cat.key.toLowerCase()}`} class="latest-title">{cat.label} →</a>
             </h2>
-
             <div class="post-grid">
               {
                 items.map(({ frontmatter, url }) => {
