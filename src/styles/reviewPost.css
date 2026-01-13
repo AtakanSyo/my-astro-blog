@@ -1,39 +1,3 @@
-.reader-contrib {
-  position: relative;
-  cursor: help;
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 4px;
-  text-decoration-color: rgba(255, 255, 255, 0.25);
-}
-
-.reader-contrib::after {
-  content: attr(data-credit);
-  position: absolute;
-  left: 0;
-  bottom: -1.9em;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(-4px);
-  transition: opacity 0.15s ease, transform 0.15s ease;
-
-  font-size: 0.78rem;
-  padding: 0.15rem 0.45rem;
-  border-radius: 6px;
-  background: rgba(20, 20, 20, 0.85);
-  color: rgba(255, 255, 255, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(6px);
-}
-
-.reader-contrib:hover::after,
-.reader-contrib:focus-visible::after,
-.reader-contrib:active::after {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 .category-reviews h2,
 .category-reviews h3,
 .category-reviews h4,
