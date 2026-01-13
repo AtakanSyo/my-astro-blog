@@ -729,3 +729,20 @@ figcaption {
   background: rgb(var(--brand-color) / 0.2);
   border-radius: 4px;
 }
+
+/* adjust 72px to your header height */
+.references li[id] {
+  scroll-margin-top: 40vh;
+}
+
+/* creates “room above” the target so it lands lower on the screen */
+.anchor-center {
+  display: block;
+  height: 40vh;        /* how far from top it should land */
+  margin-top: -40vh;   /* pulls layout back so nothing actually shifts */
+}
+
+/* also ensure header never hides it */
+.contributions .anchor-center {
+  scroll-margin-top: 0; /* not required, but keeps intent clear */
+}
