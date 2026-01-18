@@ -1,10 +1,10 @@
 ---
 layout: ../../layouts/simLayout.astro
-title: "Triple Star System Simulation"
+title: "Triple Star System"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-11-10'
-description: "Three suns chase each other around a barycenter while a lone planet clings to one star’s offset orbit."
+description: "Three suns chase each other around a center of mass while a lone planet clings to one star’s orbit."
 slug: triple-star-system
 imageDir: /images/triple-star-system
 keywords:
@@ -22,29 +22,17 @@ import SimPostSchema from "../../components/SimPostSchema.astro";
 <TripleStarSystem client:load showPause={true} />
 
 <figcaption class="sim-caption">
-  Three suns orbit the same barycenter with phased trails, while the planet sticks to the golden primary’s moving ellipse.
+A faint barycentric disc highlights
+the central reference point (center of mass), and dashed rings show the distinct orbital radii for every body.
 </figcaption>
 
 <div class="sim-article">
-  <h2 id="about-this-simulation">About this simulation</h2>
   <p>
-    Triple systems are wild: each star traces its own loop around a shared center of mass. This visualization staggers all three orbits with
-    shifting radii and phases so you can watch them weave around the barycenter. A single planet remains bound to the primary star, carrying its
+    Triple systems are wild: each star traces its own loop around a shared center of mass. 
+    This visualization shows all three orbits with
+    shifting radii and phases so you can watch them orbit around the barycenter (center of mass). 
+    A single planet remains bound to the primary star, carrying its
     dashed orbital path wherever the host goes.
-  </p>
-  <p>
-    Each sun carries its own point light and emissive glow, so the planet’s shading shifts as the stars swing by. A faint barycentric disc highlights
-    the central reference point, and dashed rings show the distinct orbital radii for every body.
-  </p>
-
-  <h3 id="what-to-look-for">What to look for</h3>
-  <p>
-    Track how the planet’s ellipse moves with the primary star—pause when another sun passes nearby to imagine dramatic sky shows. Because each star
-    uses a different orbital period and phase offset, conjunctions happen frequently; the paused state helps you study those alignments.
-  </p>
-  <p>
-    You can tweak props to exaggerate the orbit radii, change colors, or even bind the planet to a different host star to explore other triple-star
-    configurations.
   </p>
 </div>
 
