@@ -77,6 +77,8 @@ export default function TripleStarSystem({
   id = 'triple-star-system',
   aspect = '3 / 2',
   showPause = true,
+  showPlanet = true,
+  cameraDistance = 1,
   dprCap = 1.5,
   options,
 }) {
@@ -103,6 +105,8 @@ export default function TripleStarSystem({
       ...(opts.planet ?? EMPTY_OPTS),
     };
 
+    const planetEnabled = (opts.showPlanet ?? showPlanet) !== false;
+
     const cfg = {
       backgroundColor: opts.backgroundColor ?? 0x010207,
       daysPerSecond: opts.daysPerSecond ?? 5,
@@ -116,6 +120,9 @@ export default function TripleStarSystem({
       baryDiscOpacity: opts.baryDiscOpacity ?? 0.05,
     };
 
+    const distanceFactorRaw = opts.cameraDistance ?? cameraDistance ?? 1;
+    const distanceFactor = Number.isFinite(distanceFactorRaw) ? Math.max(0.25, distanceFactorRaw) : 1;
+
     const largestOrbit = Math.max(...mergedStars.map((star) => star.orbitRadius ?? 1));
     const frustumExtent = largestOrbit * cfg.baryDiscThickness * 1.4 + 10;
 
@@ -128,7 +135,7 @@ export default function TripleStarSystem({
       antialias: true,
       cameraFactory: () =>
         createOrthoTopDownCamera({
-          extent: () => frustumExtent,
+          extent: () => frustumExtent * distanceFactor,
           height: CAMERA_DEFAULTS.height,
           margin: CAMERA_DEFAULTS.margin,
           up: CAMERA_DEFAULTS.up,
@@ -200,56 +207,69 @@ export default function TripleStarSystem({
         : 0;
     const hostStar = starData[hostIndex];
 
-    const planetSemiMajor =
-      opts.orbitSemiMajor ?? mergedPlanet.semiMajor ?? DEFAULT_SYSTEM.planet.semiMajor;
-    const planetEcc = THREE.MathUtils.clamp(
-      opts.orbitEccentricity ?? mergedPlanet.eccentricity ?? DEFAULT_SYSTEM.planet.eccentricity ?? 0,
-      0,
-      0.85,
-    );
-    const semiMajor = Math.max(0.5, planetSemiMajor);
-    const semiMinor = semiMajor * Math.sqrt(1 - planetEcc * planetEcc);
-    const planetFocus = Math.sqrt(Math.max(0, semiMajor * semiMajor - semiMinor * semiMinor));
-    const planetRadius = Math.max(
-      hostStar?.mesh?.geometry?.parameters?.radius ?? 1,
-      (hostStar?.mesh?.geometry?.parameters?.radius ?? 1) * cfg.planetScale * (mergedPlanet.radiusEarth ?? 1),
-    );
+    let planetOrbitEntry = null;
+    let planetGeo = null;
+    let planetMat = null;
+    let planetMesh = null;
+    let atmosphereEntry = null;
+    let semiMajor = 0;
+    let semiMinor = 0;
+    let planetFocus = 0;
+    let rotationSpeed = 0;
+    let planetAngularSpeed = 0;
 
-    const planetOrbitEntry = createEllipticalOrbit({
-      semiMajor,
-      semiMinor,
-      offsetX: -planetFocus,
-      dashSize: 1,
-      gapSize: 0.8,
-      opacity: 0.65,
-      segments: cfg.orbitSegments,
-    });
-    orbitAnchor.add(planetOrbitEntry.line);
+    if (planetEnabled) {
+      const planetSemiMajor =
+        opts.orbitSemiMajor ?? mergedPlanet.semiMajor ?? DEFAULT_SYSTEM.planet.semiMajor;
+      const planetEcc = THREE.MathUtils.clamp(
+        opts.orbitEccentricity ?? mergedPlanet.eccentricity ?? DEFAULT_SYSTEM.planet.eccentricity ?? 0,
+        0,
+        0.85,
+      );
+      semiMajor = Math.max(0.5, planetSemiMajor);
+      semiMinor = semiMajor * Math.sqrt(1 - planetEcc * planetEcc);
+      planetFocus = Math.sqrt(Math.max(0, semiMajor * semiMajor - semiMinor * semiMinor));
+      const planetRadius = Math.max(
+        hostStar?.mesh?.geometry?.parameters?.radius ?? 1,
+        (hostStar?.mesh?.geometry?.parameters?.radius ?? 1) * cfg.planetScale * (mergedPlanet.radiusEarth ?? 1),
+      );
 
-    const planetGeo = new THREE.SphereGeometry(planetRadius, 64, 32);
-    const planetMat = new THREE.MeshStandardMaterial({
-      color: cfg.planetColor,
-      roughness: 0.5,
-      metalness: 0.08,
-    });
-    const planetMesh = new THREE.Mesh(planetGeo, planetMat);
-    const atmosphereEntry = createAtmosphereShell({
-      radius: planetRadius * 1.04,
-      color: cfg.atmosphereColor,
-      opacity: 0.18,
-    });
-    planetMesh.add(atmosphereEntry.mesh);
-    scene.add(planetMesh);
+      planetOrbitEntry = createEllipticalOrbit({
+        semiMajor,
+        semiMinor,
+        offsetX: -planetFocus,
+        dashSize: 1,
+        gapSize: 0.8,
+        opacity: 0.65,
+        segments: cfg.orbitSegments,
+      });
+      orbitAnchor.add(planetOrbitEntry.line);
 
-    planetMesh.rotation.z = THREE.MathUtils.degToRad(mergedPlanet.tiltDegrees ?? 0);
+      planetGeo = new THREE.SphereGeometry(planetRadius, 64, 32);
+      planetMat = new THREE.MeshStandardMaterial({
+        color: cfg.planetColor,
+        roughness: 0.5,
+        metalness: 0.08,
+      });
+      planetMesh = new THREE.Mesh(planetGeo, planetMat);
+      atmosphereEntry = createAtmosphereShell({
+        radius: planetRadius * 1.04,
+        color: cfg.atmosphereColor,
+        opacity: 0.18,
+      });
+      planetMesh.add(atmosphereEntry.mesh);
+      scene.add(planetMesh);
 
-    const rotationPeriodDays =
-      mergedPlanet.rotationHours && mergedPlanet.rotationHours !== 0
-        ? mergedPlanet.rotationHours / 24
-        : 1;
-    const rotationSpeed =
-      ((Math.PI * 2) / Math.abs(rotationPeriodDays || 1)) * Math.sign(rotationPeriodDays || 1);
-    const planetAngularSpeed = (Math.PI * 2) / Math.max(1, mergedPlanet.orbitDays ?? 200);
+      planetMesh.rotation.z = THREE.MathUtils.degToRad(mergedPlanet.tiltDegrees ?? 0);
+
+      const rotationPeriodDays =
+        mergedPlanet.rotationHours && mergedPlanet.rotationHours !== 0
+          ? mergedPlanet.rotationHours / 24
+          : 1;
+      rotationSpeed =
+        ((Math.PI * 2) / Math.abs(rotationPeriodDays || 1)) * Math.sign(rotationPeriodDays || 1);
+      planetAngularSpeed = (Math.PI * 2) / Math.max(1, mergedPlanet.orbitDays ?? 200);
+    }
 
     const state = {
       starAngles: starData.map((star) => star.angle ?? 0),
@@ -272,13 +292,15 @@ export default function TripleStarSystem({
       const hostPos = hostMesh.position;
       orbitAnchor.position.copy(hostPos);
 
-      const planetPos = computeEllipticalPosition({
-        angle: state.planetAngle,
-        semiMajor,
-        semiMinor,
-        focusOffset: planetFocus,
-      });
-      planetMesh.position.set(hostPos.x + planetPos.x, 0, hostPos.z + planetPos.z);
+      if (planetMesh) {
+        const planetPos = computeEllipticalPosition({
+          angle: state.planetAngle,
+          semiMajor,
+          semiMinor,
+          focusOffset: planetFocus,
+        });
+        planetMesh.position.set(hostPos.x + planetPos.x, 0, hostPos.z + planetPos.z);
+      }
     };
 
     const tick = (delta) => {
@@ -288,10 +310,12 @@ export default function TripleStarSystem({
       starData.forEach((star, idx) => {
         state.starAngles[idx] += star.angularSpeed * deltaDays;
       });
-      state.planetAngle += planetAngularSpeed * deltaDays;
-      planetMesh.rotation.y += rotationSpeed * deltaDays;
+      if (planetMesh) {
+        state.planetAngle += planetAngularSpeed * deltaDays;
+        planetMesh.rotation.y += rotationSpeed * deltaDays;
+      }
       updateTransforms();
-   };
+	   };
 
     updateTransforms();
 
@@ -306,8 +330,10 @@ export default function TripleStarSystem({
       stop();
       disposeCore();
       coreHandleRef.current = null;
-      atmosphereEntry.geometry.dispose();
-      atmosphereEntry.material.dispose();
+      if (atmosphereEntry) {
+        atmosphereEntry.geometry.dispose();
+        atmosphereEntry.material.dispose();
+      }
       starData.forEach((star) => {
         scene.remove(star.entry.mesh);
         star.entry.dispose();
@@ -319,11 +345,13 @@ export default function TripleStarSystem({
       discEntry.material.dispose();
       scene.remove(discEntry.mesh);
       scene.remove(orbitAnchor);
-      planetOrbitEntry.geometry.dispose();
-      planetOrbitEntry.material.dispose();
-      scene.remove(planetOrbitEntry.line);
-      planetGeo.dispose();
-      planetMat.dispose();
+      if (planetOrbitEntry) {
+        planetOrbitEntry.geometry.dispose();
+        planetOrbitEntry.material.dispose();
+        scene.remove(planetOrbitEntry.line);
+      }
+      if (planetGeo) planetGeo.dispose();
+      if (planetMat) planetMat.dispose();
     };
   }, [dprCap, opts]);
 
