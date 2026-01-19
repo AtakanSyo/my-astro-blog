@@ -87,10 +87,7 @@
 }
 
 .post-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 44px rgba(0,0,0,0.5);
-  border: 1px solid rgba(255,255,255,0.3);
-  background: rgba(255,255,255,0.035);
+  box-shadow: 0px 0px 2px 2px rgba(255,255,255,0.3);
 }
 
 /* keyboard focus (shared) */
@@ -112,11 +109,6 @@
   z-index: 1;
 }
 
-.post-card:hover .post-card-link::after {
-  transform: translateY(0);
-  color: color-mix(in oklab, rgb(var(--brand-color)) 78%, white);
-}
-
 /* -------- Optional thumbnail (shared) -------- */
 .post-card-thumb {
   overflow: hidden;
@@ -133,7 +125,9 @@
   transition: transform .5s ease;
 }
 
-.post-card:hover .post-card-thumb img { transform: scale(1.04); }
+.post-card:hover .post-card-thumb img { 
+  transform: scale(1.04); 
+}
 
 /* -------- Overlay variant (PostCard.astro) -------- */
 .post-card-link--overlay {
