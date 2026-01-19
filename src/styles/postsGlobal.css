@@ -741,3 +741,24 @@ figcaption {
 .contributions .anchor-center {
   scroll-margin-top: 0; /* not required, but keeps intent clear */
 }
+
+.block {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.block.left {
+  flex-direction: row-reverse;
+}
+
+.block > * {
+  flex: 1 1 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.block .text {
+  max-width: 400px;
+}
