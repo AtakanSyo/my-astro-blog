@@ -1,0 +1,145 @@
+---
+layout: ../../../layouts/simLayout.astro
+title: "木星"
+category: simulation
+writer: Astrosyo
+pubDate: '2025-08-09'
+description: "太阳系中最大的行星。"
+slug: jupiter
+imageDir: /images/jupiter
+thumbnail: /images/jupiter/thumbnail.webp
+lang: zh
+---
+
+import SinglePlanetSim from "../../../components/simulations/single-planet/SinglePlanetSim.jsx";
+import JupiterMagneticFieldSim from "../../../components/simulations/single-planet/JupiterMagneticFieldSim.jsx";
+import JupiterMoonsSim from "../../../components/simulations/single-planet/JupiterMoonsSim.jsx";
+import SimPostSchema from "../../../components/SimPostSchema.astro";
+import PlanetSizeComparison from "../../../components/simulations/planet-size-comparison/PlanetSizeComparison.jsx";
+
+<SinglePlanetSim
+  planet="Jupiter"
+  client:visible
+  cameraPosition={{ x: 0, y: 0, z: 3.4 }}
+  textureContrast={1.2}
+  tiltDeg={[20, 20, -25]}
+  ambientIntensity={0.0}
+/>
+
+<p>木星在远古时代就已被古代文明所认识。
+然而，对它的首次系统性、精细观测是在 1610 年完成的，
+由伽利略·伽利莱使用他亲手制作的望远镜进行。</p>
+
+<figure class="post-image-grid-figure">
+  <div class="post-image-grid" aria-label="Galileo's early Jupiter sketches">
+    <img
+      src="/images/jupiter/galileo-sketch-1.webp"
+      alt="伽利略对木星的早期观测素描"
+      loading="lazy"
+      decoding="async"
+    />
+    <img
+      src="/images/jupiter/galileo-sketch-2.webp"
+      alt="伽利略绘制的木星素描，展示其卫星位置的变化"
+      loading="lazy"
+      decoding="async"
+    />
+    <img
+      src="/images/jupiter/galileo-sketch-3.webp"
+      alt="伽利略木星观测系列中的另一幅素描"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+  <figcaption class="post-image-grid-caption">
+    1610 年 2 月 3 日与 4 日夜晚，伽利略绘制的木星卫星素描。（Ori 表示东方，Occ 表示西方。）图片来源：Octavo Corp./Warnock Library
+  </figcaption>
+</figure>
+
+他将自己所见记录成草图：在中央明亮光斑的旁边，有四个明亮的小点。
+后来人们才意识到，这些光点正是木星最大的四颗卫星。
+
+<PlanetSizeComparison
+  client:load
+  primaryTexture="/textures/jupiter_texture.webp"
+  secondaryTexture="/textures/earth-texture-nasa.webp"
+  primaryRadius={139822}
+  secondaryRadius={12742}
+  planetDistance={1.2}
+  primaryContrast={1.05}
+  secondaryContrast={0.95}
+  orthoExtent={1}
+  options={{ rotationHours: 24 }}
+/>
+
+<p>木星的尺度几乎令人震撼：它的直径约为 143,000 公里，
+超过地球的 11 倍；其体积之巨大，足以容纳 1,300 多个地球。</p>
+
+<figure>
+  <img
+    class="post-image post-image-md"
+    src="/images/jupiter/the-great-red-spot.webp"
+    alt="木星的大红斑"
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption>木星的大红斑，由朱诺号探测器拍摄。</figcaption>
+</figure>
+
+木星拥有人类迄今观测到的最大风暴之一。
+它的规模极其庞大，甚至可以吞没整个地球
+（宽度约为 16,000 公里），比我们星球的直径还要大。
+
+<figure>
+  <JupiterMoonsSim
+    client:visible
+    cameraPosition={{ x: 0, y: 0, z: 40 }}
+    moonsOptions={{ layout: 'line', distanceScale: 1.0, sizeScale: 10.0 }}
+  />
+  <figcaption>木星的四颗最大卫星（尺寸放大 10 倍以便观察）。</figcaption>
+</figure>
+
+木星已知拥有 95 颗卫星，是太阳系中卫星数量最多的行星；
+其中包括著名的四颗伽利略卫星——木卫一、木卫二、木卫三和木卫四。
+
+<figure>
+  <JupiterMoonsSim
+    client:visible
+    cameraPosition={{ x: 0, y: 0, z: 20 }}
+    moonsOptions={{ layout: 'line', distanceScale: 1.0, sizeScale: 1.0 }}
+  />
+  <figcaption>木星的四颗最大卫星。尺寸与距离均按真实比例呈现。</figcaption>
+</figure>
+
+如果严格保持卫星的真实尺寸与它们和行星之间的距离比例，
+这些卫星几乎难以被肉眼察觉。
+这也解释了为什么伽利略必须亲自制造一台望远镜，才能观测到它们。
+
+<SimPostSchema
+  title="木星"
+  description="具有精确纹理的木星球体，以及关于其发现、与太阳的距离、大气、卫星与命名的详细介绍。"
+  url="https://astrosyo.com/zh/posts/jupiter"
+  datePublished="2025-08-09"
+  authorName="Astrosyo"
+  keywords={[
+    "木星",
+    "气态巨行星",
+    "天文学",
+    "webgl",
+    "教育"
+  ]}
+  image="/images/jupiter/cover.webp"
+  articleSection="Astronomy"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.webp"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Jupiter Sphere",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires WebGL2",
+    "url": "https://astrosyo.com/zh/posts/jupiter#simulation",
+    "description": "以精确纹理渲染的交互式木星球体。"
+  }}
+/>
