@@ -208,12 +208,16 @@
    (low-gradient, high-craft)
    ========================= */
 
+.cta-row-wrapper {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
 /* --- CTA ROW LAYOUT --- */
 .cta-row {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 18px;
-  width: 100%;
   box-sizing: border-box;
   margin: 3.5rem auto 3rem;
   padding-inline: var(--spacing);
