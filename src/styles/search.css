@@ -84,3 +84,16 @@
   font-size: 0.9rem;
   color: #aaa;
 }
+
+
+.search-card {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 520px;
+}
+
+.search-card .post-card-title {
+  min-height: 6rem;
+}

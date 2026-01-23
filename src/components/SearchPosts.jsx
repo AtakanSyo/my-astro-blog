@@ -95,7 +95,7 @@ export default function SearchPosts({ posts = /** @type {SearchPost[]} */ ([]), 
         Showing {filtered.length} of {posts.length} posts
       </div>
 
-<div className="post-grid">
+<div>
   {filtered.map((p) => {
     const fm = p.frontmatter || {};
     const cats = normalizeCats(fm); // should return lowercased array
@@ -113,7 +113,7 @@ export default function SearchPosts({ posts = /** @type {SearchPost[]} */ ([]), 
       : 'Read full post →';
 
     return (
-      <div className="post-card" key={p.url}>
+      <div className="search-card post-card" key={p.url}>
         <a href={p.url} className="post-card-link">
           {/* Title with highlights */}
             <div className="post-card-info">
