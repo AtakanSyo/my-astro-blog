@@ -762,3 +762,29 @@ figcaption {
 .block .text {
   max-width: 400px;
 }
+
+.image-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  align-items: start;
+}
+.image-grid figure {
+  margin: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0d1117;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+.image-grid img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+.image-grid figcaption {
+  padding: 0.5rem 0.75rem 0.75rem;
+  color: #c9d1d9;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
