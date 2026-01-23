@@ -123,9 +123,9 @@ export default function SearchPosts({ posts = /** @type {SearchPost[]} */ ([]), 
             </div>
 
             {/* Meta: Writer with highlights + date */}
-            <div className="post-card-meta">
+            {/* <div className="post-card-meta">
               By {highlightText(fm.writer ?? 'Unknown', q)} — {p.dateStr}
-            </div>
+            </div> */}
 
             {/* Description with highlights */}
             {fm.description && (
