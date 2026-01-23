@@ -96,7 +96,6 @@ function toAbsoluteUrl(maybeUrl?: string) {
 
 const ogImage = toAbsoluteUrl(image);
 const ogLocale = lang === 'tr' ? 'tr_TR' : 'en_US';
-const skipText = lang === 'tr' ? 'İçeriğe atla' : 'Skip to content';
 ---
 
 <!doctype html>
@@ -162,7 +161,6 @@ const skipText = lang === 'tr' ? 'İçeriğe atla' : 'Skip to content';
     )}
   </head>
   <body class={bodyClasses}>
-    <a class="skip-link" href="#main-content">{skipText}</a>
     <Header lang={lang} currentPath={pathname} />
     <main id="main-content">
       <slot />
