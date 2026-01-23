@@ -38,7 +38,9 @@ const posts = allPosts.map((p) => {
 ---
 <Layout title="Search">
   <section class="container search-page" style="padding:2rem 1rem;">
+  <div class="centered_flex">
     <h1>Search All Posts</h1>
+  </div>
     <!-- Hydrate a React island that does the filtering -->
     <SearchPosts client:only="react" posts={posts} limit={100} />
   </section>
