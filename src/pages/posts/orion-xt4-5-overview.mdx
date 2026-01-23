@@ -23,11 +23,12 @@ specs:
   focalRatio: f/7.9
 pubDate: '2025-08-31'
 description: >-
-  A look at the Orion SkyQuest XT4.5 — a unique beginner Dobsonian
+  A look at the Orion SkyQuest XT4.5. A unique beginner Dobsonian
   with a long optical tube, strong planetary performance, and unusual ergonomics
   that won’t suit everyone.
 slug: orion-skyquest-xt4-5-overview
 imageDir: /images/orion-xt4-5-overview
+thumbnail: /images/orion-xt4-5-overview/thumbnail.webp
 keywords:
   - Orion XT4.5
   - Orion SkyQuest
@@ -58,6 +59,7 @@ import Ratings from '../../components/Ratings.astro'
 import QuickSpecs from '../../components/QuickSpecs.astro'
 import ProsCons from '../../components/ProsCons.astro'
 
+<h2>Introduction</h2>
 <p>The Orion SkyQuest XT4.5 is a quirky little Dobsonian with a design you won’t see in many other beginner scopes. Its unusually long tube houses a spherical mirror, a choice that Orion offset with clever engineering. The result? A telescope that delivers surprisingly sharp planetary views, though with compromises in ergonomics and wide-field deep-sky observing. Depending on what you’re looking for, this scope can either feel awkward or like a gem you’ll keep for years.</p>
 
 <QuickSpecs items={frontmatter.quickSpecs} />
@@ -71,11 +73,17 @@ import ProsCons from '../../components/ProsCons.astro'
 <h2>Optics</h2>
 <p>The XT4.5’s 114 mm spherical primary mirror is paired with a long 900 mm focal length — unusual for a telescope this small. Orion designed it this way to reduce spherical aberration, and it works: views are sharper than most beginner scopes at this price. The f/7.9 focal ratio makes it particularly friendly for high-magnification planetary observing, though it does narrow the field of view. Collimation is also simpler than with short-tube reflectors, a nice bonus for new observers.</p>
 
+<img class="post-image post-image-lg" src={frontmatter.imageDir + '/optics.webp'} alt="Optics"></img>
+
+
 <h2>Planetary & Lunar Performance</h2>
 <p>This is where the XT4.5 shines. Jupiter’s cloud bands, the Great Red Spot, and Galilean moons are visible. Saturn reveals its rings and Cassini Division, along with Titan. Mars shows polar caps and dark surface markings during favorable oppositions. The Moon is razor-sharp across its craters and maria. Venus’s phases are easy to see, and Uranus/Neptune appear as small colored disks. For planetary detail at this size, the XT4.5 performs better than expected.</p>
 
 <h2>Deep-Sky Performance</h2>
 <p>The narrow field of view is the biggest limitation. Bright objects like Orion Nebula, Andromeda Galaxy, and open clusters are viewable, but larger nebulae and extended galaxies don’t fit comfortably. Sharpness is good, but deep-sky performance feels restricted compared to wider-field 130 mm reflectors or 6″ Dobsonians.</p>
+
+<img class="post-image post-image-lg" src={frontmatter.imageDir + '/tensioner.webp'} alt="Tensioner"></img>
+
 
 <h2>Mount</h2>
 <p>The Dobsonian base is stable and smooth, handling the long tube without issue. Motions are easy to control, and the friction bearings allow for decent adjustment. It’s a simple, reliable design — exactly what a small Dobsonian should have.</p>
