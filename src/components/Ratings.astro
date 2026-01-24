@@ -1,26 +1,11 @@
 ---
 interface RatingsMap {
   [key: string]: number | string | undefined;
-  overall?: number | string;
-  optics?: number | string;
-  mount?: number | string;
-  accessories?: number | string;
-  value?: number | string;
-  mechanics?: number | string;
 }
 
 interface Props { rating?: RatingsMap }
 
 const { rating } = Astro.props;
-
-const categories = [
-  { key: 'overall', label: 'Overall' },
-  { key: 'optics', label: 'Optics' },
-  { key: 'mount', label: 'Mount' },
-  { key: 'accessories', label: 'Accessories' },
-  { key: 'value', label: 'Value' },
-  { key: 'mechanics', label: 'Mechanics' },
-];
 
 function parseScore(v: number | string | undefined): number | null {
   if (v === undefined || v === null || v === '') return null;
@@ -36,9 +21,17 @@ function parseScore(v: number | string | undefined): number | null {
   return map[s] ?? null;
 }
 
+function toLabel(key: string): string {
+  return key
+    .replace(/[_-]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .replace(/\b\w/g, (m) => m.toUpperCase());
+}
+
 const visible = rating
-  ? categories
-      .map((c) => ({ ...c, score: parseScore(rating[c.key]) }))
+  ? Object.entries(rating)
+      .map(([key, value]) => ({ key, label: toLabel(key), score: parseScore(value) }))
       .filter((c) => c.score !== null)
   : [];
 
