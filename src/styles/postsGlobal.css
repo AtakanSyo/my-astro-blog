@@ -72,12 +72,16 @@ p {
 .post a[href^="/posts/"]::after {
   content: ' ↗';
   font-size: 0.75em;
-  opacity: 0.6;
+  opacity: 0.8;
+
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
+.post a {
+  color: rgb(var(--brand-color));
+}
+
 .post a[href^="/posts/"]:hover::after {
-  transform: translateX(2px);
   opacity: 1;
 }
 
