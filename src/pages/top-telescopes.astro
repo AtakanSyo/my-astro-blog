@@ -90,10 +90,18 @@ function scoreToHue(score: number | null | undefined) {
           ? frontmatter.title.replace(/\s+(Review|Overview)$/i, '')
           : 'Untitled Telescope';
 
+        const thumbnail = frontmatter.thumbnail;
+
         return (
           <div class="post-card post-card--review top-ten-card">
-            <a href={url} class="post-card-link">
-              <span class="top-ten-rank">#{index + 1}</span>
+            <a href={url} class="post-card-link top-ten-link">
+              {thumbnail && (
+                <div class="post-card-thumb top-ten-thumb">
+                  <span class="top-ten-rank">#{index + 1}</span>
+                  <img src={thumbnail} alt={`${cleanTitle} thumbnail`} loading="lazy" />
+                </div>
+              )}
+              {!thumbnail && <span class="top-ten-rank">#{index + 1}</span>}
               <div class="post-card-title">{cleanTitle}</div>
               {frontmatter.description && (
                 <p class="post-card-desc">{frontmatter.description}</p>
