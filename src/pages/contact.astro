@@ -1,0 +1,55 @@
+---
+import Layout from '../layouts/Layout.astro';
+import FeedbackCTA from '../components/FeedbackCTA.astro';
+
+import '../styles/index.css';
+import '../styles/cards.css';
+import '../styles/about.css';
+
+const email = 'astrosyo.contact@gmail.com';
+---
+
+<Layout title="Contact Astrosyo">
+  <main class="about-page page-home">
+    <section class="hero about-hero">
+      <h1 class="home-title">Contact Astrosyo</h1>
+      <p class="home-description">
+        Have a question about a page, found an issue, or want to collaborate? I read every message.
+        Email is best, but you can also reach me on social if that is easier.
+      </p>
+    </section>
+
+    <section class="about-grid">
+      <article class="about-card">
+        <h2>Email</h2>
+        <p>
+          The fastest way to reach me is email: <strong><a href={`mailto:${email}`}>{email}</a></strong>.
+        </p>
+      </article>
+
+      <article class="about-card">
+        <h2>Collaboration & Reviews</h2>
+        <p>
+          Brands and creators: I am open to collaborations, product loans, and review units if they fit the
+          audience. Share your timeline, what makes the gear interesting, and any testing requirements.
+        </p>
+      </article>
+
+      <article class="about-card">
+        <h2>Community</h2>
+        <p>
+          You can also follow along on Instagram, YouTube, and TikTok (links in the footer).
+          DMs are fine for quick pings; for anything detailed, email works best.
+        </p>
+      </article>
+
+      <article class="about-card">
+        <h2>What to expect</h2>
+        <ul class="about-list">
+          <li>I reply usually within 2 business days.</li>
+          <li>If a post needs a fix, I will update it and credit your note if you like.</li>
+        </ul>
+      </article>
+    </section>
+  </main>
+</Layout>

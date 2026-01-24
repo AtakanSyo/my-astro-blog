@@ -1,0 +1,59 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import FeedbackCTA from '../../components/FeedbackCTA.astro';
+
+import '../../styles/index.css';
+import '../../styles/cards.css';
+import '../../styles/about.css';
+
+const email = 'astrosyo.contact@gmail.com';
+---
+
+<Layout title="İletişim">
+  <main class="about-page page-home">
+    <section class="hero about-hero">
+      <h1 class="home-title">Astrosyo ile İletişime Geçin</h1>
+      <p class="home-description">
+        Teleskoplar hakkında sorularınız, bir hata bildiriminiz veya iş birliği teklifiniz mi var?
+        Her mesajı okuyorum. En hızlı yol e-posta, ama isterseniz sosyal ağlardan da ulaşabilirsiniz.
+      </p>
+    </section>
+
+    <section class="about-grid">
+      <article class="about-card">
+        <h2>E-posta</h2>
+        <p>
+          Bana en hızlı ulaşabileceğiniz adres: <a href={`mailto:${email}`}>{email}</a>.
+          Sorununuzu veya model adını eklerseniz size daha hızlı yardımcı olabilirim.
+        </p>
+      </article>
+
+      <article class="about-card">
+        <h2>İş birlikleri ve incelemeler</h2>
+        <p>
+          Markalar ve içerik üreticileri: Kitleye uygun olduğu sürece iş birliklerine, ürün ödünçlerine ve
+          inceleme birimlerine açığım. Zaman çizelgenizi, ürünün ayırt edici yanlarını ve varsa test beklentilerini paylaşın.
+        </p>
+      </article>
+
+      <article class="about-card">
+        <h2>Topluluk</h2>
+        <p>
+          Instagram, YouTube ve TikTok üzerinden de takip edebilirsiniz (linkler aşağıda).
+          Kısa notlar için DM atabilirsiniz; detaylı konular için e-posta en iyisi.
+        </p>
+      </article>
+
+      <article class="about-card">
+        <h2>Ne bekleyebilirsiniz?</h2>
+        <ul class="about-list">
+          <li>Genellikle 2 iş günü içinde yanıt.</li>
+          <li>Bir yazıda düzeltme gerekiyorsa güncellerim, isterseniz isminizi not düşerim.</li>
+          <li>Yanıtları yapay zekaya yazdırmıyorum; hepsi benden geliyor.</li>
+        </ul>
+      </article>
+    </section>
+
+    <FeedbackCTA email={email} />
+  </main>
+</Layout>
