@@ -229,7 +229,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 
   padding: 20px 22px;
   border-radius: 14px;
@@ -238,12 +238,13 @@
 
   /* Text stays premium-white */
   color: #f1f3f8;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 2px solid rgba(255, 255, 255, 0.25);
 
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease,
     border-color 0.2s ease;
+
 }
 
 .cta-label {
@@ -256,6 +257,7 @@
 .cta-arrow {
   transform: translateX(0);
   transition: transform 0.2s ease, opacity 0.2s ease;
+  margin-left: 1rem;
 }
 
 /* Hover: lift + accent border */
