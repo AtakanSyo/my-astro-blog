@@ -264,6 +264,14 @@ header {
   }
 
   .logo img{
-    display: none;
+    display: block;
+    height: 32px;        /* shrink for mobile */
+
+  }
+  .logo {
+    position: fixed;
+    top: 19px;
+    left: 16px;
+    z-index: 1001;       /* above menu */
   }
 }
