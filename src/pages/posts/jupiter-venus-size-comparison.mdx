@@ -4,9 +4,10 @@ title: "Jupiter and Venus Size Comparison"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-09-25'
-description: "A simulation showing the immense scale difference between Jupiter and Venus, with context on mass, gravity, and appearance."
+description: "The immense scale difference between Jupiter and Venus."
 slug: jupiter-venus-size-comparison
 imageDir: /images/jupiter-venus-size-comparison
+thumbnail: /images/jupiter-venus-size-comparison/thumbnail.webp
 keywords:
   - jupiter
   - venus
@@ -34,10 +35,32 @@ import SimPostSchema from "../../components/SimPostSchema.astro";
 <figcaption class="sim-caption">Jupiter and Venus shown at accurate relative scale.</figcaption>
 
 <h2>What the simulation shows</h2>
-<p>Venus is often called Earth’s twin because of its similar diameter, but that comparison collapses when Venus is placed next to Jupiter. This visualization renders both planets using their exact physical diameters and true 3D geometry. Jupiter’s massive storm bands and swirling atmosphere dominate nearly the entire frame, while Venus appears as a small, smooth world with a uniform cloud layer. The contrast illustrates how Jupiter belongs to a completely different category of planet—one where sheer scale defines its gravitational influence and role in shaping the Solar System.</p>
+<p>This visualization 
+  renders both planets using their exact physical diameters and true 3D geometry. 
+  Jupiter’s massive storm bands and swirling atmosphere dominate nearly the entire frame, 
+  while Venus appears as a small, smooth world with a cloud layer. The contrast 
+  illustrates how Jupiter belongs to a completely different category of planet—one where 
+  sheer scale defines its gravitational influence and role in shaping the Solar System.</p>
+
+<PlanetSizeComparison
+  client:load
+  primaryTexture="/textures/jupiter_texture.webp"
+  secondaryTexture="/textures/2k_venus_atmosphere.webp"
+  options={{
+    axialTiltDeg: 0,
+    cameraPosition: [0, 12, 0],
+  }}
+  primaryRadius={69911}
+  secondaryRadius={6052}
+  planetDistance={1.2}
+  primaryContrast={1.05}
+  secondaryContrast={0.95}
+  orthoExtent={1.1}
+/>
 
 <h2>The numbers behind the scale</h2>
-<p>Venus has a diameter of approximately 12,104 km. Jupiter’s diameter is about 139,820 km. The ratio of their diameters is:</p>
+<p>Venus has a diameter of approximately 12,104 km. Jupiter’s diameter is about 139,820 km. 
+  The ratio of their diameters is:</p>
 
 $$
 \frac{D_J}{D_V} = \frac{139{,}820}{12{,}104} \approx 11.56
@@ -55,7 +78,25 @@ $$
 (11.56)^2 \approx 133.6
 $$
 
-<p>So Jupiter’s visible disk covers more than one hundred thirty times the area of Venus’s. These exact proportions are preserved in the simulation, allowing scale—not symbolism—to tell the story. When the planets rotate side by side, the size difference becomes undeniable.</p>
+<PlanetSizeComparison
+  client:load
+  primaryTexture="/textures/jupiter_texture.webp"
+  secondaryTexture="/textures/2k_venus_atmosphere.webp"
+  options={{
+    axialTiltDeg: 0,
+    cameraPosition: [0, 12, 12],
+  }}
+  primaryRadius={69911}
+  secondaryRadius={6052}
+  planetDistance={1.2}
+  primaryContrast={1.05}
+  secondaryContrast={0.95}
+  orthoExtent={2}
+/>
+
+<p>So Jupiter’s visible disk covers more than one hundred thirty times the area of Venus’s. 
+  These exact proportions are preserved in the simulation, allowing scale to 
+  tell the story. When the planets rotate side by side, the size difference becomes undeniable.</p>
 
 <SimPostSchema
   title="Jupiter and Venus Size Comparison"
