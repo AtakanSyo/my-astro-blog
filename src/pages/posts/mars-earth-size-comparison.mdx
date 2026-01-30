@@ -73,13 +73,16 @@ $$
   client:load
   primaryTexture="/textures/earth-texture-nasa.webp"
   secondaryTexture="/textures/mars_texture.webp"
-  options={{ cameraPosition: [0, -7, -7] }}
+  options={{ 
+    rotationHours: 30,  // slower base spin (default ~16.11)
+    axialTiltDeg: 0,
+  }}
   primaryRadius={6371}
   secondaryRadius={3389}
-  planetDistance={2.4}
+  planetDistance={1}
   primaryContrast={0.95}
   secondaryContrast={0.8}
-  orthoExtent={1.6}
+  orthoExtent={0.7}
 />
 
 <p>So Earth’s visible disk is about three and a half times larger than Mars’s. These exact proportions are preserved in the simulation, allowing you to feel the scale difference intuitively while rotating the worlds freely in 3D space.</p>
