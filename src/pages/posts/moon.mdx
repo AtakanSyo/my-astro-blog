@@ -4,9 +4,10 @@ title: "The Moon"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-11-11'
-description: "The Moon rendered as a planetary sphere with accurate texture, plus details about its discovery, distance from Earth, physical properties, and name."
+description: "Earth's cosmic companion."
 slug: moon
 imageDir: /images/moon
+thumbnail: /images/moon/thumbnail.webp
 keywords:
 lang: en
 ---
@@ -19,13 +20,11 @@ import SimPostSchema from "../../components/SimPostSchema.astro";
   client:visible
   cameraPosition={{ x: 0, y: 0, z: 3.2 }}
   textureContrast={0.9}
-  tiltDeg={[0, 0, 0]}
+  initialSpinDeg={120}
+  tiltDeg={[0, 80, 0]}
   ambientIntensity="0.1"
   lightIntensity="1.5"
 />
-
-<figcaption class="sim-caption">The Moon rendered with a realistic planetary texture.</figcaption>
-
 <h2>What you’re seeing</h2>
 <p>This simulation shows the Moon as a sphere with an accurate global texture. Features such as maria, highlands, impact craters, and the far side differences are visible. No atmosphere is rendered, reflecting the Moon’s exposed rocky surface.</p>
 

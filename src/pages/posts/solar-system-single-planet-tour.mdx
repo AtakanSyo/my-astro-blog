@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/simLayout.astro
-title: "Solar System Single-Planet Tour"
+title: "Solar System Planet Tour"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-11-05'
@@ -19,9 +19,6 @@ lang: en
 import SinglePlanetSim from "../../components/simulations/single-planet/SinglePlanetSim.jsx";
 import SimPostSchema from "../../components/SimPostSchema.astro";
 
-<figcaption class="sim-caption">Click play on each globe to watch the planet rotate. Work your way from Mercury’s cratered surface to Neptune’s windswept blues.</figcaption>
-
-<div class="sim-article">
   <h2 id="mercury">Mercury</h2>
   <SinglePlanetSim planet="Mercury" client:visible />
   <p>
@@ -77,7 +74,6 @@ import SimPostSchema from "../../components/SimPostSchema.astro";
     Neptune is the outer sentinel with deep azure clouds driven by the fastest winds in the Solar System. Dark storm spots appear and vanish,
     and the planet’s internal heat keeps its atmosphere swirling even so far from the Sun. Let it spin to follow those shifting bands.
   </p>
-</div>
 
 <SimPostSchema
   title="Solar System Single-Planet Tour"

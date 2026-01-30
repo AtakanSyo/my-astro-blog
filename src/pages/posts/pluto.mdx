@@ -4,9 +4,10 @@ title: "Pluto"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-11-11'
-description: "Pluto rendered as a planetary sphere with texture, plus details about its discovery, distance from the Sun, special qualities, moons, and name."
+description: "The planet that never quite was."
 slug: pluto
 imageDir: /images/pluto
+thumbnail: /images/pluto/thumbnail.webp
 keywords:
   - pluto
   - dwarf planet
@@ -20,8 +21,6 @@ import SinglePlanetSim from "../../components/simulations/single-planet/SinglePl
 import SimPostSchema from "../../components/SimPostSchema.astro";
 
 <SinglePlanetSim planet="Pluto" client:visible cameraPosition={{ x: 0, y: 0, z: 3.5 }} />
-
-<figcaption class="sim-caption">Pluto rendered with a planetary texture.</figcaption>
 
 <h2>What you’re seeing</h2>
 <p>This simulation shows Pluto as a spherical world. The texture used here is <strong>not a scientifically accurate dataset from NASA</strong>. Instead, it is a <strong>mock artistic texture</strong> sourced from <a href="https://planetpixelemporium.com/pluto.html" target="_blank" rel="noopener noreferrer">here</a>. It is intended to represent Pluto’s general appearance for visualization purposes only.</p>

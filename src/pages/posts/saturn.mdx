@@ -4,9 +4,10 @@ title: "Saturn"
 category: simulation
 writer: Astrosyo
 pubDate: '2025-11-11'
-description: "Saturn rendered as a planetary sphere with accurate texture, plus details about its discovery, distance from the Sun, rings, moons, and name."
+description: "The ringed giant."
 slug: saturn
 imageDir: /images/saturn
+thumbnail: /images/saturn/thumbnail.webp
 keywords:
   - saturn
   - gas giant
@@ -21,8 +22,6 @@ import SinglePlanetSim from "../../components/simulations/single-planet/SinglePl
 import SimPostSchema from "../../components/SimPostSchema.astro";
 
 <SinglePlanetSim planet="Saturn" client:visible cameraPosition={{ x: 0, y: 0, z: 2.5 }} textureContrast={1.4} />
-
-<figcaption class="sim-caption">Saturn rendered with a realistic planetary texture.</figcaption>
 
 <h2>What you’re seeing</h2>
 <p>This simulation shows Saturn as a planetary sphere using a true-color texture highlighting its muted bands and subtle storms. To keep the comparison clean and performant, the famous rings and moons are not rendered here; the focus is the planet’s disk and atmospheric tones.</p>
@@ -44,6 +43,9 @@ import SimPostSchema from "../../components/SimPostSchema.astro";
 
 <h2>Size and mass</h2>
 <p>Saturn’s equatorial diameter is about 120,536 km. Its mass is approximately 5.7 × 10^26 kg, around 95 times Earth’s. Despite its size, the low mean density reflects a hydrogen-helium interior with increasing pressure and temperature toward the center.</p>
+
+<SinglePlanetSim planet="Saturn" client:visible cameraPosition={{ x: 0, y: 0, z: 4 }} />
+
 
 <h2>Chemistry and atmosphere</h2>
 <p>The atmosphere is dominated by hydrogen and helium with trace species that color the bands and hazes. Ammonia, water, and other condensates form layered cloud decks, while deeper regions transition toward metallic hydrogen under immense pressure.</p>
