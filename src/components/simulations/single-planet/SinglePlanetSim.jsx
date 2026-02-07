@@ -1,7 +1,8 @@
 import { useMemo, useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
-import { prepareScene, addSpinningPlanet, addSaturn } from '../lib/threeCore';
+import { prepareScene, addSpinningPlanet, addSaturn, createTopDownOrthoCamera } from '../lib/threeCore';
 import SimStage from '../lib/simStage.jsx';
+import { useScrollZoom } from '../lib/useScrollZoom.js';
 
 const PLANET_CONFIG = {
   mercury: {
@@ -96,9 +97,14 @@ export default function SinglePlanetSim({
   tiltDeg,
   lightIntensity = 1.7,
   ambientIntensity = 0.6,
+  scrollZoom = false,
+  scrollZoomOptions = {},
+  orthographic = false,
+  orthographicExtent = 2,
 }) {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
+  const cameraRef = useRef(null);
   const pausedRef = useRef(showPause);
   const [paused, setPaused] = useState(showPause);
   const madeVisibleRef = useRef(false);
@@ -112,15 +118,30 @@ export default function SinglePlanetSim({
     if (!canvas || !container || !config) return;
 
     const cameraPos = cameraPosition ?? { x: 0, y: 0, z: 4 };
+
+    // Create camera factory for orthographic mode
+    const cameraFactory = orthographic
+      ? () => createTopDownOrthoCamera({
+          extent: orthographicExtent,
+          height: cameraPos.y ?? 0,
+          position: cameraPos,
+          lookAt: cameraLookAt ? (Array.isArray(cameraLookAt) ? cameraLookAt : [cameraLookAt.x, cameraLookAt.y, cameraLookAt.z]) : [0, 0, 0],
+        })
+      : undefined;
+
     const { scene, camera, renderer, textureLoader, start, stop, dispose } = prepareScene({
       canvas,
       container,
       dprCap,
-      cameraConfig: {
+      cameraConfig: orthographic ? undefined : {
         position: cameraPos,
         lookAt: cameraLookAt,
       },
+      cameraFactory,
     });
+
+    // Store camera ref for scroll zoom hook
+    cameraRef.current = camera;
 
     const ambient = new THREE.AmbientLight(0xffffff, ambientIntensity);
     const keyLight = new THREE.DirectionalLight(0xffffff, lightIntensity);
@@ -214,6 +235,7 @@ export default function SinglePlanetSim({
       }
       simHandle.dispose();
       dispose();
+      cameraRef.current = null;
     };
   }, [
     cameraLookAt,
@@ -229,7 +251,17 @@ export default function SinglePlanetSim({
     spinDegPerSec,
     textureContrast,
     tiltDeg,
+    lightIntensity,
+    ambientIntensity,
+    orthographic,
+    orthographicExtent,
   ]);
+
+  // Enable scroll-based zoom if requested
+  useScrollZoom(containerRef, cameraRef.current, {
+    enabled: scrollZoom,
+    ...scrollZoomOptions,
+  });
 
   useEffect(() => {
     if (showPause) return;

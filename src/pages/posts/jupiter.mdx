@@ -20,7 +20,7 @@ import PlanetSizeComparison from "../../components/simulations/planet-size-compa
 <SinglePlanetSim
   planet="Jupiter"
   client:visible
-  cameraPosition={{ x: 0, y: 0, z: 3.4 }}
+  cameraPosition={{ x: 0, y: 0, z: 2.4 }}
   textureContrast={1.2}
   tiltDeg={[20, 20, -25]}
   ambientIntensity={0.0}
@@ -60,6 +60,24 @@ import PlanetSizeComparison from "../../components/simulations/planet-size-compa
 He laid out sketches of what he saw, 4 bright dots next to the large 
   brightness in the middle. These bright dots would later 
   come out to be the largest moons of Jupiter.
+
+
+<figure>
+  <img
+    class="post-image post-image-lg"
+    src="/images/jupiter/jupiter-HST.webp"
+    alt="Jupiter's Great Red Spot"
+    loading="lazy"
+    decoding="async"
+  />
+  <figcaption>Jupiter during the Hubble Space Telescope’s first observations in 1991, 
+    revealing fine cloud structures and the Great 
+    Red Spot in unprecedented detail for that time.</figcaption>
+</figure>
+
+  373 years later, with the help of uncromphendable improvements in science & engineering, 
+  humanity would photograph Jupiter with a new instrument called Hubble Space Telescope,
+  this time in much more detail.
 	
 <PlanetSizeComparison
   client:load
@@ -108,15 +126,6 @@ Its size is so immense that it can engulf the entire Earth
 Jupiter has 95 known moons, making it the planet with the most 
 satellites in our Solar System; among them are the four Galilean 
 moons—Io, Europa, Ganymede, and Callisto.
-
-<figure>
-  <JupiterMoonsSim
-    client:visible
-    cameraPosition={{ x: 0, y: 0, z: 20 }}
-    moonsOptions={{ layout: 'line', distanceScale: 1.0, sizeScale: 1.0 }}
-  />
-  <figcaption>Jupiter's 4 largest moons. Sizes and distances to scale.</figcaption>
-</figure>
 
 If the sizes of the moon and the distance between the planet 
 were kept to scale, the moons would hardly be visible. This explains why
