@@ -16,6 +16,7 @@ const base = isTr ? '/tr' : '';
 const labels = {
   home:       isTr ? 'Ana Sayfa'   : 'Home',
   scienceStories: isTr ? 'Bilim Hikayeleri' : 'Science Stories',
+  cosmicStories: isTr ? 'Kozmik Hikayeler' : 'Cosmic Stories',
   telescopes: isTr ? 'Teleskoplar' : 'Telescopes',
   authors:    isTr ? 'Yazarlar'    : 'Authors',
   about:      isTr ? 'Hakkında'    : 'About',
@@ -64,6 +65,13 @@ function isCurrent(href: string) {
         aria-current={isCurrent(base + '/') ? 'page' : undefined}
       >
         {labels.home}
+      </a>
+      <a
+        href={base + '/cosmic-stories'}
+        class="nav-item"
+        aria-current={isCurrent(base + '/cosmic-stories') ? 'page' : undefined}
+      >
+        {labels.cosmicStories}
       </a>
       <a
         href={base + '/telescopes'}
