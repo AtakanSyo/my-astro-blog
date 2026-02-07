@@ -8,6 +8,10 @@ const allPosts = Object.values(
   import.meta.glob('./posts/*.{md,mdx}', { eager: true })
 ) as any[];
 
+// Put URLs or slugs here to feature specific posts at the top of the list.
+// Example values: '/posts/jupiter' or 'jupiter'
+const featuredOrder = ['/posts/jupiter', '/posts/neptune', '/posts/uranus'];
+
 function normalizeCat(cat: unknown): string[] {
   if (!cat) return [];
   if (Array.isArray(cat)) return cat.filter(Boolean).map((c) => String(c).toLowerCase());
@@ -18,10 +22,24 @@ function hasCat(frontmatter: any, needle: string) {
   return normalizeCat(frontmatter.category ?? frontmatter.categories).includes(needle);
 }
 
-const simPosts = allPosts
+const simPostsAll = allPosts
   .filter(({ frontmatter }) => hasCat(frontmatter, 'simulation'))
-  .sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime())
-  .slice(0, 10);
+  .sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime());
+
+const matchesFeatured = (post: any, ref: string) => {
+  if (!ref) return false;
+  const slug = post.frontmatter?.slug;
+  return post.url === ref || slug === ref || `/posts/${slug}` === ref;
+};
+
+const featuredPosts = featuredOrder
+  .map((ref) => simPostsAll.find((p) => matchesFeatured(p, ref)))
+  .filter(Boolean) as any[];
+
+const featuredUrls = new Set(featuredPosts.map((p) => p.url));
+const remaining = simPostsAll.filter((p) => !featuredUrls.has(p.url));
+
+const simPosts = [...featuredPosts, ...remaining].slice(0, 10);
 
 const formatDate = (value: string) =>
   new Date(value).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
