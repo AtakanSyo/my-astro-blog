@@ -35,7 +35,7 @@ function latestByCategory(key: string, n = 6) {
 
 // category config
 const CATS = [
-  { key: 'simulation',    label: 'Science Stories',    cta: 'Go to the simulation →' },
+  { key: 'simulation',    label: 'Cosmic Stories',    cta: 'Go to the story →', link: '/cosmic-stories' },
   { key: 'reviews',        label: 'Reviews',        cta: 'Read the review →' },
   // { key: 'informational', label: 'Informational Posts',         cta: 'Read the guide →' },
   // { key: 'nasa',          label: 'NASA Posts',           cta: 'See the article →' },
@@ -126,7 +126,7 @@ const CATS = [
         return (
           <section class="category-section">
             <h2 class="home-category-title">
-              <a href={`/category/${cat.key.toLowerCase()}`} class="latest-title">{cat.label} →</a>
+              <a href={cat.link ?? `/category/${cat.key.toLowerCase()}`} class="latest-title">{cat.label} →</a>
             </h2>
             <div class="post-grid">
               {
@@ -138,7 +138,7 @@ const CATS = [
                   const thumb = frontmatter.thumbnail;
 
                   const ctaText =
-                    isP5 ? 'Go to the simulation →'
+                    isP5 ? (cat.cta ?? 'Go to the story →')
                   : isReview ? 'Read the review →'
                   : isInfo ? 'Read the guide →'
                   : isNasa ? 'See the article →'
