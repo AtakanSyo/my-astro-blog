@@ -35,15 +35,16 @@ p {
 }
 
 .post-image-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 12px;
   width: 100%;
 }
 
 .post-image-grid-figure {
-  width: min(1080px, 90vw);
-  margin: 1rem auto;
+  width: 100%;
+  max-width: 100vw;
+  margin: 1.25rem auto;
 }
 
 .post-image-grid-figure .post-image-grid {
@@ -60,9 +61,12 @@ p {
 }
 
 .post-image-grid img {
-  width: 100%;
+  width: auto;
+  max-width: 100%;
   height: auto;
   display: block;
+  object-fit: contain;
+  margin: 0 auto;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(0, 0, 0, 0.2);
