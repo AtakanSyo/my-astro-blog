@@ -92,7 +92,7 @@ export default function SinglePlanetSim({
   spinDegPerSec,
   initialSpinDeg = 0,
   cameraPosition,
-  cameraLookAt,
+  cameraLookAt = { x: 0, y: 0, z: 0 },
   textureContrast,
   tiltDeg,
   lightIntensity = 1.7,

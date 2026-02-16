@@ -33,12 +33,15 @@ export default defineConfig({
       // Prevent mid-navigation re-optimizations that can yield 504 "Outdated Optimize Dep"
       // and break island hydration on first load during dev.
       include: [
+        'react',
+        'react-dom',
         'three',
         'three/addons/misc/GPUComputationRenderer.js',
         'lucide-react',
       ],
     },
     resolve: {
+      dedupe: ['react', 'react-dom'],
       alias: {
         '@layouts': fileURLToPath(new URL('./src/layouts', import.meta.url)),
         '@components': fileURLToPath(new URL('./src/components', import.meta.url)),
