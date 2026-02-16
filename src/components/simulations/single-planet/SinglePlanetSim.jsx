@@ -101,6 +101,7 @@ export default function SinglePlanetSim({
   scrollZoomOptions = {},
   orthographic = false,
   orthographicExtent = 2,
+  showStarBackground = false,
 }) {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
@@ -147,6 +148,21 @@ export default function SinglePlanetSim({
     const keyLight = new THREE.DirectionalLight(0xffffff, lightIntensity);
     keyLight.position.set(3, 2, 4);
     scene.add(ambient, keyLight);
+
+    let stars = null;
+    let starsTexture = null;
+    if (showStarBackground) {
+      starsTexture = textureLoader.load('/textures/stars_texture.webp');
+      starsTexture.colorSpace = THREE.SRGBColorSpace;
+      starsTexture.wrapS = THREE.RepeatWrapping;
+      starsTexture.wrapT = THREE.RepeatWrapping;
+      stars = new THREE.Mesh(
+        new THREE.SphereGeometry(200, 64, 64),
+        new THREE.MeshBasicMaterial({ map: starsTexture, side: THREE.BackSide }),
+      );
+      stars.material.color.setScalar(0.35);
+      scene.add(stars);
+    }
 
     const spinSpeed = THREE.MathUtils.degToRad(
       typeof spinDegPerSec === 'number' ? spinDegPerSec : config.spinDegPerSec,
@@ -215,6 +231,7 @@ export default function SinglePlanetSim({
     start((delta, elapsed) => {
       if (pausedRef.current) return;
       simHandle.update(delta);
+      if (stars) stars.rotation.y -= 0.003 * delta;
       for (const handle of extensionHandles) {
         try {
           handle?.update?.(delta, elapsed);
@@ -234,6 +251,12 @@ export default function SinglePlanetSim({
         }
       }
       simHandle.dispose();
+      if (stars) {
+        scene.remove(stars);
+        stars.geometry.dispose();
+        stars.material.dispose();
+      }
+      starsTexture?.dispose?.();
       dispose();
       cameraRef.current = null;
     };
@@ -255,6 +278,7 @@ export default function SinglePlanetSim({
     ambientIntensity,
     orthographic,
     orthographicExtent,
+    showStarBackground,
   ]);
 
   // Enable scroll-based zoom if requested
