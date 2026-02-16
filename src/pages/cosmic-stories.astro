@@ -39,7 +39,7 @@ const featuredPosts = featuredOrder
 const featuredUrls = new Set(featuredPosts.map((p) => p.url));
 const remaining = simPostsAll.filter((p) => !featuredUrls.has(p.url));
 
-const simPosts = [...featuredPosts, ...remaining].slice(0, 10);
+const simPosts = [...featuredPosts, ...remaining];
 
 const formatDate = (value: string) =>
   new Date(value).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
@@ -50,7 +50,7 @@ const formatDate = (value: string) =>
     <div class="intro">
       <p class="eyebrow">Fresh Science Stories</p>
       <h1>Cosmic Stories</h1>
-      <p class="lead">Ten hand picked cosmic stories and explorations.</p>
+      <p class="lead">Hand picked cosmic stories and explorations.</p>
     </div>
 
     <div class="rows">
