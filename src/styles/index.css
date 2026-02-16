@@ -238,7 +238,10 @@
 
   /* Text stays premium-white */
   color: #f1f3f8;
-  border: 2px solid rgba(255, 255, 255, 0.25);
+  background-color: rgba(255,255,255,0.1);
+  border-radius: 22px;
+
+  box-shadow: 0px 0px 1px white;
 
   transition:
     transform 0.2s ease,
@@ -249,8 +252,7 @@
 
 .cta-label {
   font-size: 1.05rem;
-  font-weight: 560;
-  letter-spacing: -0.01em;
+  font-weight: 900;
 }
 
 /* Arrow micro-motion */
@@ -264,9 +266,6 @@
 .cta:hover {
   transform: translateY(-3px);
   border-color: color-mix(in srgb, var(--accent) 55%, rgba(255,255,255,0.15));
-  box-shadow:
-    0 16px 42px rgba(0, 0, 0, 0.6),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 .cta:hover .cta-arrow {
