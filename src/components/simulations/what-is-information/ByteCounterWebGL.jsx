@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import SimStage from "../lib/simStage.jsx";
 
-export default function ByteCounterWebGL({ aspect = "16 / 9", dprCap = 2, stepMs = 2000 }) {
+export default function ByteCounterWebGL({ aspect = "16 / 9", dprCap = 2, stepMs = 1000 }) {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
   const pausedRef = useRef(true);
