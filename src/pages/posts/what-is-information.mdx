@@ -1,0 +1,81 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "What Is Information?"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-04-15'
+description: "What is information exactly?"
+slug: what-is-information
+imageDir: /images/what-is-information
+thumbnail: /images/what-is-information/thumbnail.webp
+keywords:
+  - information theory
+  - simulation
+  - entropy
+  - data
+  - education
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import BlackWhiteSplitCanvas from "../../components/simulations/what-is-information/BlackWhiteSplitCanvas.jsx";
+import ByteCounterWebGL from "../../components/simulations/what-is-information/ByteCounterWebGL.jsx";
+// import YourSimulationComponent from "../../components/simulations/your-folder/YourSimulationComponent.jsx";
+// import "../../styles/your-simulation.css";
+
+## What is information?
+
+<figure class="post-figure post-figure-md" id="simulation">
+  <BlackWhiteSplitCanvas client:load />
+</figure>
+
+Information is a word we use a lot nowadays. We are in the “Information Age,” after all. So many things around us process information in some way or another. We, as humans, process information constantly. You may even say that it is one of the fundamental indicators of life itself.
+
+But one of my main gripes is that the word is thrown around so much, yet people don’t really question the deeper meaning it contains. At the most fundamental level, what does information really mean?
+
+Since I started coding as a 16-year-old, I have struggled with this question. I managed to solve it eventually when I read Charles Petzold’s Code. I think I was around 20. I managed to find an answer at that age, but it wasn’t until I heard the same answer from a world renowned physicist, Leonard Susskind, that I was convinced.
+
+The answer is “difference.” Information means difference. How? Well, I will dive a bit more into this so I can come back to this post later, or at least a few people may find it helpful.
+
+Let’s do a thought experiment. Let’s assume there is nothingness. Literally, nothingness. What would this nothingness require such that information exists? Well, the answer is anything that is differentiable from the nothingness itself.
+
+For example, space itself is information. In our universe, it is three-dimensional information. It has three components to it: X, Y, and Z, as you might remember from your physics classes in high school. Or time—it is a type of information too. You might tell somebody, “Hey, let’s meet at 6 in the evening,” or you might say, “Let’s meet at 7.” We have exactly two pieces of information here, and they are differentiable. This is the essence: difference.
+
+Ok, let’s connect this idea to computing itself. Computers, after all, are just machines that process information—or as we are now considering it, differences. What is the smallest piece of information a computer processes?
+
+A bit. 1 or 0. See the difference :)?
+
+A fundamental observation we should make here is that it doesn’t need to be exactly a 1 or a 0. It can be anything: A and B, black or white—any two things that can be differentiated from each other can be considered a bit.
+
+Now, let’s consider a byte. A byte consists of 8 bits. It contains 2^8 = 256 pieces of information inside it. But why exactly? We only have 1 and 0—what is the other dimension that communicates information, or difference, to us?
+
+It is placement. You can consider it like space—a place in which you can move forward and backward. With that exact idea, we can identify the differences between each bit inside a byte: the leftmost one, the second leftmost one, and so forth.
+
+<figure class="post-figure post-figure-md">
+  <ByteCounterWebGL client:load />
+</figure>
+
+Well, this was a short post, but it was a fun problem I had to figure out during my computer science journey. I wanted to share it with you and get your opinions. You can hear more about this from Leonard Susskind’s interview, of which I will leave a link below. Thanks for reading. See you in the next post.
+
+<SimPostSchema
+  title="What Is Information?"
+  description="Interactive simulation template for understanding self-information and entropy."
+  url="https://astrosyo.com/posts/what-is-information"
+  datePublished="2026-04-15"
+  authorName="Astrosyo"
+  keywords={["information theory", "entropy", "simulation", "education"]}
+  image="/images/what-is-information/thumbnail.webp"
+  articleSection="Science"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.webp"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Information Simulation",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/what-is-information#simulation",
+    "description": "Interactive simulation that demonstrates self-information and entropy."
+  }}
+/>
