@@ -1,5 +1,5 @@
 ---
-import '../styles/global.css';  // ← pulls in your global styles
+import '../styles/global.css';
 import '../styles/nav.css';
 import '../styles/footer.css';
 
@@ -11,7 +11,7 @@ interface Props {
   title?: string;
   description?: string;
   category?: string | string[];
-  lang?: 'en' | 'tr';
+  lang?: 'en';
   image?: string;
   ogType?: 'website' | 'article';
   noIndex?: boolean;
@@ -20,7 +20,6 @@ interface Props {
 const {
   title,
   category,
-  lang: frontmatterLang,
   description,
   image,
   ogType = 'website',
@@ -32,10 +31,7 @@ import SiteFooter from '../components/SiteFooter.astro';
 import Header from '../components/Header.astro';
 
 const pathname = Astro.url.pathname;
-
-// Eğer frontmatter.lang varsa onu kullan, yoksa URL'den tahmin et
-const isTrPath = pathname.startsWith('/tr');
-const lang = frontmatterLang ?? (isTrPath ? 'tr' : 'en');
+const lang = 'en';
 const isProd = import.meta.env.PROD;
 
 const orgJsonLd = {
@@ -64,26 +60,8 @@ const bodyClasses = [
   .filter(Boolean)
   .join(' ');
 
-// --------- CANONICAL & HREFLANG URL'LERİ ---------
+const canonicalUrl = `${site_url}${pathname}`;
 
-// İngilizce yol: /tr/... ise /... haline çevir, değilse olduğu gibi
-const enPath = isTrPath
-  ? (pathname === '/tr' ? '/' : pathname.replace(/^\/tr/, '') || '/')
-  : pathname;
-
-// Türkçe yol: /tr/... ise olduğu gibi, değilse başına /tr ekle
-const trPath = isTrPath
-  ? pathname
-  : (pathname === '/' ? '/tr' : `/tr${pathname}`);
-
-// Tam URL'ler
-const enUrl = `${site_url}${enPath}`;
-const trUrl = `${site_url}${trPath}`;
-
-// Sayfanın kendi canonical URL'i: tr sayfadaysak trUrl, yoksa enUrl
-const canonicalUrl = lang === 'tr' ? trUrl : enUrl;
-
-// Dinamik <title>
 const pageTitle = title ? `${title} | Astrosyo` : 'Astrosyo';
 const pageDescription = description ?? defaultDescription;
 
@@ -95,7 +73,7 @@ function toAbsoluteUrl(maybeUrl?: string) {
 }
 
 const ogImage = toAbsoluteUrl(image);
-const ogLocale = lang === 'tr' ? 'tr_TR' : 'en_US';
+const ogLocale = 'en_US';
 ---
 
 <!doctype html>
@@ -124,13 +102,9 @@ const ogLocale = lang === 'tr' ? 'tr_TR' : 'en_US';
 
     <title>{pageTitle}</title>
 
-    <!-- Canonical URL -->
     <link rel="canonical" href={canonicalUrl} />
-
-    <!-- Hreflang Etiketleri -->
-    <link rel="alternate" href={enUrl} hreflang="en" />
-    <link rel="alternate" href={trUrl} hreflang="tr" />
-    <link rel="alternate" href={enUrl} hreflang="x-default" />
+    <link rel="alternate" href={canonicalUrl} hreflang="en" />
+    <link rel="alternate" href={canonicalUrl} hreflang="x-default" />
 
     <script type="application/ld+json">{JSON.stringify(orgJsonLd)}</script>
 
@@ -145,11 +119,9 @@ const ogLocale = lang === 'tr' ? 'tr_TR' : 'en_US';
     {isProd && (
       <script is:inline>
         {`(() => {
-  // Avoid double-install (Astro view transitions / partial reloads, etc.)
   if (window.__umamiEngaged10Installed) return;
   window.__umamiEngaged10Installed = true;
 
-  // Fire once after 10s of the page being open (and visible)
   setTimeout(() => {
     if (document.visibilityState !== "visible") return;
     if (window.umami?.track) {
@@ -161,11 +133,11 @@ const ogLocale = lang === 'tr' ? 'tr_TR' : 'en_US';
     )}
   </head>
   <body class={bodyClasses}>
-    <Header lang={lang} currentPath={pathname} />
+    <Header currentPath={pathname} />
     <main id="main-content">
       <slot />
     </main>
     <NavScript />
-    <SiteFooter lang={lang} currentPath={pathname} />
+    <SiteFooter currentPath={pathname} />
   </body>
 </html>

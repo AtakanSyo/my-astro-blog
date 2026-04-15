@@ -1,35 +1,26 @@
 ---
 interface Props {
-  lang?: 'en' | 'tr';
   currentPath?: string;
 }
 
 import logoUrl from '../assets/images/shared/logo.svg?url';
 
-const { lang = 'en', currentPath = '' } = Astro.props as Props;
-const isTr = lang === 'tr';
+const { currentPath = '' } = Astro.props as Props;
 
-// base prefix for URLs ('' or '/tr')
-const base = isTr ? '/tr' : '';
-
-// localized labels
 const labels = {
-  home:       isTr ? 'Ana Sayfa'   : 'Home',
-  scienceStories: isTr ? 'Bilim Hikayeleri' : 'Science Stories',
-  cosmicStories: isTr ? 'Kozmik Hikayeler' : 'Cosmic Stories',
-  telescopes: isTr ? 'Teleskoplar' : 'Telescopes',
-  authors:    isTr ? 'Yazarlar'    : 'Authors',
-  about:      isTr ? 'Hakkında'    : 'About',
-  searchPlaceholder: isTr ? 'Ara…' : 'Search…',
-  searchAria:        isTr ? 'Yazılarda ara' : 'Search posts',
-  menuToggleAria:    isTr ? 'Menüyü aç / kapa' : 'Toggle menu',
-  searchToggleAria:  isTr ? 'Aramayı aç' : 'Open search',
-  searchCloseAria:   isTr ? 'Aramayı kapat' : 'Close search',
+  home: 'Home',
+  cosmicStories: 'Cosmic Stories',
+  telescopes: 'Telescopes',
+  authors: 'Authors',
+  about: 'About',
+  searchPlaceholder: 'Search…',
+  searchAria: 'Search posts',
+  menuToggleAria: 'Toggle menu',
+  searchToggleAria: 'Open search',
+  searchCloseAria: 'Close search',
 };
 
-// site name: use Astro.site or fallback
-const siteName =
-  Astro.site?.hostname ?? 'Astrosyo';
+const siteName = Astro.site?.hostname ?? 'Astrosyo';
 
 function normalizePath(path: string) {
   if (!path) return '/';
@@ -44,7 +35,7 @@ function isCurrent(href: string) {
 
 <header>
   <div class="header-inner">
-    <a href={base + '/'} class="logo centered_flex" aria-label={labels.home}>
+    <a href="/" class="logo centered_flex" aria-label={labels.home}>
       <img src={logoUrl} alt={siteName} />
     </a>
 
@@ -59,51 +50,43 @@ function isCurrent(href: string) {
     </button>
 
     <nav class="site-nav" id="site-nav">
-      <a
-        href={base + '/'}
-        class="nav-item"
-        aria-current={isCurrent(base + '/') ? 'page' : undefined}
-      >
+      <a href="/" class="nav-item" aria-current={isCurrent('/') ? 'page' : undefined}>
         {labels.home}
       </a>
       <a
-        href={base + '/cosmic-stories'}
+        href="/cosmic-stories"
         class="nav-item"
-        aria-current={isCurrent(base + '/cosmic-stories') ? 'page' : undefined}
+        aria-current={isCurrent('/cosmic-stories') ? 'page' : undefined}
       >
         {labels.cosmicStories}
       </a>
       <a
-        href={base + '/telescopes'}
+        href="/telescopes"
         class="nav-item"
-        aria-current={isCurrent(base + '/telescopes') ? 'page' : undefined}
+        aria-current={isCurrent('/telescopes') ? 'page' : undefined}
       >
         {labels.telescopes}
       </a>
       <a
-        href={base + '/authors'}
+        href="/authors"
         class="nav-item"
-        aria-current={isCurrent(base + '/authors') ? 'page' : undefined}
+        aria-current={isCurrent('/authors') ? 'page' : undefined}
       >
         {labels.authors}
       </a>
       <a
-        href={base + '/about'}
+        href="/about"
         class="nav-item"
-        aria-current={isCurrent(base + '/about') ? 'page' : undefined}
+        aria-current={isCurrent('/about') ? 'page' : undefined}
       >
         {labels.about}
       </a>
 
-      <button
-        class="nav-search-toggle"
-        aria-label={labels.searchToggleAria}
-        type="button"
-      >
+      <button class="nav-search-toggle" aria-label={labels.searchToggleAria} type="button">
         🔎
       </button>
 
-      <form action={base + '/search'} method="get" class="nav-search-form">
+      <form action="/search" method="get" class="nav-search-form">
         <input
           type="search"
           name="q"
@@ -111,11 +94,7 @@ function isCurrent(href: string) {
           placeholder={labels.searchPlaceholder}
           aria-label={labels.searchAria}
         />
-        <button
-          type="button"
-          class="nav-search-close"
-          aria-label={labels.searchCloseAria}
-        >
+        <button type="button" class="nav-search-close" aria-label={labels.searchCloseAria}>
           ✕
         </button>
       </form>

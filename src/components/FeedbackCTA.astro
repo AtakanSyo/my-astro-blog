@@ -3,25 +3,17 @@ interface Props {
   email?: string;
 }
 
-// detect language from URL: paths starting with /tr use Turkish
-const isTr = Astro.url.pathname.startsWith('/tr');
-
-// default email
 const DEFAULT_EMAIL = 'astrosyo.contact@gmail.com';
 const { email = DEFAULT_EMAIL } = Astro.props;
 
-// localized text
 const t = {
-  title:        isTr ? 'Astrosyo için geri bildiriminiz mi var?' : 'Found a mistake?',
-  subtitle:     isTr ? 'Her mesajı okuyorum' : 'I read every email',
-  desc:         isTr
-    ? 'Güncellememiz gerektiğini düşündüğünüz bir şey mi var, veya görüşlerinizi paylaşmak mı istiyorsunuz? astrosyo.contact@gmail.com adresine bir email gönderin.'
-    : 'Spot something I should update or want to share your thoughts? Send an email to astrosyo.contact@gmail.com.',
-  button:       isTr ? 'e-posta gönderin ↗' : 'Send an email ↗',
-  subject:      isTr ? 'Astrosyo İncelemeleri İçin Geri Bildirim' : 'Feedback for Astrosyo Reviews'
+  title: 'Found a mistake?',
+  subtitle: 'I read every email',
+  desc: 'Spot something I should update or want to share your thoughts? Send an email to astrosyo.contact@gmail.com.',
+  button: 'Send an email ↗',
+  subject: 'Feedback for Astrosyo Reviews'
 };
 
-// build mailto link with localized subject
 const mailto = `mailto:${email}?subject=${encodeURIComponent(t.subject)}`;
 ---
 

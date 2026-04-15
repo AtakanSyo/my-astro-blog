@@ -10,11 +10,7 @@ interface Props {
 }
 
 const { files, heading, showAffiliateLinks = true } = Astro.props as Props;
-
 const requestedFiles = Array.isArray(files) ? files : [files];
-
-// detect language from URL
-const isTr = Astro.url.pathname.startsWith('/tr');
 
 function normalizeFileName(name: string | undefined | null) {
   if (!name) return null;
@@ -47,15 +43,9 @@ const normalizedNames = requestedFiles
 
 const uniqueOrder = Array.from(new Set(normalizedNames));
 
-// --- language-aware posts glob (must be static literals) ---
-const enPosts = Object.values(
+const allPosts = Object.values(
   import.meta.glob('../pages/posts/*.{md,mdx}', { eager: true })
 ) as any[];
-const trPosts = Object.values(
-  import.meta.glob('../pages/tr/posts/*.{md,mdx}', { eager: true })
-) as any[];
-const allPosts = isTr ? trPosts : enPosts;
-// -----------------------------------------------------------
 
 type PostEntry = (typeof allPosts)[number];
 
@@ -98,15 +88,12 @@ function formatScore(value: unknown) {
 const containerClass =
   selectedPosts.length > 1 ? 'post-grid review-link-grid' : 'review-link-single';
 
-// localized UI labels
 const labels = {
-  empty: isTr
-    ? 'Eşleşen inceleme yazısı bulunamadı.'
-    : 'No matching review posts found.',
-  untitled: isTr ? 'İsimsiz İnceleme' : 'Untitled Review',
-  byPrefix: isTr ? 'Yazar: ' : 'By ',
-  reviewBadge: isTr ? 'İnceleme' : 'Review',
-  readReview: isTr ? 'İncelemeyi oku →' : 'Read the review →',
+  empty: 'No matching review posts found.',
+  untitled: 'Untitled Review',
+  byPrefix: 'By ',
+  reviewBadge: 'Review',
+  readReview: 'Read the review →',
 };
 ---
 
@@ -167,7 +154,7 @@ const labels = {
                   target="_blank"
                   rel="noopener noreferrer sponsored nofollow"
                 >
-                  {isTr ? `${label} üzerinde kontrol et` : `Check on ${label}`}
+                  {`Check on ${label}`}
                 </a>
               ))}
             </div>

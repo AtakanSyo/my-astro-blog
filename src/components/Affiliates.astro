@@ -1,5 +1,4 @@
 ---
-// src/components/Affiliates.astro
 export interface Props {
   affiliate: {
     amazon?: string;
@@ -10,38 +9,28 @@ export interface Props {
 
 const { affiliate } = Astro.props as Props;
 
-// detect language from URL
-const isTr = Astro.url.pathname.startsWith('/tr');
-
 const labels = {
-  title: isTr ? 'Satın Alınabilecek Mağazalar' : 'Available at These Vendors',
+  title: 'Available at These Vendors',
   amazon: {
-    name: isTr ? 'Amazon' : 'Amazon',
-    sub: isTr ? 'Geniş ürün yelpazesi' : 'Huge marketplace',
-    desc: isTr
-      ? 'Küçük ve orta ölçekli alışverişler için önerilir.'
-      : 'Recommended for smaller purchases.',
-    button: isTr ? 'Fiyatı kontrol et ↗' : 'Check price ↗'
+    name: 'Amazon',
+    sub: 'Huge marketplace',
+    desc: 'Recommended for smaller purchases.',
+    button: 'Check price ↗'
   },
   highpoint: {
-    name: isTr ? 'HighPoint Scientific' : 'HighPoint Scientific',
-    sub: isTr ? 'Astronomi odaklı mağaza' : 'Astronomy-focused store',
-    desc: isTr
-      ? 'Mükemmel müşteri desteği ve uzman rehberliği sunar.'
-      : 'Great customer support & expert guidance.',
-    button: isTr ? 'Fiyatı kontrol et ↗' : 'Check price ↗'
+    name: 'HighPoint Scientific',
+    sub: 'Astronomy-focused store',
+    desc: 'Great customer support & expert guidance.',
+    button: 'Check price ↗'
   },
   astroshop: {
-    name: isTr ? 'AstroShop' : 'AstroShop',
-    sub: isTr ? 'Avrupa' : 'Europe',
-    desc: isTr
-      ? 'Avrupa’daki müşteriler için önerilir.'
-      : 'Recommended for EU customers.',
-    button: isTr ? 'Fiyatı kontrol et ↗' : 'Check price ↗'
+    name: 'AstroShop',
+    sub: 'Europe',
+    desc: 'Recommended for EU customers.',
+    button: 'Check price ↗'
   }
 };
 
-// check if we have at least one affiliate
 const hasAffiliate =
   affiliate.amazon ||
   affiliate.highpointscientific ||
