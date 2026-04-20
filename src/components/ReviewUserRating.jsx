@@ -137,27 +137,35 @@ export default function ReviewUserRating(props) {
 
     setSaving(true);
 
-    const { error: upsertError } = await supabase
-      .from("telescope_user_ratings")
-      .upsert(
-        {
-          telescope_id: telescope.id,
-          user_id: session.user.id,
-          rating: Number(draftRating),
-        },
-        { onConflict: "telescope_id,user_id" }
-      );
+    try {
+      const { error: upsertError } = await supabase
+        .from("telescope_user_ratings")
+        .upsert(
+          {
+            telescope_id: telescope.id,
+            user_id: session.user.id,
+            rating: Number(draftRating),
+          },
+          { onConflict: "telescope_id,user_id" }
+        );
 
-    if (upsertError) {
-      setError(upsertError.message || "Could not submit your rating.");
+      if (upsertError) {
+        setError(upsertError.message || "Could not submit your rating.");
+        return;
+      }
+
+      setMessage("Thanks. Your rating has been saved.");
+      setMyRating(Number(draftRating));
+
+      // Refresh aggregates in the background so UI never gets stuck in "Saving...".
+      loadData(session).catch(() => {
+        setError("Rating saved, but refreshing community stats failed. Try reloading the page.");
+      });
+    } catch (_err) {
+      setError("Could not submit your rating. Please try again.");
+    } finally {
       setSaving(false);
-      return;
     }
-
-    setMessage("Thanks. Your rating has been saved.");
-    setMyRating(Number(draftRating));
-    await loadData(session);
-    setSaving(false);
   }
 
   if (loading) {
