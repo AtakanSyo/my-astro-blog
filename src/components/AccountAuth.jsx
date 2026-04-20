@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { supabase } from "../lib/supabase/client";
+import { hasSupabasePublicEnv, supabase } from "../lib/supabase/client";
 
 export default function AccountAuth() {
   const [email, setEmail] = useState("");
@@ -9,6 +9,14 @@ export default function AccountAuth() {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    if (!hasSupabasePublicEnv || !supabase) {
+      setError(
+        "Supabase is not configured for this environment. Add PUBLIC_SUPABASE_URL and PUBLIC_SUPABASE_ANON_KEY."
+      );
+      setLoading(false);
+      return;
+    }
+
     let mounted = true;
 
     async function loadSession() {
@@ -49,6 +57,11 @@ export default function AccountAuth() {
     }
 
     const redirectTo = `${window.location.origin}/account`;
+    if (!supabase) {
+      setError("Supabase is not configured.");
+      return;
+    }
+
     const { error: signInError } = await supabase.auth.signInWithOtp({
       email: emailValue,
       options: {
@@ -67,6 +80,11 @@ export default function AccountAuth() {
   async function handleLogout() {
     setMessage("");
     setError("");
+    if (!supabase) {
+      setError("Supabase is not configured.");
+      return;
+    }
+
     const { error: signOutError } = await supabase.auth.signOut();
     if (signOutError) {
       setError(signOutError.message);
