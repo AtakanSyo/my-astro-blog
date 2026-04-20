@@ -217,12 +217,19 @@ export default function ReviewUserRating(props) {
             <span className="label">Editorial</span>
             <span className="value">{formatScore(editorialScore, 1)}/10</span>
           </div>
-          <div className="user-rating-stat" style={{ "--h": readerHue }}>
+          <div
+            className={`user-rating-stat${communityCount === 0 ? " user-rating-stat-empty" : ""}`}
+            style={{ "--h": readerHue }}
+          >
             <span className="label">Readers</span>
-            <span className="value">
-              {formatScore(communityScore, 2)}/10
-              <small>({communityCount} votes)</small>
-            </span>
+            {communityCount > 0 ? (
+              <span className="value">
+                {formatScore(communityScore, 2)}/10
+                <small>({communityCount} votes)</small>
+              </span>
+            ) : (
+              <span className="user-rating-empty">Be the first one to rate this telescope.</span>
+            )}
           </div>
         </div>
 

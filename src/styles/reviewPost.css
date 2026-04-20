@@ -548,6 +548,10 @@ h1 .review-tag {
   border-color: color-mix(in oklab, var(--rate-color) 70%, rgba(255, 255, 255, 0.12));
 }
 
+.user-rating-stat-empty {
+  border-color: rgba(230, 234, 244, 0.3);
+}
+
 .user-rating-stat .label {
   display: block;
   font-size: 0.72rem;
@@ -569,6 +573,15 @@ h1 .review-tag {
   font-size: 0.74rem;
   color: rgba(230, 234, 244, 0.66);
   font-weight: 500;
+}
+
+.user-rating-empty {
+  display: block;
+  margin-top: 0.24rem;
+  font-size: 0.74rem;
+  color: rgba(230, 234, 244, 0.66);
+  font-weight: 500;
+  line-height: 1.35;
 }
 
 .user-rating-form {
