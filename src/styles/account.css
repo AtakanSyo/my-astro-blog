@@ -1,47 +1,144 @@
 .account-auth-card {
+  width: 100%;
   max-width: 640px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background:
+    radial-gradient(
+      120% 120% at 10% 0%,
+      rgba(255, 255, 255, 0.06),
+      rgba(255, 255, 255, 0.01)
+    ),
+    rgba(16, 17, 20, 0.82);
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.35);
+}
+
+.account-info-card {
+  max-width: 640px;
+  margin: 0 auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(16, 17, 20, 0.6);
+}
+
+.account-auth-card--loading {
+  min-height: 180px;
+}
+
+.account-muted {
+  color: rgba(233, 235, 255, 0.8);
+}
+
+.account-session {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.account-status-chip {
+  width: fit-content;
+  margin: 0;
+  border-radius: 999px;
+  padding: 0.2rem 0.62rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #85f0a9;
+  border: 1px solid rgba(133, 240, 169, 0.38);
+  background: rgba(20, 126, 55, 0.22);
 }
 
 .account-form {
   display: grid;
-  gap: 0.75rem;
-  margin-top: 0.75rem;
+  gap: 0.72rem;
+  margin-top: 0.35rem;
 }
 
 .account-form label {
+  margin-top: 0.2rem;
   font-weight: 600;
+  color: #e8ebf5;
 }
 
 .account-form input {
   width: 100%;
-  padding: 0.7rem 0.85rem;
-  border: 1px solid #d4d8e1;
+  padding: 0.82rem 0.9rem;
+  border: 1px solid rgba(228, 232, 244, 0.28);
   border-radius: 10px;
+  background: rgba(8, 10, 14, 0.6);
+  color: #f7f8fc;
   font: inherit;
+}
+
+.account-form input::placeholder {
+  color: rgba(228, 232, 244, 0.54);
+}
+
+.account-form input:focus {
+  outline: 2px solid color-mix(in oklab, rgb(var(--brand-color)) 55%, white);
+  outline-offset: 1px;
+  border-color: transparent;
 }
 
 .account-btn {
   width: fit-content;
-  padding: 0.62rem 1rem;
-  border: 1px solid transparent;
+  min-width: 164px;
+  padding: 0.72rem 1.05rem;
+  border: 1px solid rgba(255, 255, 255, 0.22);
   border-radius: 10px;
-  background: #101114;
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, rgb(var(--brand-color)) 68%, #1d2532),
+    color-mix(in oklab, rgb(var(--brand-color)) 52%, #0f131b)
+  );
   color: #fff;
   font: inherit;
   font-weight: 600;
   cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.2s ease, opacity 0.18s ease;
 }
 
 .account-btn:hover {
-  opacity: 0.92;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.28);
+}
+
+.account-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.74;
+  transform: none;
+  box-shadow: none;
+}
+
+.account-help {
+  color: rgba(233, 235, 255, 0.7);
+  font-size: 0.95rem;
+  line-height: 1.6;
 }
 
 .account-message {
-  margin-top: 0.75rem;
-  color: #12643b;
+  margin-top: 0.25rem;
+  padding: 0.72rem 0.86rem;
+  border-radius: 10px;
+  color: #bdf8cf;
+  border: 1px solid rgba(40, 183, 97, 0.35);
+  background: rgba(26, 97, 55, 0.25);
 }
 
 .account-error {
-  margin-top: 0.75rem;
-  color: #a2262b;
+  margin-top: 0.25rem;
+  padding: 0.72rem 0.86rem;
+  border-radius: 10px;
+  color: #ffd1d1;
+  border: 1px solid rgba(255, 103, 103, 0.34);
+  background: rgba(111, 22, 22, 0.28);
+}
+
+@media (max-width: 640px) {
+  .account-auth-card {
+    padding: 1.15rem;
+  }
+
+  .account-btn {
+    width: 100%;
+  }
 }
