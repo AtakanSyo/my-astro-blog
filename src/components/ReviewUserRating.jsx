@@ -39,7 +39,7 @@ export default function ReviewUserRating(props) {
   const hasTelescope = Boolean(telescope?.id);
 
   const authLabel = useMemo(() => {
-    if (!isSignedIn) return "Sign in to rate";
+    if (!isSignedIn) return "";
     return myRating ? `Your rating: ${formatScore(myRating, 1)}/10` : "Rate this telescope";
   }, [isSignedIn, myRating]);
 
@@ -227,7 +227,7 @@ export default function ReviewUserRating(props) {
         </div>
 
         <form className="user-rating-form" onSubmit={handleRateSubmit}>
-          <label htmlFor={`rating-${slug}`}>{authLabel}</label>
+          {authLabel && <label htmlFor={`rating-${slug}`}>{authLabel}</label>}
           <div className="user-rating-input-row">
             <input
               id={`rating-${slug}`}
@@ -238,6 +238,7 @@ export default function ReviewUserRating(props) {
               value={draftRating}
               onChange={(event) => setDraftRating(Number(event.target.value))}
               disabled={!hasTelescope || saving}
+              aria-label={authLabel || "Rating slider"}
             />
             <span className="user-rating-current" style={{ "--h": draftHue }}>
               {formatScore(draftRating, 1)}
