@@ -12,6 +12,7 @@ const labels = {
   cosmicStories: 'Cosmic Stories',
   telescopes: 'Telescopes',
   authors: 'Authors',
+  account: 'Account',
   about: 'About',
   searchPlaceholder: 'Search…',
   searchAria: 'Search posts',
@@ -73,6 +74,13 @@ function isCurrent(href: string) {
         aria-current={isCurrent('/authors') ? 'page' : undefined}
       >
         {labels.authors}
+      </a>
+      <a
+        href="/account"
+        class="nav-item"
+        aria-current={isCurrent('/account') ? 'page' : undefined}
+      >
+        {labels.account}
       </a>
       <a
         href="/about"

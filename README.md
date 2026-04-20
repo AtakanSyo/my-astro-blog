@@ -34,6 +34,10 @@ Supabase client helpers:
 - Browser/client-safe: `src/lib/supabase/client.ts`
 - Server helpers: `src/lib/supabase/server.ts`
 
+For passwordless login (magic link), add redirect URLs in Supabase Authentication settings:
+- `http://localhost:4321/account`
+- `https://astrosyo.com/account`
+
 ## Content
 
 - English posts: `src/pages/posts/*.mdx`
