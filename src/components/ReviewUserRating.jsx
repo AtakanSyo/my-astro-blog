@@ -8,6 +8,11 @@ function formatScore(value, digits = 1) {
   return value.toFixed(digits);
 }
 
+function scoreToHue(score) {
+  if (typeof score !== "number" || Number.isNaN(score)) return 210;
+  return Math.round((Math.max(0, Math.min(10, score)) / 10) * 120);
+}
+
 /**
  * @param {{ slug: string, editorialScore?: number | null }} props
  */
@@ -27,6 +32,8 @@ export default function ReviewUserRating(props) {
   const isSignedIn = Boolean(session?.user);
   const communityScore = telescope?.user_rating ?? 0;
   const communityCount = telescope?.user_rating_count ?? 0;
+  const editorialHue = scoreToHue(editorialScore);
+  const readerHue = scoreToHue(communityScore);
 
   const hasTelescope = Boolean(telescope?.id);
 
@@ -193,7 +200,7 @@ export default function ReviewUserRating(props) {
   if (loading) {
     return (
       <section className="user-rating-card" aria-busy="true">
-        <h3>Community Rating</h3>
+        <h3>Ratings</h3>
         <p>Loading ratings...</p>
       </section>
     );
@@ -202,14 +209,14 @@ export default function ReviewUserRating(props) {
   return (
     <>
       <section className="user-rating-card">
-        <h3>Community Rating</h3>
+        <h3>Ratings</h3>
 
         <div className="user-rating-stats">
-          <div className="user-rating-stat">
+          <div className="user-rating-stat" style={{ "--h": editorialHue }}>
             <span className="label">Editorial</span>
             <span className="value">{formatScore(editorialScore, 1)}/10</span>
           </div>
-          <div className="user-rating-stat">
+          <div className="user-rating-stat" style={{ "--h": readerHue }}>
             <span className="label">Readers</span>
             <span className="value">
               {formatScore(communityScore, 2)}/10

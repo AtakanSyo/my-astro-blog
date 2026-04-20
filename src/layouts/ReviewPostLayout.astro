@@ -81,8 +81,6 @@ function scoreToHue(score: number | null) {
 }
 
 const overallNum = parseScore(rating?.overall);
-const overallText = overallNum !== null ? overallNum.toFixed(1) : 'N/A';
-const overallHue = scoreToHue(overallNum);
 const telescopeSlug = Astro.props.frontmatter?.slug;
 ---
 
@@ -125,10 +123,6 @@ const telescopeSlug = Astro.props.frontmatter?.slug;
   </div>
     <div class="review-meta centered_flex">
     
-      <div class="main-rating-card rating-card centered_flex" style={`--h:${overallHue}`}>
-        <span class="category">Overall</span>
-        <span class="score">{overallText}/10</span>
-      </div>
       {telescopeSlug && (
         <ReviewUserRating
           slug={telescopeSlug}
