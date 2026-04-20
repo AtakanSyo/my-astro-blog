@@ -617,6 +617,17 @@ h1 .review-tag {
   cursor: not-allowed;
 }
 
+.user-rating-retry {
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  background: rgba(255, 255, 255, 0.04);
+  font-weight: 700;
+  font-size: 0.84rem;
+  cursor: pointer;
+}
+
 .user-rating-message,
 .user-rating-error {
   margin: 0;

@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { hasSupabasePublicEnv, supabase } from "../lib/supabase/client";
 
+const INITIAL_LOAD_TIMEOUT_MS = 8000;
+
 function formatScore(value, digits = 1) {
   if (typeof value !== "number" || Number.isNaN(value)) return "N/A";
   return value.toFixed(digits);
@@ -20,6 +22,7 @@ export default function ReviewUserRating(props) {
   const [telescope, setTelescope] = useState(null);
   const [myRating, setMyRating] = useState(null);
   const [draftRating, setDraftRating] = useState(8);
+  const [reloadKey, setReloadKey] = useState(0);
 
   const isSignedIn = Boolean(session?.user);
   const communityScore = telescope?.user_rating ?? 0;
@@ -94,15 +97,33 @@ export default function ReviewUserRating(props) {
     }
 
     let mounted = true;
+    let timeoutId;
 
     async function boot() {
-      const { data: sessionData } = await supabase.auth.getSession();
-      if (!mounted) return;
+      setLoading(true);
+      setError("");
+      setMessage("");
 
-      const currentSession = sessionData.session ?? null;
-      setSession(currentSession);
-      await loadData(currentSession);
-      if (mounted) setLoading(false);
+      timeoutId = setTimeout(() => {
+        if (!mounted) return;
+        setError("Loading ratings timed out. Please try again.");
+        setLoading(false);
+      }, INITIAL_LOAD_TIMEOUT_MS);
+
+      try {
+        const { data: sessionData } = await supabase.auth.getSession();
+        if (!mounted) return;
+
+        const currentSession = sessionData.session ?? null;
+        setSession(currentSession);
+        await loadData(currentSession);
+      } catch (_err) {
+        if (!mounted) return;
+        setError("Could not load ratings right now.");
+      } finally {
+        if (timeoutId) clearTimeout(timeoutId);
+        if (mounted) setLoading(false);
+      }
     }
 
     boot();
@@ -116,9 +137,10 @@ export default function ReviewUserRating(props) {
 
     return () => {
       mounted = false;
+      if (timeoutId) clearTimeout(timeoutId);
       subscription.unsubscribe();
     };
-  }, [slug]);
+  }, [slug, reloadKey]);
 
   async function handleRateSubmit(event) {
     event.preventDefault();
@@ -225,6 +247,15 @@ export default function ReviewUserRating(props) {
           <p className="user-rating-error" aria-live="polite">
             {error}
           </p>
+        )}
+        {error && !saving && (
+          <button
+            type="button"
+            className="user-rating-retry"
+            onClick={() => setReloadKey((prev) => prev + 1)}
+          >
+            Retry
+          </button>
         )}
       </section>
 
