@@ -34,6 +34,7 @@ export default function ReviewUserRating(props) {
   const communityCount = telescope?.user_rating_count ?? 0;
   const editorialHue = scoreToHue(editorialScore);
   const readerHue = scoreToHue(communityScore);
+  const draftHue = scoreToHue(draftRating);
 
   const hasTelescope = Boolean(telescope?.id);
 
@@ -238,7 +239,9 @@ export default function ReviewUserRating(props) {
               onChange={(event) => setDraftRating(Number(event.target.value))}
               disabled={!hasTelescope || saving}
             />
-            <span className="user-rating-current">{formatScore(draftRating, 1)}</span>
+            <span className="user-rating-current" style={{ "--h": draftHue }}>
+              {formatScore(draftRating, 1)}
+            </span>
           </div>
           <button type="submit" disabled={!hasTelescope || saving}>
             {isSignedIn ? (saving ? "Saving..." : "Submit rating") : "Sign in to rate"}

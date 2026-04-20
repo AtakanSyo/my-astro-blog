@@ -589,12 +589,64 @@ h1 .review-tag {
 
 .user-rating-input-row input[type="range"] {
   flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  accent-color: rgb(var(--brand-color));
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  outline: none;
+}
+
+.user-rating-input-row input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 999px;
+  background: transparent;
+}
+
+.user-rating-input-row input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  margin-top: -5px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  background: #ffffff;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.18);
+}
+
+.user-rating-input-row input[type="range"]::-moz-range-track {
+  height: 4px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.user-rating-input-row input[type="range"]::-moz-range-progress {
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(var(--brand-color), 0.82);
+}
+
+.user-rating-input-row input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  background: #ffffff;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.18);
+}
+
+.user-rating-input-row input[type="range"]:focus-visible {
+  box-shadow: 0 0 0 2px rgba(var(--brand-color), 0.42);
 }
 
 .user-rating-current {
+  --rate-color: hsl(var(--h, 210) 100% 62%);
   min-width: 2.4rem;
   text-align: right;
-  color: #ffffff;
+  color: var(--rate-color);
   font-weight: 700;
   font-variant-numeric: tabular-nums;
 }
