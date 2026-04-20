@@ -38,6 +38,20 @@ For passwordless login (magic link), add redirect URLs in Supabase Authenticatio
 - `http://localhost:4321/account`
 - `https://astrosyo.com/account`
 
+### Telescope ratings schema
+
+A ready migration exists at:
+- `supabase/migrations/20260420_create_telescopes.sql`
+
+It creates:
+- `public.telescopes` (catalog + `editorial_rating` + aggregated `user_rating`)
+- `public.telescope_user_ratings` (one rating per user per telescope)
+
+It also includes:
+- Rating range constraints (`0..10`)
+- Aggregation triggers (auto-updates `user_rating` and `user_rating_count`)
+- RLS policies for public reads and authenticated per-user rating writes
+
 ## Content
 
 - English posts: `src/pages/posts/*.mdx`

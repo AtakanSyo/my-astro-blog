@@ -4,6 +4,7 @@ import '../styles/postsGlobal.css';
 import '../styles/reviewPost.css';
 import SocialShare from '../components/SocialShare.astro';
 import FeedbackCTA from '../components/FeedbackCTA.astro';
+import ReviewUserRating from '../components/ReviewUserRating.jsx';
 
 const { url } = Astro.props;
 
@@ -82,6 +83,7 @@ function scoreToHue(score: number | null) {
 const overallNum = parseScore(rating?.overall);
 const overallText = overallNum !== null ? overallNum.toFixed(1) : 'N/A';
 const overallHue = scoreToHue(overallNum);
+const telescopeSlug = Astro.props.frontmatter?.slug;
 ---
 
 <head>
@@ -127,6 +129,13 @@ const overallHue = scoreToHue(overallNum);
         <span class="category">Overall</span>
         <span class="score">{overallText}/10</span>
       </div>
+      {telescopeSlug && (
+        <ReviewUserRating
+          slug={telescopeSlug}
+          editorialScore={overallNum}
+          client:load
+        />
+      )}
       <p class="post-starter-description">{Astro.props.frontmatter.description}</p>
       <div class="share-header"><span class="share-label">Share:</span></div>
       <SocialShare frontmatter={Astro.props.frontmatter} url={url} />

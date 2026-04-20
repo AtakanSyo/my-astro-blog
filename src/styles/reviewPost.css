@@ -515,3 +515,176 @@ h1 .review-tag {
   letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
 }
+
+.user-rating-card {
+  width: min(100%, 360px);
+  display: grid;
+  gap: 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  padding: 0.9rem;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.user-rating-card h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #f5f6fb;
+}
+
+.user-rating-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.user-rating-stat {
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 10px;
+  padding: 0.58rem 0.65rem;
+  background: rgba(7, 9, 12, 0.52);
+}
+
+.user-rating-stat .label {
+  display: block;
+  font-size: 0.72rem;
+  color: rgba(230, 234, 244, 0.68);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.user-rating-stat .value {
+  display: block;
+  margin-top: 0.24rem;
+  color: #f6f8ff;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.user-rating-stat .value small {
+  margin-left: 0.4rem;
+  font-size: 0.74rem;
+  color: rgba(230, 234, 244, 0.66);
+  font-weight: 500;
+}
+
+.user-rating-form {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.user-rating-form label {
+  font-size: 0.87rem;
+  color: rgba(235, 238, 248, 0.85);
+}
+
+.user-rating-input-row {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.user-rating-input-row input[type="range"] {
+  flex: 1;
+}
+
+.user-rating-current {
+  min-width: 2.4rem;
+  text-align: right;
+  color: #ffffff;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.user-rating-form button {
+  padding: 0.56rem 0.8rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  background: rgba(16, 18, 24, 0.78);
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.18s ease;
+}
+
+.user-rating-form button:hover {
+  opacity: 0.9;
+}
+
+.user-rating-form button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.user-rating-message,
+.user-rating-error {
+  margin: 0;
+  padding: 0.55rem 0.68rem;
+  border-radius: 8px;
+  font-size: 0.86rem;
+}
+
+.user-rating-message {
+  color: #d2ffe1;
+  background: rgba(27, 111, 70, 0.33);
+  border: 1px solid rgba(72, 194, 129, 0.35);
+}
+
+.user-rating-error {
+  color: #ffd3d6;
+  background: rgba(108, 28, 28, 0.33);
+  border: 1px solid rgba(247, 118, 122, 0.33);
+}
+
+.signin-modal-overlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.58);
+  z-index: 1200;
+  padding: 1rem;
+}
+
+.signin-modal {
+  width: min(100%, 400px);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: #0f1115;
+  padding: 1rem;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.signin-modal h4 {
+  margin: 0;
+  color: #ffffff;
+}
+
+.signin-modal p {
+  margin: 0;
+  color: rgba(228, 232, 245, 0.8);
+}
+
+.signin-modal-actions {
+  margin-top: 0.25rem;
+  display: flex;
+  gap: 0.65rem;
+}
+
+.signin-modal-actions a,
+.signin-modal-actions button {
+  border-radius: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  padding: 0.5rem 0.8rem;
+  font-weight: 700;
+  font-size: 0.86rem;
+  text-decoration: none;
+}
+
+.signin-modal-actions button {
+  cursor: pointer;
+}
