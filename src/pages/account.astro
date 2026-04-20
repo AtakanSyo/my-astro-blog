@@ -9,24 +9,14 @@ import "../styles/account.css";
 ---
 
 <Layout title="Account">
-  <main class="about-page page-home">
-    <section class="hero about-hero">
-      <h1 class="home-title">Your Account</h1>
-      <p class="home-description">
-        Fast, passwordless access for readers. Sign in with email and continue in one click.
-      </p>
+  <main class="about-page account-page">
+    <section class="account-hero">
+      <h1 class="account-title">Account</h1>
+      <p class="account-subtitle">Sign in with email to access your reader account.</p>
     </section>
 
-    <section class="about-grid">
+    <section class="account-grid">
       <AccountAuth client:load />
-      <article class="about-card account-info-card">
-        <h2>How It Works</h2>
-        <ul class="about-list">
-          <li>Enter your email and tap <strong>Send Magic Link</strong>.</li>
-          <li>Open the email and click the link from this device.</li>
-          <li>You return to this page signed in, with no password to remember.</li>
-        </ul>
-      </article>
     </section>
   </main>
 </Layout>

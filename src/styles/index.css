@@ -45,7 +45,7 @@
 }
 
 .home-title{
-  font-size:clamp(2.2rem, 5.5vw + 0.9rem, 4.4rem);
+  font-size:clamp(1.2rem, 5.5vw + 0.9rem, 2.4rem);
   font-weight: 900;
   letter-spacing: 0.1rem;
   text-transform:uppercase;
@@ -114,9 +114,13 @@
 .latest-section {
   display: grid;
   gap: 2.5rem;
-  width: 100%;
+  width: 90%;
   margin-top: 2rem;
   padding: 1rem;
+}
+
+.latest-section .post-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
 .category-section {
@@ -201,6 +205,19 @@
   color: white;
 }
 
+.category-more-link {
+  display: block;
+  width: fit-content;
+  margin: 0.25rem auto 0;
+  text-decoration: none;
+  color: rgba(226, 230, 238, 0.8);
+  font-style: italic;
+}
+
+.category-more-link:hover {
+  color: #ffffff;
+}
+
 
 /* =========================
    PREMIUM COSMIC CTAs + SOCIALS
@@ -211,6 +228,17 @@
   width: 100%;
   max-width: 100%;
   min-width: 0;
+}
+
+.home-explainer {
+  margin: 0.4rem auto 0;
+  max-width: 72ch;
+  padding: 0 1rem;
+  text-align: center;
+  font-style: italic;
+  color: rgba(226, 230, 238, 0.68);
+  font-size: 1rem;
+  line-height: 1.7;
 }
 /* --- CTA ROW LAYOUT --- */
 .cta-row {
@@ -317,7 +345,17 @@
 /* =========================
    MOBILE POLISH
    ========================= */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .latest-section .post-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 600px) {
+  .latest-section .post-grid {
+    grid-template-columns: 1fr;
+  }
+
   .cta-row {
     gap: 14px;
     grid-template-columns: 1fr;

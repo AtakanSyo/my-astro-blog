@@ -35,8 +35,9 @@ function latestByCategory(key: string, n = 6) {
 
 // category config
 const CATS = [
-  { key: 'simulation',    label: 'Cosmic Stories',    cta: 'Go to the story →', link: '/cosmic-stories' },
-  { key: 'reviews',        label: 'Reviews',        cta: 'Read the review →' , link: '/telescopes'},
+  { key: 'reviews',        label: 'Telescope Reviews',        cta: 'Read the review →' , link: '/telescopes'},
+
+  { key: 'simulation',    label: 'Science Stories',    cta: 'Go to the story →', link: '/cosmic-stories' },
   // { key: 'informational', label: 'Informational Posts',         cta: 'Read the guide →' },
   // { key: 'nasa',          label: 'NASA Posts',           cta: 'See the article →' },
 ];
@@ -64,7 +65,7 @@ const CATS = [
         <section class="hero centered_flex fade-up">
           <span class="hero-kicker">{site.name}</span>
           <h1 class="home-title">{site.description}</h1>
-          <p class="home-description">Science stories and telescope reviews.</p>
+          <!--<p class="home-description">Science stories and telescope reviews.</p>-->
         </section>
 
 	        <a class="home-sim-link" href="/posts/mars">
@@ -95,9 +96,12 @@ const CATS = [
                 <span class="cta-arrow">→</span>
               </a>
             </div>
+            <p class="home-explainer">
+              Astrosyo helps you explore the cosmos through telescope reviews, interactive simulations, and practical guides. Compare real user ratings, understand what you’re seeing, and choose the right equipment for your journey into astronomy.
+            </p>
           </div>
 
-          <!-- SOCIALS -->
+          <!-- SOCIALS 
           <div class="global-socials">
             <div class="global-socials-links">
               <a href="https://www.instagram.com/astrosyo_" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
@@ -114,19 +118,20 @@ const CATS = [
                 </svg>
               </a>
             </div>
-          </div>
+          </div>-->
 	    </div>
 
     <!-- Latest by category (stacked sections) -->
     <section class="latest-section">
       {CATS.map((cat) => {
-        const items = latestByCategory(cat.key, 4);
+        const items = latestByCategory(cat.key, 10);
+        const categoryLink = cat.link ?? `/category/${cat.key.toLowerCase()}`;
         if (items.length === 0) return null;
 
         return (
           <section class="category-section">
             <h2 class="home-category-title">
-              <a href={cat.link ?? `/category/${cat.key.toLowerCase()}`} class="latest-title">{cat.label} →</a>
+              <a href={categoryLink} class="latest-title">{cat.label}</a>
             </h2>
             <div class="post-grid">
               {
@@ -157,6 +162,9 @@ const CATS = [
                 })
               }
             </div>
+            <a href={categoryLink} class="category-more-link">
+              discover more posts in this category.
+            </a>
           <span class="divider"></span>
           </section>
         );
