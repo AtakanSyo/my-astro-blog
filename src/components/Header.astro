@@ -4,6 +4,7 @@ interface Props {
 }
 
 import logoUrl from '../assets/images/shared/logo.svg?url';
+import HeaderAccountStatus from './HeaderAccountStatus.jsx';
 
 const { currentPath = '' } = Astro.props as Props;
 
@@ -12,7 +13,6 @@ const labels = {
   cosmicStories: 'Cosmic Stories',
   telescopes: 'Telescopes',
   authors: 'Authors',
-  account: 'Account',
   about: 'About',
   searchPlaceholder: 'Search…',
   searchAria: 'Search posts',
@@ -75,13 +75,7 @@ function isCurrent(href: string) {
       >
         {labels.authors}
       </a>
-      <a
-        href="/account"
-        class="nav-item"
-        aria-current={isCurrent('/account') ? 'page' : undefined}
-      >
-        {labels.account}
-      </a>
+      <HeaderAccountStatus currentPath={currentPath} client:load />
       <a
         href="/about"
         class="nav-item"
