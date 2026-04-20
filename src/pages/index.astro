@@ -35,8 +35,6 @@ function latestByCategory(key: string, n = 6) {
 
 // category config
 const CATS = [
-  { key: 'reviews',        label: 'Telescope Reviews',        cta: 'Read the review →' , link: '/telescopes'},
-
   { key: 'simulation',    label: 'Science Stories',    cta: 'Go to the story →', link: '/cosmic-stories' },
   // { key: 'informational', label: 'Informational Posts',         cta: 'Read the guide →' },
   // { key: 'nasa',          label: 'NASA Posts',           cta: 'See the article →' },
@@ -72,34 +70,6 @@ const CATS = [
 	          Go to the latest story <span class="home-sim-arrow" aria-hidden="true">→</span>
 	        </a>
       </div>
-
-          <!-- CTA ROW -->
-          <div class="cta-row-wrapper">
-            <div class="cta-row">
-              <a href="/telescopes" class="cta" onclick="umami?.track?.('explore-telescopes-cta')">
-                <span class="cta-label">🪐 Explore Telescopes</span>
-                <span class="cta-arrow">→</span>
-              </a>
-
-              <a href="/top-telescopes" class="cta" onclick="umami?.track?.('top-ten-cta')">
-                <span class="cta-label">⭐ Top 10 Telescope Picks</span>
-                <span class="cta-arrow">→</span>
-              </a>
-
-              <a href="/cosmic-stories" class="cta" onclick="umami?.track?.('cosmic-stories-cta')">
-                <span class="cta-label">🌀 Cosmic Stories</span>
-                <span class="cta-arrow">→</span>
-              </a>
-
-              <a href="/about" class="cta" onclick="umami?.track?.('about-cta')">
-                <span class="cta-label">ℹ️ About Us</span>
-                <span class="cta-arrow">→</span>
-              </a>
-            </div>
-            <p class="home-explainer">
-              Astrosyo helps you explore the cosmos through telescope reviews, interactive simulations, and practical guides. Compare real user ratings, understand what you’re seeing, and choose the right equipment for your journey into astronomy.
-            </p>
-          </div>
 
           <!-- SOCIALS 
           <div class="global-socials">

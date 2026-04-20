@@ -10,9 +10,7 @@ const { currentPath = '' } = Astro.props as Props;
 
 const labels = {
   home: 'Home',
-  cosmicStories: 'Cosmic Stories',
-  telescopes: 'Telescopes',
-  authors: 'Authors',
+  cosmicStories: 'Science Stories',
   about: 'About',
   searchPlaceholder: 'Search…',
   searchAria: 'Search posts',
@@ -60,20 +58,6 @@ function isCurrent(href: string) {
         aria-current={isCurrent('/cosmic-stories') ? 'page' : undefined}
       >
         {labels.cosmicStories}
-      </a>
-      <a
-        href="/telescopes"
-        class="nav-item"
-        aria-current={isCurrent('/telescopes') ? 'page' : undefined}
-      >
-        {labels.telescopes}
-      </a>
-      <a
-        href="/authors"
-        class="nav-item"
-        aria-current={isCurrent('/authors') ? 'page' : undefined}
-      >
-        {labels.authors}
       </a>
       <HeaderAccountStatus currentPath={currentPath} client:load />
       <a

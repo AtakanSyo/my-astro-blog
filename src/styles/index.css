@@ -48,7 +48,6 @@
   font-size:clamp(1.2rem, 5.5vw + 0.9rem, 2.4rem);
   font-weight: 900;
   letter-spacing: 0.1rem;
-  text-transform:uppercase;
   background: linear-gradient(95deg, #fff 0%, color-mix(in oklab, #fff 100%, rgb(var(--brand-color))) 35%, color-mix(in oklab, #fff 70%, var(--brand-color-darker)) 120%);
   -webkit-background-clip:text;background-clip:text;color:transparent;
 }

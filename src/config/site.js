@@ -1,7 +1,7 @@
 // src/config/site.js
 export const site = {
   name: 'Astrosyo',
-  description: 'Explore the cosmos. Choose your view.',
+  description: 'Notes on the Cosmos.',
   url: 'https://astrosyo.com',
   title: "Astrosyo"
 };
