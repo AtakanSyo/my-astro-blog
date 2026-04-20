@@ -21,6 +21,19 @@ Production site: `https://astrosyo.com`
 | `npm run build` | Build to `./dist/` |
 | `npm run preview` | Preview the production build |
 
+## Supabase setup
+
+1. Create a `.env` file based on `.env.example`.
+2. Set:
+   - `PUBLIC_SUPABASE_URL`
+   - `PUBLIC_SUPABASE_ANON_KEY`
+   - `SUPABASE_SERVICE_ROLE_KEY` (server-only, optional unless you need admin operations)
+3. In Vercel, add the same variables in Project Settings -> Environment Variables.
+
+Supabase client helpers:
+- Browser/client-safe: `src/lib/supabase/client.ts`
+- Server helpers: `src/lib/supabase/server.ts`
+
 ## Content
 
 - English posts: `src/pages/posts/*.mdx`

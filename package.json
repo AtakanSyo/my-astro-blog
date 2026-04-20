@@ -20,6 +20,7 @@
     "@iconify-json/ion": "^1.2.4",
     "@iconify-json/logos": "^1.2.5",
     "@iconify-json/simple-icons": "^1.2.44",
+    "@supabase/supabase-js": "^2.104.0",
     "@tailwindcss/vite": "^4.1.11",
     "astro": "^5.16.0",
     "astro-icon": "^1.1.5",
