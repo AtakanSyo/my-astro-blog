@@ -1,0 +1,93 @@
+.contact-page {
+  width: min(100%, 980px);
+  min-height: 80vh;
+  margin: 0 auto;
+  padding: 3.5rem 1rem 4rem;
+}
+
+.contact-hero {
+  margin: 0 auto 1.6rem;
+}
+
+.contact-title {
+  margin: 0;
+  color: #f4f5f8;
+  font-size: clamp(2rem, 2vw + 1.35rem, 3rem);
+  font-weight: 800;
+  letter-spacing: 0;
+  text-align: left;
+}
+
+.contact-description {
+  max-width: 64ch;
+  margin: 0.8rem 0 0;
+  color: rgba(232, 234, 241, 0.76);
+  font-size: clamp(1rem, 0.25vw + 0.95rem, 1.1rem);
+  line-height: 1.65;
+  text-align: left;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.contact-card {
+  min-width: 0;
+  padding: 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 8px;
+  background: rgba(14, 15, 18, 0.64);
+}
+
+.contact-card h2 {
+  margin: 0 0 0.55rem;
+  color: #f1f2f5;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.contact-card p {
+  max-width: none;
+  margin: 0;
+  color: rgba(231, 233, 240, 0.76);
+  font-size: 0.98rem;
+  line-height: 1.65;
+  text-align: left;
+}
+
+.contact-card a {
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+}
+
+.contact-card a:hover,
+.contact-card a:focus-visible {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.contact-list {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+  padding-left: 1.1rem;
+  color: rgba(231, 233, 240, 0.76);
+}
+
+.contact-list li {
+  padding-left: 0.1rem;
+}
+
+@media (max-width: 720px) {
+  .contact-page {
+    padding-top: 2.5rem;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}

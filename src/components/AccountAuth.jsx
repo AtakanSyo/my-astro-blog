@@ -110,7 +110,7 @@ export default function AccountAuth() {
 
   if (loading) {
     return (
-      <section className="about-card account-auth-card account-auth-card--loading">
+      <section className="account-auth-card account-auth-card--loading">
         <h2>Reader Account</h2>
         <p>Checking account status...</p>
       </section>
@@ -118,7 +118,7 @@ export default function AccountAuth() {
   }
 
   return (
-    <section className="about-card account-auth-card">
+    <section className="account-auth-card">
       <h2>Reader Account</h2>
       <p className="account-muted">
         Passwordless sign in. Enter your email and we will send a secure magic link.

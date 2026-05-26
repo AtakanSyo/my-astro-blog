@@ -38,6 +38,11 @@ const entranceStyle = [
   postColor && `--post-entrance-bg: ${postColor}`,
   inversePostColor && `--post-entrance-text: ${inversePostColor}`,
 ].filter(Boolean).join("; ");
+
+const articleStyle = [
+  postColor && `--post-color: ${postColor}`,
+  inversePostColor && `--post-color-inverse: ${inversePostColor}`,
+].filter(Boolean).join("; ");
 ---
 
 <head>
@@ -56,7 +61,7 @@ const entranceStyle = [
 </head>
 
 <Layout title={title} description={description} category={Astro.props.frontmatter?.category}>
-  <article class="post sim-post centered_flex">
+  <article class="post sim-post centered_flex" style={articleStyle}>
 
     <div class="post-entrance centered_flex" style={entranceStyle}>
       <h1 class="sim-article-title fade-up">{title}</h1>
