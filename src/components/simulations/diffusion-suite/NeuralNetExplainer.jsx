@@ -5,7 +5,6 @@ function lerp(a, b, t) {
 }
 
 export default function NeuralNetExplainer({
-  id = "neural-net-explainer",
   layers = [4, 7, 7, 3],
   aspect = "16 / 9",
 }) {

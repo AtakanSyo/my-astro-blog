@@ -43,8 +43,6 @@ export default function ExoplanetTransitSim({
 
   // Misc refs
   const roRef = useRef(null);
-  const ioRef = useRef(null);
-
   // Chart cache refs
   const chartCtxRef = useRef(null);
   const chartGradRef = useRef(null);

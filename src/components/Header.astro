@@ -5,12 +5,13 @@ interface Props {
 
 import logoUrl from '../assets/images/shared/logo.svg?url';
 import HeaderAccountStatus from './HeaderAccountStatus.jsx';
+import { Search } from 'lucide-react';
 
 const { currentPath = '' } = Astro.props as Props;
 
 const labels = {
   home: 'Home',
-  cosmicStories: 'Science Stories',
+  cosmicStories: 'Stories',
   about: 'About',
   searchPlaceholder: 'Search…',
   searchAria: 'Search posts',
@@ -69,7 +70,7 @@ function isCurrent(href: string) {
       </a>
 
       <button class="nav-search-toggle" aria-label={labels.searchToggleAria} type="button">
-        🔎
+        <Search size={18} strokeWidth={1.75} aria-hidden="true" />
       </button>
 
       <form action="/search" method="get" class="nav-search-form">

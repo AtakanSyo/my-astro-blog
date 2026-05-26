@@ -302,9 +302,9 @@ export default function STypeSystem({
       planetOrbitEntry.geometry.dispose();
       planetOrbitEntry.material.dispose();
       scene.remove(planetOrbitEntry.line);
-      diskEntry.geometry.dispose();
-      diskEntry.material.dispose();
-      scene.remove(diskEntry.mesh);
+      discEntry.geometry.dispose();
+      discEntry.material.dispose();
+      scene.remove(discEntry.mesh);
       planetGeo.dispose();
       planetMat.dispose();
     };

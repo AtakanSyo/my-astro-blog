@@ -9,7 +9,7 @@ export default function forceUtf8ForHtml() {
     name: "utf8-for-html-only",
     apply: "serve", // <-- ensures plugin only runs in dev (vite serve)
     configureServer(server) {
-      server.middlewares.use((req, res, next) => {
+      server.middlewares.use((_req, res, next) => {
         const originalSetHeader = res.setHeader.bind(res);
 
         res.setHeader = (name, value) => {

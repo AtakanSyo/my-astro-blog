@@ -34,7 +34,7 @@ const pathname = Astro.url.pathname;
 const lang = 'en';
 const isProd = import.meta.env.PROD;
 
-const orgJsonLd = {
+const orgJsonLd = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "Astrosyo",
@@ -44,7 +44,7 @@ const orgJsonLd = {
     "target": `${site_url}/search?q={search_term_string}`,
     "query-input": "required name=search_term_string"
   }
-};
+});
 
 function slugify(str: string) {
   return str.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9\-]/g, '');
@@ -106,10 +106,11 @@ const ogLocale = 'en_US';
     <link rel="alternate" href={canonicalUrl} hreflang="en" />
     <link rel="alternate" href={canonicalUrl} hreflang="x-default" />
 
-    <script type="application/ld+json">{JSON.stringify(orgJsonLd)}</script>
+    <script is:inline type="application/ld+json" set:html={orgJsonLd}></script>
 
     {isProd && (
       <script
+        is:inline
         defer
         src="https://cloud.umami.is/script.js"
         data-website-id="7f187073-b57a-4268-9c53-94c815af943f"

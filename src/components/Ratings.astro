@@ -60,7 +60,6 @@ const descriptor = scoreDescriptor(overallScore);
       {visible.map(({ key, label, score }) => {
         const s = score as number;
         const hue = Math.round((s / 10) * 120); // 0→120 (red→green)
-        const alpha = (0.10 + (s / 10) * 0.22).toFixed(3); // subtle → stronger
         return (
           <div
             class="rating-tile"

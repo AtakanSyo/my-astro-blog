@@ -12,7 +12,7 @@ Usage:
 
 Options:
   --posts-dir         Directory containing .md/.mdx files (default: src/pages/posts)
-  --new-layout        New layout path (default: ../../layouts/ReviewPostLayout.astro)
+  --new-layout        New layout path (default: ../../layouts/simLayout.astro)
   --layout            Apply layout change
   --img-class         Inject post-image-sm class into <img> tags
   --affiliates-inline Replace affiliate block with inline HTML snippet
@@ -118,7 +118,7 @@ def main():
         help='Directory for markdown files'
     )
     parser.add_argument(
-        '--new-layout', default='../../layouts/ReviewPostLayout.astro',
+        '--new-layout', default='../../layouts/simLayout.astro',
         help='New layout path'
     )
     parser.add_argument(

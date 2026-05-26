@@ -153,7 +153,6 @@ export default function GLBViewer({
 
     // Helpers
     let needsRender = true; // demand rendering flag
-    const onChange = () => (needsRender = true);
 
     // Auto-frame to bounds or use exported camera
     const frameObject = (obj, cam) => {

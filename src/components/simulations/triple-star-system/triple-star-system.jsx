@@ -9,7 +9,6 @@ import {
   createOrbitRing,
   createOrthoTopDownCamera,
   createStar,
-  computeBinaryPositions,
   computeEllipticalPosition,
 } from '../lib/starSystemCore.js';
 

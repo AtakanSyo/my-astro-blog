@@ -1,15 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export default function GateExplainer({
   gate = "ReLU",
   inputs = [1, 0],
   aspect = "16 / 9",
-  id = "gate-explainer",
 }) {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
   const rafRef = useRef(null);
-  const [tick, setTick] = useState(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -276,11 +274,8 @@ export default function GateExplainer({
 
     rafRef.current = requestAnimationFrame(draw);
 
-    const pulseInterval = setInterval(() => setTick((t) => t + 1), 1200);
-
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      clearInterval(pulseInterval);
       ro.disconnect();
     };
   }, [aspect, gate, inputs]);

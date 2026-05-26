@@ -71,7 +71,7 @@ Common category keys:
 ## Layouts & styling
 
 - Base layout + global SEO/analytics: `src/layouts/Layout.astro`
-- Post layouts: `src/layouts/ReviewPostLayout.astro`, `src/layouts/InfoPostLayout.astro`, `src/layouts/nasaLayout.astro`, `src/layouts/simLayout.astro`
+- Post layout: `src/layouts/simLayout.astro`
 - CSS lives under `src/styles/` and is imported per-page/layout.
 
 ## Scripts

@@ -105,7 +105,6 @@ export default function PlanetSizeComparison({
 
     const R_PLANET = cfgBase.planetRadius;
     const R_PLANET_2 = R_PLANET * cfgBase.secondRadiusScale;
-    const R_ATMOS = R_PLANET * cfgBase.atmosScale;
 
     const explicitDistance =
       Number.isFinite(memoOptions.planetDistance) && !Number.isNaN(memoOptions.planetDistance)

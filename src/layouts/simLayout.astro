@@ -9,12 +9,35 @@ import FeedbackCTA from '../components/FeedbackCTA.astro';
 const {
   title,
   description,
-  writer,
-  pubDate,
   url,
 } = Astro.props.frontmatter;
 
+const rawPostColor = typeof Astro.props.frontmatter?.postColor === "string"
+  ? Astro.props.frontmatter.postColor.trim()
+  : "";
+const rgbaMatch = rawPostColor.match(
+  /^rgba\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(0|1|0?\.\d+)\s*\)$/i
+);
+let postColor = "";
+let inversePostColor = "";
 
+if (rgbaMatch) {
+  const red = Number(rgbaMatch[1]);
+  const green = Number(rgbaMatch[2]);
+  const blue = Number(rgbaMatch[3]);
+  const alpha = Number(rgbaMatch[4]);
+  const validColor = [red, green, blue].every((value) => value >= 0 && value <= 255) && alpha >= 0 && alpha <= 1;
+
+  if (validColor) {
+    postColor = rawPostColor;
+    inversePostColor = `rgba(${255 - red},${255 - green},${255 - blue},1)`;
+  }
+}
+
+const entranceStyle = [
+  postColor && `--post-entrance-bg: ${postColor}`,
+  inversePostColor && `--post-entrance-text: ${inversePostColor}`,
+].filter(Boolean).join("; ");
 ---
 
 <head>
@@ -22,7 +45,7 @@ const {
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css"
     />
-    <script type="importmap">
+    <script is:inline type="importmap">
       {
         "imports": {
           "three": "https://cdn.jsdelivr.net/npm/three@0.161/build/three.module.js",
@@ -35,14 +58,12 @@ const {
 <Layout title={title} description={description} category={Astro.props.frontmatter?.category}>
   <article class="post sim-post centered_flex">
 
-    <h1 class="sim-article-title fade-up">{title}</h1>
+    <div class="post-entrance centered_flex" style={entranceStyle}>
+      <h1 class="sim-article-title fade-up">{title}</h1>
+      <p class="post-description">{description}</p>
+      <SocialShare frontmatter={Astro.props.frontmatter} url={url} />
+    </div>
 
-    <p class="post-description">{description}</p>
-    <!-- {writer && (
-      <p class="writer">Created by {writer}</p>
-    )} -->
-    
-    <SocialShare frontmatter={Astro.props.frontmatter} url={url} />
     <slot />
   </article>
   <FeedbackCTA />

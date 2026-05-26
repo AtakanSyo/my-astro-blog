@@ -1,7 +1,8 @@
 // src/config/site.js
 export const site = {
   name: 'Astrosyo',
-  description: 'Notes on the Cosmos.',
+  description: 'Some things I am curious about.',
+  secondDescription: 'like history, science etc.',
   url: 'https://astrosyo.com',
   title: "Astrosyo"
 };

@@ -463,7 +463,6 @@ export function addSaturn(
     ringInnerScale = 1.2,
     ringOuterScale = 2.3,
     ringAngle = 0,
-    ringsSpin = false,
     segments = 64,
     materialOptions = {},
     ringMaterialOptions = {},

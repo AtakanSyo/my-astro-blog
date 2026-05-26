@@ -250,23 +250,11 @@ export default function GravityLens({
 
     // ---- Animation with HARD PAUSE ----
     let rafId = 0;
-    let pollId = 0;
 
     const getPaused =
       typeof pausedGetter === "function"
         ? pausedGetter
         : () => pausedRef.current;
-
-    function startPollingForResume() {
-      if (pollId) return;
-      pollId = window.setInterval(() => {
-        if (!getPaused()) {
-          clearInterval(pollId);
-          pollId = 0;
-          rafId = requestAnimationFrame(loop);
-        }
-      }, 100);
-    }
 
     const clock = new THREE.Clock(false);
     clock.start();
@@ -290,7 +278,6 @@ export default function GravityLens({
     // ---- Cleanup ----
     return () => {
       if (rafId) cancelAnimationFrame(rafId);
-      if (pollId) clearInterval(pollId);
       ro.disconnect();
       window.removeEventListener("orientationchange", onOrient);
       quad.geometry?.dispose?.();

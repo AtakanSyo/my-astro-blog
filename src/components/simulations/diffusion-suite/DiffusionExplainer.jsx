@@ -33,7 +33,6 @@ export default function DiffusionExplainer({
   id = 'diffusion-explainer',
   aspect = '16 / 9',
   steps = 12,
-  showPause = false,
 }) {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);

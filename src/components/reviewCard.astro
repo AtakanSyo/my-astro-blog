@@ -11,8 +11,6 @@
  * - hue: number (for your --h CSS var)
  * - thumbnail: string (optional)
  * - affiliates: Array<[name: string, link: string]>
- * - ctaText: string (optional, defaults to "Read the review →")
- * - class: string (optional extra classes)
  */
 
 const {
@@ -23,8 +21,6 @@ const {
   hue = 0,
   thumbnail = "",
   affiliates = [],
-  ctaText = "Read review →",
-  class: extraClass = "",
 } = Astro.props;
 
 const affs = Array.isArray(affiliates) ? affiliates : [];

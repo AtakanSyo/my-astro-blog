@@ -80,11 +80,6 @@ export default function SolarSystemRow({
     if (!canvas || !container) return;
 
     const gap = sizeScale * 0.9;
-    const roughWidth = PLANET_DATA.reduce((acc, planet, index) => {
-      const radius = planet.radiusRelativeToEarth * sizeScale;
-      if (index === 0) return radius * 2;
-      return acc + radius * 2 + gap;
-    }, 0);
     const core = prepareScene({
       canvas,
       container,
