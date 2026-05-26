@@ -11,8 +11,7 @@ const { currentPath = '' } = Astro.props as Props;
 
 const labels = {
   home: 'Home',
-  cosmicStories: 'Stories',
-  about: 'About',
+  stories: 'Stories',
   searchPlaceholder: 'Search…',
   searchAria: 'Search posts',
   menuToggleAria: 'Toggle menu',
@@ -54,20 +53,13 @@ function isCurrent(href: string) {
         {labels.home}
       </a>
       <a
-        href="/cosmic-stories"
+        href="/stories"
         class="nav-item"
-        aria-current={isCurrent('/cosmic-stories') ? 'page' : undefined}
+        aria-current={isCurrent('/stories') ? 'page' : undefined}
       >
-        {labels.cosmicStories}
+        {labels.stories}
       </a>
       <HeaderAccountStatus currentPath={currentPath} client:load />
-      <a
-        href="/about"
-        class="nav-item"
-        aria-current={isCurrent('/about') ? 'page' : undefined}
-      >
-        {labels.about}
-      </a>
 
       <button class="nav-search-toggle" aria-label={labels.searchToggleAria} type="button">
         <Search size={18} strokeWidth={1.75} aria-hidden="true" />

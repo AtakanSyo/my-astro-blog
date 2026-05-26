@@ -2,7 +2,9 @@
 import Layout from '../layouts/Layout.astro';
 import '../styles/index.css';
 import '../styles/simGlobal.css';
-import '../styles/cosmicStories.css';
+import '../styles/cards.css';
+import '../styles/stories.css';
+import PostCard from '../components/postCard.astro';
 
 const allPosts = Object.values(
   import.meta.glob('./posts/*.{md,mdx}', { eager: true })
@@ -40,46 +42,26 @@ const featuredUrls = new Set(featuredPosts.map((p) => p.url));
 const remaining = simPostsAll.filter((p) => !featuredUrls.has(p.url));
 
 const simPosts = [...featuredPosts, ...remaining];
-
-const formatDate = (value: string) =>
-  new Date(value).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 ---
 
-<Layout title="Cosmic Stories">
+<Layout title="Stories">
   <section class="sim-list">
     <div class="intro">
-      <p class="eyebrow">Fresh Science Stories</p>
-      <h1>Cosmic Stories</h1>
-      <p class="lead">Hand picked cosmic stories and explorations.</p>
+      <h1>Stories</h1>
+      <p class="lead">All of my past notes, stories and posts.</p>
     </div>
 
-    <div class="rows">
+    <div class="post-grid flex_centered">
       {simPosts.length === 0 ? (
         <p class="empty">No simulation posts found.</p>
       ) : (
-        simPosts.map(({ frontmatter, url }) => {
-          const thumb = frontmatter.thumbnail ?? `${frontmatter.imageDir}/thumbnail.webp`;
-          const desc = frontmatter.description ?? 'Interactive astronomy simulation.';
-
-          return (
-            <article class="sim-row">
-              <a class="thumb" href={url} aria-label={`Open ${frontmatter.title}`}>
-                <img src={thumb} alt={`${frontmatter.title} thumbnail`} loading="lazy" decoding="async" />
-              </a>
-
-              <div class="meta">
-                <p class="eyebrow">{formatDate(frontmatter.pubDate)}</p>
-                <h2><a href={url}>{frontmatter.title}</a></h2>
-                <p class="desc">{desc}</p>
-              </div>
-
-              <a class="cta" href={url} aria-label={`Open ${frontmatter.title}`}>
-                <span>Go to the story</span>
-                <span class="arrow" aria-hidden="true">→</span>
-              </a>
-            </article>
-          );
-        })
+        simPosts.map(({ frontmatter, url }) => (
+          <PostCard
+            url={url}
+            frontmatter={frontmatter}
+            row
+          />
+        ))
       )}
     </div>
   </section>
