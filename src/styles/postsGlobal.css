@@ -56,9 +56,46 @@ p {
   width: 100%;
 }
 
+.post-image-grid--row {
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.post-image-grid--row img,
+.post-image-grid--row > div {
+  flex: 1 1 0;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+}
+
+.post-image-grid--row > div img {
+  flex: unset;
+  width: 100%;
+}
+
+.post-image-grid-item-caption {
+  margin-top: 0.4rem;
+  font-size: 0.8rem;
+  color: gray;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .post-image-grid--row {
+    flex-direction: column;
+  }
+
+  .post-image-grid--row img,
+  .post-image-grid--row > div {
+    width: 100%;
+    flex: unset;
+  }
+}
+
 .post-image-grid-figure {
   width: 100%;
-  max-width: 100vw;
+  max-width: 80vw;
   margin: 1.25rem auto;
 }
 
