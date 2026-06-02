@@ -61,6 +61,7 @@ export default function ImageCompareSlider({
       onMouseMove={onMouseMove}
       onMouseUp={stopDrag}
       onMouseLeave={stopDrag}
+      onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
       onTouchEnd={stopDrag}
     >
@@ -85,7 +86,6 @@ export default function ImageCompareSlider({
         className="ics-divider"
         style={{ left: `${pct}%` }}
         onMouseDown={onMouseDown}
-        onTouchStart={onTouchStart}
       >
         <div className="ics-handle">
           <svg width="9" height="13" viewBox="0 0 9 13" fill="none">
