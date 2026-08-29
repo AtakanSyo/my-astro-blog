@@ -18,11 +18,31 @@ const LOG_DECADES = 5; // dynamic range shown in "log" y-mode
 const SLIDER_STEPS = 1000;
 
 const PRESETS = [
+  { label: "Liquid nitrogen", temp: 77 },
+  { label: "Antarctic winter", temp: 220 },
+  { label: "Freezer", temp: 255 },
+  { label: "Room temperature", temp: 293 },
   { label: "Human body", temp: 310 },
-  { label: "Red dwarf", temp: 3000 },
-  { label: "Sun", temp: 5778 },
+  { label: "Hot coffee", temp: 350 },
+  { label: "Boiling water", temp: 373 },
+
+  { label: "Wood-fired pizza oven", temp: 750 },
+  { label: "Glowing red metal", temp: 1000 },
+  { label: "Campfire", temp: 1100 },
+  { label: "Molten lava", temp: 1500 },
+  { label: "Candle flame", temp: 1700 },
+  { label: "Steel melting point", temp: 1800 },
+  { label: "Incandescent light bulb", temp: 2700 },
+
+  { label: "Red dwarf star", temp: 3000 },
+  { label: "Sunspot", temp: 3800 },
+  { label: "Earth's core", temp: 5700 },
+  { label: "Surface of the Sun", temp: 5778 },
   { label: "Sirius A", temp: 9940 },
-  { label: "Blue giant", temp: 25000 },
+
+  { label: "Lightning bolt", temp: 30000 },
+  { label: "O-type star", temp: 40000 },
+  { label: "Hottest known stars", temp: 200000 },
 ];
 
 const VISIBLE_MIN_NM = 380;
