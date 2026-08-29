@@ -1,0 +1,118 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Angular Velocity Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-08-29'
+description: "Calculate angular velocity ω from a rotation period, frequency, or rotations-over-time, via ω = 2π/T = 2πf, in rad/s, deg/s, RPM, and rev/s — plus optional tangential velocity v = ωr — with an animated rotating disk and a comparison scale from the Moon to a millisecond pulsar."
+postColor: rgba(45, 28, 92, 1)
+slug: angular-velocity-calculator
+keywords:
+  - angular velocity calculator
+  - RPM to rad/s converter
+  - rotational frequency calculator
+  - tangential velocity formula
+  - Earth angular velocity
+  - pulsar rotation speed
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import AngularVelocityCalculator from "../../components/simulations/angular-velocity-calculator/AngularVelocityCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <AngularVelocityCalculator client:load />
+</figure>
+
+Anything that spins — a planet, a hard drive platter, a neutron star —
+shares a single number describing how fast it turns, regardless of its
+size: angular velocity. Two objects can have wildly different physical
+sizes and still turn at exactly the same rate, and this calculator
+converts between every common way of expressing that rate.
+
+## The relation
+
+$$
+\omega = \frac{\Delta\theta}{\Delta t}
+$$
+
+For steady rotation, one full turn is 2π radians, which gives the
+everyday form:
+
+$$
+\omega = \frac{2\pi}{T} = 2\pi f
+$$
+
+T is the rotation period (time for one full turn), f the rotational
+frequency (turns per unit time). Earth turns once every 23h 56m 4s (a
+*sidereal* day — slightly shorter than the familiar 24-hour solar day,
+because Earth also has to catch up with its own orbital motion around
+the Sun to bring the Sun back to the same spot in the sky) — that's
+ω ≈ 7.29 × 10⁻⁵ rad/s. A 7200 RPM hard drive spins at ω ≈ 754 rad/s —
+roughly ten million times faster.
+
+## Same ω, very different speeds
+
+Every point on a rigid rotating body shares that one ω. What doesn't
+stay the same is tangential (straight-line) speed:
+
+$$
+v = \omega r
+$$
+
+A point twice as far from the axis moves twice as fast, in an ordinary
+meters-per-second sense, even though it completes exactly the same
+number of rotations per second as every closer point. This is why
+Earth's equator (radius ≈6,378 km) is actually moving at about
+1,674 km/h due to rotation alone, while a point near either pole is
+essentially standing still despite sharing the exact same ω.
+
+## When rotation gets extreme
+
+Neutron stars make this concrete in a startling way. The Crab Pulsar
+spins about 30 times per second — already fast enough that a point on
+its ~10 km surface moves at roughly 0.6% of the speed of light. The
+fastest confirmed pulsar, PSR J1748-2446ad, spins **716 times per
+second** — and a point on its surface would be moving at roughly
+**15% of the speed of light**, purely from rotation. These are real
+measured values, not exaggerations; a neutron star's small size is
+exactly what makes such extreme spin rates survivable at all — for a
+star-sized object, the same angular velocity would tear it apart, but
+for a body only tens of kilometers across, the actual (tangential)
+speeds involved stay merely relativistic rather than impossible.
+
+## Reading the visuals
+
+- **The animated disk** shows several points at different radii turning
+  together — same ω, same animation, but the outer point visibly traces
+  a bigger circle every rotation. Give it a radius and it prints the
+  actual tangential speed at each point. The animation's speed is
+  compressed logarithmically so both a slow-turning Moon and a
+  fast-spinning pulsar preset are watchable — it preserves *relative*
+  speed (faster inputs animate faster), not real time.
+- **The comparison scale** places the current ω on a log scale next to
+  everyday and astrophysical extremes — the Moon's slow tidal lock, a
+  washing machine, a hard drive, and both pulsar examples above — a
+  span of roughly nine orders of magnitude on one axis.
+
+<SimPostSchema
+  title="Angular Velocity Calculator"
+  description="Calculate angular velocity ω from a rotation period, frequency, or rotations-over-time, via ω = 2π/T = 2πf, in rad/s, deg/s, RPM, and rev/s — plus optional tangential velocity v = ωr — with an animated rotating disk and a comparison scale from the Moon to a millisecond pulsar."
+  url="https://astrosyo.com/posts/angular-velocity-calculator"
+  datePublished="2026-08-29"
+  authorName="Astrosyo"
+  keywords={["angular velocity calculator", "RPM to rad/s converter", "rotational frequency calculator", "tangential velocity formula", "pulsar rotation speed"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Angular Velocity Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/angular-velocity-calculator#calculator",
+    "description": "Interactive calculator that converts between rotation period, frequency, and angular velocity in rad/s, deg/s, RPM, and rev/s, with optional tangential velocity from a given radius, an animated rotating disk, and a comparison scale from everyday objects to pulsars."
+  }}
+/>

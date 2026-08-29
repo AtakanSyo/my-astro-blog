@@ -1,0 +1,119 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Stellar Mass–Luminosity Relation Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-08-29'
+description: "Estimate a main-sequence star's luminosity from its mass (or the reverse) using a piecewise empirical L ≈ M^α relation with α ranging from about 2.3 to 4 to shallower at high mass — in L☉, watts, and absolute bolometric magnitude, with a log-log mass-luminosity diagram and a linear-scaling comparison."
+postColor: rgba(98, 54, 18, 1)
+slug: stellar-mass-luminosity-calculator
+keywords:
+  - mass luminosity relation calculator
+  - main sequence luminosity from mass
+  - stellar mass luminosity formula
+  - L proportional to M cubed
+  - absolute bolometric magnitude calculator
+  - Eddington mass luminosity relation
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import StellarMassLuminosityCalculator from "../../components/simulations/stellar-mass-luminosity-calculator/StellarMassLuminosityCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <StellarMassLuminosityCalculator client:load />
+</figure>
+
+Double a star's mass, and you don't just double how much it shines — on
+most of the main sequence, you get somewhere between five and sixteen
+times the light output. Mass and luminosity are related by one of the
+steepest everyday scaling laws in astrophysics, and the reason is
+structural: a heavier star's core has to run hotter and denser to hold
+itself up against its own gravity, and hydrogen fusion is savagely
+sensitive to temperature — a small increase in core temperature buys a
+huge increase in fusion rate, and therefore luminosity.
+
+## The relation — and why one exponent isn't enough
+
+$$
+\frac{L}{L_\odot} \approx \left(\frac{M}{M_\odot}\right)^{\alpha}
+$$
+
+α isn't a universal constant. This calculator uses a commonly-cited
+piecewise approximation:
+
+- **M &lt; 0.43 M☉:** L = 0.23 M^2.3 — low-mass stars are relatively
+  luminous for their mass; their cores are only partly (or, below about
+  0.35 M☉, fully) convective, mixing fuel in a way that changes the
+  scaling.
+- **0.43 ≤ M &lt; 2 M☉:** L = M^4 — this is the "textbook" exponent, and
+  it's calibrated to pass through the Sun exactly (M=1 → L=1).
+- **2 ≤ M &lt; 20 M☉:** L = 1.4 M^3.5 — slightly shallower.
+- **M ≥ 20 M☉:** L = 3200 M — nearly linear. Very massive stars are
+  radiation-pressure dominated and sit close to their Eddington
+  luminosity, which scales with mass directly rather than with the
+  steep temperature-sensitivity that drives the lower branches.
+
+Worth noticing: these branches don't join perfectly smoothly at their
+boundaries. That's not a bug in this calculator — each branch is an
+independent empirical fit to a different mass range's data, and small
+discontinuities are a genuine, honest feature of treating this as
+several stitched-together approximations rather than one master formula
+with a hidden, more complicated dependence on mass.
+
+## This is a main-sequence relation — nothing else
+
+This cannot be stressed enough: the relation above describes stars
+currently fusing hydrogen in their cores, and nothing else.
+
+- **Red giants and supergiants** have expanded and cooled at their
+  surface while their core continues evolving — their luminosity has
+  little to do with their current mass in this way.
+- **White dwarfs** generate no fusion power at all; they simply cool
+  and dim over billions of years, following a completely different
+  mass-radius-luminosity relationship (and, notably, a mass-*radius*
+  relation where more massive white dwarfs are *smaller*).
+- **Pre-main-sequence stars** (still contracting, not yet fusing
+  hydrogen steadily) shine from gravitational contraction, not fusion,
+  and don't sit on this curve either.
+
+Apply this formula only to ordinary, core-hydrogen-burning stars, and
+treat any result for something else as meaningless by construction.
+
+## Reading the visuals
+
+- **The log-log mass-luminosity diagram** plots the full piecewise
+  relation, and the exponent changes show up as visible kinks — a
+  single power law would trace a perfectly straight line here, and this
+  deliberately isn't one. Landmark stars are plotted at their *real*,
+  measured luminosities (not this formula's prediction), so you can see
+  directly where the fit tracks reality closely and where real stars'
+  individual age, composition, and history pull them off the idealized
+  curve.
+- **The linear-scaling comparison** puts two bars side by side: what
+  luminosity would be if it just scaled 1:1 with mass, and what the
+  empirical relation actually predicts. The gap between them — often a
+  factor of several, sometimes hundreds — is the entire reason this
+  relation is worth having a formula for at all.
+
+<SimPostSchema
+  title="Stellar Mass–Luminosity Relation Calculator"
+  description="Estimate a main-sequence star's luminosity from its mass (or the reverse) using a piecewise empirical L ≈ M^α relation with α ranging from about 2.3 to 4 to shallower at high mass — in L☉, watts, and absolute bolometric magnitude, with a log-log mass-luminosity diagram and a linear-scaling comparison."
+  url="https://astrosyo.com/posts/stellar-mass-luminosity-calculator"
+  datePublished="2026-08-29"
+  authorName="Astrosyo"
+  keywords={["mass luminosity relation calculator", "main sequence luminosity from mass", "stellar mass luminosity formula", "L proportional to M cubed", "absolute bolometric magnitude calculator"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Stellar Mass-Luminosity Relation Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/stellar-mass-luminosity-calculator#calculator",
+    "description": "Interactive calculator that estimates a main-sequence star's luminosity from its mass (or the reverse) using a piecewise empirical mass-luminosity relation, with luminosity in solar units and watts, absolute bolometric magnitude, a log-log mass-luminosity diagram, and a linear-scaling comparison."
+  }}
+/>

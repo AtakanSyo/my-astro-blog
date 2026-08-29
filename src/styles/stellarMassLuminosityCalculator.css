@@ -1,0 +1,351 @@
+.sml {
+  --sml-accent: #a9b4ff;
+  --sml-warn: #e0c05c;
+  --sml-bg: var(--card-bg, #1b1d22);
+  --sml-bg-2: #17191e;
+  --sml-border: var(--card-border, rgba(255, 255, 255, 0.1));
+  --sml-text: var(--color-text, #e4e4e4);
+  --sml-text-dim: rgba(228, 228, 228, 0.65);
+  --sml-bad: #ff8a7e;
+
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  color: var(--sml-text);
+  background: var(--sml-bg);
+  border: 1px solid var(--sml-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  font-variant-numeric: tabular-nums;
+}
+
+.sml-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.sml-title {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin: 0;
+  color: var(--sml-text);
+}
+
+.sml-presets {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.sml-preset-btn {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--sml-border);
+  background: var(--sml-bg-2);
+  color: var(--sml-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.sml-preset-btn:hover,
+.sml-preset-btn:focus-visible {
+  border-color: var(--sml-accent);
+  color: var(--sml-text);
+}
+
+.sml-explainer {
+  font-size: 0.8rem;
+  color: var(--sml-text-dim);
+  line-height: 1.5;
+  margin: 0 0 1rem;
+}
+
+.sml-explainer strong {
+  color: var(--sml-text);
+}
+
+.sml-explainer code {
+  background: var(--sml-bg-2);
+  border: 1px solid var(--sml-border);
+  border-radius: 4px;
+  padding: 0.05rem 0.3rem;
+  font-size: 0.75rem;
+  color: var(--sml-text);
+}
+
+.sml-solve-toggle {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.sml-solve-btn {
+  font-size: 0.75rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--sml-border);
+  background: var(--sml-bg-2);
+  color: var(--sml-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.sml-solve-btn:hover,
+.sml-solve-btn:focus-visible {
+  border-color: var(--sml-accent);
+  color: var(--sml-text);
+}
+
+.sml-solve-btn.active {
+  background: var(--sml-accent);
+  color: #14151a;
+  font-weight: 600;
+  border-color: var(--sml-accent);
+}
+
+.sml-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.sml-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.sml-field label {
+  font-size: 0.78rem;
+  color: var(--sml-text-dim);
+}
+
+.sml-input {
+  background: var(--sml-bg-2);
+  border: 1px solid var(--sml-border);
+  border-radius: 8px;
+  color: var(--sml-text);
+  font-size: 1rem;
+  padding: 0.5rem 0.65rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.sml-input:focus {
+  border-color: var(--sml-accent);
+}
+
+.sml-computed {
+  background: rgba(169, 180, 255, 0.08);
+  border: 1px solid var(--sml-accent);
+  border-radius: 8px;
+  padding: 0.5rem 0.65rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--sml-text);
+}
+
+.sml-headline-card {
+  background: rgba(169, 180, 255, 0.08);
+  border: 1px solid var(--sml-accent);
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  margin-bottom: 1.1rem;
+  text-align: center;
+}
+
+.sml-headline {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--sml-text);
+}
+
+.sml-headline-sub {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--sml-text-dim);
+  margin-top: 0.4rem;
+}
+
+.sml-badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.sml-badge--normal {
+  background: rgba(169, 180, 255, 0.15);
+  color: var(--sml-accent);
+}
+
+.sml-badge--warn {
+  background: rgba(224, 192, 92, 0.15);
+  color: var(--sml-warn);
+}
+
+.sml-chart-wrap {
+  background: var(--sml-bg-2);
+  border: 1px solid var(--sml-border);
+  border-radius: 12px;
+  padding: 0.75rem 0.75rem 0.5rem;
+  margin-bottom: 1.1rem;
+}
+
+.sml-diagram-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.sml-chart-gridline {
+  stroke: var(--sml-border);
+  stroke-width: 1;
+}
+
+.sml-chart-axis-line {
+  stroke: var(--sml-text-dim);
+  stroke-width: 1;
+}
+
+.sml-chart-axis-label {
+  fill: var(--sml-text-dim);
+  font-size: 10px;
+}
+
+.sml-curve-line {
+  fill: none;
+  stroke: var(--sml-accent);
+  stroke-width: 2.5;
+}
+
+.sml-chart-landmark {
+  fill: #ffd479;
+  stroke: #14151a;
+  stroke-width: 1.5;
+}
+
+.sml-chart-landmark-label {
+  fill: var(--sml-text-dim);
+  font-size: 9px;
+}
+
+.sml-chart-point {
+  fill: #7de0d4;
+  stroke: #14151a;
+  stroke-width: 1.5;
+}
+
+.sml-chart-caption {
+  font-size: 0.72rem;
+  color: var(--sml-text-dim);
+  margin: 0.35rem 0 0;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.sml-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 0.5rem 0.25rem;
+}
+
+.sml-bar-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr auto;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+@media (max-width: 480px) {
+  .sml-bar-row {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+}
+
+.sml-bar-label {
+  font-size: 0.75rem;
+  color: var(--sml-text-dim);
+}
+
+.sml-bar-track {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  height: 16px;
+  overflow: hidden;
+}
+
+.sml-bar-fill {
+  height: 100%;
+  border-radius: 6px;
+}
+
+.sml-bar-fill--naive {
+  background: var(--sml-text-dim);
+}
+
+.sml-bar-fill--actual {
+  background: var(--sml-accent);
+}
+
+.sml-bar-value {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--sml-text);
+  white-space: nowrap;
+}
+
+.sml-note {
+  font-size: 0.78rem;
+  color: var(--sml-text-dim);
+  background: var(--sml-bg-2);
+  border: 1px solid var(--sml-border);
+  border-left: 3px solid var(--sml-accent);
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  line-height: 1.45;
+  margin: 0 0 1rem;
+}
+
+.sml-note--warn {
+  border-left-color: var(--sml-bad);
+}
+
+.sml-footer-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.sml-copy-btn {
+  font-size: 0.78rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--sml-border);
+  background: var(--sml-bg-2);
+  color: var(--sml-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.sml-copy-btn:hover,
+.sml-copy-btn:focus-visible {
+  border-color: var(--sml-accent);
+  color: var(--sml-text);
+}
