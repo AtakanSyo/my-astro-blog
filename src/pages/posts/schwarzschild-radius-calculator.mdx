@@ -1,0 +1,115 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Schwarzschild Radius Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-08-29'
+description: "Calculate the event-horizon radius of an idealized non-rotating black hole from its mass via r_s = 2GM/c² — in kilometers, meters, AU, Earth radii, and solar radii — or work backward from a radius to a mass, with a to-scale event-horizon diagram and a log-log chart showing the genuinely linear mass-radius relation from Earth to M87*."
+postColor: rgba(4, 4, 8, 1)
+slug: schwarzschild-radius-calculator
+keywords:
+  - Schwarzschild radius calculator
+  - event horizon radius calculator
+  - black hole radius from mass
+  - Sagittarius A star radius
+  - M87 black hole radius
+  - gravitational radius formula
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import SchwarzschildRadiusCalculator from "../../components/simulations/schwarzschild-radius-calculator/SchwarzschildRadiusCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <SchwarzschildRadiusCalculator client:load />
+</figure>
+
+Compress any amount of mass into a small enough volume, and it becomes a
+black hole — the exact radius where that happens is the Schwarzschild
+radius. It's one of the simplest formulas in general relativity to
+write down, and one of the most surprising to actually compute: Earth's
+Schwarzschild radius is about the size of a marble.
+
+## The formula
+
+$$
+r_s = \frac{2GM}{c^2}
+$$
+
+That's it — no exponent, no approximation. Double the mass and the
+radius exactly doubles; this is a straight proportionality, not merely
+a power law that happens to look linear. A 1 M☉ object has
+r_s ≈ 2.95 km, so a 10 M☉ black hole's event horizon sits at almost
+exactly 29.5 km — ten times the mass, ten times the radius, precisely.
+
+## What it actually means
+
+Every object technically has a Schwarzschild radius — it's just usually
+far smaller than the object itself, meaning nothing physical happens at
+that radius. The Sun's Schwarzschild radius is about 3 km, deep inside
+its actual ~696,000 km surface; nothing would need to change for the Sun
+to "become" a black hole unless it were somehow compressed down to that
+size, which stellar physics doesn't permit for a star of its mass. Only
+when a real, physical event horizon actually forms — in a collapsed
+massive star's core, or at a galaxy's center — does r_s become the size
+of something real.
+
+## Real black holes, real scales
+
+- **A 10 M☉ stellar-mass black hole:** r_s ≈ 29.5 km — smaller than most
+  cities.
+- **Sagittarius A\*** (the Milky Way's central black hole, ~4.3 million
+  M☉): r_s ≈ 12.7 million km, about a fifth of Mercury's orbital
+  distance from the Sun.
+- **M87\*** (the first black hole ever directly imaged, ~6.5 billion
+  M☉): r_s ≈ 19.2 billion km, or about 128 AU — larger than Pluto's
+  orbit around the Sun.
+
+## An important caveat: this is Schwarzschild, not Kerr
+
+This formula describes an idealized **non-rotating, uncharged**
+black hole. Every black hole that actually forms from stellar collapse
+carries at least some spin, and a spinning (Kerr) black hole's event
+horizon follows a different formula entirely:
+r_+ = r_g(1 + √(1−a*²)), where r_g = GM/c² = r_s/2 and a* is the
+dimensionless spin. At zero spin this reduces to exactly r_s above; at
+maximal spin, the horizon shrinks to just half of r_s. For the spin-
+dependent version — and to see how it relates to the innermost stable
+orbit around a rotating black hole — see this site's
+[Black Hole ISCO Calculator](/posts/black-hole-isco-calculator).
+
+## Reading the two visuals
+
+- **The event-horizon diagram** draws the horizon at a fixed size on
+  screen with a scale bar underneath showing what real distance it
+  represents — the only sane way to compare sizes ranging from
+  millimeters (a small asteroid's horizon) to hundreds of AU (M87*) on
+  one page. The plain-language comparison above it ("about the size
+  of...") does the same job in words.
+- **The mass-vs-radius chart** plots every preset — from Earth to M87*
+  — on one log-log chart, where the relationship appears as a single
+  straight line. That line's slope is exactly 1, which is what makes it
+  worth stating plainly: the straightness here reflects genuine direct
+  proportionality, not just "a power law that happens to plot straight."
+
+<SimPostSchema
+  title="Schwarzschild Radius Calculator"
+  description="Calculate the event-horizon radius of an idealized non-rotating black hole from its mass via r_s = 2GM/c² — in kilometers, meters, AU, Earth radii, and solar radii — or work backward from a radius to a mass, with a to-scale event-horizon diagram and a log-log chart showing the genuinely linear mass-radius relation from Earth to M87*."
+  url="https://astrosyo.com/posts/schwarzschild-radius-calculator"
+  datePublished="2026-08-29"
+  authorName="Astrosyo"
+  keywords={["Schwarzschild radius calculator", "event horizon radius calculator", "black hole radius from mass", "Sagittarius A star radius", "M87 black hole radius"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Schwarzschild Radius Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/schwarzschild-radius-calculator#calculator",
+    "description": "Interactive calculator that computes a Schwarzschild black hole's event-horizon radius from its mass, or the mass from a given radius, in kilometers, meters, AU, Earth radii, and solar radii, with a to-scale event-horizon diagram and a log-log mass-versus-radius chart."
+  }}
+/>

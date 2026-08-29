@@ -1,0 +1,325 @@
+.drv {
+  --drv-accent: #a9b4ff;
+  --drv-blue: #5b8dff;
+  --drv-red: #ff6b5b;
+  --drv-bg: var(--card-bg, #1b1d22);
+  --drv-bg-2: #17191e;
+  --drv-border: var(--card-border, rgba(255, 255, 255, 0.1));
+  --drv-text: var(--color-text, #e4e4e4);
+  --drv-text-dim: rgba(228, 228, 228, 0.65);
+  --drv-bad: #ff8a7e;
+
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  color: var(--drv-text);
+  background: var(--drv-bg);
+  border: 1px solid var(--drv-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  font-variant-numeric: tabular-nums;
+}
+
+.drv-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.drv-title {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin: 0;
+  color: var(--drv-text);
+}
+
+.drv-presets {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.drv-preset-btn {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--drv-border);
+  background: var(--drv-bg-2);
+  color: var(--drv-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.drv-preset-btn:hover,
+.drv-preset-btn:focus-visible {
+  border-color: var(--drv-accent);
+  color: var(--drv-text);
+}
+
+.drv-explainer {
+  font-size: 0.8rem;
+  color: var(--drv-text-dim);
+  line-height: 1.5;
+  margin: 0 0 1rem;
+}
+
+.drv-explainer code {
+  background: var(--drv-bg-2);
+  border: 1px solid var(--drv-border);
+  border-radius: 4px;
+  padding: 0.05rem 0.3rem;
+  font-size: 0.75rem;
+  color: var(--drv-text);
+}
+
+.drv-toggle-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.drv-toggle-group {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.drv-toggle-btn {
+  font-size: 0.75rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--drv-border);
+  background: var(--drv-bg-2);
+  color: var(--drv-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.drv-toggle-btn:hover,
+.drv-toggle-btn:focus-visible {
+  border-color: var(--drv-accent);
+  color: var(--drv-text);
+}
+
+.drv-toggle-btn.active {
+  background: var(--drv-accent);
+  color: #14151a;
+  font-weight: 600;
+  border-color: var(--drv-accent);
+}
+
+.drv-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.drv-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.drv-field label {
+  font-size: 0.78rem;
+  color: var(--drv-text-dim);
+}
+
+.drv-input-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.drv-input {
+  flex: 1;
+  min-width: 0;
+  background: var(--drv-bg-2);
+  border: 1px solid var(--drv-border);
+  border-radius: 8px;
+  color: var(--drv-text);
+  font-size: 1rem;
+  padding: 0.5rem 0.65rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.drv-input:focus {
+  border-color: var(--drv-accent);
+}
+
+.drv-unit-select {
+  background: var(--drv-bg-2);
+  border: 1px solid var(--drv-border);
+  border-radius: 8px;
+  color: var(--drv-text);
+  font-size: 0.85rem;
+  padding: 0.5rem 0.5rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.drv-headline-card {
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  margin-bottom: 1.1rem;
+  text-align: center;
+  border: 1px solid var(--drv-border);
+  background: var(--drv-bg-2);
+}
+
+.drv-headline-card--red {
+  border-color: var(--drv-red);
+  background: rgba(255, 107, 91, 0.08);
+}
+
+.drv-headline-card--blue {
+  border-color: var(--drv-blue);
+  background: rgba(91, 141, 255, 0.08);
+}
+
+.drv-headline {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--drv-text);
+}
+
+.drv-headline-sub {
+  font-size: 0.8rem;
+  color: var(--drv-text-dim);
+  margin-top: 0.35rem;
+}
+
+.drv-headline-compare {
+  font-size: 0.72rem;
+  color: var(--drv-text-dim);
+  margin-top: 0.45rem;
+  padding-top: 0.45rem;
+  border-top: 1px dashed var(--drv-border);
+}
+
+.drv-chart-wrap {
+  background: var(--drv-bg-2);
+  border: 1px solid var(--drv-border);
+  border-radius: 12px;
+  padding: 0.75rem 0.75rem 0.5rem;
+  margin-bottom: 1.1rem;
+}
+
+.drv-gauge-svg,
+.drv-curve-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.drv-gauge-relzone {
+  fill: var(--drv-bad);
+  opacity: 0.2;
+}
+
+.drv-gauge-tick {
+  stroke: var(--drv-text-dim);
+  stroke-width: 1;
+}
+
+.drv-gauge-marker {
+  fill: var(--drv-text);
+}
+
+.drv-gauge-marker-label {
+  fill: var(--drv-text);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.drv-gauge-end-label {
+  fill: var(--drv-text-dim);
+  font-size: 10px;
+  font-style: italic;
+}
+
+.drv-chart-gridline {
+  stroke: var(--drv-border);
+  stroke-width: 1;
+}
+
+.drv-chart-axis-line {
+  stroke: var(--drv-text-dim);
+  stroke-width: 1;
+}
+
+.drv-chart-axis-label {
+  fill: var(--drv-text-dim);
+  font-size: 10px;
+}
+
+.drv-curve-classical {
+  fill: none;
+  stroke: var(--drv-text-dim);
+  stroke-width: 2;
+}
+
+.drv-curve-relativistic {
+  fill: none;
+  stroke: var(--drv-accent);
+  stroke-width: 2.5;
+}
+
+.drv-curve-point {
+  fill: var(--drv-red);
+  stroke: #14151a;
+  stroke-width: 1.5;
+}
+
+.drv-chart-caption {
+  font-size: 0.72rem;
+  color: var(--drv-text-dim);
+  margin: 0.35rem 0 0;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.drv-note {
+  font-size: 0.78rem;
+  color: var(--drv-text-dim);
+  background: var(--drv-bg-2);
+  border: 1px solid var(--drv-border);
+  border-left: 3px solid var(--drv-accent);
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  line-height: 1.45;
+  margin: 0 0 1rem;
+}
+
+.drv-note--warn {
+  border-left-color: var(--drv-bad);
+}
+
+.drv-footer-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.drv-copy-btn {
+  font-size: 0.78rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--drv-border);
+  background: var(--drv-bg-2);
+  color: var(--drv-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.drv-copy-btn:hover,
+.drv-copy-btn:focus-visible {
+  border-color: var(--drv-accent);
+  color: var(--drv-text);
+}

@@ -1,0 +1,113 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Stellar Surface Gravity / log g Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-08-29'
+description: "Calculate a star's surface gravity g = GM/R² from its mass and radius, and the astronomically standard log g (base-10 log of g in cgs units), with a rough dwarf/giant/supergiant/white-dwarf/neutron-star classification, a log g ladder, and a mass-radius diagram with constant-log-g contour lines."
+postColor: rgba(74, 44, 20, 1)
+slug: stellar-surface-gravity-calculator
+keywords:
+  - stellar surface gravity calculator
+  - log g calculator
+  - surface gravity formula star
+  - red giant surface gravity
+  - white dwarf surface gravity
+  - main sequence log g
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import StellarSurfaceGravityCalculator from "../../components/simulations/stellar-surface-gravity-calculator/StellarSurfaceGravityCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <StellarSurfaceGravityCalculator client:load />
+</figure>
+
+Ask how strong gravity is at a star's surface, and the honest answer
+depends entirely on how much the star has puffed up or collapsed —
+mass alone tells you surprisingly little. A red giant can outweigh the
+Sun and still have gravity dozens of times weaker at its surface, simply
+because its radius is enormous; a white dwarf with the Sun's mass
+crammed into Earth's size has surface gravity hundreds of thousands of
+times stronger. Surface gravity, more than mass, is what tells you what
+*kind* of star you're looking at.
+
+## The formula, and why log g
+
+$$
+g = \frac{GM}{R^2}
+$$
+
+Straightforward — but astronomers almost never quote g directly.
+Instead, by long-standing convention, g is computed in cgs units
+(centimeters and grams, not meters and kilograms) and then log₁₀'d,
+giving **log g**. The Sun: g ≈ 2.74 × 10⁴ cm/s², log g ≈ 4.44 — a number
+worth memorizing, since virtually every other log g gets compared
+against it implicitly.
+
+The reason for the logarithm is the same reason magnitude and pH use
+one: the actual range of g across real stars spans roughly 20 orders of
+magnitude, from bloated red supergiants to neutron stars. A single
+logarithmic number makes that entire range comparable at a glance.
+
+## What log g tells you
+
+- **log g ≈ 3.5–4.6 (dwarf / main sequence):** ordinary hydrogen-fusing
+  stars across most of the mass range, the Sun included — mass and
+  radius both scale up together along the main sequence, keeping log g
+  in a comparatively narrow band.
+- **log g ≈ 0.5–3 (giant):** the star has expanded well beyond its
+  main-sequence size (helium-burning red giants, for instance), which
+  drives g down even though mass hasn't changed much.
+- **log g ≲ 0.5 (supergiant):** an even more extreme radius — a red
+  supergiant like Betelgeuse has a radius large enough that its surface
+  gravity is *less than Earth's*, despite the star having some 15+ times
+  the Sun's mass.
+- **log g ≈ 6–9 (white dwarf):** roughly a solar mass compressed into a
+  radius similar to Earth's — surface gravity in the hundreds of
+  thousands of g.
+- **log g ≳ 9 (neutron star):** a solar-mass-plus object compressed to
+  a radius of about 10 km. Surface gravity here reaches roughly 10¹⁴
+  times Earth's — strong enough that "surface" itself starts to strain
+  the everyday meaning of the word.
+
+These bands are a genuinely useful rule of thumb, not a substitute for
+actual spectroscopic luminosity classification — real log g measurements
+(from pressure-broadened spectral lines, among other methods) are one of
+the standard tools used to determine that classification in the first
+place.
+
+## Reading the two charts
+
+- **The log g ladder** places every preset on one fixed scale from −1 to
+  15, colored by the same rough bands described above — seeing a red
+  supergiant and a neutron star on the same axis, 14+ orders of
+  magnitude apart, does more to convey the range than the numbers alone.
+- **The mass-radius diagram** plots (M, R) in log-log space with several
+  dashed lines of constant log g overlaid. Because g ∝ M/R² exactly,
+  every constant-log g line has the same slope (½) in this space — so a
+  star's log g is literally its position relative to those lines, the
+  same logic behind the mass-luminosity charts elsewhere on this site.
+
+<SimPostSchema
+  title="Stellar Surface Gravity / log g Calculator"
+  description="Calculate a star's surface gravity g = GM/R² from its mass and radius, and the astronomically standard log g (base-10 log of g in cgs units), with a rough dwarf/giant/supergiant/white-dwarf/neutron-star classification, a log g ladder, and a mass-radius diagram with constant-log-g contour lines."
+  url="https://astrosyo.com/posts/stellar-surface-gravity-calculator"
+  datePublished="2026-08-29"
+  authorName="Astrosyo"
+  keywords={["stellar surface gravity calculator", "log g calculator", "surface gravity formula star", "red giant surface gravity", "white dwarf surface gravity"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Stellar Surface Gravity and log g Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/stellar-surface-gravity-calculator#calculator",
+    "description": "Interactive calculator that computes a star's surface gravity and log g from its mass and radius, with a rough dwarf/giant/supergiant/white-dwarf/neutron-star classification, a log g ladder, and a mass-radius diagram with constant-log-g contour lines."
+  }}
+/>

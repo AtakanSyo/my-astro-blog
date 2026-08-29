@@ -1,0 +1,108 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Exoplanet Transit Depth Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-08-29'
+description: "Calculate how much a star's brightness dips when a planet transits it, δ = (Rp/R★)², in fraction, percent, ppm, and millimagnitudes — or work backward from an observed depth to a planet radius — with a to-scale transit diagram and a synthetic light curve."
+postColor: rgba(20, 50, 40, 1)
+slug: exoplanet-transit-depth-calculator
+keywords:
+  - exoplanet transit depth calculator
+  - transit depth formula
+  - planet radius from transit
+  - transit light curve ppm
+  - Kepler transit depth
+  - TRAPPIST-1 transit depth
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import ExoplanetTransitDepthCalculator from "../../components/simulations/exoplanet-transit-depth-calculator/ExoplanetTransitDepthCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <ExoplanetTransitDepthCalculator client:load />
+</figure>
+
+Almost every exoplanet discovered by transit surveys — Kepler, TESS, and
+the ground-based programs before them — was found the same way: not by
+seeing the planet, but by watching its star's light dim, very slightly,
+on a regular schedule. How much it dims depends on exactly one ratio.
+
+## The formula
+
+$$
+\delta = \left(\frac{R_p}{R_\star}\right)^2
+$$
+
+Picture the planet and star as two flat disks, the planet centered
+directly in front of the star: the fraction of starlight blocked is
+just the ratio of their areas. Simple as it looks, this is the
+foundation every real transit-fitting pipeline builds on — the
+corrections for limb darkening, grazing geometry, and finite ingress
+time are all refinements to this one relation, not replacements for it.
+
+## Two worked examples worth remembering
+
+- **A Jupiter-sized planet in front of a Sun-sized star** blocks about
+  **1.06%** of its light (R♃/R☉ ≈ 0.103, squared ≈ 0.0106) — large
+  enough that ground-based telescopes found the first transiting hot
+  Jupiters decades before space-based photometry existed.
+- **An Earth-sized planet in front of a Sun-sized star** blocks only
+  about **84 parts per million** (R⊕/R☉ ≈ 0.00915, squared ≈ 8.4×10⁻⁵) —
+  a signal so small it demands the kind of ultra-precise, space-based
+  photometry Kepler was purpose-built to deliver.
+
+## Why smaller stars matter so much
+
+Depth scales as 1/R★², so shrinking the host star helps enormously. The
+same Earth-sized planet in front of a star like TRAPPIST-1 (radius
+about 0.121 R☉, barely larger than Jupiter) produces a transit depth of
+roughly **0.57%** — nearly 70 times deeper than the Sun-sized case,
+despite the planet being identical. This is exactly why red dwarf stars
+have been such productive hunting grounds for Earth-sized, potentially
+habitable planets: the same small rocky world that would be invisible
+around a Sun-like star becomes readily detectable around a small one.
+
+## Running it in reverse
+
+Given a measured transit depth and an estimate of the host star's
+radius (from its spectral type, or an independent measurement), the
+same relation inverts cleanly: R_p = R★√δ. This is literally how a
+transit survey turns "I see a 500 ppm dip" into "there's a planet about
+2.4 Earth radii out there" — the very first step in characterizing any
+newly discovered transiting world.
+
+## Reading the two visuals
+
+- **The to-scale transit diagram** draws the star and the transiting
+  planet's silhouette at their true relative sizes — for an Earth-Sun
+  pair, the planet is barely a dot, which is exactly the point: it makes
+  vivid just how subtle a signal these surveys are built to catch.
+- **The synthetic light curve** shows the schematic shape of a transit —
+  flat, dip, flat — with a vertical axis zoomed in tightly around the
+  true depth (labeled honestly, however tiny) so the dip stays visible
+  even at 84 ppm, where a linearly-scaled plot would show nothing but a
+  flat line.
+
+<SimPostSchema
+  title="Exoplanet Transit Depth Calculator"
+  description="Calculate how much a star's brightness dips when a planet transits it, δ = (Rp/R★)², in fraction, percent, ppm, and millimagnitudes — or work backward from an observed depth to a planet radius — with a to-scale transit diagram and a synthetic light curve."
+  url="https://astrosyo.com/posts/exoplanet-transit-depth-calculator"
+  datePublished="2026-08-29"
+  authorName="Astrosyo"
+  keywords={["exoplanet transit depth calculator", "transit depth formula", "planet radius from transit", "transit light curve ppm", "Kepler transit depth"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Exoplanet Transit Depth Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/exoplanet-transit-depth-calculator#calculator",
+    "description": "Interactive calculator that computes exoplanet transit depth from planet and stellar radii, or the planet radius from an observed transit depth and stellar radius, with a to-scale transit diagram and a synthetic light curve."
+  }}
+/>

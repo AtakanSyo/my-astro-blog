@@ -1,0 +1,333 @@
+.rlc {
+  --rlc-accent: #a9b4ff;
+  --rlc-good: #5ce0a0;
+  --rlc-bad: #ff8a7e;
+  --rlc-bg: var(--card-bg, #1b1d22);
+  --rlc-bg-2: #17191e;
+  --rlc-border: var(--card-border, rgba(255, 255, 255, 0.1));
+  --rlc-text: var(--color-text, #e4e4e4);
+  --rlc-text-dim: rgba(228, 228, 228, 0.65);
+
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  color: var(--rlc-text);
+  background: var(--rlc-bg);
+  border: 1px solid var(--rlc-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  font-variant-numeric: tabular-nums;
+}
+
+.rlc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.rlc-title {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin: 0;
+  color: var(--rlc-text);
+}
+
+.rlc-presets {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.rlc-preset-btn {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--rlc-border);
+  background: var(--rlc-bg-2);
+  color: var(--rlc-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.rlc-preset-btn:hover,
+.rlc-preset-btn:focus-visible {
+  border-color: var(--rlc-accent);
+  color: var(--rlc-text);
+}
+
+.rlc-explainer {
+  font-size: 0.8rem;
+  color: var(--rlc-text-dim);
+  line-height: 1.5;
+  margin: 0 0 1rem;
+}
+
+.rlc-explainer code {
+  background: var(--rlc-bg-2);
+  border: 1px solid var(--rlc-border);
+  border-radius: 4px;
+  padding: 0.05rem 0.3rem;
+  font-size: 0.72rem;
+  color: var(--rlc-text);
+}
+
+.rlc-mode-toggle {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.rlc-mode-btn {
+  font-size: 0.75rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--rlc-border);
+  background: var(--rlc-bg-2);
+  color: var(--rlc-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.rlc-mode-btn:hover,
+.rlc-mode-btn:focus-visible {
+  border-color: var(--rlc-accent);
+  color: var(--rlc-text);
+}
+
+.rlc-mode-btn.active {
+  background: var(--rlc-accent);
+  color: #14151a;
+  font-weight: 600;
+  border-color: var(--rlc-accent);
+}
+
+.rlc-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem 1rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 480px) {
+  .rlc-fields {
+    grid-template-columns: 1fr;
+  }
+}
+
+.rlc-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.rlc-field label {
+  font-size: 0.78rem;
+  color: var(--rlc-text-dim);
+}
+
+.rlc-input-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.rlc-input {
+  flex: 1;
+  min-width: 0;
+  background: var(--rlc-bg-2);
+  border: 1px solid var(--rlc-border);
+  border-radius: 8px;
+  color: var(--rlc-text);
+  font-size: 1rem;
+  padding: 0.5rem 0.65rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.rlc-input:focus {
+  border-color: var(--rlc-accent);
+}
+
+.rlc-static-unit {
+  font-size: 0.8rem;
+  color: var(--rlc-text-dim);
+  min-width: 3.6rem;
+}
+
+.rlc-headline-card {
+  background: rgba(169, 180, 255, 0.08);
+  border: 1px solid var(--rlc-accent);
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  margin-bottom: 1.1rem;
+  text-align: center;
+}
+
+.rlc-headline {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--rlc-text);
+}
+
+.rlc-headline-sub {
+  font-size: 0.8rem;
+  color: var(--rlc-text-dim);
+  margin-top: 0.35rem;
+}
+
+.rlc-headline-compare {
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed var(--rlc-border);
+}
+
+.rlc-headline-compare--safe {
+  color: var(--rlc-good);
+}
+
+.rlc-headline-compare--danger {
+  color: var(--rlc-bad);
+}
+
+.rlc-chart-wrap {
+  background: var(--rlc-bg-2);
+  border: 1px solid var(--rlc-border);
+  border-radius: 12px;
+  padding: 0.75rem 0.75rem 0.5rem;
+  margin-bottom: 1.1rem;
+}
+
+.rlc-diagram-svg {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  overflow: visible;
+}
+
+.rlc-curve-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.rlc-roche-circle {
+  fill: none;
+  stroke: var(--rlc-accent);
+  stroke-width: 1.5;
+  stroke-dasharray: 5 4;
+}
+
+.rlc-primary-disk {
+  fill: #ffb84d;
+}
+
+.rlc-satellite {
+  fill: #cfd6e6;
+  stroke: #14151a;
+  stroke-width: 1;
+}
+
+.rlc-satellite--disrupted {
+  fill: #d98a6a;
+}
+
+.rlc-debris {
+  fill: #b06a4c;
+  opacity: 0.85;
+}
+
+.rlc-chart-gridline {
+  stroke: var(--rlc-border);
+  stroke-width: 1;
+}
+
+.rlc-chart-axis-line {
+  stroke: var(--rlc-text-dim);
+  stroke-width: 1;
+}
+
+.rlc-chart-axis-label {
+  fill: var(--rlc-text-dim);
+  font-size: 10px;
+}
+
+.rlc-chart-fit-line {
+  fill: none;
+  stroke: var(--rlc-accent);
+  stroke-width: 2.5;
+}
+
+.rlc-chart-landmark {
+  fill: #17191e;
+  stroke: var(--rlc-text-dim);
+  stroke-width: 1.5;
+}
+
+.rlc-chart-point {
+  fill: #ffd479;
+  stroke: #14151a;
+  stroke-width: 1.5;
+}
+
+.rlc-chart-point-label {
+  fill: var(--rlc-text);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.rlc-chart-caption {
+  font-size: 0.72rem;
+  color: var(--rlc-text-dim);
+  margin: 0.35rem 0 0;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.rlc-note {
+  font-size: 0.78rem;
+  color: var(--rlc-text-dim);
+  background: var(--rlc-bg-2);
+  border: 1px solid var(--rlc-border);
+  border-left: 3px solid var(--rlc-accent);
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  line-height: 1.45;
+  margin: 0 0 1rem;
+}
+
+.rlc-note--warn {
+  border-left-color: var(--rlc-bad);
+}
+
+.rlc-footer-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.rlc-copy-btn {
+  font-size: 0.78rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--rlc-border);
+  background: var(--rlc-bg-2);
+  color: var(--rlc-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.rlc-copy-btn:hover,
+.rlc-copy-btn:focus-visible {
+  border-color: var(--rlc-accent);
+  color: var(--rlc-text);
+}

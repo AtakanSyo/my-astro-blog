@@ -1,0 +1,115 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Roche Limit Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-08-29'
+description: "Calculate how close a moon or other satellite can orbit a much more massive primary before tidal forces overcome its self-gravity, d ≈ 2.44 R_M(ρ_M/ρ_m)^(1/3) for a fluid satellite (or the rigid-body variant), in km and primary radii, compared against the actual orbital distance — with a tidal-disruption diagram and a density-dependence chart."
+postColor: rgba(18, 92, 102, 1)
+slug: roche-limit-calculator
+keywords:
+  - Roche limit calculator
+  - tidal disruption distance
+  - fluid Roche limit formula
+  - rigid body Roche limit
+  - Saturn rings Roche limit
+  - Shoemaker-Levy 9 Jupiter
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import RocheLimitCalculator from "../../components/simulations/roche-limit-calculator/RocheLimitCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <RocheLimitCalculator client:load />
+</figure>
+
+Every moon orbiting a planet is in a permanent tug-of-war between two
+forces holding it together and pulling it apart: its own gravity trying
+to keep it round, and the planet's tidal pull trying to stretch it into
+an ellipsoid and, eventually, shreds. Get close enough, and the tide
+wins outright — that boundary is the Roche limit, and it's the reason
+some planets have rings instead of an extra moon.
+
+## The formula
+
+For a satellite with little internal strength — deforming into its own
+tidal shape as the primary's gravity stretches it, the more physically
+realistic case for icy moons and rubble-pile bodies:
+
+$$
+d_{\rm fluid} \approx 2.44\, R_M \left(\frac{\rho_M}{\rho_m}\right)^{1/3}
+$$
+
+For an idealized perfectly rigid satellite that stays spherical right up
+until it's torn apart — an optimistic lower bound, more relevant to a
+strong, monolithic body:
+
+$$
+d_{\rm rigid} = R_M\left(\frac{2\rho_M}{\rho_m}\right)^{1/3} \approx 1.26\, R_M \left(\frac{\rho_M}{\rho_m}\right)^{1/3}
+$$
+
+R_M and ρ_M are the primary's radius and mean density; ρ_m is the
+satellite's mean density. Neither version is a hard boundary in
+practice — real bodies with internal cohesion or unusual shapes can
+survive a bit inside either idealized limit, and both are approximations
+to a genuinely three-dimensional problem.
+
+## Why density matters so much
+
+Both formulas depend on ρ_m through an inverse cube root, so a lower-
+density (icy, porous) satellite has a *larger* Roche limit than a dense,
+iron-rich one at the same distance from the same primary. This is the
+whole reason composition, not just size, decides whether a close-in body
+survives intact — Saturn's icy rings sit at distances that would be
+perfectly safe for a solid rock or metal body of the same size.
+
+## Two real examples worth knowing
+
+- **Saturn's main rings** sit at distances right around the fluid Roche
+  limit for water ice — not a coincidence. Material there can't
+  gravitationally clump into a single moon because tidal forces keep
+  tearing any growing clump back apart, which is a large part of why
+  Saturn has spectacular rings instead of one more icy moon.
+- **Comet Shoemaker-Levy 9** passed roughly 96,000 km from Jupiter's
+  center in 1992 — deep inside the Roche limit for a weak, porous
+  comet nucleus (around 3.4 Jupiter radii out) — and was torn into a
+  string of fragments that, two years later, crashed into Jupiter one
+  after another in one of the most-watched astronomical events of the
+  20th century. It's the textbook real-world demonstration of exactly
+  the physics this calculator computes.
+
+## Reading the two visuals
+
+- **The disruption diagram** draws the primary, the Roche limit as a
+  dashed boundary, and the satellite either as an intact disk (safely
+  outside) or a stretched, debris-shedding shape (inside) — using your
+  actual orbital distance if you give one, or a representative
+  just-inside-the-limit position if you don't.
+- **The density-dependence chart** plots the Roche limit against
+  satellite density on a log-log scale, where the inverse-cube-root
+  relation is a straight line — landmark densities from porous ice to
+  iron-rich rock show directly how much composition alone can shift
+  where the boundary sits.
+
+<SimPostSchema
+  title="Roche Limit Calculator"
+  description="Calculate how close a moon or other satellite can orbit a much more massive primary before tidal forces overcome its self-gravity, d ≈ 2.44 R_M(ρ_M/ρ_m)^(1/3) for a fluid satellite (or the rigid-body variant), in km and primary radii, compared against the actual orbital distance — with a tidal-disruption diagram and a density-dependence chart."
+  url="https://astrosyo.com/posts/roche-limit-calculator"
+  datePublished="2026-08-29"
+  authorName="Astrosyo"
+  keywords={["Roche limit calculator", "tidal disruption distance", "fluid Roche limit formula", "rigid body Roche limit", "Saturn rings Roche limit"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Roche Limit Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/roche-limit-calculator#calculator",
+    "description": "Interactive calculator that computes the fluid and rigid-body Roche limit for a satellite orbiting a given primary body, compares it against an actual orbital distance, and visualizes tidal disruption with a diagram and a density-dependence chart."
+  }}
+/>

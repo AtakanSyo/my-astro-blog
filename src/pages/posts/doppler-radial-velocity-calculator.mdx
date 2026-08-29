@@ -1,0 +1,110 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Doppler Shift & Radial Velocity Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-08-29'
+description: "Convert a spectral line's rest and observed wavelengths into radial velocity (or the reverse), using either the classical v/c approximation or the exact relativistic Doppler relation — with a velocity gauge and a chart showing exactly where the two formulas diverge."
+postColor: rgba(22, 46, 74, 1)
+slug: doppler-radial-velocity-calculator
+keywords:
+  - Doppler shift calculator
+  - radial velocity calculator
+  - spectral line redshift blueshift
+  - relativistic Doppler formula
+  - exoplanet radial velocity
+  - stellar spectroscopy velocity
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import DopplerRadialVelocityCalculator from "../../components/simulations/doppler-radial-velocity-calculator/DopplerRadialVelocityCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <DopplerRadialVelocityCalculator client:load />
+</figure>
+
+A star's spectral lines sit at precisely known wavelengths in the lab —
+Hα always at 656.28 nm, the sodium D line always at 589.0 nm. When a
+star is moving toward or away from us, those lines shift: measure how
+far, and you have the star's radial velocity, no other measurement
+required. This is the working principle behind everything from Vesto
+Slipher's first galaxy velocity measurements in the 1910s to today's
+exoplanet searches, which detect worlds by the meters-per-second wobble
+they induce in their host star's spectrum.
+
+## The classical approximation
+
+For velocities much smaller than light, the relation is a simple ratio:
+
+$$
+\frac{v_r}{c} \approx \frac{\lambda_{\rm obs} - \lambda_0}{\lambda_0}
+$$
+
+A positive shift (λ_obs > λ0, redshifted) means the source is receding;
+negative (blueshifted) means it's approaching. Take the worked example
+this calculator opens with: Hα's rest wavelength is 656.28 nm; observed
+at 656.50 nm, that's a radial velocity of about +100.5 km/s — receding.
+
+## Where the exact relativistic relation is needed
+
+The classical formula is a first-order approximation. For purely radial
+motion, the exact relativistic Doppler relation is
+
+$$
+\frac{\lambda_{\rm obs}}{\lambda_0} = \sqrt{\frac{1+\beta}{1-\beta}}, \qquad \beta = \frac{v_r}{c}
+$$
+
+which already folds in relativistic time dilation, not just the
+classical light-travel-time effect. At everyday stellar velocities (tens
+to hundreds of km/s, β ~ 10⁻⁴ to 10⁻³) the two formulas are
+indistinguishable. They start to diverge visibly only once a source is
+moving at a real fraction of the speed of light — relativistic jets,
+some supernova ejecta, and (going the other way) precision tests of
+special relativity itself are where the distinction actually earns its
+keep.
+
+## Running it in reverse
+
+Enter a rest wavelength and a radial velocity instead, and the
+calculator predicts the observed wavelength — useful for planning an
+observation (where should this line actually land, given the target's
+known velocity?) or for building intuition about how large a shift a
+given velocity really produces before you go looking for it in real
+data.
+
+## Reading the two charts
+
+- **The radial velocity gauge** places the current velocity on a scale
+  that auto-fits to whatever you enter, colored blue for approaching and
+  red for receding. A shaded zone appears only when |v| exceeds 0.1c —
+  the point past which relativistic corrections exceed about 0.5% — so
+  its *absence* is itself informative: for ordinary stellar and
+  exoplanet work, you'll essentially never see it.
+- **The classical-vs-relativistic curve** plots both formulas across the
+  full range of β, dashed for classical and solid for relativistic. They
+  sit on top of each other near β = 0 and peel apart as |v| grows — a
+  direct visual answer to "how much does the approximation actually cost
+  me here," rather than a rule of thumb taken on faith.
+
+<SimPostSchema
+  title="Doppler Shift & Radial Velocity Calculator"
+  description="Convert a spectral line's rest and observed wavelengths into radial velocity (or the reverse), using either the classical v/c approximation or the exact relativistic Doppler relation — with a velocity gauge and a chart showing exactly where the two formulas diverge."
+  url="https://astrosyo.com/posts/doppler-radial-velocity-calculator"
+  datePublished="2026-08-29"
+  authorName="Astrosyo"
+  keywords={["Doppler shift calculator", "radial velocity calculator", "spectral line redshift blueshift", "relativistic Doppler formula", "exoplanet radial velocity"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Doppler Shift and Radial Velocity Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/doppler-radial-velocity-calculator#calculator",
+    "description": "Interactive calculator that converts between a spectral line's Doppler shift and its radial velocity in either direction, using the classical or exact relativistic Doppler relation, with a radial velocity gauge and a classical-versus-relativistic divergence chart."
+  }}
+/>
