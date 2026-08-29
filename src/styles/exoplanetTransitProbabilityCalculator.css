@@ -1,0 +1,336 @@
+.etp {
+  --etp-accent: #a9b4ff;
+  --etp-bg: var(--card-bg, #1b1d22);
+  --etp-bg-2: #17191e;
+  --etp-border: var(--card-border, rgba(255, 255, 255, 0.1));
+  --etp-text: var(--color-text, #e4e4e4);
+  --etp-text-dim: rgba(228, 228, 228, 0.65);
+  --etp-bad: #ff8a7e;
+
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  color: var(--etp-text);
+  background: var(--etp-bg);
+  border: 1px solid var(--etp-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  font-variant-numeric: tabular-nums;
+}
+
+.etp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.etp-title {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin: 0;
+  color: var(--etp-text);
+}
+
+.etp-presets {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.etp-preset-btn {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--etp-border);
+  background: var(--etp-bg-2);
+  color: var(--etp-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.etp-preset-btn:hover,
+.etp-preset-btn:focus-visible {
+  border-color: var(--etp-accent);
+  color: var(--etp-text);
+}
+
+.etp-explainer {
+  font-size: 0.8rem;
+  color: var(--etp-text-dim);
+  line-height: 1.5;
+  margin: 0 0 1rem;
+}
+
+.etp-explainer code {
+  background: var(--etp-bg-2);
+  border: 1px solid var(--etp-border);
+  border-radius: 4px;
+  padding: 0.05rem 0.3rem;
+  font-size: 0.75rem;
+  color: var(--etp-text);
+}
+
+.etp-explainer a {
+  color: var(--etp-accent);
+}
+
+.etp-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.etp-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.etp-field label {
+  font-size: 0.78rem;
+  color: var(--etp-text-dim);
+}
+
+.etp-input-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.etp-input {
+  flex: 1;
+  min-width: 0;
+  background: var(--etp-bg-2);
+  border: 1px solid var(--etp-border);
+  border-radius: 8px;
+  color: var(--etp-text);
+  font-size: 1rem;
+  padding: 0.5rem 0.65rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.etp-input:focus {
+  border-color: var(--etp-accent);
+}
+
+.etp-unit-select {
+  background: var(--etp-bg-2);
+  border: 1px solid var(--etp-border);
+  border-radius: 8px;
+  color: var(--etp-text);
+  font-size: 0.85rem;
+  padding: 0.5rem 0.5rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.etp-static-unit {
+  font-size: 0.85rem;
+  color: var(--etp-text-dim);
+}
+
+.etp-advanced-row {
+  margin-bottom: 0.75rem;
+}
+
+.etp-advanced-toggle {
+  font-size: 0.75rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 999px;
+  border: 1px dashed var(--etp-border);
+  background: var(--etp-bg-2);
+  color: var(--etp-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.etp-advanced-toggle:hover,
+.etp-advanced-toggle:focus-visible {
+  border-color: var(--etp-accent);
+  color: var(--etp-text);
+}
+
+.etp-advanced-toggle.active {
+  background: rgba(169, 180, 255, 0.12);
+  border-style: solid;
+  border-color: var(--etp-accent);
+  color: var(--etp-text);
+  font-weight: 600;
+}
+
+.etp-headline-card {
+  background: rgba(169, 180, 255, 0.08);
+  border: 1px solid var(--etp-accent);
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  margin-bottom: 1.1rem;
+  text-align: center;
+}
+
+.etp-headline {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--etp-text);
+}
+
+.etp-headline-sub {
+  font-size: 0.8rem;
+  color: var(--etp-text-dim);
+  margin-top: 0.35rem;
+}
+
+.etp-chart-wrap {
+  background: var(--etp-bg-2);
+  border: 1px solid var(--etp-border);
+  border-radius: 12px;
+  padding: 0.75rem 0.75rem 0.5rem;
+  margin-bottom: 1.1rem;
+}
+
+.etp-diagram-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.etp-diagram-panel {
+  flex: 1 1 45%;
+  min-width: 200px;
+  text-align: center;
+}
+
+.etp-diagram-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.etp-diagram-axis {
+  stroke: var(--etp-text-dim);
+  stroke-width: 1.5;
+}
+
+.etp-diagram-band {
+  fill: var(--etp-accent);
+  opacity: 0.45;
+}
+
+.etp-diagram-band--zoom {
+  opacity: 0.3;
+}
+
+.etp-diagram-star {
+  fill: #ffd479;
+}
+
+.etp-diagram-label {
+  fill: var(--etp-text-dim);
+  font-size: 9px;
+}
+
+.etp-diagram-caption {
+  font-size: 0.68rem;
+  color: var(--etp-text-dim);
+  margin: 0.35rem 0 0;
+  line-height: 1.35;
+}
+
+.etp-scatter-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.etp-chart-gridline {
+  stroke: var(--etp-border);
+  stroke-width: 1;
+}
+
+.etp-chart-axis-line {
+  stroke: var(--etp-text-dim);
+  stroke-width: 1;
+}
+
+.etp-chart-axis-label {
+  fill: var(--etp-text-dim);
+  font-size: 10px;
+}
+
+.etp-ref-line {
+  stroke: var(--etp-text-dim);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 4;
+}
+
+.etp-chart-landmark {
+  fill: #17191e;
+  stroke: var(--etp-text-dim);
+  stroke-width: 1.5;
+}
+
+.etp-chart-point {
+  fill: #ffd479;
+  stroke: #14151a;
+  stroke-width: 1.5;
+}
+
+.etp-chart-point-label {
+  fill: var(--etp-text);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.etp-chart-caption {
+  font-size: 0.72rem;
+  color: var(--etp-text-dim);
+  margin: 0.35rem 0 0;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.etp-note {
+  font-size: 0.78rem;
+  color: var(--etp-text-dim);
+  background: var(--etp-bg-2);
+  border: 1px solid var(--etp-border);
+  border-left: 3px solid var(--etp-accent);
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  line-height: 1.45;
+  margin: 0 0 1rem;
+}
+
+.etp-note--warn {
+  border-left-color: var(--etp-bad);
+}
+
+.etp-footer-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.etp-copy-btn {
+  font-size: 0.78rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--etp-border);
+  background: var(--etp-bg-2);
+  color: var(--etp-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.etp-copy-btn:hover,
+.etp-copy-btn:focus-visible {
+  border-color: var(--etp-accent);
+  color: var(--etp-text);
+}

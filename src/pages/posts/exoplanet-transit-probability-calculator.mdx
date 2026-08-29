@@ -1,0 +1,126 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Exoplanet Transit Probability Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-08-29'
+description: "Estimate the geometric probability that a planet's orbit happens to be aligned for a transit, P ≈ (R★+Rp)/a, with an advanced mode for eccentricity and argument of periapsis — plus a viewing-angle geometry diagram and a distance-versus-probability chart, pairing with the Transit Depth Calculator."
+postColor: rgba(20, 50, 40, 1)
+slug: exoplanet-transit-probability-calculator
+keywords:
+  - exoplanet transit probability calculator
+  - geometric transit probability
+  - transit probability formula
+  - hot Jupiter transit probability
+  - Earth transit probability
+  - eccentric orbit transit probability
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import ExoplanetTransitProbabilityCalculator from "../../components/simulations/exoplanet-transit-probability-calculator/ExoplanetTransitProbabilityCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <ExoplanetTransitProbabilityCalculator client:load />
+</figure>
+
+Most planets never transit their star, from any given vantage point —
+not because transits are rare events in time, but because seeing one
+requires pure geometric luck: the orbital plane has to happen to line up
+almost exactly edge-on to our line of sight. This calculator estimates
+exactly how lucky you'd need to be.
+
+## The formula
+
+$$
+P_{\rm transit} \approx \frac{R_\star + R_p}{a}
+$$
+
+R★ and R_p are the star's and planet's radii, a the orbital semi-major
+axis. For a small planet this is often simplified to R★/a, since R_p
+barely changes the answer. Earth around the Sun: **P ≈ 0.47%** — roughly
+1-in-213 odds that a random distant observer would ever catch Earth
+transiting. A hot Jupiter parked at 0.05 AU: **P ≈ 10.3%** — over twenty
+times more likely, purely from being so much closer to its star.
+
+## Why this pairs with transit depth
+
+This calculator has a natural partner: this site's
+[Exoplanet Transit Depth Calculator](/posts/exoplanet-transit-depth-calculator).
+The two answer completely different questions about the same
+observation:
+
+- **Transit probability** (here): given a planet exists on some orbit,
+  what's the chance we happen to be positioned to see it transit at all?
+- **Transit depth** (there): given we do see it transit, how big is the
+  brightness dip?
+
+A hot Jupiter wins on both counts — likelier to transit *and* produces a
+deeper signal when it does — which is exactly why the first exoplanets
+ever found by the transit method were hot Jupiters, long before smaller,
+more distant worlds became detectable.
+
+## Why close-in planets and small stars help
+
+Both effects compound in the same direction. Closer orbits (smaller a)
+directly raise P by simple geometry — that's the entire content of the
+formula. Smaller host stars help too: not because P has a special
+sensitivity to stellar radius, but because a small star's own habitable
+zone sits much closer in, dragging orbital distances down along with it.
+An Earth-sized planet at a red dwarf's habitable-zone distance can have
+several times Earth's own transit probability, entirely for this reason
+— part of why systems like TRAPPIST-1 have yielded so many transiting
+terrestrial planets at once.
+
+## Eccentricity and the argument of periapsis
+
+For an eccentric orbit, the fuller relation is
+
+$$
+P_{\rm transit} \approx \frac{R_\star + R_p}{a}\cdot\frac{1+e\sin\omega}{1-e^2}
+$$
+
+ω, the argument of periapsis, ties the planet's closest approach to a
+specific point in its orbit relative to our line of sight. A favorably
+oriented, highly eccentric orbit can multiply the circular-orbit
+probability several-fold; an unfavorably oriented one suppresses it just
+as much. HD 80606 b — a real hot Jupiter on a famously eccentric orbit
+(e ≈ 0.93) — is the textbook example: it does transit, and part of why
+astronomers were able to catch it is exactly this geometric boost from a
+favorable ω.
+
+## Reading the visuals
+
+- **The geometry diagram** shows, side by side, the full range of
+  orbital orientations a planet could have (left, where the
+  transit-producing band is almost always too thin to draw at true
+  scale) and a zoomed view at the star's own scale (right, where that
+  same band — drawn to true proportion there — turns out to be roughly
+  the star's own height).
+- **The distance-vs-probability chart** plots real example systems on
+  log-log axes, alongside a dashed reference line showing the pure 1/a
+  trend for your current star and planet size — the scattered points
+  don't sit exactly on that line because each has its own different
+  stellar radius.
+
+<SimPostSchema
+  title="Exoplanet Transit Probability Calculator"
+  description="Estimate the geometric probability that a planet's orbit happens to be aligned for a transit, P ≈ (R★+Rp)/a, with an advanced mode for eccentricity and argument of periapsis — plus a viewing-angle geometry diagram and a distance-versus-probability chart, pairing with the Transit Depth Calculator."
+  url="https://astrosyo.com/posts/exoplanet-transit-probability-calculator"
+  datePublished="2026-08-29"
+  authorName="Astrosyo"
+  keywords={["exoplanet transit probability calculator", "geometric transit probability", "transit probability formula", "hot Jupiter transit probability", "eccentric orbit transit probability"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Exoplanet Transit Probability Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/exoplanet-transit-probability-calculator#calculator",
+    "description": "Interactive calculator that estimates the geometric probability a planet's orbit is aligned for a transit, from stellar radius, planet radius, and orbital distance, with an advanced mode for eccentricity and argument of periapsis, a viewing-angle geometry diagram, and a distance-versus-probability chart."
+  }}
+/>
