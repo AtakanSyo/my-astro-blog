@@ -1,0 +1,268 @@
+.grc {
+  --grc-accent: #a9b4ff;
+  --grc-bg: var(--card-bg, #1b1d22);
+  --grc-bg-2: #17191e;
+  --grc-border: var(--card-border, rgba(255, 255, 255, 0.1));
+  --grc-text: var(--color-text, #e4e4e4);
+  --grc-text-dim: rgba(228, 228, 228, 0.65);
+  --grc-bad: #ff8a7e;
+
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  color: var(--grc-text);
+  background: var(--grc-bg);
+  border: 1px solid var(--grc-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  font-variant-numeric: tabular-nums;
+}
+
+.grc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.grc-title {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin: 0;
+  color: var(--grc-text);
+}
+
+.grc-presets {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.grc-preset-btn {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--grc-border);
+  background: var(--grc-bg-2);
+  color: var(--grc-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.grc-preset-btn:hover,
+.grc-preset-btn:focus-visible {
+  border-color: var(--grc-accent);
+  color: var(--grc-text);
+}
+
+.grc-explainer {
+  font-size: 0.8rem;
+  color: var(--grc-text-dim);
+  line-height: 1.5;
+  margin: 0 0 1rem;
+}
+
+.grc-explainer strong {
+  color: var(--grc-text);
+}
+
+.grc-explainer code {
+  background: var(--grc-bg-2);
+  border: 1px solid var(--grc-border);
+  border-radius: 4px;
+  padding: 0.05rem 0.3rem;
+  font-size: 0.75rem;
+  color: var(--grc-text);
+}
+
+.grc-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.grc-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.grc-field label {
+  font-size: 0.78rem;
+  color: var(--grc-text-dim);
+}
+
+.grc-input-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.grc-input {
+  flex: 1;
+  min-width: 0;
+  background: var(--grc-bg-2);
+  border: 1px solid var(--grc-border);
+  border-radius: 8px;
+  color: var(--grc-text);
+  font-size: 1rem;
+  padding: 0.5rem 0.65rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.grc-input:focus {
+  border-color: var(--grc-accent);
+}
+
+.grc-unit-select {
+  background: var(--grc-bg-2);
+  border: 1px solid var(--grc-border);
+  border-radius: 8px;
+  color: var(--grc-text);
+  font-size: 0.85rem;
+  padding: 0.5rem 0.5rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.grc-headline-card {
+  background: rgba(169, 180, 255, 0.08);
+  border: 1px solid var(--grc-accent);
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  margin-bottom: 1.1rem;
+  text-align: center;
+}
+
+.grc-headline {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--grc-text);
+}
+
+.grc-headline-sub {
+  font-size: 0.8rem;
+  color: var(--grc-text-dim);
+  margin-top: 0.35rem;
+}
+
+.grc-headline-note {
+  font-size: 0.75rem;
+  color: var(--grc-text-dim);
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed var(--grc-border);
+  font-style: italic;
+}
+
+.grc-chart-wrap {
+  background: var(--grc-bg-2);
+  border: 1px solid var(--grc-border);
+  border-radius: 12px;
+  padding: 0.75rem 0.75rem 0.5rem;
+  margin-bottom: 1.1rem;
+}
+
+.grc-photon-svg,
+.grc-curve-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.grc-photon-wave {
+  fill: none;
+  stroke: #ffd479;
+  stroke-width: 2;
+}
+
+.grc-chart-gridline {
+  stroke: var(--grc-border);
+  stroke-width: 1;
+}
+
+.grc-chart-axis-line {
+  stroke: var(--grc-text-dim);
+  stroke-width: 1;
+}
+
+.grc-chart-axis-label {
+  fill: var(--grc-text-dim);
+  font-size: 10px;
+}
+
+.grc-curve-line {
+  fill: none;
+  stroke: var(--grc-accent);
+  stroke-width: 2.5;
+}
+
+.grc-chart-landmark {
+  fill: #17191e;
+  stroke: var(--grc-text-dim);
+  stroke-width: 1.5;
+}
+
+.grc-chart-point {
+  fill: #ffd479;
+  stroke: #14151a;
+  stroke-width: 1.5;
+}
+
+.grc-chart-point-label {
+  fill: var(--grc-text);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.grc-chart-caption {
+  font-size: 0.72rem;
+  color: var(--grc-text-dim);
+  margin: 0.35rem 0 0;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.grc-note {
+  font-size: 0.78rem;
+  color: var(--grc-text-dim);
+  background: var(--grc-bg-2);
+  border: 1px solid var(--grc-border);
+  border-left: 3px solid var(--grc-accent);
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  line-height: 1.45;
+  margin: 0 0 1rem;
+}
+
+.grc-note--warn {
+  border-left-color: var(--grc-bad);
+}
+
+.grc-footer-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.grc-copy-btn {
+  font-size: 0.78rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--grc-border);
+  background: var(--grc-bg-2);
+  color: var(--grc-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.grc-copy-btn:hover,
+.grc-copy-btn:focus-visible {
+  border-color: var(--grc-accent);
+  color: var(--grc-text);
+}

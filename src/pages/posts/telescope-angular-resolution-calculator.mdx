@@ -1,0 +1,126 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Telescope Angular Resolution Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-08-29'
+description: "Calculate a telescope's diffraction-limited angular resolution from its aperture and wavelength via the Rayleigh criterion θ = 1.22λ/D, compared against the empirical Dawes limit, in arcseconds, milliarcseconds, degrees, and radians — with a two-stars-resolving filmstrip and a resolution comparison scale."
+postColor: rgba(28, 44, 74, 1)
+slug: telescope-angular-resolution-calculator
+keywords:
+  - telescope resolution calculator
+  - Rayleigh criterion calculator
+  - diffraction limit telescope
+  - Dawes limit calculator
+  - angular resolution arcseconds
+  - Hubble telescope resolution
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import TelescopeAngularResolutionCalculator from "../../components/simulations/telescope-angular-resolution-calculator/TelescopeAngularResolutionCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <TelescopeAngularResolutionCalculator client:load />
+</figure>
+
+Even a flawless telescope with a flawless mirror, pointed through a
+perfectly still atmosphere, can't resolve two point sources arbitrarily
+close together. Light bends slightly as it passes through any finite
+opening — diffraction — and that alone sets a hard floor on resolving
+power that no amount of engineering below it can beat. That floor is
+what this calculator computes.
+
+## The Rayleigh criterion
+
+$$
+\theta = 1.22\,\frac{\lambda}{D}
+$$
+
+D is the telescope's aperture diameter, λ the observing wavelength, and
+θ the smallest angular separation (in radians, here converted to
+arcseconds or whatever unit you prefer) at which two point sources are
+"just resolved" — precisely defined as the point where the first
+diffraction minimum of one source's pattern lands exactly on the
+central peak of the other's. A 100 mm telescope at 550 nm (green
+visible light): θ ≈ 1.38 arcseconds — the worked example this
+calculator opens with.
+
+Bigger aperture means better (smaller) resolution; longer wavelength
+means worse resolution for the same aperture — which is part of why
+radio telescopes, working at wavelengths millions of times longer than
+visible light, need single dishes kilometers across (or interferometer
+arrays) just to match what a modest optical telescope does effortlessly.
+
+## The Dawes limit — an older, empirical alternative
+
+$$
+\theta_{\rm Dawes} \approx \frac{116}{D(\text{mm})} \text{ arcsec} \approx \frac{4.56}{D(\text{inches})} \text{ arcsec}
+$$
+
+William Dawes derived this in the 19th century from real observations
+of double stars, specifically in visible light — it isn't a function of
+wavelength the way Rayleigh's criterion is, and applying it outside
+visible-light point-source observations (radio, say) isn't physically
+meaningful. It's slightly more optimistic than Rayleigh (a smaller
+predicted limit for the same aperture), reflecting that a trained eye
+detecting *some* elongation in a double star's image is an easier bar
+than the strict Rayleigh criterion.
+
+## This is a ceiling, not a promise
+
+Both numbers above describe an idealized instrument limited by nothing
+but diffraction. Real observations, especially from the ground, are
+routinely limited far more by:
+
+- **Atmospheric seeing** — turbulent air blurs images to roughly 1
+  arcsecond at an average site, and often worse; this alone can swamp
+  the diffraction limit of anything larger than a modest amateur
+  telescope. It's the entire reason adaptive optics and space telescopes
+  exist.
+- **Optical quality** — a mirror or lens with real manufacturing
+  imperfections won't reach its theoretical diffraction limit at all.
+- **Tracking and vibration** — any wobble during an exposure blurs the
+  image regardless of optics.
+- **Detector sampling** — a camera whose pixels are too large relative
+  to θ can't record detail the optics actually deliver (undersampling),
+  while oversampling wastes light-gathering efficiency without adding
+  real resolution.
+
+A small, excellent instrument on a superb night can out-resolve a much
+larger one fighting bad seeing or poor optics. Diffraction sets the best
+case; everything else usually decides the real one.
+
+## Reading the visuals
+
+- **The resolving filmstrip** shows two idealized point sources at
+  several multiples of this telescope's Rayleigh limit apart — merged
+  into one blob well inside it, distinctly separate well outside it,
+  and passing through the classic "just resolved" boundary right around
+  1×.
+- **The comparison scale** places this telescope's resolution on a log
+  scale next to the human eye, a small amateur scope, Hubble, Keck, and
+  a single radio dish — a sense of just how many orders of magnitude
+  resolving power spans across real instruments.
+
+<SimPostSchema
+  title="Telescope Angular Resolution Calculator"
+  description="Calculate a telescope's diffraction-limited angular resolution from its aperture and wavelength via the Rayleigh criterion θ = 1.22λ/D, compared against the empirical Dawes limit, in arcseconds, milliarcseconds, degrees, and radians — with a two-stars-resolving filmstrip and a resolution comparison scale."
+  url="https://astrosyo.com/posts/telescope-angular-resolution-calculator"
+  datePublished="2026-08-29"
+  authorName="Astrosyo"
+  keywords={["telescope resolution calculator", "Rayleigh criterion calculator", "diffraction limit telescope", "Dawes limit calculator", "angular resolution arcseconds"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Telescope Angular Resolution Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/telescope-angular-resolution-calculator#calculator",
+    "description": "Interactive calculator that computes a telescope's diffraction-limited angular resolution from its aperture and observing wavelength via the Rayleigh criterion, compared against the empirical Dawes limit, with a two-stars-resolving filmstrip and a resolution comparison scale."
+  }}
+/>

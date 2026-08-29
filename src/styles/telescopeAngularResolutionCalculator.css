@@ -1,0 +1,358 @@
+.tar {
+  --tar-accent: #a9b4ff;
+  --tar-good: #5ce0a0;
+  --tar-warn: #e0c05c;
+  --tar-bad: #ff8a7e;
+  --tar-bg: var(--card-bg, #1b1d22);
+  --tar-bg-2: #17191e;
+  --tar-border: var(--card-border, rgba(255, 255, 255, 0.1));
+  --tar-text: var(--color-text, #e4e4e4);
+  --tar-text-dim: rgba(228, 228, 228, 0.65);
+
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  color: var(--tar-text);
+  background: var(--tar-bg);
+  border: 1px solid var(--tar-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  font-variant-numeric: tabular-nums;
+}
+
+.tar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.tar-title {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin: 0;
+  color: var(--tar-text);
+}
+
+.tar-presets {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.tar-preset-btn {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--tar-border);
+  background: var(--tar-bg-2);
+  color: var(--tar-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.tar-preset-btn:hover,
+.tar-preset-btn:focus-visible {
+  border-color: var(--tar-accent);
+  color: var(--tar-text);
+}
+
+.tar-explainer {
+  font-size: 0.8rem;
+  color: var(--tar-text-dim);
+  line-height: 1.5;
+  margin: 0 0 1rem;
+}
+
+.tar-explainer strong {
+  color: var(--tar-text);
+}
+
+.tar-explainer code {
+  background: var(--tar-bg-2);
+  border: 1px solid var(--tar-border);
+  border-radius: 4px;
+  padding: 0.05rem 0.3rem;
+  font-size: 0.75rem;
+  color: var(--tar-text);
+}
+
+.tar-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.tar-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.tar-field label {
+  font-size: 0.78rem;
+  color: var(--tar-text-dim);
+}
+
+.tar-input-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.tar-input {
+  flex: 1;
+  min-width: 0;
+  background: var(--tar-bg-2);
+  border: 1px solid var(--tar-border);
+  border-radius: 8px;
+  color: var(--tar-text);
+  font-size: 1rem;
+  padding: 0.5rem 0.65rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.tar-input:focus {
+  border-color: var(--tar-accent);
+}
+
+.tar-unit-select,
+.tar-angle-select {
+  background: var(--tar-bg-2);
+  border: 1px solid var(--tar-border);
+  border-radius: 8px;
+  color: var(--tar-text);
+  font-size: 0.85rem;
+  padding: 0.5rem 0.5rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.tar-headline-card {
+  background: rgba(169, 180, 255, 0.08);
+  border: 1px solid var(--tar-accent);
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.tar-headline {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--tar-text);
+}
+
+.tar-headline-sub {
+  font-size: 0.8rem;
+  color: var(--tar-text-dim);
+  margin-top: 0.35rem;
+}
+
+.tar-angle-select {
+  margin-top: 0.6rem;
+}
+
+.tar-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.tar-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  background: var(--tar-bg-2);
+  border: 1px solid var(--tar-border);
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+}
+
+.tar-row--active {
+  border-color: var(--tar-accent);
+  background: rgba(169, 180, 255, 0.08);
+}
+
+.tar-row-label {
+  font-size: 0.82rem;
+  color: var(--tar-text-dim);
+}
+
+.tar-row-value {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--tar-text);
+  white-space: nowrap;
+}
+
+.tar-row-unit {
+  font-size: 0.76rem;
+  font-weight: 400;
+  color: var(--tar-text-dim);
+}
+
+.tar-chart-wrap {
+  background: var(--tar-bg-2);
+  border: 1px solid var(--tar-border);
+  border-radius: 12px;
+  padding: 0.75rem 0.75rem 0.5rem;
+  margin-bottom: 1.1rem;
+}
+
+.tar-filmstrip {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+}
+
+.tar-filmstrip-panel {
+  flex: 1 0 18%;
+  min-width: 88px;
+  text-align: center;
+}
+
+.tar-filmstrip-svg {
+  width: 100%;
+  height: auto;
+  background: #05060a;
+  border-radius: 8px;
+  display: block;
+}
+
+.tar-filmstrip-label {
+  font-size: 0.7rem;
+  color: var(--tar-text-dim);
+  margin: 0.35rem 0 0.1rem;
+}
+
+.tar-filmstrip-status {
+  font-size: 0.68rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.tar-filmstrip-status--not-resolved {
+  color: var(--tar-bad);
+}
+
+.tar-filmstrip-status--just-resolved {
+  color: var(--tar-warn);
+}
+
+.tar-filmstrip-status--resolved {
+  color: var(--tar-good);
+}
+
+.tar-ladder-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.tar-ladder-axis {
+  stroke: var(--tar-text-dim);
+  stroke-width: 1.5;
+}
+
+.tar-ladder-tick {
+  stroke: var(--tar-text-dim);
+  stroke-width: 1;
+}
+
+.tar-landmark-tick {
+  stroke: var(--tar-text);
+  stroke-width: 1.5;
+  opacity: 0.75;
+}
+
+.tar-landmark-label {
+  fill: var(--tar-text-dim);
+  font-size: 9px;
+}
+
+.tar-ladder-marker {
+  fill: var(--tar-text);
+}
+
+.tar-ladder-marker-label {
+  fill: var(--tar-text);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.tar-chart-axis-label {
+  fill: var(--tar-text-dim);
+  font-size: 10px;
+}
+
+.tar-chart-caption {
+  font-size: 0.72rem;
+  color: var(--tar-text-dim);
+  margin: 0.35rem 0 0;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.tar-note {
+  font-size: 0.78rem;
+  color: var(--tar-text-dim);
+  background: var(--tar-bg-2);
+  border: 1px solid var(--tar-border);
+  border-left: 3px solid var(--tar-accent);
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  line-height: 1.45;
+  margin: 0 0 1rem;
+}
+
+.tar-note--warn {
+  border-left-color: var(--tar-bad);
+}
+
+.tar-caveat {
+  font-size: 0.76rem;
+  color: var(--tar-text-dim);
+  background: var(--tar-bg-2);
+  border: 1px solid var(--tar-border);
+  border-left: 3px solid var(--tar-warn);
+  border-radius: 8px;
+  padding: 0.7rem 0.85rem;
+  line-height: 1.5;
+  margin: 0 0 1rem;
+}
+
+.tar-caveat strong {
+  color: var(--tar-text);
+}
+
+.tar-footer-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.tar-copy-btn {
+  font-size: 0.78rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--tar-border);
+  background: var(--tar-bg-2);
+  color: var(--tar-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.tar-copy-btn:hover,
+.tar-copy-btn:focus-visible {
+  border-color: var(--tar-accent);
+  color: var(--tar-text);
+}

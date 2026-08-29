@@ -1,0 +1,114 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Exoplanet Equilibrium Temperature Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-08-29'
+description: "Estimate a planet's equilibrium temperature from its star's effective temperature and radius, orbital distance, Bond albedo, and heat-redistribution assumption via T_eq = T★√(R★/2a)(1-A)^(1/4) — in K and °C, with absorbed flux, a star-planet diagram, and a temperature gauge comparing it to solar-system planets."
+postColor: rgba(54, 32, 92, 1)
+slug: exoplanet-equilibrium-temperature-calculator
+keywords:
+  - exoplanet equilibrium temperature calculator
+  - planet temperature formula
+  - Bond albedo temperature
+  - hot Jupiter temperature
+  - habitable zone temperature
+  - TRAPPIST-1e temperature
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import ExoplanetEquilibriumTemperatureCalculator from "../../components/simulations/exoplanet-equilibrium-temperature-calculator/ExoplanetEquilibriumTemperatureCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <ExoplanetEquilibriumTemperatureCalculator client:load />
+</figure>
+
+Before anyone can say a planet is "habitable" or a gas giant is
+"scorching," there's a baseline number every such claim implicitly
+compares against: the temperature a bare rock at that distance from that
+star would settle to, with no atmosphere doing anything clever at all.
+That's the equilibrium temperature — simple to compute, and precisely
+useful because of everything it deliberately leaves out.
+
+## The formula
+
+$$
+T_{\rm eq} = T_\star \sqrt{\frac{R_\star}{2a}}\,(1-A)^{1/4}
+$$
+
+This balances absorbed stellar power against thermal emission spread
+evenly across the whole planet (day and night sides equalized before
+radiating) — the "full redistribution" case. Plug in the Sun, Earth's
+1 AU, and a Bond albedo of 0.30, and you get **T_eq ≈ 255 K (−18°C)** —
+the number this calculator opens with.
+
+## Where the greenhouse effect lives
+
+Earth's actual mean surface temperature is about 288 K — roughly 33 K
+*warmer* than the equilibrium estimate. That gap isn't an error in the
+formula; it's the entire point of computing T_eq in the first place.
+The equilibrium model accounts for exactly two things — starlight in,
+thermal radiation out — and nothing about how a real atmosphere traps
+outgoing infrared radiation before it escapes. Every degree of that
+33 K gap is greenhouse warming, by definition: it's whatever the simple
+energy-balance model *doesn't* explain.
+
+Mars is a useful contrast: its thin atmosphere traps very little heat,
+so its equilibrium estimate (≈210 K) and its real average temperature
+sit close together. Venus is the opposite extreme — a very high albedo
+(0.75, mostly cloud reflection) actually gives it a *cooler* equilibrium
+temperature than Earth's (≈232 K), even though its real surface,
+smothered under a runaway CO₂ greenhouse, is a scorching ≈735 K. The
+size of the gap between T_eq and reality is itself a measurement of how
+much greenhouse effect (or lack of one) a planet's atmosphere provides.
+
+## The heat-redistribution assumption
+
+Two idealized cases bracket real planets:
+
+- **Full redistribution** — winds efficiently move heat from the
+  permanent dayside to the nightside before it radiates away, so the
+  whole sphere (4πR_p²) does the emitting. This is roughly right for
+  planets with thick, actively circulating atmospheres.
+- **No redistribution (dayside-only)** — the planet re-radiates only
+  from its permanently sunlit hemisphere (2πR_p²), giving a T_eq about
+  2^(1/4) ≈ 19% higher for the same absorbed flux. This is closer to
+  reality for many hot Jupiters, which are often tidally locked with
+  circulation too sluggish to fully even out their scorching daysides.
+
+## Reading the visuals
+
+- **The star-planet diagram** colors the star by its real effective
+  temperature (hotter genuinely means bluer here, the correct
+  astronomical direction) and the planet by its equilibrium temperature
+  using the opposite, more intuitive "heat map" convention (colder
+  means bluer) — two deliberately different color scales for two
+  different things.
+- **The temperature gauge** places the current result on a scale next
+  to familiar physical reference points (water freezing and boiling,
+  lava) and, on a second row, every solar-system planet's own
+  equilibrium temperature — all computed the same way, with the Sun's
+  real numbers, so the comparison is apples to apples.
+
+<SimPostSchema
+  title="Exoplanet Equilibrium Temperature Calculator"
+  description="Estimate a planet's equilibrium temperature from its star's effective temperature and radius, orbital distance, Bond albedo, and heat-redistribution assumption via T_eq = T★√(R★/2a)(1-A)^(1/4) — in K and °C, with absorbed flux, a star-planet diagram, and a temperature gauge comparing it to solar-system planets."
+  url="https://astrosyo.com/posts/exoplanet-equilibrium-temperature-calculator"
+  datePublished="2026-08-29"
+  authorName="Astrosyo"
+  keywords={["exoplanet equilibrium temperature calculator", "planet temperature formula", "Bond albedo temperature", "hot Jupiter temperature", "habitable zone temperature"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Exoplanet Equilibrium Temperature Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/exoplanet-equilibrium-temperature-calculator#calculator",
+    "description": "Interactive calculator that estimates a planet's equilibrium temperature from its star's temperature and radius, orbital distance, Bond albedo, and heat-redistribution assumption, with absorbed stellar flux, a star-planet diagram, and a temperature gauge comparing to solar-system planets."
+  }}
+/>

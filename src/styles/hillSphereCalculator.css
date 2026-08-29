@@ -1,0 +1,293 @@
+.hsc {
+  --hsc-accent: #a9b4ff;
+  --hsc-bg: var(--card-bg, #1b1d22);
+  --hsc-bg-2: #17191e;
+  --hsc-border: var(--card-border, rgba(255, 255, 255, 0.1));
+  --hsc-text: var(--color-text, #e4e4e4);
+  --hsc-text-dim: rgba(228, 228, 228, 0.65);
+  --hsc-bad: #ff8a7e;
+
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  color: var(--hsc-text);
+  background: var(--hsc-bg);
+  border: 1px solid var(--hsc-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  font-variant-numeric: tabular-nums;
+}
+
+.hsc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.hsc-title {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin: 0;
+  color: var(--hsc-text);
+}
+
+.hsc-presets {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.hsc-preset-btn {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--hsc-border);
+  background: var(--hsc-bg-2);
+  color: var(--hsc-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.hsc-preset-btn:hover,
+.hsc-preset-btn:focus-visible {
+  border-color: var(--hsc-accent);
+  color: var(--hsc-text);
+}
+
+.hsc-explainer {
+  font-size: 0.8rem;
+  color: var(--hsc-text-dim);
+  line-height: 1.5;
+  margin: 0 0 1rem;
+}
+
+.hsc-explainer code {
+  background: var(--hsc-bg-2);
+  border: 1px solid var(--hsc-border);
+  border-radius: 4px;
+  padding: 0.05rem 0.3rem;
+  font-size: 0.72rem;
+  color: var(--hsc-text);
+}
+
+.hsc-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem 1rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 480px) {
+  .hsc-fields {
+    grid-template-columns: 1fr;
+  }
+}
+
+.hsc-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.hsc-field label {
+  font-size: 0.78rem;
+  color: var(--hsc-text-dim);
+}
+
+.hsc-input-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.hsc-input {
+  flex: 1;
+  min-width: 0;
+  background: var(--hsc-bg-2);
+  border: 1px solid var(--hsc-border);
+  border-radius: 8px;
+  color: var(--hsc-text);
+  font-size: 1rem;
+  padding: 0.5rem 0.65rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.hsc-input:focus {
+  border-color: var(--hsc-accent);
+}
+
+.hsc-unit-select {
+  background: var(--hsc-bg-2);
+  border: 1px solid var(--hsc-border);
+  border-radius: 8px;
+  color: var(--hsc-text);
+  font-size: 0.85rem;
+  padding: 0.5rem 0.5rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.hsc-headline-card {
+  background: rgba(169, 180, 255, 0.08);
+  border: 1px solid var(--hsc-accent);
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  margin-bottom: 1.1rem;
+  text-align: center;
+}
+
+.hsc-headline {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--hsc-text);
+}
+
+.hsc-headline-sub {
+  font-size: 0.8rem;
+  color: var(--hsc-text-dim);
+  margin-top: 0.35rem;
+}
+
+.hsc-chart-wrap {
+  background: var(--hsc-bg-2);
+  border: 1px solid var(--hsc-border);
+  border-radius: 12px;
+  padding: 0.75rem 0.75rem 0.5rem;
+  margin-bottom: 1.1rem;
+}
+
+.hsc-diagram-svg,
+.hsc-ladder-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.hsc-panel-divider {
+  stroke: var(--hsc-border);
+  stroke-width: 1;
+}
+
+.hsc-panel-label {
+  fill: var(--hsc-text-dim);
+  font-size: 10px;
+  font-style: italic;
+}
+
+.hsc-orbit-ellipse {
+  fill: none;
+  stroke: var(--hsc-text-dim);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+}
+
+.hsc-host-disk {
+  fill: #ffd479;
+}
+
+.hsc-planet-marker {
+  fill: #7de0d4;
+  stroke: #14151a;
+  stroke-width: 1;
+}
+
+.hsc-hill-circle {
+  fill: rgba(169, 180, 255, 0.08);
+  stroke: var(--hsc-accent);
+  stroke-width: 1.5;
+  stroke-dasharray: 5 4;
+}
+
+.hsc-planet-disk {
+  fill: #7de0d4;
+  stroke: #14151a;
+  stroke-width: 1;
+}
+
+.hsc-ladder-axis {
+  stroke: var(--hsc-text-dim);
+  stroke-width: 1.5;
+}
+
+.hsc-ladder-tick {
+  stroke: var(--hsc-text-dim);
+  stroke-width: 1;
+}
+
+.hsc-landmark-tick {
+  stroke: var(--hsc-text);
+  stroke-width: 1.5;
+  opacity: 0.75;
+}
+
+.hsc-landmark-label {
+  fill: var(--hsc-text-dim);
+  font-size: 9px;
+}
+
+.hsc-ladder-marker {
+  fill: var(--hsc-text);
+}
+
+.hsc-ladder-marker-label {
+  fill: var(--hsc-text);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.hsc-chart-axis-label {
+  fill: var(--hsc-text-dim);
+  font-size: 10px;
+}
+
+.hsc-chart-caption {
+  font-size: 0.72rem;
+  color: var(--hsc-text-dim);
+  margin: 0.35rem 0 0;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.hsc-note {
+  font-size: 0.78rem;
+  color: var(--hsc-text-dim);
+  background: var(--hsc-bg-2);
+  border: 1px solid var(--hsc-border);
+  border-left: 3px solid var(--hsc-accent);
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  line-height: 1.45;
+  margin: 0 0 1rem;
+}
+
+.hsc-note--warn {
+  border-left-color: var(--hsc-bad);
+}
+
+.hsc-footer-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.hsc-copy-btn {
+  font-size: 0.78rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--hsc-border);
+  background: var(--hsc-bg-2);
+  color: var(--hsc-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.hsc-copy-btn:hover,
+.hsc-copy-btn:focus-visible {
+  border-color: var(--hsc-accent);
+  color: var(--hsc-text);
+}

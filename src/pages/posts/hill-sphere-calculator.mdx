@@ -1,0 +1,124 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Hill Sphere Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-08-29'
+description: "Estimate the Hill sphere — the region where a planet or moon's own gravity dominates over its host's tidal pull — from its mass, its host's mass, orbital distance, and eccentricity, via r_H ≈ a(1-e)(m/3M)^(1/3), in km, AU, and body radii, with a scaled orbit + Hill-sphere diagram."
+postColor: rgba(30, 30, 68, 1)
+slug: hill-sphere-calculator
+keywords:
+  - Hill sphere calculator
+  - Hill radius formula
+  - gravitational sphere of influence
+  - Earth Hill sphere
+  - Jupiter Hill sphere
+  - moon stability satellite orbit
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import HillSphereCalculator from "../../components/simulations/hill-sphere-calculator/HillSphereCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <HillSphereCalculator client:load />
+</figure>
+
+The Moon orbits Earth, not the Sun, even though the Sun's gravity at
+Earth's distance is more than 300,000 times stronger than the Sun's
+pull on a small nearby object would suggest matters — because what
+actually decides who "keeps" a satellite isn't the absolute strength of
+either pull, it's how the *difference* in that pull across the orbit
+compares to the smaller body's own gravity. The region where a planet
+or moon wins that comparison is its Hill sphere.
+
+## The formula
+
+$$
+r_H \approx a\left(\frac{m}{3M}\right)^{1/3}
+$$
+
+a is the orbiting body's own semi-major axis (its distance from what
+*it* orbits), m its mass, and M the mass of the larger body it orbits.
+Earth: m = 1 M⊕, M = 1 M☉, a = 1 AU, gives r_H ≈ 1.5 million km — the
+rough outer edge of the region where Earth's gravity, not the Sun's,
+dominates. The Moon sits comfortably inside that at 384,400 km.
+
+For an eccentric orbit, use the more conservative form instead:
+
+$$
+r_H \approx a(1-e)\left(\frac{m}{3M}\right)^{1/3}
+$$
+
+Tidal stress from the host is strongest at periapsis (closest
+approach), so a satellite that would be fine at the circular-orbit r_H
+can still get stripped away if the orbiting body's own path is
+eccentric enough to bring it well inside that at closest approach.
+
+## Why the Hill radius isn't a hard boundary
+
+It's tempting to treat r_H as a wall — safe just inside, doomed just
+outside — but the real picture is softer in both directions:
+
+- **A satellite can be unstable well inside r_H.** The Hill sphere
+  marks where gravity *could* still dominate; it says nothing about
+  whether a particular orbit is actually stable over many orbital
+  periods. In practice, long-term-stable prograde satellite orbits
+  generally need to stay within roughly a third to a half of r_H, and
+  retrograde orbits (orbiting opposite to the planet's own motion around
+  its star) tend to remain stable somewhat farther out than prograde
+  ones do, for reasons rooted in the same three-body dynamics the Hill
+  approximation simplifies away.
+- **The formula itself is an approximation.** It comes from a simplified
+  (circular, restricted three-body) version of a genuinely more
+  complicated problem; the exact boundary from full orbital dynamics is
+  close to, but not identical to, r_H.
+
+Treat the number this calculator returns as "roughly how much room there
+is to work with," not a precise line a satellite either survives or
+doesn't.
+
+## Why hot Jupiters are cramped
+
+Since r_H scales directly with a, a hot Jupiter parked at 0.05 AU from
+its star has a Hill sphere only a small fraction the size of an
+ordinary, Jupiter-distance gas giant's — despite having the same mass.
+This is a genuine part of why close-in giant planets are thought to
+struggle to hold onto large moons: there's simply much less
+gravitationally "safe" territory available that close to an overwhelmingly
+more massive star.
+
+## Reading the visuals
+
+- **The orbit + Hill sphere diagram** shows two panels at two
+  completely different, independently auto-scaled sizes: the orbit
+  itself (host body, orbital ellipse, and the orbiting body at
+  periapsis) on the left, and a zoomed-in view of the orbiting body and
+  its Hill sphere on the right — because at the orbit's own scale, the
+  Hill sphere is almost always far too small to draw at all.
+- **The comparison ladder** places the current Hill radius on a log
+  scale next to the Moon's own (much smaller) Hill sphere, Earth's, and
+  Jupiter's — a direct sense of just how many orders of magnitude this
+  quantity spans across real solar-system bodies.
+
+<SimPostSchema
+  title="Hill Sphere Calculator"
+  description="Estimate the Hill sphere — the region where a planet or moon's own gravity dominates over its host's tidal pull — from its mass, its host's mass, orbital distance, and eccentricity, via r_H ≈ a(1-e)(m/3M)^(1/3), in km, AU, and body radii, with a scaled orbit + Hill-sphere diagram."
+  url="https://astrosyo.com/posts/hill-sphere-calculator"
+  datePublished="2026-08-29"
+  authorName="Astrosyo"
+  keywords={["Hill sphere calculator", "Hill radius formula", "gravitational sphere of influence", "Earth Hill sphere", "Jupiter Hill sphere"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Hill Sphere Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/hill-sphere-calculator#calculator",
+    "description": "Interactive calculator that estimates a body's Hill sphere from its mass, its host's mass, orbital distance, and eccentricity, with a scaled orbit-plus-Hill-sphere diagram and a comparison ladder against real solar-system bodies."
+  }}
+/>
