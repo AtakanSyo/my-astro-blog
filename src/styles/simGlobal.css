@@ -16,6 +16,22 @@
   max-width: 720px;
 }
 
+.category-simulation .sim-post > ul,
+.category-simulation .sim-post > ol {
+  width: 90vw;
+  max-width: 720px;
+  box-sizing: border-box;
+  margin: 1rem;
+  padding-inline: 2.25rem 1rem;
+  font-size: var(--post-text-size);
+  line-height: 1.6;
+}
+
+.category-simulation .sim-post > ul li + li,
+.category-simulation .sim-post > ol li + li {
+  margin-top: 0.75rem;
+}
+
 .category-simulation {
   max-width: 100%;
 }
