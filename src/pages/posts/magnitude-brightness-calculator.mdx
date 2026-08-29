@@ -1,0 +1,125 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Magnitude & Brightness Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-08-29'
+description: "Convert between apparent magnitude difference and brightness (flux) ratio using F1/F2 = 10^(-0.4(m1-m2)) — with a two-star visual comparison and a magnitude number line to make the reversed, logarithmic scale intuitive."
+postColor: rgba(72, 58, 18, 1)
+slug: magnitude-brightness-calculator
+keywords:
+  - magnitude brightness calculator
+  - apparent magnitude difference
+  - astronomical magnitude scale
+  - flux ratio from magnitude
+  - Pogson ratio
+  - magnitude to brightness conversion
+  - star brightness comparison
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import MagnitudeBrightnessCalculator from "../../components/simulations/magnitude-brightness-calculator/MagnitudeBrightnessCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <MagnitudeBrightnessCalculator client:load />
+</figure>
+
+Astronomers rank how bright things look with a scale that runs
+backwards: a **lower** number means **brighter**, negative numbers exist,
+and each step is a multiplication, not an addition. None of that is
+obvious the first time you meet it. This calculator converts between a
+magnitude difference and the brightness ratio it represents, in either
+direction, and draws both quantities so the logic behind the scale
+becomes something you can see rather than something you have to
+memorize.
+
+## Why the scale is backwards and logarithmic
+
+Magnitude dates back to Hipparchus ranking stars by eye around 150 BCE:
+the brightest stars were "first magnitude," the faintest visible ones
+"sixth magnitude" — a ranking, not a measurement, which is why brighter
+means *lower*. In 1856 Norman Pogson formalized the old ranking into a
+precise scale by noting that first-magnitude stars are about 100 times
+brighter than sixth-magnitude ones, and defining the scale so that's
+exact:
+
+$$
+\frac{F_1}{F_2} = 10^{-0.4(m_1 - m_2)}
+$$
+
+Every 5 magnitudes is a factor of exactly 100 in flux, so every single
+magnitude is a factor of 100^(1/5) ≈ **2.512** — the Pogson ratio. Two
+objects with magnitudes 2 and 7 differ by 5, so the magnitude-2 object is
+exactly 100× brighter; that's the example baked into this calculator's
+default values.
+
+## Running it in reverse
+
+The same relation solves the other way just as easily. Given a flux
+ratio F1/F2, the magnitude difference it implies is
+
+$$
+m_1 - m_2 = -2.5 \log_{10}\left(\frac{F_1}{F_2}\right)
+$$
+
+Switch the calculator to "Ratio → Magnitude difference," enter something
+like "10× brighter," and it returns Δm ≈ −2.5 — useful for going from a
+brightness comparison you can picture (a lamp ten times brighter than
+another) to the number a star catalog would actually print.
+
+## Making a logarithmic, reversed scale visual
+
+Two charts do the intuition work here:
+
+- **The two-star comparison** sizes each object's symbol linearly by
+  magnitude — the same convention real star charts use — rather than
+  linearly by flux. True flux ratios routinely span many orders of
+  magnitude (the Sun is about $10^{14}$ times brighter than the faintest
+  star your eye can see), so a size scaled directly to flux would make
+  one star vanish in almost every realistic comparison. Sizing by
+  magnitude instead keeps both symbols visible while still shrinking
+  monotonically as the true ratio grows — the exact factor is always
+  given as a number alongside it, never left for the eye alone to judge.
+- **The magnitude number line** plots both objects on a single axis that
+  increases left to right — meaning the physically *brighter* object
+  always lands on the left, however negative its magnitude is. Seeing
+  Sirius (−1.46) sit left of Polaris (+1.98) on a line labeled "brighter
+  → dimmer" does more to fix the reversed convention in memory than the
+  rule stated in words ever does.
+
+## A few reference points
+
+- **Δm = 1** → 2.512× (the Pogson ratio itself)
+- **Δm = 2.5** → exactly 10×
+- **Δm = 5** → exactly 100×
+- **Δm = 10** → exactly 10,000×
+- **Sirius vs. Polaris** (Δm ≈ 3.44) → about 24× brighter
+- **Full Moon vs. faintest naked-eye star** (Δm ≈ 19.2) → about 48
+  million times brighter
+
+The calculator's built-in presets reproduce each of the worked examples
+above — the reference table underneath the charts highlights whichever
+row your current Δm is closest to.
+
+<SimPostSchema
+  title="Magnitude & Brightness Calculator"
+  description="Convert between apparent magnitude difference and brightness (flux) ratio using F1/F2 = 10^(-0.4(m1-m2)) — with a two-star visual comparison and a magnitude number line to make the reversed, logarithmic scale intuitive."
+  url="https://astrosyo.com/posts/magnitude-brightness-calculator"
+  datePublished="2026-08-29"
+  authorName="Astrosyo"
+  keywords={["magnitude brightness calculator", "apparent magnitude difference", "astronomical magnitude scale", "flux ratio from magnitude", "Pogson ratio"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Magnitude and Brightness Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/magnitude-brightness-calculator#calculator",
+    "description": "Interactive calculator that converts between astronomical apparent magnitude difference and brightness (flux) ratio in either direction, with a two-star visual size comparison and a magnitude number line."
+  }}
+/>

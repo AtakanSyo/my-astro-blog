@@ -8,9 +8,8 @@ const { email = DEFAULT_EMAIL } = Astro.props;
 
 const t = {
   title: 'Found a mistake?',
-  subtitle: 'I read every email',
-  desc: 'Spot something I should update or want to share your thoughts? Send an email to astrosyo.contact@gmail.com.',
-  button: 'Send an email ↗',
+  subtitle: 'Send an email',
+  desc: 'astrosyo.contact@gmail.com',
   subject: 'Feedback for Astrosyo Reviews'
 };
 
@@ -26,7 +25,5 @@ const mailto = `mailto:${email}?subject=${encodeURIComponent(t.subject)}`;
         {t.desc}
       </span>
     </div>
-
-    <span class="vendor-button">{t.button}</span>
   </a>
 </section>

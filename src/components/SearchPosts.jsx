@@ -11,6 +11,7 @@ import { useState, useMemo, useEffect } from 'react';
  *     category?: string | string[];
  *     categories?: string | string[];
  *     thumbnail?: string;
+ *     postColor?: string;
  *   };
  *   dateStr?: string;
  * }} SearchPost
@@ -95,56 +96,39 @@ export default function SearchPosts({ posts = /** @type {SearchPost[]} */ ([]), 
         Showing {filtered.length} of {posts.length} posts
       </div>
 
-<div>
+<div className="search-results">
   {filtered.map((p) => {
     const fm = p.frontmatter || {};
-    const cats = normalizeCats(fm); // should return lowercased array
-
-    const isP5     = cats.includes('simulation');
-    const isReview = cats.includes('reviews') || cats.includes('review');
-    const isInfo   = cats.includes('informational') || cats.includes('info');
-    const isNasa   = cats.includes('nasa');
-
-    const ctaText =
-      isP5 ? 'Go to the simulation →'
-      : isReview ? 'Read the review →'
-      : isInfo ? 'Read the guide →'
-      : isNasa ? 'See the article →'
-      : 'Read full post →';
+    const hasThumb = Boolean(fm.thumbnail);
+    const cardClass = `post-card post-card--row${hasThumb ? '' : ' post-card--no-thumb'}`;
 
     return (
-      <div className="search-card post-card" key={p.url}>
-        <a href={p.url} className="post-card-link">
-          {/* Title with highlights */}
-            <div className="post-card-info">
-              
+      <div className={cardClass} style={getCardStyle(fm.postColor)} key={p.url}>
+        <a href={p.url} className="post-card-link post-card-link--row">
+          {hasThumb && (
+            <div className="post-card-thumb">
+              <img
+                src={fm.thumbnail}
+                alt={fm.title ?? ''}
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+          )}
+
+          <div className="post-card-info centered_flex">
             <div className="post-card-title">
               {highlightText(fm.title ?? '', q)}
             </div>
 
-            {/* Meta: Writer with highlights + date */}
-            {/* <div className="post-card-meta">
-              By {highlightText(fm.writer ?? 'Unknown', q)} — {p.dateStr}
-            </div> */}
-
-            {/* Description with highlights */}
             {fm.description && (
               <p className="post-card-desc">
                 {highlightText(fm.description, q)}
               </p>
             )}
-
-            {/* Footer: badges (left) + CTA (right) */}
-            <div className={`post-card-footer ${(isP5 || isReview || isInfo || isNasa) ? 'has-badge' : ''}`}>
-              <div className="post-card-badges">
-                {isP5 && <span className="p5-badge">Simulation</span>}
-                {isReview && <span className="review-badge">Review</span>}
-                {isInfo && <span className="info-badge">Info</span>}
-                {isNasa && <span className="nasa-badge">NASA</span>}
-              </div>
-              <div className="read-post">{ctaText}</div>
-            </div>
           </div>
+
+          <span className="post-card-row-arrow" aria-hidden="true">→</span>
         </a>
       </div>
     );
@@ -162,4 +146,26 @@ function normalizeCats(frontmatter) {
   if (Array.isArray(raw)) return raw.map(String).map((s) => s.toLowerCase());
   if (typeof raw === 'string') return [raw.toLowerCase()];
   return [];
+}
+
+function getCardStyle(rawPostColor) {
+  if (typeof rawPostColor !== 'string') return undefined;
+  const postColor = rawPostColor.trim();
+  const match = postColor.match(
+    /^rgba\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(0|1|0?\.\d+)\s*\)$/i
+  );
+  if (!match) return undefined;
+
+  const red = Number(match[1]);
+  const green = Number(match[2]);
+  const blue = Number(match[3]);
+  const alpha = Number(match[4]);
+  if (![red, green, blue].every((value) => value >= 0 && value <= 255) || alpha < 0 || alpha > 1) {
+    return undefined;
+  }
+
+  return {
+    '--post-card-bg': postColor,
+    '--post-card-bg-inverse': `rgba(${255 - red},${255 - green},${255 - blue},1)`,
+  };
 }

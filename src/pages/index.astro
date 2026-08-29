@@ -27,8 +27,30 @@ function normalizeCat(cat: unknown): string[] {
 function hasCat(frontmatter: any, needle: string) {
   return normalizeCat(frontmatter.category ?? frontmatter.categories).includes(needle);
 }
-function latestByCategory(key: string, n = 6) {
-  return visiblePosts.filter(({ frontmatter }) => hasCat(frontmatter, key)).slice(0, n);
+function alphabetizedByCategory(key: string) {
+  return visiblePosts
+    .filter(({ frontmatter }) => hasCat(frontmatter, key))
+    .sort((a, b) =>
+      String(a.frontmatter.title ?? '').localeCompare(
+        String(b.frontmatter.title ?? ''),
+        'en',
+        { sensitivity: 'base' }
+      )
+    );
+}
+
+function groupByInitial(posts: any[]) {
+  const groups = new Map<string, any[]>();
+
+  for (const post of posts) {
+    const initial = String(post.frontmatter.title ?? '').trim().charAt(0).toUpperCase();
+    if (!/^[A-Z]$/.test(initial)) continue;
+    const group = groups.get(initial) ?? [];
+    group.push(post);
+    groups.set(initial, group);
+  }
+
+  return Array.from(groups, ([letter, items]) => ({ letter, items }));
 }
 
 // category config
@@ -56,7 +78,8 @@ const CATS = [
     <!-- Latest by category (stacked sections) -->
     <section class="latest-section">
       {CATS.map((cat) => {
-        const items = latestByCategory(cat.key, 20);
+        const items = alphabetizedByCategory(cat.key);
+        const groups = groupByInitial(items);
         const categoryLink = cat.link ?? `/category/${cat.key.toLowerCase()}`;
         if (items.length === 0) return null;
 
@@ -65,17 +88,20 @@ const CATS = [
             <h2 class="home-category-title">
               <a href={categoryLink} class="latest-title">{cat.label}</a>
             </h2>
-              {
-                items.map(({ frontmatter, url }) => {
-                  return (
-                    <PostCard
-                      url={url}
-                      frontmatter={frontmatter}
-                      row
-                    />
-                  );
-                })
-              }
+            {groups.map(({ letter, items: groupedItems }) => (
+              <>
+                <h3 class="home-category-title home-letter-title">
+                  <span class="latest-title">{letter}</span>
+                </h3>
+                {groupedItems.map(({ frontmatter, url }) => (
+                  <PostCard
+                    url={url}
+                    frontmatter={frontmatter}
+                    row
+                  />
+                ))}
+              </>
+            ))}
             </div>
             <a href={categoryLink} class="category-more-link">
               more interactives →

@@ -1,0 +1,129 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Black Hole ISCO Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-08-29'
+description: "Calculate the innermost stable circular orbit (ISCO) around a Schwarzschild or Kerr black hole from its mass and dimensionless spin a*, in gravitational radii, Schwarzschild radii, and kilometers — with a live horizon/ISCO/disk diagram and the accretion efficiency it implies."
+postColor: rgba(8, 8, 8, 1)
+slug: black-hole-isco-calculator
+keywords:
+  - black hole ISCO calculator
+  - innermost stable circular orbit
+  - Kerr black hole ISCO
+  - black hole spin accretion efficiency
+  - Schwarzschild radius calculator
+  - gravitational radius calculator
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import BlackHoleISCOCalculator from "../../components/simulations/black-hole-isco-calculator/BlackHoleISCOCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <BlackHoleISCOCalculator client:load />
+</figure>
+
+Gas doesn't fall straight into a black hole — it spirals in through an
+accretion disk, orbiting stably right up until it crosses one specific
+radius: the innermost stable circular orbit, or ISCO. Inside it, no
+circular orbit is stable at all, and matter plunges the rest of the way
+in almost immediately. Where that radius sits — and how close it can get
+to the event horizon — depends entirely on how fast the black hole is
+spinning, which is why the ISCO turns out to be one of the most
+observationally useful numbers in black hole astrophysics.
+
+## Schwarzschild: the non-spinning case
+
+For a black hole with no spin at all, the ISCO sits at a clean multiple
+of the gravitational radius r_g = GM/c²:
+
+$$
+r_{\rm ISCO} = 6\ \frac{GM}{c^2} = 3\ r_s
+$$
+
+where r_s = 2GM/c² is the Schwarzschild radius (the event horizon
+itself, for a = 0). This number — 6 gravitational radii, 3 Schwarzschild
+radii — is worth memorizing; it's the baseline every spinning case is
+measured against.
+
+## Kerr: spin changes everything
+
+Real astrophysical black holes spin, and spin drags spacetime around
+with it (frame dragging). For a black hole with dimensionless spin
+a* = a/M ∈ [−1, 1], the ISCO radius follows the Bardeen–Press–Teukolsky
+(1972) formula:
+
+$$
+\frac{r_{\rm ISCO}}{r_g} = 3 + Z_2 \mp \sqrt{(3-Z_1)(3+Z_1+2Z_2)}
+$$
+
+$$
+Z_1 = 1 + (1-a_*^2)^{1/3}\left[(1+a_*)^{1/3} + (1-a_*)^{1/3}\right], \quad Z_2 = \sqrt{3a_*^2 + Z_1^2}
+$$
+
+(minus for prograde orbits, plus for retrograde). Plug in a* = 0 and
+both signs collapse to exactly 6, recovering Schwarzschild. Push a*
+toward +1 (maximal prograde, disk co-rotating with the hole) and the
+ISCO shrinks all the way to **1 r_g** — frame dragging lets orbits
+survive stably almost down to the horizon itself. Push a* toward −1
+(maximal retrograde) and it's pushed out to **9 r_g** instead, since a
+counter-rotating orbit fights the dragging of spacetime the whole way
+in. This calculator uses the sign of a* directly to choose which branch
+applies, so sliding smoothly from −1 to +1 traces one continuous curve:
+9 → 6 → 1 r_g.
+
+## Why this changes accretion efficiency
+
+Gas doesn't just orbit at the ISCO — it releases gravitational binding
+energy as radiation on its way there, and then falls through the rest
+of the way without radiating much more. The fraction of rest-mass energy
+radiated away, the **accretion efficiency** η = 1 − E_ISCO (E_ISCO being
+the specific orbital energy at the ISCO), depends only on spin:
+
+- **a* = 0 (Schwarzschild):** η ≈ 5.7%
+- **a* ≈ 0.998 (the Thorne limit** — roughly the maximum spin a black
+  hole can reach by steadily accreting from a thin disk, since the
+  accreted gas itself carries angular momentum that limits further
+  spin-up): η ≈ 32%
+- **a* = 1 (extremal, mathematical limit):** η ≈ 42.3%
+
+For comparison, nuclear fusion converts only about 0.7% of rest mass to
+energy. A rapidly spinning black hole's accretion disk is a dramatically
+more efficient engine than any nuclear process — which is exactly why
+measuring a black hole's spin (often via how far in its X-ray-emitting
+disk extends, i.e. via the ISCO) is such a direct observational probe of
+its physics.
+
+## Reading the diagram
+
+The circular schematic draws the event horizon, the ISCO, and a
+(illustratively truncated) accretion disk to a single fixed scale in
+gravitational radii — so as you move the spin slider, the circles
+genuinely shrink and grow relative to each other rather than just
+displaying different numbers. The rotation glyph at the center scales
+with spin magnitude and flips direction for retrograde vs. prograde. The
+second chart shows the full textbook curve of ISCO radius against spin,
+with your current setting marked on it.
+
+<SimPostSchema
+  title="Black Hole ISCO Calculator"
+  description="Calculate the innermost stable circular orbit (ISCO) around a Schwarzschild or Kerr black hole from its mass and dimensionless spin a*, in gravitational radii, Schwarzschild radii, and kilometers — with a live horizon/ISCO/disk diagram and the accretion efficiency it implies."
+  url="https://astrosyo.com/posts/black-hole-isco-calculator"
+  datePublished="2026-08-29"
+  authorName="Astrosyo"
+  keywords={["black hole ISCO calculator", "innermost stable circular orbit", "Kerr black hole ISCO", "black hole spin accretion efficiency", "Schwarzschild radius calculator"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Black Hole ISCO Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/black-hole-isco-calculator#calculator",
+    "description": "Interactive calculator that computes the innermost stable circular orbit around a Kerr black hole from its mass and dimensionless spin, plus the accretion efficiency it implies, with a live horizon/ISCO/disk diagram and an ISCO-versus-spin curve."
+  }}
+/>

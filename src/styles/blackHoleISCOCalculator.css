@@ -1,0 +1,356 @@
+.bhi {
+  --bhi-accent: #a9b4ff;
+  --bhi-accent-warm: #ffb84d;
+  --bhi-bg: var(--card-bg, #1b1d22);
+  --bhi-bg-2: #17191e;
+  --bhi-border: var(--card-border, rgba(255, 255, 255, 0.1));
+  --bhi-text: var(--color-text, #e4e4e4);
+  --bhi-text-dim: rgba(228, 228, 228, 0.65);
+  --bhi-bad: #ff8a7e;
+
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  color: var(--bhi-text);
+  background: var(--bhi-bg);
+  border: 1px solid var(--bhi-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  font-variant-numeric: tabular-nums;
+}
+
+.bhi-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.bhi-title {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin: 0;
+  color: var(--bhi-text);
+}
+
+.bhi-presets {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.bhi-preset-btn {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--bhi-border);
+  background: var(--bhi-bg-2);
+  color: var(--bhi-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.bhi-preset-btn:hover,
+.bhi-preset-btn:focus-visible {
+  border-color: var(--bhi-accent);
+  color: var(--bhi-text);
+}
+
+.bhi-explainer {
+  font-size: 0.8rem;
+  color: var(--bhi-text-dim);
+  line-height: 1.5;
+  margin: 0 0 1rem;
+}
+
+.bhi-explainer strong {
+  color: var(--bhi-text);
+}
+
+.bhi-explainer code {
+  background: var(--bhi-bg-2);
+  border: 1px solid var(--bhi-border);
+  border-radius: 4px;
+  padding: 0.05rem 0.3rem;
+  font-size: 0.75rem;
+  color: var(--bhi-text);
+}
+
+.bhi-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.bhi-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.bhi-field label {
+  font-size: 0.78rem;
+  color: var(--bhi-text-dim);
+}
+
+.bhi-input-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.bhi-input {
+  flex: 1;
+  min-width: 0;
+  background: var(--bhi-bg-2);
+  border: 1px solid var(--bhi-border);
+  border-radius: 8px;
+  color: var(--bhi-text);
+  font-size: 1rem;
+  padding: 0.5rem 0.65rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.bhi-input:focus {
+  border-color: var(--bhi-accent);
+}
+
+.bhi-unit-select {
+  background: var(--bhi-bg-2);
+  border: 1px solid var(--bhi-border);
+  border-radius: 8px;
+  color: var(--bhi-text);
+  font-size: 0.85rem;
+  padding: 0.5rem 0.5rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.bhi-spin-field {
+  margin-bottom: 1.1rem;
+}
+
+.bhi-spin-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.bhi-spin-label-row label {
+  font-size: 0.78rem;
+  color: var(--bhi-text-dim);
+}
+
+.bhi-spin-number {
+  width: 5.5rem;
+  background: var(--bhi-bg-2);
+  border: 1px solid var(--bhi-accent);
+  border-radius: 8px;
+  color: var(--bhi-text);
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.3rem 0.5rem;
+  outline: none;
+  text-align: center;
+}
+
+.bhi-spin-range {
+  width: 100%;
+  accent-color: var(--bhi-accent-warm);
+  cursor: pointer;
+}
+
+.bhi-spin-scale {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.68rem;
+  color: var(--bhi-text-dim);
+  margin-top: 0.2rem;
+}
+
+.bhi-headline-card {
+  background: rgba(169, 180, 255, 0.08);
+  border: 1px solid var(--bhi-accent);
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  margin-bottom: 1.1rem;
+  text-align: center;
+}
+
+.bhi-headline {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--bhi-text);
+}
+
+.bhi-headline-sub {
+  font-size: 0.8rem;
+  color: var(--bhi-text-dim);
+  margin-top: 0.35rem;
+}
+
+.bhi-chart-wrap {
+  background: var(--bhi-bg-2);
+  border: 1px solid var(--bhi-border);
+  border-radius: 12px;
+  padding: 0.75rem 0.75rem 0.5rem;
+  margin-bottom: 1.1rem;
+}
+
+.bhi-diagram-svg,
+.bhi-curve-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.bhi-diagram-svg {
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.bhi-isco-ring {
+  fill: none;
+  stroke: #7de0d4;
+  stroke-width: 1.5;
+  stroke-dasharray: 5 4;
+}
+
+.bhi-horizon {
+  fill: #050506;
+  stroke: #3a1f0a;
+  stroke-width: 2;
+}
+
+.bhi-spin-glyph {
+  fill: var(--bhi-text);
+}
+
+.bhi-diagram-label {
+  font-size: 10px;
+}
+
+.bhi-diagram-label--horizon {
+  fill: var(--bhi-text-dim);
+}
+
+.bhi-diagram-label--isco {
+  fill: #7de0d4;
+}
+
+.bhi-chart-gridline {
+  stroke: var(--bhi-border);
+  stroke-width: 1;
+}
+
+.bhi-chart-axis-line {
+  stroke: var(--bhi-text-dim);
+  stroke-width: 1;
+}
+
+.bhi-chart-axis-label {
+  fill: var(--bhi-text-dim);
+  font-size: 10px;
+}
+
+.bhi-curve-line {
+  fill: none;
+  stroke: var(--bhi-accent);
+  stroke-width: 2.5;
+}
+
+.bhi-curve-point {
+  fill: var(--bhi-accent-warm);
+  stroke: #14151a;
+  stroke-width: 1.5;
+}
+
+.bhi-chart-caption {
+  font-size: 0.72rem;
+  color: var(--bhi-text-dim);
+  margin: 0.35rem 0 0;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.bhi-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.bhi-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  background: var(--bhi-bg-2);
+  border: 1px solid var(--bhi-border);
+  border-radius: 8px;
+  padding: 0.55rem 0.75rem;
+}
+
+.bhi-row-label {
+  font-size: 0.85rem;
+  color: var(--bhi-text-dim);
+}
+
+.bhi-row-value {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--bhi-text);
+  white-space: nowrap;
+}
+
+.bhi-row-unit {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--bhi-text-dim);
+}
+
+.bhi-note {
+  font-size: 0.78rem;
+  color: var(--bhi-text-dim);
+  background: var(--bhi-bg-2);
+  border: 1px solid var(--bhi-border);
+  border-left: 3px solid var(--bhi-accent);
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  line-height: 1.45;
+  margin: 0 0 1rem;
+}
+
+.bhi-note--warn {
+  border-left-color: var(--bhi-bad);
+}
+
+.bhi-footer-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.bhi-copy-btn {
+  font-size: 0.78rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--bhi-border);
+  background: var(--bhi-bg-2);
+  color: var(--bhi-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.bhi-copy-btn:hover,
+.bhi-copy-btn:focus-visible {
+  border-color: var(--bhi-accent);
+  color: var(--bhi-text);
+}

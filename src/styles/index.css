@@ -13,6 +13,23 @@
   --color-muted: #9aa0a6;
 }
 
+body.page-home {
+  background-color: #000;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.38), rgba(0, 0, 0, 0.58)),
+    url('/images/home/home-bg.jpg');
+  background-position: center top, center top;
+  background-size: cover, min(1200px, 100%) auto;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+@media (max-width: 768px) {
+  body.page-home {
+    background-attachment: scroll;
+  }
+}
+
 /* ---- HERO ---- */
 .hero {
   margin-top: 0;
@@ -205,6 +222,18 @@
   will-change: transform;
   margin: 0;
   color: white;
+}
+
+.home-letter-title {
+  font-size: 1.65rem;
+}
+
+.home-letter-title .latest-title {
+  transition: none;
+}
+
+.home-letter-title .latest-title:hover {
+  transform: none;
 }
 
 .category-more-link {

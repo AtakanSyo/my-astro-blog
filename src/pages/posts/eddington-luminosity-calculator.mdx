@@ -1,0 +1,125 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Eddington Luminosity & Eddington Ratio Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-08-29'
+description: "Calculate an accreting black hole or neutron star's Eddington luminosity from its mass via L_Edd ≈ 1.26×10^38 (M/M_sun) erg/s, and — given an observed luminosity — its Eddington ratio, with a colour-coded ratio meter and a log-log mass-luminosity chart."
+postColor: rgba(10, 10, 26, 1)
+slug: eddington-luminosity-calculator
+keywords:
+  - Eddington luminosity calculator
+  - Eddington ratio calculator
+  - Eddington limit black hole
+  - accretion luminosity formula
+  - super-Eddington accretion
+  - neutron star luminosity limit
+  - black hole mass luminosity relation
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import EddingtonLuminosityCalculator from "../../components/simulations/eddington-luminosity-calculator/EddingtonLuminosityCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <EddingtonLuminosityCalculator client:load />
+</figure>
+
+An accreting black hole or neutron star can't shine arbitrarily brightly
+forever: past a certain luminosity, the outward push of its own light on
+the infalling gas should overwhelm the inward pull of its gravity. That
+threshold — the Eddington limit — sets a natural brightness scale for
+every accreting compact object, from X-ray binaries a few times the
+Sun's mass to supermassive black holes billions of times heavier. This
+calculator turns a mass into that limit, and an observed luminosity into
+how close to (or past) it a real source is sitting.
+
+## Where the limit comes from
+
+Picture a cloud of ionized hydrogen around a compact object. Gravity
+pulls each proton inward; outgoing photons scatter off free electrons
+(Thomson scattering) and, because protons and electrons are
+electrostatically tied together, that scattering effectively pushes the
+proton–electron pairs outward too. Balance the two forces on one
+proton's worth of gas and solve for the luminosity that achieves it:
+
+$$
+L_{\rm Edd} = \frac{4\pi G M m_p c}{\sigma_T} \approx 1.26 \times 10^{38} \left(\frac{M}{M_\odot}\right)\ \mathrm{erg\,s^{-1}}
+$$
+
+G is the gravitational constant, m_p the proton mass, c the speed of
+light, and σ_T the Thomson cross-section. Every constant here is fixed,
+so L_Edd depends on nothing but mass — which is what makes it such a
+useful benchmark: two black holes of the same mass have the same
+Eddington limit regardless of anything else about them.
+
+**The hidden assumption.** This derivation assumes fully ionized
+*hydrogen* — one proton's worth of mass dragged along per scattering
+electron. A different composition (a solar mix, or pure ionized helium)
+raises the mass-per-electron and lowers L_Edd by roughly that same
+factor. This calculator implements the standard pure-hydrogen case
+exactly as written above.
+
+## The Eddington ratio
+
+Given an object's actual (observed or estimated) luminosity L, its
+Eddington ratio is simply
+
+$$
+\lambda_{\rm Edd} = \frac{L}{L_{\rm Edd}}
+$$
+
+λ_Edd < 1 means the source is sub-Eddington — comfortably below its
+limit. λ_Edd ≈ 1 means it's radiating close to the theoretical maximum
+for its mass. The worked example this calculator opens with: a 10 M☉
+black hole has L_Edd ≈ 1.26 × 10³⁹ erg/s; observed at 6.3 × 10³⁸ erg/s,
+that's λ_Edd ≈ 0.5 — half its Eddington luminosity.
+
+## When λ_Edd exceeds 1
+
+Real accreting sources routinely get observed *above* λ_Edd = 1 —
+ultraluminous X-ray sources (ULXs) are the clearest example, some
+reaching λ_Edd in the tens. That isn't a contradiction of physics, it's
+a sign the idealized assumptions behind the formula above have broken
+down: real accretion flows aren't spherically symmetric, radiation can
+escape preferentially along low-density channels (geometric beaming),
+and the flow can become "photon-trapped" or clumpy (porous, via photon
+bubbles) in ways that let more matter fall in than the smooth, steady
+picture allows. The Eddington limit is a genuinely useful benchmark —
+just not a hard ceiling nature always respects.
+
+## Reading the ratio meter and the mass–luminosity chart
+
+- The **ratio meter** places λ_Edd on a fixed log scale from 0.01× to
+  100×, coloured green (sub-Eddington), amber (near the limit), and red
+  (super-Eddington) — so "0.5" registers instantly as "comfortably in the
+  green" rather than requiring you to remember what counts as safe.
+- The **mass–luminosity chart** plots L_Edd against mass in log-log
+  space, where the M¹ scaling in the formula becomes a straight line of
+  slope exactly 1. The object's Eddington limit always sits on that
+  line; its observed luminosity, if you supply one, shows up as a second
+  point directly above the line (super-Eddington) or below it
+  (sub-Eddington) — turning "how far from the limit" into a distance you
+  can see.
+
+<SimPostSchema
+  title="Eddington Luminosity & Eddington Ratio Calculator"
+  description="Calculate an accreting black hole or neutron star's Eddington luminosity from its mass via L_Edd ≈ 1.26×10^38 (M/M_sun) erg/s, and — given an observed luminosity — its Eddington ratio, with a colour-coded ratio meter and a log-log mass-luminosity chart."
+  url="https://astrosyo.com/posts/eddington-luminosity-calculator"
+  datePublished="2026-08-29"
+  authorName="Astrosyo"
+  keywords={["Eddington luminosity calculator", "Eddington ratio calculator", "Eddington limit black hole", "accretion luminosity formula", "super-Eddington accretion"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Eddington Luminosity and Eddington Ratio Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/eddington-luminosity-calculator#calculator",
+    "description": "Interactive calculator that computes the Eddington luminosity of an accreting compact object from its mass, and its Eddington ratio given an observed luminosity, with a colour-coded ratio meter and a log-log mass-luminosity chart."
+  }}
+/>

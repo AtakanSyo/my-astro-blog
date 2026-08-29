@@ -1,7 +1,7 @@
 /* src/styles/search.css - Dark Mode */
 
 .search-container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 1rem;
 }
@@ -34,8 +34,8 @@
 }
 
 .search-input:focus {
-  border-color: transparent;
-  box-shadow: 0 0 0 3px rgb(var(--brand-color)); /* soft blue glow */
+  border-color: #fff;
+  box-shadow: 0 0 0 2px #fff;
 }
 
 .search-clear {
@@ -86,14 +86,7 @@
 }
 
 
-.search-card {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 520px;
-}
-
-.search-card .post-card-title {
-  min-height: 6rem;
+.search-results {
+  display: grid;
+  gap: 1rem;
 }

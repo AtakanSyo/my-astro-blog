@@ -1,0 +1,111 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Distance Modulus Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-08-29'
+description: "Solve for any of apparent magnitude, absolute magnitude, or distance from the other two via m − M = 5log10(d/10 pc) [+ A], with an optional interstellar-extinction term, a distance ladder, and a semi-log distance-modulus chart."
+postColor: rgba(38, 26, 58, 1)
+slug: distance-modulus-calculator
+keywords:
+  - distance modulus calculator
+  - apparent absolute magnitude
+  - distance modulus formula
+  - interstellar extinction magnitude
+  - stellar distance from magnitude
+  - astronomy magnitude distance relation
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import DistanceModulusCalculator from "../../components/simulations/distance-modulus-calculator/DistanceModulusCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <DistanceModulusCalculator client:load />
+</figure>
+
+How bright a star looks from Earth (its apparent magnitude, m) depends
+on two completely different things tangled together: how bright it
+actually is, and how far away it is. Absolute magnitude (M) untangles
+them by asking a hypothetical question — how bright would this object
+look if it were exactly 10 parsecs away? The gap between the two
+answers, m − M, turns out to depend on nothing but distance (and dust),
+which makes it one of the most directly useful relations in
+observational astronomy: measure any two of m, M, and d, and the third
+falls out immediately.
+
+## The relation
+
+$$
+m - M = 5 \log_{10}\left(\frac{d}{10\ \mathrm{pc}}\right)
+$$
+
+m − M is called the **distance modulus**, often written μ. It's zero
+exactly at 10 pc (where m and M agree by definition), negative for
+anything closer, and grows by 5 for every factor of 10 farther away —
+so a star with m = 10 and M = 5 has μ = 5, meaning it sits at exactly
+100 pc, the worked example this calculator opens with.
+
+This is also precisely how the "standard candle" method for measuring
+cosmic distances works: if you know an object's absolute magnitude
+independently (Cepheid variables and Type Ia supernovae are the classic
+examples, calibrated through the cosmic distance ladder), a single
+apparent-magnitude measurement is enough to read off its distance.
+
+## Adding interstellar extinction
+
+Dust and gas between here and the object absorb and scatter its light,
+making it look fainter than distance alone would predict — never
+brighter. Accounting for it adds one term:
+
+$$
+m - M = 5 \log_{10}\left(\frac{d}{10\ \mathrm{pc}}\right) + A
+$$
+
+A is the **extinction**, in magnitudes, along that specific line of
+sight. Skip it (A = 0) and the relation is exact for an unobstructed
+view; ignore it when it's actually present and a distance calculated
+from m and M alone comes out too large, because some of the "distance
+dimming" you measured was really dust dimming. This calculator makes A
+an explicit optional toggle rather than folding it in silently, so it's
+always clear whether a given result assumes a clear line of sight or
+not.
+
+## Reading the two charts
+
+- **The distance ladder** places the computed distance on a single log
+  scale next to a handful of well-known real distances — the nearest
+  star, the Pleiades, the Galactic center, the Large Magellanic Cloud,
+  Andromeda, the Virgo Cluster — anchored on the 10 pc point where
+  absolute magnitude is defined. Seeing "163 pc" land visibly past the
+  Pleiades and well short of the Galactic center does more for intuition
+  than the bare number does alone.
+- **The distance-modulus chart** plots μ against distance on a semi-log
+  axis, where the fixed +5-per-decade slope in the formula becomes an
+  literal straight line. With extinction switched on, a second dashed
+  line shows where the same object would sit with a perfectly clear line
+  of sight — the vertical gap between the two points is exactly A,
+  turning "how much extinction is affecting this measurement" into a
+  distance on the page rather than an abstract correction term.
+
+<SimPostSchema
+  title="Distance Modulus Calculator"
+  description="Solve for any of apparent magnitude, absolute magnitude, or distance from the other two via m − M = 5log10(d/10 pc) [+ A], with an optional interstellar-extinction term, a distance ladder, and a semi-log distance-modulus chart."
+  url="https://astrosyo.com/posts/distance-modulus-calculator"
+  datePublished="2026-08-29"
+  authorName="Astrosyo"
+  keywords={["distance modulus calculator", "apparent absolute magnitude", "distance modulus formula", "interstellar extinction magnitude", "stellar distance from magnitude"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Distance Modulus Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/distance-modulus-calculator#calculator",
+    "description": "Interactive calculator that solves for apparent magnitude, absolute magnitude, or distance given the other two via the distance modulus relation, with an optional interstellar extinction term, a distance ladder, and a semi-log distance-modulus chart."
+  }}
+/>

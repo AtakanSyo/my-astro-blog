@@ -1,0 +1,365 @@
+.edd {
+  --edd-accent: #a9b4ff;
+  --edd-bg: var(--card-bg, #1b1d22);
+  --edd-bg-2: #17191e;
+  --edd-border: var(--card-border, rgba(255, 255, 255, 0.1));
+  --edd-text: var(--color-text, #e4e4e4);
+  --edd-text-dim: rgba(228, 228, 228, 0.65);
+  --edd-good: #5ce0a0;
+  --edd-warn: #e0c05c;
+  --edd-bad: #ff8a7e;
+
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  color: var(--edd-text);
+  background: var(--edd-bg);
+  border: 1px solid var(--edd-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  font-variant-numeric: tabular-nums;
+}
+
+.edd-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.edd-title {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin: 0;
+  color: var(--edd-text);
+}
+
+.edd-presets {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.edd-preset-btn {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--edd-border);
+  background: var(--edd-bg-2);
+  color: var(--edd-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.edd-preset-btn:hover,
+.edd-preset-btn:focus-visible {
+  border-color: var(--edd-accent);
+  color: var(--edd-text);
+}
+
+.edd-explainer {
+  font-size: 0.8rem;
+  color: var(--edd-text-dim);
+  line-height: 1.5;
+  margin: 0 0 1rem;
+}
+
+.edd-explainer strong {
+  color: var(--edd-text);
+}
+
+.edd-explainer code {
+  background: var(--edd-bg-2);
+  border: 1px solid var(--edd-border);
+  border-radius: 4px;
+  padding: 0.05rem 0.3rem;
+  font-size: 0.75rem;
+  color: var(--edd-text);
+  white-space: normal;
+}
+
+.edd-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.edd-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.edd-field label {
+  font-size: 0.78rem;
+  color: var(--edd-text-dim);
+}
+
+.edd-input-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.edd-input {
+  flex: 1;
+  min-width: 0;
+  background: var(--edd-bg-2);
+  border: 1px solid var(--edd-border);
+  border-radius: 8px;
+  color: var(--edd-text);
+  font-size: 1rem;
+  padding: 0.5rem 0.65rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.edd-input:focus {
+  border-color: var(--edd-accent);
+}
+
+.edd-unit-select {
+  background: var(--edd-bg-2);
+  border: 1px solid var(--edd-border);
+  border-radius: 8px;
+  color: var(--edd-text);
+  font-size: 0.85rem;
+  padding: 0.5rem 0.5rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.edd-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.edd-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  background: var(--edd-bg-2);
+  border: 1px solid var(--edd-border);
+  border-radius: 8px;
+  padding: 0.55rem 0.75rem;
+}
+
+.edd-row--active {
+  border-color: var(--edd-accent);
+  background: rgba(169, 180, 255, 0.08);
+}
+
+.edd-row-label {
+  font-size: 0.85rem;
+  color: var(--edd-text-dim);
+}
+
+.edd-row-value {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--edd-text);
+  white-space: nowrap;
+}
+
+.edd-row-unit {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--edd-text-dim);
+}
+
+.edd-ratio-card {
+  background: rgba(169, 180, 255, 0.08);
+  border: 1px solid var(--edd-accent);
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  margin-bottom: 1.1rem;
+  text-align: center;
+}
+
+.edd-ratio-value {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--edd-text);
+}
+
+.edd-ratio-sub {
+  font-size: 0.8rem;
+  color: var(--edd-text-dim);
+  margin: 0.35rem 0 0;
+}
+
+.edd-badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.edd-badge--good {
+  background: rgba(92, 224, 160, 0.15);
+  color: var(--edd-good);
+}
+
+.edd-badge--warn {
+  background: rgba(224, 192, 92, 0.15);
+  color: var(--edd-warn);
+}
+
+.edd-badge--bad {
+  background: rgba(255, 138, 126, 0.15);
+  color: var(--edd-bad);
+}
+
+.edd-chart-wrap {
+  background: var(--edd-bg-2);
+  border: 1px solid var(--edd-border);
+  border-radius: 12px;
+  padding: 0.75rem 0.75rem 0.5rem;
+  margin-bottom: 1.1rem;
+}
+
+.edd-chart-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.edd-chart-gridline {
+  stroke: var(--edd-border);
+  stroke-width: 1;
+}
+
+.edd-chart-axis-line {
+  stroke: var(--edd-text-dim);
+  stroke-width: 1;
+}
+
+.edd-chart-axis-label {
+  fill: var(--edd-text-dim);
+  font-size: 10px;
+}
+
+.edd-chart-fit-line {
+  stroke: var(--edd-accent);
+  stroke-width: 2.5;
+  fill: none;
+}
+
+.edd-chart-connector {
+  stroke: var(--edd-text-dim);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 4;
+}
+
+.edd-chart-point {
+  stroke: #14151a;
+  stroke-width: 1.5;
+}
+
+.edd-chart-point--edd {
+  fill: var(--edd-accent);
+}
+
+.edd-chart-point--obs {
+  fill: var(--edd-warn);
+}
+
+.edd-chart-point-label {
+  fill: var(--edd-text);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.edd-chart-point-label--obs {
+  fill: var(--edd-warn);
+}
+
+.edd-chart-caption {
+  font-size: 0.72rem;
+  color: var(--edd-text-dim);
+  margin: 0.35rem 0 0;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.edd-zone--good {
+  fill: var(--edd-good);
+  opacity: 0.55;
+}
+
+.edd-zone--warn {
+  fill: var(--edd-warn);
+  opacity: 0.55;
+}
+
+.edd-zone--bad {
+  fill: var(--edd-bad);
+  opacity: 0.55;
+}
+
+.edd-meter-tick {
+  stroke: rgba(20, 21, 26, 0.55);
+  stroke-width: 1;
+}
+
+.edd-meter-needle {
+  fill: var(--edd-text);
+}
+
+.edd-meter-needle-label {
+  fill: var(--edd-text);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.edd-note {
+  font-size: 0.78rem;
+  color: var(--edd-text-dim);
+  background: var(--edd-bg-2);
+  border: 1px solid var(--edd-border);
+  border-left: 3px solid var(--edd-accent);
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  line-height: 1.45;
+  margin: 0 0 1rem;
+}
+
+.edd-note--warn {
+  border-left-color: var(--edd-bad);
+}
+
+.edd-footer-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.edd-copy-btn {
+  font-size: 0.78rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--edd-border);
+  background: var(--edd-bg-2);
+  color: var(--edd-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.edd-copy-btn:hover,
+.edd-copy-btn:focus-visible {
+  border-color: var(--edd-accent);
+  color: var(--edd-text);
+}

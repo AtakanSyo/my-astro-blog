@@ -1,0 +1,119 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Cosmological Lookback Time Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-08-29'
+description: "Calculate how far back in cosmic history you're looking when you observe an object at redshift z, via numerical integration of t_L(z) = (1/H0)∫dz'/[(1+z')E(z')] in a flat ΛCDM cosmology — with standard cosmology presets, a cosmic timeline, and an integral-area chart, validated against Astropy."
+postColor: rgba(14, 30, 46, 1)
+slug: cosmological-lookback-time-calculator
+keywords:
+  - cosmological lookback time calculator
+  - redshift to age calculator
+  - lambda CDM lookback time
+  - age of the universe at redshift z
+  - Hubble time calculator
+  - flat LambdaCDM cosmology calculator
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import CosmologicalLookbackTimeCalculator from "../../components/simulations/cosmological-lookback-time-calculator/CosmologicalLookbackTimeCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <CosmologicalLookbackTimeCalculator client:load />
+</figure>
+
+When you observe a galaxy at redshift z = 1, you're not seeing it as it
+is now — you're seeing light that left it long before Earth existed.
+"How long ago" is the lookback time, and unlike most of the conversions
+on this site, it isn't a formula you can rearrange with algebra. It's an
+integral over the universe's entire expansion history between then and
+now, and the answer depends on which cosmology you plug in.
+
+## The integral
+
+In a flat universe with matter and a cosmological constant, the
+expansion rate at redshift z relative to today is
+
+$$
+E(z) = \sqrt{\Omega_m (1+z)^3 + \Omega_\Lambda}
+$$
+
+and the lookback time to that redshift is
+
+$$
+t_L(z) = \frac{1}{H_0} \int_0^z \frac{dz'}{(1+z')E(z')}
+$$
+
+There's no closed-form antiderivative for this in general — it has to
+be evaluated numerically. This calculator does that with Simpson's rule
+at a resolution far finer than the answer's precision requires, so the
+numerical method itself isn't the source of any meaningful error; what
+you get back is limited by how well your chosen Ωm, ΩΛ, and H₀ actually
+describe the real universe, not by the integration.
+
+## Why the cosmology matters
+
+Change H₀, Ωm, or ΩΛ, and every lookback time changes with them — this
+is the calculator's central point, not an edge case. The clearest way to
+see it: pick z = 1 under Planck 2018 parameters (H₀ = 67.4, Ωm = 0.315)
+and you get a lookback time of about 7.95 billion years, meaning the
+object's light left it about 5.85 billion years after the Big Bang. Keep
+z = 1 but switch to an Einstein–de Sitter universe (Ωm = 1, no dark
+energy at all — the standard cosmology before the late-1990s supernova
+observations) and the lookback time drops to about 6.0 billion years,
+because a matter-only universe has a very different expansion history.
+Same redshift, different physical answer — which is exactly why every
+result here is reported next to the parameters that produced it, and why
+serious work always states its assumed cosmology explicitly.
+
+## Reading the two charts
+
+- **The cosmic timeline** places the emission time directly on a bar
+  running from the Big Bang to today, next to a few landmark epochs
+  (the CMB, the first galaxies, when the Solar System formed) — turning
+  "5.85 Gyr after the Big Bang" into a point on a story whose overall
+  shape you likely already know.
+- **The integrand chart** plots 1/[(1+z′)E(z′)] itself and shades the
+  region from 0 to z. That shaded area, multiplied by the Hubble time
+  1/H₀, *is* the lookback time — a direct, visual answer to "why isn't
+  this just algebra."
+
+## Validated against Astropy
+
+Because this result is entirely dependent on the numerical integration
+and the assumed cosmological model, its outputs were checked directly
+against [Astropy's](https://www.astropy.org/) `cosmology` module before
+publication — specifically `FlatLambdaCDM` with radiation switched off
+(`Tcmb0=0`), matching this calculator's matter+Λ-only model exactly.
+Across redshifts from 0.1 to 10 and four different cosmologies (Planck
+2018, WMAP9, a simple H₀=70/Ωm=0.3 model, and Einstein–de Sitter), both
+the lookback time and the age of the universe agreed with Astropy's
+values to better than 1 part in 10⁶ — comfortably beyond the precision
+either tool displays. Radiation is omitted from both, so treat results
+at very high redshift (z ≳ 1000, near recombination) as approximate; at
+the redshifts most real observational targets sit at, that omission is
+negligible.
+
+<SimPostSchema
+  title="Cosmological Lookback Time Calculator"
+  description="Calculate how far back in cosmic history you're looking when you observe an object at redshift z, via numerical integration of t_L(z) = (1/H0)∫dz'/[(1+z')E(z')] in a flat ΛCDM cosmology — with standard cosmology presets, a cosmic timeline, and an integral-area chart, validated against Astropy."
+  url="https://astrosyo.com/posts/cosmological-lookback-time-calculator"
+  datePublished="2026-08-29"
+  authorName="Astrosyo"
+  keywords={["cosmological lookback time calculator", "redshift to age calculator", "lambda CDM lookback time", "age of the universe at redshift z", "Hubble time calculator"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Cosmological Lookback Time Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/cosmological-lookback-time-calculator#calculator",
+    "description": "Interactive calculator that numerically integrates the flat Lambda-CDM lookback time relation for a chosen redshift and cosmology, with standard cosmology presets, a cosmic timeline, and an integral-area chart, validated against Astropy."
+  }}
+/>

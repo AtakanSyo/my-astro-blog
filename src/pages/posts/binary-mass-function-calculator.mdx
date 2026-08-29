@@ -1,0 +1,114 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Binary Mass Function Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-08-29'
+description: "Calculate the binary mass function f(M) = PK³/(2πG)(1-e²)^1.5 from an orbital period and radial-velocity semi-amplitude, giving an assumption-free lower bound on an unseen companion's mass — plus an advanced mode that numerically solves for M2 given an inclination and the visible star's mass, with a mass-benchmark ruler and an inclination-dependence chart."
+postColor: rgba(46, 20, 20, 1)
+slug: binary-mass-function-calculator
+keywords:
+  - binary mass function calculator
+  - radial velocity mass function
+  - black hole candidate mass
+  - X-ray binary compact object mass
+  - mass function spectroscopic binary
+  - companion mass lower bound
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import BinaryMassFunctionCalculator from "../../components/simulations/binary-mass-function-calculator/BinaryMassFunctionCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <BinaryMassFunctionCalculator client:load />
+</figure>
+
+You can't see the compact object in an X-ray binary directly — no
+telescope resolves a black hole or neutron star that way. What you
+*can* see is its visible companion star wobbling back and forth,
+Doppler-shifted by the pull of something orbiting it. From just that
+wobble's period and speed, one number — the binary mass function —
+tells you something concrete about the invisible thing on the other
+end, without needing to know the system's orientation in space at all.
+
+## The mass function
+
+$$
+f(M) = \frac{PK^3}{2\pi G}(1-e^2)^{3/2} = \frac{M_2^3 \sin^3 i}{(M_1+M_2)^2}
+$$
+
+P is the orbital period, K the visible star's radial-velocity
+semi-amplitude (how fast its line-of-sight speed swings from the orbit),
+and e the orbital eccentricity. The right-hand side is where the physics
+lives: M1 and M2 are the two stars' masses, and i is the orbital
+inclination — how tilted the orbit's plane is relative to our line of
+sight. Radial velocity only measures the *line-of-sight* component of
+orbital motion, which is why sin i (and, cubed, sin³i) appears: at
+i = 90° (edge-on) we see the full orbital speed; at i = 0° (face-on) the
+star moves entirely across the sky and K would be zero regardless of
+how fast it's actually orbiting.
+
+## The result that needs no assumptions at all
+
+Both M1 and i are usually unknown. But look at what f(M) can never
+exceed: because M1 ≥ 0 makes (M1+M2)² ≥ M2², and sin i ≤ 1,
+
+$$
+f(M) = \frac{M_2^3 \sin^3 i}{(M_1+M_2)^2} \le \frac{M_2^3}{M_2^2} = M_2
+$$
+
+**f(M) is always a lower bound on M2** — true for *any* M1 and *any*
+inclination, no assumptions required. This is exactly the argument
+historically used to build the case for Cygnus X-1: even the bare mass
+function, computed from nothing but the optical star's period and
+velocity, already exceeded what a neutron star could plausibly weigh.
+
+## Solving for an exact companion mass
+
+If you're willing to estimate the visible star's mass (usually from its
+spectral type) and assume an inclination (from eclipse timing, ellipsoidal
+light-curve variations, or a model fit), the relation becomes a genuine
+cubic equation in M2, which this calculator solves numerically rather
+than approximating. Try it on the Cygnus X-1 preset: with the donor
+star's mass (~40.6 M☉) and the system's measured inclination (~27.5°)
+plugged in, the mass function alone (f(M) ≈ 0.25 M☉ from P ≈ 5.6 days and
+K ≈ 75.6 km/s) resolves to a companion mass of about 21 M☉ — matching
+modern measurements of the black hole at Cygnus X-1's heart.
+
+## Reading the two charts
+
+- **The mass ruler** shades the entire range M2 is allowed to occupy —
+  everything at or above f(M) — next to a few reference masses (a
+  typical neutron star, the rough maximum a neutron star's equation of
+  state can support, and a typical stellar-mass black hole). Seeing the
+  shaded region swallow the neutron-star landmarks entirely is a much
+  more direct argument than the number alone.
+- **The inclination-dependence curve** shows exactly how sensitive the
+  solved M2 is to the one thing you usually can't measure directly: at
+  low inclination (near face-on), the required companion mass blows up,
+  since a small sin³i has to be compensated by a much larger M2 to match
+  the same observed f(M). Where the curve sits above the ~3 M☉ line,
+  no plausible inclination lets the companion be a neutron star.
+
+<SimPostSchema
+  title="Binary Mass Function Calculator"
+  description="Calculate the binary mass function f(M) = PK³/(2πG)(1-e²)^1.5 from an orbital period and radial-velocity semi-amplitude, giving an assumption-free lower bound on an unseen companion's mass — plus an advanced mode that numerically solves for M2 given an inclination and the visible star's mass, with a mass-benchmark ruler and an inclination-dependence chart."
+  url="https://astrosyo.com/posts/binary-mass-function-calculator"
+  datePublished="2026-08-29"
+  authorName="Astrosyo"
+  keywords={["binary mass function calculator", "radial velocity mass function", "black hole candidate mass", "X-ray binary compact object mass", "mass function spectroscopic binary"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Binary Mass Function Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/binary-mass-function-calculator#calculator",
+    "description": "Interactive calculator that computes the binary mass function from orbital period and radial-velocity semi-amplitude, giving a lower bound on an unseen companion's mass, and numerically solves for the companion's mass given an estimated visible-star mass and inclination, with a mass-benchmark ruler and an inclination-dependence chart."
+  }}
+/>
