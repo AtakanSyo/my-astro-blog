@@ -11,6 +11,20 @@ const PRESETS = [
   { label: "Observable universe (radius)", value: 14.26, unit: "gpc" },
 ];
 
+// Landmarks for the scale bar below — deliberately mirrors the preset
+// buttons above (same underlying values) so clicking a preset always
+// lands the "your value" marker exactly on that landmark's tick, with
+// shorter labels sized for the chart rather than a button.
+const SCALE_LANDMARKS = [
+  { label: "Human height", meters: 1.7 },
+  { label: "Earth–Moon", meters: toMeters(384400, "km") },
+  { label: "Earth–Sun", meters: toMeters(1, "au") },
+  { label: "Nearest star", meters: toMeters(4.2465, "ly") },
+  { label: "Galactic center", meters: toMeters(8.178, "kpc") },
+  { label: "Andromeda", meters: toMeters(2.5e6, "ly") },
+  { label: "Observable universe", meters: toMeters(14.26, "gpc") },
+];
+
 const SUPERSCRIPT_MAP = { "0": "⁰", "1": "¹", "2": "²", "3": "³", "4": "⁴", "5": "⁵", "6": "⁶", "7": "⁷", "8": "⁸", "9": "⁹", "-": "⁻" };
 
 function toSuperscript(n) {
@@ -95,6 +109,54 @@ export default function AstronomicalDistanceConverter() {
     }));
     return { valid: true, meters, rows };
   }, [value, unit]);
+
+  // --- logarithmic "cosmic ruler" scale bar ---
+  // This tool's whole point is grasping scale across ~27 orders of
+  // magnitude — a log-log line chart wouldn't show anything (it's a
+  // trivial straight-line unit conversion), so the useful visual here is
+  // a ruler: fixed, well-known reference distances plus a marker showing
+  // exactly where the entered value falls among them.
+  const scaleBar = useMemo(() => {
+    if (!result.valid) return null;
+    const logValue = Math.log10(result.meters);
+    const fixedMin = 0; // 10^0 m — about human scale
+    const fixedMax = 27; // a bit past the observable universe
+    const domainMin = Math.min(fixedMin, logValue - 0.5);
+    const domainMax = Math.max(fixedMax, logValue + 0.5);
+
+    const width = 640;
+    const height = 170;
+    const marginLeft = 24;
+    const marginRight = 24;
+    const barY = 96;
+    const plotWidth = width - marginLeft - marginRight;
+
+    const xScale = (log10m) => marginLeft + ((log10m - domainMin) / (domainMax - domainMin)) * plotWidth;
+
+    // Text centered on a point overflows the viewBox — and, since the SVG
+    // scales with the card, the actual page on narrow viewports — once
+    // that point sits close enough to either edge. Rather than clamp the
+    // marker/tick itself (which must stay at its true position), switch
+    // the label to edge-anchored text instead.
+    const edgeAwareLabel = (x) => {
+      if (x > width - marginRight - 90) return { anchor: "end", x: width - marginRight };
+      if (x < marginLeft + 90) return { anchor: "start", x: marginLeft };
+      return { anchor: "middle", x };
+    };
+
+    const landmarks = SCALE_LANDMARKS.map((l, i) => {
+      const x = xScale(Math.log10(l.meters));
+      return { ...l, x, row: i % 2, labelPos: edgeAwareLabel(x) };
+    });
+
+    const valueX = xScale(logValue);
+    const valueLabel = edgeAwareLabel(valueX);
+
+    return {
+      width, height, marginLeft, marginRight, barY, plotWidth, landmarks,
+      valueX, valueLabelAnchor: valueLabel.anchor, valueLabelX: valueLabel.x,
+    };
+  }, [result]);
 
   const applyPreset = (preset) => {
     setValue(String(preset.value));
@@ -185,6 +247,51 @@ export default function AstronomicalDistanceConverter() {
               </div>
             ))}
           </div>
+
+          {scaleBar && (
+            <div className="adc-scale-wrap">
+              <svg
+                className="adc-scale-svg"
+                viewBox={`0 0 ${scaleBar.width} ${scaleBar.height}`}
+                role="img"
+                aria-label={`Logarithmic scale bar showing this distance, ${formatNumber(result.meters)} meters, against reference distances from human height to the observable universe`}
+              >
+                <line
+                  x1={scaleBar.marginLeft} x2={scaleBar.width - scaleBar.marginRight}
+                  y1={scaleBar.barY} y2={scaleBar.barY}
+                  className="adc-scale-bar-line"
+                />
+
+                {scaleBar.landmarks.map((l) => (
+                  <g key={l.label}>
+                    <line
+                      x1={l.x} x2={l.x}
+                      y1={scaleBar.barY} y2={scaleBar.barY + (l.row === 0 ? 8 : 16)}
+                      className="adc-scale-tick"
+                    />
+                    <text
+                      x={l.labelPos.x} y={scaleBar.barY + (l.row === 0 ? 22 : 40)}
+                      className="adc-scale-tick-label"
+                      textAnchor={l.labelPos.anchor}
+                    >
+                      {l.label}
+                    </text>
+                  </g>
+                ))}
+
+                <line x1={scaleBar.valueX} x2={scaleBar.valueX} y1={scaleBar.barY - 36} y2={scaleBar.barY} className="adc-scale-value-line" />
+                <circle cx={scaleBar.valueX} cy={scaleBar.barY} r="5" className="adc-scale-value-dot" />
+                <text x={scaleBar.valueLabelX} y={scaleBar.barY - 44} className="adc-scale-value-label" textAnchor={scaleBar.valueLabelAnchor}>
+                  your value — {formatNumber(result.meters)} m
+                </text>
+              </svg>
+              <p className="adc-scale-caption">
+                Logarithmic scale — each step along the bar is a factor of ten, not an equal
+                distance, so the marker's position reflects orders of magnitude, not a linear
+                fraction of the way to the universe's edge.
+              </p>
+            </div>
+          )}
 
           <div className="adc-time-card">
             <span className="adc-time-label">Light-travel time</span>

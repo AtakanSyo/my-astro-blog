@@ -1,0 +1,119 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Redshift ↔ Observed Wavelength Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-08-29'
+description: "Give any two of redshift, rest wavelength, and observed wavelength, and get the third exactly — plus the classical and relativistic recession velocities implied by that redshift."
+postColor: rgba(60, 18, 46, 1)
+slug: redshift-wavelength-calculator
+keywords:
+  - redshift calculator
+  - observed wavelength calculator
+  - cosmological redshift
+  - relativistic doppler shift
+  - spectral line redshift
+  - recession velocity calculator
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import RedshiftWavelengthCalculator from "../../components/simulations/redshift-wavelength-calculator/RedshiftWavelengthCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <RedshiftWavelengthCalculator client:load />
+</figure>
+
+In 1963, Maarten Schmidt noticed that the emission lines in the spectrum
+of a faint radio source, 3C 273, matched the hydrogen Balmer series — just
+shifted 16% to the red. That single number, a redshift of 0.158, revealed
+3C 273 to be a quasar billions of light-years away, one of the most
+luminous objects ever observed, hiding in plain sight because nobody had
+tried multiplying its wavelengths by 1.158. Redshift is that direct: one
+number, read straight off a spectrum, that unlocks distance, velocity, and
+sometimes the discovery itself.
+
+## The definition
+
+Redshift compares an observed wavelength to the wavelength a source emits
+in its own rest frame:
+
+$$
+1 + z = \frac{\lambda_{\text{obs}}}{\lambda_{\text{rest}}}
+$$
+
+Rearranged, this gives whichever quantity is missing — λ_obs = λ_rest(1+z),
+or λ_rest = λ_obs/(1+z). z is dimensionless: positive means redshifted
+(wavelengths stretched), negative means blueshifted (compressed) — the
+Andromeda Galaxy is one of the rare blueshifted objects, approaching us at
+around 300 km/s, which is why it's on a collision course over the next few
+billion years.
+
+## Two velocities, and why they disagree
+
+A redshift is often translated into a velocity, but there are two
+different formulas in circulation, and they only agree when z is small.
+
+The naive version simply says v = cz — a first-order, non-relativistic
+reading. It's the formula most people learn first, and it's an excellent
+approximation for nearby galaxies. It also breaks completely for large z:
+push it far enough and it predicts velocities faster than light, which
+isn't a real result, just a warning sign the formula's been used outside
+where it works.
+
+$$
+v = cz
+$$
+
+The special-relativistic Doppler formula stays below c at every redshift,
+however large:
+
+$$
+v = c\,\frac{(1+z)^2 - 1}{(1+z)^2 + 1}
+$$
+
+The calculator computes both, and flags it explicitly whenever the
+classical value has crossed into the physically meaningless
+faster-than-light regime.
+
+## Doppler redshift vs. cosmological redshift
+
+Both formulas above describe a source moving *through* space — genuine
+special-relativistic Doppler shift. But most of the large redshifts
+astronomers actually measure, for distant galaxies and quasars, aren't
+that at all. They come from **cosmological redshift**: space itself
+expanding while the light is in transit, stretching its wavelength along
+the way, described by general relativity's Friedmann-Robertson-Walker
+metric rather than special relativity's Doppler formula.
+
+The two phenomena use the same definition of z and can look identical for
+a single measurement, but they mean different things, and at high
+redshift there's no longer a single well-defined "recession velocity" the
+way special relativity defines one — the relativistic Doppler value above
+is best read as an illustrative special-relativistic *analogy*, not a
+literal cosmological velocity, once z gets large. Working out an actual
+cosmological distance or lookback time from z requires a full cosmological
+model (matter density, dark energy density, and the expansion rate today)
+— genuinely a different calculation from anything on this page.
+
+<SimPostSchema
+  title="Redshift ↔ Observed Wavelength Calculator"
+  description="Give any two of redshift, rest wavelength, and observed wavelength, and get the third exactly — plus the classical and relativistic recession velocities implied by that redshift."
+  url="https://astrosyo.com/posts/redshift-wavelength-calculator"
+  datePublished="2026-08-29"
+  authorName="Astrosyo"
+  keywords={["redshift calculator", "observed wavelength calculator", "cosmological redshift", "relativistic doppler shift", "recession velocity calculator"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Redshift and Observed Wavelength Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/redshift-wavelength-calculator#calculator",
+    "description": "Interactive calculator that solves for redshift, rest wavelength, or observed wavelength given the other two, via 1+z = lambda_obs/lambda_rest, with classical and relativistic Doppler recession velocities."
+  }}
+/>

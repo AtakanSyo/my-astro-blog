@@ -1,0 +1,106 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Proper Motion & Tangential Velocity Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-08-29'
+description: "Convert a star's proper motion and distance into its true tangential velocity through space, combine RA/Dec components, and add a radial velocity for the full 3D space speed."
+postColor: rgba(20, 50, 40, 1)
+slug: proper-motion-velocity-calculator
+keywords:
+  - proper motion calculator
+  - tangential velocity calculator
+  - Barnard's Star velocity
+  - space velocity calculator
+  - stellar kinematics
+  - radial velocity total speed
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import ProperMotionCalculator from "../../components/simulations/proper-motion-velocity-calculator/ProperMotionCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <ProperMotionCalculator client:load />
+</figure>
+
+In 1916, Edward Barnard noticed a faint red star creeping across
+photographic plates faster than any star anyone had ever tracked — over
+10 arcseconds a year, enough to cross the width of the full Moon in about
+180 years. That's proper motion: the apparent drift of a star's position
+against the sky, and it's the single fastest one ever measured. But
+"fast" on the sky isn't the same as "fast" through space — apparent
+motion depends on distance as much as on true speed, and separating the
+two is exactly what this calculator does.
+
+## The formula
+
+$$
+v_t = 4.74047 \cdot \mu \cdot d
+$$
+
+with μ in arcsec/yr and d in parsecs, giving v_t in km/s. The constant
+isn't fitted to anything — it falls straight out of unit conversion.
+Because a parsec is defined so that 1 AU subtends 1 arcsecond at that
+distance, a star with proper motion μ at distance d sweeps exactly μ·d
+astronomical units across the sky every year. Converting AU/yr to km/s —
+149,597,870.7 km divided by a Julian year in seconds — is what leaves
+4.74047 behind.
+
+## RA and Dec components
+
+Catalogs (Gaia included) report proper motion as two separate numbers:
+μ_α*, the motion in right ascension already multiplied by cos δ to
+correct for how RA lines converge toward the poles, and μ_δ, the motion
+in declination. They combine the same way any two perpendicular
+components do:
+
+$$
+\mu = \sqrt{\mu_{\alpha*}^2 + \mu_\delta^2}
+$$
+
+The calculator accepts either the combined total directly or these two
+components — useful since components are what actually comes out of an
+astrometric catalog.
+
+## Adding the third dimension
+
+Proper motion and the distance-scaled velocity it implies are both
+*tangential* — motion across the plane of the sky, perpendicular to the
+line of sight. They say nothing about motion toward or away from us. That
+piece comes from radial velocity, measured independently via the Doppler
+shift of the star's spectral lines. Since tangential and radial motion
+are perpendicular by construction, they combine with a simple Pythagorean
+sum:
+
+$$
+v_{\text{total}} = \sqrt{v_t^2 + v_r^2}
+$$
+
+Barnard's Star is a good demonstration of why this matters: its
+tangential velocity alone is about 90 km/s, already remarkable — but it's
+also approaching us at over 110 km/s radially, for a true space velocity
+above 140 km/s, one of the fastest-moving stars known relative to the
+Sun. Its apparent motion undersold it.
+
+<SimPostSchema
+  title="Proper Motion & Tangential Velocity Calculator"
+  description="Convert a star's proper motion and distance into its true tangential velocity through space, combine RA/Dec components, and add a radial velocity for the full 3D space speed."
+  url="https://astrosyo.com/posts/proper-motion-velocity-calculator"
+  datePublished="2026-08-29"
+  authorName="Astrosyo"
+  keywords={["proper motion calculator", "tangential velocity calculator", "Barnard's Star velocity", "space velocity calculator", "stellar kinematics"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Proper Motion and Tangential Velocity Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/proper-motion-velocity-calculator#calculator",
+    "description": "Interactive calculator converting between proper motion, distance, and tangential velocity via v_t = 4.74047 mu d, with RA/Dec proper-motion component combination and optional radial velocity for total 3D space speed."
+  }}
+/>

@@ -209,6 +209,77 @@
   color: var(--asc-text-dim);
 }
 
+.asc-diagram-wrap {
+  background: var(--asc-bg-2);
+  border: 1px solid var(--asc-border);
+  border-radius: 12px;
+  padding: 0.75rem 0.75rem 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.asc-diagram-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.asc-diagram-centerline {
+  stroke: var(--asc-border);
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+}
+
+.asc-diagram-ray {
+  stroke: var(--asc-text-dim);
+  stroke-width: 1.5;
+}
+
+.asc-diagram-arc {
+  stroke: var(--asc-accent);
+  stroke-width: 2;
+  fill: none;
+}
+
+.asc-diagram-theta-label {
+  fill: var(--asc-accent);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.asc-diagram-observer {
+  fill: var(--asc-text);
+}
+
+.asc-diagram-object {
+  stroke: #ff8a5c;
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.asc-diagram-object-end {
+  fill: #ff8a5c;
+}
+
+.asc-diagram-small-label {
+  fill: var(--asc-text-dim);
+  font-size: 11px;
+}
+
+.asc-diagram-big-label {
+  fill: #ff8a5c;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.asc-diagram-caption {
+  font-size: 0.72rem;
+  color: var(--asc-text-dim);
+  margin: 0.35rem 0 0;
+  text-align: center;
+  line-height: 1.4;
+}
+
 .asc-approx-card {
   display: flex;
   flex-direction: column;

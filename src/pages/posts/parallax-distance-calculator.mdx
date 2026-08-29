@@ -1,0 +1,104 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Parallax Distance Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-08-29'
+description: "Convert between a star's parallax and its distance exactly, watch the geometry that makes it work, and see how measurement uncertainty propagates — and when the simple inversion stops being trustworthy."
+postColor: rgba(28, 44, 74, 1)
+slug: parallax-distance-calculator
+keywords:
+  - parallax distance calculator
+  - stellar parallax
+  - parsec definition
+  - Proxima Centauri distance
+  - Gaia parallax uncertainty
+  - Bailer-Jones distance estimation
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import ParallaxDistanceCalculator from "../../components/simulations/parallax-distance-calculator/ParallaxDistanceCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <ParallaxDistanceCalculator client:load />
+</figure>
+
+Every other distance-measuring method in astronomy — standard candles,
+redshift, the whole cosmic distance ladder — ultimately calibrates itself
+against one technique that needs no assumptions about what a star is or
+how bright it "should" be: parallax. Measure how much a star's apparent
+position wiggles over a year, relative to the much farther background
+stars, and you have its distance directly from geometry. It's also where
+the parsec comes from — the unit is *defined* by this relation.
+
+## The relation
+
+$$
+d(\text{pc}) = \frac{1}{p(^{\prime\prime})}
+$$
+
+A parsec is, by definition, the distance at which 1 AU subtends an angle
+of exactly one arcsecond. That's not a coincidence dressed up as a
+formula — it's why the relation is this clean. A parallax of 100
+milliarcseconds is a distance of exactly 10 pc, no approximation involved.
+
+## The geometry
+
+The diagram above shows why this works: as Earth orbits the Sun, a nearby
+star's line of sight sweeps through a small angle relative to the much
+more distant background stars, which don't move appreciably no matter
+where Earth is. Compare the star's apparent position from opposite points
+in Earth's orbit (classically, observations six months apart) and it
+appears to have shifted — not because the star moved, but because you
+did. The parallax angle p is defined as the shift relative to the *mean*
+position (i.e., as seen from the Sun), so the full back-and-forth swing
+between the two extreme epochs is 2p.
+
+## When d = 1/p stops being trustworthy
+
+Parallax measurement always carries some uncertainty, and it's tempting
+to propagate it the simple way: since d = 1/p, a fractional uncertainty
+on p becomes the same fractional uncertainty on d. That's exactly right
+as a first-order approximation — but it's *only* a first-order
+approximation, because 1/p is a nonlinear transform. For a
+roughly-Gaussian parallax measurement, the induced distribution on
+distance becomes increasingly skewed as the fractional uncertainty grows,
+and the naive point estimate becomes biased. Push it far enough — a
+parallax consistent with zero within its error bar — and 1/p isn't just
+imprecise, it's undefined or nonsensical (a negative or infinite
+"distance").
+
+This isn't a hypothetical edge case. It's a real, well-documented issue
+in modern astrometry: Gaia measures parallaxes for well over a billion
+stars, and a large fraction of the faintest, most distant ones have
+fractional uncertainties large enough that naive inversion measurably
+biases the results. The standard fix, following Bailer-Jones (2015) and
+the body of work it spawned, is Bayesian: combine the parallax
+measurement with a prior on how stars are actually distributed in space,
+rather than trusting 1/p in isolation. As a rule of thumb, this
+calculator treats fractional uncertainties under 10% as reliable, 10–20%
+as worth caution, and anything larger as a case where simple inversion
+shouldn't be trusted at face value.
+
+<SimPostSchema
+  title="Parallax ↔ Distance Calculator"
+  description="Convert between a star's parallax and its distance exactly, watch the geometry that makes it work, and see how measurement uncertainty propagates — and when the simple inversion stops being trustworthy."
+  url="https://astrosyo.com/posts/parallax-distance-calculator"
+  datePublished="2026-08-29"
+  authorName="Astrosyo"
+  keywords={["parallax distance calculator", "stellar parallax", "parsec definition", "Proxima Centauri distance", "Gaia parallax uncertainty"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Parallax and Distance Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/parallax-distance-calculator#calculator",
+    "description": "Interactive calculator converting between stellar parallax and distance via d(pc) = 1/p(arcsec), with a live geometric diagram of the parallax effect and optional uncertainty propagation with a reliability assessment for large fractional errors."
+  }}
+/>

@@ -158,6 +158,61 @@
   color: var(--adc-text-dim);
 }
 
+.adc-scale-wrap {
+  background: var(--adc-bg-2);
+  border: 1px solid var(--adc-border);
+  border-radius: 12px;
+  padding: 0.75rem 0.75rem 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.adc-scale-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.adc-scale-bar-line {
+  stroke: var(--adc-text-dim);
+  stroke-width: 1.5;
+}
+
+.adc-scale-tick {
+  stroke: var(--adc-text-dim);
+  stroke-width: 1;
+}
+
+.adc-scale-tick-label {
+  fill: var(--adc-text-dim);
+  font-size: 10px;
+}
+
+.adc-scale-value-line {
+  stroke: var(--adc-accent);
+  stroke-width: 2;
+}
+
+.adc-scale-value-dot {
+  fill: var(--adc-accent);
+  stroke: #14151a;
+  stroke-width: 1.5;
+}
+
+.adc-scale-value-label {
+  fill: var(--adc-accent);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.adc-scale-caption {
+  font-size: 0.72rem;
+  color: var(--adc-text-dim);
+  margin: 0.35rem 0 0;
+  text-align: center;
+  line-height: 1.4;
+}
+
 .adc-time-card {
   display: flex;
   justify-content: space-between;

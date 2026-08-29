@@ -184,6 +184,7 @@ export default function AngularSizeCalculator() {
         exact: exact.theta,
         approx,
         percentError: ((approx - exact.theta) / exact.theta) * 100,
+        thetaRad: exact.theta,
       };
     }
     if (solveFor === "diameter") {
@@ -200,6 +201,7 @@ export default function AngularSizeCalculator() {
         exact: exact.D,
         approx,
         percentError: ((approx - exact.D) / exact.D) * 100,
+        thetaRad: th,
       };
     }
     const th = angleToRad(parseFloat(theta), thetaUnit);
@@ -215,8 +217,74 @@ export default function AngularSizeCalculator() {
       exact: exact.d,
       approx,
       percentError: ((approx - exact.d) / exact.d) * 100,
+      thetaRad: th,
     };
   }, [solveFor, theta, thetaUnit, diameter, diameterUnit, distance, distanceUnit]);
+
+  // --- schematic subtended-angle diagram ---
+  // The real angle spans arcseconds to 100°+ across the tool's use cases —
+  // far too wide a range to draw to a literal linear scale (a Moon-sized
+  // angle would be an invisible sliver next to the "very close object"
+  // preset). Instead the drawn half-angle is a log-compressed, strictly
+  // monotonic function of the true angle: bigger real angle always means
+  // a visibly wider wedge, but the mapping is exaggerated for legibility,
+  // not literal — the actual value is printed on the diagram itself.
+  const diagram = useMemo(() => {
+    if (!result.valid) return null;
+    const thetaRad = result.thetaRad;
+    // Calibrated to the tool's actual realistic range (~20 arcsec, the
+    // "distant galaxy" preset, up to just past 90°, the "very close
+    // object" preset) rather than an arbitrary theoretical minimum — so
+    // presets spread across the display range instead of clustering.
+    const logMin = -4; // ~20 arcsec
+    const logMax = Math.log10(Math.PI);
+    const dispMinDeg = 4;
+    const dispMaxDeg = 150;
+    const logT = Math.log10(Math.max(thetaRad, 1e-9));
+    const clampedLog = Math.min(logMax, Math.max(logMin, logT));
+    const frac = (clampedLog - logMin) / (logMax - logMin);
+    const displayDeg = dispMinDeg + frac * (dispMaxDeg - dispMinDeg);
+    const halfAngleRad = (displayDeg / 2) * (Math.PI / 180);
+
+    const width = 640;
+    const height = 300;
+    const observerX = 70;
+    const observerY = height / 2;
+    // Ray length is bounded by *both* how far right and how far up/down
+    // the endpoints are allowed to go, whichever binds first — this keeps
+    // the wedge inside the viewBox at every angle from a hairline sliver
+    // up to the 150° display cap, instead of a fixed length that blows
+    // past the vertical bounds for wide angles.
+    const maxHorizontal = width - observerX - 40;
+    const maxVertical = height / 2 - 20;
+    const rayLength = Math.min(maxHorizontal / Math.cos(halfAngleRad), maxVertical / Math.sin(halfAngleRad));
+
+    const topX = observerX + rayLength * Math.cos(halfAngleRad);
+    const topY = observerY - rayLength * Math.sin(halfAngleRad);
+    const bottomX = observerX + rayLength * Math.cos(halfAngleRad);
+    const bottomY = observerY + rayLength * Math.sin(halfAngleRad);
+
+    // small arc marking the angle at the observer vertex
+    const arcR = 40;
+    const arcTopX = observerX + arcR * Math.cos(halfAngleRad);
+    const arcTopY = observerY - arcR * Math.sin(halfAngleRad);
+    const arcBottomX = observerX + arcR * Math.cos(halfAngleRad);
+    const arcBottomY = observerY + arcR * Math.sin(halfAngleRad);
+
+    // For wide display angles the wedge is short (the horizontal/vertical
+    // trade-off above), which can pull the object bar close enough to the
+    // vertex that its label would collide with the θ label — so the D
+    // label anchors at whichever is further right: just past the object
+    // bar, or a fixed safe clearance from the θ label's typical width.
+    const dLabelX = Math.max(topX + 12, observerX + 190);
+
+    return {
+      width, height, observerX, observerY,
+      topX, topY, bottomX, bottomY,
+      arcTopX, arcTopY, arcBottomX, arcBottomY, arcR, dLabelX,
+      midX: (topX + bottomX) / 2, midY: observerY,
+    };
+  }, [result]);
 
   const applyPreset = (preset) => {
     setSolveFor(preset.solveFor);
@@ -406,6 +474,54 @@ export default function AngularSizeCalculator() {
               </div>
             ))}
           </div>
+
+          {diagram && (
+            <div className="asc-diagram-wrap">
+              <svg
+                className="asc-diagram-svg"
+                viewBox={`0 0 ${diagram.width} ${diagram.height}`}
+                role="img"
+                aria-label={`Schematic diagram of the observer, object, and subtended angle of ${formatNumber(radToAngle(result.thetaRad, thetaUnit))} ${ANGLE_UNITS[thetaUnit].short}`}
+              >
+                <line
+                  x1={diagram.observerX} y1={diagram.observerY}
+                  x2={diagram.width - 12} y2={diagram.observerY}
+                  className="asc-diagram-centerline"
+                />
+                <line x1={diagram.observerX} y1={diagram.observerY} x2={diagram.topX} y2={diagram.topY} className="asc-diagram-ray" />
+                <line x1={diagram.observerX} y1={diagram.observerY} x2={diagram.bottomX} y2={diagram.bottomY} className="asc-diagram-ray" />
+
+                <path
+                  d={`M ${diagram.arcTopX} ${diagram.arcTopY} A ${diagram.arcR} ${diagram.arcR} 0 0 1 ${diagram.arcBottomX} ${diagram.arcBottomY}`}
+                  className="asc-diagram-arc"
+                />
+                <text x={diagram.observerX + diagram.arcR + 10} y={diagram.observerY + 4} className="asc-diagram-theta-label">
+                  θ = {formatNumber(radToAngle(result.thetaRad, thetaUnit))} {ANGLE_UNITS[thetaUnit].short}
+                </text>
+
+                <circle cx={diagram.observerX} cy={diagram.observerY} r="4" className="asc-diagram-observer" />
+                <text x={diagram.observerX} y={diagram.observerY + 22} className="asc-diagram-small-label" textAnchor="middle">
+                  observer
+                </text>
+
+                <line x1={diagram.topX} y1={diagram.topY} x2={diagram.bottomX} y2={diagram.bottomY} className="asc-diagram-object" />
+                <circle cx={diagram.topX} cy={diagram.topY} r="4" className="asc-diagram-object-end" />
+                <circle cx={diagram.bottomX} cy={diagram.bottomY} r="4" className="asc-diagram-object-end" />
+                <text x={diagram.dLabelX} y={(diagram.topY + diagram.bottomY) / 2 + 4} className="asc-diagram-big-label">
+                  D (physical size)
+                </text>
+
+                <text x={(diagram.observerX + diagram.topX) / 2} y={(diagram.observerY + diagram.topY) / 2 - 10} className="asc-diagram-small-label">
+                  d
+                </text>
+              </svg>
+              <p className="asc-diagram-caption">
+                Schematic — the angle is exaggerated for visibility and this is not drawn to true
+                scale (real θ ranges from arcseconds to well over the diagram's own angle). The
+                printed θ is the actual computed value.
+              </p>
+            </div>
+          )}
 
           <div className="asc-approx-card">
             <div className="asc-approx-row">

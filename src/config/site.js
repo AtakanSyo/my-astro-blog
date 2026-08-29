@@ -2,7 +2,7 @@
 export const site = {
   name: 'Astrosyo',
   description: 'Interactive Astrophysics',
-  secondDescription: 'Calculators and visualizations for astronomy, astrophysics, and space science.',
+  secondDescription: 'Interactive calculators, simulations, and visualizations for astronomy and astrophysics.',
   url: 'https://astrosyo.com',
   title: 'Astrosyo'
 };

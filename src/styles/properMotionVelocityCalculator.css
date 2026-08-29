@@ -1,0 +1,330 @@
+.pmc {
+  --pmc-accent: #a9b4ff;
+  --pmc-bg: var(--card-bg, #1b1d22);
+  --pmc-bg-2: #17191e;
+  --pmc-border: var(--card-border, rgba(255, 255, 255, 0.1));
+  --pmc-text: var(--color-text, #e4e4e4);
+  --pmc-text-dim: rgba(228, 228, 228, 0.65);
+  --pmc-bad: #ff8a7e;
+
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  color: var(--pmc-text);
+  background: var(--pmc-bg);
+  border: 1px solid var(--pmc-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  font-variant-numeric: tabular-nums;
+}
+
+.pmc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.pmc-title {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin: 0;
+  color: var(--pmc-text);
+}
+
+.pmc-presets {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.pmc-preset-btn {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--pmc-border);
+  background: var(--pmc-bg-2);
+  color: var(--pmc-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.pmc-preset-btn:hover,
+.pmc-preset-btn:focus-visible {
+  border-color: var(--pmc-accent);
+  color: var(--pmc-text);
+}
+
+.pmc-explainer {
+  font-size: 0.8rem;
+  color: var(--pmc-text-dim);
+  line-height: 1.5;
+  margin: 0 0 1rem;
+}
+
+.pmc-solve-toggle {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.1rem;
+}
+
+.pmc-solve-btn {
+  font-size: 0.75rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--pmc-border);
+  background: var(--pmc-bg-2);
+  color: var(--pmc-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.pmc-solve-btn:hover,
+.pmc-solve-btn:focus-visible {
+  border-color: var(--pmc-accent);
+  color: var(--pmc-text);
+}
+
+.pmc-solve-btn.active {
+  background: var(--pmc-accent);
+  color: #14151a;
+  font-weight: 600;
+  border-color: var(--pmc-accent);
+}
+
+.pmc-section {
+  padding-top: 0.9rem;
+  border-top: 1px dashed var(--pmc-border);
+  margin-bottom: 0.5rem;
+}
+
+.pmc-section:first-of-type {
+  border-top: none;
+}
+
+.pmc-section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+.pmc-section-title {
+  font-size: 0.78rem;
+  color: var(--pmc-text-dim);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.pmc-mode-toggle {
+  display: inline-flex;
+  border: 1px solid var(--pmc-border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.pmc-mode-btn {
+  font-size: 0.72rem;
+  padding: 0.3rem 0.6rem;
+  background: var(--pmc-bg-2);
+  color: var(--pmc-text-dim);
+  border: none;
+  cursor: pointer;
+}
+
+.pmc-mode-btn.active {
+  background: var(--pmc-accent);
+  color: #14151a;
+  font-weight: 600;
+}
+
+.pmc-input-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.pmc-input {
+  flex: 1;
+  min-width: 0;
+  background: var(--pmc-bg-2);
+  border: 1px solid var(--pmc-border);
+  border-radius: 8px;
+  color: var(--pmc-text);
+  font-size: 1rem;
+  padding: 0.5rem 0.65rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.pmc-input:focus {
+  border-color: var(--pmc-accent);
+}
+
+.pmc-unit-select,
+.pmc-static-unit {
+  background: var(--pmc-bg-2);
+  border: 1px solid var(--pmc-border);
+  border-radius: 8px;
+  color: var(--pmc-text);
+  font-size: 0.85rem;
+  padding: 0.5rem 0.6rem;
+  display: flex;
+  align-items: center;
+}
+
+.pmc-unit-select {
+  cursor: pointer;
+}
+
+.pmc-component-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 0.5rem;
+  align-items: end;
+}
+
+@media (max-width: 560px) {
+  .pmc-component-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.pmc-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.pmc-field label {
+  font-size: 0.72rem;
+  color: var(--pmc-text-dim);
+}
+
+.pmc-derived-note {
+  font-size: 0.75rem;
+  color: var(--pmc-text-dim);
+  margin: 0.5rem 0 0;
+}
+
+.pmc-computed {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(169, 180, 255, 0.08);
+  border: 1px solid var(--pmc-accent);
+  border-radius: 8px;
+  padding: 0.5rem 0.65rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--pmc-text);
+}
+
+.pmc-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-top: 0.6rem;
+}
+
+.pmc-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  background: var(--pmc-bg-2);
+  border: 1px solid var(--pmc-border);
+  border-radius: 8px;
+  padding: 0.45rem 0.65rem;
+}
+
+.pmc-row--active {
+  border-color: var(--pmc-accent);
+  background: rgba(169, 180, 255, 0.08);
+}
+
+.pmc-row-label {
+  font-size: 0.8rem;
+  color: var(--pmc-text-dim);
+}
+
+.pmc-row-value {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--pmc-text);
+  white-space: nowrap;
+}
+
+.pmc-row-unit {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--pmc-text-dim);
+}
+
+.pmc-note {
+  font-size: 0.78rem;
+  color: var(--pmc-text-dim);
+  background: var(--pmc-bg-2);
+  border: 1px solid var(--pmc-border);
+  border-left: 3px solid var(--pmc-accent);
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  line-height: 1.45;
+  margin: 0 0 1rem;
+}
+
+.pmc-note--warn {
+  border-left-color: var(--pmc-bad);
+}
+
+.pmc-total-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  background: var(--pmc-bg-2);
+  border: 1px solid var(--pmc-border);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  margin: 0.5rem 0 1rem;
+}
+
+.pmc-total-label {
+  font-size: 0.78rem;
+  color: var(--pmc-text-dim);
+}
+
+.pmc-total-value {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--pmc-accent);
+}
+
+.pmc-footer-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.pmc-copy-btn {
+  font-size: 0.78rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--pmc-border);
+  background: var(--pmc-bg-2);
+  color: var(--pmc-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.pmc-copy-btn:hover,
+.pmc-copy-btn:focus-visible {
+  border-color: var(--pmc-accent);
+  color: var(--pmc-text);
+}
