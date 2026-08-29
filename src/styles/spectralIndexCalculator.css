@@ -1,0 +1,320 @@
+.sic {
+  --sic-accent: #a9b4ff;
+  --sic-bg: var(--card-bg, #1b1d22);
+  --sic-bg-2: #17191e;
+  --sic-border: var(--card-border, rgba(255, 255, 255, 0.1));
+  --sic-text: var(--color-text, #e4e4e4);
+  --sic-text-dim: rgba(228, 228, 228, 0.65);
+  --sic-good: #5ce0a0;
+  --sic-warn: #e0c05c;
+  --sic-bad: #ff8a7e;
+
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  color: var(--sic-text);
+  background: var(--sic-bg);
+  border: 1px solid var(--sic-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  font-variant-numeric: tabular-nums;
+}
+
+.sic-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.sic-title {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin: 0;
+  color: var(--sic-text);
+}
+
+.sic-presets {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.sic-preset-btn {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--sic-border);
+  background: var(--sic-bg-2);
+  color: var(--sic-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.sic-preset-btn:hover,
+.sic-preset-btn:focus-visible {
+  border-color: var(--sic-accent);
+  color: var(--sic-text);
+}
+
+.sic-explainer {
+  font-size: 0.8rem;
+  color: var(--sic-text-dim);
+  line-height: 1.5;
+  margin: 0 0 1.1rem;
+}
+
+.sic-explainer strong {
+  color: var(--sic-text);
+}
+
+.sic-point {
+  margin-bottom: 1rem;
+}
+
+.sic-point-title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--sic-text-dim);
+  margin: 0 0 0.5rem;
+}
+
+.sic-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 480px) {
+  .sic-field-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sic-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.sic-field label,
+.sic-predicted-label {
+  font-size: 0.78rem;
+  color: var(--sic-text-dim);
+}
+
+.sic-input-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.sic-input {
+  flex: 1;
+  min-width: 0;
+  background: var(--sic-bg-2);
+  border: 1px solid var(--sic-border);
+  border-radius: 8px;
+  color: var(--sic-text);
+  font-size: 1rem;
+  padding: 0.5rem 0.65rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.sic-input:focus {
+  border-color: var(--sic-accent);
+}
+
+.sic-sigma-input {
+  background: var(--sic-bg-2);
+  border: 1px dashed var(--sic-border);
+  border-radius: 8px;
+  color: var(--sic-text-dim);
+  font-size: 0.82rem;
+  padding: 0.4rem 0.6rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.sic-sigma-input:focus {
+  border-color: var(--sic-accent);
+  color: var(--sic-text);
+}
+
+.sic-unit-select {
+  background: var(--sic-bg-2);
+  border: 1px solid var(--sic-border);
+  border-radius: 8px;
+  color: var(--sic-text);
+  font-size: 0.85rem;
+  padding: 0.5rem 0.5rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.sic-computed {
+  background: rgba(169, 180, 255, 0.08);
+  border: 1px solid var(--sic-accent);
+  border-radius: 8px;
+  padding: 0.5rem 0.65rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--sic-text);
+}
+
+.sic-alpha-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  background: var(--sic-bg-2);
+  border: 1px solid var(--sic-border);
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  margin-bottom: 1.1rem;
+}
+
+.sic-alpha-value {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--sic-text);
+}
+
+.sic-badge {
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.sic-badge--good {
+  background: rgba(92, 224, 160, 0.15);
+  color: var(--sic-good);
+}
+
+.sic-badge--warn {
+  background: rgba(224, 192, 92, 0.15);
+  color: var(--sic-warn);
+}
+
+.sic-chart-wrap {
+  background: var(--sic-bg-2);
+  border: 1px solid var(--sic-border);
+  border-radius: 12px;
+  padding: 0.75rem 0.75rem 0.5rem;
+  margin-bottom: 1.1rem;
+}
+
+.sic-chart-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.sic-chart-gridline {
+  stroke: var(--sic-border);
+  stroke-width: 1;
+}
+
+.sic-chart-axis-line {
+  stroke: var(--sic-text-dim);
+  stroke-width: 1;
+}
+
+.sic-chart-axis-label {
+  fill: var(--sic-text-dim);
+  font-size: 10px;
+}
+
+.sic-chart-fit-line {
+  stroke: var(--sic-accent);
+  stroke-width: 2.5;
+  fill: none;
+}
+
+.sic-chart-errorbar {
+  stroke: var(--sic-text-dim);
+  stroke-width: 1.5;
+}
+
+.sic-chart-point {
+  fill: var(--sic-accent);
+  stroke: #14151a;
+  stroke-width: 1.5;
+}
+
+.sic-chart-point--predicted {
+  fill: var(--sic-warn);
+}
+
+.sic-chart-point-label {
+  fill: var(--sic-text);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.sic-chart-point-label--predicted {
+  fill: var(--sic-warn);
+}
+
+.sic-chart-caption {
+  font-size: 0.72rem;
+  color: var(--sic-text-dim);
+  margin: 0.35rem 0 0;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.sic-chart-caption em {
+  color: var(--sic-text);
+  font-style: normal;
+  font-weight: 600;
+}
+
+.sic-note {
+  font-size: 0.78rem;
+  color: var(--sic-text-dim);
+  background: var(--sic-bg-2);
+  border: 1px solid var(--sic-border);
+  border-left: 3px solid var(--sic-accent);
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  line-height: 1.45;
+  margin: 0.75rem 0 0;
+}
+
+.sic-note--warn {
+  border-left-color: var(--sic-bad);
+  margin: 0 0 1rem;
+}
+
+.sic-footer-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+}
+
+.sic-copy-btn {
+  font-size: 0.78rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--sic-border);
+  background: var(--sic-bg-2);
+  color: var(--sic-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.sic-copy-btn:hover,
+.sic-copy-btn:focus-visible {
+  border-color: var(--sic-accent);
+  color: var(--sic-text);
+}

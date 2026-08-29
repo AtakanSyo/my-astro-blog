@@ -1,0 +1,106 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Angular Size & Physical Size Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-08-29'
+description: "Give any two of angular size, physical size, and distance, and get the third — using the exact trigonometric relation, with the small-angle approximation shown alongside for comparison."
+postColor: rgba(74, 44, 20, 1)
+slug: angular-size-calculator
+keywords:
+  - angular size calculator
+  - angular diameter calculator
+  - small angle approximation
+  - apparent size astronomy
+  - angular size formula
+  - physical size from angular size
+  - astronomy angle calculator
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import AngularSizeCalculator from "../../components/simulations/angular-size-calculator/AngularSizeCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <AngularSizeCalculator client:load />
+</figure>
+
+The Moon and the Sun look almost exactly the same size in Earth's sky —
+not because they're actually similar in size (the Sun is about 400 times
+wider), but because the Sun also happens to be about 400 times farther
+away. That's the whole idea behind angular size: how big something *looks*
+depends on both its true size and its distance, and you can't tell which
+from the angle alone. This calculator goes the other way — give it any two
+of angular size, physical size, and distance, and it solves for the third.
+
+## The geometry
+
+Picture an object of true diameter D, centered a distance d away. The
+angle it subtends, θ, is the apex angle of the isosceles triangle formed
+by you and the two ends of the object — which splits into two right
+triangles with hypotenuse d and opposite side D/2:
+
+$$
+\sin\!\left(\frac{\theta}{2}\right) = \frac{D/2}{d} \qquad\Longrightarrow\qquad \theta = 2\arcsin\!\left(\frac{D}{2d}\right)
+$$
+
+This is exact for any angle from 0° up to (but not including) 180°. The
+calculator solves this relation — or the equivalent form for D or d,
+whichever you're solving for — using this trigonometric formula directly,
+not an approximation.
+
+## The small-angle approximation, and when it holds
+
+For small θ, sin(θ/2) ≈ θ/2, and the exact relation collapses to the
+familiar rule of thumb astronomers actually use day to day:
+
+$$
+\theta \approx \frac{D}{d}
+$$
+
+This is the version behind the classic "206265 arcseconds per radian"
+shortcut, and it's genuinely excellent for almost everything in
+astronomy — the Moon (θ ≈ 0.5°), a galaxy cluster, a distant quasar are
+all comfortably in the regime where the error is a small fraction of a
+percent. It stops being trustworthy only for angles that are a
+significant fraction of a full circle — think an object close enough to
+fill a large part of your view, not anything actually observed through a
+telescope. The calculator always computes the exact value, but shows the
+small-angle result and the percent difference between them side by side,
+so you can see directly where the approximation is earning its keep and
+where it would mislead you — try the "very close object" preset to see it
+break down entirely.
+
+## Angular size vs. physical size
+
+These are easy to conflate but describe different things. **Physical
+size** is an object's actual linear diameter — a number in meters or
+light-years that doesn't depend on who's looking or from where.
+**Angular size** is how large it *appears*, and depends equally on
+physical size and distance — the same galaxy would look larger if it were
+closer, without changing at all. A measured angular size, on its own, is
+not a measurement of true size; you need the distance too, which is
+exactly what this calculator makes explicit by requiring (or solving for)
+all three quantities together.
+
+<SimPostSchema
+  title="Angular Size & Physical Size Calculator"
+  description="Give any two of angular size, physical size, and distance, and get the third — using the exact trigonometric relation, with the small-angle approximation shown alongside for comparison."
+  url="https://astrosyo.com/posts/angular-size-calculator"
+  datePublished="2026-08-29"
+  authorName="Astrosyo"
+  keywords={["angular size calculator", "angular diameter calculator", "small angle approximation", "apparent size astronomy", "physical size from angular size"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Angular Size and Physical Size Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/angular-size-calculator#calculator",
+    "description": "Interactive calculator that solves for angular size, physical size, or distance given the other two, using the exact trigonometric angular-size relation with the small-angle approximation shown for comparison."
+  }}
+/>

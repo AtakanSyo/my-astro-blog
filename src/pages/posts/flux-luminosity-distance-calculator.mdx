@@ -1,0 +1,104 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Flux, Luminosity & Distance Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-08-29'
+description: "Give any two of an astronomical source's flux, luminosity, and distance, and get the third via the inverse-square law — with optional uncertainty propagation and the isotropic-emission assumption stated explicitly."
+postColor: rgba(84, 24, 24, 1)
+slug: flux-luminosity-distance-calculator
+keywords:
+  - flux luminosity distance calculator
+  - inverse square law astronomy
+  - luminosity distance formula
+  - standard candle distance
+  - astrophysics flux calculator
+  - solar luminosity calculator
+  - error propagation astronomy
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import FluxLuminosityDistanceCalculator from "../../components/simulations/flux-luminosity-distance-calculator/FluxLuminosityDistanceCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <FluxLuminosityDistanceCalculator client:load />
+</figure>
+
+A star's true light output and how bright it looks from Earth are
+related by exactly one thing standing between them: distance. This is how
+astronomers turn "how bright does it look" into "how far away is it" —
+the same logic behind standard candles like Cepheid variables and Type Ia
+supernovae, which underpin much of the cosmic distance ladder. Give this
+calculator any two of flux, luminosity, and distance, and it solves for
+the third.
+
+## The inverse-square law
+
+A source radiating luminosity L in every direction equally spreads that
+power over the surface of an ever-expanding sphere as it travels. At
+distance d, that sphere has area 4πd², so the power crossing each square
+metre — the flux, F — is
+
+$$
+F = \frac{L}{4\pi d^2}
+$$
+
+This is the whole calculation. Solving it for whichever quantity you're
+missing just means rearranging: L = 4πd²F, or d = √(L / 4πF).
+
+## The isotropic-emission assumption — and where real flux departs from it
+
+This relation assumes the source radiates **isotropically**: equally in
+every direction, with nothing in the way. Real observations can depart
+from it for several concrete reasons:
+
+- **Absorption and extinction.** Dust and gas along the line of sight
+  absorb and scatter light, especially at shorter wavelengths — the
+  observed flux is genuinely lower than the inverse-square prediction,
+  not because the law is wrong but because some light never arrives.
+- **Beaming.** Sources with relativistic bulk motion toward the observer
+  (jets, some supernovae, gamma-ray bursts) concentrate their radiation
+  into a narrower cone than isotropic emission would, making them look
+  far brighter head-on than their true total power output would suggest.
+- **Cosmological distance definitions.** At everyday distances, "distance"
+  is unambiguous. Once the universe's expansion becomes significant, it
+  isn't: the *luminosity distance* that makes F = L/4πd² work out
+  correctly is a different number from the *angular-diameter distance*
+  or a naive light-travel-time distance, and they diverge more the
+  farther out you look. This calculator implements the flat, static-space
+  relation exactly as written above — treat any result at a genuinely
+  cosmological distance as illustrative rather than precise.
+
+## Uncertainty propagation
+
+Because F = L/4πd² is a pure power law, standard first-order error
+propagation is clean: relative uncertainties add in quadrature, with
+distance's contribution doubled going into flux or luminosity (since
+F ∝ d⁻²) and halved coming out of distance (since d ∝ F^-0.5). Enter an
+optional "± uncertainty" on either input quantity — in the same unit as
+that field — and the calculator propagates it through automatically.
+Leave both blank and it just shows the exact result with no uncertainty
+claimed.
+
+<SimPostSchema
+  title="Flux, Luminosity & Distance Calculator"
+  description="Give any two of an astronomical source's flux, luminosity, and distance, and get the third via the inverse-square law — with optional uncertainty propagation and the isotropic-emission assumption stated explicitly."
+  url="https://astrosyo.com/posts/flux-luminosity-distance-calculator"
+  datePublished="2026-08-29"
+  authorName="Astrosyo"
+  keywords={["flux luminosity distance calculator", "inverse square law astronomy", "luminosity distance formula", "standard candle distance", "error propagation astronomy"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Flux, Luminosity and Distance Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/flux-luminosity-distance-calculator#calculator",
+    "description": "Interactive calculator that solves for flux, luminosity, or distance given the other two, using the inverse-square law F = L/(4πd²), with optional Gaussian uncertainty propagation."
+  }}
+/>

@@ -1,0 +1,112 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Spectral Index Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-08-29'
+description: "Compute a radio source's spectral index α from two flux density measurements, classify it as steep, flat, or inverted, and extrapolate the predicted flux at any other frequency — with optional uncertainty propagation."
+postColor: rgba(30, 30, 68, 1)
+slug: spectral-index-calculator
+keywords:
+  - spectral index calculator
+  - radio astronomy spectral index
+  - flux density frequency
+  - steep spectrum radio source
+  - synchrotron spectral index
+  - jansky flux density calculator
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import SpectralIndexCalculator from "../../components/simulations/spectral-index-calculator/SpectralIndexCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <SpectralIndexCalculator client:load />
+</figure>
+
+Radio sources don't shine at one frequency — they have a whole spectrum,
+and how their brightness changes across it carries real physics. A single
+number, the spectral index α, captures the shape of that spectrum, and
+whether it's steep, flat, or rising tells you something about the
+underlying emission mechanism before you've done anything more
+sophisticated than compare two flux measurements.
+
+## The definition
+
+A source's flux density S_ν as a function of frequency ν is modeled as a
+power law:
+
+$$
+S_\nu \propto \nu^{\alpha}
+$$
+
+Given two measurements, S1 at ν1 and S2 at ν2, this rearranges to
+
+$$
+\alpha = \frac{\ln(S_2 / S_1)}{\ln(\nu_2 / \nu_1)}
+$$
+
+That same α then predicts the flux density at any third frequency ν3 via
+S3 = S1·(ν3/ν1)^α — useful for planning an observation at a frequency you
+haven't measured yet, or checking whether a source's known spectral shape
+is consistent with a new detection.
+
+**A note on sign convention.** This calculator uses S_ν ∝ ν^α, standard in
+radio survey catalogs (NVSS, VLSS, and most others). Some literature
+instead defines α through S_ν ∝ ν^-α — the opposite sign — so a quoted
+"α = 0.8" can mean a rising *or* a falling spectrum depending on the
+source. Always check convention before comparing values across papers.
+
+## What the shape of the spectrum tells you
+
+- **α ≈ 0 (flat spectrum):** common in compact, optically-thick AGN
+  cores — a superposition of many self-absorbed synchrotron components
+  peaking at different frequencies can conspire to look nearly flat
+  overall.
+- **α ≈ -0.5 to -1.2 (steep spectrum):** the classic signature of
+  optically-thin synchrotron emission from extended structures like radio
+  lobes and jets — the regime most extragalactic radio sources fall into.
+- **α ≲ -1.2 (ultra-steep spectrum):** used deliberately as a search
+  criterion for high-redshift radio galaxies, since spectral steepening
+  correlates statistically with distance.
+- **α > 0 (inverted spectrum):** the source is optically thick at the
+  observed frequencies — young, compact, or self-absorbed sources whose
+  emission hasn't yet freed itself from its own opacity.
+
+These bands are a useful rule of thumb, not a hard boundary — real
+spectra can curve, and the same source can sit in different categories at
+different frequency ranges.
+
+## Uncertainty and extrapolation
+
+Frequencies are normally known far more precisely than flux densities, so
+this calculator treats ν1, ν2, and ν3 as exact and propagates only the
+flux density uncertainties you supply. The resulting uncertainty on α
+scales inversely with how far apart ν1 and ν2 are in log-frequency —
+measurements close together in frequency give a much noisier α than ones
+spread widely apart, for the same flux precision. Extrapolating to ν3
+compounds α's uncertainty further, growing with how far ν3 sits from your
+anchor point — a genuine feature of projecting a power law outward, not
+an artifact of the calculation.
+
+<SimPostSchema
+  title="Spectral Index Calculator"
+  description="Compute a radio source's spectral index α from two flux density measurements, classify it as steep, flat, or inverted, and extrapolate the predicted flux at any other frequency — with optional uncertainty propagation."
+  url="https://astrosyo.com/posts/spectral-index-calculator"
+  datePublished="2026-08-29"
+  authorName="Astrosyo"
+  keywords={["spectral index calculator", "radio astronomy spectral index", "flux density frequency", "steep spectrum radio source", "synchrotron spectral index"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Spectral Index Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/spectral-index-calculator#calculator",
+    "description": "Interactive calculator that computes a radio source's spectral index from two flux density measurements, classifies its spectral shape, and extrapolates predicted flux at a third frequency, with optional Gaussian uncertainty propagation."
+  }}
+/>

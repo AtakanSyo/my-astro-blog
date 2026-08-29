@@ -1,0 +1,328 @@
+.fld {
+  --fld-accent: #a9b4ff;
+  --fld-bg: var(--card-bg, #1b1d22);
+  --fld-bg-2: #17191e;
+  --fld-border: var(--card-border, rgba(255, 255, 255, 0.1));
+  --fld-text: var(--color-text, #e4e4e4);
+  --fld-text-dim: rgba(228, 228, 228, 0.65);
+
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  color: var(--fld-text);
+  background: var(--fld-bg);
+  border: 1px solid var(--fld-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  font-variant-numeric: tabular-nums;
+}
+
+.fld-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.fld-title {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin: 0;
+  color: var(--fld-text);
+}
+
+.fld-presets {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.fld-preset-btn {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--fld-border);
+  background: var(--fld-bg-2);
+  color: var(--fld-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.fld-preset-btn:hover,
+.fld-preset-btn:focus-visible {
+  border-color: var(--fld-accent);
+  color: var(--fld-text);
+}
+
+.fld-explainer {
+  font-size: 0.8rem;
+  color: var(--fld-text-dim);
+  line-height: 1.5;
+  margin: 0 0 1rem;
+}
+
+.fld-explainer strong {
+  color: var(--fld-text);
+}
+
+.fld-solve-toggle {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.fld-solve-btn {
+  font-size: 0.75rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--fld-border);
+  background: var(--fld-bg-2);
+  color: var(--fld-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.fld-solve-btn:hover,
+.fld-solve-btn:focus-visible {
+  border-color: var(--fld-accent);
+  color: var(--fld-text);
+}
+
+.fld-solve-btn.active {
+  background: var(--fld-accent);
+  color: #14151a;
+  font-weight: 600;
+  border-color: var(--fld-accent);
+}
+
+.fld-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.fld-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.fld-field label {
+  font-size: 0.78rem;
+  color: var(--fld-text-dim);
+}
+
+.fld-input-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.fld-input {
+  flex: 1;
+  min-width: 0;
+  background: var(--fld-bg-2);
+  border: 1px solid var(--fld-border);
+  border-radius: 8px;
+  color: var(--fld-text);
+  font-size: 1rem;
+  padding: 0.5rem 0.65rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.fld-input:focus {
+  border-color: var(--fld-accent);
+}
+
+.fld-sigma-input {
+  background: var(--fld-bg-2);
+  border: 1px dashed var(--fld-border);
+  border-radius: 8px;
+  color: var(--fld-text-dim);
+  font-size: 0.82rem;
+  padding: 0.4rem 0.6rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.fld-sigma-input:focus {
+  border-color: var(--fld-accent);
+  color: var(--fld-text);
+}
+
+.fld-unit-select {
+  background: var(--fld-bg-2);
+  border: 1px solid var(--fld-border);
+  border-radius: 8px;
+  color: var(--fld-text);
+  font-size: 0.85rem;
+  padding: 0.5rem 0.5rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.fld-computed {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  background: rgba(169, 180, 255, 0.08);
+  border: 1px solid var(--fld-accent);
+  border-radius: 8px;
+  padding: 0.5rem 0.65rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--fld-text);
+}
+
+.fld-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.fld-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  background: var(--fld-bg-2);
+  border: 1px solid var(--fld-border);
+  border-radius: 8px;
+  padding: 0.55rem 0.75rem;
+}
+
+.fld-row--active {
+  border-color: var(--fld-accent);
+  background: rgba(169, 180, 255, 0.08);
+}
+
+.fld-row-label {
+  font-size: 0.85rem;
+  color: var(--fld-text-dim);
+}
+
+.fld-row-value {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--fld-text);
+  white-space: nowrap;
+}
+
+.fld-row-unit {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--fld-text-dim);
+}
+
+.fld-chart-wrap {
+  background: var(--fld-bg-2);
+  border: 1px solid var(--fld-border);
+  border-radius: 12px;
+  padding: 0.75rem 0.75rem 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.fld-chart-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.fld-chart-gridline {
+  stroke: var(--fld-border);
+  stroke-width: 1;
+}
+
+.fld-chart-axis-line {
+  stroke: var(--fld-text-dim);
+  stroke-width: 1;
+}
+
+.fld-chart-axis-label {
+  fill: var(--fld-text-dim);
+  font-size: 10px;
+}
+
+.fld-chart-fit-line {
+  stroke: var(--fld-accent);
+  stroke-width: 2.5;
+  fill: none;
+}
+
+.fld-chart-point {
+  fill: var(--fld-accent);
+  stroke: #14151a;
+  stroke-width: 1.5;
+}
+
+.fld-chart-point--ref {
+  fill: #e0c05c;
+  opacity: 0.9;
+}
+
+.fld-chart-point-label {
+  fill: var(--fld-text);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.fld-chart-point-label--ref {
+  fill: #e0c05c;
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.fld-chart-caption {
+  font-size: 0.72rem;
+  color: var(--fld-text-dim);
+  margin: 0.35rem 0 0;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.fld-note {
+  font-size: 0.78rem;
+  color: var(--fld-text-dim);
+  background: var(--fld-bg-2);
+  border: 1px solid var(--fld-border);
+  border-left: 3px solid var(--fld-accent);
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  line-height: 1.45;
+  margin: 0 0 1rem;
+}
+
+.fld-note--warn {
+  border-left-color: #ff8a7e;
+}
+
+.fld-footer-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.fld-copy-btn {
+  font-size: 0.78rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--fld-border);
+  background: var(--fld-bg-2);
+  color: var(--fld-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.fld-copy-btn:hover,
+.fld-copy-btn:focus-visible {
+  border-color: var(--fld-accent);
+  color: var(--fld-text);
+}
