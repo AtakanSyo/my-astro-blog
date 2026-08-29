@@ -25,7 +25,7 @@ function hasCat(frontmatter: any, needle: string) {
 }
 
 const simPostsAll = allPosts
-  .filter(({ frontmatter }) => hasCat(frontmatter, 'simulation'))
+  .filter(({ frontmatter }) => !frontmatter?.hidden && hasCat(frontmatter, 'simulation'))
   .sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime());
 
 const matchesFeatured = (post: any, ref: string) => {

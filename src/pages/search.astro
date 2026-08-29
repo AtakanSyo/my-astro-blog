@@ -9,12 +9,13 @@ import '../styles/searchPage.css';
 const allPosts = Object.values(
   import.meta.glob('./posts/*.{md,mdx}', { eager: true })
 ) as any[];
-allPosts.sort(
+const visiblePosts = allPosts.filter(({ frontmatter }) => !frontmatter?.hidden);
+visiblePosts.sort(
   (a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime()
 );
 
 // 2) Map into a shape that includes a formatted date string
-const posts = allPosts.map((p) => {
+const posts = visiblePosts.map((p) => {
   const raw = new Date(p.frontmatter.pubDate);
   const dateStr = raw.toLocaleDateString('en-GB', {
     day:   '2-digit',
