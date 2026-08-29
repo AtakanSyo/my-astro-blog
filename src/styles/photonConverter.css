@@ -1,0 +1,225 @@
+.pwf {
+  --pwf-accent: #a9b4ff;
+  --pwf-bg: var(--card-bg, #1b1d22);
+  --pwf-bg-2: #17191e;
+  --pwf-border: var(--card-border, rgba(255, 255, 255, 0.1));
+  --pwf-text: var(--color-text, #e4e4e4);
+  --pwf-text-dim: rgba(228, 228, 228, 0.65);
+
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  color: var(--pwf-text);
+  background: var(--pwf-bg);
+  border: 1px solid var(--pwf-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  font-variant-numeric: tabular-nums;
+}
+
+.pwf-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.1rem;
+}
+
+.pwf-title {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin: 0;
+  color: var(--pwf-text);
+}
+
+.pwf-presets {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.pwf-preset-btn {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--pwf-border);
+  background: var(--pwf-bg-2);
+  color: var(--pwf-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.pwf-preset-btn:hover,
+.pwf-preset-btn:focus-visible {
+  border-color: var(--pwf-accent);
+  color: var(--pwf-text);
+}
+
+.pwf-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-bottom: 1.2rem;
+}
+
+.pwf-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.pwf-field label {
+  font-size: 0.78rem;
+  color: var(--pwf-text-dim);
+}
+
+.pwf-field-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.pwf-input {
+  flex: 1;
+  min-width: 0;
+  background: var(--pwf-bg-2);
+  border: 1px solid var(--pwf-border);
+  border-radius: 8px;
+  color: var(--pwf-text);
+  font-size: 1rem;
+  padding: 0.5rem 0.65rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.pwf-input:focus {
+  border-color: var(--pwf-accent);
+}
+
+.pwf-unit-select {
+  background: var(--pwf-bg-2);
+  border: 1px solid var(--pwf-border);
+  border-radius: 8px;
+  color: var(--pwf-text);
+  font-size: 0.85rem;
+  padding: 0.5rem 0.5rem;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.pwf-unit-select:focus {
+  border-color: var(--pwf-accent);
+}
+
+.pwf-wave-card {
+  background: var(--pwf-bg-2);
+  border: 1px solid var(--pwf-border);
+  border-radius: 12px;
+  padding: 0.9rem 0.9rem 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.pwf-wave-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: hidden;
+}
+
+.pwf-wave-axis {
+  stroke: var(--pwf-border);
+  stroke-width: 1;
+}
+
+.pwf-wave-scroll {
+  animation-name: pwf-wave-scroll;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes pwf-wave-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-1 * var(--pwf-cycle-width, 66.67px)));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pwf-wave-scroll {
+    animation-play-state: paused;
+  }
+}
+
+.pwf-wave-path {
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.pwf-wave-caption {
+  font-size: 0.72rem;
+  color: var(--pwf-text-dim);
+  margin: 0.5rem 0 0;
+  line-height: 1.45;
+}
+
+.pwf-band-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--pwf-bg-2);
+  border: 1px solid var(--pwf-border);
+  border-radius: 12px;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.pwf-band-swatch {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.pwf-band-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.pwf-band-label {
+  font-size: 0.7rem;
+  color: var(--pwf-text-dim);
+}
+
+.pwf-band-value {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.pwf-footer-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.pwf-copy-btn {
+  font-size: 0.78rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--pwf-border);
+  background: var(--pwf-bg-2);
+  color: var(--pwf-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.pwf-copy-btn:hover,
+.pwf-copy-btn:focus-visible {
+  border-color: var(--pwf-accent);
+  color: var(--pwf-text);
+}

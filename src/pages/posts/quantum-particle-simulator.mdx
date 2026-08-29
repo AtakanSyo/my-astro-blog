@@ -1,0 +1,145 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Quantum Particle Simulator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-08-29'
+description: "Watch a quantum wave packet evolve in real time under a free particle, square wells, a harmonic oscillator, a step, or a tunneling barrier — an interactive numerical solution of the time-dependent Schrödinger equation."
+postColor: rgba(22, 46, 74, 1)
+slug: quantum-particle-simulator
+keywords:
+  - Schrodinger equation simulator
+  - quantum tunneling simulator
+  - wave packet simulation
+  - Crank-Nicolson method
+  - particle in a box simulator
+  - quantum harmonic oscillator simulation
+  - time-dependent Schrodinger equation
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import QuantumParticleSimulator from "../../components/simulations/quantum-particle-simulator/QuantumParticleSimulator.jsx";
+
+<figure class="post-figure post-figure-md" id="simulator">
+  <QuantumParticleSimulator client:load />
+</figure>
+
+A quantum particle isn't a point that moves along a trajectory — it's a
+wave packet, a localized blob of probability amplitude that spreads,
+reflects, and interferes according to the Schrödinger equation. Watching
+that wave packet evolve under different potentials is one of the most
+direct ways to see quantum behavior that has no classical counterpart at
+all: a particle partially reflecting off a step it has more than enough
+energy to climb, or passing straight through a barrier it classically
+could never cross.
+
+The simulator above initializes a Gaussian wave packet — you set its
+starting position, mean momentum, width, and mass — and evolves it live
+under a potential you choose: a free particle, an infinite or finite
+square well, a harmonic oscillator, a potential step, or a tunneling
+barrier. It plots the potential V(x), the real and imaginary parts of
+ψ(x,t), and the probability density |ψ(x,t)|², alongside running
+expectation values and, for the step and barrier, live reflection and
+transmission probabilities.
+
+## The equation being solved
+
+Everything on screen comes from numerically evolving the one-dimensional
+time-dependent Schrödinger equation,
+
+$$
+i\hbar\,\frac{\partial \psi}{\partial t} = -\frac{\hbar^2}{2m}\frac{\partial^2 \psi}{\partial x^2} + V(x)\,\psi(x,t)
+$$
+
+with an initial Gaussian wave packet
+
+$$
+\psi(x,0) = \left(2\pi\sigma^2\right)^{-1/4} \exp\!\left(-\frac{(x-x_0)^2}{4\sigma^2}\right) e^{\,i p_0 x/\hbar}
+$$
+
+The simulator works in dimensionless units with ħ = 1, in the same spirit
+as most pedagogical QM simulators — real electron or photon wave packets
+live on length and time scales far too small to animate directly, so
+position, momentum, energy, mass, and time here are all in these "natural"
+simulation units rather than SI.
+
+## Numerical method
+
+The equation is integrated with the **Crank-Nicolson** finite-difference
+scheme rather than the split-step Fourier method more commonly used for
+this problem. On a spatial grid of points xⱼ with the standard 3-point
+second-derivative stencil, the Hamiltonian is tridiagonal, and each time
+step solves
+
+$$
+\left(I + \frac{i\,\Delta t}{2\hbar}\hat H\right)\psi^{\,n+1} = \left(I - \frac{i\,\Delta t}{2\hbar}\hat H\right)\psi^{\,n}
+$$
+
+via a complex tridiagonal (Thomas algorithm) solve — O(N) per step, cheap
+enough to run several times per animation frame in plain JavaScript. This
+scheme is **unconditionally stable and exactly unitary** wherever the
+Hamiltonian is Hermitian, which is precisely why the sliders can be
+dragged live, at any timestep, without the simulation ever diverging.
+
+**Boundary conditions.** The grid can't extend to infinity, so scattering
+problems (the step and the barrier) need an open boundary that lets
+probability leave instead of reflecting unphysically off the domain's hard
+edges. This is handled with a **complex absorbing potential (CAP)**: a
+smooth -iη(x) term added only in a thin layer at each edge of the grid.
+It's not part of the physical potential — it's a purely numerical device
+that drains amplitude reaching the boundary, which is also why the total
+probability ("norm remaining," in the readouts) can decrease over time:
+it's not lost to a bug, it's the particle actually leaving the simulated
+region.
+
+**Infinite well.** An exactly infinite wall isn't representable on a
+finite-difference grid, so the infinite well is modeled as a very tall —
+numerically "infinite" — finite wall. Leakage through it is real but
+negligible at the wall height used here.
+
+## Reading the plots
+
+The top panel overlays V(x) with Re[ψ(x,t)] and Im[ψ(x,t)]; the bottom
+panel shows |ψ(x,t)|², the probability density of actually finding the
+particle at each position. Both panels use a **fixed vertical scale**, set
+from the initial packet rather than continuously auto-rescaled — so when
+the packet spreads, partially tunnels, or gets absorbed at a boundary, the
+peak height you see visibly drops, instead of being normalized away.
+
+The expectation values are computed directly from the discretized
+wavefunction: ⟨x⟩ and ⟨V⟩ as amplitude-weighted sums, ⟨p⟩ from a
+central-difference estimate of -iħ ∂ψ/∂x, and the kinetic term as
+
+$$
+\langle T\rangle = \frac{\hbar^2}{2m}\int\left|\frac{\partial \psi}{\partial x}\right|^2 dx
+$$
+
+— a form that's non-negative by construction — with ⟨E⟩ = ⟨T⟩ + ⟨V⟩.
+Reflection and transmission are read live as the fraction of |ψ|² currently
+on each side of the barrier or step; they settle to the true reflection
+and transmission probabilities once the packet has fully cleared the
+interaction region, so let it run rather than reading them the instant the
+packet arrives.
+
+<SimPostSchema
+  title="Quantum Particle Simulator"
+  description="Watch a quantum wave packet evolve in real time under a free particle, square wells, a harmonic oscillator, a step, or a tunneling barrier — an interactive numerical solution of the time-dependent Schrödinger equation."
+  url="https://astrosyo.com/posts/quantum-particle-simulator"
+  datePublished="2026-08-29"
+  authorName="Astrosyo"
+  keywords={["Schrodinger equation simulator", "quantum tunneling simulator", "wave packet simulation", "Crank-Nicolson method", "particle in a box", "quantum harmonic oscillator"]}
+  articleSection="Physics Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Quantum Particle Simulator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/quantum-particle-simulator#simulator",
+    "description": "Interactive numerical solver for the 1D time-dependent Schrodinger equation using a Crank-Nicolson finite-difference scheme, with selectable potentials (free particle, infinite/finite square well, harmonic oscillator, step, tunneling barrier), live wavefunction and probability-density plots, and expectation-value and reflection/transmission readouts."
+  }}
+/>

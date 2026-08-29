@@ -1,0 +1,90 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Astronomical Distance Converter"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-08-29'
+description: "Enter one distance in any unit and instantly see its equivalent in meters, kilometers, AU, light-years, parsecs, kiloparsecs, megaparsecs, and gigaparsecs — plus the light-travel time."
+postColor: rgba(20, 56, 58, 1)
+slug: astronomical-distance-converter
+keywords:
+  - astronomical distance converter
+  - light years to parsecs
+  - AU to light years
+  - parsec calculator
+  - light travel time calculator
+  - astronomy unit converter
+  - megaparsec to light years
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import AstronomicalDistanceConverter from "../../components/simulations/astronomical-distance-converter/AstronomicalDistanceConverter.jsx";
+
+<figure class="post-figure post-figure-md" id="converter">
+  <AstronomicalDistanceConverter client:load />
+</figure>
+
+Astronomy runs on a different set of rulers depending on what's being
+measured. A planetary orbit is naturally described in astronomical units;
+a nearby star, in light-years; the structure of the Galaxy, in kiloparsecs;
+the scale of the observable universe, in gigaparsecs. Converting between
+them by hand means chaining several huge or tiny multipliers together —
+this tool does it in one step: enter a distance in any unit and see it
+expressed in all of them at once.
+
+## The units, defined exactly
+
+Every conversion here comes from three fixed physical definitions, not
+measured or approximate values:
+
+$$
+1\ \text{AU} = 149{,}597{,}870{,}700\ \text{m} \qquad \text{(IAU 2012, exact)}
+$$
+
+$$
+1\ \text{pc} = \frac{648000}{\pi}\ \text{AU} \qquad \text{(IAU 2015 — the distance at which 1 AU subtends 1 arcsecond)}
+$$
+
+$$
+1\ \text{ly} = c \times 365.25\ \text{days} = 9{,}460{,}730{,}472{,}580{,}800\ \text{m}
+$$
+
+using the SI-exact speed of light, c = 299,792,458 m/s, and the Julian
+year (365.25 days of 86,400 SI seconds) that "light-year" is
+conventionally defined against. Kiloparsecs, megaparsecs, and gigaparsecs
+are simply 10³, 10⁶, and 10⁹ parsecs. Because all of these are
+*definitions* rather than measurements, every conversion below is exact to
+floating-point precision — nothing here depends on an external API or a
+value that could later be refined.
+
+## Light-travel time
+
+Distance and travel time are two sides of the same number once you fix a
+speed: light covers one light-year in exactly one year, by definition, so
+dividing any distance by c gives an intuitive second read on its scale —
+seconds for the Earth-Moon distance, minutes for the Earth-Sun distance,
+years for the nearest stars, and billions of years for the edge of the
+observable universe.
+
+<SimPostSchema
+  title="Astronomical Distance Converter"
+  description="Enter one distance in any unit and instantly see its equivalent in meters, kilometers, AU, light-years, parsecs, kiloparsecs, megaparsecs, and gigaparsecs — plus the light-travel time."
+  url="https://astrosyo.com/posts/astronomical-distance-converter"
+  datePublished="2026-08-29"
+  authorName="Astrosyo"
+  keywords={["astronomical distance converter", "light years to parsecs", "AU to light years", "parsec calculator", "light travel time calculator"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Astronomical Distance Converter",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/astronomical-distance-converter#converter",
+    "description": "Interactive converter between meters, kilometers, astronomical units, light-years, parsecs, kiloparsecs, megaparsecs, and gigaparsecs, with a live light-travel-time readout, using fixed IAU-defined constants."
+  }}
+/>

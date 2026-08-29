@@ -1,0 +1,219 @@
+.adc {
+  --adc-accent: #a9b4ff;
+  --adc-bg: var(--card-bg, #1b1d22);
+  --adc-bg-2: #17191e;
+  --adc-border: var(--card-border, rgba(255, 255, 255, 0.1));
+  --adc-text: var(--color-text, #e4e4e4);
+  --adc-text-dim: rgba(228, 228, 228, 0.65);
+
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+  color: var(--adc-text);
+  background: var(--adc-bg);
+  border: 1px solid var(--adc-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  font-variant-numeric: tabular-nums;
+}
+
+.adc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.1rem;
+}
+
+.adc-title {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin: 0;
+  color: var(--adc-text);
+}
+
+.adc-presets {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.adc-preset-btn {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--adc-border);
+  background: var(--adc-bg-2);
+  color: var(--adc-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.adc-preset-btn:hover,
+.adc-preset-btn:focus-visible {
+  border-color: var(--adc-accent);
+  color: var(--adc-text);
+}
+
+.adc-input-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.1rem;
+}
+
+@media (max-width: 480px) {
+  .adc-input-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.adc-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.adc-field label {
+  font-size: 0.78rem;
+  color: var(--adc-text-dim);
+}
+
+.adc-input,
+.adc-unit-select {
+  background: var(--adc-bg-2);
+  border: 1px solid var(--adc-border);
+  border-radius: 8px;
+  color: var(--adc-text);
+  font-size: 1rem;
+  padding: 0.5rem 0.65rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.adc-unit-select {
+  cursor: pointer;
+}
+
+.adc-input:focus,
+.adc-unit-select:focus {
+  border-color: var(--adc-accent);
+}
+
+.adc-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.adc-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  background: var(--adc-bg-2);
+  border: 1px solid var(--adc-border);
+  border-radius: 8px;
+  padding: 0.55rem 0.75rem;
+}
+
+.adc-row--active {
+  border-color: var(--adc-accent);
+  background: rgba(169, 180, 255, 0.08);
+}
+
+.adc-row-label {
+  font-size: 0.85rem;
+  color: var(--adc-text-dim);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.adc-row-badge {
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.1rem 0.4rem;
+  border-radius: 999px;
+  background: var(--adc-accent);
+  color: #14151a;
+  font-weight: 600;
+}
+
+.adc-row-value {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--adc-text);
+  white-space: nowrap;
+}
+
+.adc-row-unit {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--adc-text-dim);
+}
+
+.adc-time-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--adc-bg-2);
+  border: 1px solid var(--adc-border);
+  border-radius: 12px;
+  padding: 0.75rem 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.adc-time-label {
+  font-size: 0.78rem;
+  color: var(--adc-text-dim);
+}
+
+.adc-time-value {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.adc-note {
+  font-size: 0.78rem;
+  color: var(--adc-text-dim);
+  background: var(--adc-bg-2);
+  border: 1px solid var(--adc-border);
+  border-left: 3px solid var(--adc-accent);
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  line-height: 1.45;
+  margin: 0 0 1rem;
+}
+
+.adc-note--warn {
+  border-left-color: #ff8a7e;
+}
+
+.adc-footer-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.adc-copy-btn {
+  font-size: 0.78rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--adc-border);
+  background: var(--adc-bg-2);
+  color: var(--adc-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.adc-copy-btn:hover,
+.adc-copy-btn:focus-visible {
+  border-color: var(--adc-accent);
+  color: var(--adc-text);
+}

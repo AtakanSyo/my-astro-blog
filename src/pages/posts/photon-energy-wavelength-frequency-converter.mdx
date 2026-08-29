@@ -1,0 +1,74 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Photon Energy & Wavelength Calculator "
+category: simulation
+writer: Astrosyo
+pubDate: '2026-08-29'
+description: "Convert between photon energy, wavelength, and frequency instantly — type into any field and the other two update live, from radio waves to gamma rays."
+postColor: rgba(54, 32, 92, 1)
+slug: photon-energy-wavelength-frequency-converter
+keywords:
+  - photon energy calculator
+  - wavelength to energy converter
+  - frequency to wavelength converter
+  - eV to nm converter
+  - photon energy formula
+  - electromagnetic spectrum calculator
+  - keV to nm
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import PhotonConverter from "../../components/simulations/photon-energy-wavelength-frequency-converter/PhotonConverter.jsx";
+
+<figure class="post-figure post-figure-md" id="converter">
+  <PhotonConverter client:load />
+</figure>
+
+A photon's energy, wavelength, and frequency aren't three
+independent properties — they're three ways of describing
+the same thing. Fix any one of them and the other two follow
+immediately. That single relationship is why an X-ray
+telescope reports counts in keV while a radio telescope
+reports frequency in GHz and an optical astronomer talks in
+nanometres: it's all the same electromagnetic spectrum,
+just read off in whichever unit is most convenient for that
+regime.
+
+## The physics
+
+Two equations connect all three quantities. First, every wave obeys the universal relation between wavelength, frequency, and the speed of light:
+
+$$
+c = \lambda f
+$$
+
+Second, Planck's relation ties a photon's energy directly to its frequency (equivalently, its wavelength):
+
+$$
+E = hf = \frac{hc}{\lambda}, \qquad h \approx 6.626 \times 10^{-34}\ \text{J·s}
+$$
+
+Because $E$ and $f$ both scale directly with each other, and $\lambda$ scales inversely with them, higher-energy photons always mean shorter wavelengths and higher frequencies — a gamma ray isn't a "stronger" radio wave, it's the same phenomenon at the opposite end of an enormous logarithmic scale. The converter above applies these two equations both ways, so editing any of the three fields instantly recomputes the other two.
+
+<SimPostSchema
+  title="Photon Energy ↔ Wavelength ↔ Frequency Converter"
+  description="Convert between photon energy, wavelength, and frequency instantly — type into any field and the other two update live, from radio waves to gamma rays."
+  url="https://astrosyo.com/posts/photon-energy-wavelength-frequency-converter"
+  datePublished="2026-08-29"
+  authorName="Astrosyo"
+  keywords={["photon energy calculator", "wavelength to energy converter", "frequency to wavelength converter", "eV to nm converter", "electromagnetic spectrum calculator"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Photon Energy Wavelength Frequency Converter",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/photon-energy-wavelength-frequency-converter#converter",
+    "description": "Interactive converter between photon energy, wavelength, and frequency using E = hf = hc/λ, spanning radio through gamma-ray wavelengths, with live EM-spectrum band classification."
+  }}
+/>
