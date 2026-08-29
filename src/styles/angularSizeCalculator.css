@@ -21,6 +21,17 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* Override post-wide paragraph sizing for copy inside the calculator card. */
+.asc .asc-title,
+.asc .asc-explainer,
+.asc .asc-diagram-caption {
+  width: 100%;
+  max-width: none;
+  box-sizing: border-box;
+  padding-inline: 0;
+  overflow-wrap: anywhere;
+}
+
 .asc-header {
   display: flex;
   justify-content: space-between;
@@ -272,7 +283,7 @@
   font-weight: 600;
 }
 
-.asc-diagram-caption {
+.asc .asc-diagram-caption {
   font-size: 0.72rem;
   color: var(--asc-text-dim);
   margin: 0.35rem 0 0;
@@ -333,6 +344,10 @@
 }
 
 .asc-note {
+  width: 100%;
+  max-width: none;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
   font-size: 0.78rem;
   color: var(--asc-text-dim);
   background: var(--asc-bg-2);
