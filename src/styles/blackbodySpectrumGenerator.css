@@ -1,0 +1,350 @@
+.bsg {
+  --bsg-accent: #a9b4ff;
+  --bsg-bg: var(--card-bg, #1b1d22);
+  --bsg-bg-2: #17191e;
+  --bsg-border: var(--card-border, rgba(255, 255, 255, 0.1));
+  --bsg-text: var(--color-text, #e4e4e4);
+  --bsg-text-dim: rgba(228, 228, 228, 0.65);
+
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto;
+  color: var(--bsg-text);
+  background: var(--bsg-bg);
+  border: 1px solid var(--bsg-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  font-variant-numeric: tabular-nums;
+}
+
+.bsg-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.1rem;
+}
+
+.bsg-title {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin: 0;
+  color: var(--bsg-text);
+}
+
+.bsg-presets {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.bsg-preset-btn {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--bsg-border);
+  background: var(--bsg-bg-2);
+  color: var(--bsg-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.bsg-preset-btn:hover,
+.bsg-preset-btn:focus-visible {
+  border-color: var(--bsg-accent);
+  color: var(--bsg-text);
+}
+
+.bsg-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-bottom: 1.2rem;
+}
+
+.bsg-temp-control {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.bsg-temp-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.bsg-temp-row label {
+  font-size: 0.78rem;
+  color: var(--bsg-text-dim);
+  min-width: 90px;
+}
+
+.bsg-temp-input {
+  width: 6.5rem;
+  background: var(--bsg-bg-2);
+  border: 1px solid var(--bsg-border);
+  border-radius: 8px;
+  color: var(--bsg-text);
+  font-size: 1rem;
+  padding: 0.4rem 0.55rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.bsg-temp-input:focus {
+  border-color: var(--bsg-accent);
+}
+
+.bsg-temp-unit {
+  font-size: 0.85rem;
+  color: var(--bsg-text-dim);
+}
+
+.bsg-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #ff8a4f, #ffe08a, #cfe0ff, #8ab4ff);
+  outline: none;
+  cursor: pointer;
+}
+
+.bsg-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--bsg-thumb-color, #fff);
+  border: 2px solid #fff;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+}
+
+.bsg-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--bsg-thumb-color, #fff);
+  border: 2px solid #fff;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+}
+
+.bsg-toggles {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.bsg-scale-toggle {
+  display: inline-flex;
+  border: 1px solid var(--bsg-border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.bsg-scale-btn {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.75rem;
+  background: var(--bsg-bg-2);
+  color: var(--bsg-text-dim);
+  border: none;
+  cursor: pointer;
+}
+
+.bsg-scale-btn.active {
+  background: var(--bsg-accent);
+  color: #14151a;
+  font-weight: 600;
+}
+
+.bsg-compare-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  color: var(--bsg-text-dim);
+  cursor: pointer;
+}
+
+.bsg-compare-toggle input[type="checkbox"] {
+  accent-color: var(--bsg-accent);
+}
+
+.bsg-temp-control--compare {
+  padding-top: 0.6rem;
+  border-top: 1px dashed var(--bsg-border);
+}
+
+.bsg-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 220px;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+@media (max-width: 640px) {
+  .bsg-main {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bsg-chart-wrap {
+  min-width: 0;
+}
+
+.bsg-legend {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--bsg-text-dim);
+}
+
+.bsg-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.bsg-legend-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.bsg-legend-dot--dashed {
+  border-radius: 2px;
+}
+
+.bsg-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.bsg-gridline {
+  stroke: var(--bsg-border);
+  stroke-width: 1;
+}
+
+.bsg-axis-line {
+  stroke: var(--bsg-text-dim);
+  stroke-width: 1;
+}
+
+.bsg-axis-label {
+  fill: var(--bsg-text-dim);
+  font-size: 10px;
+}
+
+.bsg-band-label {
+  fill: var(--bsg-text-dim);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.bsg-y-caption {
+  font-size: 0.72rem;
+  color: var(--bsg-text-dim);
+  margin: 0.3rem 0 0;
+  text-align: center;
+}
+
+.bsg-readouts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.bsg-swatch-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--bsg-bg-2);
+  border: 1px solid var(--bsg-border);
+  border-radius: 12px;
+  padding: 0.75rem;
+}
+
+.bsg-swatch {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.bsg-swatch-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.bsg-swatch-label {
+  font-size: 0.7rem;
+  color: var(--bsg-text-dim);
+}
+
+.bsg-swatch-value {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.bsg-stats {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.bsg-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.bsg-stat dt {
+  font-size: 0.7rem;
+  color: var(--bsg-text-dim);
+}
+
+.bsg-stat dd {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.bsg-footer-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.bsg-copy-btn {
+  font-size: 0.78rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--bsg-border);
+  background: var(--bsg-bg-2);
+  color: var(--bsg-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.bsg-copy-btn:hover,
+.bsg-copy-btn:focus-visible {
+  border-color: var(--bsg-accent);
+  color: var(--bsg-text);
+}

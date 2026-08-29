@@ -1,0 +1,48 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "X-ray Hardness Ratio Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-08-29'
+description: "Compute the X-ray hardness ratio HR from soft and hard band counts, with Poisson error propagation. Free interactive tool."
+postColor: rgba(45, 28, 92, 1)
+slug: xray-hardness-ratio-calculator
+keywords:
+  - hardness ratio calculator
+  - X-ray hardness ratio
+  - X-ray astronomy
+  - soft band hard band X-ray
+  - Chandra hardness ratio
+  - XMM-Newton hardness ratio
+  - astronomy calculator
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import HardnessRatioCalculator from "../../components/simulations/xray-hardness-ratio-calculator/HardnessRatioCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <HardnessRatioCalculator client:load />
+</figure>
+
+<SimPostSchema
+  title="X-ray Hardness Ratio Calculator"
+  description="Compute the X-ray hardness ratio HR = (H − S) / (H + S) from soft- and hard-band counts, with Poisson error propagation."
+  url="https://astrosyo.com/posts/xray-hardness-ratio-calculator"
+  datePublished="2026-08-29"
+  authorName="Astrosyo"
+  keywords={["hardness ratio calculator", "X-ray hardness ratio", "X-ray astronomy", "Chandra", "XMM-Newton"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "X-ray Hardness Ratio Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/xray-hardness-ratio-calculator#calculator",
+    "description": "Interactive calculator that computes the X-ray hardness ratio and its Poisson-propagated uncertainty from soft- and hard-band counts."
+  }}
+/>

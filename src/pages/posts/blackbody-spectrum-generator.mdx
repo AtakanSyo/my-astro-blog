@@ -1,0 +1,78 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Blackbody Spectrum Generator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-08-29'
+description: "Enter a temperature and watch the blackbody spectrum draw itself in real time — Planck's law, Wien's law, Stefan–Boltzmann flux, and the object's true apparent color, computed live."
+postColor: rgba(98, 54, 18, 1)
+slug: blackbody-spectrum-generator
+keywords:
+  - blackbody spectrum calculator
+  - blackbody radiation calculator
+  - Planck's law calculator
+  - star color temperature
+  - Kelvin to RGB
+  - spectral radiance calculator
+  - Wien's law calculator
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import BlackbodySpectrumGenerator from "../../components/simulations/blackbody-spectrum-generator/BlackbodySpectrumGenerator.jsx";
+
+<figure class="post-figure post-figure-md" id="generator">
+  <BlackbodySpectrumGenerator client:load />
+</figure>
+
+Any object emits a continuous spread of electromagnetic 
+radiation determined almost entirely by one number, its 
+temperature. An idealized perfect emitter is called a 
+*blackbody*, and the curve it traces out — 
+how much light it puts out at every wavelength — is one 
+of the most useful shapes in all of physics. It's what 
+tells you a star's color from its temperature.
+
+## The physics
+
+Three laws describe the whole curve. First, Planck's law itself — the spectral radiance emitted at wavelength λ by a blackbody at temperature T:
+
+$$
+B(\lambda, T) = \frac{2hc^2}{\lambda^5} \cdot \frac{1}{e^{hc/(\lambda k_B T)} - 1}
+$$
+
+Second, Wien's displacement law — where the peak of that curve sits:
+
+$$
+\lambda_{\max} = \frac{b}{T}, \qquad b \approx 2.898 \times 10^{-3}\ \text{m·K}
+$$
+
+Hotter objects peak at shorter wavelengths — bluer light. Third, the Stefan–Boltzmann law — the total power radiated per unit area, integrated across all wavelengths:
+
+$$
+j^{\star} = \sigma T^4, \qquad \sigma \approx 5.670 \times 10^{-8}\ \text{W/m}^2\text{K}^4
+$$
+
+That fourth-power dependence is why small temperature changes matter so much: double an object's temperature and it radiates sixteen times more power per unit area. The generator above computes all three live as you move the slider, alongside the full curve.
+
+<SimPostSchema
+  title="Blackbody Spectrum Generator"
+  description="Enter a temperature and watch the blackbody spectrum draw itself in real time — Planck's law, Wien's law, Stefan–Boltzmann flux, and the object's true apparent color, computed live."
+  url="https://astrosyo.com/posts/blackbody-spectrum-generator"
+  datePublished="2026-08-29"
+  authorName="Astrosyo"
+  keywords={["blackbody spectrum calculator", "blackbody radiation calculator", "Planck's law", "star color temperature", "Wien's law", "Stefan-Boltzmann law"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Blackbody Spectrum Generator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/blackbody-spectrum-generator#generator",
+    "description": "Interactive tool that plots the Planck blackbody spectrum in real time from a temperature input, with Wien's law, Stefan-Boltzmann flux, and CIE-derived apparent color."
+  }}
+/>
