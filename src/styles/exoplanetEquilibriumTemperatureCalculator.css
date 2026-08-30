@@ -300,6 +300,8 @@
 .eet-footer-row {
   display: flex;
   justify-content: flex-end;
+  flex-wrap: wrap;
+  row-gap: 0.5rem;
 }
 
 .eet-copy-btn {

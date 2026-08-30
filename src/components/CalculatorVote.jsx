@@ -93,6 +93,7 @@ export default function CalculatorVote({ slug }) {
 
   return (
     <div className="calc-vote" role="group" aria-label="Rate this calculator" aria-busy={loading}>
+      <span className="calc-vote-label">Was this helpful?</span>
       <button
         type="button"
         className={`calc-vote-btn${myVote === 1 ? " is-active" : ""}`}

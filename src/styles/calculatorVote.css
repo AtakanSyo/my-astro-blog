@@ -1,8 +1,15 @@
 .calc-vote {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
   margin-right: 0.6rem;
+}
+
+.calc-vote-label {
+  font-size: 0.78rem;
+  color: rgba(228, 228, 228, 0.65);
+  white-space: nowrap;
 }
 
 .calc-vote-btn {
