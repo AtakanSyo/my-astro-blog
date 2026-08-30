@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { UNITS, UNIT_ORDER, toMeters, fromMeters, formatLightTime } from "./distances";
+import { DISTANCES_TEST_COLUMNS, DISTANCES_TEST_SOURCES, getDistancesTestRows } from "./distancesTests";
 import "../../../styles/astronomicalDistanceConverter.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import CalculatorTests from "../../CalculatorTests.jsx";
 
 const PRESETS = [
   { label: "Earth–Moon distance", value: 384400, unit: "km" },
@@ -164,6 +166,13 @@ export default function AstronomicalDistanceConverter() {
     setUnit(preset.unit);
   };
 
+  // Self-check rows: runs the real distancesTests.js functions against
+
+  // identities, edge cases, and (where cited) real reference data.
+
+  const testRows = useMemo(() => getDistancesTestRows(), []);
+
+
   const copyLink = async () => {
     if (typeof window === "undefined") return;
     try {
@@ -303,6 +312,12 @@ export default function AstronomicalDistanceConverter() {
 
       <div className="adc-footer-row">
         <CalculatorVote slug="astronomical-distance-converter" />
+        <CalculatorTests
+          title="Astronomical Distance Converter — Tests"
+          columns={DISTANCES_TEST_COLUMNS}
+          rows={testRows}
+          sources={DISTANCES_TEST_SOURCES}
+        />
         <button type="button" className="adc-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

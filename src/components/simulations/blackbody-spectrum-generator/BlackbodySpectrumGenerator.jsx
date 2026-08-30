@@ -7,8 +7,10 @@ import {
   rgbToCss,
   rgbToHex,
 } from "./physics";
+import { BLACKBODY_TEST_COLUMNS, BLACKBODY_TEST_SOURCES, getBlackbodyTestRows } from "./physicsTests";
 import "../../../styles/blackbodySpectrumGenerator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import CalculatorTests from "../../CalculatorTests.jsx";
 
 const TEMP_MIN = 300;
 const TEMP_MAX = 50000;
@@ -228,6 +230,13 @@ export default function BlackbodySpectrumGenerator() {
   const applyPreset = (t) => {
     setTemp(t);
   };
+
+  // Self-check rows: runs the real physicsTests.js functions against
+
+  // identities, edge cases, and (where cited) real reference data.
+
+  const testRows = useMemo(() => getBlackbodyTestRows(), []);
+
 
   const copyLink = async () => {
     if (typeof window === "undefined") return;
@@ -508,6 +517,12 @@ export default function BlackbodySpectrumGenerator() {
 
       <div className="bsg-footer-row">
         <CalculatorVote slug="blackbody-spectrum-generator" />
+        <CalculatorTests
+          title="Blackbody Spectrum Generator — Tests"
+          columns={BLACKBODY_TEST_COLUMNS}
+          rows={testRows}
+          sources={BLACKBODY_TEST_SOURCES}
+        />
         <button type="button" className="bsg-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

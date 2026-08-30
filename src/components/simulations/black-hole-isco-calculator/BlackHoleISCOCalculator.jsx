@@ -8,8 +8,10 @@ import {
   horizonRadiusRg,
   accretionEfficiency,
 } from "./kerr";
+import { KERR_TEST_COLUMNS, KERR_TEST_SOURCES, getKerrTestRows } from "./kerrTests";
 import "../../../styles/blackHoleISCOCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import CalculatorTests from "../../CalculatorTests.jsx";
 
 // Every preset pairs a real (or pedagogically extreme) spin with a
 // plausible mass, so applying one and reading the diagram/table always
@@ -179,6 +181,13 @@ export default function BlackHoleISCOCalculator() {
     setMassUnit(preset.massUnit);
     setAStar(String(preset.aStar));
   };
+
+  // Self-check rows: runs the real kerrTests.js functions against
+
+  // identities, edge cases, and (where cited) real reference data.
+
+  const testRows = useMemo(() => getKerrTestRows(), []);
+
 
   const copyLink = async () => {
     if (typeof window === "undefined") return;
@@ -391,6 +400,12 @@ export default function BlackHoleISCOCalculator() {
 
       <div className="bhi-footer-row">
         <CalculatorVote slug="black-hole-isco-calculator" />
+        <CalculatorTests
+          title="Black Hole ISCO Calculator — Tests"
+          columns={KERR_TEST_COLUMNS}
+          rows={testRows}
+          sources={KERR_TEST_SOURCES}
+        />
         <button type="button" className="bhi-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

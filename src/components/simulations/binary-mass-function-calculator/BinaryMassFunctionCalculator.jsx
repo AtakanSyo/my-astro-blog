@@ -9,8 +9,10 @@ import {
   massFunctionSolar,
   solveCompanionMass,
 } from "./binaryMassFunction";
+import { BINARY_MASS_FUNCTION_TEST_COLUMNS, BINARY_MASS_FUNCTION_TEST_SOURCES, getBinaryMassFunctionTestRows } from "./binaryMassFunctionTests";
 import "../../../styles/binaryMassFunctionCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import CalculatorTests from "../../CalculatorTests.jsx";
 
 // Every preset is self-consistent: applying one and toggling "estimate
 // companion mass" on/off never shows a jarring mismatch, because f(M)
@@ -245,6 +247,13 @@ export default function BinaryMassFunctionCalculator() {
     setInclination(String(preset.i));
   };
 
+  // Self-check rows: runs the real binaryMassFunctionTests.js functions against
+
+  // identities, edge cases, and (where cited) real reference data.
+
+  const testRows = useMemo(() => getBinaryMassFunctionTestRows(), []);
+
+
   const copyLink = async () => {
     if (typeof window === "undefined") return;
     try {
@@ -431,6 +440,12 @@ export default function BinaryMassFunctionCalculator() {
 
       <div className="bmf-footer-row">
         <CalculatorVote slug="binary-mass-function-calculator" />
+        <CalculatorTests
+          title="Binary Mass Function Calculator — Tests"
+          columns={BINARY_MASS_FUNCTION_TEST_COLUMNS}
+          rows={testRows}
+          sources={BINARY_MASS_FUNCTION_TEST_SOURCES}
+        />
         <button type="button" className="bmf-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

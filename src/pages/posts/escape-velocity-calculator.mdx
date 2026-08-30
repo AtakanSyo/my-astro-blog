@@ -1,0 +1,115 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Escape Velocity Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-08-30'
+description: "Calculate the speed needed to leave a body's gravity for good, v_esc = √(2GM/r), from Earth, the Moon, Mars, Jupiter, the Sun, a white dwarf, or a neutron star — in km/s, m/s, and as a fraction of c — with a log-scale comparison ladder from a small asteroid to a neutron star, and the exact link to this site's Schwarzschild radius calculator."
+postColor: rgba(16, 40, 64, 1)
+slug: escape-velocity-calculator
+keywords:
+  - escape velocity calculator
+  - escape velocity formula
+  - Earth escape velocity 11.2 km/s
+  - neutron star escape velocity
+  - escape velocity vs Schwarzschild radius
+  - v equals square root of 2GM over r
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import EscapeVelocityCalculator from "../../components/simulations/escape-velocity-calculator/EscapeVelocityCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <EscapeVelocityCalculator client:load />
+</figure>
+
+Fire a cannonball fast enough, straight up, sideways, or at any angle at
+all, and there's a speed beyond which it never comes back — not because
+it out-races gravity, but because it has exactly enough energy to coast
+to infinity with nothing left over. That speed is the escape velocity,
+and it depends on nothing but the mass you're leaving and how far from
+its center you start.
+
+## The formula
+
+$$
+v_{\rm esc} = \sqrt{\frac{2GM}{r}}
+$$
+
+This falls straight out of energy conservation: set kinetic energy equal
+to the magnitude of gravitational potential energy, ½mv² = GMm/r, and the
+test mass m cancels out entirely. That cancellation is the whole story —
+it's why escape velocity applies equally to a pebble and a spacecraft
+launched from the same radius.
+
+## Direction doesn't matter — and neither does the formula know about air
+
+Two things about this formula surprise people the most:
+
+- **It's an energy condition, not a trajectory.** Nothing in
+  ½mv² = GMm/r says which way you're pointed. Straight up, sideways, at
+  45°, even briefly downward before curving away — the same speed at the
+  same r is enough, ignoring drag and other bodies. "Escape velocity" is
+  really "escape speed."
+- **It says nothing about atmosphere.** Earth's escape velocity is about
+  11.2 km/s, but no real rocket burns straight to 11.2 km/s and coasts
+  out — a real launch fights drag and gravity losses the entire way up
+  through the atmosphere, so the actual delta-v budget is considerably
+  higher than the bare formula suggests. This calculator gives you the
+  idealized, vacuum, point-mass number; real spaceflight engineering adds
+  a substantial margin on top of it.
+
+## The endpoint: where this formula becomes a black hole
+
+Hold the mass M fixed and shrink the radius r, and v_esc climbs without
+bound. Shrink r far enough, and v_esc reaches c — the speed of light,
+the fastest anything can go. Set v_esc = c in the formula above and solve
+for r:
+
+$$
+r_s = \frac{2GM}{c^2}
+$$
+
+That's the Schwarzschild radius, and it isn't a coincidence that it uses
+the same G, M, and a factor of 2 — **it's the exact same equation,
+solved for the radius where escape speed hits the speed of light instead
+of solved for the speed itself.** This calculator and this site's
+[Schwarzschild Radius Calculator](/posts/schwarzschild-radius-calculator)
+are two views of one formula. Every result on this page includes the
+Schwarzschild radius for whatever mass you've entered, and how many
+Schwarzschild radii away the current radius sits — the smaller that
+ratio gets, the closer that mass is to being a black hole.
+
+## Reading the comparison ladder
+
+The ladder plots escape velocity on a log scale from a small asteroid up
+through a neutron star — a span of almost **nine** orders of magnitude,
+not four: Bennu's escape velocity is a gentle stroll (about 20 cm/s, a
+figure NASA's OSIRIS-REx team liked to point out — you could jog fast
+enough to leave it), while a typical neutron star's sits at roughly
+60% of the speed of light. Between them: the Moon, Mars, Earth, Jupiter,
+the Sun, and a white dwarf, each a stepping stone in the same climb from
+"toy gravity" to "relativity is no longer optional."
+
+<SimPostSchema
+  title="Escape Velocity Calculator"
+  description="Calculate the speed needed to leave a body's gravity for good, v_esc = √(2GM/r), from Earth, the Moon, Mars, Jupiter, the Sun, a white dwarf, or a neutron star — in km/s, m/s, and as a fraction of c — with a log-scale comparison ladder from a small asteroid to a neutron star, and the exact link to this site's Schwarzschild radius calculator."
+  url="https://astrosyo.com/posts/escape-velocity-calculator"
+  datePublished="2026-08-30"
+  authorName="Astrosyo"
+  keywords={["escape velocity calculator", "escape velocity formula", "Earth escape velocity 11.2 km/s", "neutron star escape velocity", "escape velocity vs Schwarzschild radius"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Escape Velocity Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/escape-velocity-calculator#calculator",
+    "description": "Interactive calculator that computes escape velocity from mass and radius (or solves for mass or radius given a target escape velocity), in km/s, m/s, and as a fraction of the speed of light, with presets for Earth, the Moon, Mars, Jupiter, the Sun, a white dwarf, and a neutron star, a log-scale comparison ladder from a small asteroid to a neutron star, and a direct comparison to the Schwarzschild radius for the same mass."
+  }}
+/>
