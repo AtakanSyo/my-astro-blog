@@ -100,11 +100,11 @@ export default function SearchPosts({ posts = /** @type {SearchPost[]} */ ([]), 
   {filtered.map((p) => {
     const fm = p.frontmatter || {};
     const hasThumb = Boolean(fm.thumbnail);
-    const cardClass = `post-card post-card--row${hasThumb ? '' : ' post-card--no-thumb'}`;
+    const cardClass = `post-card post-card--row post-card--compact${hasThumb ? '' : ' post-card--no-thumb'}`;
 
     return (
       <div className={cardClass} style={getCardStyle(fm.postColor)} key={p.url}>
-        <a href={p.url} className="post-card-link post-card-link--row">
+        <a href={p.url} className="post-card-link post-card-link--row post-card-link--compact">
           {hasThumb && (
             <div className="post-card-thumb">
               <img
