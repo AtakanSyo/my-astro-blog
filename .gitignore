@@ -17,6 +17,10 @@ pnpm-debug.log*
 .env
 .env.production
 
+# supabase CLI local cache / MCP config (contains access token)
+supabase/.temp/
+.mcp.json
+
 # macOS-specific files
 .DS_Store
 

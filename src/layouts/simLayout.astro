@@ -5,11 +5,13 @@ import '../styles/postsGlobal.css';  // ← pulls in your global styles
 import '../styles/simGlobal.css';  // ← pulls in your global styles
 import SocialShare from '../components/SocialShare.astro';
 import FeedbackCTA from '../components/FeedbackCTA.astro';
+import CalculatorVote from '../components/CalculatorVote.jsx';
 
 const {
   title,
   description,
   url,
+  slug,
 } = Astro.props.frontmatter;
 
 const rawPostColor = typeof Astro.props.frontmatter?.postColor === "string"
@@ -67,6 +69,8 @@ const articleStyle = [
       <h1 class="sim-article-title fade-up">{title}</h1>
       <p class="post-description">{description}</p>
 <!-- <SocialShare frontmatter={Astro.props.frontmatter} url={url} /> -->    </div>
+
+    {slug && <CalculatorVote slug={slug} client:load />}
 
     <slot />
   </article>
