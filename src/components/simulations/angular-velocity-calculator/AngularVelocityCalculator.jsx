@@ -19,8 +19,10 @@ import {
   periodFromOmega,
   tangentialVelocity,
 } from "./angularVelocity";
+import { ANGULAR_VELOCITY_TEST_COLUMNS, ANGULAR_VELOCITY_TEST_SOURCES, getAngularVelocityTestRows } from "./angularVelocityTests";
 import "../../../styles/angularVelocityCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import CalculatorTests from "../../CalculatorTests.jsx";
 
 // Every preset is self-consistent (mode + all three input branches would
 // agree), and doubles as a landmark on the comparison ladder below.
@@ -201,6 +203,11 @@ export default function AngularVelocityCalculator() {
       landmarks: OMEGA_LANDMARKS.map((l, i) => ({ ...l, x: xScale(Math.log10(l.omegaRadS)), row: i % 2 })),
     };
   }, [result]);
+
+  // Self-check rows: runs the real angularVelocity.js functions against
+  // pure identities and known reference constants — independent of the
+  // fields above.
+  const testRows = useMemo(() => getAngularVelocityTestRows(), []);
 
   const applyPreset = (preset) => {
     setMode(preset.mode);
@@ -385,6 +392,12 @@ export default function AngularVelocityCalculator() {
 
       <div className="avc-footer-row">
         <CalculatorVote slug="angular-velocity-calculator" />
+        <CalculatorTests
+          title="Angular Velocity Calculator — Tests"
+          columns={ANGULAR_VELOCITY_TEST_COLUMNS}
+          rows={testRows}
+          sources={ANGULAR_VELOCITY_TEST_SOURCES}
+        />
         <button type="button" className="avc-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>
