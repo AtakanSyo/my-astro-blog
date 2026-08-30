@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import "../../../styles/xrayHardnessRatioCalculator.css";
+import CalculatorVote from "../../CalculatorVote.jsx";
 
 const PRESETS = [
   { label: "Soft source (corona-like)", soft: "200", hard: "30" },
@@ -295,6 +296,7 @@ export default function HardnessRatioCalculator() {
           )}
 
           <div className="hrc-footer-row">
+            <CalculatorVote slug="xray-hardness-ratio-calculator" />
             <button type="button" className="hrc-copy-btn" onClick={copyLink}>
               {copied ? "Link copied" : "Copy shareable link"}
             </button>

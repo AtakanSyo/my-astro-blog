@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Efunc, lookbackTimeGyr, ageOfUniverseTodayGyr } from "./cosmology";
 import "../../../styles/cosmologicalLookbackTimeCalculator.css";
+import CalculatorVote from "../../CalculatorVote.jsx";
 
 // Each preset sets a full, self-consistent state (redshift + cosmology),
 // so applying one and then tweaking a field afterward always starts from
@@ -363,6 +364,7 @@ export default function CosmologicalLookbackTimeCalculator() {
       </p>
 
       <div className="clc-footer-row">
+        <CalculatorVote slug="cosmological-lookback-time-calculator" />
         <button type="button" className="clc-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

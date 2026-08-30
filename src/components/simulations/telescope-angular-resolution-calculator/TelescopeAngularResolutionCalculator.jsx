@@ -14,6 +14,7 @@ import {
   dawesLimitRad,
 } from "./angularResolution";
 import "../../../styles/telescopeAngularResolutionCalculator.css";
+import CalculatorVote from "../../CalculatorVote.jsx";
 
 // Every preset is a real (or realistic) aperture + wavelength pair, and
 // doubles as a landmark on the comparison ruler below.
@@ -315,6 +316,7 @@ export default function TelescopeAngularResolutionCalculator() {
       </p>
 
       <div className="tar-footer-row">
+        <CalculatorVote slug="telescope-angular-resolution-calculator" />
         <button type="button" className="tar-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

@@ -15,6 +15,7 @@ import {
   hillRadiusPeriapsis,
 } from "./hillSphere";
 import "../../../styles/hillSphereCalculator.css";
+import CalculatorVote from "../../CalculatorVote.jsx";
 
 // Every preset is a real (or realistically illustrative) orbiting-body +
 // host pair, and doubles as a permanent landmark on the comparison
@@ -351,6 +352,7 @@ export default function HillSphereCalculator() {
       )}
 
       <div className="hsc-footer-row">
+        <CalculatorVote slug="hill-sphere-calculator" />
         <button type="button" className="hsc-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

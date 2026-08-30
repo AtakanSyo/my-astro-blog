@@ -11,6 +11,7 @@ import {
   distanceFromMagnitudes,
 } from "./distanceModulus";
 import "../../../styles/distanceModulusCalculator.css";
+import CalculatorVote from "../../CalculatorVote.jsx";
 
 // Every preset is self-consistent under all three "solve for" choices, so
 // switching "solve for" after applying one never shows a jarring mismatch.
@@ -515,6 +516,7 @@ export default function DistanceModulusCalculator() {
       )}
 
       <div className="dmc-footer-row">
+        <CalculatorVote slug="distance-modulus-calculator" />
         <button type="button" className="dmc-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

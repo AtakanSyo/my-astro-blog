@@ -13,6 +13,7 @@ import {
   kelvinToCelsius,
 } from "./equilibriumTemp";
 import "../../../styles/exoplanetEquilibriumTemperatureCalculator.css";
+import CalculatorVote from "../../CalculatorVote.jsx";
 
 // Every preset is a real (or realistically illustrative) star-planet
 // pair, so switching the redistribution model after applying one always
@@ -358,6 +359,7 @@ export default function ExoplanetEquilibriumTemperatureCalculator() {
       )}
 
       <div className="eet-footer-row">
+        <CalculatorVote slug="exoplanet-equilibrium-temperature-calculator" />
         <button type="button" className="eet-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

@@ -14,6 +14,7 @@ import {
   visibleWavelengthToRgb,
 } from "./physics";
 import "../../../styles/photonConverter.css";
+import CalculatorVote from "../../CalculatorVote.jsx";
 
 const PRESETS = [
   { label: "FM radio (100 MHz)", wavelengthM: C / 100e6 },
@@ -351,6 +352,7 @@ export default function PhotonConverter() {
       </div>
 
       <div className="pwf-footer-row">
+        <CalculatorVote slug="photon-energy-wavelength-frequency-converter" />
         <button type="button" className="pwf-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

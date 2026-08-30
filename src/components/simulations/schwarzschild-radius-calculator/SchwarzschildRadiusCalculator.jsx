@@ -14,6 +14,7 @@ import {
   closestSizeComparison,
 } from "./schwarzschild";
 import "../../../styles/schwarzschildRadiusCalculator.css";
+import CalculatorVote from "../../CalculatorVote.jsx";
 
 // Every preset is self-consistent under both "solve for" choices — the
 // mass and radius always match — and doubles as a landmark point on the
@@ -402,6 +403,7 @@ export default function SchwarzschildRadiusCalculator() {
       )}
 
       <div className="szr-footer-row">
+        <CalculatorVote slug="schwarzschild-radius-calculator" />
         <button type="button" className="szr-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

@@ -17,6 +17,7 @@ import {
   ratioRelativistic,
 } from "./doppler";
 import "../../../styles/dopplerRadialVelocityCalculator.css";
+import CalculatorVote from "../../CalculatorVote.jsx";
 
 // Every preset is self-consistent under both solve directions and both
 // modes, so switching either after applying one never shows a jarring
@@ -449,6 +450,7 @@ export default function DopplerRadialVelocityCalculator() {
       )}
 
       <div className="drv-footer-row">
+        <CalculatorVote slug="doppler-radial-velocity-calculator" />
         <button type="button" className="drv-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

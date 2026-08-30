@@ -20,6 +20,7 @@ import {
   tangentialVelocity,
 } from "./angularVelocity";
 import "../../../styles/angularVelocityCalculator.css";
+import CalculatorVote from "../../CalculatorVote.jsx";
 
 // Every preset is self-consistent (mode + all three input branches would
 // agree), and doubles as a landmark on the comparison ladder below.
@@ -383,6 +384,7 @@ export default function AngularVelocityCalculator() {
       )}
 
       <div className="avc-footer-row">
+        <CalculatorVote slug="angular-velocity-calculator" />
         <button type="button" className="avc-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

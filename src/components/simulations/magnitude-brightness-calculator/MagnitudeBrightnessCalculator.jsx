@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { ratioFromMagDiff, magDiffFromRatio, ratioForMagnitudeStep, describeRatio, niceStep } from "./magnitude";
 import "../../../styles/magnitudeBrightnessCalculator.css";
+import CalculatorVote from "../../CalculatorVote.jsx";
 
 // Every preset is given as a pair of magnitudes — the equivalent ratio
 // and "which is brighter" toggle are derived on apply, so the two modes
@@ -446,6 +447,7 @@ export default function MagnitudeBrightnessCalculator() {
       )}
 
       <div className="mbc-footer-row">
+        <CalculatorVote slug="magnitude-brightness-calculator" />
         <button type="button" className="mbc-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

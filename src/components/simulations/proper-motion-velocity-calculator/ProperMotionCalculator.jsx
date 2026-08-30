@@ -20,6 +20,7 @@ import {
   totalSpaceVelocity,
 } from "./properMotion";
 import "../../../styles/properMotionVelocityCalculator.css";
+import CalculatorVote from "../../CalculatorVote.jsx";
 
 const PRESETS = [
   {
@@ -435,6 +436,7 @@ export default function ProperMotionCalculator() {
       )}
 
       <div className="pmc-footer-row">
+        <CalculatorVote slug="proper-motion-velocity-calculator" />
         <button type="button" className="pmc-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

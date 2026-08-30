@@ -8,6 +8,7 @@ import {
   rgbToHex,
 } from "./physics";
 import "../../../styles/blackbodySpectrumGenerator.css";
+import CalculatorVote from "../../CalculatorVote.jsx";
 
 const TEMP_MIN = 300;
 const TEMP_MAX = 50000;
@@ -506,6 +507,7 @@ export default function BlackbodySpectrumGenerator() {
       </div>
 
       <div className="bsg-footer-row">
+        <CalculatorVote slug="blackbody-spectrum-generator" />
         <button type="button" className="bsg-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

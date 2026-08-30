@@ -13,6 +13,7 @@ import {
   classifySpectrum,
 } from "./spectral";
 import "../../../styles/spectralIndexCalculator.css";
+import CalculatorVote from "../../CalculatorVote.jsx";
 
 const PRESETS = [
   {
@@ -484,6 +485,7 @@ export default function SpectralIndexCalculator() {
       )}
 
       <div className="sic-footer-row">
+        <CalculatorVote slug="spectral-index-calculator" />
         <button type="button" className="sic-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

@@ -9,6 +9,7 @@ import {
   REAL_STAR_LANDMARKS,
 } from "./massLuminosity";
 import "../../../styles/stellarMassLuminosityCalculator.css";
+import CalculatorVote from "../../CalculatorVote.jsx";
 
 const PRESETS = [
   { label: "Proxima Centauri", solveFor: "luminosity", mass: 0.122, luminosity: 0.0017 },
@@ -313,6 +314,7 @@ export default function StellarMassLuminosityCalculator() {
       )}
 
       <div className="sml-footer-row">
+        <CalculatorVote slug="stellar-mass-luminosity-calculator" />
         <button type="button" className="sml-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

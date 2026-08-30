@@ -20,6 +20,7 @@ import {
   computeSplitProbabilities,
 } from "./physics";
 import "../../../styles/quantumParticleSimulator.css";
+import CalculatorVote from "../../CalculatorVote.jsx";
 
 // --- grid & integration constants ---------------------------------------
 const XMIN = -20;
@@ -551,6 +552,7 @@ export default function QuantumParticleSimulator() {
       )}
 
       <div className="qps-footer-row">
+        <CalculatorVote slug="quantum-particle-simulator" />
         <button type="button" className="qps-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

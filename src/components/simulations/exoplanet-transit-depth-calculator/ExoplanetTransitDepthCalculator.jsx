@@ -16,6 +16,7 @@ import {
   depthToMillimag,
 } from "./transitDepth";
 import "../../../styles/exoplanetTransitDepthCalculator.css";
+import CalculatorVote from "../../CalculatorVote.jsx";
 
 // Every preset is self-consistent under both solve directions, so
 // switching direction after applying one never shows a jarring mismatch.
@@ -345,6 +346,7 @@ export default function ExoplanetTransitDepthCalculator() {
       )}
 
       <div className="etd-footer-row">
+        <CalculatorVote slug="exoplanet-transit-depth-calculator" />
         <button type="button" className="etd-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

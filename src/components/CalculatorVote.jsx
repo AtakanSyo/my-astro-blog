@@ -4,16 +4,17 @@ import { getCalculatorVotes, castCalculatorVote } from "../lib/supabase/calculat
 import "../styles/calculatorVote.css";
 
 /**
- * Anonymous thumbs up / thumbs down widget for a calculator page. No
- * account needed to vote — each browser gets one vote per calculator,
- * tracked via a local voter id (see lib/supabase/calculatorVotes.js).
+ * Compact anonymous thumbs up / thumbs down widget, meant to sit inline
+ * next to a calculator's "Copy shareable link" button. No account needed
+ * to vote — each browser gets one vote per calculator, tracked via a
+ * local voter id (see lib/supabase/calculatorVotes.js).
  *
  * @param {{ slug: string }} props
  */
 export default function CalculatorVote({ slug }) {
   const [loading, setLoading] = useState(true);
   const [pending, setPending] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(false);
   const [thumbsUp, setThumbsUp] = useState(0);
   const [thumbsDown, setThumbsDown] = useState(0);
   const [myVote, setMyVote] = useState(null);
@@ -34,7 +35,7 @@ export default function CalculatorVote({ slug }) {
         setMyVote(result.myVote);
       })
       .catch(() => {
-        if (mounted) setError("Could not load votes.");
+        if (mounted) setError(true);
       })
       .finally(() => {
         if (mounted) setLoading(false);
@@ -69,7 +70,7 @@ export default function CalculatorVote({ slug }) {
     }
     setThumbsUp(nextUp);
     setThumbsDown(nextDown);
-    setError("");
+    setError(false);
     setPending(true);
 
     try {
@@ -82,42 +83,45 @@ export default function CalculatorVote({ slug }) {
       setThumbsUp(prevUp);
       setThumbsDown(prevDown);
       setMyVote(prevVote);
-      setError("Could not save your vote. Please try again.");
+      setError(true);
     } finally {
       setPending(false);
     }
   }
 
-  if (!hasSupabasePublicEnv || (error && loading)) return null;
+  if (!hasSupabasePublicEnv) return null;
 
   return (
-    <div className="calc-vote" aria-busy={loading}>
-      <span className="calc-vote-label">Was this calculator helpful?</span>
-      <div className="calc-vote-buttons">
-        <button
-          type="button"
-          className={`calc-vote-btn${myVote === 1 ? " is-active" : ""}`}
-          onClick={() => handleVote(1)}
-          disabled={loading || pending}
-          aria-pressed={myVote === 1}
-          aria-label="Thumbs up"
-        >
-          <span className="calc-vote-icon" aria-hidden="true">👍</span>
-          <span className="calc-vote-count">{loading ? "–" : thumbsUp}</span>
-        </button>
-        <button
-          type="button"
-          className={`calc-vote-btn${myVote === -1 ? " is-active" : ""}`}
-          onClick={() => handleVote(-1)}
-          disabled={loading || pending}
-          aria-pressed={myVote === -1}
-          aria-label="Thumbs down"
-        >
-          <span className="calc-vote-icon" aria-hidden="true">👎</span>
-          <span className="calc-vote-count">{loading ? "–" : thumbsDown}</span>
-        </button>
-      </div>
-      {error && <span className="calc-vote-error" aria-live="polite">{error}</span>}
+    <div className="calc-vote" role="group" aria-label="Rate this calculator" aria-busy={loading}>
+      <button
+        type="button"
+        className={`calc-vote-btn${myVote === 1 ? " is-active" : ""}`}
+        onClick={() => handleVote(1)}
+        disabled={loading || pending}
+        aria-pressed={myVote === 1}
+        aria-label="Thumbs up"
+        title="Thumbs up"
+      >
+        <span className="calc-vote-icon" aria-hidden="true">👍</span>
+        <span className="calc-vote-count">{loading ? "–" : thumbsUp}</span>
+      </button>
+      <button
+        type="button"
+        className={`calc-vote-btn${myVote === -1 ? " is-active" : ""}`}
+        onClick={() => handleVote(-1)}
+        disabled={loading || pending}
+        aria-pressed={myVote === -1}
+        aria-label="Thumbs down"
+        title="Thumbs down"
+      >
+        <span className="calc-vote-icon" aria-hidden="true">👎</span>
+        <span className="calc-vote-count">{loading ? "–" : thumbsDown}</span>
+      </button>
+      {error && (
+        <span className="calc-vote-error" role="alert" title="Could not save your vote. Please try again.">
+          !
+        </span>
+      )}
     </div>
   );
 }

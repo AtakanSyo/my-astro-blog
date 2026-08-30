@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { UNITS, UNIT_ORDER, toMeters, fromMeters, formatLightTime } from "./distances";
 import "../../../styles/astronomicalDistanceConverter.css";
+import CalculatorVote from "../../CalculatorVote.jsx";
 
 const PRESETS = [
   { label: "Earth–Moon distance", value: 384400, unit: "km" },
@@ -301,6 +302,7 @@ export default function AstronomicalDistanceConverter() {
       )}
 
       <div className="adc-footer-row">
+        <CalculatorVote slug="astronomical-distance-converter" />
         <button type="button" className="adc-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

@@ -12,6 +12,7 @@ import {
   velocityRelativistic,
 } from "./redshift";
 import "../../../styles/redshiftWavelengthCalculator.css";
+import CalculatorVote from "../../CalculatorVote.jsx";
 
 // Every preset is self-consistent under all three "solve for" choices.
 // Each also names the real spectral line it uses, since which line is
@@ -466,6 +467,7 @@ export default function RedshiftWavelengthCalculator() {
       )}
 
       <div className="rwc-footer-row">
+        <CalculatorVote slug="redshift-wavelength-calculator" />
         <button type="button" className="rwc-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

@@ -13,6 +13,7 @@ import {
   parallaxReliability,
 } from "./parallax";
 import "../../../styles/parallaxDistanceCalculator.css";
+import CalculatorVote from "../../CalculatorVote.jsx";
 
 const PRESETS = [
   { label: "Proxima Centauri", pMas: 768.5, sigmaMas: "" },
@@ -408,6 +409,7 @@ export default function ParallaxDistanceCalculator() {
       </div>
 
       <div className="pdc-footer-row">
+        <CalculatorVote slug="parallax-distance-calculator" />
         <button type="button" className="pdc-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

@@ -1,43 +1,29 @@
 .calc-vote {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-  margin: 0.5rem 0 1.5rem;
-}
-
-.calc-vote-label {
-  font-size: 0.85rem;
-  color: rgba(228, 228, 228, 0.65);
-}
-
-.calc-vote-buttons {
-  display: flex;
-  gap: 0.75rem;
+  gap: 0.4rem;
+  margin-right: 0.6rem;
 }
 
 .calc-vote-btn {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.4rem 0.85rem;
-  border-radius: 999px;
+  gap: 0.3rem;
+  padding: 0.4rem 0.65rem;
+  border-radius: 8px;
   border: 1px solid var(--card-border, #333);
   background: var(--card-bg, #1f1f1f);
   color: var(--off-white, #e4e4e4);
-  font-size: 0.95rem;
+  font-size: 0.78rem;
   line-height: 1;
   cursor: pointer;
-  transition: border-color 0.15s ease, background-color 0.15s ease, transform 0.1s ease;
+  transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
 }
 
-.calc-vote-btn:hover:not(:disabled) {
+.calc-vote-btn:hover:not(:disabled),
+.calc-vote-btn:focus-visible {
   border-color: var(--brand-color-on-black, #ffc44d);
-  transform: translateY(-1px);
-}
-
-.calc-vote-btn:active:not(:disabled) {
-  transform: translateY(0);
+  color: var(--off-white, #e4e4e4);
 }
 
 .calc-vote-btn:disabled {
@@ -51,16 +37,25 @@
 }
 
 .calc-vote-icon {
-  font-size: 1rem;
+  font-size: 0.85rem;
 }
 
 .calc-vote-count {
   min-width: 1ch;
   font-variant-numeric: tabular-nums;
-  color: rgba(228, 228, 228, 0.85);
+  color: rgba(228, 228, 228, 0.75);
 }
 
 .calc-vote-error {
-  font-size: 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  background: rgba(224, 96, 96, 0.15);
   color: #e06060;
+  font-size: 0.7rem;
+  font-weight: 700;
+  cursor: help;
 }

@@ -15,6 +15,7 @@ import {
   classifyLogG,
 } from "./stellarGravity";
 import "../../../styles/stellarSurfaceGravityCalculator.css";
+import CalculatorVote from "../../CalculatorVote.jsx";
 
 // Every preset doubles as a permanent landmark on both charts below,
 // plotted whether or not it's the one currently applied.
@@ -383,6 +384,7 @@ export default function StellarSurfaceGravityCalculator() {
       )}
 
       <div className="ssg-footer-row">
+        <CalculatorVote slug="stellar-surface-gravity-calculator" />
         <button type="button" className="ssg-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

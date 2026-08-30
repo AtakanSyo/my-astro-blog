@@ -17,6 +17,7 @@ import {
   approxQuality,
 } from "./geometry";
 import "../../../styles/angularSizeCalculator.css";
+import CalculatorVote from "../../CalculatorVote.jsx";
 
 // Every preset is self-consistent under all three "solve for" choices —
 // diameter, distance, and the angle they imply — so switching "solve for"
@@ -547,6 +548,7 @@ export default function AngularSizeCalculator() {
       )}
 
       <div className="asc-footer-row">
+        <CalculatorVote slug="angular-size-calculator" />
         <button type="button" className="asc-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

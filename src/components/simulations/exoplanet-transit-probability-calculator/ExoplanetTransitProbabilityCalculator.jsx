@@ -12,6 +12,7 @@ import {
   transitProbability,
 } from "./transitProbability";
 import "../../../styles/exoplanetTransitProbabilityCalculator.css";
+import CalculatorVote from "../../CalculatorVote.jsx";
 
 // Every preset is a real (or realistically illustrative) star+planet
 // system, and doubles as a landmark on the a-vs-probability scatter
@@ -385,6 +386,7 @@ export default function ExoplanetTransitProbabilityCalculator() {
       )}
 
       <div className="etp-footer-row">
+        <CalculatorVote slug="exoplanet-transit-probability-calculator" />
         <button type="button" className="etp-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

@@ -20,6 +20,7 @@ import {
   relErrorDistance,
 } from "./flux";
 import "../../../styles/fluxLuminosityDistanceCalculator.css";
+import CalculatorVote from "../../CalculatorVote.jsx";
 
 // Every preset is self-consistent under all three "solve for" choices, so
 // switching "solve for" after applying one never shows a jarring mismatch.
@@ -609,6 +610,7 @@ export default function FluxLuminosityDistanceCalculator() {
       )}
 
       <div className="fld-footer-row">
+        <CalculatorVote slug="flux-luminosity-distance-calculator" />
         <button type="button" className="fld-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

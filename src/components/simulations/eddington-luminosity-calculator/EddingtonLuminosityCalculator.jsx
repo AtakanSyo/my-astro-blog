@@ -12,6 +12,7 @@ import {
   classifyRatio,
 } from "./eddington";
 import "../../../styles/eddingtonLuminosityCalculator.css";
+import CalculatorVote from "../../CalculatorVote.jsx";
 
 // Every preset is self-consistent (L, if given, really is that fraction
 // of L_Edd for that mass) so applying one and reading the result never
@@ -418,6 +419,7 @@ export default function EddingtonLuminosityCalculator() {
       )}
 
       <div className="edd-footer-row">
+        <CalculatorVote slug="eddington-luminosity-calculator" />
         <button type="button" className="edd-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

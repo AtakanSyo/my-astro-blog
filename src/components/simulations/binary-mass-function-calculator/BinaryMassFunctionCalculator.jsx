@@ -10,6 +10,7 @@ import {
   solveCompanionMass,
 } from "./binaryMassFunction";
 import "../../../styles/binaryMassFunctionCalculator.css";
+import CalculatorVote from "../../CalculatorVote.jsx";
 
 // Every preset is self-consistent: applying one and toggling "estimate
 // companion mass" on/off never shows a jarring mismatch, because f(M)
@@ -429,6 +430,7 @@ export default function BinaryMassFunctionCalculator() {
       )}
 
       <div className="bmf-footer-row">
+        <CalculatorVote slug="binary-mass-function-calculator" />
         <button type="button" className="bmf-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

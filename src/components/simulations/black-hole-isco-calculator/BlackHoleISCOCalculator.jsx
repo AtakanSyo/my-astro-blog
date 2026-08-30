@@ -9,6 +9,7 @@ import {
   accretionEfficiency,
 } from "./kerr";
 import "../../../styles/blackHoleISCOCalculator.css";
+import CalculatorVote from "../../CalculatorVote.jsx";
 
 // Every preset pairs a real (or pedagogically extreme) spin with a
 // plausible mass, so applying one and reading the diagram/table always
@@ -389,6 +390,7 @@ export default function BlackHoleISCOCalculator() {
       )}
 
       <div className="bhi-footer-row">
+        <CalculatorVote slug="black-hole-isco-calculator" />
         <button type="button" className="bhi-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

@@ -17,6 +17,7 @@ import {
   naiveEquivalentVelocity,
 } from "./gravitationalRedshift";
 import "../../../styles/gravitationalRedshiftCalculator.css";
+import CalculatorVote from "../../CalculatorVote.jsx";
 
 // Every preset is a real (or realistically illustrative) mass + radius
 // pair, and doubles as a permanent landmark on the z-vs-radius chart
@@ -391,6 +392,7 @@ export default function GravitationalRedshiftCalculator() {
       )}
 
       <div className="grc-footer-row">
+        <CalculatorVote slug="gravitational-redshift-calculator" />
         <button type="button" className="grc-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>
