@@ -85,9 +85,6 @@ const CATS = [
 
         return (
           <div class="post-grid flex_centered">
-            <h2 class="home-category-title">
-              <a href={categoryLink} class="latest-title">{cat.label}</a>
-            </h2>
             {groups.map(({ letter, items: groupedItems }) => (
               <>
                 <h3 class="home-category-title home-letter-title">
@@ -98,6 +95,7 @@ const CATS = [
                     url={url}
                     frontmatter={frontmatter}
                     row
+                    compact
                   />
                 ))}
               </>

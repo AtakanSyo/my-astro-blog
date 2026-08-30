@@ -9,6 +9,7 @@ const {
   url = "#",
   frontmatter = {},
   row = false,
+  compact = false,
 } = Astro.props;
 
 const title = frontmatter.title ?? "";
@@ -44,11 +45,13 @@ const cardClass = [
   "post-card",
   row && "post-card--row",
   !hasThumb && "post-card--no-thumb",
+  compact && "post-card--compact",
 ].filter(Boolean).join(" ");
 const linkClass = [
   "post-card-link",
   row && "post-card-link--row",
-  hasThumb && !row && "post-card-link--overlay"
+  hasThumb && !row && "post-card-link--overlay",
+  compact && "post-card-link--compact",
 ].filter(Boolean).join(" ");
 
 import '../styles/cards.css';

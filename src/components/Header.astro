@@ -1,16 +1,9 @@
 ---
-interface Props {
-  currentPath?: string;
-}
-
 import logoUrl from '../assets/images/shared/logo.svg?url';
-import { Search } from 'lucide-react';
-
-const { currentPath = '' } = Astro.props as Props;
+import { Search, X } from 'lucide-react';
 
 const labels = {
   home: 'Home',
-  interactives: 'Interactives',
   searchPlaceholder: 'Search…',
   searchAria: 'Search posts',
   menuToggleAria: 'Toggle menu',
@@ -19,16 +12,6 @@ const labels = {
 };
 
 const siteName = Astro.site?.hostname ?? 'Astrosyo';
-
-function normalizePath(path: string) {
-  if (!path) return '/';
-  const withoutQuery = path.split('?')[0]?.split('#')[0] ?? path;
-  return withoutQuery.length > 1 ? withoutQuery.replace(/\/+$/, '') : withoutQuery;
-}
-
-function isCurrent(href: string) {
-  return normalizePath(currentPath) === normalizePath(href);
-}
 ---
 
 <header>
@@ -48,22 +31,12 @@ function isCurrent(href: string) {
     </button>
 
     <nav class="site-nav" id="site-nav">
-      <a href="/" class="nav-item" aria-current={isCurrent('/') ? 'page' : undefined}>
-        {labels.home}
-      </a>
-      <a
-        href="/interactives"
-        class="nav-item"
-        aria-current={isCurrent('/interactives') ? 'page' : undefined}
-      >
-        {labels.interactives}
-      </a>
-
       <button class="nav-search-toggle" aria-label={labels.searchToggleAria} type="button">
         <Search size={18} strokeWidth={1.75} aria-hidden="true" />
       </button>
 
       <form action="/search" method="get" class="nav-search-form">
+        <Search size={16} strokeWidth={1.75} className="nav-search-icon" aria-hidden="true" />
         <input
           type="search"
           name="q"
@@ -72,7 +45,7 @@ function isCurrent(href: string) {
           aria-label={labels.searchAria}
         />
         <button type="button" class="nav-search-close" aria-label={labels.searchCloseAria}>
-          ✕
+          <X size={14} strokeWidth={2} aria-hidden="true" />
         </button>
       </form>
     </nav>

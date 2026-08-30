@@ -219,6 +219,50 @@
   grid-template-columns: minmax(0, 1fr) 48px;
 }
 
+/* -------- Compact row variant (PostCard.astro compact) -------- */
+.post-card--compact {
+  --post-row-thumbnail-size: 56px;
+  --post-row-card-height: 64px;
+  border-radius: 12px;
+}
+
+.post-card-link--compact {
+  gap: 0.85rem;
+  padding: 0.4rem 0.6rem;
+}
+
+.post-card-link--compact .post-card-thumb {
+  border-radius: 8px;
+}
+
+.post-card-link--compact .post-card-info {
+  align-items: flex-start;
+}
+
+.post-card-link--compact .post-card-title {
+  height: auto;
+  margin: 0;
+  text-align: left;
+  justify-content: flex-start;
+  font-size: 0.98rem;
+  font-weight: 700;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.post-card-link--compact .post-card-desc {
+  display: none;
+}
+
+.post-card-link--compact .post-card-row-arrow {
+  width: 30px;
+  height: 30px;
+  font-size: 1rem;
+  margin-right: 0;
+}
+
 /* -------- Typography (shared) -------- */
 
 .post-card-title {

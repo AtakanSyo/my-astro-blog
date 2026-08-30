@@ -152,6 +152,23 @@ body.page-home {
   margin: 0 auto;
 }
 
+.latest-section .post-grid .post-card {
+  width: 100%;
+  margin: 0;
+}
+
+.latest-section .post-grid .home-category-title,
+.latest-section .post-grid .home-letter-title {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 760px) {
+  .latest-section .post-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 1400px;
+  }
+}
+
 .home-sim-link {
   position: absolute;
   right: 4rem;
