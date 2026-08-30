@@ -243,6 +243,85 @@ body.page-home {
 
 .home-letter-title {
   font-size: 1.65rem;
+  scroll-margin-top: calc(var(--header-height) + 16px);
+}
+
+@media (max-width: 768px) {
+  .home-letter-title {
+    scroll-margin-top: calc(var(--header-height-mobile) + 16px);
+  }
+}
+
+/*─────────────────────────────────────────────────
+  A–Z jump nav — fixed vertical index, left edge
+─────────────────────────────────────────────────*/
+.az-nav {
+  position: fixed;
+  top: 50%;
+  left: 0.6rem;
+  transform: translateY(-50%);
+  z-index: 40;
+  opacity: 0.4;
+  transition: opacity 0.2s ease;
+}
+
+.az-nav:hover,
+.az-nav:focus-within {
+  opacity: 1;
+}
+
+.az-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 0.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(8px);
+}
+
+.az-nav a {
+  display: block;
+  min-width: 1.1rem;
+  padding: 0.1rem 0.25rem;
+  border-radius: 4px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+}
+
+.az-nav a:hover,
+.az-nav a:focus-visible {
+  background: rgba(255,255,255,0.14);
+}
+
+.az-nav a:focus-visible {
+  outline: none;
+}
+
+@media (max-width: 640px) {
+  .az-nav {
+    left: 0.25rem;
+  }
+  .az-nav ul {
+    padding: 0.4rem 0.2rem;
+  }
+  .az-nav a {
+    font-size: 0.6rem;
+    padding: 0.06rem 0.2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .az-nav {
+    transition: none;
+  }
 }
 
 .home-letter-title .latest-title {
