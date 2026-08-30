@@ -104,7 +104,7 @@ export default function CalculatorVote({ slug }) {
         title="Thumbs up"
       >
         <span className="calc-vote-icon" aria-hidden="true">👍</span>
-        <span className="calc-vote-count">{loading ? "–" : thumbsUp}</span>
+        <span className="calc-vote-count">Yes</span>
       </button>
       <button
         type="button"
@@ -116,7 +116,7 @@ export default function CalculatorVote({ slug }) {
         title="Thumbs down"
       >
         <span className="calc-vote-icon" aria-hidden="true">👎</span>
-        <span className="calc-vote-count">{loading ? "–" : thumbsDown}</span>
+        <span className="calc-vote-count">No</span>
       </button>
       {error && (
         <span className="calc-vote-error" role="alert" title="Could not save your vote. Please try again.">
