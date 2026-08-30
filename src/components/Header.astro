@@ -4,14 +4,13 @@ interface Props {
 }
 
 import logoUrl from '../assets/images/shared/logo.svg?url';
-import HeaderAccountStatus from './HeaderAccountStatus.jsx';
 import { Search } from 'lucide-react';
 
 const { currentPath = '' } = Astro.props as Props;
 
 const labels = {
   home: 'Home',
-  stories: 'Interactives',
+  interactives: 'Interactives',
   searchPlaceholder: 'Search…',
   searchAria: 'Search posts',
   menuToggleAria: 'Toggle menu',
@@ -53,13 +52,12 @@ function isCurrent(href: string) {
         {labels.home}
       </a>
       <a
-        href="/stories"
+        href="/interactives"
         class="nav-item"
-        aria-current={isCurrent('/stories') ? 'page' : undefined}
+        aria-current={isCurrent('/interactives') ? 'page' : undefined}
       >
-        {labels.stories}
+        {labels.interactives}
       </a>
-      <HeaderAccountStatus currentPath={currentPath} client:load />
 
       <button class="nav-search-toggle" aria-label={labels.searchToggleAria} type="button">
         <Search size={18} strokeWidth={1.75} aria-hidden="true" />

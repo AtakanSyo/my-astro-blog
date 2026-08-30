@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import '../styles/index.css';
 import '../styles/simGlobal.css';
 import '../styles/cards.css';
-import '../styles/stories.css';
+import '../styles/interactives.css';
 import PostCard from '../components/postCard.astro';
 
 const allPosts = Object.values(
@@ -44,7 +44,7 @@ const remaining = simPostsAll.filter((p) => !featuredUrls.has(p.url));
 const simPosts = [...featuredPosts, ...remaining];
 ---
 
-<Layout title="Stories">
+<Layout title="Interactives">
   <section class="sim-list">
     <div class="intro">
       <h1>Interactives</h1>

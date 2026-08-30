@@ -53,6 +53,58 @@
   color: rgba(228, 228, 228, 0.75);
 }
 
+.calc-vote-down-wrap {
+  position: relative;
+  display: inline-flex;
+}
+
+.calc-vote-menu {
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  right: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 11rem;
+  padding: 0.5rem;
+  border-radius: 10px;
+  border: 1px solid var(--card-border, #333);
+  background: var(--card-bg, #1f1f1f);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+.calc-vote-menu-title {
+  padding: 0.15rem 0.4rem 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--off-white, #e4e4e4);
+  white-space: nowrap;
+}
+
+.calc-vote-menu-item {
+  padding: 0.4rem 0.5rem;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: rgba(228, 228, 228, 0.85);
+  font-size: 0.78rem;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.calc-vote-menu-item:hover:not(:disabled),
+.calc-vote-menu-item:focus-visible {
+  background: rgba(255, 196, 77, 0.12);
+  color: var(--off-white, #e4e4e4);
+}
+
+.calc-vote-menu-item:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
 .calc-vote-error {
   display: inline-flex;
   align-items: center;
