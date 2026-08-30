@@ -1,0 +1,195 @@
+.calc-tests-btn {
+  font-size: 0.78rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--card-border, #333);
+  background: var(--card-bg, #1f1f1f);
+  color: var(--off-white, #e4e4e4);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.calc-tests-btn:hover,
+.calc-tests-btn:focus-visible {
+  border-color: var(--brand-color-on-black, #ffc44d);
+}
+
+.calc-tests-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(2px);
+}
+
+.calc-tests-dialog {
+  width: 100%;
+  max-width: 760px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--card-bg, #1f1f1f);
+  border: 1px solid var(--card-border, #333);
+  border-radius: 14px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5);
+  outline: none;
+}
+
+.calc-tests-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 1rem 1.1rem 0.85rem;
+  border-bottom: 1px solid var(--card-border, #333);
+}
+
+.calc-tests-title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--off-white, #e4e4e4);
+}
+
+.calc-tests-summary {
+  margin: 0.3rem 0 0;
+  font-size: 0.75rem;
+  color: rgba(228, 228, 228, 0.65);
+}
+
+.calc-tests-summary-pass {
+  color: #7de0a8;
+}
+
+.calc-tests-summary-fail {
+  color: #ff8a7e;
+}
+
+.calc-tests-close {
+  flex: none;
+  width: 1.75rem;
+  height: 1.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: 1px solid var(--card-border, #333);
+  background: transparent;
+  color: rgba(228, 228, 228, 0.75);
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.calc-tests-close:hover,
+.calc-tests-close:focus-visible {
+  border-color: var(--brand-color-on-black, #ffc44d);
+  color: var(--off-white, #e4e4e4);
+}
+
+.calc-tests-body {
+  overflow: auto;
+  padding: 0.25rem 1.1rem 1.1rem;
+}
+
+.calc-tests-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
+.calc-tests-table thead th {
+  position: sticky;
+  top: 0;
+  background: var(--card-bg, #1f1f1f);
+  text-align: left;
+  padding: 0.55rem 0.7rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: rgba(228, 228, 228, 0.65);
+  border-bottom: 1px solid var(--card-border, #333);
+}
+
+.calc-tests-table tbody td {
+  padding: 0.55rem 0.7rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--off-white, #e4e4e4);
+  white-space: normal;
+}
+
+.calc-tests-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.calc-tests-row--fail td {
+  background: rgba(224, 96, 96, 0.07);
+}
+
+.calc-tests-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.calc-tests-badge.is-pass {
+  background: rgba(125, 224, 168, 0.15);
+  color: #7de0a8;
+}
+
+.calc-tests-badge.is-fail {
+  background: rgba(255, 138, 126, 0.15);
+  color: #ff8a7e;
+}
+
+.calc-tests-sources {
+  margin-top: 1rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--card-border, #333);
+}
+
+.calc-tests-sources-title {
+  margin: 0 0 0.5rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: rgba(228, 228, 228, 0.55);
+}
+
+.calc-tests-sources dl {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.calc-tests-source {
+  font-size: 0.75rem;
+  line-height: 1.5;
+  white-space: normal;
+}
+
+.calc-tests-source dt {
+  font-weight: 600;
+  color: var(--off-white, #e4e4e4);
+}
+
+.calc-tests-source dd {
+  margin: 0.1rem 0 0;
+  color: rgba(228, 228, 228, 0.65);
+}
+
+.calc-tests-source dd a {
+  color: var(--brand-color-on-black, #ffc44d);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}

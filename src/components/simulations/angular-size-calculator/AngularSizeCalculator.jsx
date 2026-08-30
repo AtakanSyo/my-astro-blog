@@ -16,8 +16,10 @@ import {
   smallAngleDistance,
   approxQuality,
 } from "./geometry";
+import { ANGULAR_SIZE_TEST_COLUMNS, ANGULAR_SIZE_TEST_SOURCES, getAngularSizeTestRows } from "./angularSizeTests";
 import "../../../styles/angularSizeCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import CalculatorTests from "../../CalculatorTests.jsx";
 
 // Every preset is self-consistent under all three "solve for" choices —
 // diameter, distance, and the angle they imply — so switching "solve for"
@@ -308,6 +310,10 @@ export default function AngularSizeCalculator() {
     }
   };
 
+  // Self-check rows: runs the real geometry.js functions against known
+  // reference objects and edge cases — independent of the fields above.
+  const testRows = useMemo(() => getAngularSizeTestRows(), []);
+
   const isAngle = result.valid && result.quantity === "theta";
   const unitOrder = isAngle ? ANGLE_UNIT_ORDER : LENGTH_UNIT_ORDER;
   const unitTable = isAngle ? ANGLE_UNITS : LENGTH_UNITS;
@@ -549,6 +555,12 @@ export default function AngularSizeCalculator() {
 
       <div className="asc-footer-row">
         <CalculatorVote slug="angular-size-calculator" />
+        <CalculatorTests
+          title="Angular Size & Physical Size Calculator — Tests"
+          columns={ANGULAR_SIZE_TEST_COLUMNS}
+          rows={testRows}
+          sources={ANGULAR_SIZE_TEST_SOURCES}
+        />
         <button type="button" className="asc-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>
