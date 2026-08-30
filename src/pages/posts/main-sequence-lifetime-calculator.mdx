@@ -1,0 +1,123 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Main-Sequence Lifetime Estimator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-08-30'
+description: "Estimate how long a star spends fusing hydrogen on the main sequence from t_MS ≈ 10¹⁰(M/M☉)⁻²·⁵ yr — since fuel scales roughly with mass while burn rate scales with luminosity — with a log-log mass-vs-lifetime chart against a naive 1/M comparison, and a log-scale bar chart comparing red-dwarf and massive-star lifetimes."
+postColor: rgba(64, 26, 16, 1)
+slug: main-sequence-lifetime-calculator
+keywords:
+  - main sequence lifetime calculator
+  - how long do stars live
+  - stellar lifetime from mass
+  - red dwarf lifetime trillions of years
+  - massive star lifetime million years
+  - t_MS proportional to M to the -2.5
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import MainSequenceLifetimeCalculator from "../../components/simulations/main-sequence-lifetime-calculator/MainSequenceLifetimeCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <MainSequenceLifetimeCalculator client:load />
+</figure>
+
+A star's mass decides almost everything about its life, and nowhere is
+that starker than in how long it lasts. A red dwarf a fifth the Sun's
+mass will still be quietly fusing hydrogen long after the Sun has
+swelled into a red giant, shed its outer layers, and cooled to a white
+dwarf — while a star forty times heavier burns through its own much
+larger fuel supply so fast it's gone in a few million years, a blink
+next to the Sun's roughly ten-billion-year span.
+
+## The formula, and where it comes from
+
+$$
+t_{\rm MS} \propto \frac{M}{L}
+$$
+
+Available hydrogen fuel scales roughly with a star's mass. If burn rate
+scaled with mass too, lifetime would barely change from star to star —
+but burn rate actually tracks **luminosity**, and luminosity rises
+steeply with mass (roughly L ∝ M^3.5 over much of the main sequence; see
+this site's [Stellar Mass-Luminosity Relation
+Calculator](/posts/stellar-mass-luminosity-calculator)). Combine the
+two — more fuel, burned disproportionately faster — and lifetime falls
+off steeply with mass:
+
+$$
+t_{\rm MS} \approx 10^{10}\left(\frac{M}{M_\odot}\right)^{-2.5}\ \text{yr}
+$$
+
+The exponent -2.5 is exactly "1 (fuel) minus 3.5 (burn rate)" — it's the
+mass-luminosity relation's own exponent showing up here, not a separate
+fact about fuel. This calculator's chart plots that actual scaling
+against a naive comparison line where lifetime falls off as just 1/M —
+as if burn rate scaled with mass alone — so you can see directly how
+much of the effect luminosity's steepness accounts for.
+
+## Where this approximation holds, and where it doesn't
+
+This is an **order-of-magnitude estimate**, calibrated so a 1 M☉ star
+comes out close to the Sun's own main-sequence span — not a
+stellar-evolution model:
+
+- **It inherits the mass-luminosity relation's own limits.** That
+  relation's exponent isn't really a constant 3.5 across the whole main
+  sequence — shallower below about 0.43 M☉, closer to linear above
+  about 20 M☉ — so a single -2.5 power law is least accurate at both
+  ends.
+- **The lowest-mass stars live even longer than this formula predicts.**
+  Red dwarfs below roughly 0.35 M☉ are fully convective, meaning they
+  mix and burn essentially their *entire* hydrogen supply rather than
+  just the core's — stretching their already-enormous lifetimes further
+  still.
+- **Composition, mass loss, and rotation all shift real lifetimes.**
+  A star's exact age when it leaves the main sequence depends on more
+  than mass alone; treat this calculator's output as "roughly this
+  many years," not a precise clock.
+- **This describes the main-sequence phase only** — the stretch spent
+  fusing hydrogen in the core. It says nothing about how long a star
+  spends afterward as a giant, nor about pre-main-sequence contraction
+  before fusion ignites.
+
+## Reading the visuals
+
+- **The log-log chart** plots main-sequence lifetime against mass across
+  the same range this site's other stellar calculators use, with the
+  actual t ∝ M^-2.5 scaling as a solid line against a dashed naive t ∝
+  1/M comparison. Both fall as mass rises, but the actual line falls
+  far more steeply — that gap between the lines is luminosity's own
+  disproportionate rise with mass, visualized directly.
+- **The horizontal bar comparison** puts a representative spread of
+  stars — from a red dwarf up to a massive O-type star — side by side
+  on a **log scale**, because the real span is too extreme for a linear
+  one: a red dwarf's estimated lifetime can run past the current age of
+  the universe (~13.8 billion years) entirely, while a massive O-type
+  star's is measured in single-digit millions of years. No red dwarf
+  has ever actually died of old age — the universe simply isn't old
+  enough yet.
+
+<SimPostSchema
+  title="Main-Sequence Lifetime Estimator"
+  description="Estimate how long a star spends fusing hydrogen on the main sequence from t_MS ≈ 10¹⁰(M/M☉)⁻²·⁵ yr — since fuel scales roughly with mass while burn rate scales with luminosity — with a log-log mass-vs-lifetime chart against a naive 1/M comparison, and a log-scale bar chart comparing red-dwarf and massive-star lifetimes."
+  url="https://astrosyo.com/posts/main-sequence-lifetime-calculator"
+  datePublished="2026-08-30"
+  authorName="Astrosyo"
+  keywords={["main sequence lifetime calculator", "how long do stars live", "stellar lifetime from mass", "red dwarf lifetime trillions of years", "massive star lifetime million years"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Main-Sequence Lifetime Estimator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/main-sequence-lifetime-calculator#calculator",
+    "description": "Interactive calculator that estimates a star's main-sequence hydrogen-fusing lifetime from its mass (or the reverse) using t_MS ≈ 10^10 (M/M_sun)^-2.5 yr, with a log-log mass-versus-lifetime chart contrasted against a naive 1/M scaling line, and a log-scale bar chart comparing lifetimes from red dwarfs to massive O-type stars."
+  }}
+/>
