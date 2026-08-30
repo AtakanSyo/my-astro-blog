@@ -17,13 +17,73 @@ const mailto = `mailto:${email}?subject=${encodeURIComponent(t.subject)}`;
 ---
 
 <section class="feedback-cta centered_flex">
-  <a class="vendor-card vendor-card-link feedback-card" href={mailto}>
-    <div class="vendor-info">
-      <div class="vendor-name">{t.title}</div>
-      <span class="vendor-label">{t.subtitle}</span>
-      <span class="vendor-desc">
-        {t.desc}
-      </span>
-    </div>
+  <a class="feedback-cta-card" href={mailto}>
+    <span class="feedback-cta-text">
+      <span class="feedback-cta-title">{t.title}</span>
+      <span class="feedback-cta-desc">{t.desc}</span>
+    </span>
+    <span class="feedback-cta-btn">{t.subtitle}</span>
   </a>
 </section>
+
+<style>
+  /* Same dark-card / pill-button language as the calculator footer rows
+     (see CalculatorVote.jsx and each *Calculator.css's -copy-btn). */
+  .feedback-cta-card {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem 0.9rem;
+    padding: 0.75rem 1.1rem;
+    border-radius: 12px;
+    border: 1px solid var(--card-border, #333);
+    background: var(--card-bg, #1f1f1f);
+    color: var(--off-white, #e4e4e4);
+    text-decoration: none;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+
+  .feedback-cta-card:hover,
+  .feedback-cta-card:focus-visible {
+    border-color: var(--brand-color-on-black, #ffc44d);
+    transform: translateY(-1px);
+  }
+
+  .feedback-cta-card:active {
+    transform: translateY(0);
+  }
+
+  .feedback-cta-card:focus-visible {
+    outline: 2px solid var(--brand-color-on-black, #ffc44d);
+    outline-offset: 3px;
+  }
+
+  .feedback-cta-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+  }
+
+  .feedback-cta-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .feedback-cta-desc {
+    font-size: 0.78rem;
+    color: rgba(228, 228, 228, 0.65);
+  }
+
+  .feedback-cta-btn {
+    padding: 0.4rem 0.75rem;
+    border-radius: 8px;
+    border: 1px solid var(--brand-color-on-black, #ffc44d);
+    background: rgba(255, 196, 77, 0.12);
+    color: var(--off-white, #e4e4e4);
+    font-size: 0.78rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+</style>
