@@ -109,7 +109,6 @@ const alphabetLinks = Array.from(letterIndex.entries()).sort(([a], [b]) => a.loc
       {CATS.map((cat) => {
         const items = alphabetizedByCategory(cat.key);
         const groups = groupByInitial(items);
-        const categoryLink = cat.link ?? `/category/${cat.key.toLowerCase()}`;
         if (items.length === 0) return null;
 
         return (
@@ -130,9 +129,6 @@ const alphabetLinks = Array.from(letterIndex.entries()).sort(([a], [b]) => a.loc
               </>
             ))}
             </div>
-            <a href={categoryLink} class="category-more-link">
-              more interactives →
-            </a>
           <span class="divider"></span>
         );
       })}
