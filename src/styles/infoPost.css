@@ -124,6 +124,32 @@ p {
   opacity: 0.85;
 }
 
+.view-source {
+  margin: 1.5em 0;
+  max-width: 800px;
+}
+
+.view-source a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  color: inherit;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.view-source a:hover,
+.view-source a:focus-visible {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
 .info-post-starter-image {
   height: auto;
   margin: 1rem 0;

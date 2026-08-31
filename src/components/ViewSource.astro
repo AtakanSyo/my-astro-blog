@@ -1,0 +1,30 @@
+---
+/**
+ * ViewSource.astro
+ *
+ * Links to the GitHub source file for a calculator/simulation component,
+ * rendered at the bottom of its post page.
+ *
+ * Props:
+ * - path: repo-relative path to the component's source file, e.g.
+ *   "src/components/simulations/angular-size-calculator/AngularSizeCalculator.jsx"
+ */
+
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  path: string;
+}
+
+const { path } = Astro.props;
+
+const REPO_URL = 'https://github.com/AtakanSyo/my-astro-blog';
+const href = `${REPO_URL}/blob/main/${path}`;
+---
+
+<section class="view-source">
+  <a href={href} target="_blank" rel="noopener noreferrer">
+    <Icon name="bi:github" width="18" height="18" aria-hidden="true" />
+    <span>View source on GitHub</span>
+  </a>
+</section>

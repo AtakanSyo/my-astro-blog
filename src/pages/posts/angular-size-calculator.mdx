@@ -20,6 +20,7 @@ lang: en
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import Changelog from "../../components/Changelog.astro";
+import ViewSource from "../../components/ViewSource.astro";
 import AngularSizeCalculator from "../../components/simulations/angular-size-calculator/AngularSizeCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -100,6 +101,8 @@ not a measurement of true size; you need the distance too.
     "description": "Interactive calculator that solves for angular size, physical size, or distance given the other two, using the exact trigonometric angular-size relation with the small-angle approximation shown for comparison."
   }}
 />
+
+<ViewSource path="src/components/simulations/angular-size-calculator/AngularSizeCalculator.jsx" />
 
 <Changelog
   entries={[

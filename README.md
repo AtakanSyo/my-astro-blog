@@ -1,9 +1,6 @@
 # Astrosyo
 
-Astrosyo is an Astro-powered astronomy site featuring:
-- MDX articles (informational posts, reviews, NASA posts)
-- Interactive simulations (React islands with Three.js / p5)
-- EN + TR routes with `hreflang` and canonical URLs
+Astrosyo is an Astro-powered site for interactive astrophysics calculators and simulations — React islands (Three.js / p5) covering things like angular size, orbital mechanics, redshift, and stellar properties, each with an anonymous thumbs up/down vote on the page.
 
 Production site: `https://astrosyo.com`
 
@@ -34,49 +31,22 @@ Supabase client helpers:
 - Browser/client-safe: `src/lib/supabase/client.ts`
 - Server helpers: `src/lib/supabase/server.ts`
 
-For passwordless login (magic link), add redirect URLs in Supabase Authentication settings:
-- `http://localhost:4321/account`
-- `https://astrosyo.com/account`
+### Calculator votes schema
 
-### Telescope ratings schema
-
-A ready migration exists at:
-- `supabase/migrations/20260420_create_telescopes.sql`
-
-It creates:
-- `public.telescopes` (catalog + `editorial_rating` + aggregated `user_rating`)
-- `public.telescope_user_ratings` (one rating per user per telescope)
-
-It also includes:
-- Rating range constraints (`0..10`)
-- Aggregation triggers (auto-updates `user_rating` and `user_rating_count`)
-- RLS policies for public reads and authenticated per-user rating writes
+Anonymous thumbs up/down voting on each calculator page is backed by `public.calculator_votes`, accessed only through two `SECURITY DEFINER` RPCs (`get_calculator_votes`, `cast_calculator_vote`) — see `src/lib/supabase/calculatorVotes.js`.
 
 ## Content
 
-- English posts: `src/pages/posts/*.mdx`
-- Turkish posts: `src/pages/tr/posts/*.mdx`
-- Category pages: `src/pages/category/[slug].astro` and `src/pages/tr/category/[slug].astro`
+- Calculator pages: `src/pages/posts/*.mdx` (each renders an interactive React component from `src/components/simulations/`)
+- Additional locale: `src/pages/zh/posts/`
+- Index/listing page: `src/pages/interactives.astro`
 
-Frontmatter conventions used across posts (varies by layout):
-- `title`, `description`, `pubDate`, `writer`, `category`
+Frontmatter conventions:
+- `title`, `description`, `pubDate`, `writer`, `category`, `slug` (the `slug` wires up the vote widget)
 - Images typically come from `public/images/<slug>/` (e.g. `cover.webp`, `thumbnail.webp`)
-
-Common category keys:
-- `reviews`
-- `simulation`
-- `informational`
-- `nasa`
 
 ## Layouts & styling
 
 - Base layout + global SEO/analytics: `src/layouts/Layout.astro`
-- Post layout: `src/layouts/simLayout.astro`
+- Calculator/post layout: `src/layouts/simLayout.astro`
 - CSS lives under `src/styles/` and is imported per-page/layout.
-
-## Scripts
-
-Utility scripts for frontmatter/content maintenance:
-- `scripts/` (Node)
-- `update_frontmatter.py` (Python)
-- `inject-reviewType.js`, `fix-reviewType.js` (repo root)
