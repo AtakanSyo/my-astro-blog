@@ -1,0 +1,115 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "True Field of View Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-08-31'
+description: "Calculate how much actual sky an eyepiece shows — true field ≈ apparent field ÷ magnification, or the more accurate 57.2958 × field stop ÷ telescope focal length when the field stop is known — in degrees and arcminutes, with the Moon, Andromeda Galaxy, Orion Nebula, Pleiades, and the Double Cluster drawn to scale inside the resulting field to answer 'will it fit' directly."
+postColor: rgba(18, 28, 46, 1)
+slug: true-field-of-view-calculator
+keywords:
+  - true field of view calculator
+  - eyepiece field of view
+  - field stop calculator
+  - telescope true field
+  - will Andromeda fit in my eyepiece
+  - apparent field of view telescope
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import TrueFieldOfViewCalculator from "../../components/simulations/true-field-of-view-calculator/TrueFieldOfViewCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <TrueFieldOfViewCalculator client:load />
+</figure>
+
+Magnification gets all the attention, but it isn't the number that
+decides whether the Pleiades fit in one view or whether you'll be
+panning the telescope across Andromeda in three separate passes.
+That's true field of view — how much actual sky is visible through the
+eyepiece — and it shrinks as magnification grows, not the other way
+around most people assume.
+
+## The simple method
+
+$$
+\text{TFOV} \approx \frac{\text{AFOV}}{M}
+$$
+
+AFOV is the eyepiece's own apparent field of view — how wide the view
+feels looking through it, printed on nearly every eyepiece's spec sheet
+— and M is the magnification (telescope focal length over eyepiece focal
+length). A 25mm eyepiece with a 52° apparent field, used at 40×, shows
+52/40 ≈ 1.3° of actual sky.
+
+## The more accurate method
+
+$$
+\text{TFOV} = 57.2958 \times \frac{\text{field stop (mm)}}{F\ (\text{mm})}
+$$
+
+The field stop is a physical aperture inside the eyepiece barrel that
+defines the sharp edge of the view — a real, measurable diameter in
+millimeters, not a spec-sheet number. 57.2958 is 180/π, converting the
+small-angle relation (field stop divided by the telescope's focal
+length, in radians) to degrees. A manufacturer's stated AFOV is
+sometimes rounded, and for wide-angle designs with real optical
+distortion at the edge of the field it can diverge from the field-stop
+figure by several percent — the Tele Vue Panoptic 24mm preset here is a
+real eyepiece where that gap is close to 5%. When both numbers are
+available, the field-stop method is the one to trust.
+
+Both methods are Kepler's third law's small-angle cousin applied to
+eyepiece optics rather than orbits — for the underlying angular-size
+relation itself, exact rather than approximated, see this site's
+[Angular Size & Physical Size Calculator](/posts/angular-size-calculator),
+which supplies the same real angular diameters used in the overlay
+below. And because true field falls as magnification rises, it's worth
+reading together with the
+[Telescope Magnification & Eyepiece Calculator](/posts/telescope-magnification-calculator):
+the same eyepiece swap that pushes you toward empty magnification is
+also shrinking your field down to a fraction of what it was.
+
+## Reading the overlay
+
+The real payoff isn't the degree number, it's the picture: the dashed
+circle is the eyepiece's field of view, and each shaded shape is a
+well-known object's real apparent size, drawn to that exact same
+angular scale and centered together. An object whose outline pokes past
+the dashed circle genuinely doesn't fit in one view — no illustration
+trick, just the same angle measured two ways. Toggle any of the Moon,
+the Pleiades, the Orion Nebula, the Andromeda Galaxy, or the Double
+Cluster on or off from the legend to compare them directly against your
+own setup, or against each other.
+
+Two things worth noticing: **Andromeda's full cataloged extent** (about
+3° across) doesn't fit inside most eyepieces' fields at any reasonable
+magnification — only its brighter core, much smaller, is what most
+observers actually see and recognize. And **at high enough power, the
+Moon itself stops fitting** — the "10mm planetary eyepiece" preset here
+frames a field narrower than the Moon's own apparent diameter, which
+is exactly why lunar observers back off to lower power to see the whole
+disk at once.
+
+<SimPostSchema
+  title="True Field of View Calculator"
+  description="Calculate how much actual sky an eyepiece shows — true field ≈ apparent field ÷ magnification, or the more accurate 57.2958 × field stop ÷ telescope focal length when the field stop is known — in degrees and arcminutes, with the Moon, Andromeda Galaxy, Orion Nebula, Pleiades, and the Double Cluster drawn to scale inside the resulting field to answer 'will it fit' directly."
+  url="https://astrosyo.com/posts/true-field-of-view-calculator"
+  datePublished="2026-08-31"
+  authorName="Astrosyo"
+  keywords={["true field of view calculator", "eyepiece field of view", "field stop calculator", "telescope true field", "apparent field of view telescope"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "True Field of View Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/true-field-of-view-calculator#calculator",
+    "description": "Interactive calculator that computes an eyepiece's true field of view from its apparent field and magnification, or more accurately from its field stop and telescope focal length, with the Moon, Andromeda Galaxy, Orion Nebula, Pleiades, and the Double Cluster drawn to scale inside the resulting field."
+  }}
+/>

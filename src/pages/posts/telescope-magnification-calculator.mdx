@@ -1,0 +1,129 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Telescope Magnification & Eyepiece Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-08-31'
+description: "Calculate telescope magnification (M = F/f), exit pupil, and true field of view from telescope and eyepiece focal length — plus a verdict on whether the setup is actually usable: empty magnification above ~2× the aperture in millimetres, wasted light above a ~7mm exit pupil. With a magnification gauge and a to-scale exit-pupil comparison."
+postColor: rgba(50, 34, 12, 1)
+slug: telescope-magnification-calculator
+keywords:
+  - telescope magnification calculator
+  - eyepiece calculator
+  - exit pupil calculator
+  - empty magnification
+  - true field of view telescope
+  - maximum useful magnification
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import TelescopeMagnificationCalculator from "../../components/simulations/telescope-magnification-calculator/TelescopeMagnificationCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <TelescopeMagnificationCalculator client:load />
+</figure>
+
+The box a cheap telescope comes in almost always advertises a number
+like "675×" in large letters, arrived at by pairing the shortest
+eyepiece and a 3× Barlow the box happens to include. The magnification
+is real arithmetic — it's just a number nothing about that telescope's
+aperture, the atmosphere, or human eyesight can actually make useful.
+Knowing *that* a setup produces 675× tells you nothing on its own; what
+matters is whether that number is worth anything.
+
+## Magnification
+
+$$
+M = \frac{F}{f}
+$$
+
+F is the telescope's own focal length, f the eyepiece's focal length —
+both in the same unit. A 1000mm-focal-length telescope with a 25mm
+eyepiece gives 40×; swap in a 4mm eyepiece and the same telescope gives
+250×. Nothing about the optics changed except which piece of glass is
+doing the magnifying, which is exactly why this number by itself is
+such a poor guide to image quality.
+
+## Exit pupil
+
+$$
+\text{exit pupil} = \frac{D}{M}
+$$
+
+D is the aperture. The exit pupil is the diameter of the actual cone of
+light leaving the eyepiece — and it has to fit through your eye's own
+pupil to do any good. A fully dark-adapted eye opens to roughly 7mm at
+best (less in a lit room, less still with age), so an exit pupil
+noticeably wider than that is delivering light your eye physically
+can't accept. That light isn't dangerous, it's just wasted — the same
+view at a shorter eyepiece would be just as bright and just as
+detailed, in a smaller, easier-to-aim field.
+
+## Why "more power" runs out
+
+Every observing guide repeats some version of "don't exceed about 2×
+your aperture in millimetres" (or roughly 50× per inch), and it isn't
+an arbitrary rule — it's what happens when you push magnification past
+what the atmosphere and the eye can actually resolve. Past that point
+you're not seeing more detail, you're seeing the *same* detail — plus
+whatever blur the air and the optics already put there — spread over a
+bigger, dimmer area. This calculator flags it directly: a 130mm scope
+pushed to 250× isn't wrong to attempt, it's just very unlikely to show
+anything a good night at 200× wouldn't already show, and on an
+average night it'll show *less*, because a dimmer, more smeared-out
+image is harder on the eye than a smaller, crisper one.
+
+The hard ceiling underneath that rule of thumb is diffraction itself —
+no amount of magnification reveals detail finer than what the aperture
+physically resolves. This site's
+[Telescope Angular Resolution Calculator](/posts/telescope-angular-resolution-calculator)
+computes that exact limit from aperture and wavelength via the Rayleigh
+criterion; the "2× aperture(mm)" rule here is the practical, seeing-
+and-eyesight-adjusted version of the same ceiling.
+
+## True field of view
+
+Give an eyepiece's apparent field of view (printed in its spec sheet,
+typically 40–50° for a basic design, up to 100°+ for premium
+wide-angle eyepieces) and the calculator divides it by magnification to
+get the true field — how much actual sky you see. The same 25mm
+eyepiece frames a much wider slice of sky in a short-focal-length
+telescope than in a long one, simply because it's producing a lower
+magnification there. For the more accurate field-stop version of this
+same calculation, plus the Moon, Andromeda, and a few other classic
+targets drawn to scale inside the resulting field, see the
+[True Field of View Calculator](/posts/true-field-of-view-calculator) —
+the fastest way to actually judge whether a setup will frame a target.
+
+## Reading the visuals
+
+- **The magnification gauge** marks your setup's magnification against
+  the two limits directly: the exit-pupil floor on the left and the
+  empty-magnification ceiling on the right, with the useful range
+  shaded in between.
+- **The exit pupil comparison** draws your setup's exit pupil next to a
+  dark-adapted eye's own pupil, to the same scale — a genuinely visual
+  answer to "is this light actually reaching my eye."
+
+<SimPostSchema
+  title="Telescope Magnification & Eyepiece Calculator"
+  description="Calculate telescope magnification (M = F/f), exit pupil, and true field of view from telescope and eyepiece focal length — plus a verdict on whether the setup is actually usable: empty magnification above ~2× the aperture in millimetres, wasted light above a ~7mm exit pupil. With a magnification gauge and a to-scale exit-pupil comparison."
+  url="https://astrosyo.com/posts/telescope-magnification-calculator"
+  datePublished="2026-08-31"
+  authorName="Astrosyo"
+  keywords={["telescope magnification calculator", "eyepiece calculator", "exit pupil calculator", "empty magnification", "true field of view telescope"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Telescope Magnification & Eyepiece Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/telescope-magnification-calculator#calculator",
+    "description": "Interactive calculator that computes telescope magnification, exit pupil, and true field of view from telescope and eyepiece focal length, with a verdict on empty magnification and wasted exit pupil, a magnification gauge, and a to-scale exit-pupil comparison."
+  }}
+/>
