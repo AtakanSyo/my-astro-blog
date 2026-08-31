@@ -1,0 +1,111 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Kepler's Third Law Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-08-31'
+description: "Solve Kepler's third law P² = 4π²a³/G(M₁+M₂) for orbital period, semi-major axis, or total system mass from the other two — the general two-body form, not the solar-system shortcut P²=a³ that silently assumes a 1 M☉ central body and a negligible companion — with a log-log chart showing exactly where the two diverge."
+postColor: rgba(24, 58, 84, 1)
+slug: kepler-third-law-calculator
+keywords:
+  - Kepler's third law calculator
+  - orbital period calculator
+  - semi-major axis calculator
+  - binary star mass from orbit
+  - exoplanet host star mass
+  - P squared equals a cubed
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import KeplerThirdLawCalculator from "../../components/simulations/kepler-third-law-calculator/KeplerThirdLawCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <KeplerThirdLawCalculator client:load />
+</figure>
+
+Type "orbital period calculator" into a search engine and nearly every
+result gives you the same shortcut: P² = a³, period in years, distance
+in AU. It's not wrong, exactly — it's a special case of the real law,
+quietly carrying an assumption that the central body weighs exactly one
+solar mass and the orbiting body weighs nothing at all. That's a fine
+assumption for a planet around a Sun-like star. It's a bad one for the
+ISS around Earth, a hot Jupiter around a star that isn't 1 M☉, or two
+neutron stars orbiting each other — and the shortcut doesn't warn you
+when it fails, it just quietly hands back the wrong number.
+
+## The general form
+
+$$
+P^2 = \frac{4\pi^2 a^3}{G(M_1+M_2)}
+$$
+
+P is the orbital period, a the semi-major axis of the orbit, and
+M1 + M2 the combined mass of both bodies — not just the central one.
+Set M1 = 1 M☉, M2 ≈ 0, work in years and AU, and the G and 4π² fold
+away entirely, leaving exactly the shortcut everyone uses. That's the
+whole story: P² = a³ isn't a different law, it's this one with the mass
+term fixed at a value that's only true for one specific kind of system.
+
+## Solving it the other two ways
+
+Because the relation ties exactly three quantities together, knowing
+any two gives you the third — and the least obvious direction is
+solving for mass. Point a telescope at a star, time how long a planet
+or companion takes to go around it and how far out it orbits, and
+Kepler's third law hands back the combined mass of the system with no
+other assumptions required. This is, mechanically, the same move this
+site's [Binary Mass Function Calculator](/posts/binary-mass-function-calculator)
+makes to weigh an unseen companion in an X-ray binary — Kepler's third
+law is the more basic relation the mass function is built on top of,
+generalized here to handle the plain two-body case directly.
+
+## Where the shortcut quietly breaks
+
+- **Wrong central mass.** WASP-12, the host star of a well-studied hot
+  Jupiter, weighs roughly 1.4 M☉, not 1. Solve for its mass from the
+  planet's real period and semi-major axis and you recover something
+  close to that 1.4 M☉ — the shortcut, which can only ever answer "1
+  M☉," is off by more than 40%.
+- **Wrong mass regime entirely.** The ISS orbits Earth, not the Sun. Its
+  semi-major axis in AU is a number close to zero, and plugging that
+  into P² = a³ implicitly asks "how fast would something orbit *the
+  Sun* at this distance" — a wildly different, wildly wrong question
+  from the one actually being asked.
+- **Two comparable masses.** In the Hulse–Taylor binary pulsar, neither
+  neutron star is a negligible companion to the other; the combined
+  mass is nearly 2.8 M☉. The shortcut has no way to represent a second
+  massive body at all.
+
+## Reading the chart
+
+In units of years, AU, and solar masses, Kepler's third law reduces to
+the clean identity P² = a³/M — which means that on a log(period) vs.
+log(semi-major axis) plot, every fixed mass traces out a straight line
+of the same slope, just shifted up or down. The shortcut is that line
+pinned to exactly M = 1 M☉; your system's real line sits wherever its
+actual total mass puts it. The dashed vertical gap between the two
+lines at your system's own semi-major axis *is* the shortcut's error —
+visibly, not just as a percentage.
+
+<SimPostSchema
+  title="Kepler's Third Law Calculator"
+  description="Solve Kepler's third law P² = 4π²a³/G(M₁+M₂) for orbital period, semi-major axis, or total system mass from the other two — the general two-body form, not the solar-system shortcut P²=a³ that silently assumes a 1 M☉ central body and a negligible companion — with a log-log chart showing exactly where the two diverge."
+  url="https://astrosyo.com/posts/kepler-third-law-calculator"
+  datePublished="2026-08-31"
+  authorName="Astrosyo"
+  keywords={["Kepler's third law calculator", "orbital period calculator", "semi-major axis calculator", "binary star mass from orbit", "exoplanet host star mass"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Kepler's Third Law Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/kepler-third-law-calculator#calculator",
+    "description": "Interactive calculator that solves the general two-body form of Kepler's third law for orbital period, semi-major axis, or total system mass, with a log-log chart comparing the result to the solar-system P²=a³ shortcut."
+  }}
+/>
