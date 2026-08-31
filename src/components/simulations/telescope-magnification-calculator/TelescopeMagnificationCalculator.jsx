@@ -14,6 +14,7 @@ import { TELESCOPE_MAGNIFICATION_TEST_COLUMNS, TELESCOPE_MAGNIFICATION_TEST_SOUR
 import "../../../styles/telescopeMagnificationCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
 import CalculatorTests from "../../CalculatorTests.jsx";
+import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 // Real, well-known gear where possible — the 114mm/1000mm combo is the
 // exact spec of the Celestron AstroMaster 114EQ, a widely-sold beginner
@@ -172,6 +173,7 @@ export default function TelescopeMagnificationCalculator() {
   const testRows = useMemo(() => getTelescopeMagnificationTestRows(), []);
 
   const copyLink = async () => {
+    trackEvent("calculator-copy-link");
     if (typeof window === "undefined") return;
     try {
       await navigator.clipboard.writeText(window.location.href);

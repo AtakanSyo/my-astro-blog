@@ -4,6 +4,7 @@ import { DRAKE_EQUATION_TEST_COLUMNS, DRAKE_EQUATION_TEST_SOURCES, getDrakeEquat
 import "../../../styles/drakeEquationCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
 import CalculatorTests from "../../CalculatorTests.jsx";
+import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 // Every preset is a real, citable position, not an arbitrary slider
 // arrangement — Drake's own 1961 numbers give the famous N≈10; the other
@@ -148,6 +149,7 @@ export default function DrakeEquationCalculator() {
   const testRows = useMemo(() => getDrakeEquationTestRows(), []);
 
   const copyLink = async () => {
+    trackEvent("calculator-copy-link");
     if (typeof window === "undefined") return;
     try {
       await navigator.clipboard.writeText(window.location.href);

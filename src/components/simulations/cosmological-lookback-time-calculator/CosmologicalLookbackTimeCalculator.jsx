@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Efunc, lookbackTimeGyr, ageOfUniverseTodayGyr } from "./cosmology";
 import "../../../styles/cosmologicalLookbackTimeCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 // Each preset sets a full, self-consistent state (redshift + cosmology),
 // so applying one and then tweaking a field afterward always starts from
@@ -205,6 +206,7 @@ export default function CosmologicalLookbackTimeCalculator() {
   };
 
   const copyLink = async () => {
+    trackEvent("calculator-copy-link");
     if (typeof window === "undefined") return;
     try {
       await navigator.clipboard.writeText(window.location.href);

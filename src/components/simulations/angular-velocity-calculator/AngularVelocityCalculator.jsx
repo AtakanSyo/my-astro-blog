@@ -23,6 +23,7 @@ import { ANGULAR_VELOCITY_TEST_COLUMNS, ANGULAR_VELOCITY_TEST_SOURCES, getAngula
 import "../../../styles/angularVelocityCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
 import CalculatorTests from "../../CalculatorTests.jsx";
+import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 // Every preset is self-consistent (mode + all three input branches would
 // agree), and doubles as a landmark on the comparison ladder below.
@@ -223,6 +224,7 @@ export default function AngularVelocityCalculator() {
   };
 
   const copyLink = async () => {
+    trackEvent("calculator-copy-link");
     if (typeof window === "undefined") return;
     try {
       await navigator.clipboard.writeText(window.location.href);

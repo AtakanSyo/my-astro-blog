@@ -18,6 +18,7 @@ import {
 } from "./doppler";
 import "../../../styles/dopplerRadialVelocityCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 // Every preset is self-consistent under both solve directions and both
 // modes, so switching either after applying one never shows a jarring
@@ -249,6 +250,7 @@ export default function DopplerRadialVelocityCalculator() {
   };
 
   const copyLink = async () => {
+    trackEvent("calculator-copy-link");
     if (typeof window === "undefined") return;
     try {
       await navigator.clipboard.writeText(window.location.href);

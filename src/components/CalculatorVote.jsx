@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { hasSupabasePublicEnv } from "../lib/supabase/client";
 import { getCalculatorVotes, castCalculatorVote, DOWN_VOTE_REASONS } from "../lib/supabase/calculatorVotes";
+import { trackEvent } from "../lib/analytics/trackEvent";
 import "../styles/calculatorVote.css";
 
 /**
@@ -78,6 +79,14 @@ export default function CalculatorVote({ slug }) {
 
   async function submitVote(voteType, downReason = null) {
     if (pending || !slug) return;
+
+    const isRemoving = myVote === voteType;
+    trackEvent("calculator-vote", {
+      calculator: slug,
+      direction: voteType === 1 ? "up" : "down",
+      action: isRemoving ? "remove" : "cast",
+      reason: voteType === -1 && !isRemoving ? downReason : undefined,
+    });
 
     const prevUp = thumbsUp;
     const prevDown = thumbsDown;

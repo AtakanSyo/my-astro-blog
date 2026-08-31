@@ -21,6 +21,7 @@ import {
 } from "./flux";
 import "../../../styles/fluxLuminosityDistanceCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 // Every preset is self-consistent under all three "solve for" choices, so
 // switching "solve for" after applying one never shows a jarring mismatch.
@@ -313,6 +314,7 @@ export default function FluxLuminosityDistanceCalculator() {
   };
 
   const copyLink = async () => {
+    trackEvent("calculator-copy-link");
     if (typeof window === "undefined") return;
     try {
       await navigator.clipboard.writeText(window.location.href);

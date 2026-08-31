@@ -13,6 +13,7 @@ import { BINARY_MASS_FUNCTION_TEST_COLUMNS, BINARY_MASS_FUNCTION_TEST_SOURCES, g
 import "../../../styles/binaryMassFunctionCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
 import CalculatorTests from "../../CalculatorTests.jsx";
+import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 // Every preset is self-consistent: applying one and toggling "estimate
 // companion mass" on/off never shows a jarring mismatch, because f(M)
@@ -255,6 +256,7 @@ export default function BinaryMassFunctionCalculator() {
 
 
   const copyLink = async () => {
+    trackEvent("calculator-copy-link");
     if (typeof window === "undefined") return;
     try {
       await navigator.clipboard.writeText(window.location.href);

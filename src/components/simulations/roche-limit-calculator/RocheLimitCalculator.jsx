@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { fluidRocheLimit, rigidRocheLimit, rocheLimit, FLUID_COEFFICIENT, RIGID_COEFFICIENT, REFERENCE_DENSITIES } from "./roche";
 import "../../../styles/rocheLimitCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 // Every preset is a real (or realistically illustrative) primary +
 // satellite pair, several with a real actual orbital distance included
@@ -207,6 +208,7 @@ export default function RocheLimitCalculator() {
   };
 
   const copyLink = async () => {
+    trackEvent("calculator-copy-link");
     if (typeof window === "undefined") return;
     try {
       await navigator.clipboard.writeText(window.location.href);

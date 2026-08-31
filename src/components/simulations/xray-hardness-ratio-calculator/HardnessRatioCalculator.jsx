@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import "../../../styles/xrayHardnessRatioCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 const PRESETS = [
   { label: "Soft source (corona-like)", soft: "200", hard: "30" },
@@ -126,6 +127,7 @@ export default function HardnessRatioCalculator() {
   };
 
   const copyLink = async () => {
+    trackEvent("calculator-copy-link");
     if (typeof window === "undefined") return;
     try {
       await navigator.clipboard.writeText(window.location.href);

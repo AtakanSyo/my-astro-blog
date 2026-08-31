@@ -14,6 +14,7 @@ import {
 } from "./mainSequenceLifetime";
 import "../../../styles/mainSequenceLifetimeCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 const PRESETS = [
   { label: "Red dwarf (0.2 M☉)", solveFor: "lifetime", mass: 0.2 },
@@ -193,6 +194,7 @@ export default function MainSequenceLifetimeCalculator() {
   };
 
   const copyLink = async () => {
+    trackEvent("calculator-copy-link");
     if (typeof window === "undefined") return;
     try {
       await navigator.clipboard.writeText(window.location.href);

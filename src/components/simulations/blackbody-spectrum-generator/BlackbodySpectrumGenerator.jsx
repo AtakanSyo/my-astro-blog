@@ -11,6 +11,7 @@ import { BLACKBODY_TEST_COLUMNS, BLACKBODY_TEST_SOURCES, getBlackbodyTestRows } 
 import "../../../styles/blackbodySpectrumGenerator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
 import CalculatorTests from "../../CalculatorTests.jsx";
+import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 const TEMP_MIN = 300;
 const TEMP_MAX = 50000;
@@ -239,6 +240,7 @@ export default function BlackbodySpectrumGenerator() {
 
 
   const copyLink = async () => {
+    trackEvent("calculator-copy-link");
     if (typeof window === "undefined") return;
     try {
       await navigator.clipboard.writeText(window.location.href);

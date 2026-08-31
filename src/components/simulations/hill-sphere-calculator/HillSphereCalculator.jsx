@@ -16,6 +16,7 @@ import {
 } from "./hillSphere";
 import "../../../styles/hillSphereCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 // Every preset is a real (or realistically illustrative) orbiting-body +
 // host pair, and doubles as a permanent landmark on the comparison
@@ -208,6 +209,7 @@ export default function HillSphereCalculator() {
   };
 
   const copyLink = async () => {
+    trackEvent("calculator-copy-link");
     if (typeof window === "undefined") return;
     try {
       await navigator.clipboard.writeText(window.location.href);

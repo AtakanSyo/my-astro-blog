@@ -13,6 +13,7 @@ import {
 } from "./redshift";
 import "../../../styles/redshiftWavelengthCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 // Every preset is self-consistent under all three "solve for" choices.
 // Each also names the real spectral line it uses, since which line is
@@ -214,6 +215,7 @@ export default function RedshiftWavelengthCalculator() {
   };
 
   const copyLink = async () => {
+    trackEvent("calculator-copy-link");
     if (typeof window === "undefined") return;
     try {
       await navigator.clipboard.writeText(window.location.href);

@@ -10,6 +10,7 @@ import { TRUE_FIELD_OF_VIEW_TEST_COLUMNS, TRUE_FIELD_OF_VIEW_TEST_SOURCES, getTr
 import "../../../styles/trueFieldOfViewCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
 import CalculatorTests from "../../CalculatorTests.jsx";
+import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 // The Tele Vue Panoptic 24mm's published specs (68° AFOV, 27mm field
 // stop) are real, and the ~5% gap between what the simple and
@@ -184,6 +185,7 @@ export default function TrueFieldOfViewCalculator() {
   const testRows = useMemo(() => getTrueFieldOfViewTestRows(), []);
 
   const copyLink = async () => {
+    trackEvent("calculator-copy-link");
     if (typeof window === "undefined") return;
     try {
       await navigator.clipboard.writeText(window.location.href);

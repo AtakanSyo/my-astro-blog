@@ -14,6 +14,7 @@ import {
 } from "./equilibriumTemp";
 import "../../../styles/exoplanetEquilibriumTemperatureCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 // Every preset is a real (or realistically illustrative) star-planet
 // pair, so switching the redistribution model after applying one always
@@ -197,6 +198,7 @@ export default function ExoplanetEquilibriumTemperatureCalculator() {
   };
 
   const copyLink = async () => {
+    trackEvent("calculator-copy-link");
     if (typeof window === "undefined") return;
     try {
       await navigator.clipboard.writeText(window.location.href);

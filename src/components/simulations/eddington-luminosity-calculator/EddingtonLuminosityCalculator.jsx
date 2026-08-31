@@ -13,6 +13,7 @@ import {
 } from "./eddington";
 import "../../../styles/eddingtonLuminosityCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 // Every preset is self-consistent (L, if given, really is that fraction
 // of L_Edd for that mass) so applying one and reading the result never
@@ -226,6 +227,7 @@ export default function EddingtonLuminosityCalculator() {
   };
 
   const copyLink = async () => {
+    trackEvent("calculator-copy-link");
     if (typeof window === "undefined") return;
     try {
       await navigator.clipboard.writeText(window.location.href);

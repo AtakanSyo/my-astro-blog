@@ -15,6 +15,7 @@ import {
 } from "./schwarzschild";
 import "../../../styles/schwarzschildRadiusCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 // Every preset is self-consistent under both "solve for" choices — the
 // mass and radius always match — and doubles as a landmark point on the
@@ -221,6 +222,7 @@ export default function SchwarzschildRadiusCalculator() {
   };
 
   const copyLink = async () => {
+    trackEvent("calculator-copy-link");
     if (typeof window === "undefined") return;
     try {
       await navigator.clipboard.writeText(window.location.href);

@@ -21,6 +21,7 @@ import {
 } from "./properMotion";
 import "../../../styles/properMotionVelocityCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 const PRESETS = [
   {
@@ -230,6 +231,7 @@ export default function ProperMotionCalculator() {
   };
 
   const copyLink = async () => {
+    trackEvent("calculator-copy-link");
     if (typeof window === "undefined") return;
     try {
       await navigator.clipboard.writeText(window.location.href);

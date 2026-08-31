@@ -22,6 +22,7 @@ import { KEPLER_THIRD_LAW_TEST_COLUMNS, KEPLER_THIRD_LAW_TEST_SOURCES, getKepler
 import "../../../styles/keplerThirdLawCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
 import CalculatorTests from "../../CalculatorTests.jsx";
+import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 // Every preset is self-consistent and solves for the field its narrative
 // is actually about: Earth and the ISS both solve for period (one shows
@@ -304,6 +305,7 @@ export default function KeplerThirdLawCalculator() {
   const testRows = useMemo(() => getKeplerThirdLawTestRows(), []);
 
   const copyLink = async () => {
+    trackEvent("calculator-copy-link");
     if (typeof window === "undefined") return;
     try {
       await navigator.clipboard.writeText(window.location.href);

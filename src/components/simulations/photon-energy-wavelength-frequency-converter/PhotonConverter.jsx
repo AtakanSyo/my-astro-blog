@@ -15,6 +15,7 @@ import {
 } from "./physics";
 import "../../../styles/photonConverter.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 const PRESETS = [
   { label: "FM radio (100 MHz)", wavelengthM: C / 100e6 },
@@ -223,6 +224,7 @@ export default function PhotonConverter() {
   };
 
   const copyLink = async () => {
+    trackEvent("calculator-copy-link");
     if (typeof window === "undefined") return;
     try {
       await navigator.clipboard.writeText(window.location.href);

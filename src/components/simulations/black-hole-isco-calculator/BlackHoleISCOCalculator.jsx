@@ -12,6 +12,7 @@ import { KERR_TEST_COLUMNS, KERR_TEST_SOURCES, getKerrTestRows } from "./kerrTes
 import "../../../styles/blackHoleISCOCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
 import CalculatorTests from "../../CalculatorTests.jsx";
+import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 // Every preset pairs a real (or pedagogically extreme) spin with a
 // plausible mass, so applying one and reading the diagram/table always
@@ -190,6 +191,7 @@ export default function BlackHoleISCOCalculator() {
 
 
   const copyLink = async () => {
+    trackEvent("calculator-copy-link");
     if (typeof window === "undefined") return;
     try {
       await navigator.clipboard.writeText(window.location.href);

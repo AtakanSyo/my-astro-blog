@@ -14,6 +14,7 @@ import {
 } from "./parallax";
 import "../../../styles/parallaxDistanceCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 const PRESETS = [
   { label: "Proxima Centauri", pMas: 768.5, sigmaMas: "" },
@@ -178,6 +179,7 @@ export default function ParallaxDistanceCalculator() {
   };
 
   const copyLink = async () => {
+    trackEvent("calculator-copy-link");
     if (typeof window === "undefined") return;
     try {
       await navigator.clipboard.writeText(window.location.href);

@@ -13,6 +13,7 @@ import {
 } from "./transitProbability";
 import "../../../styles/exoplanetTransitProbabilityCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 // Every preset is a real (or realistically illustrative) star+planet
 // system, and doubles as a landmark on the a-vs-probability scatter
@@ -229,6 +230,7 @@ export default function ExoplanetTransitProbabilityCalculator() {
   };
 
   const copyLink = async () => {
+    trackEvent("calculator-copy-link");
     if (typeof window === "undefined") return;
     try {
       await navigator.clipboard.writeText(window.location.href);

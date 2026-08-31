@@ -4,6 +4,7 @@ import { DISTANCES_TEST_COLUMNS, DISTANCES_TEST_SOURCES, getDistancesTestRows } 
 import "../../../styles/astronomicalDistanceConverter.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
 import CalculatorTests from "../../CalculatorTests.jsx";
+import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 const PRESETS = [
   { label: "Earth–Moon distance", value: 384400, unit: "km" },
@@ -174,6 +175,7 @@ export default function AstronomicalDistanceConverter() {
 
 
   const copyLink = async () => {
+    trackEvent("calculator-copy-link");
     if (typeof window === "undefined") return;
     try {
       await navigator.clipboard.writeText(window.location.href);

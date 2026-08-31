@@ -21,6 +21,7 @@ import {
 } from "./physics";
 import "../../../styles/quantumParticleSimulator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 // --- grid & integration constants ---------------------------------------
 const XMIN = -20;
@@ -366,6 +367,7 @@ export default function QuantumParticleSimulator() {
   };
 
   const copyLink = async () => {
+    trackEvent("calculator-copy-link");
     if (typeof window === "undefined") return;
     try {
       await navigator.clipboard.writeText(window.location.href);

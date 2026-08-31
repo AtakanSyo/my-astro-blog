@@ -20,6 +20,7 @@ import { ANGULAR_SIZE_TEST_COLUMNS, ANGULAR_SIZE_TEST_SOURCES, getAngularSizeTes
 import "../../../styles/angularSizeCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
 import CalculatorTests from "../../CalculatorTests.jsx";
+import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 // Every preset is self-consistent under all three "solve for" choices —
 // diameter, distance, and the angle they imply — so switching "solve for"
@@ -300,6 +301,7 @@ export default function AngularSizeCalculator() {
   };
 
   const copyLink = async () => {
+    trackEvent("calculator-copy-link");
     if (typeof window === "undefined") return;
     try {
       await navigator.clipboard.writeText(window.location.href);

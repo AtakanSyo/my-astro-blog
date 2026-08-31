@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { trackEvent } from "../lib/analytics/trackEvent";
 import "../styles/calculatorTests.css";
 
 /**
@@ -64,13 +65,18 @@ export default function CalculatorTests({ title, columns, rows, sources }) {
   const failCount = rows.filter((r) => r.pass === false).length;
   const hasPassFail = passCount + failCount > 0;
 
+  function openDialog() {
+    trackEvent("calculator-tests-open", { calculator: title, passCount, failCount, rowCount: rows.length });
+    setOpen(true);
+  }
+
   return (
     <>
       <button
         type="button"
         ref={triggerRef}
         className="calc-tests-btn"
-        onClick={() => setOpen(true)}
+        onClick={openDialog}
         aria-haspopup="dialog"
       >
         Tests

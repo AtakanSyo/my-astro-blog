@@ -24,6 +24,7 @@ import { ESCAPE_VELOCITY_TEST_COLUMNS, ESCAPE_VELOCITY_TEST_SOURCES, getEscapeVe
 import "../../../styles/escapeVelocityCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
 import CalculatorTests from "../../CalculatorTests.jsx";
+import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 const SOLVE_OPTIONS = [
   { key: "velocity", label: "Escape velocity" },
@@ -194,6 +195,7 @@ export default function EscapeVelocityCalculator() {
   };
 
   const copyLink = async () => {
+    trackEvent("calculator-copy-link");
     if (typeof window === "undefined") return;
     try {
       await navigator.clipboard.writeText(window.location.href);

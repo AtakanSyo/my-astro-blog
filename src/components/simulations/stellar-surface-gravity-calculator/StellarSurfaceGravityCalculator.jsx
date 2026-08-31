@@ -16,6 +16,7 @@ import {
 } from "./stellarGravity";
 import "../../../styles/stellarSurfaceGravityCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 // Every preset doubles as a permanent landmark on both charts below,
 // plotted whether or not it's the one currently applied.
@@ -227,6 +228,7 @@ export default function StellarSurfaceGravityCalculator() {
   };
 
   const copyLink = async () => {
+    trackEvent("calculator-copy-link");
     if (typeof window === "undefined") return;
     try {
       await navigator.clipboard.writeText(window.location.href);

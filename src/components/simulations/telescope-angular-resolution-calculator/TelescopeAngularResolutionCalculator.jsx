@@ -15,6 +15,7 @@ import {
 } from "./angularResolution";
 import "../../../styles/telescopeAngularResolutionCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 // Every preset is a real (or realistic) aperture + wavelength pair, and
 // doubles as a landmark on the comparison ruler below.
@@ -170,6 +171,7 @@ export default function TelescopeAngularResolutionCalculator() {
   };
 
   const copyLink = async () => {
+    trackEvent("calculator-copy-link");
     if (typeof window === "undefined") return;
     try {
       await navigator.clipboard.writeText(window.location.href);

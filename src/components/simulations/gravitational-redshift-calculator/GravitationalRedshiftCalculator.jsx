@@ -18,6 +18,7 @@ import {
 } from "./gravitationalRedshift";
 import "../../../styles/gravitationalRedshiftCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 // Every preset is a real (or realistically illustrative) mass + radius
 // pair, and doubles as a permanent landmark on the z-vs-radius chart
@@ -252,6 +253,7 @@ export default function GravitationalRedshiftCalculator() {
   };
 
   const copyLink = async () => {
+    trackEvent("calculator-copy-link");
     if (typeof window === "undefined") return;
     try {
       await navigator.clipboard.writeText(window.location.href);
