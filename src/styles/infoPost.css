@@ -81,6 +81,49 @@ p {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.changelog {
+  margin: 2em 0 1.5em;
+  max-width: 800px;
+}
+
+.changelog h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-primary);
+}
+
+.changelog ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.changelog li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: baseline;
+  border-left: 3px solid rgb(var(--brand-color));
+  padding: 0.5rem 1rem;
+  background: rgba(255,255,255,0.04);
+  border-radius: 0 8px 8px 0;
+  font-size: 0.9rem;
+}
+
+.changelog-date {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-primary);
+  white-space: nowrap;
+}
+
+.changelog-text {
+  opacity: 0.85;
+}
+
 .info-post-starter-image {
   height: auto;
   margin: 1rem 0;

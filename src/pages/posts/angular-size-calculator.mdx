@@ -4,7 +4,7 @@ title: "Angular Size & Physical Size Calculator"
 category: simulation
 writer: Astrosyo
 pubDate: '2026-08-29'
-description: "Give any two of angular size, physical size, and distance, and get the third — using the exact trigonometric relation, with the small-angle approximation shown alongside for comparison."
+description: "Give any two of angular size, physical size, and distance, and get the third using the exact trigonometric relation. The small-angle approximation shown alongside for comparison."
 postColor: rgba(74, 44, 20, 1)
 slug: angular-size-calculator
 keywords:
@@ -19,6 +19,7 @@ lang: en
 ---
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
+import Changelog from "../../components/Changelog.astro";
 import AngularSizeCalculator from "../../components/simulations/angular-size-calculator/AngularSizeCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -98,4 +99,10 @@ not a measurement of true size; you need the distance too.
     "url": "https://astrosyo.com/posts/angular-size-calculator#calculator",
     "description": "Interactive calculator that solves for angular size, physical size, or distance given the other two, using the exact trigonometric angular-size relation with the small-angle approximation shown for comparison."
   }}
+/>
+
+<Changelog
+  entries={[
+    "2026-08-31: Switched the exact formula from arcsin (models the object as a solid sphere, capping physical size at twice the distance) to arctan (models a flat object facing the observer, no such cap).",
+  ]}
 />

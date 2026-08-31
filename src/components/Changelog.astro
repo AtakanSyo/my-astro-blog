@@ -1,0 +1,48 @@
+---
+/**
+ * Changelog.astro
+ *
+ * Renders a post's `changeLog` frontmatter list at the bottom of the
+ * article. Entries are displayed in the order given — pass the newest
+ * entry first — one list item per string. If an entry starts with an
+ * ISO date ("YYYY-MM-DD: ..."), the date is pulled out and styled
+ * separately; anything else is rendered as plain text.
+ *
+ * Props:
+ * - entries: Array<string>
+ */
+
+interface Props {
+  entries?: Array<string>;
+}
+
+const { entries } = Astro.props;
+
+const list = (entries ?? [])
+  .map((value) => (value ?? '').toString().trim())
+  .filter((value) => value.length > 0);
+
+const DATE_PREFIX = /^(\d{4}-\d{2}-\d{2}):\s*(.*)$/s;
+---
+{list.length > 0 && (
+  <section class="changelog">
+    <h3>Changelog</h3>
+    <ul>
+      {list.map((entry) => {
+        const match = entry.match(DATE_PREFIX);
+        return (
+          <li>
+            {match ? (
+              <>
+                <span class="changelog-date">{match[1]}</span>
+                <span class="changelog-text">{match[2]}</span>
+              </>
+            ) : (
+              <span class="changelog-text">{entry}</span>
+            )}
+          </li>
+        );
+      })}
+    </ul>
+  </section>
+)}
