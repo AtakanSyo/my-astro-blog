@@ -19,6 +19,7 @@ lang: en
 ---
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
 import PhotonConverter from "../../components/simulations/photon-energy-wavelength-frequency-converter/PhotonConverter.jsx";
 
 <figure class="post-figure post-figure-md" id="converter">
@@ -72,3 +73,5 @@ Because $E$ and $f$ both scale directly with each other, and $\lambda$ scales in
     "description": "Interactive converter between photon energy, wavelength, and frequency using E = hf = hc/λ, spanning radio through gamma-ray wavelengths, with live EM-spectrum band classification."
   }}
 />
+
+<ViewSource path="src/components/simulations/photon-energy-wavelength-frequency-converter/PhotonConverter.jsx" />

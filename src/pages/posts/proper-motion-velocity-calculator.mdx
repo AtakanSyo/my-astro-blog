@@ -18,6 +18,7 @@ lang: en
 ---
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
 import ProperMotionCalculator from "../../components/simulations/proper-motion-velocity-calculator/ProperMotionCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -104,3 +105,5 @@ Sun. Its apparent motion undersold it.
     "description": "Interactive calculator converting between proper motion, distance, and tangential velocity via v_t = 4.74047 mu d, with RA/Dec proper-motion component combination and optional radial velocity for total 3D space speed."
   }}
 />
+
+<ViewSource path="src/components/simulations/proper-motion-velocity-calculator/ProperMotionCalculator.jsx" />

@@ -18,6 +18,7 @@ lang: en
 ---
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
 import AngularVelocityCalculator from "../../components/simulations/angular-velocity-calculator/AngularVelocityCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -116,3 +117,5 @@ speeds involved stay merely relativistic rather than impossible.
     "description": "Interactive calculator that converts between rotation period, frequency, and angular velocity in rad/s, deg/s, RPM, and rev/s, with optional tangential velocity from a given radius, an animated rotating disk, and a comparison scale from everyday objects to pulsars."
   }}
 />
+
+<ViewSource path="src/components/simulations/angular-velocity-calculator/AngularVelocityCalculator.jsx" />

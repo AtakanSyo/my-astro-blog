@@ -19,6 +19,7 @@ lang: en
 ---
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
 import HardnessRatioCalculator from "../../components/simulations/xray-hardness-ratio-calculator/HardnessRatioCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -46,3 +47,5 @@ import HardnessRatioCalculator from "../../components/simulations/xray-hardness-
     "description": "Interactive calculator that computes the X-ray hardness ratio and its Poisson-propagated uncertainty from soft- and hard-band counts."
   }}
 />
+
+<ViewSource path="src/components/simulations/xray-hardness-ratio-calculator/HardnessRatioCalculator.jsx" />

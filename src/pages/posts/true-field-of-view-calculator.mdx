@@ -18,6 +18,7 @@ lang: en
 ---
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
 import TrueFieldOfViewCalculator from "../../components/simulations/true-field-of-view-calculator/TrueFieldOfViewCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -113,3 +114,5 @@ disk at once.
     "description": "Interactive calculator that computes an eyepiece's true field of view from its apparent field and magnification, or more accurately from its field stop and telescope focal length, with the Moon, Andromeda Galaxy, Orion Nebula, Pleiades, and the Double Cluster drawn to scale inside the resulting field."
   }}
 />
+
+<ViewSource path="src/components/simulations/true-field-of-view-calculator/TrueFieldOfViewCalculator.jsx" />

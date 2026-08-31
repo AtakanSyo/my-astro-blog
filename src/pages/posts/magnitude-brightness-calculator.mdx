@@ -19,6 +19,7 @@ lang: en
 ---
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
 import MagnitudeBrightnessCalculator from "../../components/simulations/magnitude-brightness-calculator/MagnitudeBrightnessCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -123,3 +124,5 @@ row your current Δm is closest to.
     "description": "Interactive calculator that converts between astronomical apparent magnitude difference and brightness (flux) ratio in either direction, with a two-star visual size comparison and a magnitude number line."
   }}
 />
+
+<ViewSource path="src/components/simulations/magnitude-brightness-calculator/MagnitudeBrightnessCalculator.jsx" />

@@ -19,6 +19,7 @@ lang: en
 ---
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
 import QuantumParticleSimulator from "../../components/simulations/quantum-particle-simulator/QuantumParticleSimulator.jsx";
 
 <figure class="post-figure post-figure-md" id="simulator">
@@ -143,3 +144,5 @@ packet arrives.
     "description": "Interactive numerical solver for the 1D time-dependent Schrodinger equation using a Crank-Nicolson finite-difference scheme, with selectable potentials (free particle, infinite/finite square well, harmonic oscillator, step, tunneling barrier), live wavefunction and probability-density plots, and expectation-value and reflection/transmission readouts."
   }}
 />
+
+<ViewSource path="src/components/simulations/quantum-particle-simulator/QuantumParticleSimulator.jsx" />

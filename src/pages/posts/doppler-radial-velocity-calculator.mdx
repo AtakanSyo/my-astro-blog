@@ -18,6 +18,7 @@ lang: en
 ---
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
 import DopplerRadialVelocityCalculator from "../../components/simulations/doppler-radial-velocity-calculator/DopplerRadialVelocityCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -108,3 +109,5 @@ data.
     "description": "Interactive calculator that converts between a spectral line's Doppler shift and its radial velocity in either direction, using the classical or exact relativistic Doppler relation, with a radial velocity gauge and a classical-versus-relativistic divergence chart."
   }}
 />
+
+<ViewSource path="src/components/simulations/doppler-radial-velocity-calculator/DopplerRadialVelocityCalculator.jsx" />

@@ -18,6 +18,7 @@ lang: en
 ---
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
 import ParallaxDistanceCalculator from "../../components/simulations/parallax-distance-calculator/ParallaxDistanceCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -102,3 +103,5 @@ shouldn't be trusted at face value.
     "description": "Interactive calculator converting between stellar parallax and distance via d(pc) = 1/p(arcsec), with a live geometric diagram of the parallax effect and optional uncertainty propagation with a reliability assessment for large fractional errors."
   }}
 />
+
+<ViewSource path="src/components/simulations/parallax-distance-calculator/ParallaxDistanceCalculator.jsx" />

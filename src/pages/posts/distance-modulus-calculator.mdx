@@ -18,6 +18,7 @@ lang: en
 ---
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
 import DistanceModulusCalculator from "../../components/simulations/distance-modulus-calculator/DistanceModulusCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -109,3 +110,5 @@ not.
     "description": "Interactive calculator that solves for apparent magnitude, absolute magnitude, or distance given the other two via the distance modulus relation, with an optional interstellar extinction term, a distance ladder, and a semi-log distance-modulus chart."
   }}
 />
+
+<ViewSource path="src/components/simulations/distance-modulus-calculator/DistanceModulusCalculator.jsx" />

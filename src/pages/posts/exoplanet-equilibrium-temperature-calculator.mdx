@@ -18,6 +18,7 @@ lang: en
 ---
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
 import ExoplanetEquilibriumTemperatureCalculator from "../../components/simulations/exoplanet-equilibrium-temperature-calculator/ExoplanetEquilibriumTemperatureCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -112,3 +113,5 @@ Two idealized cases bracket real planets:
     "description": "Interactive calculator that estimates a planet's equilibrium temperature from its star's temperature and radius, orbital distance, Bond albedo, and heat-redistribution assumption, with absorbed stellar flux, a star-planet diagram, and a temperature gauge comparing to solar-system planets."
   }}
 />
+
+<ViewSource path="src/components/simulations/exoplanet-equilibrium-temperature-calculator/ExoplanetEquilibriumTemperatureCalculator.jsx" />

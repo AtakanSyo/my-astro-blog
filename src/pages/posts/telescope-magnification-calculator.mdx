@@ -18,6 +18,7 @@ lang: en
 ---
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
 import TelescopeMagnificationCalculator from "../../components/simulations/telescope-magnification-calculator/TelescopeMagnificationCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -127,3 +128,5 @@ the fastest way to actually judge whether a setup will frame a target.
     "description": "Interactive calculator that computes telescope magnification, exit pupil, and true field of view from telescope and eyepiece focal length, with a verdict on empty magnification and wasted exit pupil, a magnification gauge, and a to-scale exit-pupil comparison."
   }}
 />
+
+<ViewSource path="src/components/simulations/telescope-magnification-calculator/TelescopeMagnificationCalculator.jsx" />

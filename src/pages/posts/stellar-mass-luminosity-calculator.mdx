@@ -18,6 +18,7 @@ lang: en
 ---
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
 import StellarMassLuminosityCalculator from "../../components/simulations/stellar-mass-luminosity-calculator/StellarMassLuminosityCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -117,3 +118,5 @@ treat any result for something else as meaningless by construction.
     "description": "Interactive calculator that estimates a main-sequence star's luminosity from its mass (or the reverse) using a piecewise empirical mass-luminosity relation, with luminosity in solar units and watts, absolute bolometric magnitude, a log-log mass-luminosity diagram, and a linear-scaling comparison."
   }}
 />
+
+<ViewSource path="src/components/simulations/stellar-mass-luminosity-calculator/StellarMassLuminosityCalculator.jsx" />

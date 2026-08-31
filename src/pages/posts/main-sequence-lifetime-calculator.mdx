@@ -18,6 +18,7 @@ lang: en
 ---
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
 import MainSequenceLifetimeCalculator from "../../components/simulations/main-sequence-lifetime-calculator/MainSequenceLifetimeCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -121,3 +122,5 @@ stellar-evolution model:
     "description": "Interactive calculator that estimates a star's main-sequence hydrogen-fusing lifetime from its mass (or the reverse) using t_MS ≈ 10^10 (M/M_sun)^-2.5 yr, with a log-log mass-versus-lifetime chart contrasted against a naive 1/M scaling line, and a log-scale bar chart comparing lifetimes from red dwarfs to massive O-type stars."
   }}
 />
+
+<ViewSource path="src/components/simulations/main-sequence-lifetime-calculator/MainSequenceLifetimeCalculator.jsx" />

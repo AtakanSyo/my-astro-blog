@@ -18,6 +18,7 @@ lang: en
 ---
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
 import CosmologicalLookbackTimeCalculator from "../../components/simulations/cosmological-lookback-time-calculator/CosmologicalLookbackTimeCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -117,3 +118,5 @@ negligible.
     "description": "Interactive calculator that numerically integrates the flat Lambda-CDM lookback time relation for a chosen redshift and cosmology, with standard cosmology presets, a cosmic timeline, and an integral-area chart, validated against Astropy."
   }}
 />
+
+<ViewSource path="src/components/simulations/cosmological-lookback-time-calculator/CosmologicalLookbackTimeCalculator.jsx" />

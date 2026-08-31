@@ -18,6 +18,7 @@ lang: en
 ---
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
 import DrakeEquationCalculator from "../../components/simulations/drake-equation-calculator/DrakeEquationCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -107,3 +108,5 @@ keep it visible.
     "description": "Interactive calculator for the Drake equation with a slider for each of the seven factors, a live estimate of N, and visuals showing the full plausible range of N and which factors drive most of its uncertainty."
   }}
 />
+
+<ViewSource path="src/components/simulations/drake-equation-calculator/DrakeEquationCalculator.jsx" />

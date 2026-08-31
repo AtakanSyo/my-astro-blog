@@ -18,6 +18,7 @@ lang: en
 ---
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
 import StellarSurfaceGravityCalculator from "../../components/simulations/stellar-surface-gravity-calculator/StellarSurfaceGravityCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -111,3 +112,5 @@ place.
     "description": "Interactive calculator that computes a star's surface gravity and log g from its mass and radius, with a rough dwarf/giant/supergiant/white-dwarf/neutron-star classification, a log g ladder, and a mass-radius diagram with constant-log-g contour lines."
   }}
 />
+
+<ViewSource path="src/components/simulations/stellar-surface-gravity-calculator/StellarSurfaceGravityCalculator.jsx" />

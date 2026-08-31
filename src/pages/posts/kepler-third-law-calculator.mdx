@@ -18,6 +18,7 @@ lang: en
 ---
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
 import KeplerThirdLawCalculator from "../../components/simulations/kepler-third-law-calculator/KeplerThirdLawCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -109,3 +110,5 @@ visibly, not just as a percentage.
     "description": "Interactive calculator that solves the general two-body form of Kepler's third law for orbital period, semi-major axis, or total system mass, with a log-log chart comparing the result to the solar-system P²=a³ shortcut."
   }}
 />
+
+<ViewSource path="src/components/simulations/kepler-third-law-calculator/KeplerThirdLawCalculator.jsx" />

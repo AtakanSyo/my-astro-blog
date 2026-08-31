@@ -18,6 +18,7 @@ lang: en
 ---
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
 import EscapeVelocityCalculator from "../../components/simulations/escape-velocity-calculator/EscapeVelocityCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -113,3 +114,5 @@ the Sun, and a white dwarf, each a stepping stone in the same climb from
     "description": "Interactive calculator that computes escape velocity from mass and radius (or solves for mass or radius given a target escape velocity), in km/s, m/s, and as a fraction of the speed of light, with presets for Earth, the Moon, Mars, Jupiter, the Sun, a white dwarf, and a neutron star, a log-scale comparison ladder from a small asteroid to a neutron star, and a direct comparison to the Schwarzschild radius for the same mass."
   }}
 />
+
+<ViewSource path="src/components/simulations/escape-velocity-calculator/EscapeVelocityCalculator.jsx" />

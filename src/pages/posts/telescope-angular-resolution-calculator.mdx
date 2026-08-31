@@ -18,6 +18,7 @@ lang: en
 ---
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
 import TelescopeAngularResolutionCalculator from "../../components/simulations/telescope-angular-resolution-calculator/TelescopeAngularResolutionCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -132,3 +133,5 @@ combo, with a verdict on whether a given setup is empty magnification.
     "description": "Interactive calculator that computes a telescope's diffraction-limited angular resolution from its aperture and observing wavelength via the Rayleigh criterion, compared against the empirical Dawes limit, with a two-stars-resolving filmstrip and a resolution comparison scale."
   }}
 />
+
+<ViewSource path="src/components/simulations/telescope-angular-resolution-calculator/TelescopeAngularResolutionCalculator.jsx" />

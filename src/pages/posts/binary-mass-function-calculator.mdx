@@ -18,6 +18,7 @@ lang: en
 ---
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
 import BinaryMassFunctionCalculator from "../../components/simulations/binary-mass-function-calculator/BinaryMassFunctionCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -118,3 +119,5 @@ modern measurements of the black hole at Cygnus X-1's heart.
     "description": "Interactive calculator that computes the binary mass function from orbital period and radial-velocity semi-amplitude, giving a lower bound on an unseen companion's mass, and numerically solves for the companion's mass given an estimated visible-star mass and inclination, with a mass-benchmark ruler and an inclination-dependence chart."
   }}
 />
+
+<ViewSource path="src/components/simulations/binary-mass-function-calculator/BinaryMassFunctionCalculator.jsx" />

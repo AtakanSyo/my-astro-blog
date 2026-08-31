@@ -18,6 +18,7 @@ lang: en
 ---
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
 import SchwarzschildRadiusCalculator from "../../components/simulations/schwarzschild-radius-calculator/SchwarzschildRadiusCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -124,3 +125,5 @@ comparison ladder from a small asteroid up through a neutron star.
     "description": "Interactive calculator that computes a Schwarzschild black hole's event-horizon radius from its mass, or the mass from a given radius, in kilometers, meters, AU, Earth radii, and solar radii, with a to-scale event-horizon diagram and a log-log mass-versus-radius chart."
   }}
 />
+
+<ViewSource path="src/components/simulations/schwarzschild-radius-calculator/SchwarzschildRadiusCalculator.jsx" />

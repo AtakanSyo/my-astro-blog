@@ -19,6 +19,7 @@ lang: en
 ---
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
 import BlackbodySpectrumGenerator from "../../components/simulations/blackbody-spectrum-generator/BlackbodySpectrumGenerator.jsx";
 
 <figure class="post-figure post-figure-md" id="generator">
@@ -76,3 +77,5 @@ That fourth-power dependence is why small temperature changes matter so much: do
     "description": "Interactive tool that plots the Planck blackbody spectrum in real time from a temperature input, with Wien's law, Stefan-Boltzmann flux, and CIE-derived apparent color."
   }}
 />
+
+<ViewSource path="src/components/simulations/blackbody-spectrum-generator/BlackbodySpectrumGenerator.jsx" />

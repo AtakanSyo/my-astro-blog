@@ -18,6 +18,7 @@ lang: en
 ---
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
 import RocheLimitCalculator from "../../components/simulations/roche-limit-calculator/RocheLimitCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -113,3 +114,5 @@ perfectly safe for a solid rock or metal body of the same size.
     "description": "Interactive calculator that computes the fluid and rigid-body Roche limit for a satellite orbiting a given primary body, compares it against an actual orbital distance, and visualizes tidal disruption with a diagram and a density-dependence chart."
   }}
 />
+
+<ViewSource path="src/components/simulations/roche-limit-calculator/RocheLimitCalculator.jsx" />

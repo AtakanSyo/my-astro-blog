@@ -18,6 +18,7 @@ lang: en
 ---
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
 import BlackHoleISCOCalculator from "../../components/simulations/black-hole-isco-calculator/BlackHoleISCOCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -127,3 +128,5 @@ with your current setting marked on it.
     "description": "Interactive calculator that computes the innermost stable circular orbit around a Kerr black hole from its mass and dimensionless spin, plus the accretion efficiency it implies, with a live horizon/ISCO/disk diagram and an ISCO-versus-spin curve."
   }}
 />
+
+<ViewSource path="src/components/simulations/black-hole-isco-calculator/BlackHoleISCOCalculator.jsx" />

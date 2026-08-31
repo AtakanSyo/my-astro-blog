@@ -19,6 +19,7 @@ lang: en
 ---
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
 import EddingtonLuminosityCalculator from "../../components/simulations/eddington-luminosity-calculator/EddingtonLuminosityCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -123,3 +124,5 @@ just not a hard ceiling nature always respects.
     "description": "Interactive calculator that computes the Eddington luminosity of an accreting compact object from its mass, and its Eddington ratio given an observed luminosity, with a colour-coded ratio meter and a log-log mass-luminosity chart."
   }}
 />
+
+<ViewSource path="src/components/simulations/eddington-luminosity-calculator/EddingtonLuminosityCalculator.jsx" />

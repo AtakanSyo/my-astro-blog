@@ -18,6 +18,7 @@ lang: en
 ---
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
 import ExoplanetTransitDepthCalculator from "../../components/simulations/exoplanet-transit-depth-calculator/ExoplanetTransitDepthCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -106,3 +107,5 @@ newly discovered transiting world.
     "description": "Interactive calculator that computes exoplanet transit depth from planet and stellar radii, or the planet radius from an observed transit depth and stellar radius, with a to-scale transit diagram and a synthetic light curve."
   }}
 />
+
+<ViewSource path="src/components/simulations/exoplanet-transit-depth-calculator/ExoplanetTransitDepthCalculator.jsx" />

@@ -18,6 +18,7 @@ lang: en
 ---
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
 import RedshiftWavelengthCalculator from "../../components/simulations/redshift-wavelength-calculator/RedshiftWavelengthCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -117,3 +118,5 @@ model (matter density, dark energy density, and the expansion rate today)
     "description": "Interactive calculator that solves for redshift, rest wavelength, or observed wavelength given the other two, via 1+z = lambda_obs/lambda_rest, with classical and relativistic Doppler recession velocities."
   }}
 />
+
+<ViewSource path="src/components/simulations/redshift-wavelength-calculator/RedshiftWavelengthCalculator.jsx" />
