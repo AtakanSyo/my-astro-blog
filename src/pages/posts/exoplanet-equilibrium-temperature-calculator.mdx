@@ -19,6 +19,7 @@ lang: en
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
+import Changelog from "../../components/Changelog.astro";
 import ExoplanetEquilibriumTemperatureCalculator from "../../components/simulations/exoplanet-equilibrium-temperature-calculator/ExoplanetEquilibriumTemperatureCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -115,3 +116,5 @@ Two idealized cases bracket real planets:
 />
 
 <ViewSource path="src/components/simulations/exoplanet-equilibrium-temperature-calculator/ExoplanetEquilibriumTemperatureCalculator.jsx" />
+
+<Changelog entries={["2026-08-31: Published."]} />

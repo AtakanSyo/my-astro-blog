@@ -20,6 +20,7 @@ lang: en
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
+import Changelog from "../../components/Changelog.astro";
 import PhotonConverter from "../../components/simulations/photon-energy-wavelength-frequency-converter/PhotonConverter.jsx";
 
 <figure class="post-figure post-figure-md" id="converter">
@@ -75,3 +76,5 @@ Because $E$ and $f$ both scale directly with each other, and $\lambda$ scales in
 />
 
 <ViewSource path="src/components/simulations/photon-energy-wavelength-frequency-converter/PhotonConverter.jsx" />
+
+<Changelog entries={["2026-08-31: Published."]} />

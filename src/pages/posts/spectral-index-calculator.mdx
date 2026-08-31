@@ -19,6 +19,7 @@ lang: en
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
+import Changelog from "../../components/Changelog.astro";
 import SpectralIndexCalculator from "../../components/simulations/spectral-index-calculator/SpectralIndexCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -113,3 +114,5 @@ an artifact of the calculation.
 />
 
 <ViewSource path="src/components/simulations/spectral-index-calculator/SpectralIndexCalculator.jsx" />
+
+<Changelog entries={["2026-08-31: Published."]} />

@@ -19,6 +19,7 @@ lang: en
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
+import Changelog from "../../components/Changelog.astro";
 import EscapeVelocityCalculator from "../../components/simulations/escape-velocity-calculator/EscapeVelocityCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -116,3 +117,5 @@ the Sun, and a white dwarf, each a stepping stone in the same climb from
 />
 
 <ViewSource path="src/components/simulations/escape-velocity-calculator/EscapeVelocityCalculator.jsx" />
+
+<Changelog entries={["2026-08-31: Published."]} />

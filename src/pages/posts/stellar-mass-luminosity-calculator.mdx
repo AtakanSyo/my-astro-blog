@@ -19,6 +19,7 @@ lang: en
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
+import Changelog from "../../components/Changelog.astro";
 import StellarMassLuminosityCalculator from "../../components/simulations/stellar-mass-luminosity-calculator/StellarMassLuminosityCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -120,3 +121,5 @@ treat any result for something else as meaningless by construction.
 />
 
 <ViewSource path="src/components/simulations/stellar-mass-luminosity-calculator/StellarMassLuminosityCalculator.jsx" />
+
+<Changelog entries={["2026-08-31: Published."]} />

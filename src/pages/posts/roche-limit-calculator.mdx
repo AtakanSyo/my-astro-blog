@@ -19,6 +19,7 @@ lang: en
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
+import Changelog from "../../components/Changelog.astro";
 import RocheLimitCalculator from "../../components/simulations/roche-limit-calculator/RocheLimitCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -116,3 +117,5 @@ perfectly safe for a solid rock or metal body of the same size.
 />
 
 <ViewSource path="src/components/simulations/roche-limit-calculator/RocheLimitCalculator.jsx" />
+
+<Changelog entries={["2026-08-31: Published."]} />

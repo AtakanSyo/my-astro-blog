@@ -19,6 +19,7 @@ lang: en
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
+import Changelog from "../../components/Changelog.astro";
 import RedshiftWavelengthCalculator from "../../components/simulations/redshift-wavelength-calculator/RedshiftWavelengthCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -120,3 +121,5 @@ model (matter density, dark energy density, and the expansion rate today)
 />
 
 <ViewSource path="src/components/simulations/redshift-wavelength-calculator/RedshiftWavelengthCalculator.jsx" />
+
+<Changelog entries={["2026-08-31: Published."]} />

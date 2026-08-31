@@ -20,6 +20,7 @@ lang: en
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
+import Changelog from "../../components/Changelog.astro";
 import BlackbodySpectrumGenerator from "../../components/simulations/blackbody-spectrum-generator/BlackbodySpectrumGenerator.jsx";
 
 <figure class="post-figure post-figure-md" id="generator">
@@ -79,3 +80,5 @@ That fourth-power dependence is why small temperature changes matter so much: do
 />
 
 <ViewSource path="src/components/simulations/blackbody-spectrum-generator/BlackbodySpectrumGenerator.jsx" />
+
+<Changelog entries={["2026-08-31: Published."]} />

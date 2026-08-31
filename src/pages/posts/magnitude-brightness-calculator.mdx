@@ -20,6 +20,7 @@ lang: en
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
+import Changelog from "../../components/Changelog.astro";
 import MagnitudeBrightnessCalculator from "../../components/simulations/magnitude-brightness-calculator/MagnitudeBrightnessCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -126,3 +127,5 @@ row your current Δm is closest to.
 />
 
 <ViewSource path="src/components/simulations/magnitude-brightness-calculator/MagnitudeBrightnessCalculator.jsx" />
+
+<Changelog entries={["2026-08-31: Published."]} />
