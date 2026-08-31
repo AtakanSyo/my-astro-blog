@@ -69,7 +69,7 @@ const PRESETS = [
   {
     label: "Very close object (large angle)",
     solveFor: "theta",
-    theta: 112.9,
+    theta: 79.6111,
     thetaUnit: "deg",
     diameter: 0.5,
     diameterUnit: "m",
@@ -337,9 +337,10 @@ export default function AngularSizeCalculator() {
       </div>
 
       <p className="asc-explainer">
-        <strong>Angular size</strong> is how large an object looks from here — its apparent extent
-        on the sky. <strong>Physical size</strong> is its true linear diameter. The same physical
-        size looks smaller the farther away it is; angular size alone never tells you which.
+        Angular size is how large an object looks from the viewpoint of the observer.
+        Which would correspond to its apparent extent
+        on the sky from a person looking at a celestial object from Earth. Physical size
+        is the objects true linear diameter.
       </p>
 
       <div className="asc-solve-toggle" role="group" aria-label="Solve for">

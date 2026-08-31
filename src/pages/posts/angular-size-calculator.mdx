@@ -25,69 +25,58 @@ import AngularSizeCalculator from "../../components/simulations/angular-size-cal
   <AngularSizeCalculator client:load />
 </figure>
 
-The Moon and the Sun look almost exactly the same size in Earth's sky —
-not because they're actually similar in size (the Sun is about 400 times
+The Moon and the Sun look almost exactly the same size in Earth's sky.
+Not because they're actually similar in size (the Sun is about 400 times
 wider), but because the Sun also happens to be about 400 times farther
-away. That's the whole idea behind angular size: how big something *looks*
+away, which by the way, is 
+a very interesting coincidence. 
+
+That's the whole idea behind angular size: how big something *looks*
 depends on both its true size and its distance, and you can't tell which
-from the angle alone. This calculator goes the other way — give it any two
-of angular size, physical size, and distance, and it solves for the third.
+from the angle alone.
 
 ## The geometry
 
-Picture an object of true diameter D, centered a distance d away. The
-angle it subtends, θ, is the apex angle of the isosceles triangle formed
-by you and the two ends of the object — which splits into two right
-triangles with hypotenuse d and opposite side D/2:
+Picture a flat object of true diameter D, centered a distance d away and
+facing the observer broadside-on — its diameter perpendicular to the line
+of sight, like a disc or a ruler held up, not a ball the observer could
+stand inside of. The angle it subtends, θ, is the apex angle of the
+triangle formed by the observer and the two ends of the object. The
+triangle splits into two right triangles with the right angle at the
+object's own center, adjacent side d, and opposite side D/2:
 
 $$
-\sin\!\left(\frac{\theta}{2}\right) = \frac{D/2}{d} \qquad\Longrightarrow\qquad \theta = 2\arcsin\!\left(\frac{D}{2d}\right)
+\tan\!\left(\frac{\theta}{2}\right) = \frac{D/2}{d} \qquad\Longrightarrow\qquad \theta = 2\arctan\!\left(\frac{D}{2d}\right)
 $$
 
-This is exact for any angle from 0° up to (but not including) 180°. The
-calculator solves this relation — or the equivalent form for D or d,
-whichever you're solving for — using this trigonometric formula directly,
-not an approximation.
+This is exact for any angle from 0° up to (but not including) 180°, for
+any physical size relative to the distance — a wider, closer object just
+pushes θ toward 180° without ever reaching it.
 
 ## The small-angle approximation, and when it holds
 
-For small θ, sin(θ/2) ≈ θ/2, and the exact relation collapses to the
-familiar rule of thumb astronomers actually use day to day:
+For small θ, tan(θ/2) ≈ θ/2 (also holds for tan(θ) ≈ θ, but naturally the 
+approximation threshold for θ doubles), and the exact relation collapses to:
 
 $$
 \theta \approx \frac{D}{d}
 $$
 
-This is the version behind the classic "206265 arcseconds per radian"
-shortcut, and it's genuinely excellent for almost everything in
-astronomy — the Moon (θ ≈ 0.5°), a galaxy cluster, a distant quasar are
-all comfortably in the regime where the error is a small fraction of a
-percent. It stops being trustworthy only for angles that are a
-significant fraction of a full circle — think an object close enough to
-fill a large part of your view, not anything actually observed through a
-telescope. The calculator always computes the exact value, but shows the
-small-angle result and the percent difference between them side by side,
-so you can see directly where the approximation is earning its keep and
-where it would mislead you — try the "very close object" preset to see it
-break down entirely.
+The calculator always computes the exact value, but shows the
+small-angle result and the percent difference between the approximation
+and true-size side by side,
+so you can see directly where the approximation is "close-enough" and
+where it wouldn't be.
 
 ## Angular size vs. physical size
 
 These are easy to conflate but describe different things. **Physical
-size** is an object's actual linear diameter — a number in meters or
+size** is an object's actual linear diameter: a number in meters or
 light-years that doesn't depend on who's looking or from where.
 **Angular size** is how large it *appears*, and depends equally on
-physical size and distance — the same galaxy would look larger if it were
-closer, without changing at all. A measured angular size, on its own, is
-not a measurement of true size; you need the distance too, which is
-exactly what this calculator makes explicit by requiring (or solving for)
-all three quantities together.
-
-The angular diameters this calculator solves for are exactly what
-decide whether an object fits through an eyepiece at all — see the
-[True Field of View Calculator](/posts/true-field-of-view-calculator),
-which draws the Moon, the Andromeda Galaxy, and a few other classic
-targets to scale inside a telescope's actual field of view.
+physical size and distance. The same galaxy would look larger if it were
+closer, without a change in its true size at all. A measured angular size, on its own, is
+not a measurement of true size; you need the distance too.
 
 <SimPostSchema
   title="Angular Size & Physical Size Calculator"

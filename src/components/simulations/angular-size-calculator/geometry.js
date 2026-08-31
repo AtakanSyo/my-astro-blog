@@ -1,14 +1,21 @@
 // Angular size ↔ physical size ↔ distance — exact and small-angle forms.
 //
-// Picture an object of linear diameter D, centered at distance d from the
-// observer. The angle it subtends, θ, is the apex angle of the isosceles
-// triangle formed by the observer and the two ends of the object's
-// diameter — which splits into two right triangles with hypotenuse d,
-// opposite side D/2, and half-angle θ/2:
+// Picture a flat object of linear diameter D, centered at distance d from
+// the observer and facing them broadside-on (its diameter perpendicular
+// to the line of sight — like a disc or a ruler held up, not a ball you
+// could stand inside of). The angle it subtends, θ, is the apex angle of
+// the isosceles triangle formed by the observer and the two ends of the
+// diameter — which splits into two right triangles with the right angle
+// at the object's own center, adjacent side d, and opposite side D/2:
 //
-//   sin(θ/2) = (D/2) / d   ⇒   θ = 2·arcsin(D / 2d)      (exact)
+//   tan(θ/2) = (D/2) / d   ⇒   θ = 2·arctan(D / 2d)      (exact)
 //
-// For small θ, sin(θ/2) ≈ θ/2, which collapses this to the familiar
+// Unlike a solid sphere's silhouette (where the observer can't be nearer
+// the center than the object's own radius), a flat object has no such
+// cap: D can be any positive size relative to d — a very wide, very close
+// object just pushes θ toward (never reaching) 180°.
+//
+// For small θ, tan(θ/2) ≈ θ/2, which collapses this to the familiar
 // astronomer's rule of thumb:
 //
 //   θ ≈ D / d                                             (small-angle)
@@ -60,11 +67,7 @@ export function metersToLength(meters, unit) {
 /** θ from physical diameter D and distance d (metres, radians). */
 export function exactThetaFromSizeDistance(D, d) {
   if (!(D > 0) || !(d > 0)) return { valid: false };
-  const ratio = D / (2 * d);
-  if (ratio > 1) {
-    return { valid: false, reason: "Physical size can't exceed twice the distance — not a valid viewing geometry." };
-  }
-  return { valid: true, theta: 2 * Math.asin(ratio) };
+  return { valid: true, theta: 2 * Math.atan(D / (2 * d)) };
 }
 
 /** Physical diameter D from angle θ and distance d (radians, metres). */
@@ -72,7 +75,7 @@ export function exactDiameterFromAngleDistance(theta, d) {
   if (!(theta > 0) || theta >= Math.PI || !(d > 0)) {
     return { valid: false, reason: "Angular size must be strictly between 0° and 180°." };
   }
-  return { valid: true, D: 2 * d * Math.sin(theta / 2) };
+  return { valid: true, D: 2 * d * Math.tan(theta / 2) };
 }
 
 /** Distance d from angle θ and physical diameter D (radians, metres). */
@@ -80,7 +83,7 @@ export function exactDistanceFromAngleSize(theta, D) {
   if (!(theta > 0) || theta >= Math.PI || !(D > 0)) {
     return { valid: false, reason: "Angular size must be strictly between 0° and 180°." };
   }
-  return { valid: true, d: D / 2 / Math.sin(theta / 2) };
+  return { valid: true, d: D / (2 * Math.tan(theta / 2)) };
 }
 
 // --- small-angle approximation --------------------------------------------

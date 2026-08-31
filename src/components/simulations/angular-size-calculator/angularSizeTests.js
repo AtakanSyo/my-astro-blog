@@ -95,7 +95,12 @@ const REFERENCE_OBJECTS = [
   // Synthetic example — not a real object. Chosen only to exercise a
   // very large angle where the small-angle approximation should
   // visibly break down.
-  { label: "Very close object (large angle)", theta: 112.9, thetaUnit: "deg", diameter: 0.5, diameterUnit: "m", distance: 0.3, distanceUnit: "m" },
+  { label: "Very close object (large angle)", theta: 79.6111, thetaUnit: "deg", diameter: 0.5, diameterUnit: "m", distance: 0.3, distanceUnit: "m" },
+  // Synthetic example — not a real object. Physical size is 500x the
+  // distance (a flat object, not a sphere the observer could stand
+  // inside of), pushing θ to the edge of the valid range without
+  // making the geometry impossible.
+  { label: "Extreme size-to-distance ratio", theta: 179.7708, thetaUnit: "deg", diameter: 1000, diameterUnit: "m", distance: 1, distanceUnit: "m" },
 ];
 
 // Reference values are published to a handful of significant figures, so
@@ -169,11 +174,6 @@ function edgeCaseRows() {
       test: "Negative physical size",
       inputs: "D = −5 m, d = 100 m",
       run: () => exactThetaFromSizeDistance(-5, 100),
-    },
-    {
-      test: "Physical size exceeds 2× distance (impossible geometry)",
-      inputs: "D = 300 m, d = 100 m",
-      run: () => exactThetaFromSizeDistance(300, 100),
     },
     {
       test: "Angular size at exactly 180°",
