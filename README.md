@@ -17,6 +17,8 @@ Production site: `https://astrosyo.com`
 | `npm run dev` | Start dev server at `http://localhost:4321` |
 | `npm run build` | Build to `./dist/` |
 | `npm run preview` | Preview the production build |
+| `npm test` | Run the test suite (vitest) |
+| `npm run check` | Type-check with `astro check` |
 
 ## Supabase setup
 

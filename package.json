@@ -7,6 +7,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
+    "test": "vitest run",
     "clean:vite": "rm -rf node_modules/.vite .astro",
     "astro": "astro"
   },
@@ -48,6 +49,7 @@
     "gray-matter": "^4.0.3",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.11",
-    "unplugin-auto-import": "^19.3.0"
+    "unplugin-auto-import": "^19.3.0",
+    "vitest": "^4.1.11"
   }
 }
