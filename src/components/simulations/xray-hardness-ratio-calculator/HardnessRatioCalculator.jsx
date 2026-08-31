@@ -2,27 +2,13 @@ import { useEffect, useMemo, useState } from "react";
 import "../../../styles/xrayHardnessRatioCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import { toNumber, computeHardnessRatio, LOW_COUNT_THRESHOLD } from "./hardnessRatio";
 
 const PRESETS = [
   { label: "Soft source (corona-like)", soft: "200", hard: "30" },
   { label: "Balanced", soft: "100", hard: "100" },
   { label: "Hard source (absorbed AGN-like)", soft: "20", hard: "150" },
 ];
-
-const LOW_COUNT_THRESHOLD = 20;
-
-function classify(hr) {
-  if (hr < -0.5) return "Very soft";
-  if (hr < -0.1) return "Soft";
-  if (hr <= 0.1) return "Balanced";
-  if (hr <= 0.5) return "Hard";
-  return "Very hard";
-}
-
-function toNumber(value) {
-  const n = parseFloat(value);
-  return Number.isFinite(n) ? n : NaN;
-}
 
 function readInitialFromUrl() {
   if (typeof window === "undefined") return null;
@@ -83,39 +69,10 @@ export default function HardnessRatioCalculator() {
   const result = useMemo(() => {
     const S = toNumber(soft);
     const H = toNumber(hard);
-
-    if (!Number.isFinite(S) || !Number.isFinite(H) || S < 0 || H < 0 || S + H <= 0) {
-      return { valid: false };
-    }
-
     const sigmaS = useCustom && sigmaSoftInput !== "" ? toNumber(sigmaSoftInput) : Math.sqrt(S);
     const sigmaH = useCustom && sigmaHardInput !== "" ? toNumber(sigmaHardInput) : Math.sqrt(H);
 
-    const denom = H + S;
-    const HR = (H - S) / denom;
-
-    let sigmaHR = null;
-    if (Number.isFinite(sigmaS) && Number.isFinite(sigmaH) && sigmaS >= 0 && sigmaH >= 0) {
-      sigmaHR =
-        (2 / (denom * denom)) *
-        Math.sqrt(S * S * sigmaH * sigmaH + H * H * sigmaS * sigmaS);
-    }
-
-    const ratio = S > 0 ? H / S : Infinity;
-    const lowCounts = S < LOW_COUNT_THRESHOLD || H < LOW_COUNT_THRESHOLD;
-
-    return {
-      valid: true,
-      S,
-      H,
-      sigmaS,
-      sigmaH,
-      HR,
-      sigmaHR,
-      ratio,
-      lowCounts,
-      label: classify(HR),
-    };
+    return computeHardnessRatio(S, H, sigmaS, sigmaH);
   }, [soft, hard, useCustom, sigmaSoftInput, sigmaHardInput]);
 
   const applyPreset = (preset) => {

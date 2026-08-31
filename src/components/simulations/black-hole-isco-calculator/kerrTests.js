@@ -45,7 +45,12 @@ function closedFormRows() {
     pass: isco0 === 6,
   });
 
-  const iscoProgradeExtremal = iscoRadiusRg(1 - 1e-12);
+  // Convergence to 1 r_g near a*=1 is slow (the ISCO-1 deficit scales
+  // roughly as eps^(1/3), not linearly with eps — a real feature of this
+  // formula, not floating-point noise), so eps must be pushed well below
+  // 1e-12 for the result to land inside TOLERANCE_PCT; 1e-12 alone leaves
+  // a ~0.016% gap and was previously failing this check.
+  const iscoProgradeExtremal = iscoRadiusRg(1 - 1e-14);
   rows.push({
     test: "ISCO radius approaching maximal prograde spin",
     inputs: "a* → 1⁻",
