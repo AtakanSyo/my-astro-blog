@@ -453,6 +453,12 @@ export default function ProperMotionCalculator() {
 
       <div className="pmc-footer-row">
         <CalculatorVote slug="proper-motion-velocity-calculator" />
+        <CalculatorTests
+          title="Proper Motion & Tangential Velocity Calculator — Tests"
+          columns={PROPER_MOTION_TEST_COLUMNS}
+          rows={testRows}
+          sources={PROPER_MOTION_TEST_SOURCES}
+        />
         <button type="button" className="pmc-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>
