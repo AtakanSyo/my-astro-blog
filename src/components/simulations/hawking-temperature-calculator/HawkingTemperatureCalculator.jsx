@@ -7,8 +7,14 @@ import {
   hawkingTemperature,
   CMB_TEMPERATURE_K,
 } from "./hawkingTemperature";
+import {
+  HAWKING_TEMPERATURE_TEST_COLUMNS,
+  HAWKING_TEMPERATURE_TEST_SOURCES,
+  getHawkingTemperatureTestRows,
+} from "./hawkingTemperatureTests";
 import "../../../styles/hawkingTemperatureCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 // Every preset is a "mass" value the user can drop straight into the mass
@@ -176,6 +182,10 @@ export default function HawkingTemperatureCalculator() {
     };
   }, [result]);
 
+  // Self-check rows: runs the real hawkingTemperature.js functions against
+  // known reference values and edge cases — independent of the fields above.
+  const testRows = useMemo(() => getHawkingTemperatureTestRows(), []);
+
   const applyPreset = (preset) => {
     setMass(String(preset.mass));
     setMassUnit(preset.massUnit);
@@ -311,6 +321,12 @@ export default function HawkingTemperatureCalculator() {
 
       <div className="htc-footer-row">
         <CalculatorVote slug="hawking-temperature-calculator" />
+        <CalculatorTests
+          title="Hawking Temperature Calculator — Tests"
+          columns={HAWKING_TEMPERATURE_TEST_COLUMNS}
+          rows={testRows}
+          sources={HAWKING_TEMPERATURE_TEST_SOURCES}
+        />
         <button type="button" className="htc-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

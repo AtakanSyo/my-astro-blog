@@ -14,8 +14,10 @@ import {
   velocityFractionOfC,
   getValidityLevel,
 } from "./hubbleLaw";
+import { HUBBLE_LAW_TEST_COLUMNS, HUBBLE_LAW_TEST_SOURCES, getHubbleLawTestRows } from "./hubbleLawTests";
 import "../../../styles/hubbleLawCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 // Every preset is self-consistent under v = H0 * d at H0 = 70, so
@@ -168,6 +170,10 @@ export default function HubbleLawCalculator() {
       pointX: xScale(dMpc), pointY: yScale(vKms),
     };
   }, [result]);
+
+  // Self-check rows: runs the real hubbleLaw.js functions against known
+  // reference clusters and edge cases — independent of the fields above.
+  const testRows = useMemo(() => getHubbleLawTestRows(), []);
 
   const applyPreset = (preset) => {
     setSolveFor(preset.solveFor);
@@ -355,6 +361,12 @@ export default function HubbleLawCalculator() {
 
       <div className="hlc-footer-row">
         <CalculatorVote slug="hubble-law-calculator" />
+        <CalculatorTests
+          title="Hubble Law Calculator — Tests"
+          columns={HUBBLE_LAW_TEST_COLUMNS}
+          rows={testRows}
+          sources={HUBBLE_LAW_TEST_SOURCES}
+        />
         <button type="button" className="hlc-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

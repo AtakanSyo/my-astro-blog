@@ -9,8 +9,10 @@ import {
   ageOfUniverseMultiple,
   massEvaporatingTodayKg,
 } from "./evaporationTime";
+import { EVAPORATION_TIME_TEST_COLUMNS, EVAPORATION_TIME_TEST_SOURCES, getEvaporationTimeTestRows } from "./evaporationTimeTests";
 import "../../../styles/blackHoleEvaporationTimeCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 // The mass at which a Schwarzschild black hole's Hawking-radiation
@@ -177,6 +179,11 @@ export default function BlackHoleEvaporationTimeCalculator() {
     };
   }, [result]);
 
+  // Self-check rows: runs the real evaporationTime.js functions against a
+  // known literature checkpoint and internal-consistency checks —
+  // independent of the fields above.
+  const testRows = useMemo(() => getEvaporationTimeTestRows(), []);
+
   const applyPreset = (preset) => {
     setMass(String(preset.mass));
     setUnit(preset.unit);
@@ -299,6 +306,12 @@ export default function BlackHoleEvaporationTimeCalculator() {
 
       <div className="bhe-footer-row">
         <CalculatorVote slug="black-hole-evaporation-time-calculator" />
+        <CalculatorTests
+          title="Black Hole Evaporation Time Calculator — Tests"
+          columns={EVAPORATION_TIME_TEST_COLUMNS}
+          rows={testRows}
+          sources={EVAPORATION_TIME_TEST_SOURCES}
+        />
         <button type="button" className="bhe-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>
