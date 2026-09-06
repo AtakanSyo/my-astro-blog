@@ -19,8 +19,14 @@ import {
   computeExpectationV,
   computeSplitProbabilities,
 } from "./physics";
+import {
+  QUANTUM_PARTICLE_TEST_COLUMNS,
+  QUANTUM_PARTICLE_TEST_SOURCES,
+  getQuantumParticleTestRows,
+} from "./physicsTests";
 import "../../../styles/quantumParticleSimulator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
 import Katex from "../../Katex.jsx";
 
@@ -351,6 +357,11 @@ export default function QuantumParticleSimulator() {
 
   const config = POTENTIAL_CONFIGS[potentialKey];
 
+  // Self-check rows: runs the real physics.js functions against genuine
+  // numerical invariants (normalization, ⟨x⟩ at t=0, energy bookkeeping,
+  // Crank-Nicolson unitarity) — independent of the fields above.
+  const testRows = useMemo(() => getQuantumParticleTestRows(), []);
+
   const selectPotential = (key) => {
     const nextConfig = POTENTIAL_CONFIGS[key];
     setPotentialKey(key);
@@ -556,6 +567,12 @@ export default function QuantumParticleSimulator() {
 
       <div className="qps-footer-row">
         <CalculatorVote slug="quantum-particle-simulator" />
+        <CalculatorTests
+          title="Quantum Particle Simulator — Tests"
+          columns={QUANTUM_PARTICLE_TEST_COLUMNS}
+          rows={testRows}
+          sources={QUANTUM_PARTICLE_TEST_SOURCES}
+        />
         <button type="button" className="qps-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

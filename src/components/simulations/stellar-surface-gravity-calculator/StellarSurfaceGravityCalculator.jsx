@@ -14,9 +14,11 @@ import {
   logG,
   classifyLogG,
 } from "./stellarGravity";
+import { STELLAR_SURFACE_GRAVITY_TEST_COLUMNS, STELLAR_SURFACE_GRAVITY_TEST_SOURCES, getStellarSurfaceGravityTestRows } from "./stellarGravityTests";
 import "../../../styles/stellarSurfaceGravityCalculator.css";
 import "../../../styles/calculators.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
 import Katex from "../../Katex.jsx";
 
@@ -222,6 +224,10 @@ export default function StellarSurfaceGravityCalculator() {
     };
   }, [result]);
 
+  // Self-check rows: runs the real stellarGravity.js functions against
+  // known reference bodies and edge cases — independent of the fields above.
+  const testRows = useMemo(() => getStellarSurfaceGravityTestRows(), []);
+
   const applyPreset = (preset) => {
     setMass(String(preset.mass));
     setMassUnit(preset.massUnit);
@@ -389,6 +395,12 @@ export default function StellarSurfaceGravityCalculator() {
 
       <div className="ssg-footer-row">
         <CalculatorVote slug="stellar-surface-gravity-calculator" />
+        <CalculatorTests
+          title="Stellar Surface Gravity / log g Calculator — Tests"
+          columns={STELLAR_SURFACE_GRAVITY_TEST_COLUMNS}
+          rows={testRows}
+          sources={STELLAR_SURFACE_GRAVITY_TEST_SOURCES}
+        />
         <button type="button" className="ssg-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

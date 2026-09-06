@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import "../../../styles/xrayHardnessRatioCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
 import { toNumber, computeHardnessRatio, LOW_COUNT_THRESHOLD } from "./hardnessRatio";
+import { HARDNESS_RATIO_TEST_COLUMNS, HARDNESS_RATIO_TEST_SOURCES, getHardnessRatioTestRows } from "./hardnessRatioTests";
 import Katex from "../../Katex.jsx";
 
 const PRESETS = [
@@ -75,6 +77,11 @@ export default function HardnessRatioCalculator() {
 
     return computeHardnessRatio(S, H, sigmaS, sigmaH);
   }, [soft, hard, useCustom, sigmaSoftInput, sigmaHardInput]);
+
+  // Self-check rows: runs the real hardnessRatio.js functions against
+  // definitional reference values and edge cases — independent of the
+  // fields above.
+  const testRows = useMemo(() => getHardnessRatioTestRows(), []);
 
   const applyPreset = (preset) => {
     setSoft(preset.soft);
@@ -257,6 +264,12 @@ export default function HardnessRatioCalculator() {
 
           <div className="hrc-footer-row">
             <CalculatorVote slug="xray-hardness-ratio-calculator" />
+            <CalculatorTests
+              title="X-ray Hardness Ratio Calculator — Tests"
+              columns={HARDNESS_RATIO_TEST_COLUMNS}
+              rows={testRows}
+              sources={HARDNESS_RATIO_TEST_SOURCES}
+            />
             <button type="button" className="hrc-copy-btn" onClick={copyLink}>
               {copied ? "Link copied" : "Copy shareable link"}
             </button>

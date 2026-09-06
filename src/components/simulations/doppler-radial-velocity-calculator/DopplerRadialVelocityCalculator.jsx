@@ -16,9 +16,11 @@ import {
   ratioClassical,
   ratioRelativistic,
 } from "./doppler";
+import { DOPPLER_RADIAL_VELOCITY_TEST_COLUMNS, DOPPLER_RADIAL_VELOCITY_TEST_SOURCES, getDopplerRadialVelocityTestRows } from "./dopplerTests";
 import "../../../styles/dopplerRadialVelocityCalculator.css";
 import "../../../styles/calculators.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
 import Katex from "../../Katex.jsx";
 
@@ -240,6 +242,10 @@ export default function DopplerRadialVelocityCalculator() {
     return { width, height, marginLeft, marginRight, marginTop, marginBottom, plotWidth, plotHeight, xScale, yScale, classicalLine, relLine, point, xTicks, yTicks };
   }, [beta, mode]);
 
+  // Self-check rows: runs the real doppler.js functions against known
+  // reference cases and edge cases — independent of the fields above.
+  const testRows = useMemo(() => getDopplerRadialVelocityTestRows(), []);
+
   const applyPreset = (preset) => {
     setSolveFor(preset.solveFor);
     setMode(preset.mode);
@@ -455,6 +461,12 @@ export default function DopplerRadialVelocityCalculator() {
 
       <div className="drv-footer-row">
         <CalculatorVote slug="doppler-radial-velocity-calculator" />
+        <CalculatorTests
+          title="Doppler Shift / Radial Velocity Calculator — Tests"
+          columns={DOPPLER_RADIAL_VELOCITY_TEST_COLUMNS}
+          rows={testRows}
+          sources={DOPPLER_RADIAL_VELOCITY_TEST_SOURCES}
+        />
         <button type="button" className="drv-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

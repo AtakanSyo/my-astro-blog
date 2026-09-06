@@ -13,9 +13,11 @@ import {
   rayleighLimitRad,
   dawesLimitRad,
 } from "./angularResolution";
+import { ANGULAR_RESOLUTION_TEST_COLUMNS, ANGULAR_RESOLUTION_TEST_SOURCES, getAngularResolutionTestRows } from "./angularResolutionTests";
 import "../../../styles/telescopeAngularResolutionCalculator.css";
 import "../../../styles/calculators.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
 import Katex from "../../Katex.jsx";
 
@@ -164,6 +166,10 @@ export default function TelescopeAngularResolutionCalculator() {
       landmarks: RESOLUTION_LANDMARKS.map((l) => ({ ...l, x: xScale(Math.log10(l.arcsec)) })),
     };
   }, [result]);
+
+  // Self-check rows: runs the real angularResolution.js functions against
+  // known reference figures and edge cases — independent of the fields above.
+  const testRows = useMemo(() => getAngularResolutionTestRows(), []);
 
   const applyPreset = (preset) => {
     setD(String(preset.D));
@@ -322,6 +328,12 @@ export default function TelescopeAngularResolutionCalculator() {
 
       <div className="tar-footer-row">
         <CalculatorVote slug="telescope-angular-resolution-calculator" />
+        <CalculatorTests
+          title="Telescope Angular Resolution Calculator — Tests"
+          columns={ANGULAR_RESOLUTION_TEST_COLUMNS}
+          rows={testRows}
+          sources={ANGULAR_RESOLUTION_TEST_SOURCES}
+        />
         <button type="button" className="tar-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

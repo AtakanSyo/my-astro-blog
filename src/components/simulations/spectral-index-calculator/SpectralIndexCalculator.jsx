@@ -12,9 +12,11 @@ import {
   extrapolatedFluxUncertainty,
   classifySpectrum,
 } from "./spectral";
+import { SPECTRAL_INDEX_TEST_COLUMNS, SPECTRAL_INDEX_TEST_SOURCES, getSpectralIndexTestRows } from "./spectralTests";
 import "../../../styles/spectralIndexCalculator.css";
 import "../../../styles/calculators.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
 import Katex from "../../Katex.jsx";
 
@@ -252,6 +254,10 @@ export default function SpectralIndexCalculator() {
       yTicks: decadeTicks(yMin, yMax),
     };
   }, [result, nu3, nu3Unit]);
+
+  // Self-check rows: runs the real spectral.js functions against known
+  // reference scenarios and edge cases — independent of the fields above.
+  const testRows = useMemo(() => getSpectralIndexTestRows(), []);
 
   const applyPreset = (preset) => {
     setNu1(String(preset.nu1)); setNu1Unit(preset.nu1Unit);
@@ -491,6 +497,12 @@ export default function SpectralIndexCalculator() {
 
       <div className="sic-footer-row">
         <CalculatorVote slug="spectral-index-calculator" />
+        <CalculatorTests
+          title="Spectral Index Calculator — Tests"
+          columns={SPECTRAL_INDEX_TEST_COLUMNS}
+          rows={testRows}
+          sources={SPECTRAL_INDEX_TEST_SOURCES}
+        />
         <button type="button" className="sic-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>
