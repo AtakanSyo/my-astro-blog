@@ -11,6 +11,7 @@ import "../../../styles/trueFieldOfViewCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
 import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import Katex from "../../Katex.jsx";
 
 // The Tele Vue Panoptic 24mm's published specs (68° AFOV, 27mm field
 // stop) are real, and the ~5% gap between what the simple and
@@ -217,14 +218,14 @@ export default function TrueFieldOfViewCalculator() {
 
       <div className="tfv-fields">
         <div className="tfv-field">
-          <label htmlFor="tfv-F">Telescope focal length (F)</label>
+          <label htmlFor="tfv-F">Telescope focal length (<Katex tex="F" />)</label>
           <div className="tfv-input-row">
             <input id="tfv-F" className="tfv-input" type="number" min="0" step="any" inputMode="decimal" value={F} onChange={(e) => setF(e.target.value)} />
             <span className="tfv-static-unit">mm</span>
           </div>
         </div>
         <div className="tfv-field">
-          <label htmlFor="tfv-f">Eyepiece focal length (f)</label>
+          <label htmlFor="tfv-f">Eyepiece focal length (<Katex tex="f" />)</label>
           <div className="tfv-input-row">
             <input id="tfv-f" className="tfv-input" type="number" min="0" step="any" inputMode="decimal" value={f} onChange={(e) => setF2(e.target.value)} />
             <span className="tfv-static-unit">mm</span>

@@ -21,6 +21,7 @@ lang: en
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
 import Changelog from "../../components/Changelog.astro";
+import Katex from "../../components/Katex.astro";
 import PhotonConverter from "../../components/simulations/photon-energy-wavelength-frequency-converter/PhotonConverter.jsx";
 
 <figure class="post-figure post-figure-md" id="converter">
@@ -51,7 +52,7 @@ $$
 E = hf = \frac{hc}{\lambda}, \qquad h \approx 6.626 \times 10^{-34}\ \text{J·s}
 $$
 
-Because $E$ and $f$ both scale directly with each other, and $\lambda$ scales inversely with them, higher-energy photons always mean shorter wavelengths and higher frequencies — a gamma ray isn't a "stronger" radio wave, it's the same phenomenon at the opposite end of an enormous logarithmic scale. The converter above applies these two equations both ways, so editing any of the three fields instantly recomputes the other two.
+Because <Katex tex="E" /> and <Katex tex="f" /> both scale directly with each other, and <Katex tex="\lambda" /> scales inversely with them, higher-energy photons always mean shorter wavelengths and higher frequencies — a gamma ray isn't a "stronger" radio wave, it's the same phenomenon at the opposite end of an enormous logarithmic scale. The converter above applies these two equations both ways, so editing any of the three fields instantly recomputes the other two.
 
 <SimPostSchema
   title="Photon Energy ↔ Wavelength ↔ Frequency Converter"

@@ -20,20 +20,21 @@ lang: en
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
 import Changelog from "../../components/Changelog.astro";
+import Katex from "../../components/Katex.astro";
 import DistanceModulusCalculator from "../../components/simulations/distance-modulus-calculator/DistanceModulusCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
   <DistanceModulusCalculator client:load />
 </figure>
 
-How bright a star looks from Earth (its apparent magnitude, m) depends
+How bright a star looks from Earth (its apparent magnitude, <Katex tex="m" />) depends
 on two completely different things tangled together: how bright it
-actually is, and how far away it is. Absolute magnitude (M) untangles
+actually is, and how far away it is. Absolute magnitude (<Katex tex="M" />) untangles
 them by asking a hypothetical question — how bright would this object
 look if it were exactly 10 parsecs away? The gap between the two
-answers, m − M, turns out to depend on nothing but distance (and dust),
+answers, <Katex tex="m - M" />, turns out to depend on nothing but distance (and dust),
 which makes it one of the most directly useful relations in
-observational astronomy: measure any two of m, M, and d, and the third
+observational astronomy: measure any two of <Katex tex="m" />, <Katex tex="M" />, and <Katex tex="d" />, and the third
 falls out immediately.
 
 ## The relation
@@ -42,10 +43,10 @@ $$
 m - M = 5 \log_{10}\left(\frac{d}{10\ \mathrm{pc}}\right)
 $$
 
-m − M is called the **distance modulus**, often written μ. It's zero
-exactly at 10 pc (where m and M agree by definition), negative for
+<Katex tex="m - M" /> is called the **distance modulus**, often written <Katex tex="\mu" />. It's zero
+exactly at 10 pc (where <Katex tex="m" /> and <Katex tex="M" /> agree by definition), negative for
 anything closer, and grows by 5 for every factor of 10 farther away —
-so a star with m = 10 and M = 5 has μ = 5, meaning it sits at exactly
+so a star with <Katex tex="m = 10" /> and <Katex tex="M = 5" /> has <Katex tex="\mu = 5" />, meaning it sits at exactly
 100 pc, the worked example this calculator opens with.
 
 This is also precisely how the "standard candle" method for measuring
@@ -64,11 +65,11 @@ $$
 m - M = 5 \log_{10}\left(\frac{d}{10\ \mathrm{pc}}\right) + A
 $$
 
-A is the **extinction**, in magnitudes, along that specific line of
-sight. Skip it (A = 0) and the relation is exact for an unobstructed
+<Katex tex="A" /> is the **extinction**, in magnitudes, along that specific line of
+sight. Skip it (<Katex tex="A = 0" />) and the relation is exact for an unobstructed
 view; ignore it when it's actually present and a distance calculated
-from m and M alone comes out too large, because some of the "distance
-dimming" you measured was really dust dimming. This calculator makes A
+from <Katex tex="m" /> and <Katex tex="M" /> alone comes out too large, because some of the "distance
+dimming" you measured was really dust dimming. This calculator makes <Katex tex="A" />
 an explicit optional toggle rather than folding it in silently, so it's
 always clear whether a given result assumes a clear line of sight or
 not.
@@ -82,11 +83,11 @@ not.
   absolute magnitude is defined. Seeing "163 pc" land visibly past the
   Pleiades and well short of the Galactic center does more for intuition
   than the bare number does alone.
-- **The distance-modulus chart** plots μ against distance on a semi-log
+- **The distance-modulus chart** plots <Katex tex="\mu" /> against distance on a semi-log
   axis, where the fixed +5-per-decade slope in the formula becomes an
   literal straight line. With extinction switched on, a second dashed
   line shows where the same object would sit with a perfectly clear line
-  of sight — the vertical gap between the two points is exactly A,
+  of sight — the vertical gap between the two points is exactly <Katex tex="A" />,
   turning "how much extinction is affecting this measurement" into a
   distance on the page rather than an abstract correction term.
 

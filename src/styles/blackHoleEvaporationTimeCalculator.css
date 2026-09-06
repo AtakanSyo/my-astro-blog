@@ -147,14 +147,6 @@
   color: var(--bhe-text-dim);
 }
 
-.bhe-chart-wrap {
-  background: var(--bhe-bg-2);
-  border: 1px solid var(--bhe-border);
-  border-radius: 12px;
-  padding: 0.75rem 0.75rem 0.5rem;
-  margin-bottom: 1.1rem;
-}
-
 .bhe-curve-svg {
   width: 100%;
   height: auto;

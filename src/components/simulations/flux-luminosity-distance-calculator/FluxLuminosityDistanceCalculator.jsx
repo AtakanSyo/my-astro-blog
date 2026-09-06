@@ -19,9 +19,17 @@ import {
   relErrorLuminosity,
   relErrorDistance,
 } from "./flux";
+import {
+  FLUX_LUMINOSITY_DISTANCE_TEST_COLUMNS,
+  FLUX_LUMINOSITY_DISTANCE_TEST_SOURCES,
+  getFluxLuminosityDistanceTestRows,
+} from "./fluxTests";
 import "../../../styles/fluxLuminosityDistanceCalculator.css";
+import "../../../styles/calculators.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import Katex from "../../Katex.jsx";
 
 // Every preset is self-consistent under all three "solve for" choices, so
 // switching "solve for" after applying one never shows a jarring mismatch.
@@ -300,6 +308,10 @@ export default function FluxLuminosityDistanceCalculator() {
     };
   }, [result]);
 
+  // Self-check rows: runs the real flux.js functions against known
+  // reference figures and edge cases — independent of the fields above.
+  const testRows = useMemo(() => getFluxLuminosityDistanceTestRows(), []);
+
   const applyPreset = (preset) => {
     setSolveFor(preset.solveFor);
     setFlux(String(preset.flux));
@@ -369,7 +381,7 @@ export default function FluxLuminosityDistanceCalculator() {
 
       <div className="fld-fields">
         <div className="fld-field">
-          <label htmlFor="fld-flux">Flux (F)</label>
+          <label htmlFor="fld-flux">Flux (<Katex tex="F" />)</label>
           {solveFor === "flux" ? (
             <div className="fld-computed">
               {result.valid ? formatNumber(fluxFromSI(result.exact, fluxUnit)) : "—"}
@@ -417,7 +429,7 @@ export default function FluxLuminosityDistanceCalculator() {
         </div>
 
         <div className="fld-field">
-          <label htmlFor="fld-luminosity">Luminosity (L)</label>
+          <label htmlFor="fld-luminosity">Luminosity (<Katex tex="L" />)</label>
           {solveFor === "luminosity" ? (
             <div className="fld-computed">
               {result.valid ? formatNumber(luminosityFromSI(result.exact, luminosityUnit)) : "—"}
@@ -465,7 +477,7 @@ export default function FluxLuminosityDistanceCalculator() {
         </div>
 
         <div className="fld-field">
-          <label htmlFor="fld-distance">Distance (d)</label>
+          <label htmlFor="fld-distance">Distance (<Katex tex="d" />)</label>
           {solveFor === "distance" ? (
             <div className="fld-computed">
               {result.valid ? formatNumber(distanceFromMeters(result.exact, distanceUnit)) : "—"}
@@ -536,15 +548,14 @@ export default function FluxLuminosityDistanceCalculator() {
 
           {hasUncertainty && (
             <p className="fld-note">
-              Propagated from the input uncertainties via F = L/(4πd²) (a pure power law): relative
-              errors add in quadrature, with distance's error doubled (F ∝ d⁻²) or halved (d ∝
-              F⁻⁰·⁵) as appropriate. Result: {(result.relError * 100).toFixed(2)}% relative
+              Propagated from the input uncertainties via <Katex tex={String.raw`F = L/(4\pi d^2)`} /> (a pure power law): relative
+              errors add in quadrature, with distance's error doubled (<Katex tex={String.raw`F \propto d^{-2}`} />) or halved (<Katex tex={String.raw`d \propto F^{-0.5}`} />) as appropriate. Result: {(result.relError * 100).toFixed(2)}% relative
               uncertainty on {SOLVE_OPTIONS.find((o) => o.key === solveFor).label.toLowerCase()}.
             </p>
           )}
 
           {chart && (
-            <div className="fld-chart-wrap">
+            <div className="chart-wrap">
               <svg
                 className="fld-chart-svg"
                 viewBox={`0 0 ${chart.width} ${chart.height}`}
@@ -613,6 +624,12 @@ export default function FluxLuminosityDistanceCalculator() {
 
       <div className="fld-footer-row">
         <CalculatorVote slug="flux-luminosity-distance-calculator" />
+        <CalculatorTests
+          title="Flux, Luminosity & Distance Calculator — Tests"
+          columns={FLUX_LUMINOSITY_DISTANCE_TEST_COLUMNS}
+          rows={testRows}
+          sources={FLUX_LUMINOSITY_DISTANCE_TEST_SOURCES}
+        />
         <button type="button" className="fld-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

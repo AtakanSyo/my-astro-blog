@@ -20,9 +20,11 @@ import {
 } from "./keplerThirdLaw";
 import { KEPLER_THIRD_LAW_TEST_COLUMNS, KEPLER_THIRD_LAW_TEST_SOURCES, getKeplerThirdLawTestRows } from "./keplerThirdLawTests";
 import "../../../styles/keplerThirdLawCalculator.css";
+import "../../../styles/calculators.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
 import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import Katex from "../../Katex.jsx";
 
 // Every preset is self-consistent and solves for the field its narrative
 // is actually about: Earth and the ISS both solve for period (one shows
@@ -334,8 +336,8 @@ export default function KeplerThirdLawCalculator() {
       </div>
 
       <p className="ktl-explainer">
-        <code>P² = 4π²a³ / G(M₁+M₂)</code> relates an orbital period P, a
-        semi-major axis a, and the total mass of the two orbiting bodies —
+        <Katex tex={String.raw`P^2 = \dfrac{4\pi^2 a^3}{G(M_1+M_2)}`} /> relates an orbital period <Katex tex="P" />, a
+        semi-major axis <Katex tex="a" />, and the total mass of the two orbiting bodies —
         pick which one to solve for, and the other two become the inputs.
       </p>
 
@@ -357,7 +359,7 @@ export default function KeplerThirdLawCalculator() {
 
       <div className="ktl-fields">
         <div className={solveFor === "period" ? "ktl-field ktl-field--solved" : "ktl-field"}>
-          <label htmlFor={solveFor === "period" ? undefined : "ktl-p"}>Orbital period (P){solveFor === "period" && <span className="ktl-solved-tag">solved</span>}</label>
+          <label htmlFor={solveFor === "period" ? undefined : "ktl-p"}>Orbital period (<Katex tex="P" />){solveFor === "period" && <span className="ktl-solved-tag">solved</span>}</label>
           <div className="ktl-input-row">
             {solveFor === "period" ? (
               <div className="ktl-computed-value">{result.valid ? formatNumber(periodFromSeconds(result.P_s, PUnit)) : "—"}</div>
@@ -371,7 +373,7 @@ export default function KeplerThirdLawCalculator() {
         </div>
 
         <div className={solveFor === "axis" ? "ktl-field ktl-field--solved" : "ktl-field"}>
-          <label htmlFor={solveFor === "axis" ? undefined : "ktl-a"}>Semi-major axis (a){solveFor === "axis" && <span className="ktl-solved-tag">solved</span>}</label>
+          <label htmlFor={solveFor === "axis" ? undefined : "ktl-a"}>Semi-major axis (<Katex tex="a" />){solveFor === "axis" && <span className="ktl-solved-tag">solved</span>}</label>
           <div className="ktl-input-row">
             {solveFor === "axis" ? (
               <div className="ktl-computed-value">{result.valid ? formatNumber(distanceFromMeters(result.a_m, aUnit)) : "—"}</div>
@@ -386,7 +388,7 @@ export default function KeplerThirdLawCalculator() {
 
         {solveFor === "mass" ? (
           <div className="ktl-field ktl-field--solved">
-            <label>Total mass (M₁+M₂)<span className="ktl-solved-tag">solved</span></label>
+            <label>Total mass (<Katex tex="M_1+M_2" />)<span className="ktl-solved-tag">solved</span></label>
             <div className="ktl-input-row">
               <div className="ktl-computed-value">{result.valid ? formatNumber(massFromKg(result.Mtotal_kg, M1Unit)) : "—"}</div>
               <select className="ktl-unit-select" value={M1Unit} onChange={(e) => setM1Unit(e.target.value)}>
@@ -397,7 +399,7 @@ export default function KeplerThirdLawCalculator() {
         ) : (
           <div className="ktl-mass-block">
             <div className="ktl-field">
-              <label htmlFor="ktl-m1">Primary mass (M₁)</label>
+              <label htmlFor="ktl-m1">Primary mass (<Katex tex="M_1" />)</label>
               <div className="ktl-input-row">
                 <input id="ktl-m1" className="ktl-input" type="number" min="0" step="any" inputMode="decimal" value={M1} onChange={(e) => setM1(e.target.value)} />
                 <select className="ktl-unit-select" value={M1Unit} onChange={(e) => setM1Unit(e.target.value)}>
@@ -406,7 +408,7 @@ export default function KeplerThirdLawCalculator() {
               </div>
             </div>
             <div className="ktl-field">
-              <label htmlFor="ktl-m2">Secondary / orbiting mass (M₂) — optional, often negligible</label>
+              <label htmlFor="ktl-m2">Secondary / orbiting mass (<Katex tex="M_2" />) — optional, often negligible</label>
               <div className="ktl-input-row">
                 <input id="ktl-m2" className="ktl-input" type="number" min="0" step="any" inputMode="decimal" value={M2} onChange={(e) => setM2(e.target.value)} />
                 <select className="ktl-unit-select" value={M2Unit} onChange={(e) => setM2Unit(e.target.value)}>
@@ -415,7 +417,7 @@ export default function KeplerThirdLawCalculator() {
               </div>
             </div>
             {result.valid && (
-              <p className="ktl-subtotal">Total mass (M₁+M₂) ≈ {formatNumber(massFromKg(result.Mtotal_kg, "msun"))} M☉</p>
+              <p className="ktl-subtotal">Total mass (<Katex tex="M_1+M_2" />) ≈ {formatNumber(massFromKg(result.Mtotal_kg, "msun"))} M☉</p>
             )}
           </div>
         )}
@@ -423,7 +425,7 @@ export default function KeplerThirdLawCalculator() {
 
       <div className="ktl-simplified-row">
         <button type="button" className={showSimplified ? "ktl-simplified-toggle active" : "ktl-simplified-toggle"} onClick={() => setShowSimplified((v) => !v)}>
-          {showSimplified ? "− Hide" : "+ Compare to"} the P²=a³ solar-system shortcut
+          {showSimplified ? "− Hide" : "+ Compare to"} the <Katex tex="P^2=a^3" /> solar-system shortcut
         </button>
       </div>
 
@@ -433,15 +435,15 @@ export default function KeplerThirdLawCalculator() {
         <>
           <div className="ktl-headline-card">
             <div className="ktl-headline">
-              {solveFor === "period" && <>P = {formatNumber(periodFromSeconds(result.P_s, PUnit))} {PERIOD_UNITS[PUnit].short}</>}
-              {solveFor === "axis" && <>a = {formatNumber(distanceFromMeters(result.a_m, aUnit))} {DISTANCE_UNITS[aUnit].short}</>}
-              {solveFor === "mass" && <>M₁+M₂ = {formatNumber(massFromKg(result.Mtotal_kg, M1Unit))} {MASS_UNITS[M1Unit].short}</>}
+              {solveFor === "period" && <><Katex tex="P" /> = {formatNumber(periodFromSeconds(result.P_s, PUnit))} {PERIOD_UNITS[PUnit].short}</>}
+              {solveFor === "axis" && <><Katex tex="a" /> = {formatNumber(distanceFromMeters(result.a_m, aUnit))} {DISTANCE_UNITS[aUnit].short}</>}
+              {solveFor === "mass" && <><Katex tex="M_1+M_2" /> = {formatNumber(massFromKg(result.Mtotal_kg, M1Unit))} {MASS_UNITS[M1Unit].short}</>}
             </div>
 
             {showSimplified && result.comparison && (
               <>
                 <div className="ktl-headline-sub">
-                  Shortcut (P²=a³, assumes 1 M☉) would give{" "}
+                  Shortcut (<Katex tex="P^2=a^3" />, assumes 1 M☉) would give{" "}
                   {solveFor === "mass" ? (
                     <>1 M☉ — off by <strong>{formatPercent(result.comparison.pct)}</strong></>
                   ) : (
@@ -457,7 +459,7 @@ export default function KeplerThirdLawCalculator() {
           </div>
 
           {chart && (
-            <div className="ktl-chart-wrap">
+            <div className="chart-wrap">
               <svg
                 className="ktl-chart-svg"
                 viewBox={`0 0 ${chart.width} ${chart.height}`}
@@ -492,7 +494,7 @@ export default function KeplerThirdLawCalculator() {
               <p className="ktl-chart-caption">
                 Both lines have the same slope — Kepler's third law's shape never changes — but a
                 system's total mass slides its line up or down. The dashed vertical gap at this
-                system's semi-major axis is exactly how far off the P²=a³ shortcut is here.
+                system's semi-major axis is exactly how far off the <Katex tex="P^2=a^3" /> shortcut is here.
               </p>
             </div>
           )}

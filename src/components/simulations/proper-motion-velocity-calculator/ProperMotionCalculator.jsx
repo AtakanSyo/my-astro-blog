@@ -19,9 +19,12 @@ import {
   distancePcFromVelocityProperMotion,
   totalSpaceVelocity,
 } from "./properMotion";
+import { PROPER_MOTION_TEST_COLUMNS, PROPER_MOTION_TEST_SOURCES, getProperMotionTestRows } from "./properMotionTests";
 import "../../../styles/properMotionVelocityCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import Katex from "../../Katex.jsx";
 
 const PRESETS = [
   {
@@ -171,7 +174,14 @@ export default function ProperMotionCalculator() {
         const a = parseFloat(muAlpha);
         const d = parseFloat(muDelta);
         if (!Number.isFinite(a) || !Number.isFinite(d)) {
-          return { valid: false, reason: "Enter both proper-motion components (μα* and μδ)." };
+          return {
+            valid: false,
+            reason: (
+              <>
+                Enter both proper-motion components (<Katex tex="\mu_{\alpha*}" /> and <Katex tex="\mu_\delta" />).
+              </>
+            ),
+          };
         }
         muArcsecYr = properMotionToArcsecYr(totalProperMotion(a, d), muUnit);
       } else {
@@ -213,6 +223,10 @@ export default function ProperMotionCalculator() {
 
     return { valid: true, muArcsecYr, dPc, vtKms, hasVr, vr, totalV };
   }, [solveFor, muMode, muAlpha, muDelta, muTotal, muUnit, distMode, distance, distanceUnit, parallax, parallaxUnit, vt, radialVelocity]);
+
+  // Self-check rows: runs the real properMotion.js functions against known
+  // reference stars and edge cases — independent of the fields above.
+  const testRows = useMemo(() => getProperMotionTestRows(), []);
 
   const applyPreset = (preset) => {
     setSolveFor(preset.solveFor);
@@ -256,7 +270,7 @@ export default function ProperMotionCalculator() {
       </div>
 
       <p className="pmc-explainer">
-        v<sub>t</sub> = 4.74047 · μ · d — a star's proper motion (its apparent creep across the sky,
+        <Katex tex="v_t = 4.74047 \cdot \mu \cdot d" /> — a star's proper motion (its apparent creep across the sky,
         in arcsec/yr) combined with its distance gives the actual sideways speed through space, in
         km/s. Apparent motion alone conflates true speed with distance — the same real velocity
         looks far slower from farther away.
@@ -278,7 +292,7 @@ export default function ProperMotionCalculator() {
       {/* --- proper motion --- */}
       <div className="pmc-section">
         <div className="pmc-section-head">
-          <span className="pmc-section-title">Proper motion (μ)</span>
+          <span className="pmc-section-title">Proper motion (<Katex tex="\mu" />)</span>
           {solveFor !== "mu" && (
             <div className="pmc-mode-toggle">
               <button type="button" className={muMode === "total" ? "pmc-mode-btn active" : "pmc-mode-btn"} onClick={() => setMuMode("total")}>
@@ -309,11 +323,11 @@ export default function ProperMotionCalculator() {
           <>
             <div className="pmc-component-row">
               <div className="pmc-field">
-                <label>μ<sub>α*</sub> (RA, ×cos δ)</label>
+                <label><Katex tex="\mu_{\alpha*}" /> (RA, ×cos <Katex tex="\delta" />)</label>
                 <input className="pmc-input" type="number" step="any" inputMode="decimal" value={muAlpha} onChange={(e) => setMuAlpha(e.target.value)} />
               </div>
               <div className="pmc-field">
-                <label>μ<sub>δ</sub> (Dec)</label>
+                <label><Katex tex="\mu_\delta" /> (Dec)</label>
                 <input className="pmc-input" type="number" step="any" inputMode="decimal" value={muDelta} onChange={(e) => setMuDelta(e.target.value)} />
               </div>
               <select className="pmc-unit-select" value={muUnit} onChange={(e) => setMuUnit(e.target.value)}>
@@ -322,7 +336,7 @@ export default function ProperMotionCalculator() {
             </div>
             {Number.isFinite(parseFloat(muAlpha)) && Number.isFinite(parseFloat(muDelta)) && (
               <p className="pmc-derived-note">
-                Total μ = {formatNumber(totalProperMotion(parseFloat(muAlpha), parseFloat(muDelta)))} {PROPER_MOTION_UNITS[muUnit].short}
+                Total <Katex tex="\mu" /> = {formatNumber(totalProperMotion(parseFloat(muAlpha), parseFloat(muDelta)))} {PROPER_MOTION_UNITS[muUnit].short}
               </p>
             )}
           </>
@@ -343,7 +357,7 @@ export default function ProperMotionCalculator() {
       {/* --- distance --- */}
       <div className="pmc-section">
         <div className="pmc-section-head">
-          <span className="pmc-section-title">Distance (d)</span>
+          <span className="pmc-section-title">Distance (<Katex tex="d" />)</span>
           {solveFor !== "d" && (
             <div className="pmc-mode-toggle">
               <button type="button" className={distMode === "distance" ? "pmc-mode-btn active" : "pmc-mode-btn"} onClick={() => setDistMode("distance")}>
@@ -399,7 +413,7 @@ export default function ProperMotionCalculator() {
       {/* --- tangential velocity --- */}
       <div className="pmc-section">
         <div className="pmc-section-head">
-          <span className="pmc-section-title">Tangential velocity (v<sub>t</sub>)</span>
+          <span className="pmc-section-title">Tangential velocity (<Katex tex="v_t" />)</span>
         </div>
         {solveFor === "vt" ? (
           <div className="pmc-computed">{result.valid ? formatNumber(result.vtKms) : "—"} <span className="pmc-row-unit">km/s</span></div>
@@ -432,7 +446,7 @@ export default function ProperMotionCalculator() {
         <div className="pmc-total-card">
           <span className="pmc-total-label">Total 3D space velocity</span>
           <span className="pmc-total-value">
-            √(v<sub>t</sub>² + v<sub>r</sub>²) = {formatNumber(result.totalV)} km/s
+            <Katex tex="\sqrt{v_t^2 + v_r^2}" /> = {formatNumber(result.totalV)} km/s
           </span>
         </div>
       )}

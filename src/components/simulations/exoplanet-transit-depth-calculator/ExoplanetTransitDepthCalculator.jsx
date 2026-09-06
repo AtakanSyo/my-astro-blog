@@ -15,9 +15,13 @@ import {
   planetRadiusFromDepth,
   depthToMillimag,
 } from "./transitDepth";
+import { TRANSIT_DEPTH_TEST_COLUMNS, TRANSIT_DEPTH_TEST_SOURCES, getTransitDepthTestRows } from "./transitDepthTests";
 import "../../../styles/exoplanetTransitDepthCalculator.css";
+import "../../../styles/calculators.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import Katex from "../../Katex.jsx";
 
 // Every preset is self-consistent under both solve directions, so
 // switching direction after applying one never shows a jarring mismatch.
@@ -183,6 +187,10 @@ export default function ExoplanetTransitDepthCalculator() {
     return { width, height, marginLeft, marginRight, marginTop, marginBottom, plotWidth, plotHeight, xScale, yScale, points, yTicks, yTop, yBottom };
   }, [result]);
 
+  // Self-check rows: runs the real transitDepth.js functions against a
+  // real transiting planet and edge cases — independent of the fields above.
+  const testRows = useMemo(() => getTransitDepthTestRows(), []);
+
   const applyPreset = (preset) => {
     setSolveFor(preset.solveFor);
     setRp(String(preset.rp));
@@ -221,7 +229,7 @@ export default function ExoplanetTransitDepthCalculator() {
       <p className="etd-explainer">
         In the simplest model — a uniform stellar disk, planet crossing dead-center — the
         fractional brightness drop is just the ratio of the two disks' areas:{" "}
-        <code>δ = (R_p / R_star)²</code>. Real light curves deviate somewhat from this (limb
+        <Katex tex={String.raw`\delta = (R_p/R_\star)^2`} />. Real light curves deviate somewhat from this (limb
         darkening, grazing transits), but it's the right first estimate, and the one every more
         detailed model corrects.
       </p>
@@ -238,7 +246,7 @@ export default function ExoplanetTransitDepthCalculator() {
       <div className="etd-fields">
         {solveFor === "depth" ? (
           <div className="etd-field">
-            <label htmlFor="etd-rp">Planet radius (R_p)</label>
+            <label htmlFor="etd-rp">Planet radius (<Katex tex="R_p" />)</label>
             <div className="etd-input-row">
               <input id="etd-rp" className="etd-input" type="number" min="0" step="any" inputMode="decimal" value={rp} onChange={(e) => setRp(e.target.value)} />
               <select className="etd-unit-select" value={rpUnit} onChange={(e) => setRpUnit(e.target.value)}>
@@ -248,7 +256,7 @@ export default function ExoplanetTransitDepthCalculator() {
           </div>
         ) : (
           <div className="etd-field">
-            <label htmlFor="etd-depth">Transit depth (δ)</label>
+            <label htmlFor="etd-depth">Transit depth (<Katex tex="\delta" />)</label>
             <div className="etd-input-row">
               <input id="etd-depth" className="etd-input" type="number" min="0" step="any" inputMode="decimal" value={depth} onChange={(e) => setDepth(e.target.value)} />
               <select className="etd-unit-select" value={depthUnit} onChange={(e) => setDepthUnit(e.target.value)}>
@@ -259,7 +267,7 @@ export default function ExoplanetTransitDepthCalculator() {
         )}
 
         <div className="etd-field">
-          <label htmlFor="etd-rs">Stellar radius (R_star)</label>
+          <label htmlFor="etd-rs">Stellar radius (<Katex tex="R_\star" />)</label>
           <div className="etd-input-row">
             <input id="etd-rs" className="etd-input" type="number" min="0" step="any" inputMode="decimal" value={rs} onChange={(e) => setRs(e.target.value)} />
             <select className="etd-unit-select" value={rsUnit} onChange={(e) => setRsUnit(e.target.value)}>
@@ -276,7 +284,7 @@ export default function ExoplanetTransitDepthCalculator() {
           <div className="etd-headline-card">
             {solveFor === "radius" && (
               <div className="etd-headline">
-                R_p ≈ {formatNumber(planetRadiusFromMeters(result.rpM, "rearth"))} R⊕ = {formatNumber(planetRadiusFromMeters(result.rpM, "rjup"))} R♃
+                <Katex tex="R_p" /> ≈ {formatNumber(planetRadiusFromMeters(result.rpM, "rearth"))} R⊕ = {formatNumber(planetRadiusFromMeters(result.rpM, "rjup"))} R♃
               </div>
             )}
             <div className="etd-depth-row">
@@ -284,11 +292,11 @@ export default function ExoplanetTransitDepthCalculator() {
               <span>{formatNumber(depthFromFraction(result.depthFrac, "ppm"))} ppm</span>
               <span>{formatNumber(depthToMillimag(result.depthFrac))} mmag</span>
             </div>
-            <div className="etd-headline-sub">R_p / R_star = {formatNumber(result.ratio)}</div>
+            <div className="etd-headline-sub"><Katex tex="R_p/R_\star" /> = {formatNumber(result.ratio)}</div>
           </div>
 
           {disk && (
-            <div className="etd-chart-wrap">
+            <div className="chart-wrap">
               <svg
                 className="etd-disk-svg"
                 viewBox="0 0 240 200"
@@ -310,13 +318,13 @@ export default function ExoplanetTransitDepthCalculator() {
               </svg>
               <p className="etd-chart-caption">
                 Drawn to scale (planet size floor-clamped for visibility when necessary) — the dark
-                disk's area relative to the star's is exactly δ.
+                disk's area relative to the star's is exactly <Katex tex="\delta" />.
               </p>
             </div>
           )}
 
           {lightcurve && (
-            <div className="etd-chart-wrap">
+            <div className="chart-wrap">
               <svg
                 className="etd-curve-svg"
                 viewBox={`0 0 ${lightcurve.width} ${lightcurve.height}`}
@@ -349,6 +357,12 @@ export default function ExoplanetTransitDepthCalculator() {
 
       <div className="etd-footer-row">
         <CalculatorVote slug="exoplanet-transit-depth-calculator" />
+        <CalculatorTests
+          title="Exoplanet Transit Depth Calculator — Tests"
+          columns={TRANSIT_DEPTH_TEST_COLUMNS}
+          rows={testRows}
+          sources={TRANSIT_DEPTH_TEST_SOURCES}
+        />
         <button type="button" className="etd-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

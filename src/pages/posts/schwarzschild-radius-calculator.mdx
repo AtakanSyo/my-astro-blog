@@ -20,6 +20,7 @@ lang: en
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
 import Changelog from "../../components/Changelog.astro";
+import Katex from "../../components/Katex.astro";
 import SchwarzschildRadiusCalculator from "../../components/simulations/schwarzschild-radius-calculator/SchwarzschildRadiusCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -41,7 +42,7 @@ $$
 That's it — no exponent, no approximation. Double the mass and the
 radius exactly doubles; this is a straight proportionality, not merely
 a power law that happens to look linear. A 1 M☉ object has
-r_s ≈ 2.95 km, so a 10 M☉ black hole's event horizon sits at almost
+<Katex tex="r_s" /> ≈ 2.95 km, so a 10 M☉ black hole's event horizon sits at almost
 exactly 29.5 km — ten times the mass, ten times the radius, precisely.
 
 ## What it actually means
@@ -53,18 +54,18 @@ its actual ~696,000 km surface; nothing would need to change for the Sun
 to "become" a black hole unless it were somehow compressed down to that
 size, which stellar physics doesn't permit for a star of its mass. Only
 when a real, physical event horizon actually forms — in a collapsed
-massive star's core, or at a galaxy's center — does r_s become the size
+massive star's core, or at a galaxy's center — does <Katex tex="r_s" /> become the size
 of something real.
 
 ## Real black holes, real scales
 
-- **A 10 M☉ stellar-mass black hole:** r_s ≈ 29.5 km — smaller than most
+- **A 10 M☉ stellar-mass black hole:** <Katex tex="r_s" /> ≈ 29.5 km — smaller than most
   cities.
 - **Sagittarius A\*** (the Milky Way's central black hole, ~4.3 million
-  M☉): r_s ≈ 12.7 million km, about a fifth of Mercury's orbital
+  M☉): <Katex tex="r_s" /> ≈ 12.7 million km, about a fifth of Mercury's orbital
   distance from the Sun.
 - **M87\*** (the first black hole ever directly imaged, ~6.5 billion
-  M☉): r_s ≈ 19.2 billion km, or about 128 AU — larger than Pluto's
+  M☉): <Katex tex="r_s" /> ≈ 19.2 billion km, or about 128 AU — larger than Pluto's
   orbit around the Sun.
 
 ## An important caveat: this is Schwarzschild, not Kerr
@@ -73,20 +74,20 @@ This formula describes an idealized **non-rotating, uncharged**
 black hole. Every black hole that actually forms from stellar collapse
 carries at least some spin, and a spinning (Kerr) black hole's event
 horizon follows a different formula entirely:
-r_+ = r_g(1 + √(1−a*²)), where r_g = GM/c² = r_s/2 and a* is the
-dimensionless spin. At zero spin this reduces to exactly r_s above; at
-maximal spin, the horizon shrinks to just half of r_s. For the spin-
+<Katex tex="r_+ = r_g(1 + \sqrt{1-a_*^2})" />, where <Katex tex="r_g = GM/c^2 = r_s/2" /> and <Katex tex="a_*" /> is the
+dimensionless spin. At zero spin this reduces to exactly <Katex tex="r_s" /> above; at
+maximal spin, the horizon shrinks to just half of <Katex tex="r_s" />. For the spin-
 dependent version — and to see how it relates to the innermost stable
 orbit around a rotating black hole — see this site's
 [Black Hole ISCO Calculator](/posts/black-hole-isco-calculator).
 
 ## The same equation, solved the other way
 
-Escape velocity is v_esc = √(2GM/r) — the speed needed to leave a
-mass's gravity for good. Set v_esc = c and solve for r instead of for
-the speed, and out falls r_s = 2GM/c² exactly. The Schwarzschild radius
+Escape velocity is <Katex tex="v_{\rm esc} = \sqrt{2GM/r}" /> — the speed needed to leave a
+mass's gravity for good. Set <Katex tex="v_{\rm esc} = c" /> and solve for <Katex tex="r" /> instead of for
+the speed, and out falls <Katex tex="r_s = 2GM/c^2" /> exactly. The Schwarzschild radius
 isn't a separate fact about black holes bolted onto escape velocity —
-it's the radius at which escape velocity *reaches* c. This site's
+it's the radius at which escape velocity *reaches* <Katex tex="c" />. This site's
 [Escape Velocity Calculator](/posts/escape-velocity-calculator) is the
 same formula approached from the other direction, complete with a
 comparison ladder from a small asteroid up through a neutron star.

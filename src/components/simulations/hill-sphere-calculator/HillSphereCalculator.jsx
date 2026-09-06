@@ -16,9 +16,11 @@ import {
 } from "./hillSphere";
 import { HILL_SPHERE_TEST_COLUMNS, HILL_SPHERE_TEST_SOURCES, getHillSphereTestRows } from "./hillSphereTests";
 import "../../../styles/hillSphereCalculator.css";
+import "../../../styles/calculators.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
 import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import Katex from "../../Katex.jsx";
 
 // Every preset is a real (or realistically illustrative) orbiting-body +
 // host pair, and doubles as a permanent landmark on the comparison
@@ -241,14 +243,14 @@ export default function HillSphereCalculator() {
 
       <p className="hsc-explainer">
         The Hill sphere is roughly how far a body's own gravity can hold onto a satellite despite
-        the pull of whatever it orbits: <code>r_H ≈ a(m/3M)^(1/3)</code>, or the more conservative{" "}
-        <code>r_H ≈ a(1−e)(m/3M)^(1/3)</code> at periapsis, where tidal stress is strongest. It's an
+        the pull of whatever it orbits: <Katex tex={String.raw`r_H \approx a\left(\dfrac{m}{3M}\right)^{1/3}`} />, or the more conservative{" "}
+        <Katex tex={String.raw`r_H \approx a(1-e)\left(\dfrac{m}{3M}\right)^{1/3}`} /> at periapsis, where tidal stress is strongest. It's an
         approximation, not a hard boundary — see below for why.
       </p>
 
       <div className="hsc-fields">
         <div className="hsc-field">
-          <label htmlFor="hsc-m">Orbiting body's mass (m)</label>
+          <label htmlFor="hsc-m">Orbiting body's mass (<Katex tex="m" />)</label>
           <div className="hsc-input-row">
             <input id="hsc-m" className="hsc-input" type="number" min="0" step="any" inputMode="decimal" value={m} onChange={(e) => setM(e.target.value)} />
             <select className="hsc-unit-select" value={mUnit} onChange={(e) => setMUnit(e.target.value)}>
@@ -257,7 +259,7 @@ export default function HillSphereCalculator() {
           </div>
         </div>
         <div className="hsc-field">
-          <label htmlFor="hsc-M">Host body's mass (M)</label>
+          <label htmlFor="hsc-M">Host body's mass (<Katex tex="M" />)</label>
           <div className="hsc-input-row">
             <input id="hsc-M" className="hsc-input" type="number" min="0" step="any" inputMode="decimal" value={M} onChange={(e) => setM2(e.target.value)} />
             <select className="hsc-unit-select" value={MUnit} onChange={(e) => setMUnit2(e.target.value)}>
@@ -266,7 +268,7 @@ export default function HillSphereCalculator() {
           </div>
         </div>
         <div className="hsc-field">
-          <label htmlFor="hsc-a">Semi-major axis (a)</label>
+          <label htmlFor="hsc-a">Semi-major axis (<Katex tex="a" />)</label>
           <div className="hsc-input-row">
             <input id="hsc-a" className="hsc-input" type="number" min="0" step="any" inputMode="decimal" value={a} onChange={(e) => setA(e.target.value)} />
             <select className="hsc-unit-select" value={aUnit} onChange={(e) => setAUnit(e.target.value)}>
@@ -275,7 +277,7 @@ export default function HillSphereCalculator() {
           </div>
         </div>
         <div className="hsc-field">
-          <label htmlFor="hsc-e">Eccentricity (e) — optional</label>
+          <label htmlFor="hsc-e">Eccentricity (<Katex tex="e" />) — optional</label>
           <input id="hsc-e" className="hsc-input" type="number" min="0" max="0.999" step="any" inputMode="decimal" value={e} onChange={(e2) => setE(e2.target.value)} />
         </div>
         <div className="hsc-field">
@@ -295,7 +297,7 @@ export default function HillSphereCalculator() {
         <>
           <div className="hsc-headline-card">
             <div className="hsc-headline">
-              r_H ≈ {formatNumber(distanceFromMeters(result.rHPeriapsis, "km"))} km = {formatNumber(distanceFromMeters(result.rHPeriapsis, "au"))} AU
+              <Katex tex="r_H" /> ≈ {formatNumber(distanceFromMeters(result.rHPeriapsis, "km"))} km = {formatNumber(distanceFromMeters(result.rHPeriapsis, "au"))} AU
             </div>
             <div className="hsc-headline-sub">
               Circular-orbit estimate: {formatNumber(distanceFromMeters(result.rHCircular, "km"))} km
@@ -306,7 +308,7 @@ export default function HillSphereCalculator() {
           </div>
 
           {diagram && (
-            <div className="hsc-chart-wrap">
+            <div className="chart-wrap">
               <svg className="hsc-diagram-svg" viewBox="0 0 640 260" role="img" aria-label="Left: the orbit around the host body. Right: the orbiting body and its Hill sphere, to a separate scale.">
                 <line x1="320" y1="20" x2="320" y2="240" className="hsc-panel-divider" />
                 <text x="150" y="240" className="hsc-panel-label" textAnchor="middle">system view (orbit)</text>
@@ -332,7 +334,7 @@ export default function HillSphereCalculator() {
           )}
 
           {ladder && (
-            <div className="hsc-chart-wrap">
+            <div className="chart-wrap">
               <svg className="hsc-ladder-svg" viewBox={`0 0 ${ladder.width} ${ladder.height}`} role="img" aria-label="Hill radius comparison scale">
                 <line x1={ladder.marginLeft} x2={ladder.marginLeft + ladder.plotWidth} y1={ladder.y} y2={ladder.y} className="hsc-ladder-axis" />
                 {ladder.ticks.map((t) => (

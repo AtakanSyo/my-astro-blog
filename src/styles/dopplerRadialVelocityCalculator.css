@@ -203,14 +203,6 @@
   border-top: 1px dashed var(--drv-border);
 }
 
-.drv-chart-wrap {
-  background: var(--drv-bg-2);
-  border: 1px solid var(--drv-border);
-  border-radius: 12px;
-  padding: 0.75rem 0.75rem 0.5rem;
-  margin-bottom: 1.1rem;
-}
-
 .drv-gauge-svg,
 .drv-curve-svg {
   width: 100%;

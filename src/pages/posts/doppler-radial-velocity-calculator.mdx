@@ -20,6 +20,7 @@ lang: en
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
 import Changelog from "../../components/Changelog.astro";
+import Katex from "../../components/Katex.astro";
 import DopplerRadialVelocityCalculator from "../../components/simulations/doppler-radial-velocity-calculator/DopplerRadialVelocityCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -43,7 +44,7 @@ $$
 \frac{v_r}{c} \approx \frac{\lambda_{\rm obs} - \lambda_0}{\lambda_0}
 $$
 
-A positive shift (λ_obs > λ0, redshifted) means the source is receding;
+A positive shift (<Katex tex="\lambda_{\rm obs}" /> > <Katex tex="\lambda_0" />, redshifted) means the source is receding;
 negative (blueshifted) means it's approaching. Take the worked example
 this calculator opens with: Hα's rest wavelength is 656.28 nm; observed
 at 656.50 nm, that's a radial velocity of about +100.5 km/s — receding.
@@ -59,7 +60,7 @@ $$
 
 which already folds in relativistic time dilation, not just the
 classical light-travel-time effect. At everyday stellar velocities (tens
-to hundreds of km/s, β ~ 10⁻⁴ to 10⁻³) the two formulas are
+to hundreds of km/s, <Katex tex="\beta" /> ~ 10⁻⁴ to 10⁻³) the two formulas are
 indistinguishable. They start to diverge visibly only once a source is
 moving at a real fraction of the speed of light — relativistic jets,
 some supernova ejecta, and (going the other way) precision tests of
@@ -84,8 +85,8 @@ data.
   its *absence* is itself informative: for ordinary stellar and
   exoplanet work, you'll essentially never see it.
 - **The classical-vs-relativistic curve** plots both formulas across the
-  full range of β, dashed for classical and solid for relativistic. They
-  sit on top of each other near β = 0 and peel apart as |v| grows — a
+  full range of <Katex tex="\beta" />, dashed for classical and solid for relativistic. They
+  sit on top of each other near <Katex tex="\beta = 0" /> and peel apart as |v| grows — a
   direct visual answer to "how much does the approximation actually cost
   me here," rather than a rule of thumb taken on faith.
 

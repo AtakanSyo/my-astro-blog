@@ -20,6 +20,7 @@ lang: en
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
 import Changelog from "../../components/Changelog.astro";
+import Katex from "../../components/Katex.astro";
 import RedshiftWavelengthCalculator from "../../components/simulations/redshift-wavelength-calculator/RedshiftWavelengthCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -44,8 +45,8 @@ $$
 1 + z = \frac{\lambda_{\text{obs}}}{\lambda_{\text{rest}}}
 $$
 
-Rearranged, this gives whichever quantity is missing — λ_obs = λ_rest(1+z),
-or λ_rest = λ_obs/(1+z). z is dimensionless: positive means redshifted
+Rearranged, this gives whichever quantity is missing — <Katex tex="\lambda_{\text{obs}} = \lambda_{\text{rest}}(1+z)" />,
+or <Katex tex="\lambda_{\text{rest}} = \lambda_{\text{obs}}/(1+z)" />. <Katex tex="z" /> is dimensionless: positive means redshifted
 (wavelengths stretched), negative means blueshifted (compressed) — the
 Andromeda Galaxy is one of the rare blueshifted objects, approaching us at
 around 300 km/s, which is why it's on a collision course over the next few
@@ -54,11 +55,11 @@ billion years.
 ## Two velocities, and why they disagree
 
 A redshift is often translated into a velocity, but there are two
-different formulas in circulation, and they only agree when z is small.
+different formulas in circulation, and they only agree when <Katex tex="z" /> is small.
 
-The naive version simply says v = cz — a first-order, non-relativistic
+The naive version simply says <Katex tex="v = cz" /> — a first-order, non-relativistic
 reading. It's the formula most people learn first, and it's an excellent
-approximation for nearby galaxies. It also breaks completely for large z:
+approximation for nearby galaxies. It also breaks completely for large <Katex tex="z" />:
 push it far enough and it predicts velocities faster than light, which
 isn't a real result, just a warning sign the formula's been used outside
 where it works.
@@ -67,7 +68,7 @@ $$
 v = cz
 $$
 
-The special-relativistic Doppler formula stays below c at every redshift,
+The special-relativistic Doppler formula stays below <Katex tex="c" /> at every redshift,
 however large:
 
 $$
@@ -88,13 +89,13 @@ expanding while the light is in transit, stretching its wavelength along
 the way, described by general relativity's Friedmann-Robertson-Walker
 metric rather than special relativity's Doppler formula.
 
-The two phenomena use the same definition of z and can look identical for
+The two phenomena use the same definition of <Katex tex="z" /> and can look identical for
 a single measurement, but they mean different things, and at high
 redshift there's no longer a single well-defined "recession velocity" the
 way special relativity defines one — the relativistic Doppler value above
 is best read as an illustrative special-relativistic *analogy*, not a
-literal cosmological velocity, once z gets large. Working out an actual
-cosmological distance or lookback time from z requires a full cosmological
+literal cosmological velocity, once <Katex tex="z" /> gets large. Working out an actual
+cosmological distance or lookback time from <Katex tex="z" /> requires a full cosmological
 model (matter density, dark energy density, and the expansion rate today)
 — genuinely a different calculation from anything on this page.
 

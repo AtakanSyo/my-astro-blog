@@ -20,6 +20,7 @@ lang: en
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
 import Changelog from "../../components/Changelog.astro";
+import Katex from "../../components/Katex.astro";
 import SpectralIndexCalculator from "../../components/simulations/spectral-index-calculator/SpectralIndexCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -28,50 +29,50 @@ import SpectralIndexCalculator from "../../components/simulations/spectral-index
 
 Radio sources don't shine at one frequency — they have a whole spectrum,
 and how their brightness changes across it carries real physics. A single
-number, the spectral index α, captures the shape of that spectrum, and
+number, the spectral index <Katex tex="\alpha" />, captures the shape of that spectrum, and
 whether it's steep, flat, or rising tells you something about the
 underlying emission mechanism before you've done anything more
 sophisticated than compare two flux measurements.
 
 ## The definition
 
-A source's flux density S_ν as a function of frequency ν is modeled as a
+A source's flux density <Katex tex="S_\nu" /> as a function of frequency <Katex tex="\nu" /> is modeled as a
 power law:
 
 $$
 S_\nu \propto \nu^{\alpha}
 $$
 
-Given two measurements, S1 at ν1 and S2 at ν2, this rearranges to
+Given two measurements, <Katex tex="S_1" /> at <Katex tex="\nu_1" /> and <Katex tex="S_2" /> at <Katex tex="\nu_2" />, this rearranges to
 
 $$
 \alpha = \frac{\ln(S_2 / S_1)}{\ln(\nu_2 / \nu_1)}
 $$
 
-That same α then predicts the flux density at any third frequency ν3 via
-S3 = S1·(ν3/ν1)^α — useful for planning an observation at a frequency you
+That same <Katex tex="\alpha" /> then predicts the flux density at any third frequency <Katex tex="\nu_3" /> via
+<Katex tex="S_3 = S_1\cdot(\nu_3/\nu_1)^{\alpha}" /> — useful for planning an observation at a frequency you
 haven't measured yet, or checking whether a source's known spectral shape
 is consistent with a new detection.
 
-**A note on sign convention.** This calculator uses S_ν ∝ ν^α, standard in
+**A note on sign convention.** This calculator uses <Katex tex="S_\nu \propto \nu^{\alpha}" />, standard in
 radio survey catalogs (NVSS, VLSS, and most others). Some literature
-instead defines α through S_ν ∝ ν^-α — the opposite sign — so a quoted
-"α = 0.8" can mean a rising *or* a falling spectrum depending on the
+instead defines <Katex tex="\alpha" /> through <Katex tex="S_\nu \propto \nu^{-\alpha}" /> — the opposite sign — so a quoted
+"<Katex tex="\alpha = 0.8" />" can mean a rising *or* a falling spectrum depending on the
 source. Always check convention before comparing values across papers.
 
 ## What the shape of the spectrum tells you
 
-- **α ≈ 0 (flat spectrum):** common in compact, optically-thick AGN
+- **<Katex tex="\alpha" /> ≈ 0 (flat spectrum):** common in compact, optically-thick AGN
   cores — a superposition of many self-absorbed synchrotron components
   peaking at different frequencies can conspire to look nearly flat
   overall.
-- **α ≈ -0.5 to -1.2 (steep spectrum):** the classic signature of
+- **<Katex tex="\alpha" /> ≈ -0.5 to -1.2 (steep spectrum):** the classic signature of
   optically-thin synchrotron emission from extended structures like radio
   lobes and jets — the regime most extragalactic radio sources fall into.
-- **α ≲ -1.2 (ultra-steep spectrum):** used deliberately as a search
+- **<Katex tex="\alpha" /> ≲ -1.2 (ultra-steep spectrum):** used deliberately as a search
   criterion for high-redshift radio galaxies, since spectral steepening
   correlates statistically with distance.
-- **α > 0 (inverted spectrum):** the source is optically thick at the
+- **<Katex tex="\alpha" /> > 0 (inverted spectrum):** the source is optically thick at the
   observed frequencies — young, compact, or self-absorbed sources whose
   emission hasn't yet freed itself from its own opacity.
 
@@ -82,12 +83,12 @@ different frequency ranges.
 ## Uncertainty and extrapolation
 
 Frequencies are normally known far more precisely than flux densities, so
-this calculator treats ν1, ν2, and ν3 as exact and propagates only the
-flux density uncertainties you supply. The resulting uncertainty on α
-scales inversely with how far apart ν1 and ν2 are in log-frequency —
-measurements close together in frequency give a much noisier α than ones
-spread widely apart, for the same flux precision. Extrapolating to ν3
-compounds α's uncertainty further, growing with how far ν3 sits from your
+this calculator treats <Katex tex="\nu_1" />, <Katex tex="\nu_2" />, and <Katex tex="\nu_3" /> as exact and propagates only the
+flux density uncertainties you supply. The resulting uncertainty on <Katex tex="\alpha" />
+scales inversely with how far apart <Katex tex="\nu_1" /> and <Katex tex="\nu_2" /> are in log-frequency —
+measurements close together in frequency give a much noisier <Katex tex="\alpha" /> than ones
+spread widely apart, for the same flux precision. Extrapolating to <Katex tex="\nu_3" />
+compounds <Katex tex="\alpha" />'s uncertainty further, growing with how far <Katex tex="\nu_3" /> sits from your
 anchor point — a genuine feature of projecting a power law outward, not
 an artifact of the calculation.
 

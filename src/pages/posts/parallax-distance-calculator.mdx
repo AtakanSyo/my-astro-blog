@@ -20,6 +20,7 @@ lang: en
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
 import Changelog from "../../components/Changelog.astro";
+import Katex from "../../components/Katex.astro";
 import ParallaxDistanceCalculator from "../../components/simulations/parallax-distance-calculator/ParallaxDistanceCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -53,21 +54,21 @@ more distant background stars, which don't move appreciably no matter
 where Earth is. Compare the star's apparent position from opposite points
 in Earth's orbit (classically, observations six months apart) and it
 appears to have shifted — not because the star moved, but because you
-did. The parallax angle p is defined as the shift relative to the *mean*
+did. The parallax angle <Katex tex="p" /> is defined as the shift relative to the *mean*
 position (i.e., as seen from the Sun), so the full back-and-forth swing
-between the two extreme epochs is 2p.
+between the two extreme epochs is <Katex tex="2p" />.
 
-## When d = 1/p stops being trustworthy
+## When <Katex tex="d = 1/p" /> stops being trustworthy
 
 Parallax measurement always carries some uncertainty, and it's tempting
-to propagate it the simple way: since d = 1/p, a fractional uncertainty
-on p becomes the same fractional uncertainty on d. That's exactly right
+to propagate it the simple way: since <Katex tex="d = 1/p" />, a fractional uncertainty
+on <Katex tex="p" /> becomes the same fractional uncertainty on <Katex tex="d" />. That's exactly right
 as a first-order approximation — but it's *only* a first-order
-approximation, because 1/p is a nonlinear transform. For a
+approximation, because <Katex tex="1/p" /> is a nonlinear transform. For a
 roughly-Gaussian parallax measurement, the induced distribution on
 distance becomes increasingly skewed as the fractional uncertainty grows,
 and the naive point estimate becomes biased. Push it far enough — a
-parallax consistent with zero within its error bar — and 1/p isn't just
+parallax consistent with zero within its error bar — and <Katex tex="1/p" /> isn't just
 imprecise, it's undefined or nonsensical (a negative or infinite
 "distance").
 
@@ -78,7 +79,7 @@ fractional uncertainties large enough that naive inversion measurably
 biases the results. The standard fix, following Bailer-Jones (2015) and
 the body of work it spawned, is Bayesian: combine the parallax
 measurement with a prior on how stars are actually distributed in space,
-rather than trusting 1/p in isolation. As a rule of thumb, this
+rather than trusting <Katex tex="1/p" /> in isolation. As a rule of thumb, this
 calculator treats fractional uncertainties under 10% as reliable, 10–20%
 as worth caution, and anything larger as a case where simple inversion
 shouldn't be trusted at face value.

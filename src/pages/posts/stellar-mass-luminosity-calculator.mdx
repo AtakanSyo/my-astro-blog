@@ -20,6 +20,7 @@ lang: en
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
 import Changelog from "../../components/Changelog.astro";
+import Katex from "../../components/Katex.astro";
 import StellarMassLuminosityCalculator from "../../components/simulations/stellar-mass-luminosity-calculator/StellarMassLuminosityCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -41,17 +42,17 @@ $$
 \frac{L}{L_\odot} \approx \left(\frac{M}{M_\odot}\right)^{\alpha}
 $$
 
-α isn't a universal constant. This calculator uses a commonly-cited
+<Katex tex="\alpha" /> isn't a universal constant. This calculator uses a commonly-cited
 piecewise approximation:
 
-- **M &lt; 0.43 M☉:** L = 0.23 M^2.3 — low-mass stars are relatively
+- **M &lt; 0.43 M☉:** <Katex tex="L = 0.23\,M^{2.3}" /> — low-mass stars are relatively
   luminous for their mass; their cores are only partly (or, below about
   0.35 M☉, fully) convective, mixing fuel in a way that changes the
   scaling.
-- **0.43 ≤ M &lt; 2 M☉:** L = M^4 — this is the "textbook" exponent, and
+- **0.43 ≤ M &lt; 2 M☉:** <Katex tex="L = M^4" /> — this is the "textbook" exponent, and
   it's calibrated to pass through the Sun exactly (M=1 → L=1).
-- **2 ≤ M &lt; 20 M☉:** L = 1.4 M^3.5 — slightly shallower.
-- **M ≥ 20 M☉:** L = 3200 M — nearly linear. Very massive stars are
+- **2 ≤ M &lt; 20 M☉:** <Katex tex="L = 1.4\,M^{3.5}" /> — slightly shallower.
+- **M ≥ 20 M☉:** <Katex tex="L = 3200\,M" /> — nearly linear. Very massive stars are
   radiation-pressure dominated and sit close to their Eddington
   luminosity, which scales with mass directly rather than with the
   steep temperature-sensitivity that drives the lower branches.

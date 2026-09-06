@@ -21,6 +21,7 @@ lang: en
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
 import Changelog from "../../components/Changelog.astro";
+import Katex from "../../components/Katex.astro";
 import BlackHoleEvaporationTimeCalculator from "../../components/simulations/black-hole-evaporation-time-calculator/BlackHoleEvaporationTimeCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -42,12 +43,12 @@ $$
 This is the idealized lifetime of an isolated, non-rotating,
 uncharged (Schwarzschild) black hole sitting in a vacuum colder than its
 own Hawking temperature, so it only ever loses mass and never gains it.
-Every other factor in the formula — G, ħ, c — is a fixed constant of
-nature. Mass is the only variable, and it enters as M³.
+Every other factor in the formula — <Katex tex="G" />, <Katex tex="\hbar" />, <Katex tex="c" /> — is a fixed constant of
+nature. Mass is the only variable, and it enters as <Katex tex="M^3" />.
 
 ## Why the cube matters so much
 
-Because evaporation time scales as M³, shrinking a black hole's mass by
+Because evaporation time scales as <Katex tex="M^3" />, shrinking a black hole's mass by
 a factor of 10 shortens its lifetime by a factor of 1,000. Shrink the
 mass by 1,000× and the lifetime drops by a **billion** times. This single
 exponent explains nearly everything about which black holes are stable
@@ -59,7 +60,7 @@ and which aren't:
   beyond 13.8 billion years that "essentially permanent" undersells it.
 - **Sagittarius A\***, the supermassive black hole at the center of the
   Milky Way (about 4.3 million solar masses), is even more stable still
-  — the M³ scaling pushes its lifetime tens of orders of magnitude
+  — the <Katex tex="M^3" /> scaling pushes its lifetime tens of orders of magnitude
   further out.
 - A **hypothetical primordial black hole** with a mass around 10¹¹–10¹²
   kilograms — roughly that of a small asteroid — would have an
@@ -78,7 +79,7 @@ views of the same underlying physics.)
 
 ## The one number worth remembering
 
-Solve the formula for the mass at which t_evap exactly equals the age
+Solve the formula for the mass at which <Katex tex="t_{evap}" /> exactly equals the age
 of the universe (about 13.8 billion years), and you get a specific,
 finite answer: somewhere around **10¹¹ kilograms**, a mass comparable to
 a small asteroid or mountain. Any black hole lighter than that, formed
@@ -91,7 +92,7 @@ the only place Hawking evaporation could ever plausibly be observed.
 
 ## Reading the log-log plot
 
-Both axes of the chart are logarithmic, which turns the M³ relationship
+Both axes of the chart are logarithmic, which turns the <Katex tex="M^3" /> relationship
 into a straight line — three decades of mass become nine decades of
 lifetime, visibly. The current mass you've entered is marked directly on
 that line, alongside a few fixed reference points (a stellar-mass black

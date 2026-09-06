@@ -21,6 +21,7 @@ lang: en
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import Changelog from "../../components/Changelog.astro";
 import ViewSource from "../../components/ViewSource.astro";
+import Katex from "../../components/Katex.astro";
 import AngularSizeCalculator from "../../components/simulations/angular-size-calculator/AngularSizeCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -39,13 +40,13 @@ from the angle alone.
 
 ## The geometry
 
-Picture a flat object of true diameter D, centered a distance d away and
+Picture a flat object of true diameter <Katex tex="D" />, centered a distance <Katex tex="d" /> away and
 facing the observer broadside-on — its diameter perpendicular to the line
 of sight, like a disc or a ruler held up, not a ball the observer could
-stand inside of. The angle it subtends, θ, is the apex angle of the
+stand inside of. The angle it subtends, <Katex tex="\theta" />, is the apex angle of the
 triangle formed by the observer and the two ends of the object. The
 triangle splits into two right triangles with the right angle at the
-object's own center, adjacent side d, and opposite side D/2:
+object's own center, adjacent side <Katex tex="d" />, and opposite side <Katex tex="D/2" />:
 
 $$
 \tan\!\left(\frac{\theta}{2}\right) = \frac{D/2}{d} \qquad\Longrightarrow\qquad \theta = 2\arctan\!\left(\frac{D}{2d}\right)
@@ -53,12 +54,12 @@ $$
 
 This is exact for any angle from 0° up to (but not including) 180°, for
 any physical size relative to the distance — a wider, closer object just
-pushes θ toward 180° without ever reaching it.
+pushes <Katex tex="\theta" /> toward 180° without ever reaching it.
 
 ## The small-angle approximation, and when it holds
 
-For small θ, tan(θ/2) ≈ θ/2 (also holds for tan(θ) ≈ θ, but naturally the 
-approximation threshold for θ doubles), and the exact relation collapses to:
+For small <Katex tex="\theta" />, <Katex tex="\tan(\theta/2) \approx \theta/2" /> (also holds for <Katex tex="\tan(\theta) \approx \theta" />, but naturally the 
+approximation threshold for <Katex tex="\theta" /> doubles), and the exact relation collapses to:
 
 $$
 \theta \approx \frac{D}{d}

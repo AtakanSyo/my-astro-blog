@@ -198,14 +198,6 @@
   color: var(--sml-warn);
 }
 
-.sml-chart-wrap {
-  background: var(--sml-bg-2);
-  border: 1px solid var(--sml-border);
-  border-radius: 12px;
-  padding: 0.75rem 0.75rem 0.5rem;
-  margin-bottom: 1.1rem;
-}
-
 .sml-diagram-svg {
   width: 100%;
   height: auto;

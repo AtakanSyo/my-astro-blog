@@ -20,6 +20,7 @@ lang: en
 ---
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
+import Katex from "../../components/Katex.astro";
 import BlackWhiteSplitCanvas from "../../components/simulations/what-is-information/BlackWhiteSplitCanvas.jsx";
 import ByteCounterWebGL from "../../components/simulations/what-is-information/ByteCounterWebGL.jsx";
 // import YourSimulationComponent from "../../components/simulations/your-folder/YourSimulationComponent.jsx";
@@ -47,7 +48,7 @@ A bit. 1 or 0. See the difference :)?
 
 A fundamental observation we should make here is that it doesn’t need to be exactly a 1 or a 0. It can be anything: A and B, black or white—any two things that can be differentiated from each other can be considered a bit.
 
-Now, let’s consider a byte. A byte consists of 8 bits. It contains 2^8 = 256 pieces of information inside it. But why exactly? We only have 1 and 0—what is the other dimension that communicates information, or difference, to us?
+Now, let’s consider a byte. A byte consists of 8 bits. It contains <Katex tex="2^8 = 256" /> pieces of information inside it. But why exactly? We only have 1 and 0—what is the other dimension that communicates information, or difference, to us?
 
 It is placement. You can consider it like space—a place in which you can move forward and backward. With that exact idea, we can identify the differences between each bit inside a byte: the leftmost one, the second leftmost one, and so forth.
 

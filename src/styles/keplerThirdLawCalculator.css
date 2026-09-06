@@ -302,14 +302,6 @@
   background: var(--ktl-bad);
 }
 
-.ktl-chart-wrap {
-  background: var(--ktl-bg-2);
-  border: 1px solid var(--ktl-border);
-  border-radius: 12px;
-  padding: 0.75rem 0.75rem 0.5rem;
-  margin-bottom: 1.1rem;
-}
-
 .ktl-chart-svg {
   width: 100%;
   height: auto;

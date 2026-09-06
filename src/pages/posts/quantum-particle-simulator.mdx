@@ -21,6 +21,7 @@ lang: en
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
 import Changelog from "../../components/Changelog.astro";
+import Katex from "../../components/Katex.astro";
 import QuantumParticleSimulator from "../../components/simulations/quantum-particle-simulator/QuantumParticleSimulator.jsx";
 
 <figure class="post-figure post-figure-md" id="simulator">
@@ -40,8 +41,8 @@ The simulator above initializes a Gaussian wave packet — you set its
 starting position, mean momentum, width, and mass — and evolves it live
 under a potential you choose: a free particle, an infinite or finite
 square well, a harmonic oscillator, a potential step, or a tunneling
-barrier. It plots the potential V(x), the real and imaginary parts of
-ψ(x,t), and the probability density |ψ(x,t)|², alongside running
+barrier. It plots the potential <Katex tex="V(x)" />, the real and imaginary parts of
+<Katex tex="\psi(x,t)" />, and the probability density <Katex tex="|\psi(x,t)|^2" />, alongside running
 expectation values and, for the step and barrier, live reflection and
 transmission probabilities.
 
@@ -60,7 +61,7 @@ $$
 \psi(x,0) = \left(2\pi\sigma^2\right)^{-1/4} \exp\!\left(-\frac{(x-x_0)^2}{4\sigma^2}\right) e^{\,i p_0 x/\hbar}
 $$
 
-The simulator works in dimensionless units with ħ = 1, in the same spirit
+The simulator works in dimensionless units with <Katex tex="\hbar = 1" />, in the same spirit
 as most pedagogical QM simulators — real electron or photon wave packets
 live on length and time scales far too small to animate directly, so
 position, momentum, energy, mass, and time here are all in these "natural"
@@ -70,7 +71,7 @@ simulation units rather than SI.
 
 The equation is integrated with the **Crank-Nicolson** finite-difference
 scheme rather than the split-step Fourier method more commonly used for
-this problem. On a spatial grid of points xⱼ with the standard 3-point
+this problem. On a spatial grid of points <Katex tex="x_j" /> with the standard 3-point
 second-derivative stencil, the Hamiltonian is tridiagonal, and each time
 step solves
 
@@ -88,7 +89,7 @@ dragged live, at any timestep, without the simulation ever diverging.
 problems (the step and the barrier) need an open boundary that lets
 probability leave instead of reflecting unphysically off the domain's hard
 edges. This is handled with a **complex absorbing potential (CAP)**: a
-smooth -iη(x) term added only in a thin layer at each edge of the grid.
+smooth <Katex tex="-i\eta(x)" /> term added only in a thin layer at each edge of the grid.
 It's not part of the physical potential — it's a purely numerical device
 that drains amplitude reaching the boundary, which is also why the total
 probability ("norm remaining," in the readouts) can decrease over time:
@@ -102,23 +103,23 @@ negligible at the wall height used here.
 
 ## Reading the plots
 
-The top panel overlays V(x) with Re[ψ(x,t)] and Im[ψ(x,t)]; the bottom
-panel shows |ψ(x,t)|², the probability density of actually finding the
+The top panel overlays <Katex tex="V(x)" /> with <Katex tex="\text{Re}[\psi(x,t)]" /> and <Katex tex="\text{Im}[\psi(x,t)]" />; the bottom
+panel shows <Katex tex="|\psi(x,t)|^2" />, the probability density of actually finding the
 particle at each position. Both panels use a **fixed vertical scale**, set
 from the initial packet rather than continuously auto-rescaled — so when
 the packet spreads, partially tunnels, or gets absorbed at a boundary, the
 peak height you see visibly drops, instead of being normalized away.
 
 The expectation values are computed directly from the discretized
-wavefunction: ⟨x⟩ and ⟨V⟩ as amplitude-weighted sums, ⟨p⟩ from a
-central-difference estimate of -iħ ∂ψ/∂x, and the kinetic term as
+wavefunction: <Katex tex="\langle x\rangle" /> and <Katex tex="\langle V\rangle" /> as amplitude-weighted sums, <Katex tex="\langle p\rangle" /> from a
+central-difference estimate of <Katex tex="-i\hbar\, \partial \psi/\partial x" />, and the kinetic term as
 
 $$
 \langle T\rangle = \frac{\hbar^2}{2m}\int\left|\frac{\partial \psi}{\partial x}\right|^2 dx
 $$
 
-— a form that's non-negative by construction — with ⟨E⟩ = ⟨T⟩ + ⟨V⟩.
-Reflection and transmission are read live as the fraction of |ψ|² currently
+— a form that's non-negative by construction — with <Katex tex="\langle E\rangle = \langle T\rangle + \langle V\rangle" />.
+Reflection and transmission are read live as the fraction of <Katex tex="|\psi|^2" /> currently
 on each side of the barrier or step; they settle to the true reflection
 and transmission probabilities once the packet has fully cleared the
 interaction region, so let it run rather than reading them the instant the

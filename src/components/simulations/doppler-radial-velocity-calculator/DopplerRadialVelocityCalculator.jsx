@@ -17,8 +17,10 @@ import {
   ratioRelativistic,
 } from "./doppler";
 import "../../../styles/dopplerRadialVelocityCalculator.css";
+import "../../../styles/calculators.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import Katex from "../../Katex.jsx";
 
 // Every preset is self-consistent under both solve directions and both
 // modes, so switching either after applying one never shows a jarring
@@ -275,20 +277,20 @@ export default function DopplerRadialVelocityCalculator() {
       </div>
 
       <p className="drv-explainer">
-        A spectral line's known rest wavelength λ₀, compared to where it's actually observed,
+        A spectral line's known rest wavelength <Katex tex="\lambda_0" />, compared to where it's actually observed,
         gives the radial velocity toward or away from us:{" "}
-        <code>v_r/c ≈ (λ_obs − λ₀)/λ₀</code> at low speed, or the exact relativistic relation{" "}
-        <code>λ_obs/λ₀ = √[(1+β)/(1−β)]</code> at any speed. Solve either direction, and switch
+        <Katex tex={String.raw`v_r/c \approx (\lambda_{\rm obs} - \lambda_0)/\lambda_0`} /> at low speed, or the exact relativistic relation{" "}
+        <Katex tex={String.raw`\lambda_{\rm obs}/\lambda_0 = \sqrt{\dfrac{1+\beta}{1-\beta}}`} /> at any speed. Solve either direction, and switch
         modes to see exactly when the approximation starts to matter.
       </p>
 
       <div className="drv-toggle-row">
         <div className="drv-toggle-group" role="group" aria-label="Solve for">
           <button type="button" className={solveFor === "velocity" ? "drv-toggle-btn active" : "drv-toggle-btn"} onClick={() => setSolveFor("velocity")}>
-            λ_obs → v_r
+            <Katex tex="\lambda_{\rm obs} \to v_r" />
           </button>
           <button type="button" className={solveFor === "wavelength" ? "drv-toggle-btn active" : "drv-toggle-btn"} onClick={() => setSolveFor("wavelength")}>
-            v_r → λ_obs
+            <Katex tex="v_r \to \lambda_{\rm obs}" />
           </button>
         </div>
         <div className="drv-toggle-group" role="group" aria-label="Calculation mode">
@@ -303,7 +305,7 @@ export default function DopplerRadialVelocityCalculator() {
 
       <div className="drv-fields">
         <div className="drv-field">
-          <label htmlFor="drv-lrest">Rest wavelength (λ₀)</label>
+          <label htmlFor="drv-lrest">Rest wavelength (<Katex tex="\lambda_0" />)</label>
           <div className="drv-input-row">
             <input id="drv-lrest" className="drv-input" type="number" min="0" step="any" inputMode="decimal" value={lamRest} onChange={(e) => setLamRest(e.target.value)} />
             <select className="drv-unit-select" value={lamRestUnit} onChange={(e) => setLamRestUnit(e.target.value)}>
@@ -314,7 +316,7 @@ export default function DopplerRadialVelocityCalculator() {
 
         {solveFor === "velocity" ? (
           <div className="drv-field">
-            <label htmlFor="drv-lobs">Observed wavelength (λ_obs)</label>
+            <label htmlFor="drv-lobs">Observed wavelength (<Katex tex="\lambda_{\rm obs}" />)</label>
             <div className="drv-input-row">
               <input id="drv-lobs" className="drv-input" type="number" min="0" step="any" inputMode="decimal" value={lamObs} onChange={(e) => setLamObs(e.target.value)} />
               <select className="drv-unit-select" value={lamObsUnit} onChange={(e) => setLamObsUnit(e.target.value)}>
@@ -324,7 +326,7 @@ export default function DopplerRadialVelocityCalculator() {
           </div>
         ) : (
           <div className="drv-field">
-            <label htmlFor="drv-v">Radial velocity (v_r)</label>
+            <label htmlFor="drv-v">Radial velocity (<Katex tex="v_r" />)</label>
             <div className="drv-input-row">
               <input id="drv-v" className="drv-input" type="number" step="any" inputMode="decimal" value={v} onChange={(e) => setV(e.target.value)} />
               <select className="drv-unit-select" value={vUnit} onChange={(e) => setVUnit(e.target.value)}>
@@ -342,17 +344,17 @@ export default function DopplerRadialVelocityCalculator() {
           <div className={receding ? "drv-headline-card drv-headline-card--red" : "drv-headline-card drv-headline-card--blue"}>
             {result.quantity === "velocity" ? (
               <div className="drv-headline">
-                v_r = {formatNumber(msToVelocity(result.vActive, vUnit), { forceSign: true })} {VELOCITY_UNITS[vUnit].short}
+                <Katex tex="v_r" /> = {formatNumber(msToVelocity(result.vActive, vUnit), { forceSign: true })} {VELOCITY_UNITS[vUnit].short}
               </div>
             ) : (
               <div className="drv-headline">
-                λ_obs = {formatNumber(metersToWavelength(result.lamObsActive, lamObsUnit))} {WAVELENGTH_UNITS[lamObsUnit].short}
+                <Katex tex="\lambda_{\rm obs}" /> = {formatNumber(metersToWavelength(result.lamObsActive, lamObsUnit))} {WAVELENGTH_UNITS[lamObsUnit].short}
               </div>
             )}
             <div className="drv-headline-sub">
               {receding ? "Redshifted — receding from the observer" : "Blueshifted — approaching the observer"}
-              {" · "}Δλ = {formatNumber(metersToWavelength(Math.abs(result.deltaLam), lamRestUnit))} {WAVELENGTH_UNITS[lamRestUnit].short}
-              {" · "}β = v/c = {formatNumber(beta, { forceSign: true })}
+              {" · "}<Katex tex="\Delta\lambda" /> = {formatNumber(metersToWavelength(Math.abs(result.deltaLam), lamRestUnit))} {WAVELENGTH_UNITS[lamRestUnit].short}
+              {" · "}<Katex tex="\beta = v/c" /> = {formatNumber(beta, { forceSign: true })}
             </div>
             <div className="drv-headline-compare">
               {result.quantity === "velocity" ? (
@@ -364,7 +366,7 @@ export default function DopplerRadialVelocityCalculator() {
           </div>
 
           {gauge && (
-            <div className="drv-chart-wrap">
+            <div className="chart-wrap">
               <svg
                 className="drv-gauge-svg"
                 viewBox={`0 0 ${gauge.width} ${gauge.height}`}
@@ -415,7 +417,7 @@ export default function DopplerRadialVelocityCalculator() {
           )}
 
           {curve && (
-            <div className="drv-chart-wrap">
+            <div className="chart-wrap">
               <svg
                 className="drv-curve-svg"
                 viewBox={`0 0 ${curve.width} ${curve.height}`}
@@ -443,8 +445,8 @@ export default function DopplerRadialVelocityCalculator() {
                 {curve.point && <circle cx={curve.point.x} cy={curve.point.y} r="5.5" className="drv-curve-point" />}
               </svg>
               <p className="drv-chart-caption">
-                Dashed = classical (1+β), solid = exact relativistic. They agree closely near β=0
-                and diverge visibly as |v| becomes a real fraction of c.
+                Dashed = classical <Katex tex="(1+\beta)" />, solid = exact relativistic. They agree closely near <Katex tex="\beta = 0" />
+                {" "}and diverge visibly as |v| becomes a real fraction of c.
               </p>
             </div>
           )}

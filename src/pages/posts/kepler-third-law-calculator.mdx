@@ -20,6 +20,7 @@ lang: en
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
 import Changelog from "../../components/Changelog.astro";
+import Katex from "../../components/Katex.astro";
 import KeplerThirdLawCalculator from "../../components/simulations/kepler-third-law-calculator/KeplerThirdLawCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -27,7 +28,7 @@ import KeplerThirdLawCalculator from "../../components/simulations/kepler-third-
 </figure>
 
 Type "orbital period calculator" into a search engine and nearly every
-result gives you the same shortcut: P² = a³, period in years, distance
+result gives you the same shortcut: <Katex tex="P^2 = a^3" />, period in years, distance
 in AU. It's not wrong, exactly — it's a special case of the real law,
 quietly carrying an assumption that the central body weighs exactly one
 solar mass and the orbiting body weighs nothing at all. That's a fine
@@ -42,11 +43,11 @@ $$
 P^2 = \frac{4\pi^2 a^3}{G(M_1+M_2)}
 $$
 
-P is the orbital period, a the semi-major axis of the orbit, and
-M1 + M2 the combined mass of both bodies — not just the central one.
-Set M1 = 1 M☉, M2 ≈ 0, work in years and AU, and the G and 4π² fold
+<Katex tex="P" /> is the orbital period, <Katex tex="a" /> the semi-major axis of the orbit, and
+<Katex tex="M_1 + M_2" /> the combined mass of both bodies — not just the central one.
+Set <Katex tex="M_1" /> = 1 M☉, <Katex tex="M_2" /> ≈ 0, work in years and AU, and the <Katex tex="G" /> and <Katex tex="4\pi^2" /> fold
 away entirely, leaving exactly the shortcut everyone uses. That's the
-whole story: P² = a³ isn't a different law, it's this one with the mass
+whole story: <Katex tex="P^2 = a^3" /> isn't a different law, it's this one with the mass
 term fixed at a value that's only true for one specific kind of system.
 
 ## Solving it the other two ways
@@ -71,7 +72,7 @@ generalized here to handle the plain two-body case directly.
   M☉," is off by more than 40%.
 - **Wrong mass regime entirely.** The ISS orbits Earth, not the Sun. Its
   semi-major axis in AU is a number close to zero, and plugging that
-  into P² = a³ implicitly asks "how fast would something orbit *the
+  into <Katex tex="P^2 = a^3" /> implicitly asks "how fast would something orbit *the
   Sun* at this distance" — a wildly different, wildly wrong question
   from the one actually being asked.
 - **Two comparable masses.** In the Hulse–Taylor binary pulsar, neither
@@ -82,10 +83,10 @@ generalized here to handle the plain two-body case directly.
 ## Reading the chart
 
 In units of years, AU, and solar masses, Kepler's third law reduces to
-the clean identity P² = a³/M — which means that on a log(period) vs.
+the clean identity <Katex tex="P^2 = a^3/M" /> — which means that on a log(period) vs.
 log(semi-major axis) plot, every fixed mass traces out a straight line
 of the same slope, just shifted up or down. The shortcut is that line
-pinned to exactly M = 1 M☉; your system's real line sits wherever its
+pinned to exactly <Katex tex="M" /> = 1 M☉; your system's real line sits wherever its
 actual total mass puts it. The dashed vertical gap between the two
 lines at your system's own semi-major axis *is* the shortcut's error —
 visibly, not just as a percentage.

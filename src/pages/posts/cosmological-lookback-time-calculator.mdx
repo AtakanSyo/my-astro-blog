@@ -20,13 +20,14 @@ lang: en
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
 import Changelog from "../../components/Changelog.astro";
+import Katex from "../../components/Katex.astro";
 import CosmologicalLookbackTimeCalculator from "../../components/simulations/cosmological-lookback-time-calculator/CosmologicalLookbackTimeCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
   <CosmologicalLookbackTimeCalculator client:load />
 </figure>
 
-When you observe a galaxy at redshift z = 1, you're not seeing it as it
+When you observe a galaxy at redshift <Katex tex="z = 1" />, you're not seeing it as it
 is now — you're seeing light that left it long before Earth existed.
 "How long ago" is the lookback time, and unlike most of the conversions
 on this site, it isn't a formula you can rearrange with algebra. It's an
@@ -36,7 +37,7 @@ now, and the answer depends on which cosmology you plug in.
 ## The integral
 
 In a flat universe with matter and a cosmological constant, the
-expansion rate at redshift z relative to today is
+expansion rate at redshift <Katex tex="z" /> relative to today is
 
 $$
 E(z) = \sqrt{\Omega_m (1+z)^3 + \Omega_\Lambda}
@@ -52,17 +53,17 @@ There's no closed-form antiderivative for this in general — it has to
 be evaluated numerically. This calculator does that with Simpson's rule
 at a resolution far finer than the answer's precision requires, so the
 numerical method itself isn't the source of any meaningful error; what
-you get back is limited by how well your chosen Ωm, ΩΛ, and H₀ actually
+you get back is limited by how well your chosen <Katex tex="\Omega_m" />, <Katex tex="\Omega_\Lambda" />, and <Katex tex="H_0" /> actually
 describe the real universe, not by the integration.
 
 ## Why the cosmology matters
 
-Change H₀, Ωm, or ΩΛ, and every lookback time changes with them — this
+Change <Katex tex="H_0" />, <Katex tex="\Omega_m" />, or <Katex tex="\Omega_\Lambda" />, and every lookback time changes with them — this
 is the calculator's central point, not an edge case. The clearest way to
-see it: pick z = 1 under Planck 2018 parameters (H₀ = 67.4, Ωm = 0.315)
+see it: pick <Katex tex="z = 1" /> under Planck 2018 parameters (<Katex tex="H_0 = 67.4" />, <Katex tex="\Omega_m = 0.315" />)
 and you get a lookback time of about 7.95 billion years, meaning the
 object's light left it about 5.85 billion years after the Big Bang. Keep
-z = 1 but switch to an Einstein–de Sitter universe (Ωm = 1, no dark
+<Katex tex="z = 1" /> but switch to an Einstein–de Sitter universe (<Katex tex="\Omega_m = 1" />, no dark
 energy at all — the standard cosmology before the late-1990s supernova
 observations) and the lookback time drops to about 6.0 billion years,
 because a matter-only universe has a very different expansion history.
@@ -77,9 +78,9 @@ serious work always states its assumed cosmology explicitly.
   (the CMB, the first galaxies, when the Solar System formed) — turning
   "5.85 Gyr after the Big Bang" into a point on a story whose overall
   shape you likely already know.
-- **The integrand chart** plots 1/[(1+z′)E(z′)] itself and shades the
-  region from 0 to z. That shaded area, multiplied by the Hubble time
-  1/H₀, *is* the lookback time — a direct, visual answer to "why isn't
+- **The integrand chart** plots <Katex tex="1/[(1+z')E(z')]" /> itself and shades the
+  region from 0 to <Katex tex="z" />. That shaded area, multiplied by the Hubble time
+  <Katex tex="1/H_0" />, *is* the lookback time — a direct, visual answer to "why isn't
   this just algebra."
 
 ## Validated against Astropy
@@ -88,13 +89,13 @@ Because this result is entirely dependent on the numerical integration
 and the assumed cosmological model, its outputs were checked directly
 against [Astropy's](https://www.astropy.org/) `cosmology` module before
 publication — specifically `FlatLambdaCDM` with radiation switched off
-(`Tcmb0=0`), matching this calculator's matter+Λ-only model exactly.
+(`Tcmb0=0`), matching this calculator's matter+<Katex tex="\Lambda" />-only model exactly.
 Across redshifts from 0.1 to 10 and four different cosmologies (Planck
-2018, WMAP9, a simple H₀=70/Ωm=0.3 model, and Einstein–de Sitter), both
+2018, WMAP9, a simple <Katex tex="H_0=70" />/<Katex tex="\Omega_m=0.3" /> model, and Einstein–de Sitter), both
 the lookback time and the age of the universe agreed with Astropy's
 values to better than 1 part in 10⁶ — comfortably beyond the precision
 either tool displays. Radiation is omitted from both, so treat results
-at very high redshift (z ≳ 1000, near recombination) as approximate; at
+at very high redshift (<Katex tex="z \gtrsim 1000" />, near recombination) as approximate; at
 the redshifts most real observational targets sit at, that omission is
 negligible.
 

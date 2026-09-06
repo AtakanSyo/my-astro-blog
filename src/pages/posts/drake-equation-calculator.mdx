@@ -20,6 +20,7 @@ lang: en
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
 import Changelog from "../../components/Changelog.astro";
+import Katex from "../../components/Katex.astro";
 import DrakeEquationCalculator from "../../components/simulations/drake-equation-calculator/DrakeEquationCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -31,7 +32,7 @@ agenda for a one-day meeting — a way of breaking "are we alone?" into
 seven smaller questions worth actually discussing. Most calculators
 built around it since have missed that framing entirely: they give you
 seven number boxes, multiply them, and hand back a single confident-
-looking value of N. That number is real arithmetic and almost
+looking value of <Katex tex="N" />. That number is real arithmetic and almost
 worthless information, because four of the seven inputs it depends on
 have never been measured by anyone, ever, and can't be with what we
 currently know.
@@ -44,12 +45,12 @@ $$
 
 Reading left to right, the factors get progressively less certain:
 
-- **R*, fp, nₑ** — star formation rate, the fraction of stars with
+- **<Katex tex="R^*" />, <Katex tex="f_p" />, <Katex tex="n_e" />** — star formation rate, the fraction of stars with
   planets, and the average number of habitable planets per system — are
   genuine astrophysics, increasingly pinned down by real surveys
   (especially since Kepler). Their plausible ranges in this calculator
   are correspondingly narrow.
-- **fl, fi, fc, L** — the fraction of habitable planets that develop
+- **<Katex tex="f_l" />, <Katex tex="f_i" />, <Katex tex="f_c" />, <Katex tex="L" />** — the fraction of habitable planets that develop
   life, the fraction of those that develop intelligence, the fraction of
   those that develop detectable technology, and how long such a
   civilization keeps broadcasting — describe biological and
@@ -67,14 +68,14 @@ inherits almost all of its uncertainty from the least-known terms. Two
 completely different stories about the universe — "life is common but
 civilizations self-destruct quickly" and "life itself is the rare step,
 but any civilization that does emerge lasts a long time" — can produce
-the *same* small N, for entirely different reasons the equation itself
+the *same* small <Katex tex="N" />, for entirely different reasons the equation itself
 can't distinguish between. A single output number erases that
 distinction; the sliders and the range below are built specifically to
 keep it visible.
 
 ## Reading the visuals
 
-- **The range bar** plots the full span of N implied by every factor's
+- **The range bar** plots the full span of <Katex tex="N" /> implied by every factor's
   own stated plausible bounds — not just your current slider positions
   — against a log scale wide enough to need scientific notation at both
   ends. Your current inputs are marked as a single point inside that
@@ -82,8 +83,8 @@ keep it visible.
   guess is a small dot in an enormous range, not the range itself.
 - **The factor bar chart** ranks all seven terms by how many orders of
   magnitude their own plausible range spans, longest first. The
-  astrophysical terms cluster at the bottom with short bars; fl, fi, fc,
-  and L dominate the chart. That's the entire thesis of this page drawn
+  astrophysical terms cluster at the bottom with short bars; <Katex tex="f_l" />, <Katex tex="f_i" />, <Katex tex="f_c" />,
+  and <Katex tex="L" /> dominate the chart. That's the entire thesis of this page drawn
   as a picture: the output's uncertainty is almost entirely inherited
   from the four terms nobody has measured, not the three that
   astronomy actually has real data on.

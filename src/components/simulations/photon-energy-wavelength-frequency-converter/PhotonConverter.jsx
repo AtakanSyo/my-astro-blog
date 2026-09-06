@@ -13,8 +13,10 @@ import {
   classifyBand,
   visibleWavelengthToRgb,
 } from "./physics";
+import { PHOTON_CONVERTER_TEST_COLUMNS, PHOTON_CONVERTER_TEST_SOURCES, getPhotonConverterTestRows } from "./physicsTests";
 import "../../../styles/photonConverter.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 const PRESETS = [
@@ -248,6 +250,11 @@ export default function PhotonConverter() {
     [wavelengthM]
   );
 
+  // Self-check rows: runs the real physics.js functions against known
+  // reference lines/transitions and edge cases — independent of the
+  // fields above.
+  const testRows = useMemo(() => getPhotonConverterTestRows(), []);
+
   return (
     <div className="pwf" aria-label="Photon energy, wavelength, and frequency converter">
       <div className="pwf-header">
@@ -355,6 +362,12 @@ export default function PhotonConverter() {
 
       <div className="pwf-footer-row">
         <CalculatorVote slug="photon-energy-wavelength-frequency-converter" />
+        <CalculatorTests
+          title="Photon Converter — Tests"
+          columns={PHOTON_CONVERTER_TEST_COLUMNS}
+          rows={testRows}
+          sources={PHOTON_CONVERTER_TEST_SOURCES}
+        />
         <button type="button" className="pwf-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

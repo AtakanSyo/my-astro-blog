@@ -22,6 +22,7 @@ lang: en
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
 import Changelog from "../../components/Changelog.astro";
+import Katex from "../../components/Katex.astro";
 import HawkingTemperatureCalculator from "../../components/simulations/hawking-temperature-calculator/HawkingTemperatureCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -42,7 +43,7 @@ T_H = \frac{\hbar c^3}{8\pi G M k_B}
 $$
 
 Every symbol here is a fixed constant of nature except one: the mass
-$M$. Temperature is inversely proportional to mass, so this single
+<Katex tex="M" />. Temperature is inversely proportional to mass, so this single
 relation ranges over dozens of orders of magnitude depending on what
 kind of black hole you plug in — from imperceptibly cold for anything
 astrophysical, to blisteringly hot for anything hypothetically tiny.
@@ -86,7 +87,7 @@ visible directly on the same chart.
 
 ## The one number that separates the two regimes
 
-**T_H < 2.725 K (the CMB temperature)** is the dividing line. Above it,
+**<Katex tex="T_H" /> < 2.725 K (the CMB temperature)** is the dividing line. Above it,
 a black hole is a net emitter and is genuinely evaporating today. Below
 it, a black hole is a net absorber, gaining more energy from the CMB
 than it loses to Hawking radiation, no matter how long you wait — until
@@ -99,7 +100,7 @@ far below this line.
 
 Both axes are logarithmic, which is the only way to fit a relationship
 spanning roughly fifty orders of magnitude onto one picture. Because
-$T_H \propto 1/M$ is a pure power law, it appears as a single straight
+<Katex tex="T_H \propto 1/M" /> is a pure power law, it appears as a single straight
 line in log-log space — no curve fitting needed, just the two
 endpoints of the domain shown. Three fixed reference points mark a
 Sun-mass black hole, Sgr A*, and the smallest known stellar-mass black

@@ -20,6 +20,7 @@ lang: en
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
 import Changelog from "../../components/Changelog.astro";
+import Katex from "../../components/Katex.astro";
 import AngularVelocityCalculator from "../../components/simulations/angular-velocity-calculator/AngularVelocityCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -45,17 +46,17 @@ $$
 \omega = \frac{2\pi}{T} = 2\pi f
 $$
 
-T is the rotation period (time for one full turn), f the rotational
+<Katex tex="T" /> is the rotation period (time for one full turn), <Katex tex="f" /> the rotational
 frequency (turns per unit time). Earth turns once every 23h 56m 4s (a
 *sidereal* day — slightly shorter than the familiar 24-hour solar day,
 because Earth also has to catch up with its own orbital motion around
 the Sun to bring the Sun back to the same spot in the sky) — that's
-ω ≈ 7.29 × 10⁻⁵ rad/s. A 7200 RPM hard drive spins at ω ≈ 754 rad/s —
+<Katex tex="\omega \approx 7.29 \times 10^{-5}" /> rad/s. A 7200 RPM hard drive spins at <Katex tex="\omega \approx 754" /> rad/s —
 roughly ten million times faster.
 
 ## Same ω, very different speeds
 
-Every point on a rigid rotating body shares that one ω. What doesn't
+Every point on a rigid rotating body shares that one <Katex tex="\omega" />. What doesn't
 stay the same is tangential (straight-line) speed:
 
 $$
@@ -67,7 +68,7 @@ meters-per-second sense, even though it completes exactly the same
 number of rotations per second as every closer point. This is why
 Earth's equator (radius ≈6,378 km) is actually moving at about
 1,674 km/h due to rotation alone, while a point near either pole is
-essentially standing still despite sharing the exact same ω.
+essentially standing still despite sharing the exact same <Katex tex="\omega" />.
 
 ## When rotation gets extreme
 
@@ -86,13 +87,13 @@ speeds involved stay merely relativistic rather than impossible.
 ## Reading the visuals
 
 - **The animated disk** shows several points at different radii turning
-  together — same ω, same animation, but the outer point visibly traces
+  together — same <Katex tex="\omega" />, same animation, but the outer point visibly traces
   a bigger circle every rotation. Give it a radius and it prints the
   actual tangential speed at each point. The animation's speed is
   compressed logarithmically so both a slow-turning Moon and a
   fast-spinning pulsar preset are watchable — it preserves *relative*
   speed (faster inputs animate faster), not real time.
-- **The comparison scale** places the current ω on a log scale next to
+- **The comparison scale** places the current <Katex tex="\omega" /> on a log scale next to
   everyday and astrophysical extremes — the Moon's slow tidal lock, a
   washing machine, a hard drive, and both pulsar examples above — a
   span of roughly nine orders of magnitude on one axis.

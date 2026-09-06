@@ -2,9 +2,11 @@ import { useEffect, useMemo, useState } from "react";
 import { DRAKE_FACTORS, computeN, decadeSpan, plausibleRangeN, interpretN } from "./drakeEquation";
 import { DRAKE_EQUATION_TEST_COLUMNS, DRAKE_EQUATION_TEST_SOURCES, getDrakeEquationTestRows } from "./drakeEquationTests";
 import "../../../styles/drakeEquationCalculator.css";
+import "../../../styles/calculators.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
 import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import Katex from "../../Katex.jsx";
 
 // Every preset is a real, citable position, not an arbitrary slider
 // arrangement — Drake's own 1961 numbers give the famous N≈10; the other
@@ -174,7 +176,7 @@ export default function DrakeEquationCalculator() {
       </div>
 
       <p className="dre-explainer">
-        <code>N = R* · fp · nₑ · fl · fi · fc · L</code> — the estimated number of currently
+        <Katex tex={String.raw`N = R_* \cdot f_p \cdot n_e \cdot f_l \cdot f_i \cdot f_c \cdot L`} /> — the estimated number of currently
         detectable communicating civilizations in the Milky Way. Move any slider; the last four
         factors are colored differently on purpose — nobody has ever measured them.
       </p>
@@ -208,11 +210,11 @@ export default function DrakeEquationCalculator() {
       </div>
 
       <div className="dre-headline-card">
-        <div className="dre-headline">N ≈ {formatVal(N)}</div>
+        <div className="dre-headline"><Katex tex="N" /> ≈ {formatVal(N)}</div>
         <div className="dre-headline-sub">{interpretN(N)}</div>
       </div>
 
-      <div className="dre-chart-wrap">
+      <div className="chart-wrap">
         <p className="dre-chart-title">Where your guess sits in the full plausible range</p>
         <svg
           className="dre-range-svg"
@@ -247,7 +249,7 @@ export default function DrakeEquationCalculator() {
         </p>
       </div>
 
-      <div className="dre-chart-wrap">
+      <div className="chart-wrap">
         <p className="dre-chart-title">Which factors actually drive that range</p>
         <svg
           className="dre-tornado-svg"
@@ -272,7 +274,8 @@ export default function DrakeEquationCalculator() {
           })}
         </svg>
         <p className="dre-chart-caption">
-          Sorted longest to shortest. The bars for fl, fi, fc, and L dwarf R*, fp, and nₑ — the
+          Sorted longest to shortest. The bars for <Katex tex="f_l" />, <Katex tex="f_i" />, <Katex tex="f_c" />, and{" "}
+          <Katex tex="L" /> dwarf <Katex tex="R_*" />, <Katex tex="f_p" />, and <Katex tex="n_e" /> — the
           output range comes almost entirely from four terms nobody has ever measured.
         </p>
       </div>

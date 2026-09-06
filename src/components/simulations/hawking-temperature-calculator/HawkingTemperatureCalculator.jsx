@@ -13,9 +13,11 @@ import {
   getHawkingTemperatureTestRows,
 } from "./hawkingTemperatureTests";
 import "../../../styles/hawkingTemperatureCalculator.css";
+import "../../../styles/calculators.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
 import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import Katex from "../../Katex.jsx";
 
 // Every preset is a "mass" value the user can drop straight into the mass
 // field — chosen to span the full range this tool is built to show, from
@@ -219,7 +221,7 @@ export default function HawkingTemperatureCalculator() {
       <p className="htc-explainer">
         A black hole isn't perfectly black — quantum effects near its event
         horizon make it emit a faint thermal glow, the Hawking radiation, at a
-        temperature set purely by its mass: <code>T_H = ħc³ / (8π G M k_B)</code>.
+        temperature set purely by its mass: <Katex tex={String.raw`T_H = \dfrac{\hbar c^3}{8\pi G M k_B}`} />.
         Because temperature scales as 1/M, smaller black holes are far
         hotter — a relationship spanning close to fifty orders of magnitude
         across the masses shown below.
@@ -227,7 +229,7 @@ export default function HawkingTemperatureCalculator() {
 
       <div className="htc-fields">
         <div className="htc-field">
-          <label htmlFor="htc-mass">Black hole mass (M)</label>
+          <label htmlFor="htc-mass">Black hole mass (<Katex tex="M" />)</label>
           <div className="htc-input-row">
             <input id="htc-mass" className="htc-input" type="number" min="0" step="any" inputMode="decimal" value={mass} onChange={(e) => setMass(e.target.value)} />
             <select className="htc-unit-select" value={massUnit} onChange={(e) => setMassUnit(e.target.value)}>
@@ -242,9 +244,9 @@ export default function HawkingTemperatureCalculator() {
       ) : (
         <>
           <div className="htc-headline-card">
-            <div className="htc-headline">T_H ≈ {formatNumber(result.temperatureK)} K</div>
+            <div className="htc-headline"><Katex tex="T_H" /> ≈ {formatNumber(result.temperatureK)} K</div>
             <div className="htc-headline-sub">
-              M = {formatNumber(massFromKg(result.massKg, "kg"))} kg
+              <Katex tex="M" /> = {formatNumber(massFromKg(result.massKg, "kg"))} kg
             </div>
             <div className={result.belowCmb ? "htc-cmb-tag htc-cmb-tag--cold" : "htc-cmb-tag htc-cmb-tag--hot"}>
               {result.belowCmb
@@ -253,7 +255,7 @@ export default function HawkingTemperatureCalculator() {
             </div>
           </div>
 
-          <div className="htc-chart-wrap">
+          <div className="chart-wrap">
             <svg
               className="htc-chart-svg"
               viewBox={`0 0 ${chart.width} ${chart.height}`}

@@ -11,9 +11,11 @@ import {
 } from "./evaporationTime";
 import { EVAPORATION_TIME_TEST_COLUMNS, EVAPORATION_TIME_TEST_SOURCES, getEvaporationTimeTestRows } from "./evaporationTimeTests";
 import "../../../styles/blackHoleEvaporationTimeCalculator.css";
+import "../../../styles/calculators.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
 import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import Katex from "../../Katex.jsx";
 
 // The mass at which a Schwarzschild black hole's Hawking-radiation
 // lifetime exactly equals the age of the universe — derived from the
@@ -216,7 +218,7 @@ export default function BlackHoleEvaporationTimeCalculator() {
 
       <p className="bhe-explainer">
         For an idealized, isolated Schwarzschild black hole, Hawking radiation carries away mass
-        at a rate set entirely by its mass: <code>t = 5120 π G² M³ / (ħ c⁴)</code>. Because time
+        at a rate set entirely by its mass: <Katex tex={String.raw`t = 5120\, \pi G^2 M^3 / (\hbar c^4)`} />. Because time
         scales with the <em>cube</em> of the mass, this single exponent is responsible for
         everything interesting below — shrink the mass by 1,000× and the lifetime drops by a
         billion times.
@@ -224,7 +226,7 @@ export default function BlackHoleEvaporationTimeCalculator() {
 
       <div className="bhe-fields">
         <div className="bhe-field">
-          <label htmlFor="bhe-mass">Black hole mass (M)</label>
+          <label htmlFor="bhe-mass">Black hole mass (<Katex tex="M" />)</label>
           <div className="bhe-input-row">
             <input id="bhe-mass" className="bhe-input" type="number" min="0" step="any" inputMode="decimal" value={mass} onChange={(e) => setMass(e.target.value)} />
             <select className="bhe-unit-select" value={unit} onChange={(e) => setUnit(e.target.value)}>
@@ -239,7 +241,7 @@ export default function BlackHoleEvaporationTimeCalculator() {
       ) : (
         <>
           <div className="bhe-headline-card">
-            <div className="bhe-headline">t_evap ≈ {formatNumber(result.evapYears)} years</div>
+            <div className="bhe-headline"><Katex tex="t_{\rm evap}" /> ≈ {formatNumber(result.evapYears)} years</div>
             <div className="bhe-headline-sub">
               {result.alreadyEvaporated
                 ? <>≈ {formatNumber(result.ageMultiple)} × the age of the universe — a black hole this small would already be long gone</>
@@ -248,7 +250,7 @@ export default function BlackHoleEvaporationTimeCalculator() {
           </div>
 
           {chart && (
-            <div className="bhe-chart-wrap">
+            <div className="chart-wrap">
               <svg
                 className="bhe-curve-svg"
                 viewBox={`0 0 ${chart.width} ${chart.height}`}

@@ -1,0 +1,18 @@
+/* Shared, cross-calculator styles — not tied to any one calculator's
+   own `<slug>Calculator.css` (those keep their own `--<prefix>-*` themed
+   variables). Use this for a rule that should look and behave the same
+   on every calculator regardless of its accent color.
+   Not yet imported anywhere — a calculator opts in by importing it
+   itself, same as it imports its own stylesheet. */
+
+.chart-wrap {
+  background: var(--card-bg, #1f1f1f);
+  border: 1px solid var(--card-border, #333);
+  border-radius: 12px;
+  padding: 0.75rem 0.75rem 0.5rem;
+  margin-bottom: 1.1rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}

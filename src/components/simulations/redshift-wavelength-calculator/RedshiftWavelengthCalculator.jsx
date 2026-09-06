@@ -11,9 +11,12 @@ import {
   velocityClassical,
   velocityRelativistic,
 } from "./redshift";
+import { REDSHIFT_TEST_COLUMNS, REDSHIFT_TEST_SOURCES, getRedshiftTestRows } from "./redshiftTests";
 import "../../../styles/redshiftWavelengthCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import Katex from "../../Katex.jsx";
 
 // Every preset is self-consistent under all three "solve for" choices.
 // Each also names the real spectral line it uses, since which line is
@@ -205,6 +208,11 @@ export default function RedshiftWavelengthCalculator() {
     };
   }, [result]);
 
+  // Self-check rows: runs the real redshift.js functions against known
+  // reference spectral-line shifts and edge cases — independent of the
+  // fields above.
+  const testRows = useMemo(() => getRedshiftTestRows(), []);
+
   const applyPreset = (preset) => {
     setSolveFor(preset.solveFor);
     setZ(String(preset.z));
@@ -244,7 +252,7 @@ export default function RedshiftWavelengthCalculator() {
       </div>
 
       <p className="rwc-explainer">
-        1 + z = λ<sub>obs</sub> / λ<sub>rest</sub> — positive z is a redshift (receding source, or
+        <Katex tex="1 + z = \lambda_{\rm obs} / \lambda_{\rm rest}" /> — positive z is a redshift (receding source, or
         expanding space), negative is a blueshift (approaching). Give any two of redshift, rest
         wavelength, and observed wavelength; the third follows exactly.
       </p>
@@ -470,6 +478,12 @@ export default function RedshiftWavelengthCalculator() {
 
       <div className="rwc-footer-row">
         <CalculatorVote slug="redshift-wavelength-calculator" />
+        <CalculatorTests
+          title="Redshift / Wavelength Calculator — Tests"
+          columns={REDSHIFT_TEST_COLUMNS}
+          rows={testRows}
+          sources={REDSHIFT_TEST_SOURCES}
+        />
         <button type="button" className="rwc-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

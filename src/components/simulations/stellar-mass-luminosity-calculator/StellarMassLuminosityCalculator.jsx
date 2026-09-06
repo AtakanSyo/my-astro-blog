@@ -8,9 +8,17 @@ import {
   classifyByMass,
   REAL_STAR_LANDMARKS,
 } from "./massLuminosity";
+import {
+  STELLAR_MASS_LUMINOSITY_TEST_COLUMNS,
+  STELLAR_MASS_LUMINOSITY_TEST_SOURCES,
+  getStellarMassLuminosityTestRows,
+} from "./massLuminosityTests";
 import "../../../styles/stellarMassLuminosityCalculator.css";
+import "../../../styles/calculators.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import Katex from "../../Katex.jsx";
 
 const PRESETS = [
   { label: "Proxima Centauri", solveFor: "luminosity", mass: 0.122, luminosity: 0.0017 },
@@ -160,6 +168,10 @@ export default function StellarMassLuminosityCalculator() {
     return { actualL, naiveL, maxL, ratio: actualL / naiveL };
   }, [result]);
 
+  // Self-check rows: runs the real massLuminosity.js functions against
+  // known reference values and edge cases — independent of the fields above.
+  const testRows = useMemo(() => getStellarMassLuminosityTestRows(), []);
+
   const applyPreset = (preset) => {
     setSolveFor(preset.solveFor);
     setMass(String(preset.mass));
@@ -196,7 +208,7 @@ export default function StellarMassLuminosityCalculator() {
 
       <p className="sml-explainer">
         Main-sequence luminosity rises far faster than mass — roughly{" "}
-        <code>L/L☉ ≈ (M/M☉)^α</code> — but α itself changes across the mass range: about 2.3 for
+        <Katex tex={String.raw`L/L_\odot \approx (M/M_\odot)^\alpha`} /> — but <Katex tex="\alpha" /> itself changes across the mass range: about 2.3 for
         low-mass stars, about 4 near the Sun's mass, and shallower again for very massive stars.
         This is an <strong>empirical fit for main-sequence stars only</strong> — giants, white
         dwarfs, pre-main-sequence stars, and other evolved stars follow completely different
@@ -237,10 +249,10 @@ export default function StellarMassLuminosityCalculator() {
         <>
           <div className="sml-headline-card">
             <div className="sml-headline">
-              L = {formatNumber(result.lSolar)} L☉ = {formatNumber(luminosityToWatts(result.lSolar))} W
+              <Katex tex="L" /> = {formatNumber(result.lSolar)} L☉ = {formatNumber(luminosityToWatts(result.lSolar))} W
             </div>
             <div className="sml-headline-sub">
-              M_bol ≈ {absoluteBolometricMagnitude(result.lSolar).toFixed(2)} · local exponent α ≈ {alpha}
+              <Katex tex="M_{\rm bol}" /> ≈ {absoluteBolometricMagnitude(result.lSolar).toFixed(2)} · local exponent <Katex tex="\alpha" /> ≈ {alpha}
               {classification && (
                 <span className={`sml-badge sml-badge--${classification.tone}`}>{classification.label}</span>
               )}
@@ -248,7 +260,7 @@ export default function StellarMassLuminosityCalculator() {
           </div>
 
           {diagram && (
-            <div className="sml-chart-wrap">
+            <div className="chart-wrap">
               <svg className="sml-diagram-svg" viewBox={`0 0 ${diagram.width} ${diagram.height}`} role="img" aria-label="Log-log mass-luminosity diagram, showing the piecewise relation's changing slope">
                 {diagram.xTicks.map((e) => (
                   <g key={`x${e}`}>
@@ -288,7 +300,7 @@ export default function StellarMassLuminosityCalculator() {
           )}
 
           {bars && (
-            <div className="sml-chart-wrap">
+            <div className="chart-wrap">
               <div className="sml-bars">
                 <div className="sml-bar-row">
                   <span className="sml-bar-label">If luminosity just scaled 1:1 with mass</span>
@@ -317,6 +329,12 @@ export default function StellarMassLuminosityCalculator() {
 
       <div className="sml-footer-row">
         <CalculatorVote slug="stellar-mass-luminosity-calculator" />
+        <CalculatorTests
+          title="Stellar Mass–Luminosity Calculator — Tests"
+          columns={STELLAR_MASS_LUMINOSITY_TEST_COLUMNS}
+          rows={testRows}
+          sources={STELLAR_MASS_LUMINOSITY_TEST_SOURCES}
+        />
         <button type="button" className="sml-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

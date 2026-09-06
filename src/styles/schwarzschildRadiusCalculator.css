@@ -227,14 +227,6 @@
   color: var(--szr-text);
 }
 
-.szr-chart-wrap {
-  background: var(--szr-bg-2);
-  border: 1px solid var(--szr-border);
-  border-radius: 12px;
-  padding: 0.75rem 0.75rem 0.5rem;
-  margin-bottom: 1.1rem;
-}
-
 .szr-horizon-svg {
   width: 100%;
   max-width: 300px;

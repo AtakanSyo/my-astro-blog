@@ -11,9 +11,11 @@ import {
 } from "./binaryMassFunction";
 import { BINARY_MASS_FUNCTION_TEST_COLUMNS, BINARY_MASS_FUNCTION_TEST_SOURCES, getBinaryMassFunctionTestRows } from "./binaryMassFunctionTests";
 import "../../../styles/binaryMassFunctionCalculator.css";
+import "../../../styles/calculators.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
 import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import Katex from "../../Katex.jsx";
 
 // Every preset is self-consistent: applying one and toggling "estimate
 // companion mass" on/off never shows a jarring mismatch, because f(M)
@@ -281,16 +283,16 @@ export default function BinaryMassFunctionCalculator() {
       </div>
 
       <p className="bmf-explainer">
-        From an orbital period P and RV semi-amplitude K alone —{" "}
-        <code>f(M) = PK³/(2πG) · (1−e²)^1.5 = M2³sin³i / (M1+M2)²</code> — you get something
-        genuinely useful even with the inclination i and the visible star's mass M1 completely
-        unknown: <strong>f(M) is always a strict lower bound on the companion's mass</strong>,
-        M2 ≥ f(M), true for any M1 and any i.
+        From an orbital period <Katex tex="P" /> and RV semi-amplitude <Katex tex="K" /> alone —{" "}
+        <Katex tex={String.raw`f(M) = \frac{PK^3}{2\pi G}(1-e^2)^{1.5} = \frac{M_2^3 \sin^3 i}{(M_1+M_2)^2}`} /> — you get something
+        genuinely useful even with the inclination <Katex tex="i" /> and the visible star's mass <Katex tex="M_1" /> completely
+        unknown: <strong><Katex tex="f(M)" /> is always a strict lower bound on the companion's mass</strong>,{" "}
+        <Katex tex="M_2 \geq f(M)" />, true for any <Katex tex="M_1" /> and any <Katex tex="i" />.
       </p>
 
       <div className="bmf-fields">
         <div className="bmf-field">
-          <label htmlFor="bmf-p">Orbital period (P)</label>
+          <label htmlFor="bmf-p">Orbital period (<Katex tex="P" />)</label>
           <div className="bmf-input-row">
             <input id="bmf-p" className="bmf-input" type="number" min="0" step="any" inputMode="decimal" value={P} onChange={(e) => setP(e.target.value)} />
             <select className="bmf-unit-select" value={PUnit} onChange={(e) => setPUnit(e.target.value)}>
@@ -299,7 +301,7 @@ export default function BinaryMassFunctionCalculator() {
           </div>
         </div>
         <div className="bmf-field">
-          <label htmlFor="bmf-k">RV semi-amplitude (K)</label>
+          <label htmlFor="bmf-k">RV semi-amplitude (<Katex tex="K" />)</label>
           <div className="bmf-input-row">
             <input id="bmf-k" className="bmf-input" type="number" min="0" step="any" inputMode="decimal" value={K} onChange={(e) => setK(e.target.value)} />
             <select className="bmf-unit-select" value={KUnit} onChange={(e) => setKUnit(e.target.value)}>
@@ -308,28 +310,28 @@ export default function BinaryMassFunctionCalculator() {
           </div>
         </div>
         <div className="bmf-field">
-          <label htmlFor="bmf-e">Eccentricity (e) — optional</label>
+          <label htmlFor="bmf-e">Eccentricity (<Katex tex="e" />) — optional</label>
           <input id="bmf-e" className="bmf-input" type="number" min="0" max="0.999" step="any" inputMode="decimal" value={e} onChange={(e2) => setE(e2.target.value)} />
         </div>
       </div>
 
       <div className="bmf-advanced-row">
         <button type="button" className={advanced ? "bmf-advanced-toggle active" : "bmf-advanced-toggle"} onClick={() => setAdvanced((v) => !v)}>
-          {advanced ? "− Hide" : "+ Estimate companion mass"} (needs M1 and inclination)
+          {advanced ? "− Hide" : "+ Estimate companion mass"} (needs <Katex tex="M_1" /> and inclination)
         </button>
       </div>
 
       {advanced && (
         <div className="bmf-fields">
           <div className="bmf-field">
-            <label htmlFor="bmf-m1">Visible star's estimated mass (M1)</label>
+            <label htmlFor="bmf-m1">Visible star's estimated mass (<Katex tex="M_1" />)</label>
             <div className="bmf-input-row">
               <input id="bmf-m1" className="bmf-input" type="number" min="0" step="any" inputMode="decimal" value={M1} onChange={(e) => setM1(e.target.value)} />
               <span className="bmf-static-unit">M☉</span>
             </div>
           </div>
           <div className="bmf-field">
-            <label htmlFor="bmf-i">Orbital inclination (i)</label>
+            <label htmlFor="bmf-i">Orbital inclination (<Katex tex="i" />)</label>
             <div className="bmf-input-row">
               <input id="bmf-i" className="bmf-range-input" type="range" min="1" max="90" step="0.1" value={inclination} onChange={(e) => setInclination(e.target.value)} />
               <span className="bmf-static-unit">{parseFloat(inclination).toFixed(1)}°</span>
@@ -343,20 +345,20 @@ export default function BinaryMassFunctionCalculator() {
       ) : (
         <>
           <div className="bmf-headline-card">
-            <div className="bmf-headline">f(M) = {formatMsun(result.fM)} M☉</div>
+            <div className="bmf-headline"><Katex tex="f(M)" /> = {formatMsun(result.fM)} M☉</div>
             <div className="bmf-headline-sub">
-              M2 ≥ {formatMsun(result.fM)} M☉ — regardless of inclination or the visible star's mass
+              <Katex tex="M_2 \geq" /> {formatMsun(result.fM)} M☉ — regardless of inclination or the visible star's mass
             </div>
             {advanced && result.advancedValid && (
               <div className="bmf-headline-advanced">
-                At i = {parseFloat(inclination).toFixed(1)}°, M1 ≈ {formatMsun(result.M1)} M☉ → M2 ≈{" "}
+                At <Katex tex="i" /> = {parseFloat(inclination).toFixed(1)}°, <Katex tex="M_1 \approx" /> {formatMsun(result.M1)} M☉ → <Katex tex="M_2 \approx" />{" "}
                 <strong>{formatMsun(result.M2)} M☉</strong>
               </div>
             )}
           </div>
 
           {ruler && (
-            <div className="bmf-chart-wrap">
+            <div className="chart-wrap">
               <svg
                 className="bmf-ruler-svg"
                 viewBox={`0 0 ${ruler.width} ${ruler.height}`}
@@ -397,7 +399,7 @@ export default function BinaryMassFunctionCalculator() {
           )}
 
           {curve && (
-            <div className="bmf-chart-wrap">
+            <div className="chart-wrap">
               <svg
                 className="bmf-curve-svg"
                 viewBox={`0 0 ${curve.width} ${curve.height}`}

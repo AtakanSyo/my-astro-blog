@@ -21,6 +21,7 @@ lang: en
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
 import Changelog from "../../components/Changelog.astro";
+import Katex from "../../components/Katex.astro";
 import AstronomicalDistanceConverter from "../../components/simulations/astronomical-distance-converter/AstronomicalDistanceConverter.jsx";
 
 <figure class="post-figure post-figure-md" id="converter">
@@ -52,7 +53,7 @@ $$
 1\ \text{ly} = c \times 365.25\ \text{days} = 9{,}460{,}730{,}472{,}580{,}800\ \text{m}
 $$
 
-using the SI-exact speed of light, c = 299,792,458 m/s, and the Julian
+using the SI-exact speed of light, <Katex tex="c = 299{,}792{,}458" /> m/s, and the Julian
 year (365.25 days of 86,400 SI seconds) that "light-year" is
 conventionally defined against. Kiloparsecs, megaparsecs, and gigaparsecs
 are simply 10³, 10⁶, and 10⁹ parsecs. Because all of these are
@@ -64,7 +65,7 @@ value that could later be refined.
 
 Distance and travel time are two sides of the same number once you fix a
 speed: light covers one light-year in exactly one year, by definition, so
-dividing any distance by c gives an intuitive second read on its scale —
+dividing any distance by <Katex tex="c" /> gives an intuitive second read on its scale —
 seconds for the Earth-Moon distance, minutes for the Earth-Sun distance,
 years for the nearest stars, and billions of years for the edge of the
 observable universe.

@@ -10,9 +10,11 @@ import {
 } from "./kerr";
 import { KERR_TEST_COLUMNS, KERR_TEST_SOURCES, getKerrTestRows } from "./kerrTests";
 import "../../../styles/blackHoleISCOCalculator.css";
+import "../../../styles/calculators.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
 import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import Katex from "../../Katex.jsx";
 
 // Every preset pairs a real (or pedagogically extreme) spin with a
 // plausible mass, so applying one and reading the diagram/table always
@@ -218,15 +220,15 @@ export default function BlackHoleISCOCalculator() {
       <p className="bhi-explainer">
         The <strong>innermost stable circular orbit (ISCO)</strong> is the smallest radius where
         orbiting gas can stay on a stable circular path before plunging into the black hole. For a
-        non-spinning (Schwarzschild) hole it's exactly <code>6 GM/c²</code>; spin things up and it
+        non-spinning (Schwarzschild) hole it's exactly <Katex tex="6\, GM/c^2" />; spin things up and it
         depends strongly on direction — prograde spin drags the ISCO in toward the horizon, all the
-        way down to just <code>1 GM/c²</code> at maximal spin, while retrograde spin pushes it out
-        to <code>9 GM/c²</code>.
+        way down to just <Katex tex="1\, GM/c^2" /> at maximal spin, while retrograde spin pushes it out
+        to <Katex tex="9\, GM/c^2" />.
       </p>
 
       <div className="bhi-fields">
         <div className="bhi-field">
-          <label htmlFor="bhi-mass">Mass (M)</label>
+          <label htmlFor="bhi-mass">Mass (<Katex tex="M" />)</label>
           <div className="bhi-input-row">
             <input
               id="bhi-mass"
@@ -284,16 +286,16 @@ export default function BlackHoleISCOCalculator() {
         <>
           <div className="bhi-headline-card">
             <div className="bhi-headline">
-              r_ISCO = {formatNumber(result.rIscoRg)} r_g = {formatNumber(result.rIscoRs)} r_s
+              <Katex tex="r_{\rm ISCO}" /> = {formatNumber(result.rIscoRg)} <Katex tex="r_g" /> = {formatNumber(result.rIscoRs)} <Katex tex="r_s" />
             </div>
             <div className="bhi-headline-sub">
-              Event horizon at {formatNumber(result.rHorizonRg)} r_g · accretion efficiency η ≈{" "}
+              Event horizon at {formatNumber(result.rHorizonRg)} <Katex tex="r_g" /> · accretion efficiency <Katex tex="\eta" /> ≈{" "}
               {(result.efficiency * 100).toFixed(1)}%
             </div>
           </div>
 
           {diagram && (
-            <div className="bhi-chart-wrap">
+            <div className="chart-wrap">
               <svg
                 className="bhi-diagram-svg"
                 viewBox={`0 0 ${diagram.size} ${diagram.size}`}
@@ -343,7 +345,7 @@ export default function BlackHoleISCOCalculator() {
           )}
 
           {curve && (
-            <div className="bhi-chart-wrap">
+            <div className="chart-wrap">
               <svg
                 className="bhi-curve-svg"
                 viewBox={`0 0 ${curve.width} ${curve.height}`}
@@ -385,16 +387,16 @@ export default function BlackHoleISCOCalculator() {
             <div className="bhi-row" role="row">
               <span className="bhi-row-label" role="cell">Event horizon radius</span>
               <span className="bhi-row-value" role="cell">
-                {formatNumber(result.rHorizonKm)} <span className="bhi-row-unit">km</span> ({formatNumber(result.rHorizonRs)} r_s)
+                {formatNumber(result.rHorizonKm)} <span className="bhi-row-unit">km</span> ({formatNumber(result.rHorizonRs)} <Katex tex="r_s" />)
               </span>
             </div>
             <div className="bhi-row" role="row">
               <span className="bhi-row-label" role="cell">If this spin were prograde</span>
-              <span className="bhi-row-value" role="cell">{formatNumber(result.proIfRg)} <span className="bhi-row-unit">r_g</span></span>
+              <span className="bhi-row-value" role="cell">{formatNumber(result.proIfRg)} <span className="bhi-row-unit"><Katex tex="r_g" /></span></span>
             </div>
             <div className="bhi-row" role="row">
               <span className="bhi-row-label" role="cell">If this spin were retrograde</span>
-              <span className="bhi-row-value" role="cell">{formatNumber(result.retroIfRg)} <span className="bhi-row-unit">r_g</span></span>
+              <span className="bhi-row-value" role="cell">{formatNumber(result.retroIfRg)} <span className="bhi-row-unit"><Katex tex="r_g" /></span></span>
             </div>
           </div>
         </>

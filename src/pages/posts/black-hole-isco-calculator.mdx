@@ -20,6 +20,7 @@ lang: en
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
 import Changelog from "../../components/Changelog.astro";
+import Katex from "../../components/Katex.astro";
 import BlackHoleISCOCalculator from "../../components/simulations/black-hole-isco-calculator/BlackHoleISCOCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -38,14 +39,14 @@ observationally useful numbers in black hole astrophysics.
 ## Schwarzschild: the non-spinning case
 
 For a black hole with no spin at all, the ISCO sits at a clean multiple
-of the gravitational radius r_g = GM/c²:
+of the gravitational radius <Katex tex="r_g = GM/c^2" />:
 
 $$
 r_{\rm ISCO} = 6\ \frac{GM}{c^2} = 3\ r_s
 $$
 
-where r_s = 2GM/c² is the Schwarzschild radius (the event horizon
-itself, for a = 0). This number — 6 gravitational radii, 3 Schwarzschild
+where <Katex tex="r_s = 2GM/c^2" /> is the Schwarzschild radius (the event horizon
+itself, for <Katex tex="a = 0" />). This number — 6 gravitational radii, 3 Schwarzschild
 radii — is worth memorizing; it's the baseline every spinning case is
 measured against.
 
@@ -53,7 +54,7 @@ measured against.
 
 Real astrophysical black holes spin, and spin drags spacetime around
 with it (frame dragging). For a black hole with dimensionless spin
-a* = a/M ∈ [−1, 1], the ISCO radius follows the Bardeen–Press–Teukolsky
+<Katex tex="a_* = a/M \in [-1, 1]" />, the ISCO radius follows the Bardeen–Press–Teukolsky
 (1972) formula:
 
 $$
@@ -64,31 +65,31 @@ $$
 Z_1 = 1 + (1-a_*^2)^{1/3}\left[(1+a_*)^{1/3} + (1-a_*)^{1/3}\right], \quad Z_2 = \sqrt{3a_*^2 + Z_1^2}
 $$
 
-(minus for prograde orbits, plus for retrograde). Plug in a* = 0 and
-both signs collapse to exactly 6, recovering Schwarzschild. Push a*
+(minus for prograde orbits, plus for retrograde). Plug in <Katex tex="a_* = 0" /> and
+both signs collapse to exactly 6, recovering Schwarzschild. Push <Katex tex="a_*" />
 toward +1 (maximal prograde, disk co-rotating with the hole) and the
-ISCO shrinks all the way to **1 r_g** — frame dragging lets orbits
-survive stably almost down to the horizon itself. Push a* toward −1
-(maximal retrograde) and it's pushed out to **9 r_g** instead, since a
+ISCO shrinks all the way to **1 <Katex tex="r_g" />** — frame dragging lets orbits
+survive stably almost down to the horizon itself. Push <Katex tex="a_*" /> toward −1
+(maximal retrograde) and it's pushed out to **9 <Katex tex="r_g" />** instead, since a
 counter-rotating orbit fights the dragging of spacetime the whole way
-in. This calculator uses the sign of a* directly to choose which branch
+in. This calculator uses the sign of <Katex tex="a_*" /> directly to choose which branch
 applies, so sliding smoothly from −1 to +1 traces one continuous curve:
-9 → 6 → 1 r_g.
+9 → 6 → 1 <Katex tex="r_g" />.
 
 ## Why this changes accretion efficiency
 
 Gas doesn't just orbit at the ISCO — it releases gravitational binding
 energy as radiation on its way there, and then falls through the rest
 of the way without radiating much more. The fraction of rest-mass energy
-radiated away, the **accretion efficiency** η = 1 − E_ISCO (E_ISCO being
+radiated away, the **accretion efficiency** <Katex tex="\eta = 1 - E_{\rm ISCO}" /> (<Katex tex="E_{\rm ISCO}" /> being
 the specific orbital energy at the ISCO), depends only on spin:
 
-- **a* = 0 (Schwarzschild):** η ≈ 5.7%
-- **a* ≈ 0.998 (the Thorne limit** — roughly the maximum spin a black
+- **<Katex tex="a_* = 0" /> (Schwarzschild):** <Katex tex="\eta" /> ≈ 5.7%
+- **<Katex tex="a_* \approx 0.998" /> (the Thorne limit** — roughly the maximum spin a black
   hole can reach by steadily accreting from a thin disk, since the
   accreted gas itself carries angular momentum that limits further
-  spin-up): η ≈ 32%
-- **a* = 1 (extremal, mathematical limit):** η ≈ 42.3%
+  spin-up): <Katex tex="\eta" /> ≈ 32%
+- **<Katex tex="a_* = 1" /> (extremal, mathematical limit):** <Katex tex="\eta" /> ≈ 42.3%
 
 For comparison, nuclear fusion converts only about 0.7% of rest mass to
 energy. A rapidly spinning black hole's accretion disk is a dramatically

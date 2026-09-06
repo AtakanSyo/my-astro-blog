@@ -20,6 +20,7 @@ lang: en
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
 import Changelog from "../../components/Changelog.astro";
+import Katex from "../../components/Katex.astro";
 import TelescopeAngularResolutionCalculator from "../../components/simulations/telescope-angular-resolution-calculator/TelescopeAngularResolutionCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -39,13 +40,13 @@ $$
 \theta = 1.22\,\frac{\lambda}{D}
 $$
 
-D is the telescope's aperture diameter, λ the observing wavelength, and
-θ the smallest angular separation (in radians, here converted to
+<Katex tex="D" /> is the telescope's aperture diameter, <Katex tex="\lambda" /> the observing wavelength, and
+<Katex tex="\theta" /> the smallest angular separation (in radians, here converted to
 arcseconds or whatever unit you prefer) at which two point sources are
 "just resolved" — precisely defined as the point where the first
 diffraction minimum of one source's pattern lands exactly on the
 central peak of the other's. A 100 mm telescope at 550 nm (green
-visible light): θ ≈ 1.38 arcseconds — the worked example this
+visible light): <Katex tex="\theta" /> ≈ 1.38 arcseconds — the worked example this
 calculator opens with.
 
 Bigger aperture means better (smaller) resolution; longer wavelength
@@ -85,7 +86,7 @@ routinely limited far more by:
 - **Tracking and vibration** — any wobble during an exposure blurs the
   image regardless of optics.
 - **Detector sampling** — a camera whose pixels are too large relative
-  to θ can't record detail the optics actually deliver (undersampling),
+  to <Katex tex="\theta" /> can't record detail the optics actually deliver (undersampling),
   while oversampling wastes light-gathering efficiency without adding
   real resolution.
 
@@ -96,7 +97,7 @@ case; everything else usually decides the real one.
 This diffraction limit is also the physical ceiling behind the
 "don't exceed 2× your aperture in millimetres" rule amateur guides
 repeat: past that magnification you're enlarging blur, not resolving
-anything this calculator's θ doesn't already say is impossible. The
+anything this calculator's <Katex tex="\theta" /> doesn't already say is impossible. The
 [Telescope Magnification & Eyepiece Calculator](/posts/telescope-magnification-calculator)
 applies that practical version directly to a telescope-and-eyepiece
 combo, with a verdict on whether a given setup is empty magnification.

@@ -22,6 +22,7 @@ import {
 import "../../../styles/quantumParticleSimulator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import Katex from "../../Katex.jsx";
 
 // --- grid & integration constants ---------------------------------------
 const XMIN = -20;
@@ -476,7 +477,7 @@ export default function QuantumParticleSimulator() {
         </div>
         <div className="qps-field">
           <div className="qps-field-label-row">
-            <label htmlFor="qps-sigma">Width σ</label>
+            <label htmlFor="qps-sigma">Width <Katex tex="\sigma" /></label>
             <span className="qps-field-value">{formatNum(sigma, 2)}</span>
           </div>
           <input

@@ -20,6 +20,7 @@ lang: en
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
 import Changelog from "../../components/Changelog.astro";
+import Katex from "../../components/Katex.astro";
 import TelescopeMagnificationCalculator from "../../components/simulations/telescope-magnification-calculator/TelescopeMagnificationCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -40,7 +41,7 @@ $$
 M = \frac{F}{f}
 $$
 
-F is the telescope's own focal length, f the eyepiece's focal length —
+<Katex tex="F" /> is the telescope's own focal length, <Katex tex="f" /> the eyepiece's focal length —
 both in the same unit. A 1000mm-focal-length telescope with a 25mm
 eyepiece gives 40×; swap in a 4mm eyepiece and the same telescope gives
 250×. Nothing about the optics changed except which piece of glass is
@@ -53,7 +54,7 @@ $$
 \text{exit pupil} = \frac{D}{M}
 $$
 
-D is the aperture. The exit pupil is the diameter of the actual cone of
+<Katex tex="D" /> is the aperture. The exit pupil is the diameter of the actual cone of
 light leaving the eyepiece — and it has to fit through your eye's own
 pupil to do any good. A fully dark-adapted eye opens to roughly 7mm at
 best (less in a lit room, less still with age), so an exit pupil

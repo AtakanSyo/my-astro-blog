@@ -13,9 +13,17 @@ import {
   massFromSchwarzschildRadiusM,
   closestSizeComparison,
 } from "./schwarzschild";
+import {
+  SCHWARZSCHILD_RADIUS_TEST_COLUMNS,
+  SCHWARZSCHILD_RADIUS_TEST_SOURCES,
+  getSchwarzschildRadiusTestRows,
+} from "./schwarzschildTests";
 import "../../../styles/schwarzschildRadiusCalculator.css";
+import "../../../styles/calculators.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import Katex from "../../Katex.jsx";
 
 // Every preset is self-consistent under both "solve for" choices — the
 // mass and radius always match — and doubles as a landmark point on the
@@ -215,6 +223,10 @@ export default function SchwarzschildRadiusCalculator() {
     };
   }, [result]);
 
+  // Self-check rows: runs the real schwarzschild.js functions against
+  // known reference masses and edge cases — independent of the fields above.
+  const testRows = useMemo(() => getSchwarzschildRadiusTestRows(), []);
+
   const applyPreset = (preset) => {
     setSolveFor("radius");
     setMass(String(preset.mass));
@@ -247,7 +259,7 @@ export default function SchwarzschildRadiusCalculator() {
       </div>
 
       <p className="szr-explainer">
-        The Schwarzschild radius <code>r_s = 2GM/c²</code> is the event-horizon size of an
+        The Schwarzschild radius <Katex tex="r_s = 2GM/c^2" /> is the event-horizon size of an
         idealized non-rotating, uncharged black hole — and a genuinely{" "}
         <strong>linear</strong> relation: double the mass, exactly double the radius. It applies
         specifically to a Schwarzschild (non-spinning) black hole; a spinning Kerr black hole's
@@ -266,7 +278,7 @@ export default function SchwarzschildRadiusCalculator() {
 
       <div className="szr-fields">
         <div className="szr-field">
-          <label htmlFor="szr-mass">Mass (M)</label>
+          <label htmlFor="szr-mass">Mass (<Katex tex="M" />)</label>
           {solveFor === "mass" ? (
             <div className="szr-computed">
               {result.valid ? formatNumber(massFromKg(result.massKg, massUnit)) : "—"}
@@ -285,7 +297,7 @@ export default function SchwarzschildRadiusCalculator() {
         </div>
 
         <div className="szr-field">
-          <label htmlFor="szr-radius">Schwarzschild radius (r_s)</label>
+          <label htmlFor="szr-radius">Schwarzschild radius (<Katex tex="r_s" />)</label>
           {solveFor === "radius" ? (
             <div className="szr-computed">
               {result.valid ? formatNumber(distanceFromMeters(result.rsM, radiusUnit)) : "—"}
@@ -332,7 +344,7 @@ export default function SchwarzschildRadiusCalculator() {
           )}
 
           {horizon && (
-            <div className="szr-chart-wrap">
+            <div className="chart-wrap">
               <svg
                 className="szr-horizon-svg"
                 viewBox="0 0 260 200"
@@ -357,7 +369,7 @@ export default function SchwarzschildRadiusCalculator() {
           )}
 
           {chart && (
-            <div className="szr-chart-wrap">
+            <div className="chart-wrap">
               <svg
                 className="szr-line-svg"
                 viewBox={`0 0 ${chart.width} ${chart.height}`}
@@ -395,7 +407,7 @@ export default function SchwarzschildRadiusCalculator() {
                 <circle cx={chart.point.x} cy={chart.point.y} r="6" className="szr-chart-point" />
               </svg>
               <p className="szr-chart-caption">
-                A straight line here reflects genuine direct proportionality (r_s ∝ M, exponent
+                A straight line here reflects genuine direct proportionality (<Katex tex="r_s \propto M" />, exponent
                 exactly 1) — log-log axes are used only to fit fifteen-odd orders of magnitude, from
                 Earth to M87*, on one chart.
               </p>
@@ -406,6 +418,12 @@ export default function SchwarzschildRadiusCalculator() {
 
       <div className="szr-footer-row">
         <CalculatorVote slug="schwarzschild-radius-calculator" />
+        <CalculatorTests
+          title="Schwarzschild Radius Calculator — Tests"
+          columns={SCHWARZSCHILD_RADIUS_TEST_COLUMNS}
+          rows={testRows}
+          sources={SCHWARZSCHILD_RADIUS_TEST_SOURCES}
+        />
         <button type="button" className="szr-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

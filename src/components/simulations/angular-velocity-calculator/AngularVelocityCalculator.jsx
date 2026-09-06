@@ -21,9 +21,11 @@ import {
 } from "./angularVelocity";
 import { ANGULAR_VELOCITY_TEST_COLUMNS, ANGULAR_VELOCITY_TEST_SOURCES, getAngularVelocityTestRows } from "./angularVelocityTests";
 import "../../../styles/angularVelocityCalculator.css";
+import "../../../styles/calculators.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
 import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import Katex from "../../Katex.jsx";
 
 // Every preset is self-consistent (mode + all three input branches would
 // agree), and doubles as a landmark on the comparison ladder below.
@@ -249,9 +251,10 @@ export default function AngularVelocityCalculator() {
       </div>
 
       <p className="avc-explainer">
-        Angular velocity is angle swept per unit time: <code>ω = Δθ/Δt</code>, or for steady
-        rotation, <code>ω = 2π/T = 2πf</code>. Every point on a rigid rotating body shares the same
-        ω — but a point's tangential speed, <code>v = ωr</code>, grows with its distance from the axis.
+        Angular velocity is angle swept per unit time:{" "}
+        <Katex tex={String.raw`\omega = \Delta\theta/\Delta t`} />, or for steady
+        rotation, <Katex tex={String.raw`\omega = 2\pi/T = 2\pi f`} />. Every point on a rigid rotating body shares the same{" "}
+        <Katex tex="\omega" /> — but a point's tangential speed, <Katex tex="v = \omega r" />, grows with its distance from the axis.
       </p>
 
       <div className="avc-mode-toggle" role="group" aria-label="Input mode">
@@ -269,7 +272,7 @@ export default function AngularVelocityCalculator() {
       <div className="avc-fields">
         {mode === "period" && (
           <div className="avc-field">
-            <label htmlFor="avc-period">Rotation period (T)</label>
+            <label htmlFor="avc-period">Rotation period (<Katex tex="T" />)</label>
             <div className="avc-input-row">
               <input id="avc-period" className="avc-input" type="number" min="0" step="any" inputMode="decimal" value={period} onChange={(e) => setPeriod(e.target.value)} />
               <select className="avc-unit-select" value={periodUnit} onChange={(e) => setPeriodUnit(e.target.value)}>
@@ -280,7 +283,7 @@ export default function AngularVelocityCalculator() {
         )}
         {mode === "frequency" && (
           <div className="avc-field">
-            <label htmlFor="avc-freq">Rotational frequency (f)</label>
+            <label htmlFor="avc-freq">Rotational frequency (<Katex tex="f" />)</label>
             <div className="avc-input-row">
               <input id="avc-freq" className="avc-input" type="number" min="0" step="any" inputMode="decimal" value={frequency} onChange={(e) => setFrequency(e.target.value)} />
               <select className="avc-unit-select" value={frequencyUnit} onChange={(e) => setFrequencyUnit(e.target.value)}>
@@ -292,11 +295,11 @@ export default function AngularVelocityCalculator() {
         {mode === "rotations" && (
           <div className="avc-field-row">
             <div className="avc-field">
-              <label htmlFor="avc-n">Number of rotations (N)</label>
+              <label htmlFor="avc-n">Number of rotations (<Katex tex="N" />)</label>
               <input id="avc-n" className="avc-input" type="number" min="0" step="any" inputMode="decimal" value={rotations} onChange={(e) => setRotations(e.target.value)} />
             </div>
             <div className="avc-field">
-              <label htmlFor="avc-t">Elapsed time (Δt)</label>
+              <label htmlFor="avc-t">Elapsed time (<Katex tex="\Delta t" />)</label>
               <div className="avc-input-row">
                 <input id="avc-t" className="avc-input" type="number" min="0" step="any" inputMode="decimal" value={elapsed} onChange={(e) => setElapsed(e.target.value)} />
                 <select className="avc-unit-select" value={elapsedUnit} onChange={(e) => setElapsedUnit(e.target.value)}>
@@ -308,7 +311,7 @@ export default function AngularVelocityCalculator() {
         )}
 
         <div className="avc-field">
-          <label htmlFor="avc-radius">Radius (r) — optional, for tangential velocity</label>
+          <label htmlFor="avc-radius">Radius (<Katex tex="r" />) — optional, for tangential velocity</label>
           <div className="avc-input-row">
             <input id="avc-radius" className="avc-input" type="number" min="0" step="any" inputMode="decimal" placeholder="leave blank to skip" value={radius} onChange={(e) => setRadius(e.target.value)} />
             <select className="avc-unit-select" value={radiusUnit} onChange={(e) => setRadiusUnit(e.target.value)}>
@@ -335,13 +338,13 @@ export default function AngularVelocityCalculator() {
 
           {result.hasRadius && (
             <p className="avc-velocity-note">
-              At radius {formatNumber(parseFloat(radius))} {RADIUS_UNITS[radiusUnit].short}: tangential speed v = ωr ≈{" "}
+              At radius {formatNumber(parseFloat(radius))} {RADIUS_UNITS[radiusUnit].short}: tangential speed <Katex tex="v = \omega r" /> ≈{" "}
               <strong>{formatNumber(result.v)} m/s</strong> ({formatNumber(result.v * 3.6)} km/h)
             </p>
           )}
 
           {spinner && (
-            <div className="avc-chart-wrap">
+            <div className="chart-wrap">
               <svg viewBox="0 0 200 200" className="avc-spinner-svg" role="img" aria-label="A dot orbiting a central dot at this angular velocity">
                 <circle cx="100" cy="100" r={spinner.orbitR} className="avc-spinner-rim" />
                 <g
@@ -354,7 +357,7 @@ export default function AngularVelocityCalculator() {
                 <circle cx="100" cy="100" r="5" className="avc-spinner-hub" />
               </svg>
               <p className="avc-chart-caption">
-                One full lap of the small dot = one rotation, at this ω.
+                One full lap of the small dot = one rotation, at this <Katex tex="\omega" />.
                 {result.hasRadius
                   ? ` At radius ${formatNumber(parseFloat(radius))} ${RADIUS_UNITS[radiusUnit].short}, that dot is moving at ${formatNumber(spinner.v)} m/s.`
                   : " Enter a radius above to see its actual speed."}{" "}
@@ -365,7 +368,7 @@ export default function AngularVelocityCalculator() {
           )}
 
           {ladder && (
-            <div className="avc-chart-wrap">
+            <div className="chart-wrap">
               <svg viewBox={`0 0 ${ladder.width} ${ladder.height}`} className="avc-ladder-svg" role="img" aria-label="Angular velocity comparison scale">
                 <line x1={ladder.marginLeft} x2={ladder.marginLeft + ladder.plotWidth} y1={ladder.y} y2={ladder.y} className="avc-ladder-axis" />
                 {ladder.ticks.map((e) => (
@@ -384,7 +387,7 @@ export default function AngularVelocityCalculator() {
                 <text x={ladder.markerX} y={ladder.y - 35} className="avc-ladder-marker-label" textAnchor="middle">this object</text>
               </svg>
               <p className="avc-chart-caption">
-                Log scale of ω in rad/s — spanning roughly nine orders of magnitude from the Moon's
+                Log scale of <Katex tex="\omega" /> in rad/s — spanning roughly nine orders of magnitude from the Moon's
                 slow tidally-locked spin to a millisecond pulsar.
               </p>
             </div>

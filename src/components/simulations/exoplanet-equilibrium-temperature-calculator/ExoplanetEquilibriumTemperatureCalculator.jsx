@@ -12,9 +12,13 @@ import {
   equilibriumTemperature,
   kelvinToCelsius,
 } from "./equilibriumTemp";
+import { EQUILIBRIUM_TEMP_TEST_COLUMNS, EQUILIBRIUM_TEMP_TEST_SOURCES, getEquilibriumTempTestRows } from "./equilibriumTempTests";
 import "../../../styles/exoplanetEquilibriumTemperatureCalculator.css";
+import "../../../styles/calculators.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import Katex from "../../Katex.jsx";
 
 // Every preset is a real (or realistically illustrative) star-planet
 // pair, so switching the redistribution model after applying one always
@@ -187,6 +191,10 @@ export default function ExoplanetEquilibriumTemperatureCalculator() {
     };
   }, [result]);
 
+  // Self-check rows: runs the real equilibriumTemp.js functions against
+  // known reference planets and edge cases — independent of the fields above.
+  const testRows = useMemo(() => getEquilibriumTempTestRows(), []);
+
   const applyPreset = (preset) => {
     setTStar(String(preset.tStar));
     setRStar(String(preset.rStar));
@@ -225,21 +233,21 @@ export default function ExoplanetEquilibriumTemperatureCalculator() {
       <p className="eet-explainer">
         The temperature where absorbed starlight exactly balances emitted thermal radiation —
         ignoring internal heat and any atmospheric greenhouse effect:{" "}
-        <code>T_eq = T★√(R★/2a)(1−A)^(1/4)</code> for full day-night heat redistribution. Earth's
+        <Katex tex={String.raw`T_{\rm eq} = T_\star\sqrt{\dfrac{R_\star}{2a}}(1-A)^{1/4}`} /> for full day-night heat redistribution. Earth's
         result (≈255 K, −18°C) sits noticeably below its real ≈288 K surface temperature — that gap
         is entirely the greenhouse effect, which this idealized model deliberately omits.
       </p>
 
       <div className="eet-fields">
         <div className="eet-field">
-          <label htmlFor="eet-tstar">Star's effective temperature (T★)</label>
+          <label htmlFor="eet-tstar">Star's effective temperature (<Katex tex="T_\star" />)</label>
           <div className="eet-input-row">
             <input id="eet-tstar" className="eet-input" type="number" min="0" step="any" inputMode="decimal" value={tStar} onChange={(e) => setTStar(e.target.value)} />
             <span className="eet-static-unit">K</span>
           </div>
         </div>
         <div className="eet-field">
-          <label htmlFor="eet-rstar">Stellar radius (R★)</label>
+          <label htmlFor="eet-rstar">Stellar radius (<Katex tex="R_\star" />)</label>
           <div className="eet-input-row">
             <input id="eet-rstar" className="eet-input" type="number" min="0" step="any" inputMode="decimal" value={rStar} onChange={(e) => setRStar(e.target.value)} />
             <select className="eet-unit-select" value={rStarUnit} onChange={(e) => setRStarUnit(e.target.value)}>
@@ -248,7 +256,7 @@ export default function ExoplanetEquilibriumTemperatureCalculator() {
           </div>
         </div>
         <div className="eet-field">
-          <label htmlFor="eet-a">Orbital distance (a)</label>
+          <label htmlFor="eet-a">Orbital distance (<Katex tex="a" />)</label>
           <div className="eet-input-row">
             <input id="eet-a" className="eet-input" type="number" min="0" step="any" inputMode="decimal" value={a} onChange={(e) => setA(e.target.value)} />
             <select className="eet-unit-select" value={aUnit} onChange={(e) => setAUnit(e.target.value)}>
@@ -257,7 +265,7 @@ export default function ExoplanetEquilibriumTemperatureCalculator() {
           </div>
         </div>
         <div className="eet-field">
-          <label htmlFor="eet-albedo">Bond albedo (A) — optional</label>
+          <label htmlFor="eet-albedo">Bond albedo (<Katex tex="A" />) — optional</label>
           <input id="eet-albedo" className="eet-input" type="number" min="0" max="0.999" step="any" inputMode="decimal" value={albedo} onChange={(e) => setAlbedo(e.target.value)} />
         </div>
       </div>
@@ -276,12 +284,12 @@ export default function ExoplanetEquilibriumTemperatureCalculator() {
       ) : (
         <>
           <div className="eet-headline-card">
-            <div className="eet-headline">T_eq ≈ {formatNumber(result.tEq, 1)} K = {formatNumber(result.tEqC, 1)} °C</div>
+            <div className="eet-headline"><Katex tex="T_{\rm eq}" /> ≈ {formatNumber(result.tEq, 1)} K = {formatNumber(result.tEqC, 1)} °C</div>
             <div className="eet-headline-sub">Absorbed stellar flux: {formatNumber(result.flux)} W/m² (Earth receives ≈1361 W/m²)</div>
           </div>
 
           {diagram && (
-            <div className="eet-chart-wrap">
+            <div className="chart-wrap">
               <svg className="eet-diagram-svg" viewBox="0 0 640 200" role="img" aria-label={`Star at ${formatNumber(result.tStar,0)} kelvin, planet at equilibrium temperature ${formatNumber(result.tEq,0)} kelvin`}>
                 <defs>
                   <radialGradient id="eet-star-gradient" cx="40%" cy="35%" r="65%">
@@ -323,7 +331,7 @@ export default function ExoplanetEquilibriumTemperatureCalculator() {
           )}
 
           {gauge && (
-            <div className="eet-chart-wrap">
+            <div className="chart-wrap">
               <svg className="eet-gauge-svg" viewBox={`0 0 ${gauge.width} ${gauge.height}`} role="img" aria-label={`Temperature gauge; this planet's equilibrium temperature is ${formatNumber(result.tEq,0)} kelvin`}>
                 <line x1={gauge.marginLeft} x2={gauge.marginLeft + gauge.plotWidth} y1={gauge.yPhysical} y2={gauge.yPhysical} className="eet-gauge-axis" />
                 {gauge.ticks.map((t) => (
@@ -362,6 +370,12 @@ export default function ExoplanetEquilibriumTemperatureCalculator() {
 
       <div className="eet-footer-row">
         <CalculatorVote slug="exoplanet-equilibrium-temperature-calculator" />
+        <CalculatorTests
+          title="Exoplanet Equilibrium Temperature Calculator — Tests"
+          columns={EQUILIBRIUM_TEMP_TEST_COLUMNS}
+          rows={testRows}
+          sources={EQUILIBRIUM_TEMP_TEST_SOURCES}
+        />
         <button type="button" className="eet-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

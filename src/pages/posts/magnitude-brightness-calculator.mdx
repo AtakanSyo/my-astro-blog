@@ -21,6 +21,7 @@ lang: en
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
 import Changelog from "../../components/Changelog.astro";
+import Katex from "../../components/Katex.astro";
 import MagnitudeBrightnessCalculator from "../../components/simulations/magnitude-brightness-calculator/MagnitudeBrightnessCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -51,7 +52,7 @@ $$
 $$
 
 Every 5 magnitudes is a factor of exactly 100 in flux, so every single
-magnitude is a factor of 100^(1/5) ≈ **2.512** — the Pogson ratio. Two
+magnitude is a factor of <Katex tex="100^{1/5}" /> ≈ **2.512** — the Pogson ratio. Two
 objects with magnitudes 2 and 7 differ by 5, so the magnitude-2 object is
 exactly 100× brighter; that's the example baked into this calculator's
 default values.
@@ -59,14 +60,14 @@ default values.
 ## Running it in reverse
 
 The same relation solves the other way just as easily. Given a flux
-ratio F1/F2, the magnitude difference it implies is
+ratio <Katex tex="F_1/F_2" />, the magnitude difference it implies is
 
 $$
 m_1 - m_2 = -2.5 \log_{10}\left(\frac{F_1}{F_2}\right)
 $$
 
 Switch the calculator to "Ratio → Magnitude difference," enter something
-like "10× brighter," and it returns Δm ≈ −2.5 — useful for going from a
+like "10× brighter," and it returns <Katex tex="\Delta m \approx -2.5" /> — useful for going from a
 brightness comparison you can picture (a lamp ten times brighter than
 another) to the number a star catalog would actually print.
 
@@ -77,7 +78,7 @@ Two charts do the intuition work here:
 - **The two-star comparison** sizes each object's symbol linearly by
   magnitude — the same convention real star charts use — rather than
   linearly by flux. True flux ratios routinely span many orders of
-  magnitude (the Sun is about $10^{14}$ times brighter than the faintest
+  magnitude (the Sun is about <Katex tex="10^{14}" /> times brighter than the faintest
   star your eye can see), so a size scaled directly to flux would make
   one star vanish in almost every realistic comparison. Sizing by
   magnitude instead keeps both symbols visible while still shrinking
@@ -92,17 +93,17 @@ Two charts do the intuition work here:
 
 ## A few reference points
 
-- **Δm = 1** → 2.512× (the Pogson ratio itself)
-- **Δm = 2.5** → exactly 10×
-- **Δm = 5** → exactly 100×
-- **Δm = 10** → exactly 10,000×
-- **Sirius vs. Polaris** (Δm ≈ 3.44) → about 24× brighter
-- **Full Moon vs. faintest naked-eye star** (Δm ≈ 19.2) → about 48
+- **<Katex tex="\Delta m = 1" />** → 2.512× (the Pogson ratio itself)
+- **<Katex tex="\Delta m = 2.5" />** → exactly 10×
+- **<Katex tex="\Delta m = 5" />** → exactly 100×
+- **<Katex tex="\Delta m = 10" />** → exactly 10,000×
+- **Sirius vs. Polaris** (<Katex tex="\Delta m \approx 3.44" />) → about 24× brighter
+- **Full Moon vs. faintest naked-eye star** (<Katex tex="\Delta m \approx 19.2" />) → about 48
   million times brighter
 
 The calculator's built-in presets reproduce each of the worked examples
 above — the reference table underneath the charts highlights whichever
-row your current Δm is closest to.
+row your current <Katex tex="\Delta m" /> is closest to.
 
 <SimPostSchema
   title="Magnitude & Brightness Calculator"

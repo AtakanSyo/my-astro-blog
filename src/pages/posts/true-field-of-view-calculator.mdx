@@ -20,6 +20,7 @@ lang: en
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
 import Changelog from "../../components/Changelog.astro";
+import Katex from "../../components/Katex.astro";
 import TrueFieldOfViewCalculator from "../../components/simulations/true-field-of-view-calculator/TrueFieldOfViewCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -41,7 +42,7 @@ $$
 
 AFOV is the eyepiece's own apparent field of view — how wide the view
 feels looking through it, printed on nearly every eyepiece's spec sheet
-— and M is the magnification (telescope focal length over eyepiece focal
+— and <Katex tex="M" /> is the magnification (telescope focal length over eyepiece focal
 length). A 25mm eyepiece with a 52° apparent field, used at 40×, shows
 52/40 ≈ 1.3° of actual sky.
 
@@ -53,7 +54,7 @@ $$
 
 The field stop is a physical aperture inside the eyepiece barrel that
 defines the sharp edge of the view — a real, measurable diameter in
-millimeters, not a spec-sheet number. 57.2958 is 180/π, converting the
+millimeters, not a spec-sheet number. 57.2958 is <Katex tex="180/\pi" />, converting the
 small-angle relation (field stop divided by the telescope's focal
 length, in radians) to degrees. A manufacturer's stated AFOV is
 sometimes rounded, and for wide-angle designs with real optical

@@ -2,11 +2,11 @@ import { useEffect, useMemo, useState } from "react";
 import { fluidRocheLimit, rigidRocheLimit, rocheLimit, FLUID_COEFFICIENT, RIGID_COEFFICIENT, REFERENCE_DENSITIES } from "./roche";
 import { ROCHE_LIMIT_TEST_COLUMNS, ROCHE_LIMIT_TEST_SOURCES, getRocheLimitTestRows } from "./rocheLimitTests";
 import "../../../styles/rocheLimitCalculator.css";
+import "../../../styles/calculators.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
 import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
-import katex from "katex";
-import "katex/dist/katex.min.css";
+import Katex from "../../Katex.jsx";
 // Every preset is a real (or realistically illustrative) primary +
 // satellite pair, several with a real actual orbital distance included
 // so the comparison feature has something meaningful to say out of the box.
@@ -235,19 +235,6 @@ const yScale = (y) =>
       // Clipboard API can fail silently — no-op.
     }
   };
-  const rigidRoche = katex.renderToString(
-    String.raw`d_{\rm rigid} = R_M\left(\frac{2\rho_M}{\rho_m}\right)^{1/3} \approx 1.26\, R_M \left(\frac{\rho_M}{\rho_m}\right)^{1/3}`,
-    { throwOnError: false }
-  );
-  const fluidRoche = katex.renderToString(
-    String.raw`d_{\rm fluid} \approx 2.44\, R_M \left(\frac{\rho_M}{\rho_m}\right)^{1/3}`,
-    { throwOnError: false }
-  );
-
-  const densityRelation = katex.renderToString(
-  String.raw`d \propto \rho_m^{-1/3}`,
-  { throwOnError: false }
-);
   return (
     <div className="rlc" aria-label="Roche limit calculator">
       <div className="rlc-header">
@@ -266,11 +253,11 @@ const yScale = (y) =>
         <br /><br />
 
         Fluid model (a satellite with little internal strength, deforming as it's pulled apart):{" "}
-        <span dangerouslySetInnerHTML={{ __html: fluidRoche }} />.
+        <Katex tex={String.raw`d_{\rm fluid} \approx 2.44\, R_M \left(\frac{\rho_M}{\rho_m}\right)^{1/3}`} />.
         <br /><br />
 
         Rigid-body model (an idealized perfectly stiff satellite):{" "}
-        <span dangerouslySetInnerHTML={{ __html: rigidRoche }} /> — a smaller, more optimistic limit.
+        <Katex tex={String.raw`d_{\rm rigid} = R_M\left(\frac{2\rho_M}{\rho_m}\right)^{1/3} \approx 1.26\, R_M \left(\frac{\rho_M}{\rho_m}\right)^{1/3}`} /> — a smaller, more optimistic limit.
       </p>
 
       
@@ -286,21 +273,21 @@ const yScale = (y) =>
 
       <div className="rlc-fields">
         <div className="rlc-field">
-          <label htmlFor="rlc-radius">Primary radius (R_M)</label>
+          <label htmlFor="rlc-radius">Primary radius (<Katex tex="R_M" />)</label>
           <div className="rlc-input-row">
             <input id="rlc-radius" className="rlc-input" type="number" min="0" step="any" inputMode="decimal" value={radius} onChange={(e) => setRadius(e.target.value)} />
             <span className="rlc-static-unit">km</span>
           </div>
         </div>
         <div className="rlc-field">
-          <label htmlFor="rlc-dp">Primary density (ρ_M)</label>
+          <label htmlFor="rlc-dp">Primary density (<Katex tex="\rho_M" />)</label>
           <div className="rlc-input-row">
             <input id="rlc-dp" className="rlc-input" type="number" min="0" step="any" inputMode="decimal" value={densityPrimary} onChange={(e) => setDensityPrimary(e.target.value)} />
             <span className="rlc-static-unit">kg/m³</span>
           </div>
         </div>
         <div className="rlc-field">
-          <label htmlFor="rlc-ds">Satellite density (ρ_m)</label>
+          <label htmlFor="rlc-ds">Satellite density (<Katex tex="\rho_m" />)</label>
           <div className="rlc-input-row">
             <input id="rlc-ds" className="rlc-input" type="number" min="0" step="any" inputMode="decimal" value={densitySatellite} onChange={(e) => setDensitySatellite(e.target.value)} />
             <span className="rlc-static-unit">kg/m³</span>
@@ -321,7 +308,7 @@ const yScale = (y) =>
         <>
           <div className="rlc-headline-card">
             <div className="rlc-headline">
-              Roche limit ({mode === "fluid" ? "fluid" : "rigid"}) ≈ {formatNumber(result.active)} km = {formatNumber(result.active / result.R)} R_M
+              Roche limit ({mode === "fluid" ? "fluid" : "rigid"}) ≈ {formatNumber(result.active)} km = {formatNumber(result.active / result.R)} <Katex tex="R_M" />
             </div>
             <div className="rlc-headline-sub">
               Fluid: {formatNumber(result.dFluid)} km · Rigid: {formatNumber(result.dRigid)} km
@@ -335,7 +322,7 @@ const yScale = (y) =>
           </div>
 
           {diagram && (
-            <div className="rlc-chart-wrap">
+            <div className="chart-wrap">
               <svg className="rlc-diagram-svg" viewBox="0 0 240 240" role="img" aria-label={diagram.disrupted ? "Satellite stretched into debris inside the Roche limit" : "Intact satellite outside the Roche limit"}>
                 <circle cx="120" cy="120" r={diagram.rochePx} className="rlc-roche-circle" />
                 <circle cx="120" cy="120" r={diagram.primaryPx} className="rlc-primary-disk" />
@@ -363,7 +350,7 @@ const yScale = (y) =>
           )}
 
           {curve && (
-            <div className="rlc-chart-wrap">
+            <div className="chart-wrap">
               <svg
                 className="rlc-curve-svg"
                 viewBox={`0 0 ${curve.width} ${curve.height}`}
@@ -402,7 +389,7 @@ const yScale = (y) =>
                 The Roche limit decreases as satellite density increases: low-density icy satellites are
                 disrupted farther from the primary than denser rocky or iron-rich satellites. The straight
                 line reflects the{" "}
-                <span dangerouslySetInnerHTML={{ __html: densityRelation }} /> power-law relation.
+                <Katex tex={String.raw`d \propto \rho_m^{-1/3}`} /> power-law relation.
               </p>
             </div>
           )}

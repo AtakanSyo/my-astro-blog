@@ -215,14 +215,6 @@
   color: var(--msl-warn);
 }
 
-.msl-chart-wrap {
-  background: var(--msl-bg-2);
-  border: 1px solid var(--msl-border);
-  border-radius: 12px;
-  padding: 0.75rem 0.75rem 0.5rem;
-  margin-bottom: 1.1rem;
-}
-
 .msl-diagram-svg {
   width: 100%;
   height: auto;

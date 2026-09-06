@@ -22,9 +22,11 @@ import {
 } from "./escapeVelocity";
 import { ESCAPE_VELOCITY_TEST_COLUMNS, ESCAPE_VELOCITY_TEST_SOURCES, getEscapeVelocityTestRows } from "./escapeVelocityTests";
 import "../../../styles/escapeVelocityCalculator.css";
+import "../../../styles/calculators.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
 import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import Katex from "../../Katex.jsx";
 
 const SOLVE_OPTIONS = [
   { key: "velocity", label: "Escape velocity" },
@@ -230,7 +232,7 @@ export default function EscapeVelocityCalculator() {
       </div>
 
       <p className="evc-explainer">
-        <code>v_esc = √(2GM/r)</code> is the speed needed to leave a body's gravity for good, with no
+        <Katex tex={String.raw`v_{\rm esc} = \sqrt{2GM/r}`} /> is the speed needed to leave a body's gravity for good, with no
         further thrust. It's <strong>direction-independent</strong> — an energy condition on speed,
         not a statement about trajectory — and it says nothing about drag: a real rocket leaving
         Earth needs considerably more than 11.2 km/s of actual burn to fight its way through the
@@ -252,7 +254,7 @@ export default function EscapeVelocityCalculator() {
 
       <div className="evc-fields">
         <div className="evc-field">
-          <label htmlFor="evc-mass">Mass (M)</label>
+          <label htmlFor="evc-mass">Mass (<Katex tex="M" />)</label>
           {solveFor === "mass" ? (
             <div className="evc-computed">
               {result.valid ? formatNumber(massFromKg(result.massKg, massUnit)) : "—"}
@@ -271,7 +273,7 @@ export default function EscapeVelocityCalculator() {
         </div>
 
         <div className="evc-field">
-          <label htmlFor="evc-radius">Radius (r)</label>
+          <label htmlFor="evc-radius">Radius (<Katex tex="r" />)</label>
           {solveFor === "radius" ? (
             <div className="evc-computed">
               {result.valid ? formatNumber(distanceFromMeters(result.radiusM, radiusUnit)) : "—"}
@@ -290,7 +292,7 @@ export default function EscapeVelocityCalculator() {
         </div>
 
         <div className="evc-field">
-          <label htmlFor="evc-velocity">Escape velocity (v_esc)</label>
+          <label htmlFor="evc-velocity">Escape velocity (<Katex tex="v_{\rm esc}" />)</label>
           {solveFor === "velocity" ? (
             <div className="evc-computed">
               {result.valid ? formatNumber(velocityToUnit(result.vMs, velocityUnit)) : "—"}
@@ -315,7 +317,7 @@ export default function EscapeVelocityCalculator() {
         <>
           <div className="evc-headline-card">
             <div className="evc-headline">
-              v_esc ≈ {formatNumber(velocityToUnit(result.vMs, "kms"))} km/s
+              <Katex tex="v_{\rm esc}" /> ≈ {formatNumber(velocityToUnit(result.vMs, "kms"))} km/s
             </div>
             <div className="evc-headline-sub">
               {formatNumber(velocityToUnit(result.vMs, "ms"))} m/s · {formatNumber(velocityToUnit(result.vMs, "c"), 6)}× the speed of light
@@ -341,8 +343,8 @@ export default function EscapeVelocityCalculator() {
                 <strong>{formatNumber(distanceFromMeters(schwarzschild.rsM, "km"))} km</strong> — the
                 radius this mass would need to be compressed to for its escape velocity to reach
                 exactly <strong>c</strong>. The current radius is{" "}
-                <strong>{formatNumber(schwarzschild.ratio)}×</strong> the Schwarzschild radius.
-                v_esc = √(2GM/r) and r_s = 2GM/c² are the same formula — one solved for speed, the
+                <strong>{formatNumber(schwarzschild.ratio)}×</strong> the Schwarzschild radius.{" "}
+                <Katex tex={String.raw`v_{\rm esc} = \sqrt{2GM/r}`} /> and <Katex tex="r_s = 2GM/c^2" /> are the same formula — one solved for speed, the
                 other solved for the radius where that speed hits the speed of light. See this
                 site's{" "}
                 <a href="/posts/schwarzschild-radius-calculator">Schwarzschild Radius Calculator</a>{" "}
@@ -352,7 +354,7 @@ export default function EscapeVelocityCalculator() {
           )}
 
           {ladder && (
-            <div className="evc-chart-wrap">
+            <div className="chart-wrap">
               <svg viewBox={`0 0 ${ladder.width} ${ladder.height}`} className="evc-ladder-svg" role="img" aria-label="Escape velocity comparison scale, from a small asteroid to a neutron star">
                 <line x1={ladder.marginLeft} x2={ladder.marginLeft + ladder.plotWidth} y1={ladder.y} y2={ladder.y} className="evc-ladder-axis" />
                 {ladder.ticks.map((e) => (
@@ -371,7 +373,7 @@ export default function EscapeVelocityCalculator() {
                 <text x={ladder.markerX} y={ladder.y - 35} className="evc-ladder-marker-label" textAnchor="middle">this object</text>
               </svg>
               <p className="evc-chart-caption">
-                Log scale of v_esc — from a small asteroid's stroll-pace escape velocity to a
+                Log scale of <Katex tex="v_{\rm esc}" /> — from a small asteroid's stroll-pace escape velocity to a
                 neutron star's, a span of almost nine orders of magnitude, not just four.
               </p>
             </div>

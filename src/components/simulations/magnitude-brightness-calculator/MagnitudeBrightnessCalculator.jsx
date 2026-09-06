@@ -1,8 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
 import { ratioFromMagDiff, magDiffFromRatio, ratioForMagnitudeStep, describeRatio, niceStep } from "./magnitude";
+import {
+  MAGNITUDE_BRIGHTNESS_TEST_COLUMNS,
+  MAGNITUDE_BRIGHTNESS_TEST_SOURCES,
+  getMagnitudeBrightnessTestRows,
+} from "./magnitudeBrightnessTests";
 import "../../../styles/magnitudeBrightnessCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import Katex from "../../Katex.jsx";
 
 // Every preset is given as a pair of magnitudes — the equivalent ratio
 // and "which is brighter" toggle are derived on apply, so the two modes
@@ -191,6 +198,10 @@ export default function MagnitudeBrightnessCalculator() {
     };
   }, [result]);
 
+  // Self-check rows: runs the real magnitude.js functions against known
+  // reference figures and edge cases — independent of the fields above.
+  const testRows = useMemo(() => getMagnitudeBrightnessTestRows(), []);
+
   const applyPreset = (preset) => {
     setMode("toRatio");
     setMA(String(preset.mA));
@@ -235,7 +246,7 @@ export default function MagnitudeBrightnessCalculator() {
       <p className="mbc-explainer">
         The magnitude scale runs <strong>backwards and logarithmically</strong>: lower (or more
         negative) means brighter, and every 5 magnitudes is exactly a factor of 100 in flux —{" "}
-        <code>F₁/F₂ = 10^(−0.4·(m₁−m₂))</code>. Convert a magnitude difference into a brightness
+        <Katex tex={String.raw`F_1/F_2 = 10^{-0.4(m_1-m_2)}`} />. Convert a magnitude difference into a brightness
         ratio, or flip it around and enter a ratio to get the magnitude difference it implies.
       </p>
 
@@ -259,7 +270,7 @@ export default function MagnitudeBrightnessCalculator() {
       {mode === "toRatio" ? (
         <div className="mbc-field-row">
           <div className="mbc-field">
-            <label htmlFor="mbc-ma">Object A magnitude (m_A)</label>
+            <label htmlFor="mbc-ma">Object A magnitude (<Katex tex="m_A" />)</label>
             <input
               id="mbc-ma"
               className="mbc-input"
@@ -271,7 +282,7 @@ export default function MagnitudeBrightnessCalculator() {
             />
           </div>
           <div className="mbc-field">
-            <label htmlFor="mbc-mb">Object B magnitude (m_B)</label>
+            <label htmlFor="mbc-mb">Object B magnitude (<Katex tex="m_B" />)</label>
             <input
               id="mbc-mb"
               className="mbc-input"
@@ -329,8 +340,8 @@ export default function MagnitudeBrightnessCalculator() {
           <div className="mbc-headline-card">
             <div className="mbc-headline">{headline}</div>
             <div className="mbc-headline-sub">
-              Δm = m_A − m_B = {formatMag(result.deltaM)}
-              {mode === "toMag" && <> (m_A set to {formatMag(result.mA)}, m_B anchored at 0.00)</>}
+              <Katex tex="\Delta m = m_A - m_B" /> = {formatMag(result.deltaM)}
+              {mode === "toMag" && <> (<Katex tex="m_A" /> set to {formatMag(result.mA)}, <Katex tex="m_B" /> anchored at 0.00)</>}
             </div>
           </div>
 
@@ -435,7 +446,7 @@ export default function MagnitudeBrightnessCalculator() {
 
           <div className="mbc-ref-table" role="table" aria-label="Reference magnitude steps and their brightness ratios">
             <div className="mbc-ref-row mbc-ref-row--head" role="row">
-              <span role="columnheader">Δm</span>
+              <span role="columnheader"><Katex tex="\Delta m" /></span>
               <span role="columnheader">Brightness ratio</span>
             </div>
             {REFERENCE_STEPS.map((d) => (
@@ -450,6 +461,12 @@ export default function MagnitudeBrightnessCalculator() {
 
       <div className="mbc-footer-row">
         <CalculatorVote slug="magnitude-brightness-calculator" />
+        <CalculatorTests
+          title="Magnitude & Brightness Calculator — Tests"
+          columns={MAGNITUDE_BRIGHTNESS_TEST_COLUMNS}
+          rows={testRows}
+          sources={MAGNITUDE_BRIGHTNESS_TEST_SOURCES}
+        />
         <button type="button" className="mbc-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

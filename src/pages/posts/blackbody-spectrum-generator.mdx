@@ -21,6 +21,7 @@ lang: en
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
 import Changelog from "../../components/Changelog.astro";
+import Katex from "../../components/Katex.astro";
 import BlackbodySpectrumGenerator from "../../components/simulations/blackbody-spectrum-generator/BlackbodySpectrumGenerator.jsx";
 
 <figure class="post-figure post-figure-md" id="generator">
@@ -37,7 +38,7 @@ tells you a star's color from its temperature.
 
 ## The physics
 
-Three laws describe the whole curve. First, Planck's law itself — the spectral radiance emitted at wavelength λ by a blackbody at temperature T:
+Three laws describe the whole curve. First, Planck's law itself — the spectral radiance emitted at wavelength <Katex tex="\lambda" /> by a blackbody at temperature <Katex tex="T" />:
 
 $$
 B(\lambda, T) = \frac{2hc^2}{\lambda^5} \cdot \frac{1}{e^{hc/(\lambda k_B T)} - 1}

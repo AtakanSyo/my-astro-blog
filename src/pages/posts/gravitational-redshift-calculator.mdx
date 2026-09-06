@@ -20,6 +20,7 @@ lang: en
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
 import Changelog from "../../components/Changelog.astro";
+import Katex from "../../components/Katex.astro";
 import GravitationalRedshiftCalculator from "../../components/simulations/gravitational-redshift-calculator/GravitationalRedshiftCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -39,8 +40,8 @@ $$
 z = \left(1 - \frac{r_s}{R}\right)^{-1/2} - 1, \qquad r_s = \frac{2GM}{c^2}
 $$
 
-R is the radius where the light is emitted, and r_s is the Schwarzschild
-radius of the mass M. This describes a **spherical, non-rotating,
+<Katex tex="R" /> is the radius where the light is emitted, and <Katex tex="r_s" /> is the Schwarzschild
+radius of the mass <Katex tex="M" />. This describes a **spherical, non-rotating,
 uncharged mass** with a static emitter and a static observer arbitrarily
 far away — a spinning (Kerr) mass, an orbiting emitter, or a nearby
 (rather than infinitely distant) observer would each need additional
@@ -48,25 +49,25 @@ terms this simple relation doesn't include.
 
 ## From negligible to enormous
 
-- **The Sun's surface:** z ≈ 2.1 × 10⁻⁶ — the effect predicted for
+- **The Sun's surface:** <Katex tex="z \approx 2.1 \times 10^{-6}" /> — the effect predicted for
   sunlight, first tentatively confirmed in the 1960s once instruments
   became precise enough, and now routinely measured.
 - **A white dwarf:** a solar mass squeezed into roughly Earth's size
-  gives z of a few×10⁻⁴ — corresponding to a naive "equivalent velocity"
+  gives <Katex tex="z" /> of a few×10⁻⁴ — corresponding to a naive "equivalent velocity"
   of order tens of km/s. This was actually observed decades before
   general relativity's other predictions were tested with high
   precision, since white dwarfs made it measurable with 1920s-era
   spectroscopy.
 - **A neutron star:** with a solar-mass-plus object packed into ~10 km,
-  z reaches tens of percent — light climbing away loses a genuinely
+  <Katex tex="z" /> reaches tens of percent — light climbing away loses a genuinely
   substantial fraction of its energy.
-- **Near a black hole's horizon:** z grows without bound as the
-  emission radius approaches r_s. At the photon sphere (R = 1.5 r_s,
-  the radius where light itself can orbit), z = √3 − 1 ≈ 0.732 exactly.
+- **Near a black hole's horizon:** <Katex tex="z" /> grows without bound as the
+  emission radius approaches <Katex tex="r_s" />. At the photon sphere (<Katex tex="R = 1.5\, r_s" />,
+  the radius where light itself can orbit), <Katex tex="z = \sqrt{3} - 1 \approx 0.732" /> exactly.
 
 ## Why R must be strictly greater than r_s
 
-This calculator refuses to compute anything for R ≤ r_s, and that's
+This calculator refuses to compute anything for <Katex tex="R \leq r_s" />, and that's
 deliberate, not a limitation to work around. At the Schwarzschild radius
 itself, every outward light-cone has folded over to point inward —
 there's no "escaping light" left for a redshift formula to describe.
@@ -78,7 +79,7 @@ the question has already broken down.
 ## The "naive equivalent velocity"
 
 Because both Doppler shifts and gravitational redshift shift wavelengths
-the same directional way, it's tempting to translate a gravitational z
+the same directional way, it's tempting to translate a gravitational <Katex tex="z" />
 into "the velocity that would produce this redshift." This calculator
 does compute that number for context — but it's worth being explicit
 that no velocity is actually involved in a purely gravitational
@@ -94,8 +95,8 @@ velocities), not a claim about motion.
   illustrative before/after jump. For the Sun, nearly all the
   stretching happens within the first stellar radius or two; for a
   near-horizon case, it keeps visibly growing much farther out.
-- **The z-versus-radius chart** plots redshift against distance in
-  units of r_s on a log-log scale, where the divergence toward the
+- **The <Katex tex="z" />-versus-radius chart** plots redshift against distance in
+  units of <Katex tex="r_s" /> on a log-log scale, where the divergence toward the
   horizon is directly visible — landmarks from the Sun to a neutron
   star to just outside a black hole show the same relation spanning
   many orders of magnitude.

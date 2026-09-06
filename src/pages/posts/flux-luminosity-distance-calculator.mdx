@@ -21,6 +21,7 @@ lang: en
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
 import Changelog from "../../components/Changelog.astro";
+import Katex from "../../components/Katex.astro";
 import FluxLuminosityDistanceCalculator from "../../components/simulations/flux-luminosity-distance-calculator/FluxLuminosityDistanceCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -37,17 +38,17 @@ the third.
 
 ## The inverse-square law
 
-A source radiating luminosity L in every direction equally spreads that
+A source radiating luminosity <Katex tex="L" /> in every direction equally spreads that
 power over the surface of an ever-expanding sphere as it travels. At
-distance d, that sphere has area 4πd², so the power crossing each square
-metre — the flux, F — is
+distance <Katex tex="d" />, that sphere has area <Katex tex="4\pi d^2" />, so the power crossing each square
+metre — the flux, <Katex tex="F" /> — is
 
 $$
 F = \frac{L}{4\pi d^2}
 $$
 
 This is the whole calculation. Solving it for whichever quantity you're
-missing just means rearranging: L = 4πd²F, or d = √(L / 4πF).
+missing just means rearranging: <Katex tex="L = 4\pi d^2 F" />, or <Katex tex="d = \sqrt{L / 4\pi F}" />.
 
 ## The isotropic-emission assumption — and where real flux departs from it
 
@@ -65,7 +66,7 @@ from it for several concrete reasons:
   far brighter head-on than their true total power output would suggest.
 - **Cosmological distance definitions.** At everyday distances, "distance"
   is unambiguous. Once the universe's expansion becomes significant, it
-  isn't: the *luminosity distance* that makes F = L/4πd² work out
+  isn't: the *luminosity distance* that makes <Katex tex="F = L/4\pi d^2" /> work out
   correctly is a different number from the *angular-diameter distance*
   or a naive light-travel-time distance, and they diverge more the
   farther out you look. This calculator implements the flat, static-space
@@ -74,10 +75,10 @@ from it for several concrete reasons:
 
 ## Uncertainty propagation
 
-Because F = L/4πd² is a pure power law, standard first-order error
+Because <Katex tex="F = L/4\pi d^2" /> is a pure power law, standard first-order error
 propagation is clean: relative uncertainties add in quadrature, with
 distance's contribution doubled going into flux or luminosity (since
-F ∝ d⁻²) and halved coming out of distance (since d ∝ F^-0.5). Enter an
+<Katex tex="F \propto d^{-2}" />) and halved coming out of distance (since <Katex tex="d \propto F^{-0.5}" />). Enter an
 optional "± uncertainty" on either input quantity — in the same unit as
 that field — and the calculator propagates it through automatically.
 Leave both blank and it just shows the exact result with no uncertainty

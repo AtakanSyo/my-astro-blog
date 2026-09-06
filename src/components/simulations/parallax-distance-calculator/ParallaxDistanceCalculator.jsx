@@ -12,9 +12,12 @@ import {
   parallaxArcsecFromDistancePc,
   parallaxReliability,
 } from "./parallax";
+import { PARALLAX_DISTANCE_TEST_COLUMNS, PARALLAX_DISTANCE_TEST_SOURCES, getParallaxDistanceTestRows } from "./parallaxTests";
 import "../../../styles/parallaxDistanceCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import Katex from "../../Katex.jsx";
 
 const PRESETS = [
   { label: "Proxima Centauri", pMas: 768.5, sigmaMas: "" },
@@ -239,6 +242,10 @@ export default function ParallaxDistanceCalculator() {
     return { width, height, sunX, sunY, orbitR, starX, starY, backgroundX, earthA, earthB, bgYA, bgYB };
   }, [distancePc]);
 
+  // Self-check rows: runs the real parallax.js functions against known
+  // reference stars and edge cases — independent of the fields above.
+  const testRows = useMemo(() => getParallaxDistanceTestRows(), []);
+
   return (
     <div className="pdc" aria-label="Parallax and distance calculator">
       <div className="pdc-header">
@@ -260,7 +267,7 @@ export default function ParallaxDistanceCalculator() {
 
       <div className="pdc-fields">
         <div className="pdc-field">
-          <label htmlFor="pdc-parallax">Parallax (p)</label>
+          <label htmlFor="pdc-parallax">Parallax (<Katex tex="p" />)</label>
           <div className="pdc-input-row">
             <input
               id="pdc-parallax"
@@ -301,7 +308,7 @@ export default function ParallaxDistanceCalculator() {
         </div>
 
         <div className="pdc-field">
-          <label htmlFor="pdc-distance">Distance (d)</label>
+          <label htmlFor="pdc-distance">Distance (<Katex tex="d" />)</label>
           <div className="pdc-input-row">
             <input
               id="pdc-distance"
@@ -412,6 +419,12 @@ export default function ParallaxDistanceCalculator() {
 
       <div className="pdc-footer-row">
         <CalculatorVote slug="parallax-distance-calculator" />
+        <CalculatorTests
+          title="Parallax / Distance Calculator — Tests"
+          columns={PARALLAX_DISTANCE_TEST_COLUMNS}
+          rows={testRows}
+          sources={PARALLAX_DISTANCE_TEST_SOURCES}
+        />
         <button type="button" className="pdc-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

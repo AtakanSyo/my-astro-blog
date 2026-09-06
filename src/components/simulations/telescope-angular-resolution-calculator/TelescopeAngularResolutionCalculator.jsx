@@ -14,8 +14,10 @@ import {
   dawesLimitRad,
 } from "./angularResolution";
 import "../../../styles/telescopeAngularResolutionCalculator.css";
+import "../../../styles/calculators.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import Katex from "../../Katex.jsx";
 
 // Every preset is a real (or realistic) aperture + wavelength pair, and
 // doubles as a landmark on the comparison ruler below.
@@ -197,7 +199,8 @@ export default function TelescopeAngularResolutionCalculator() {
 
       <p className="tar-explainer">
         Light diffracts through any finite aperture, which alone limits how close together two
-        point sources can be and still look distinct: <code>θ = 1.22λ/D</code> (Rayleigh
+        point sources can be and still look distinct:{" "}
+        <Katex tex={String.raw`\theta = 1.22\lambda/D`} /> (Rayleigh
         criterion). This is an <strong>ideal, diffraction-only limit</strong> — real ground-based
         observations are very often limited far more by atmospheric seeing, optical quality,
         tracking, and detector sampling than by diffraction at all. See below for details.
@@ -205,7 +208,7 @@ export default function TelescopeAngularResolutionCalculator() {
 
       <div className="tar-fields">
         <div className="tar-field">
-          <label htmlFor="tar-d">Aperture diameter (D)</label>
+          <label htmlFor="tar-d">Aperture diameter (<Katex tex="D" />)</label>
           <div className="tar-input-row">
             <input id="tar-d" className="tar-input" type="number" min="0" step="any" inputMode="decimal" value={D} onChange={(e) => setD(e.target.value)} />
             <select className="tar-unit-select" value={DUnit} onChange={(e) => setDUnit(e.target.value)}>
@@ -214,7 +217,7 @@ export default function TelescopeAngularResolutionCalculator() {
           </div>
         </div>
         <div className="tar-field">
-          <label htmlFor="tar-l">Wavelength (λ)</label>
+          <label htmlFor="tar-l">Wavelength (<Katex tex="\lambda" />)</label>
           <div className="tar-input-row">
             <input id="tar-l" className="tar-input" type="number" min="0" step="any" inputMode="decimal" value={wavelength} onChange={(e) => setWavelength(e.target.value)} />
             <select className="tar-unit-select" value={wavelengthUnit} onChange={(e) => setWavelengthUnit(e.target.value)}>
@@ -230,7 +233,7 @@ export default function TelescopeAngularResolutionCalculator() {
         <>
           <div className="tar-headline-card">
             <div className="tar-headline">
-              θ (Rayleigh) ≈ {formatNumber(radiansToAngle(result.rayleighRad, angleUnit))} {ANGLE_UNITS[angleUnit].short}
+              <Katex tex="\theta" /> (Rayleigh) ≈ {formatNumber(radiansToAngle(result.rayleighRad, angleUnit))} {ANGLE_UNITS[angleUnit].short}
             </div>
             <div className="tar-headline-sub">
               Dawes limit (empirical, visible light): ≈ {formatNumber(radiansToAngle(result.dawesRad, angleUnit))} {ANGLE_UNITS[angleUnit].short}
@@ -252,7 +255,7 @@ export default function TelescopeAngularResolutionCalculator() {
           </div>
 
           {filmstrip && (
-            <div className="tar-chart-wrap">
+            <div className="chart-wrap">
               <div className="tar-filmstrip">
                 {filmstrip.map((panel) => (
                   <div key={panel.ratio} className="tar-filmstrip-panel">
@@ -267,7 +270,7 @@ export default function TelescopeAngularResolutionCalculator() {
                       <circle cx={50 - panel.sep / 2} cy="30" r={panel.blobRadius} fill={`url(#tar-blob-${panel.ratio})`} />
                       <circle cx={50 + panel.sep / 2} cy="30" r={panel.blobRadius} fill={`url(#tar-blob-${panel.ratio})`} />
                     </svg>
-                    <p className="tar-filmstrip-label">{panel.ratio}× θ</p>
+                    <p className="tar-filmstrip-label">{panel.ratio}× <Katex tex="\theta" /></p>
                     <p className={`tar-filmstrip-status tar-filmstrip-status--${panel.status.replace(/\s+/g, "-")}`}>{panel.status}</p>
                   </div>
                 ))}
@@ -275,13 +278,13 @@ export default function TelescopeAngularResolutionCalculator() {
               <p className="tar-chart-caption">
                 Idealized overlapping-blob approximation of two point sources (not a true, ringed
                 Airy pattern) at increasing separation, in multiples of this telescope's Rayleigh
-                limit θ. Around 1× is the classic "just resolved" boundary.
+                limit <Katex tex="\theta" />. Around 1× is the classic "just resolved" boundary.
               </p>
             </div>
           )}
 
           {ladder && (
-            <div className="tar-chart-wrap">
+            <div className="chart-wrap">
               <svg className="tar-ladder-svg" viewBox={`0 0 ${ladder.width} ${ladder.height}`} role="img" aria-label="Resolution comparison scale">
                 <line x1={ladder.marginLeft} x2={ladder.marginLeft + ladder.plotWidth} y1={ladder.y} y2={ladder.y} className="tar-ladder-axis" />
                 {ladder.ticks.map((e) => (

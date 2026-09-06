@@ -11,9 +11,17 @@ import {
   distanceToMeters,
   transitProbability,
 } from "./transitProbability";
+import {
+  TRANSIT_PROBABILITY_TEST_COLUMNS,
+  TRANSIT_PROBABILITY_TEST_SOURCES,
+  getTransitProbabilityTestRows,
+} from "./transitProbabilityTests";
 import "../../../styles/exoplanetTransitProbabilityCalculator.css";
+import "../../../styles/calculators.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import Katex from "../../Katex.jsx";
 
 // Every preset is a real (or realistically illustrative) star+planet
 // system, and doubles as a landmark on the a-vs-probability scatter
@@ -217,6 +225,11 @@ export default function ExoplanetTransitProbabilityCalculator() {
     };
   }, [result]);
 
+  // Self-check rows: runs the real transitProbability.js functions
+  // against known reference systems and edge cases — independent of the
+  // fields above.
+  const testRows = useMemo(() => getTransitProbabilityTestRows(), []);
+
   const applyPreset = (preset) => {
     setRStar(String(preset.rStar));
     setRStarUnit(preset.rStarUnit);
@@ -256,14 +269,14 @@ export default function ExoplanetTransitProbabilityCalculator() {
 
       <p className="etp-explainer">
         For a randomly oriented orbital plane, the chance we happen to see a transit at all is
-        geometric, not astrophysical: <code>P ≈ (R★+R_p)/a</code>. It pairs with this site's{" "}
+        geometric, not astrophysical: <Katex tex={String.raw`P \approx (R_\star + R_p)/a`} />. It pairs with this site's{" "}
         <a href="/posts/exoplanet-transit-depth-calculator">Transit Depth Calculator</a> — one
         answers "how likely are we to see it," the other "how big would the dip be if we did."
       </p>
 
       <div className="etp-fields">
         <div className="etp-field">
-          <label htmlFor="etp-rstar">Stellar radius (R★)</label>
+          <label htmlFor="etp-rstar">Stellar radius (<Katex tex="R_\star" />)</label>
           <div className="etp-input-row">
             <input id="etp-rstar" className="etp-input" type="number" min="0" step="any" inputMode="decimal" value={rStar} onChange={(e) => setRStar(e.target.value)} />
             <select className="etp-unit-select" value={rStarUnit} onChange={(e) => setRStarUnit(e.target.value)}>
@@ -272,7 +285,7 @@ export default function ExoplanetTransitProbabilityCalculator() {
           </div>
         </div>
         <div className="etp-field">
-          <label htmlFor="etp-rp">Planet radius (R_p)</label>
+          <label htmlFor="etp-rp">Planet radius (<Katex tex="R_p" />)</label>
           <div className="etp-input-row">
             <input id="etp-rp" className="etp-input" type="number" min="0" step="any" inputMode="decimal" value={rPlanet} onChange={(e) => setRPlanet(e.target.value)} />
             <select className="etp-unit-select" value={rPlanetUnit} onChange={(e) => setRPlanetUnit(e.target.value)}>
@@ -281,7 +294,7 @@ export default function ExoplanetTransitProbabilityCalculator() {
           </div>
         </div>
         <div className="etp-field">
-          <label htmlFor="etp-a">Orbital distance (a)</label>
+          <label htmlFor="etp-a">Orbital distance (<Katex tex="a" />)</label>
           <div className="etp-input-row">
             <input id="etp-a" className="etp-input" type="number" min="0" step="any" inputMode="decimal" value={a} onChange={(e) => setA(e.target.value)} />
             <select className="etp-unit-select" value={aUnit} onChange={(e) => setAUnit(e.target.value)}>
@@ -300,11 +313,11 @@ export default function ExoplanetTransitProbabilityCalculator() {
       {advanced && (
         <div className="etp-fields">
           <div className="etp-field">
-            <label htmlFor="etp-e">Eccentricity (e)</label>
+            <label htmlFor="etp-e">Eccentricity (<Katex tex="e" />)</label>
             <input id="etp-e" className="etp-input" type="number" min="0" max="0.999" step="any" inputMode="decimal" value={e} onChange={(e2) => setE(e2.target.value)} />
           </div>
           <div className="etp-field">
-            <label htmlFor="etp-omega">Argument of periapsis (ω)</label>
+            <label htmlFor="etp-omega">Argument of periapsis (<Katex tex="\omega" />)</label>
             <div className="etp-input-row">
               <input id="etp-omega" className="etp-input" type="number" min="0" max="360" step="any" inputMode="decimal" value={omega} onChange={(e) => setOmega(e.target.value)} />
               <span className="etp-static-unit">degrees</span>
@@ -318,14 +331,14 @@ export default function ExoplanetTransitProbabilityCalculator() {
       ) : (
         <>
           <div className="etp-headline-card">
-            <div className="etp-headline">P_transit ≈ {formatNumber(result.P * 100)}%</div>
+            <div className="etp-headline"><Katex tex="P_{\rm transit}" /> ≈ {formatNumber(result.P * 100)}%</div>
             <div className="etp-headline-sub">
               About 1 in {formatNumber(1 / result.P, 0)} randomly oriented orbits would show a transit
             </div>
           </div>
 
           {diagram && (
-            <div className="etp-chart-wrap">
+            <div className="chart-wrap">
               <div className="etp-diagram-row">
                 <div className="etp-diagram-panel">
                   <svg viewBox="0 0 260 90" className="etp-diagram-svg" role="img" aria-label="Full range of possible impact parameters, with the narrow transit-producing band highlighted">
@@ -351,7 +364,7 @@ export default function ExoplanetTransitProbabilityCalculator() {
           )}
 
           {scatter && (
-            <div className="etp-chart-wrap">
+            <div className="chart-wrap">
               <svg className="etp-scatter-svg" viewBox={`0 0 ${scatter.width} ${scatter.height}`} role="img" aria-label="Log-log plot of transit probability versus orbital distance">
                 {scatter.yTicks.map((t) => (
                   <g key={`y${t}`}>
@@ -389,6 +402,12 @@ export default function ExoplanetTransitProbabilityCalculator() {
 
       <div className="etp-footer-row">
         <CalculatorVote slug="exoplanet-transit-probability-calculator" />
+        <CalculatorTests
+          title="Exoplanet Transit Probability Calculator — Tests"
+          columns={TRANSIT_PROBABILITY_TEST_COLUMNS}
+          rows={testRows}
+          sources={TRANSIT_PROBABILITY_TEST_SOURCES}
+        />
         <button type="button" className="etp-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

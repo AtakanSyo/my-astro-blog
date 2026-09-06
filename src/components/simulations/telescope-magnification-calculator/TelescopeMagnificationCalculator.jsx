@@ -12,9 +12,11 @@ import {
 } from "./telescopeMagnification";
 import { TELESCOPE_MAGNIFICATION_TEST_COLUMNS, TELESCOPE_MAGNIFICATION_TEST_SOURCES, getTelescopeMagnificationTestRows } from "./telescopeMagnificationTests";
 import "../../../styles/telescopeMagnificationCalculator.css";
+import "../../../styles/calculators.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
 import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import Katex from "../../Katex.jsx";
 
 // Real, well-known gear where possible — the 114mm/1000mm combo is the
 // exact spec of the Celestron AstroMaster 114EQ, a widely-sold beginner
@@ -200,27 +202,27 @@ export default function TelescopeMagnificationCalculator() {
       </div>
 
       <p className="tmc-explainer">
-        <code>M = F / f</code> — telescope focal length over eyepiece focal length. The number
+        <Katex tex="M = F / f" /> — telescope focal length over eyepiece focal length. The number
         alone doesn't tell you whether it's a good idea; the verdict below does.
       </p>
 
       <div className="tmc-fields">
         <div className="tmc-field">
-          <label htmlFor="tmc-d">Aperture (D)</label>
+          <label htmlFor="tmc-d">Aperture (<Katex tex="D" />)</label>
           <div className="tmc-input-row">
             <input id="tmc-d" className="tmc-input" type="number" min="0" step="any" inputMode="decimal" value={D} onChange={(e) => setD(e.target.value)} />
             <span className="tmc-static-unit">mm</span>
           </div>
         </div>
         <div className="tmc-field">
-          <label htmlFor="tmc-F">Telescope focal length (F)</label>
+          <label htmlFor="tmc-F">Telescope focal length (<Katex tex="F" />)</label>
           <div className="tmc-input-row">
             <input id="tmc-F" className="tmc-input" type="number" min="0" step="any" inputMode="decimal" value={F} onChange={(e) => setF(e.target.value)} />
             <span className="tmc-static-unit">mm</span>
           </div>
         </div>
         <div className="tmc-field">
-          <label htmlFor="tmc-f">Eyepiece focal length (f)</label>
+          <label htmlFor="tmc-f">Eyepiece focal length (<Katex tex="f" />)</label>
           <div className="tmc-input-row">
             <input id="tmc-f" className="tmc-input" type="number" min="0" step="any" inputMode="decimal" value={f} onChange={(e) => setF2(e.target.value)} />
             <span className="tmc-static-unit">mm</span>
@@ -240,7 +242,7 @@ export default function TelescopeMagnificationCalculator() {
       ) : (
         <>
           <div className={`tmc-headline-card tmc-tone-${verdict?.tone ?? "good"}`}>
-            <div className="tmc-headline">M = {fmtX(result.M)}×</div>
+            <div className="tmc-headline"><Katex tex="M" /> = {fmtX(result.M)}×</div>
             <div className="tmc-headline-sub">
               Exit pupil {fmtX(result.exitPupil)} mm · f/{fmtX(result.fRatio)}
               {result.trueField !== null && (
@@ -263,7 +265,7 @@ export default function TelescopeMagnificationCalculator() {
           </div>
 
           {gauge && (
-            <div className="tmc-chart-wrap">
+            <div className="chart-wrap">
               <svg
                 className="tmc-gauge-svg"
                 viewBox={`0 0 ${gauge.width} ${gauge.height}`}
@@ -297,7 +299,7 @@ export default function TelescopeMagnificationCalculator() {
           )}
 
           {pupils && (
-            <div className="tmc-chart-wrap tmc-pupil-wrap">
+            <div className="chart-wrap tmc-pupil-wrap">
               <svg className="tmc-pupil-svg" viewBox="0 0 640 160" role="img" aria-label={`Exit pupil ${fmtX(result.exitPupil)} millimeters compared to a dark-adapted eye's roughly ${DARK_ADAPTED_EYE_PUPIL_MM} millimeter pupil`}>
                 <circle cx="220" cy="80" r={pupils.eyeR} className="tmc-eye-pupil" />
                 <text x="220" y="150" className="tmc-pupil-label" textAnchor="middle">dark-adapted eye ≈ {DARK_ADAPTED_EYE_PUPIL_MM} mm</text>

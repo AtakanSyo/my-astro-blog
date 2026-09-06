@@ -11,9 +11,13 @@ import {
   eddingtonRatio,
   classifyRatio,
 } from "./eddington";
+import { EDDINGTON_LUMINOSITY_TEST_COLUMNS, EDDINGTON_LUMINOSITY_TEST_SOURCES, getEddingtonLuminosityTestRows } from "./eddingtonTests";
 import "../../../styles/eddingtonLuminosityCalculator.css";
+import "../../../styles/calculators.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import Katex from "../../Katex.jsx";
 
 // Every preset is self-consistent (L, if given, really is that fraction
 // of L_Edd for that mass) so applying one and reading the result never
@@ -219,6 +223,10 @@ export default function EddingtonLuminosityCalculator() {
     };
   }, [result]);
 
+  // Self-check rows: runs the real eddington.js functions against known
+  // reference figures and edge cases — independent of the fields above.
+  const testRows = useMemo(() => getEddingtonLuminosityTestRows(), []);
+
   const applyPreset = (preset) => {
     setMass(String(preset.mass));
     setMassUnit(preset.massUnit);
@@ -253,14 +261,15 @@ export default function EddingtonLuminosityCalculator() {
 
       <p className="edd-explainer">
         The <strong>Eddington limit</strong> is the luminosity at which outward radiation pressure
-        on ionized gas balances the inward pull of gravity: <code>L_Edd = 4πGMm_p c / σ_T ≈ 1.26 ×
-        10³⁸ (M/M☉) erg/s</code>. Enter a mass to get L_Edd; optionally add an observed or estimated
-        luminosity to get the Eddington ratio, λ_Edd = L/L_Edd.
+        on ionized gas balances the inward pull of gravity:{" "}
+        <Katex tex={String.raw`L_{\rm Edd} = \dfrac{4\pi G M m_p c}{\sigma_T} \approx 1.26\times10^{38}\,(M/M_\odot)\ \mathrm{erg/s}`} />.
+        Enter a mass to get <Katex tex="L_{\rm Edd}" />; optionally add an observed or estimated
+        luminosity to get the Eddington ratio, <Katex tex="\lambda_{\rm Edd} = L/L_{\rm Edd}" />.
       </p>
 
       <div className="edd-fields">
         <div className="edd-field">
-          <label htmlFor="edd-mass">Mass (M)</label>
+          <label htmlFor="edd-mass">Mass (<Katex tex="M" />)</label>
           <div className="edd-input-row">
             <input
               id="edd-mass"
@@ -281,7 +290,7 @@ export default function EddingtonLuminosityCalculator() {
         </div>
 
         <div className="edd-field">
-          <label htmlFor="edd-l">Observed / estimated luminosity (L) — optional</label>
+          <label htmlFor="edd-l">Observed / estimated luminosity (<Katex tex="L" />) — optional</label>
           <div className="edd-input-row">
             <input
               id="edd-l"
@@ -310,7 +319,7 @@ export default function EddingtonLuminosityCalculator() {
           <div className="edd-table" role="table" aria-label="Eddington luminosity in every unit">
             {LUMINOSITY_UNIT_ORDER.map((key) => (
               <div className={key === LUnit ? "edd-row edd-row--active" : "edd-row"} role="row" key={key}>
-                <span className="edd-row-label" role="cell">L_Edd, {LUMINOSITY_UNITS[key].label}</span>
+                <span className="edd-row-label" role="cell"><Katex tex="L_{\rm Edd}" />, {LUMINOSITY_UNITS[key].label}</span>
                 <span className="edd-row-value" role="cell">
                   {formatNumber(luminosityFromSI(result.eddWatts, key))}{" "}
                   <span className="edd-row-unit">{LUMINOSITY_UNITS[key].short}</span>
@@ -322,7 +331,7 @@ export default function EddingtonLuminosityCalculator() {
           {result.hasL && (
             <div className="edd-ratio-card">
               <div className="edd-ratio-value">
-                λ_Edd = {formatNumber(result.lambda)}
+                <Katex tex="\lambda_{\rm Edd}" /> = {formatNumber(result.lambda)}
                 {result.classification && (
                   <span className={`edd-badge edd-badge--${result.classification.tone}`}>{result.classification.label}</span>
                 )}
@@ -334,7 +343,7 @@ export default function EddingtonLuminosityCalculator() {
           )}
 
           {meter && (
-            <div className="edd-chart-wrap">
+            <div className="chart-wrap">
               <svg
                 className="edd-chart-svg"
                 viewBox={`0 0 ${meter.width} ${meter.height}`}
@@ -369,7 +378,7 @@ export default function EddingtonLuminosityCalculator() {
           )}
 
           {chart && (
-            <div className="edd-chart-wrap">
+            <div className="chart-wrap">
               <svg
                 className="edd-chart-svg"
                 viewBox={`0 0 ${chart.width} ${chart.height}`}
@@ -412,7 +421,7 @@ export default function EddingtonLuminosityCalculator() {
                 )}
               </svg>
               <p className="edd-chart-caption">
-                Log-log plot — L_Edd ∝ M is a straight line of slope 1 here. The observed point
+                Log-log plot — <Katex tex="L_{\rm Edd} \propto M" /> is a straight line of slope 1 here. The observed point
                 (if given) sits above the line when super-Eddington, below it when sub-Eddington.
               </p>
             </div>
@@ -422,6 +431,12 @@ export default function EddingtonLuminosityCalculator() {
 
       <div className="edd-footer-row">
         <CalculatorVote slug="eddington-luminosity-calculator" />
+        <CalculatorTests
+          title="Eddington Luminosity Calculator — Tests"
+          columns={EDDINGTON_LUMINOSITY_TEST_COLUMNS}
+          rows={testRows}
+          sources={EDDINGTON_LUMINOSITY_TEST_SOURCES}
+        />
         <button type="button" className="edd-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

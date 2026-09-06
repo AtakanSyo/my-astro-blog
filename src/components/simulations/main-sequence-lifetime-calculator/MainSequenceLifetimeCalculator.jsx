@@ -12,9 +12,13 @@ import {
   UNIVERSE_AGE_YR,
   REPRESENTATIVE_STARS,
 } from "./mainSequenceLifetime";
+import { MAIN_SEQUENCE_LIFETIME_TEST_COLUMNS, MAIN_SEQUENCE_LIFETIME_TEST_SOURCES, getMainSequenceLifetimeTestRows } from "./mainSequenceLifetimeTests";
 import "../../../styles/mainSequenceLifetimeCalculator.css";
+import "../../../styles/calculators.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import Katex from "../../Katex.jsx";
 
 const PRESETS = [
   { label: "Red dwarf (0.2 M☉)", solveFor: "lifetime", mass: 0.2 },
@@ -183,6 +187,11 @@ export default function MainSequenceLifetimeCalculator() {
     }));
   }, []);
 
+  // Self-check rows: runs the real mainSequenceLifetime.js functions
+  // against known reference values and edge cases — independent of the
+  // fields above.
+  const testRows = useMemo(() => getMainSequenceLifetimeTestRows(), []);
+
   const applyPreset = (preset) => {
     setSolveFor(preset.solveFor);
     if (preset.solveFor === "lifetime") {
@@ -224,8 +233,8 @@ export default function MainSequenceLifetimeCalculator() {
       <p className="msl-explainer">
         Fuel available scales roughly with mass, but the rate a star burns it scales with{" "}
         <strong>luminosity</strong> — and luminosity rises steeply with mass. So{" "}
-        <code>t_MS ∝ M/L</code>, commonly approximated near Sun-like masses as{" "}
-        <code>t_MS ≈ 10¹⁰ (M/M☉)⁻²·⁵ yr</code>. This is an{" "}
+        <Katex tex="t_{\rm MS} \propto M/L" />, commonly approximated near Sun-like masses as{" "}
+        <Katex tex="t_{\rm MS} \approx 10^{10}\,(M/M_\odot)^{-2.5}\,\text{yr}" />. This is an{" "}
         <strong>order-of-magnitude estimate</strong>, not a stellar-evolution model — it departs
         most from reality at the very low- and very high-mass ends.
       </p>
@@ -278,7 +287,7 @@ export default function MainSequenceLifetimeCalculator() {
         <>
           <div className="msl-headline-card">
             <div className="msl-headline">
-              t_MS ≈ {formatYears(result.tYr)} ({formatNumber(result.tYr)} yr)
+              <Katex tex="t_{\rm MS}" /> ≈ {formatYears(result.tYr)} ({formatNumber(result.tYr)} yr)
             </div>
             <div className="msl-headline-sub">
               M ≈ {formatNumber(result.mSolar)} M☉
@@ -292,7 +301,7 @@ export default function MainSequenceLifetimeCalculator() {
           </div>
 
           {chart && (
-            <div className="msl-chart-wrap">
+            <div className="chart-wrap">
               <svg
                 className="msl-diagram-svg"
                 viewBox={`0 0 ${chart.width} ${chart.height}`}
@@ -335,7 +344,7 @@ export default function MainSequenceLifetimeCalculator() {
             </div>
           )}
 
-          <div className="msl-chart-wrap">
+          <div className="chart-wrap">
             <div className="msl-bars">
               {bars.map((b) => (
                 <div className="msl-bar-row" key={b.label}>
@@ -361,6 +370,12 @@ export default function MainSequenceLifetimeCalculator() {
 
       <div className="msl-footer-row">
         <CalculatorVote slug="main-sequence-lifetime-calculator" />
+        <CalculatorTests
+          title="Main-Sequence Lifetime Calculator — Tests"
+          columns={MAIN_SEQUENCE_LIFETIME_TEST_COLUMNS}
+          rows={testRows}
+          sources={MAIN_SEQUENCE_LIFETIME_TEST_SOURCES}
+        />
         <button type="button" className="msl-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

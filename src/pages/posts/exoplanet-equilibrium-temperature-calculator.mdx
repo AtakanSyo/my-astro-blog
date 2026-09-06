@@ -20,6 +20,7 @@ lang: en
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
 import Changelog from "../../components/Changelog.astro";
+import Katex from "../../components/Katex.astro";
 import ExoplanetEquilibriumTemperatureCalculator from "../../components/simulations/exoplanet-equilibrium-temperature-calculator/ExoplanetEquilibriumTemperatureCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -42,14 +43,14 @@ $$
 This balances absorbed stellar power against thermal emission spread
 evenly across the whole planet (day and night sides equalized before
 radiating) — the "full redistribution" case. Plug in the Sun, Earth's
-1 AU, and a Bond albedo of 0.30, and you get **T_eq ≈ 255 K (−18°C)** —
+1 AU, and a Bond albedo of 0.30, and you get **<Katex tex="T_{\rm eq}" /> ≈ 255 K (−18°C)** —
 the number this calculator opens with.
 
 ## Where the greenhouse effect lives
 
 Earth's actual mean surface temperature is about 288 K — roughly 33 K
 *warmer* than the equilibrium estimate. That gap isn't an error in the
-formula; it's the entire point of computing T_eq in the first place.
+formula; it's the entire point of computing <Katex tex="T_{\rm eq}" /> in the first place.
 The equilibrium model accounts for exactly two things — starlight in,
 thermal radiation out — and nothing about how a real atmosphere traps
 outgoing infrared radiation before it escapes. Every degree of that
@@ -62,7 +63,7 @@ sit close together. Venus is the opposite extreme — a very high albedo
 (0.75, mostly cloud reflection) actually gives it a *cooler* equilibrium
 temperature than Earth's (≈232 K), even though its real surface,
 smothered under a runaway CO₂ greenhouse, is a scorching ≈735 K. The
-size of the gap between T_eq and reality is itself a measurement of how
+size of the gap between <Katex tex="T_{\rm eq}" /> and reality is itself a measurement of how
 much greenhouse effect (or lack of one) a planet's atmosphere provides.
 
 ## The heat-redistribution assumption
@@ -71,11 +72,11 @@ Two idealized cases bracket real planets:
 
 - **Full redistribution** — winds efficiently move heat from the
   permanent dayside to the nightside before it radiates away, so the
-  whole sphere (4πR_p²) does the emitting. This is roughly right for
+  whole sphere (<Katex tex="4\pi R_p^2" />) does the emitting. This is roughly right for
   planets with thick, actively circulating atmospheres.
 - **No redistribution (dayside-only)** — the planet re-radiates only
-  from its permanently sunlit hemisphere (2πR_p²), giving a T_eq about
-  2^(1/4) ≈ 19% higher for the same absorbed flux. This is closer to
+  from its permanently sunlit hemisphere (<Katex tex="2\pi R_p^2" />), giving a <Katex tex="T_{\rm eq}" /> about
+  <Katex tex="2^{1/4}" /> ≈ 19% higher for the same absorbed flux. This is closer to
   reality for many hot Jupiters, which are often tidally locked with
   circulation too sluggish to fully even out their scorching daysides.
 

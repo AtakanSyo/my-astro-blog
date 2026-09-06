@@ -20,6 +20,7 @@ lang: en
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
 import Changelog from "../../components/Changelog.astro";
+import Katex from "../../components/Katex.astro";
 import MainSequenceLifetimeCalculator from "../../components/simulations/main-sequence-lifetime-calculator/MainSequenceLifetimeCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -43,7 +44,7 @@ $$
 Available hydrogen fuel scales roughly with a star's mass. If burn rate
 scaled with mass too, lifetime would barely change from star to star —
 but burn rate actually tracks **luminosity**, and luminosity rises
-steeply with mass (roughly L ∝ M^3.5 over much of the main sequence; see
+steeply with mass (roughly <Katex tex="L \propto M^{3.5}" /> over much of the main sequence; see
 this site's [Stellar Mass-Luminosity Relation
 Calculator](/posts/stellar-mass-luminosity-calculator)). Combine the
 two — more fuel, burned disproportionately faster — and lifetime falls
@@ -56,7 +57,7 @@ $$
 The exponent -2.5 is exactly "1 (fuel) minus 3.5 (burn rate)" — it's the
 mass-luminosity relation's own exponent showing up here, not a separate
 fact about fuel. This calculator's chart plots that actual scaling
-against a naive comparison line where lifetime falls off as just 1/M —
+against a naive comparison line where lifetime falls off as just <Katex tex="1/M" /> —
 as if burn rate scaled with mass alone — so you can see directly how
 much of the effect luminosity's steepness accounts for.
 
@@ -89,8 +90,7 @@ stellar-evolution model:
 
 - **The log-log chart** plots main-sequence lifetime against mass across
   the same range this site's other stellar calculators use, with the
-  actual t ∝ M^-2.5 scaling as a solid line against a dashed naive t ∝
-  1/M comparison. Both fall as mass rises, but the actual line falls
+  actual <Katex tex="t \propto M^{-2.5}" /> scaling as a solid line against a dashed naive <Katex tex="t \propto 1/M" /> comparison. Both fall as mass rises, but the actual line falls
   far more steeply — that gap between the lines is luminosity's own
   disproportionate rise with mass, visualized directly.
 - **The horizontal bar comparison** puts a representative spread of

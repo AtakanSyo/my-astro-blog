@@ -3,6 +3,7 @@ import "../../../styles/xrayHardnessRatioCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
 import { toNumber, computeHardnessRatio, LOW_COUNT_THRESHOLD } from "./hardnessRatio";
+import Katex from "../../Katex.jsx";
 
 const PRESETS = [
   { label: "Soft source (corona-like)", soft: "200", hard: "30" },
@@ -121,7 +122,7 @@ export default function HardnessRatioCalculator() {
         <div className="hrc-field hrc-field--soft">
           <label htmlFor="hrc-soft">
             <span className="hrc-band-dot" aria-hidden="true" />
-            Soft-band counts (S)
+            Soft-band counts (<Katex tex="S" />)
           </label>
           <input
             id="hrc-soft"
@@ -137,7 +138,7 @@ export default function HardnessRatioCalculator() {
         <div className="hrc-field hrc-field--hard">
           <label htmlFor="hrc-hard">
             <span className="hrc-band-dot" aria-hidden="true" />
-            Hard-band counts (H)
+            Hard-band counts (<Katex tex="H" />)
           </label>
           <input
             id="hrc-hard"
@@ -166,7 +167,7 @@ export default function HardnessRatioCalculator() {
       {useCustom && (
         <div className="hrc-grid">
           <div className="hrc-field hrc-field--soft">
-            <label htmlFor="hrc-sigma-soft">σ(S) — leave blank for √S</label>
+            <label htmlFor="hrc-sigma-soft"><Katex tex="\sigma(S)" /> — leave blank for <Katex tex="\sqrt{S}" /></label>
             <input
               id="hrc-sigma-soft"
               className="hrc-input"
@@ -179,7 +180,7 @@ export default function HardnessRatioCalculator() {
             />
           </div>
           <div className="hrc-field hrc-field--hard">
-            <label htmlFor="hrc-sigma-hard">σ(H) — leave blank for √H</label>
+            <label htmlFor="hrc-sigma-hard"><Katex tex="\sigma(H)" /> — leave blank for <Katex tex="\sqrt{H}" /></label>
             <input
               id="hrc-sigma-hard"
               className="hrc-input"
@@ -216,13 +217,13 @@ export default function HardnessRatioCalculator() {
 
           <div className="hrc-secondary-stats">
             <span>
-              H/S ratio: <strong>{Number.isFinite(result.ratio) ? result.ratio.toFixed(3) : "∞"}</strong>
+              <Katex tex="H/S" /> ratio: <strong>{Number.isFinite(result.ratio) ? result.ratio.toFixed(3) : "∞"}</strong>
             </span>
             <span>
-              σ(S): <strong>{Number.isFinite(result.sigmaS) ? result.sigmaS.toFixed(2) : "—"}</strong>
+              <Katex tex="\sigma(S)" />: <strong>{Number.isFinite(result.sigmaS) ? result.sigmaS.toFixed(2) : "—"}</strong>
             </span>
             <span>
-              σ(H): <strong>{Number.isFinite(result.sigmaH) ? result.sigmaH.toFixed(2) : "—"}</strong>
+              <Katex tex="\sigma(H)" />: <strong>{Number.isFinite(result.sigmaH) ? result.sigmaH.toFixed(2) : "—"}</strong>
             </span>
           </div>
 
@@ -248,7 +249,7 @@ export default function HardnessRatioCalculator() {
 
           {result.lowCounts && (
             <p className="hrc-note hrc-note--warn">
-              One of your bands has fewer than {LOW_COUNT_THRESHOLD} counts. The Gaussian (√N)
+              One of your bands has fewer than {LOW_COUNT_THRESHOLD} counts. The Gaussian (<Katex tex="\sqrt{N}" />)
               error propagation used here becomes unreliable at low counts — consider a Bayesian
               estimator such as BEHR (Park et al. 2006) instead of this linearized formula.
             </p>

@@ -16,9 +16,17 @@ import {
   observedWavelength,
   naiveEquivalentVelocity,
 } from "./gravitationalRedshift";
+import {
+  GRAVITATIONAL_REDSHIFT_TEST_COLUMNS,
+  GRAVITATIONAL_REDSHIFT_TEST_SOURCES,
+  getGravitationalRedshiftTestRows,
+} from "./gravitationalRedshiftTests";
 import "../../../styles/gravitationalRedshiftCalculator.css";
+import "../../../styles/calculators.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import Katex from "../../Katex.jsx";
 
 // Every preset is a real (or realistically illustrative) mass + radius
 // pair, and doubles as a permanent landmark on the z-vs-radius chart
@@ -245,6 +253,11 @@ export default function GravitationalRedshiftCalculator() {
     };
   }, [result]);
 
+  // Self-check rows: runs the real gravitationalRedshift.js functions
+  // against known reference bodies and edge cases — independent of the
+  // fields above.
+  const testRows = useMemo(() => getGravitationalRedshiftTestRows(), []);
+
   const applyPreset = (preset) => {
     setMass(String(preset.mass));
     setMassUnit(preset.massUnit);
@@ -280,7 +293,7 @@ export default function GravitationalRedshiftCalculator() {
       <p className="grc-explainer">
         Light climbing out of a mass's gravity well loses energy on the way out — pure general
         relativity, no motion required:{" "}
-        <code>z = (1 − r_s/R)^(−1/2) − 1</code>, r_s = 2GM/c². This assumes a{" "}
+        <Katex tex={String.raw`z = \left(1 - \frac{r_s}{R}\right)^{-1/2} - 1`} />, <Katex tex="r_s = 2GM/c^2" />. This assumes a{" "}
         <strong>spherical, non-rotating mass</strong> and a static emitter/observer. It's only
         defined for R &gt; r_s — at or inside the Schwarzschild radius, there's no escaping light
         left for this formula to describe.
@@ -288,7 +301,7 @@ export default function GravitationalRedshiftCalculator() {
 
       <div className="grc-fields">
         <div className="grc-field">
-          <label htmlFor="grc-mass">Mass (M)</label>
+          <label htmlFor="grc-mass">Mass (<Katex tex="M" />)</label>
           <div className="grc-input-row">
             <input id="grc-mass" className="grc-input" type="number" min="0" step="any" inputMode="decimal" value={mass} onChange={(e) => setMass(e.target.value)} />
             <select className="grc-unit-select" value={massUnit} onChange={(e) => setMassUnit(e.target.value)}>
@@ -297,7 +310,7 @@ export default function GravitationalRedshiftCalculator() {
           </div>
         </div>
         <div className="grc-field">
-          <label htmlFor="grc-radius">Emission radius (R)</label>
+          <label htmlFor="grc-radius">Emission radius (<Katex tex="R" />)</label>
           <div className="grc-input-row">
             <input id="grc-radius" className="grc-input" type="number" min="0" step="any" inputMode="decimal" value={radius} onChange={(e) => setRadius(e.target.value)} />
             <select className="grc-unit-select" value={radiusUnit} onChange={(e) => setRadiusUnit(e.target.value)}>
@@ -306,7 +319,7 @@ export default function GravitationalRedshiftCalculator() {
           </div>
         </div>
         <div className="grc-field">
-          <label htmlFor="grc-lambda">Emitted wavelength (λ) — optional</label>
+          <label htmlFor="grc-lambda">Emitted wavelength (<Katex tex="\lambda" />) — optional</label>
           <div className="grc-input-row">
             <input id="grc-lambda" className="grc-input" type="number" min="0" step="any" inputMode="decimal" placeholder="leave blank to skip" value={lambdaEmit} onChange={(e) => setLambdaEmit(e.target.value)} />
             <select className="grc-unit-select" value={lambdaEmitUnit} onChange={(e) => setLambdaEmitUnit(e.target.value)}>
@@ -321,11 +334,11 @@ export default function GravitationalRedshiftCalculator() {
       ) : (
         <>
           <div className="grc-headline-card">
-            <div className="grc-headline">z ≈ {formatNumber(result.z, 4)}</div>
+            <div className="grc-headline"><Katex tex="z" /> ≈ {formatNumber(result.z, 4)}</div>
             <div className="grc-headline-sub">
-              R = {formatNumber(result.ratio)}× the Schwarzschild radius ({formatNumber(result.rs / 1000)} km)
+              <Katex tex="R" /> = {formatNumber(result.ratio)}× the Schwarzschild radius ({formatNumber(result.rs / 1000)} km)
               {result.hasLambda && (
-                <> · λ_obs ≈ {formatNumber(wavelengthFromMeters(result.lambdaObsM, lambdaEmitUnit))} {WAVELENGTH_UNITS[lambdaEmitUnit].short}</>
+                <> · <Katex tex="\lambda_{\rm obs}" /> ≈ {formatNumber(wavelengthFromMeters(result.lambdaObsM, lambdaEmitUnit))} {WAVELENGTH_UNITS[lambdaEmitUnit].short}</>
               )}
             </div>
             <div className="grc-headline-note">
@@ -335,7 +348,7 @@ export default function GravitationalRedshiftCalculator() {
           </div>
 
           {photonDiagram && (
-            <div className="grc-chart-wrap">
+            <div className="chart-wrap">
               <svg className="grc-photon-svg" viewBox={`0 0 ${photonDiagram.width} ${photonDiagram.height}`} role="img" aria-label={`A photon's wavelength stretching by a factor of ${formatNumber(1 + result.z)} as it climbs from the surface to a distant observer`}>
                 <defs>
                   <radialGradient id="grc-body-gradient" cx="35%" cy="30%" r="70%">
@@ -351,14 +364,14 @@ export default function GravitationalRedshiftCalculator() {
               </svg>
               <p className="grc-chart-caption">
                 A photon's wavelength stretches continuously as it climbs outward — shown here to
-                the real, computed redshift factor (1+z ≈ {formatNumber(1 + result.z)}) at each
+                the real, computed redshift factor (<Katex tex="1+z" /> ≈ {formatNumber(1 + result.z)}) at each
                 point along the way, on a log scale of distance from the surface.
               </p>
             </div>
           )}
 
           {curve && (
-            <div className="grc-chart-wrap">
+            <div className="chart-wrap">
               <svg className="grc-curve-svg" viewBox={`0 0 ${curve.width} ${curve.height}`} role="img" aria-label="Log-log plot of gravitational redshift versus distance in units of the Schwarzschild radius, diverging at the horizon">
                 {curve.yTicks.map((t) => (
                   <g key={`y${t}`}>
@@ -385,7 +398,7 @@ export default function GravitationalRedshiftCalculator() {
                 <text x={curve.point.x} y={curve.point.y - 12} className="grc-chart-point-label" textAnchor="middle">this case</text>
               </svg>
               <p className="grc-chart-caption">
-                z diverges to infinity as R → r_s (left edge) — there is no finite redshift for
+                <Katex tex="z" /> diverges to infinity as <Katex tex="R \to r_s" /> (left edge) — there is no finite redshift for
                 light escaping from arbitrarily close to the horizon, let alone from at or inside it.
               </p>
             </div>
@@ -395,6 +408,12 @@ export default function GravitationalRedshiftCalculator() {
 
       <div className="grc-footer-row">
         <CalculatorVote slug="gravitational-redshift-calculator" />
+        <CalculatorTests
+          title="Gravitational Redshift Calculator — Tests"
+          columns={GRAVITATIONAL_REDSHIFT_TEST_COLUMNS}
+          rows={testRows}
+          sources={GRAVITATIONAL_REDSHIFT_TEST_SOURCES}
+        />
         <button type="button" className="grc-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

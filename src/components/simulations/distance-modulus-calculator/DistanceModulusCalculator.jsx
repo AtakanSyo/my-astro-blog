@@ -10,9 +10,13 @@ import {
   absoluteFromApparent,
   distanceFromMagnitudes,
 } from "./distanceModulus";
+import { DISTANCE_MODULUS_TEST_COLUMNS, DISTANCE_MODULUS_TEST_SOURCES, getDistanceModulusTestRows } from "./distanceModulusTests";
 import "../../../styles/distanceModulusCalculator.css";
+import "../../../styles/calculators.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import Katex from "../../Katex.jsx";
 
 // Every preset is self-consistent under all three "solve for" choices, so
 // switching "solve for" after applying one never shows a jarring mismatch.
@@ -260,6 +264,11 @@ export default function DistanceModulusCalculator() {
     };
   }, [result]);
 
+  // Self-check rows: runs the real distanceModulus.js functions against
+  // known reference objects and edge cases — independent of the fields
+  // above.
+  const testRows = useMemo(() => getDistanceModulusTestRows(), []);
+
   const applyPreset = (preset) => {
     setSolveFor(preset.solveFor);
     setM(String(preset.m));
@@ -296,10 +305,11 @@ export default function DistanceModulusCalculator() {
       </div>
 
       <p className="dmc-explainer">
-        Absolute magnitude M is defined as the apparent magnitude an object would have if moved to
-        exactly <strong>10 parsecs</strong> away. The gap between the two, m − M, is the{" "}
+        Absolute magnitude <Katex tex="M" /> is defined as the apparent magnitude an object would have if moved to
+        exactly <strong>10 parsecs</strong> away. The gap between the two, <Katex tex="m - M" />, is the{" "}
         <strong>distance modulus</strong> — purely a function of distance (plus dust dimming, if
-        any): <code>m − M = 5 log₁₀(d / 10 pc) + A</code>. Give any two of m, M, and d, and this
+        any): <Katex tex={String.raw`m - M = 5\log_{10}(d/10\,\mathrm{pc}) + A`} />. Give any two of{" "}
+        <Katex tex="m" />, <Katex tex="M" />, and <Katex tex="d" />, and this
         solves for the third.
       </p>
 
@@ -318,7 +328,7 @@ export default function DistanceModulusCalculator() {
 
       <div className="dmc-fields">
         <div className="dmc-field">
-          <label htmlFor="dmc-m">Apparent magnitude (m)</label>
+          <label htmlFor="dmc-m">Apparent magnitude (<Katex tex="m" />)</label>
           {solveFor === "apparent" ? (
             <div className="dmc-computed">{result.valid ? formatMag(result.m) : "—"}</div>
           ) : (
@@ -335,7 +345,7 @@ export default function DistanceModulusCalculator() {
         </div>
 
         <div className="dmc-field">
-          <label htmlFor="dmc-M">Absolute magnitude (M)</label>
+          <label htmlFor="dmc-M">Absolute magnitude (<Katex tex="M" />)</label>
           {solveFor === "absolute" ? (
             <div className="dmc-computed">{result.valid ? formatMag(result.M) : "—"}</div>
           ) : (
@@ -352,7 +362,7 @@ export default function DistanceModulusCalculator() {
         </div>
 
         <div className="dmc-field">
-          <label htmlFor="dmc-d">Distance (d)</label>
+          <label htmlFor="dmc-d">Distance (<Katex tex="d" />)</label>
           {solveFor === "distance" ? (
             <div className="dmc-computed">
               {result.valid ? formatDistance(distanceFromParsecs(result.dPc, dUnit)) : "—"}
@@ -390,7 +400,7 @@ export default function DistanceModulusCalculator() {
           className={includeExtinction ? "dmc-extinction-toggle active" : "dmc-extinction-toggle"}
           onClick={() => setIncludeExtinction((v) => !v)}
         >
-          {includeExtinction ? "− Remove" : "+ Include"} interstellar extinction (A)
+          {includeExtinction ? "− Remove" : "+ Include"} interstellar extinction (<Katex tex="A" />)
         </button>
         {includeExtinction && (
           <input
@@ -411,15 +421,15 @@ export default function DistanceModulusCalculator() {
       ) : (
         <>
           <div className="dmc-headline-card">
-            <div className="dmc-headline">μ = m − M = {formatMag(result.m - result.M)}</div>
+            <div className="dmc-headline"><Katex tex="\mu = m - M" /> = {formatMag(result.m - result.M)}</div>
             <div className="dmc-headline-sub">
-              d = {formatDistance(distanceFromParsecs(result.dPc, dUnit))} {DISTANCE_UNITS[dUnit].short}
-              {result.A !== 0 && ` (A = ${formatMag(result.A).replace("+", "")} mag included)`}
+              <Katex tex="d" /> = {formatDistance(distanceFromParsecs(result.dPc, dUnit))} {DISTANCE_UNITS[dUnit].short}
+              {result.A !== 0 && <> (<Katex tex="A" /> = {formatMag(result.A).replace("+", "")} mag included)</>}
             </div>
           </div>
 
           {ladder && (
-            <div className="dmc-chart-wrap">
+            <div className="chart-wrap">
               <svg
                 className="dmc-ladder-svg"
                 viewBox={`0 0 ${ladder.width} ${ladder.height}`}
@@ -461,7 +471,7 @@ export default function DistanceModulusCalculator() {
           )}
 
           {chart && (
-            <div className="dmc-chart-wrap">
+            <div className="chart-wrap">
               <svg
                 className="dmc-chart-svg"
                 viewBox={`0 0 ${chart.width} ${chart.height}`}
@@ -519,6 +529,12 @@ export default function DistanceModulusCalculator() {
 
       <div className="dmc-footer-row">
         <CalculatorVote slug="distance-modulus-calculator" />
+        <CalculatorTests
+          title="Distance Modulus Calculator — Tests"
+          columns={DISTANCE_MODULUS_TEST_COLUMNS}
+          rows={testRows}
+          sources={DISTANCE_MODULUS_TEST_SOURCES}
+        />
         <button type="button" className="dmc-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

@@ -20,6 +20,7 @@ lang: en
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
 import Changelog from "../../components/Changelog.astro";
+import Katex from "../../components/Katex.astro";
 import ProperMotionCalculator from "../../components/simulations/proper-motion-velocity-calculator/ProperMotionCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -41,10 +42,10 @@ $$
 v_t = 4.74047 \cdot \mu \cdot d
 $$
 
-with μ in arcsec/yr and d in parsecs, giving v_t in km/s. The constant
+with <Katex tex="\mu" /> in arcsec/yr and <Katex tex="d" /> in parsecs, giving <Katex tex="v_t" /> in km/s. The constant
 isn't fitted to anything — it falls straight out of unit conversion.
 Because a parsec is defined so that 1 AU subtends 1 arcsecond at that
-distance, a star with proper motion μ at distance d sweeps exactly μ·d
+distance, a star with proper motion <Katex tex="\mu" /> at distance <Katex tex="d" /> sweeps exactly <Katex tex="\mu \cdot d" />
 astronomical units across the sky every year. Converting AU/yr to km/s —
 149,597,870.7 km divided by a Julian year in seconds — is what leaves
 4.74047 behind.
@@ -52,8 +53,8 @@ astronomical units across the sky every year. Converting AU/yr to km/s —
 ## RA and Dec components
 
 Catalogs (Gaia included) report proper motion as two separate numbers:
-μ_α*, the motion in right ascension already multiplied by cos δ to
-correct for how RA lines converge toward the poles, and μ_δ, the motion
+<Katex tex="\mu_{\alpha*}" />, the motion in right ascension already multiplied by <Katex tex="\cos\delta" /> to
+correct for how RA lines converge toward the poles, and <Katex tex="\mu_\delta" />, the motion
 in declination. They combine the same way any two perpendicular
 components do:
 

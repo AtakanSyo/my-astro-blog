@@ -15,8 +15,10 @@ import {
   classifyLogG,
 } from "./stellarGravity";
 import "../../../styles/stellarSurfaceGravityCalculator.css";
+import "../../../styles/calculators.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import Katex from "../../Katex.jsx";
 
 // Every preset doubles as a permanent landmark on both charts below,
 // plotted whether or not it's the one currently applied.
@@ -253,8 +255,8 @@ export default function StellarSurfaceGravityCalculator() {
       </div>
 
       <p className="ssg-explainer">
-        Surface gravity <code>g = GM/R²</code> is almost always quoted as{" "}
-        <strong>log g</strong> — the base-10 logarithm of g in cgs units (cm/s²) — because it spans
+        Surface gravity <Katex tex="g = GM/R^2" /> is almost always quoted as{" "}
+        <strong>log g</strong> — the base-10 logarithm of <Katex tex="g" /> in cgs units (cm/s²) — because it spans
         such a huge range across stellar types. The Sun: g ≈ 2.74 × 10⁴ cm/s², log g ≈ 4.44. Giants
         and supergiants have enormous radii and correspondingly tiny log g; compact remnants
         (white dwarfs, neutron stars) have minuscule radii and enormous log g.
@@ -262,7 +264,7 @@ export default function StellarSurfaceGravityCalculator() {
 
       <div className="ssg-fields">
         <div className="ssg-field">
-          <label htmlFor="ssg-mass">Mass (M)</label>
+          <label htmlFor="ssg-mass">Mass (<Katex tex="M" />)</label>
           <div className="ssg-input-row">
             <input id="ssg-mass" className="ssg-input" type="number" min="0" step="any" inputMode="decimal" value={mass} onChange={(e) => setMass(e.target.value)} />
             <select className="ssg-unit-select" value={massUnit} onChange={(e) => setMassUnit(e.target.value)}>
@@ -271,7 +273,7 @@ export default function StellarSurfaceGravityCalculator() {
           </div>
         </div>
         <div className="ssg-field">
-          <label htmlFor="ssg-radius">Radius (R)</label>
+          <label htmlFor="ssg-radius">Radius (<Katex tex="R" />)</label>
           <div className="ssg-input-row">
             <input id="ssg-radius" className="ssg-input" type="number" min="0" step="any" inputMode="decimal" value={radius} onChange={(e) => setRadius(e.target.value)} />
             <select className="ssg-unit-select" value={radiusUnit} onChange={(e) => setRadiusUnit(e.target.value)}>
@@ -287,19 +289,19 @@ export default function StellarSurfaceGravityCalculator() {
         <>
           <div className="ssg-headline-card">
             <div className="ssg-headline">
-              log g ≈ {formatSigned(result.logg)}
+              <Katex tex="\log g" /> ≈ {formatSigned(result.logg)}
               {result.classification && (
                 <span className={`ssg-badge ssg-badge--${result.classification.tone}`}>{result.classification.label}</span>
               )}
             </div>
             <div className="ssg-headline-sub">
-              g = {formatNumber(result.gCGS)} cm/s² = {formatNumber(result.gSI)} m/s² ·{" "}
+              <Katex tex="g" /> = {formatNumber(result.gCGS)} cm/s² = {formatNumber(result.gSI)} m/s² ·{" "}
               {formatNumber(result.gSI / 9.80665)}× Earth's surface gravity
             </div>
           </div>
 
           {ladder && (
-            <div className="ssg-chart-wrap">
+            <div className="chart-wrap">
               <svg
                 className="ssg-ladder-svg"
                 viewBox={`0 0 ${ladder.width} ${ladder.height}`}
@@ -337,7 +339,7 @@ export default function StellarSurfaceGravityCalculator() {
           )}
 
           {chart && (
-            <div className="ssg-chart-wrap">
+            <div className="chart-wrap">
               <svg
                 className="ssg-mr-svg"
                 viewBox={`0 0 ${chart.width} ${chart.height}`}
@@ -376,8 +378,8 @@ export default function StellarSurfaceGravityCalculator() {
                 <circle cx={chart.point.x} cy={chart.point.y} r="6" className="ssg-chart-point" />
               </svg>
               <p className="ssg-chart-caption">
-                Diagonal lines mark constant log g (each has slope ½ in this log-log space, since
-                g ∝ M/R²). Where a star sits relative to them is its log g, read directly off the
+                Diagonal lines mark constant log g (each has slope ½ in this log-log space, since{" "}
+                <Katex tex="g \propto M/R^2" />). Where a star sits relative to them is its log g, read directly off the
                 chart.
               </p>
             </div>

@@ -269,14 +269,6 @@
   text-underline-offset: 2px;
 }
 
-.evc-chart-wrap {
-  background: var(--evc-bg-2);
-  border: 1px solid var(--evc-border);
-  border-radius: 12px;
-  padding: 0.75rem 0.75rem 0.5rem;
-  margin-bottom: 1.1rem;
-}
-
 .evc-ladder-svg {
   width: 100%;
   height: auto;

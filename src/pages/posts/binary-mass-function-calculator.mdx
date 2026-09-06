@@ -20,6 +20,7 @@ lang: en
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
 import Changelog from "../../components/Changelog.astro";
+import Katex from "../../components/Katex.astro";
 import BinaryMassFunctionCalculator from "../../components/simulations/binary-mass-function-calculator/BinaryMassFunctionCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -36,7 +37,7 @@ end, without needing to know the system's orientation in space at all.
 
 The mass function below is a generalization of a more basic relation:
 [Kepler's Third Law Calculator](/posts/kepler-third-law-calculator)
-solves the plain two-body version, P² = 4π²a³/G(M1+M2), for period,
+solves the plain two-body version, <Katex tex="P^2 = \frac{4\pi^2 a^3}{G(M_1+M_2)}" />, for period,
 semi-major axis, or total mass directly — worth a look for the simpler
 case where you don't need the inclination-dependent machinery here.
 
@@ -46,27 +47,27 @@ $$
 f(M) = \frac{PK^3}{2\pi G}(1-e^2)^{3/2} = \frac{M_2^3 \sin^3 i}{(M_1+M_2)^2}
 $$
 
-P is the orbital period, K the visible star's radial-velocity
+<Katex tex="P" /> is the orbital period, <Katex tex="K" /> the visible star's radial-velocity
 semi-amplitude (how fast its line-of-sight speed swings from the orbit),
-and e the orbital eccentricity. The right-hand side is where the physics
-lives: M1 and M2 are the two stars' masses, and i is the orbital
+and <Katex tex="e" /> the orbital eccentricity. The right-hand side is where the physics
+lives: <Katex tex="M_1" /> and <Katex tex="M_2" /> are the two stars' masses, and <Katex tex="i" /> is the orbital
 inclination — how tilted the orbit's plane is relative to our line of
 sight. Radial velocity only measures the *line-of-sight* component of
-orbital motion, which is why sin i (and, cubed, sin³i) appears: at
-i = 90° (edge-on) we see the full orbital speed; at i = 0° (face-on) the
-star moves entirely across the sky and K would be zero regardless of
+orbital motion, which is why <Katex tex="\sin i" /> (and, cubed, <Katex tex="\sin^3 i" />) appears: at
+<Katex tex="i = 90^\circ" /> (edge-on) we see the full orbital speed; at <Katex tex="i = 0^\circ" /> (face-on) the
+star moves entirely across the sky and <Katex tex="K" /> would be zero regardless of
 how fast it's actually orbiting.
 
 ## The result that needs no assumptions at all
 
-Both M1 and i are usually unknown. But look at what f(M) can never
-exceed: because M1 ≥ 0 makes (M1+M2)² ≥ M2², and sin i ≤ 1,
+Both <Katex tex="M_1" /> and <Katex tex="i" /> are usually unknown. But look at what <Katex tex="f(M)" /> can never
+exceed: because <Katex tex="M_1 \ge 0" /> makes <Katex tex="(M_1+M_2)^2 \ge M_2^2" />, and <Katex tex="\sin i \le 1" />,
 
 $$
 f(M) = \frac{M_2^3 \sin^3 i}{(M_1+M_2)^2} \le \frac{M_2^3}{M_2^2} = M_2
 $$
 
-**f(M) is always a lower bound on M2** — true for *any* M1 and *any*
+**<Katex tex="f(M)" /> is always a lower bound on <Katex tex="M_2" />** — true for *any* <Katex tex="M_1" /> and *any*
 inclination, no assumptions required. This is exactly the argument
 historically used to build the case for Cygnus X-1: even the bare mass
 function, computed from nothing but the optical star's period and
@@ -77,26 +78,26 @@ velocity, already exceeded what a neutron star could plausibly weigh.
 If you're willing to estimate the visible star's mass (usually from its
 spectral type) and assume an inclination (from eclipse timing, ellipsoidal
 light-curve variations, or a model fit), the relation becomes a genuine
-cubic equation in M2, which this calculator solves numerically rather
+cubic equation in <Katex tex="M_2" />, which this calculator solves numerically rather
 than approximating. Try it on the Cygnus X-1 preset: with the donor
 star's mass (~40.6 M☉) and the system's measured inclination (~27.5°)
-plugged in, the mass function alone (f(M) ≈ 0.25 M☉ from P ≈ 5.6 days and
-K ≈ 75.6 km/s) resolves to a companion mass of about 21 M☉ — matching
+plugged in, the mass function alone (<Katex tex="f(M) \approx 0.25" /> M☉ from <Katex tex="P \approx 5.6" /> days and
+<Katex tex="K \approx 75.6" /> km/s) resolves to a companion mass of about 21 M☉ — matching
 modern measurements of the black hole at Cygnus X-1's heart.
 
 ## Reading the two charts
 
-- **The mass ruler** shades the entire range M2 is allowed to occupy —
-  everything at or above f(M) — next to a few reference masses (a
+- **The mass ruler** shades the entire range <Katex tex="M_2" /> is allowed to occupy —
+  everything at or above <Katex tex="f(M)" /> — next to a few reference masses (a
   typical neutron star, the rough maximum a neutron star's equation of
   state can support, and a typical stellar-mass black hole). Seeing the
   shaded region swallow the neutron-star landmarks entirely is a much
   more direct argument than the number alone.
 - **The inclination-dependence curve** shows exactly how sensitive the
-  solved M2 is to the one thing you usually can't measure directly: at
+  solved <Katex tex="M_2" /> is to the one thing you usually can't measure directly: at
   low inclination (near face-on), the required companion mass blows up,
-  since a small sin³i has to be compensated by a much larger M2 to match
-  the same observed f(M). Where the curve sits above the ~3 M☉ line,
+  since a small <Katex tex="\sin^3 i" /> has to be compensated by a much larger <Katex tex="M_2" /> to match
+  the same observed <Katex tex="f(M)" />. Where the curve sits above the ~3 M☉ line,
   no plausible inclination lets the companion be a neutron star.
 
 <SimPostSchema

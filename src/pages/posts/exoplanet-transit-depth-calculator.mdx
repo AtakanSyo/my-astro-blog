@@ -20,6 +20,7 @@ lang: en
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
 import Changelog from "../../components/Changelog.astro";
+import Katex from "../../components/Katex.astro";
 import ExoplanetTransitDepthCalculator from "../../components/simulations/exoplanet-transit-depth-calculator/ExoplanetTransitDepthCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -57,7 +58,7 @@ time are all refinements to this one relation, not replacements for it.
 
 ## Why smaller stars matter so much
 
-Depth scales as 1/R★², so shrinking the host star helps enormously. The
+Depth scales as <Katex tex="1/R_\star^2" />, so shrinking the host star helps enormously. The
 same Earth-sized planet in front of a star like TRAPPIST-1 (radius
 about 0.121 R☉, barely larger than Jupiter) produces a transit depth of
 roughly **0.57%** — nearly 70 times deeper than the Sun-sized case,
@@ -70,7 +71,7 @@ around a Sun-like star becomes readily detectable around a small one.
 
 Given a measured transit depth and an estimate of the host star's
 radius (from its spectral type, or an independent measurement), the
-same relation inverts cleanly: R_p = R★√δ. This is literally how a
+same relation inverts cleanly: <Katex tex="R_p = R_\star\sqrt{\delta}" />. This is literally how a
 transit survey turns "I see a 500 ppm dip" into "there's a planet about
 2.4 Earth radii out there" — the very first step in characterizing any
 newly discovered transiting world.

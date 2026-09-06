@@ -1,8 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { Efunc, lookbackTimeGyr, ageOfUniverseTodayGyr } from "./cosmology";
+import { COSMOLOGICAL_LOOKBACK_TEST_COLUMNS, COSMOLOGICAL_LOOKBACK_TEST_SOURCES, getCosmologicalLookbackTestRows } from "./cosmologyTests";
 import "../../../styles/cosmologicalLookbackTimeCalculator.css";
+import "../../../styles/calculators.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import Katex from "../../Katex.jsx";
 
 // Each preset sets a full, self-consistent state (redshift + cosmology),
 // so applying one and then tweaking a field afterward always starts from
@@ -101,14 +105,14 @@ export default function CosmologicalLookbackTimeCalculator() {
     const H0Num = parseFloat(H0);
     const OmNum = parseFloat(Om);
     if (!(zNum >= 0) || !(H0Num > 0) || !(OmNum >= 0)) {
-      return { valid: false, reason: "Enter a non-negative redshift, a positive H₀, and a non-negative Ωm." };
+      return { valid: false, reason: <>Enter a non-negative redshift, a positive <Katex tex="H_0" />, and a non-negative <Katex tex="\Omega_m" />.</> };
     }
     const OLNum = flatUniverse ? 1 - OmNum : parseFloat(OLInput);
-    if (!Number.isFinite(OLNum)) return { valid: false, reason: "Enter a valid ΩΛ." };
+    if (!Number.isFinite(OLNum)) return { valid: false, reason: <>Enter a valid <Katex tex="\Omega_\Lambda" />.</> };
     const Ok = 1 - OmNum - OLNum;
     const lookback = lookbackTimeGyr(zNum, OmNum, OLNum, Ok, H0Num);
     if (lookback === null) {
-      return { valid: false, reason: "This combination of Ωm, ΩΛ doesn't give a physical expansion history out to this redshift." };
+      return { valid: false, reason: <>This combination of <Katex tex="\Omega_m" />, <Katex tex="\Omega_\Lambda" /> doesn't give a physical expansion history out to this redshift.</> };
     }
     const age0 = ageOfUniverseTodayGyr(OmNum, OLNum, Ok, H0Num);
     if (age0 === null) return { valid: false, reason: "Couldn't compute the age of the universe for these parameters." };
@@ -197,6 +201,11 @@ export default function CosmologicalLookbackTimeCalculator() {
     };
   }, [result]);
 
+  // Self-check rows: runs the real cosmology.js functions against the
+  // calculator's own Astropy-validated reference figures and edge cases —
+  // independent of the fields above.
+  const testRows = useMemo(() => getCosmologicalLookbackTestRows(), []);
+
   const applyPreset = (preset) => {
     setZ(String(preset.z));
     setH0(String(preset.H0));
@@ -233,29 +242,29 @@ export default function CosmologicalLookbackTimeCalculator() {
       <p className="clc-explainer">
         Unlike a plain magnitude or distance conversion, lookback time is a genuine{" "}
         <strong>integral</strong> over the universe's expansion history:{" "}
-        <code>t_L(z) = (1/H₀) ∫₀^z dz′ / [(1+z′)E(z′)]</code>, with{" "}
-        <code>E(z) = √(Ωm(1+z)³ + Ωk(1+z)² + ΩΛ)</code>. It's evaluated here by numerical
+        <Katex tex={String.raw`t_L(z) = \frac{1}{H_0} \int_0^z \frac{dz'}{(1+z')E(z')}`} />, with{" "}
+        <Katex tex={String.raw`E(z) = \sqrt{\Omega_m(1+z)^3 + \Omega_k(1+z)^2 + \Omega_\Lambda}`} />. It's evaluated here by numerical
         integration (Simpson's rule) and checked against Astropy — see the note below the
-        calculator. The answer depends explicitly on the cosmology you assume, not just on z.
+        calculator. The answer depends explicitly on the cosmology you assume, not just on <Katex tex="z" />.
       </p>
 
       <div className="clc-fields">
         <div className="clc-field">
-          <label htmlFor="clc-z">Redshift (z)</label>
+          <label htmlFor="clc-z">Redshift (<Katex tex="z" />)</label>
           <input id="clc-z" className="clc-input" type="number" min="0" step="any" inputMode="decimal" value={z} onChange={(e) => setZ(e.target.value)} />
         </div>
         <div className="clc-field">
-          <label htmlFor="clc-h0">H₀ (km/s/Mpc)</label>
+          <label htmlFor="clc-h0"><Katex tex="H_0" /> (km/s/Mpc)</label>
           <input id="clc-h0" className="clc-input" type="number" min="0" step="any" inputMode="decimal" value={H0} onChange={(e) => setH0(e.target.value)} />
         </div>
         <div className="clc-field">
-          <label htmlFor="clc-om">Ωm (matter density)</label>
+          <label htmlFor="clc-om"><Katex tex="\Omega_m" /> (matter density)</label>
           <input id="clc-om" className="clc-input" type="number" min="0" step="any" inputMode="decimal" value={Om} onChange={(e) => setOm(e.target.value)} />
         </div>
         <div className="clc-field">
-          <label htmlFor="clc-ol">ΩΛ (dark energy density)</label>
+          <label htmlFor="clc-ol"><Katex tex="\Omega_\Lambda" /> (dark energy density)</label>
           {flatUniverse ? (
-            <div className="clc-computed">{formatPlain(1 - (parseFloat(Om) || 0), 4)} (flat: 1 − Ωm)</div>
+            <div className="clc-computed">{formatPlain(1 - (parseFloat(Om) || 0), 4)} (flat: 1 − <Katex tex="\Omega_m" />)</div>
           ) : (
             <input id="clc-ol" className="clc-input" type="number" step="any" inputMode="decimal" value={OLInput} onChange={(e) => setOLInput(e.target.value)} />
           )}
@@ -271,10 +280,12 @@ export default function CosmologicalLookbackTimeCalculator() {
             setFlatUniverse((v) => !v);
           }}
         >
-          {flatUniverse ? "✓ Flat universe (Ωk = 0)" : "Allow curvature (edit ΩΛ freely)"}
+          {flatUniverse
+            ? <>✓ Flat universe (<Katex tex="\Omega_k" /> = 0)</>
+            : <>Allow curvature (edit <Katex tex="\Omega_\Lambda" /> freely)</>}
         </button>
         {result.valid && Math.abs(result.Ok) > 1e-6 && (
-          <span className="clc-ok-note">Ωk = {formatPlain(result.Ok, 4)} (non-flat model)</span>
+          <span className="clc-ok-note"><Katex tex="\Omega_k" /> = {formatPlain(result.Ok, 4)} (non-flat model)</span>
         )}
       </div>
 
@@ -291,7 +302,7 @@ export default function CosmologicalLookbackTimeCalculator() {
           </div>
 
           {timeline && (
-            <div className="clc-chart-wrap">
+            <div className="chart-wrap">
               <svg
                 className="clc-timeline-svg"
                 viewBox={`0 0 ${timeline.width} ${timeline.height}`}
@@ -325,7 +336,7 @@ export default function CosmologicalLookbackTimeCalculator() {
           )}
 
           {areaChart && (
-            <div className="clc-chart-wrap">
+            <div className="chart-wrap">
               <svg
                 className="clc-area-svg"
                 viewBox={`0 0 ${areaChart.width} ${areaChart.height}`}
@@ -352,8 +363,8 @@ export default function CosmologicalLookbackTimeCalculator() {
                 <circle cx={areaChart.point.x} cy={areaChart.point.y} r="4.5" className="clc-area-point" />
               </svg>
               <p className="clc-chart-caption">
-                The integrand 1/[(1+z′)E(z′)] versus z′. The shaded area from 0 to z, multiplied by
-                the Hubble time 1/H₀, <em>is</em> the lookback time — an area, not an algebraic formula.
+                The integrand <Katex tex={String.raw`1/[(1+z')E(z')]`} /> versus <Katex tex="z'" />. The shaded area from 0 to z, multiplied by
+                the Hubble time <Katex tex="1/H_0" />, <em>is</em> the lookback time — an area, not an algebraic formula.
               </p>
             </div>
           )}
@@ -361,12 +372,18 @@ export default function CosmologicalLookbackTimeCalculator() {
       )}
 
       <p className="clc-validation-note">
-        Validated against Astropy's <code>FlatLambdaCDM</code> (matter+Λ, no radiation) across a
-        range of z and cosmologies — lookback times and ages agree to better than 1 part in 10⁶.
+        Validated against Astropy's <code>FlatLambdaCDM</code> (matter+<Katex tex="\Lambda" />, no radiation) across a
+        range of <Katex tex="z" /> and cosmologies — lookback times and ages agree to better than 1 part in 10⁶.
       </p>
 
       <div className="clc-footer-row">
         <CalculatorVote slug="cosmological-lookback-time-calculator" />
+        <CalculatorTests
+          title="Cosmological Lookback Time Calculator — Tests"
+          columns={COSMOLOGICAL_LOOKBACK_TEST_COLUMNS}
+          rows={testRows}
+          sources={COSMOLOGICAL_LOOKBACK_TEST_SOURCES}
+        />
         <button type="button" className="clc-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

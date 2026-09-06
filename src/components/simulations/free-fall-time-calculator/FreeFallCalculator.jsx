@@ -17,9 +17,11 @@ import {
 } from "./freeFall";
 import { FREE_FALL_TEST_COLUMNS, FREE_FALL_TEST_SOURCES, getFreeFallTestRows } from "./freeFallTests";
 import "../../../styles/freeFallCalculator.css";
+import "../../../styles/calculators.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
 import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import Katex from "../../Katex.jsx";
 
 // Every preset applies both an input mode and the fields that mode uses.
 // The other mode's fields are left as whatever they already were — mass
@@ -250,7 +252,7 @@ export default function FreeFallCalculator() {
       <p className="ffc-explainer">
         How long a uniform-density sphere of gas would take to collapse to a point under its own
         gravity alone, with nothing — pressure, rotation, magnetic fields — holding it up:{" "}
-        <code>t_ff = √(3π / 32Gρ)</code>. Widely used in star formation as the natural collapse
+        <Katex tex={String.raw`t_{\rm ff} = \sqrt{\dfrac{3\pi}{32 G \rho}}`} />. Widely used in star formation as the natural collapse
         timescale for a molecular cloud or clump, to compare against how long star formation
         actually takes there.
       </p>
@@ -276,7 +278,7 @@ export default function FreeFallCalculator() {
         {mode === "number" ? (
           <>
             <div className="ffc-field">
-              <label htmlFor="ffc-n">Number density (n)</label>
+              <label htmlFor="ffc-n">Number density (<Katex tex="n" />)</label>
               <div className="ffc-input-row">
                 <input
                   id="ffc-n"
@@ -296,7 +298,7 @@ export default function FreeFallCalculator() {
               </div>
             </div>
             <div className="ffc-field">
-              <label htmlFor="ffc-mu">Mean molecular weight (μ) — 2.3 for molecular gas, 1.27 for atomic</label>
+              <label htmlFor="ffc-mu">Mean molecular weight (<Katex tex="\mu" />) — 2.3 for molecular gas, 1.27 for atomic</label>
               <input
                 id="ffc-mu"
                 className="ffc-input"
@@ -311,7 +313,7 @@ export default function FreeFallCalculator() {
           </>
         ) : (
           <div className="ffc-field">
-            <label htmlFor="ffc-density">Mass density (ρ)</label>
+            <label htmlFor="ffc-density">Mass density (<Katex tex="\rho" />)</label>
             <div className="ffc-input-row">
               <input
                 id="ffc-density"
@@ -339,10 +341,10 @@ export default function FreeFallCalculator() {
         <>
           <div className="ffc-headline-card">
             <div className="ffc-headline">
-              t_ff ≈ {formatNumber(timeFromSeconds(result.tff, headlineUnit))} {TIME_UNITS[headlineUnit].short}
+              <Katex tex="t_{\rm ff}" /> ≈ {formatNumber(timeFromSeconds(result.tff, headlineUnit))} {TIME_UNITS[headlineUnit].short}
             </div>
             <div className="ffc-headline-sub">
-              ρ = {formatNumber(result.rhoKgM3)} kg/m³ = {formatNumber(result.rhoKgM3 / 1000)} g/cm³
+              <Katex tex="\rho" /> = {formatNumber(result.rhoKgM3)} kg/m³ = {formatNumber(result.rhoKgM3 / 1000)} g/cm³
             </div>
           </div>
 
@@ -358,7 +360,7 @@ export default function FreeFallCalculator() {
           </div>
 
           {collapseDiagram && (
-            <div className="ffc-chart-wrap">
+            <div className="chart-wrap">
               <svg
                 className="ffc-chart-svg"
                 viewBox={`0 0 ${collapseDiagram.width} ${collapseDiagram.height}`}
@@ -444,7 +446,7 @@ export default function FreeFallCalculator() {
           )}
 
           {ladder && (
-            <div className="ffc-chart-wrap">
+            <div className="chart-wrap">
               <svg className="ffc-chart-svg" viewBox={`0 0 ${ladder.width} ${ladder.height}`} role="img" aria-label="Free-fall time comparison scale">
                 <line x1={ladder.marginLeft} x2={ladder.marginLeft + ladder.plotWidth} y1={ladder.y} y2={ladder.y} className="ffc-ladder-axis" />
                 {ladder.ticks.map((t) => (

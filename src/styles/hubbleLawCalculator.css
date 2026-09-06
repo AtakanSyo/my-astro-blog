@@ -217,14 +217,6 @@
   color: var(--hlc-text);
 }
 
-.hlc-chart-wrap {
-  background: var(--hlc-bg-2);
-  border: 1px solid var(--hlc-border);
-  border-radius: 12px;
-  padding: 0.75rem 0.75rem 0.5rem;
-  margin-bottom: 1.1rem;
-}
-
 .hlc-diagram-svg {
   width: 100%;
   height: auto;

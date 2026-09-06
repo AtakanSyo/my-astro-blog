@@ -13,8 +13,10 @@ import {
   classifySpectrum,
 } from "./spectral";
 import "../../../styles/spectralIndexCalculator.css";
+import "../../../styles/calculators.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import Katex from "../../Katex.jsx";
 
 const PRESETS = [
   {
@@ -285,7 +287,8 @@ export default function SpectralIndexCalculator() {
       </div>
 
       <p className="sic-explainer">
-        Uses the standard radio-astronomy convention <strong>S<sub>ν</sub> ∝ ν^α</strong> — a
+        Uses the standard radio-astronomy convention{" "}
+        <strong><Katex tex={String.raw`S_\nu \propto \nu^\alpha`} /></strong> — a
         negative α means flux density drops with increasing frequency (steep spectrum), positive
         means it rises (inverted). Some literature defines α with the opposite sign; always check
         before comparing quoted values.
@@ -295,7 +298,7 @@ export default function SpectralIndexCalculator() {
         <p className="sic-point-title">Measurement 1</p>
         <div className="sic-field-row">
           <div className="sic-field">
-            <label htmlFor="sic-nu1">Frequency ν₁</label>
+            <label htmlFor="sic-nu1">Frequency <Katex tex="\nu_1" /></label>
             <div className="sic-input-row">
               <input id="sic-nu1" className="sic-input" type="number" min="0" step="any" inputMode="decimal" value={nu1} onChange={(e) => setNu1(e.target.value)} />
               <select className="sic-unit-select" value={nu1Unit} onChange={(e) => setNu1Unit(e.target.value)}>
@@ -304,7 +307,7 @@ export default function SpectralIndexCalculator() {
             </div>
           </div>
           <div className="sic-field">
-            <label htmlFor="sic-s1">Flux density S₁</label>
+            <label htmlFor="sic-s1">Flux density <Katex tex="S_1" /></label>
             <div className="sic-input-row">
               <input id="sic-s1" className="sic-input" type="number" min="0" step="any" inputMode="decimal" value={S1} onChange={(e) => setS1(e.target.value)} />
               <select className="sic-unit-select" value={S1Unit} onChange={(e) => setS1Unit(e.target.value)}>
@@ -320,7 +323,7 @@ export default function SpectralIndexCalculator() {
         <p className="sic-point-title">Measurement 2</p>
         <div className="sic-field-row">
           <div className="sic-field">
-            <label htmlFor="sic-nu2">Frequency ν₂</label>
+            <label htmlFor="sic-nu2">Frequency <Katex tex="\nu_2" /></label>
             <div className="sic-input-row">
               <input id="sic-nu2" className="sic-input" type="number" min="0" step="any" inputMode="decimal" value={nu2} onChange={(e) => setNu2(e.target.value)} />
               <select className="sic-unit-select" value={nu2Unit} onChange={(e) => setNu2Unit(e.target.value)}>
@@ -329,7 +332,7 @@ export default function SpectralIndexCalculator() {
             </div>
           </div>
           <div className="sic-field">
-            <label htmlFor="sic-s2">Flux density S₂</label>
+            <label htmlFor="sic-s2">Flux density <Katex tex="S_2" /></label>
             <div className="sic-input-row">
               <input id="sic-s2" className="sic-input" type="number" min="0" step="any" inputMode="decimal" value={S2} onChange={(e) => setS2(e.target.value)} />
               <select className="sic-unit-select" value={S2Unit} onChange={(e) => setS2Unit(e.target.value)}>
@@ -347,14 +350,14 @@ export default function SpectralIndexCalculator() {
         <>
           <div className="sic-alpha-card">
             <div className="sic-alpha-value">
-              α = {formatNumber(result.alpha, { forceSign: true })}
+              <Katex tex="\alpha" /> = {formatNumber(result.alpha, { forceSign: true })}
               {result.sigmaAlpha > 0 && ` ± ${formatNumber(result.sigmaAlpha)}`}
             </div>
             <span className={`sic-badge sic-badge--${result.classification.tone}`}>{result.classification.label}</span>
           </div>
 
           {chart && (
-            <div className="sic-chart-wrap">
+            <div className="chart-wrap">
               <svg
                 className="sic-chart-svg"
                 viewBox={`0 0 ${chart.width} ${chart.height}`}
@@ -454,7 +457,7 @@ export default function SpectralIndexCalculator() {
             <p className="sic-point-title">Predict flux density at a third frequency</p>
             <div className="sic-field-row">
               <div className="sic-field">
-                <label htmlFor="sic-nu3">Frequency ν₃</label>
+                <label htmlFor="sic-nu3">Frequency <Katex tex="\nu_3" /></label>
                 <div className="sic-input-row">
                   <input id="sic-nu3" className="sic-input" type="number" min="0" step="any" inputMode="decimal" value={nu3} onChange={(e) => setNu3(e.target.value)} />
                   <select className="sic-unit-select" value={nu3Unit} onChange={(e) => setNu3Unit(e.target.value)}>
@@ -463,7 +466,7 @@ export default function SpectralIndexCalculator() {
                 </div>
               </div>
               <div className="sic-field">
-                <span className="sic-predicted-label">Predicted S₃</span>
+                <span className="sic-predicted-label">Predicted <Katex tex="S_3" /></span>
                 {result.extrapolation ? (
                   <div className="sic-computed">
                     {formatNumber(result.extrapolation.S3Jy)}
@@ -478,7 +481,7 @@ export default function SpectralIndexCalculator() {
             </div>
             {result.extrapolation && result.sigmaAlpha > 0 && (
               <p className="sic-note">
-                Extrapolation uncertainty grows the farther ν₃ is from ν₁ — this is a real feature
+                Extrapolation uncertainty grows the farther <Katex tex="\nu_3" /> is from <Katex tex="\nu_1" /> — this is a real feature
                 of projecting a power law outward, not a limitation of the calculator.
               </p>
             )}

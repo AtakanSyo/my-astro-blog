@@ -16,9 +16,11 @@ import {
 } from "./hubbleLaw";
 import { HUBBLE_LAW_TEST_COLUMNS, HUBBLE_LAW_TEST_SOURCES, getHubbleLawTestRows } from "./hubbleLawTests";
 import "../../../styles/hubbleLawCalculator.css";
+import "../../../styles/calculators.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
 import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
+import Katex from "../../Katex.jsx";
 
 // Every preset is self-consistent under v = H0 * d at H0 = 70, so
 // switching direction after applying one never shows a jarring mismatch.
@@ -211,7 +213,7 @@ export default function HubbleLawCalculator() {
 
       <p className="hlc-explainer">
         For nearby galaxies, recession velocity grows linearly with distance:{" "}
-        <code>v = H₀ · d</code>. H₀ itself isn't perfectly nailed down — local
+        <Katex tex="v = H_0 \cdot d" />. <Katex tex="H_0" /> itself isn't perfectly nailed down — local
         measurements (Cepheids, supernovae) and measurements from the early-universe
         cosmic microwave background currently disagree by a few km/s/Mpc, a
         mismatch cosmologists call the "Hubble tension." Slide H₀ below to see how
@@ -220,7 +222,7 @@ export default function HubbleLawCalculator() {
 
       <div className="hlc-field hlc-h0-field">
         <label htmlFor="hlc-h0">
-          Hubble constant H₀ <span className="hlc-h0-value">{formatNumber(parseFloat(H0) || 0, 1)} km/s/Mpc</span>
+          Hubble constant <Katex tex="H_0" /> <span className="hlc-h0-value">{formatNumber(parseFloat(H0) || 0, 1)} km/s/Mpc</span>
         </label>
         <input
           id="hlc-h0"
@@ -251,7 +253,7 @@ export default function HubbleLawCalculator() {
       <div className="hlc-fields">
         {solveFor === "velocity" ? (
           <div className="hlc-field">
-            <label htmlFor="hlc-d">Distance (d)</label>
+            <label htmlFor="hlc-d">Distance (<Katex tex="d" />)</label>
             <div className="hlc-input-row">
               <input id="hlc-d" className="hlc-input" type="number" min="0" step="any" inputMode="decimal" value={d} onChange={(e) => setD(e.target.value)} />
               <select className="hlc-unit-select" value={dUnit} onChange={(e) => setDUnit(e.target.value)}>
@@ -261,7 +263,7 @@ export default function HubbleLawCalculator() {
           </div>
         ) : (
           <div className="hlc-field">
-            <label htmlFor="hlc-v">Recession velocity (v)</label>
+            <label htmlFor="hlc-v">Recession velocity (<Katex tex="v" />)</label>
             <div className="hlc-input-row">
               <input id="hlc-v" className="hlc-input" type="number" min="0" step="any" inputMode="decimal" value={v} onChange={(e) => setV(e.target.value)} />
               <select className="hlc-unit-select" value={vUnit} onChange={(e) => setVUnit(e.target.value)}>
@@ -279,12 +281,12 @@ export default function HubbleLawCalculator() {
           <div className="hlc-headline-card">
             {solveFor === "distance" && (
               <div className="hlc-headline">
-                d ≈ {formatNumber(distanceFromMpc(result.dMpc, "mpc"))} Mpc = {formatNumber(distanceFromMpc(result.dMpc, "mly"))} Mly
+                <Katex tex="d" /> ≈ {formatNumber(distanceFromMpc(result.dMpc, "mpc"))} Mpc = {formatNumber(distanceFromMpc(result.dMpc, "mly"))} Mly
               </div>
             )}
             {solveFor === "velocity" && (
               <div className="hlc-headline">
-                v ≈ {formatNumber(velocityFromKms(result.vKms, "kms"))} km/s
+                <Katex tex="v" /> ≈ {formatNumber(velocityFromKms(result.vKms, "kms"))} km/s
               </div>
             )}
             <div className="hlc-depth-row">
@@ -303,7 +305,7 @@ export default function HubbleLawCalculator() {
           )}
 
           {diagram && (
-            <div className="hlc-chart-wrap">
+            <div className="chart-wrap">
               <svg
                 className="hlc-diagram-svg"
                 viewBox={`0 0 ${diagram.width} ${diagram.height}`}
@@ -339,7 +341,7 @@ export default function HubbleLawCalculator() {
                 <text x={16} y={diagram.marginTop + diagram.plotHeight / 2} className="hlc-chart-axis-label hlc-ylabel" textAnchor="middle">velocity v (km/s)</text>
               </svg>
               <p className="hlc-chart-caption">
-                The diagonal line is v = H₀·d at the current H₀; the dot is your
+                The diagonal line is <Katex tex="v = H_0 \cdot d" /> at the current <Katex tex="H_0" />; the dot is your
                 current distance/velocity pair, always sitting exactly on it —
                 that's the whole content of a linear Hubble law.
               </p>
@@ -349,13 +351,13 @@ export default function HubbleLawCalculator() {
       )}
 
       <p className="hlc-caveat">
-        <strong>Scope of this tool:</strong> the linear relation v = H₀·d is a
+        <strong>Scope of this tool:</strong> the linear relation <Katex tex="v = H_0 \cdot d" /> is a
         low-redshift approximation, good only for relatively nearby galaxies
-        (roughly up to a few hundred megaparsecs, z ≲ 0.1-ish). It does not
+        (roughly up to a few hundred megaparsecs, <Katex tex="z" /> ≲ 0.1-ish). It does not
         attempt to compute cosmological distances for distant, high-redshift
         objects — that requires the full FLRW comoving/luminosity-distance
         relation, which depends on the universe's matter and dark-energy
-        density (Ωm, ΩΛ), not just H₀. Rather than silently returning a wrong
+        density (<Katex tex="\Omega_m" />, <Katex tex="\Omega_\Lambda" />), not just <Katex tex="H_0" />. Rather than silently returning a wrong
         number for an extreme input, this calculator flags it above instead.
       </p>
 
