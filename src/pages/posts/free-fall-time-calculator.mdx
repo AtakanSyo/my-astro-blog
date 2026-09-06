@@ -13,13 +13,14 @@ keywords:
   - gravitational collapse timescale
   - molecular cloud collapse time
   - star formation timescale
-  - Jeans collapse
+  - Jeans collapsevscode-webview://16b44ge5gqla1ol34o1476aj0kugut41lkbko1arm2kqpn190kag/src/components/simulations/free-fall-time-calculator/FreeFallCalculator.jsx
 lang: en
 ---
 
 import SimPostSchema from "../../components/SimPostSchema.astro";
 import ViewSource from "../../components/ViewSource.astro";
 import Changelog from "../../components/Changelog.astro";
+import Katex from "../../components/Katex.astro";
 import FreeFallCalculator from "../../components/simulations/free-fall-time-calculator/FreeFallCalculator.jsx";
 
 <figure class="post-figure post-figure-md" id="calculator">
@@ -42,7 +43,7 @@ $$
 t_{\rm ff} = \sqrt{\frac{3\pi}{32 G \rho}}
 $$
 
-ρ is the sphere's (uniform) mass density and G is the gravitational
+<Katex tex="\rho" /> is the sphere's (uniform) mass density and <Katex tex="G" /> is the gravitational
 constant. Only density enters — not size, not mass on its own — because
 for a uniform sphere, size and mass cancel out of the collapse time
 exactly: a denser cloud always collapses faster than a puffier one,
@@ -54,12 +55,12 @@ Molecular clouds are almost always quoted as a **number density** of
 particles per cubic centimeter, not a mass density, so this calculator
 accepts either:
 
-- **Number density** — enter n (particles/cm³) and a mean molecular
-  weight μ (in units of the hydrogen mass); the tool converts to mass
-  density via ρ = nμm_H. μ ≈ 2.3 is the standard default for molecular
-  gas (H₂ plus a standard helium fraction); μ ≈ 1.27 is more appropriate
+- **Number density** — enter <Katex tex="n" /> (particles/cm³) and a mean molecular
+  weight <Katex tex="\mu" /> (in units of the hydrogen mass); the tool converts to mass
+  density via <Katex tex="\rho = n\mu m_H" />. <Katex tex="\mu \approx 2.3" /> is the standard default for molecular
+  gas (H₂ plus a standard helium fraction); <Katex tex="\mu \approx 1.27" /> is more appropriate
   for atomic (HI) gas.
-- **Mass density** — enter ρ directly, in kg/m³ or g/cm³ — useful for
+- **Mass density** — enter <Katex tex="\rho" /> directly, in kg/m³ or g/cm³ — useful for
   comparing against a planet's or star's mean density, or any density
   quoted directly in the literature.
 
@@ -68,10 +69,10 @@ accepts either:
 - **The collapse curve** plots the *exact* trajectory of a uniform
   sphere's outer edge as it falls — not a schematic, the real analytic
   solution to the pressure-free collapse problem, normalized to the
-  sphere's own initial radius r₀ and its own t_ff. Every uniform sphere
+  sphere's own initial radius <Katex tex="r_0" /> and its own <Katex tex="t_{\rm ff}" />. Every uniform sphere
   collapses along this same normalized shape regardless of density: slow
   at first, then a sudden plunge right at the end. By the time half of
-  t_ff has elapsed, the radius has only shrunk to about 84% of its
+  <Katex tex="t_{\rm ff}" /> has elapsed, the radius has only shrunk to about 84% of its
   starting value — most of the actual *shrinking* happens in the second
   half of the time, not the first.
 - **The comparison scale** places this density's free-fall time on a log
@@ -88,7 +89,7 @@ and (usually) at least some thermal or non-thermal support against
 gravity. A cloud with a nonuniform density collapses hierarchically —
 denser clumps inside it reach their own, shorter, local free-fall time
 and collapse first, well before the cloud's overall average density
-would suggest — so t_ff computed from an average density is best read as
+would suggest — so  <Katex tex="t_{\rm ff}" /> computed from an average density is best read as
 an order-of-magnitude reference clock, not a precise prediction for any
 one particular clump. Comparing a cloud's actual star-formation
 timescale to this reference clock is exactly how astronomers quantify
