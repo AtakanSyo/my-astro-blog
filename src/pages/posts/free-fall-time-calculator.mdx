@@ -1,0 +1,122 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Free-Fall Time Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-09-06'
+description: "Calculate the free-fall time of a uniform-density sphere via t_ff = √(3π/32Gρ), from either a mass density or a molecular-cloud number density, with the exact collapse trajectory and a comparison scale against real cloud, planet, and stellar densities."
+postColor: rgba(30, 30, 68, 1)
+slug: free-fall-time-calculator
+keywords:
+  - free-fall time calculator
+  - free fall time formula
+  - gravitational collapse timescale
+  - molecular cloud collapse time
+  - star formation timescale
+  - Jeans collapse
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
+import Changelog from "../../components/Changelog.astro";
+import FreeFallCalculator from "../../components/simulations/free-fall-time-calculator/FreeFallCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <FreeFallCalculator client:load />
+</figure>
+
+Leave a cloud of gas with nothing holding it up — no pressure, no
+rotation, no magnetic field, nothing but its own gravity — and it
+collapses to a point in a finite, calculable time. That number, the
+free-fall time, is one of the most-used timescales in star formation:
+it's the natural clock against which every *slowing-down* mechanism
+(turbulence, magnetic support, rotation, radiative feedback) gets
+measured, and it sets the baseline question "is this cloud collapsing
+about as fast as gravity alone would allow, or is something holding it
+back?"
+
+## The formula
+
+$$
+t_{\rm ff} = \sqrt{\frac{3\pi}{32 G \rho}}
+$$
+
+ρ is the sphere's (uniform) mass density and G is the gravitational
+constant. Only density enters — not size, not mass on its own — because
+for a uniform sphere, size and mass cancel out of the collapse time
+exactly: a denser cloud always collapses faster than a puffier one,
+regardless of how big or how massive either actually is.
+
+## Two ways to specify density
+
+Molecular clouds are almost always quoted as a **number density** of
+particles per cubic centimeter, not a mass density, so this calculator
+accepts either:
+
+- **Number density** — enter n (particles/cm³) and a mean molecular
+  weight μ (in units of the hydrogen mass); the tool converts to mass
+  density via ρ = nμm_H. μ ≈ 2.3 is the standard default for molecular
+  gas (H₂ plus a standard helium fraction); μ ≈ 1.27 is more appropriate
+  for atomic (HI) gas.
+- **Mass density** — enter ρ directly, in kg/m³ or g/cm³ — useful for
+  comparing against a planet's or star's mean density, or any density
+  quoted directly in the literature.
+
+## Reading the visuals
+
+- **The collapse curve** plots the *exact* trajectory of a uniform
+  sphere's outer edge as it falls — not a schematic, the real analytic
+  solution to the pressure-free collapse problem, normalized to the
+  sphere's own initial radius r₀ and its own t_ff. Every uniform sphere
+  collapses along this same normalized shape regardless of density: slow
+  at first, then a sudden plunge right at the end. By the time half of
+  t_ff has elapsed, the radius has only shrunk to about 84% of its
+  starting value — most of the actual *shrinking* happens in the second
+  half of the time, not the first.
+- **The comparison scale** places this density's free-fall time on a log
+  scale next to the same five presets available as buttons above —
+  spanning everything from a rocky planet's mean density (tens of
+  minutes) to a diffuse molecular cloud's (millions of years), a spread
+  of upward of ten orders of magnitude.
+
+## What this does and doesn't capture
+
+A real molecular cloud isn't uniform, isn't spherical, and isn't
+pressure-free — it has internal structure, turbulence, magnetic fields,
+and (usually) at least some thermal or non-thermal support against
+gravity. A cloud with a nonuniform density collapses hierarchically —
+denser clumps inside it reach their own, shorter, local free-fall time
+and collapse first, well before the cloud's overall average density
+would suggest — so t_ff computed from an average density is best read as
+an order-of-magnitude reference clock, not a precise prediction for any
+one particular clump. Comparing a cloud's actual star-formation
+timescale to this reference clock is exactly how astronomers quantify
+*how much* something besides gravity must be holding star formation
+back.
+
+<SimPostSchema
+  title="Free-Fall Time Calculator"
+  description="Calculate the free-fall time of a uniform-density sphere via t_ff = √(3π/32Gρ), from either a mass density or a molecular-cloud number density, with the exact collapse trajectory and a comparison scale against real cloud, planet, and stellar densities."
+  url="https://astrosyo.com/posts/free-fall-time-calculator"
+  datePublished="2026-09-06"
+  authorName="Astrosyo"
+  keywords={["free-fall time calculator", "free fall time formula", "gravitational collapse timescale", "molecular cloud collapse time", "star formation timescale"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Free-Fall Time Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/free-fall-time-calculator#calculator",
+    "description": "Interactive calculator that computes the free-fall collapse time of a uniform-density sphere from a mass density or a molecular-cloud number density, with the exact collapse trajectory and a comparison scale against real densities."
+  }}
+/>
+
+<ViewSource path="src/components/simulations/free-fall-time-calculator/FreeFallCalculator.jsx" />
+
+<Changelog entries={["2026-09-06: Published."]} />

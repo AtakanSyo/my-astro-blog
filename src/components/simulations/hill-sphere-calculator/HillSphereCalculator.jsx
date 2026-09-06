@@ -14,8 +14,10 @@ import {
   hillRadius,
   hillRadiusPeriapsis,
 } from "./hillSphere";
+import { HILL_SPHERE_TEST_COLUMNS, HILL_SPHERE_TEST_SOURCES, getHillSphereTestRows } from "./hillSphereTests";
 import "../../../styles/hillSphereCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
 
 // Every preset is a real (or realistically illustrative) orbiting-body +
@@ -196,6 +198,10 @@ export default function HillSphereCalculator() {
     };
   }, [result]);
 
+  // Self-check rows: runs the real hillSphere.js functions against known
+  // reference bodies and edge cases — independent of the fields above.
+  const testRows = useMemo(() => getHillSphereTestRows(), []);
+
   const applyPreset = (preset) => {
     setM(String(preset.m));
     setMUnit(preset.mUnit);
@@ -355,6 +361,12 @@ export default function HillSphereCalculator() {
 
       <div className="hsc-footer-row">
         <CalculatorVote slug="hill-sphere-calculator" />
+        <CalculatorTests
+          title="Hill Sphere Calculator — Tests"
+          columns={HILL_SPHERE_TEST_COLUMNS}
+          rows={testRows}
+          sources={HILL_SPHERE_TEST_SOURCES}
+        />
         <button type="button" className="hsc-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

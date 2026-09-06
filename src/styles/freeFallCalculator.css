@@ -1,0 +1,374 @@
+.ffc {
+  --ffc-accent: #a9b4ff;
+  --ffc-bg: var(--card-bg, #1b1d22);
+  --ffc-bg-2: #17191e;
+  --ffc-border: var(--card-border, rgba(255, 255, 255, 0.1));
+  --ffc-text: var(--color-text, #e4e4e4);
+  --ffc-text-dim: rgba(228, 228, 228, 0.65);
+  --ffc-bad: #ff8a7e;
+  --ffc-object: #ff8a5c;
+
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  color: var(--ffc-text);
+  background: var(--ffc-bg);
+  border: 1px solid var(--ffc-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Override post-wide paragraph sizing for copy inside the calculator card. */
+.ffc .ffc-title,
+.ffc .ffc-explainer,
+.ffc .ffc-chart-caption {
+  width: 100%;
+  max-width: none;
+  box-sizing: border-box;
+  padding-inline: 0;
+  overflow-wrap: anywhere;
+}
+
+.ffc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.ffc-title {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin: 0;
+  color: var(--ffc-text);
+}
+
+.ffc-presets {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.ffc-preset-btn {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--ffc-border);
+  background: var(--ffc-bg-2);
+  color: var(--ffc-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.ffc-preset-btn:hover,
+.ffc-preset-btn:focus-visible {
+  border-color: var(--ffc-accent);
+  color: var(--ffc-text);
+}
+
+.ffc-explainer {
+  font-size: 0.8rem;
+  color: var(--ffc-text-dim);
+  line-height: 1.5;
+  margin: 0 0 1rem;
+}
+
+.ffc-explainer code {
+  background: var(--ffc-bg-2);
+  border: 1px solid var(--ffc-border);
+  border-radius: 4px;
+  padding: 0.05rem 0.3rem;
+  font-size: 0.72rem;
+  color: var(--ffc-text);
+}
+
+.ffc-mode-toggle {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.ffc-mode-btn {
+  font-size: 0.75rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--ffc-border);
+  background: var(--ffc-bg-2);
+  color: var(--ffc-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.ffc-mode-btn:hover,
+.ffc-mode-btn:focus-visible {
+  border-color: var(--ffc-accent);
+  color: var(--ffc-text);
+}
+
+.ffc-mode-btn.active {
+  background: var(--ffc-accent);
+  color: #14151a;
+  font-weight: 600;
+  border-color: var(--ffc-accent);
+}
+
+.ffc-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.ffc-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.ffc-field label {
+  font-size: 0.78rem;
+  color: var(--ffc-text-dim);
+}
+
+.ffc-input-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.ffc-input {
+  flex: 1;
+  min-width: 0;
+  background: var(--ffc-bg-2);
+  border: 1px solid var(--ffc-border);
+  border-radius: 8px;
+  color: var(--ffc-text);
+  font-size: 1rem;
+  padding: 0.5rem 0.65rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.ffc-input:focus {
+  border-color: var(--ffc-accent);
+}
+
+.ffc-unit-select {
+  background: var(--ffc-bg-2);
+  border: 1px solid var(--ffc-border);
+  border-radius: 8px;
+  color: var(--ffc-text);
+  font-size: 0.85rem;
+  padding: 0.5rem 0.5rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.ffc-headline-card {
+  background: rgba(169, 180, 255, 0.08);
+  border: 1px solid var(--ffc-accent);
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  margin-bottom: 1.1rem;
+  text-align: center;
+}
+
+.ffc-headline {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--ffc-text);
+}
+
+.ffc-headline-sub {
+  font-size: 0.8rem;
+  color: var(--ffc-text-dim);
+  margin-top: 0.35rem;
+}
+
+.ffc-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1.1rem;
+}
+
+.ffc-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  background: var(--ffc-bg-2);
+  border: 1px solid var(--ffc-border);
+  border-radius: 8px;
+  padding: 0.55rem 0.75rem;
+}
+
+.ffc-row--active {
+  border-color: var(--ffc-accent);
+  background: rgba(169, 180, 255, 0.08);
+}
+
+.ffc-row-label {
+  font-size: 0.85rem;
+  color: var(--ffc-text-dim);
+}
+
+.ffc-row-value {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ffc-text);
+  white-space: nowrap;
+}
+
+.ffc-row-unit {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--ffc-text-dim);
+}
+
+.ffc-chart-wrap {
+  background: var(--ffc-bg-2);
+  border: 1px solid var(--ffc-border);
+  border-radius: 12px;
+  padding: 0.75rem 0.75rem 0.5rem;
+  margin-bottom: 1.1rem;
+}
+
+.ffc-chart-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.ffc-chart-axis {
+  stroke: var(--ffc-text-dim);
+  stroke-width: 1.5;
+}
+
+.ffc-chart-grid {
+  stroke: var(--ffc-border);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.ffc-chart-tick {
+  stroke: var(--ffc-text-dim);
+  stroke-width: 1;
+}
+
+.ffc-chart-axis-label {
+  fill: var(--ffc-text-dim);
+  font-size: 9.5px;
+}
+
+.ffc-collapse-curve {
+  fill: none;
+  stroke: var(--ffc-object);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.ffc-collapse-marker {
+  fill: var(--ffc-text);
+}
+
+.ffc-collapse-marker-line {
+  stroke: var(--ffc-text-dim);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.ffc-collapse-marker-label {
+  fill: var(--ffc-text);
+  font-size: 10.5px;
+  font-weight: 600;
+}
+
+.ffc-ladder-axis {
+  stroke: var(--ffc-text-dim);
+  stroke-width: 1.5;
+}
+
+.ffc-ladder-tick {
+  stroke: var(--ffc-text-dim);
+  stroke-width: 1;
+}
+
+.ffc-landmark-tick {
+  stroke: var(--ffc-text);
+  stroke-width: 1.5;
+  opacity: 0.75;
+}
+
+.ffc-landmark-label {
+  fill: var(--ffc-text-dim);
+  font-size: 9px;
+}
+
+.ffc-ladder-marker {
+  fill: var(--ffc-object);
+}
+
+.ffc-ladder-marker-label {
+  fill: var(--ffc-text);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.ffc-chart-caption {
+  font-size: 0.72rem;
+  color: var(--ffc-text-dim);
+  margin: 0.35rem 0 0;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.ffc-note {
+  width: 100%;
+  max-width: none;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+  font-size: 0.78rem;
+  color: var(--ffc-text-dim);
+  background: var(--ffc-bg-2);
+  border: 1px solid var(--ffc-border);
+  border-left: 3px solid var(--ffc-accent);
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  line-height: 1.45;
+  margin: 0 0 1rem;
+}
+
+.ffc-note--warn {
+  border-left-color: var(--ffc-bad);
+}
+
+.ffc-footer-row {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  row-gap: 0.5rem;
+}
+
+.ffc-copy-btn {
+  font-size: 0.78rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--ffc-border);
+  background: var(--ffc-bg-2);
+  color: var(--ffc-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.ffc-copy-btn:hover,
+.ffc-copy-btn:focus-visible {
+  border-color: var(--ffc-accent);
+  color: var(--ffc-text);
+}

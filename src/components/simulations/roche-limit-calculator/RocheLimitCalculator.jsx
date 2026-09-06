@@ -1,9 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { fluidRocheLimit, rigidRocheLimit, rocheLimit, FLUID_COEFFICIENT, RIGID_COEFFICIENT, REFERENCE_DENSITIES } from "./roche";
+import { ROCHE_LIMIT_TEST_COLUMNS, ROCHE_LIMIT_TEST_SOURCES, getRocheLimitTestRows } from "./rocheLimitTests";
 import "../../../styles/rocheLimitCalculator.css";
 import CalculatorVote from "../../CalculatorVote.jsx";
+import CalculatorTests from "../../CalculatorTests.jsx";
 import { trackEvent } from "../../../lib/analytics/trackEvent";
-
+import katex from "katex";
+import "katex/dist/katex.min.css";
 // Every preset is a real (or realistically illustrative) primary +
 // satellite pair, several with a real actual orbital distance included
 // so the comparison feature has something meaningful to say out of the box.
@@ -42,6 +45,9 @@ function niceStep(span, targetCount = 5) {
   const norm = raw / mag;
   const step = norm < 1.5 ? 1 : norm < 3.5 ? 2 : norm < 7.5 ? 5 : 10;
   return step * mag;
+}
+function roundSvg(n) {
+  return Number(n.toFixed(6));
 }
 
 function readInitialFromUrl() {
@@ -177,8 +183,15 @@ export default function RocheLimitCalculator() {
     const yMin = Math.min(yAtMin, yAtMax) - yPad;
     const yMax = Math.max(yAtMin, yAtMax) + yPad;
 
-    const xScale = (x) => marginLeft + ((x - xMin) / (xMax - xMin)) * plotWidth;
-    const yScale = (y) => marginTop + (1 - (y - yMin) / (yMax - yMin)) * plotHeight;
+const xScale = (x) =>
+  roundSvg(
+    marginLeft + ((x - xMin) / (xMax - xMin)) * plotWidth
+  );
+
+const yScale = (y) =>
+  roundSvg(
+    marginTop + (1 - (y - yMin) / (yMax - yMin)) * plotHeight
+  );
 
     const xStep = niceStep(xMax - xMin, 4);
     const xTicks = [];
@@ -200,6 +213,10 @@ export default function RocheLimitCalculator() {
     };
   }, [result, mode]);
 
+  // Self-check rows: runs the real roche.js functions against known
+  // reference bodies and edge cases — independent of the fields above.
+  const testRows = useMemo(() => getRocheLimitTestRows(), []);
+
   const applyPreset = (preset) => {
     setRadius(String(preset.radius));
     setDensityPrimary(String(preset.densityPrimary));
@@ -218,7 +235,19 @@ export default function RocheLimitCalculator() {
       // Clipboard API can fail silently — no-op.
     }
   };
+  const rigidRoche = katex.renderToString(
+    String.raw`d_{\rm rigid} = R_M\left(\frac{2\rho_M}{\rho_m}\right)^{1/3} \approx 1.26\, R_M \left(\frac{\rho_M}{\rho_m}\right)^{1/3}`,
+    { throwOnError: false }
+  );
+  const fluidRoche = katex.renderToString(
+    String.raw`d_{\rm fluid} \approx 2.44\, R_M \left(\frac{\rho_M}{\rho_m}\right)^{1/3}`,
+    { throwOnError: false }
+  );
 
+  const densityRelation = katex.renderToString(
+  String.raw`d \propto \rho_m^{-1/3}`,
+  { throwOnError: false }
+);
   return (
     <div className="rlc" aria-label="Roche limit calculator">
       <div className="rlc-header">
@@ -231,15 +260,20 @@ export default function RocheLimitCalculator() {
           ))}
         </div>
       </div>
-
       <p className="rlc-explainer">
         Inside the Roche limit, tidal forces from the primary body stretch a satellite harder than
-        its own gravity can hold it together. Fluid model (a satellite with little internal
-        strength, deforming as it's pulled apart):{" "}
-        <code>d ≈ 2.44 R_M (ρ_M/ρ_m)^(1/3)</code>. Rigid-body model (an idealized perfectly stiff
-        satellite): <code>d = R_M(2ρ_M/ρ_m)^(1/3) ≈ 1.26 R_M (ρ_M/ρ_m)^(1/3)</code> — a smaller,
-        more optimistic limit.
+        its own gravity can hold it together.
+        <br /><br />
+
+        Fluid model (a satellite with little internal strength, deforming as it's pulled apart):{" "}
+        <span dangerouslySetInnerHTML={{ __html: fluidRoche }} />.
+        <br /><br />
+
+        Rigid-body model (an idealized perfectly stiff satellite):{" "}
+        <span dangerouslySetInnerHTML={{ __html: rigidRoche }} /> — a smaller, more optimistic limit.
       </p>
+
+      
 
       <div className="rlc-mode-toggle" role="group" aria-label="Satellite model">
         <button type="button" className={mode === "fluid" ? "rlc-mode-btn active" : "rlc-mode-btn"} onClick={() => setMode("fluid")}>
@@ -294,8 +328,8 @@ export default function RocheLimitCalculator() {
             </div>
             {result.hasActual && (
               <div className={result.ratio >= 1 ? "rlc-headline-compare rlc-headline-compare--safe" : "rlc-headline-compare rlc-headline-compare--danger"}>
-                Actual distance {formatNumber(result.actual)} km is {formatNumber(result.ratio)}× the {mode} Roche limit —{" "}
-                {result.ratio >= 1 ? "outside it, a stable orbit is plausible" : "inside it, tidal disruption is expected"}
+                Actual distance {formatNumber(result.actual)} km is {formatNumber(result.ratio)}× the {mode} Roche limit.{" "}
+                {result.ratio >= 1 ? "Outside it, a stable orbit is plausible" : "inside it, tidal disruption is expected"}
               </div>
             )}
           </div>
@@ -339,7 +373,7 @@ export default function RocheLimitCalculator() {
                 {curve.yTicks.map((t) => (
                   <g key={`y${t}`}>
                     <line x1={curve.marginLeft} x2={curve.marginLeft + curve.plotWidth} y1={curve.yScale(t)} y2={curve.yScale(t)} className="rlc-chart-gridline" />
-                    <text x={curve.marginLeft - 8} y={curve.yScale(t) + 4} className="rlc-chart-axis-label" textAnchor="end">10{toSuperscript(t)} km</text>
+                    <text x={curve.marginLeft - 8} y={curve.yScale(t) + 4} className="rlc-chart-axis-label" textAnchor="end">10{toSuperscript(Number(t.toFixed(2)))} km</text>
                   </g>
                 ))}
                 {curve.xTicks.map((t) => (
@@ -365,8 +399,10 @@ export default function RocheLimitCalculator() {
                 <text x={curve.marginLeft + curve.plotWidth / 2} y={curve.height - 26} className="rlc-chart-axis-label" textAnchor="middle">satellite density (kg/m³)</text>
               </svg>
               <p className="rlc-chart-caption">
-                A straight line here means d ∝ ρ_m^(−1/3) exactly — icy satellites (low density)
-                have Roche limits much farther out than iron-rich ones, for the same primary.
+                The Roche limit decreases as satellite density increases: low-density icy satellites are
+                disrupted farther from the primary than denser rocky or iron-rich satellites. The straight
+                line reflects the{" "}
+                <span dangerouslySetInnerHTML={{ __html: densityRelation }} /> power-law relation.
               </p>
             </div>
           )}
@@ -375,6 +411,12 @@ export default function RocheLimitCalculator() {
 
       <div className="rlc-footer-row">
         <CalculatorVote slug="roche-limit-calculator" />
+        <CalculatorTests
+          title="Roche Limit Calculator — Tests"
+          columns={ROCHE_LIMIT_TEST_COLUMNS}
+          rows={testRows}
+          sources={ROCHE_LIMIT_TEST_SOURCES}
+        />
         <button type="button" className="rlc-copy-btn" onClick={copyLink}>
           {copied ? "Link copied" : "Copy shareable link"}
         </button>

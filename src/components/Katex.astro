@@ -1,0 +1,38 @@
+---
+// Renders a single inline (or, with `display`, block) math expression via
+// KaTeX at build time — plain static HTML/CSS, no client-side JS shipped.
+//
+// Why this exists: the site's remark-math config runs with
+// `singleDollarTextMath: false` (see astro.config.mjs), so a bare `$...$`
+// in MDX prose is deliberately NOT parsed as math — it stays literal text.
+// That's intentional (review posts carry real prices like $500 that must
+// not be mis-parsed as math), but it means prose that wants to reference a
+// single symbol inline (e.g. "R_M and ρ_M are...") has no working `$...$`
+// shorthand. This component is the fix: drop `<Katex tex="R_M" />` inline
+// in MDX prose instead of `$R_M$`.
+//
+// `$$ ... $$` block equations are unaffected by any of this — they still
+// go through remark-math + rehype-katex as before; use this component only
+// for inline symbol references within a paragraph.
+//
+// Mirrors the katex.renderToString({ throwOnError: false }) call already
+// used in RocheLimitCalculator.jsx, so behavior (and error handling) is
+// consistent between the interactive component and the prose.
+import katex from "katex";
+
+interface Props {
+  tex: string;
+  display?: boolean;
+}
+
+const { tex, display = false } = Astro.props;
+const html = katex.renderToString(tex, { throwOnError: false, displayMode: display });
+---
+
+<span class="katex-inline" set:html={html} />
+
+<style>
+  .katex-inline {
+    display: inline-block;
+  }
+</style>
