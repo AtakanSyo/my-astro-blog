@@ -1,0 +1,126 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Black Hole Evaporation Time Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-09-06'
+description: "Calculate the idealized Hawking-radiation evaporation time of a Schwarzschild black hole, t = 5120 π G² M³ / (ħ c⁴), and see on a log-log plot why the M³ scaling makes stellar and supermassive black holes essentially eternal while sufficiently tiny ones would already be gone."
+postColor: rgba(15, 15, 25, 1)
+slug: black-hole-evaporation-time-calculator
+keywords:
+  - black hole evaporation time calculator
+  - Hawking radiation lifetime
+  - Schwarzschild black hole evaporation
+  - black hole mass and lifetime
+  - primordial black hole evaporation
+  - Hawking radiation formula
+  - age of the universe black hole
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
+import Changelog from "../../components/Changelog.astro";
+import BlackHoleEvaporationTimeCalculator from "../../components/simulations/black-hole-evaporation-time-calculator/BlackHoleEvaporationTimeCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <BlackHoleEvaporationTimeCalculator client:load />
+</figure>
+
+Black holes are not quite eternal. Stephen Hawking showed in 1974 that
+quantum effects near the event horizon let a black hole radiate energy
+away, slowly losing mass until — after an almost unimaginable stretch of
+time for anything astrophysical — it evaporates completely. How long that
+takes depends on exactly one quantity, raised to the third power.
+
+## The formula
+
+$$
+t_{evap} = \frac{5120 \, \pi \, G^2 M^3}{\hbar c^4}
+$$
+
+This is the idealized lifetime of an isolated, non-rotating,
+uncharged (Schwarzschild) black hole sitting in a vacuum colder than its
+own Hawking temperature, so it only ever loses mass and never gains it.
+Every other factor in the formula — G, ħ, c — is a fixed constant of
+nature. Mass is the only variable, and it enters as M³.
+
+## Why the cube matters so much
+
+Because evaporation time scales as M³, shrinking a black hole's mass by
+a factor of 10 shortens its lifetime by a factor of 1,000. Shrink the
+mass by 1,000× and the lifetime drops by a **billion** times. This single
+exponent explains nearly everything about which black holes are stable
+and which aren't:
+
+- A **stellar-mass black hole** (a few to a few dozen solar masses) has
+  an evaporation time enormously longer than the current age of the
+  universe — around **10⁶⁷ years** for one solar mass, a number so far
+  beyond 13.8 billion years that "essentially permanent" undersells it.
+- **Sagittarius A\***, the supermassive black hole at the center of the
+  Milky Way (about 4.3 million solar masses), is even more stable still
+  — the M³ scaling pushes its lifetime tens of orders of magnitude
+  further out.
+- A **hypothetical primordial black hole** with a mass around 10¹¹–10¹²
+  kilograms — roughly that of a small asteroid — would have an
+  evaporation time comparable to the age of the universe itself. Ones
+  even smaller than that would already be gone, having evaporated
+  sometime in the universe's past.
+
+This is also why tiny black holes and large ones behave so differently
+in terms of temperature: Hawking temperature runs the other way,
+*inversely* with mass, so the smallest black holes are the hottest and
+radiate the most furiously — which is exactly why they burn through
+their mass so much faster. (Our companion
+[Hawking temperature calculator](/posts/hawking-temperature-calculator)
+covers that side of the relationship in detail — the two tools are two
+views of the same underlying physics.)
+
+## The one number worth remembering
+
+Solve the formula for the mass at which t_evap exactly equals the age
+of the universe (about 13.8 billion years), and you get a specific,
+finite answer: somewhere around **10¹¹ kilograms**, a mass comparable to
+a small asteroid or mountain. Any black hole lighter than that, formed
+at the Big Bang, would already have evaporated by now. Any black hole
+anywhere near a stellar mass or heavier is so far above that threshold
+that "already evaporated" isn't a remotely live possibility — which is
+the entire reason astrophysical black holes are treated as permanent
+fixtures on cosmological timescales, while sufficiently tiny ones are
+the only place Hawking evaporation could ever plausibly be observed.
+
+## Reading the log-log plot
+
+Both axes of the chart are logarithmic, which turns the M³ relationship
+into a straight line — three decades of mass become nine decades of
+lifetime, visibly. The current mass you've entered is marked directly on
+that line, alongside a few fixed reference points (a stellar-mass black
+hole, Sagittarius A*, and the crossing mass above), plus a dashed
+horizontal line at the age of the universe so you can see at a glance
+which side of "already evaporated" any given mass falls on.
+
+<SimPostSchema
+  title="Black Hole Evaporation Time Calculator"
+  description="Calculate the idealized Hawking-radiation evaporation time of a Schwarzschild black hole, t = 5120 π G² M³ / (ħ c⁴), and see on a log-log plot why the M³ scaling makes stellar and supermassive black holes essentially eternal while sufficiently tiny ones would already be gone."
+  url="https://astrosyo.com/posts/black-hole-evaporation-time-calculator"
+  datePublished="2026-09-06"
+  authorName="Astrosyo"
+  keywords={["black hole evaporation time calculator", "Hawking radiation lifetime", "Schwarzschild black hole evaporation", "black hole mass and lifetime", "primordial black hole evaporation"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Black Hole Evaporation Time Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/black-hole-evaporation-time-calculator#calculator",
+    "description": "Interactive calculator that computes the idealized Hawking-radiation evaporation time of a Schwarzschild black hole from its mass, expressed in years and as a multiple of the age of the universe, with a log-log plot of evaporation time versus mass."
+  }}
+/>
+
+<ViewSource path="src/components/simulations/black-hole-evaporation-time-calculator/BlackHoleEvaporationTimeCalculator.jsx" />
+
+<Changelog entries={["2026-09-06: Published."]} />

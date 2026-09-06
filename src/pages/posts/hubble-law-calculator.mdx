@@ -1,0 +1,147 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Hubble Law Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-09-06'
+description: "Solve the linear Hubble law v = H0·d for a nearby galaxy's recession velocity or distance, with an adjustable H0 (60–80 km/s/Mpc), a genuine Hubble diagram plotting your point on the v = H0·d line, and explicit caveats about where the linear approximation breaks down."
+postColor: rgba(30, 40, 90, 1)
+slug: hubble-law-calculator
+keywords:
+  - Hubble law calculator
+  - v = H0 d
+  - Hubble constant
+  - recession velocity distance
+  - Hubble tension
+  - Hubble diagram
+  - redshift distance
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
+import Changelog from "../../components/Changelog.astro";
+import HubbleLawCalculator from "../../components/simulations/hubble-law-calculator/HubbleLawCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <HubbleLawCalculator client:load />
+</figure>
+
+In 1929, Edwin Hubble noticed something odd about the handful of
+galaxies whose distances and spectra had been measured: the farther
+away a galaxy was, the faster it appeared to be receding from us. Plot
+one against the other and the points fall — roughly, for anything
+reasonably nearby — on a straight line through the origin.
+
+## The formula
+
+$$
+v = H_0 \, d
+$$
+
+Here *d* is a galaxy's distance, *v* is its recession velocity (read
+off its redshift), and *H₀* — the Hubble constant — is the slope of
+that line: how fast the relationship between distance and velocity
+scales, in kilometers per second per megaparsec. It is simultaneously
+one of the simplest equations in cosmology and, because of exactly how
+that slope gets measured, one of the most argued-over numbers in the
+field.
+
+## The Hubble tension
+
+H₀ isn't a single agreed-upon number. Measurements built from the
+"distance ladder" — Cepheid variable stars and Type Ia supernovae in
+relatively nearby galaxies — tend to land around 73 km/s/Mpc. Measurements
+derived from the cosmic microwave background, run through the standard
+cosmological model, tend to land closer to 67 km/s/Mpc. The gap between
+them is small in absolute terms but statistically stubborn, and nobody
+has definitively shown which side (if either) has an unaccounted-for
+systematic error. This calculator doesn't take a side — it just lets you
+slide H₀ across the range these methods actually produce (60–80
+km/s/Mpc) so you can see how much of a difference it makes for any
+particular galaxy.
+
+## Reading the Hubble diagram
+
+The chart is the whole point of the tool: distance on the x-axis,
+recession velocity on the y-axis, the line v = H₀·d drawn for whatever
+H₀ you've picked, and your current distance/velocity pair marked as a
+dot that always sits exactly on that line — because under this linear
+model, that's all a distance/velocity pair *is*. Drag H₀ and watch the
+line's slope change while the dot rides along with it.
+
+## Solving in either direction
+
+Use the toggle to pick which quantity you know:
+
+- **Distance → velocity** — enter a distance in megaparsecs (or million
+  light-years) and read off the predicted recession velocity, shown in
+  km/s and as a fraction of the speed of light.
+- **Velocity → distance** — enter an observed recession velocity and
+  read off the implied distance. This direction is closer to how the
+  relation is actually used in practice: redshift is what a spectrum
+  directly gives you, and Hubble's law is what turns that into a
+  distance estimate.
+
+## Where this stops being valid
+
+This is deliberately a *linear*, low-redshift tool, and it says so
+plainly rather than quietly producing a number that looks precise but
+isn't. The straight-line v = H₀·d relation is the correctly-truncated,
+first-order approximation to something more complicated: the full FLRW
+(Friedmann–Lemaître–Robertson–Walker) cosmological distance–redshift
+relation. That fuller relation accounts for the universe's expansion
+history — how much of the cosmos is matter (Ωₘ) versus dark energy
+(ΩΛ) — and it also has to distinguish between several genuinely
+different notions of "distance" (comoving distance, luminosity
+distance, angular-diameter distance) that all collapse into one obvious
+quantity only in the nearby limit.
+
+Concretely: the linear approximation is reasonable out to distances of
+roughly a few hundred megaparsecs, corresponding to redshifts z ≲
+0.1-ish, and correspondingly to recession velocities that are a small
+fraction of the speed of light. Push it further — the way you'd have to
+for genuinely distant galaxies, let alone the redshifts at which
+quasars or the cosmic microwave background are observed — and v = H₀·d
+stops meaningfully applying at all. This calculator will warn you as
+your input's implied velocity climbs past about 10% of c, and flag it
+more strongly past 20% of c; it intentionally does not attempt to
+compute a "distance" beyond that point, because doing so with this
+formula would just be wrong.
+
+## The presets
+
+The Local Group, Virgo Cluster, and Coma Cluster entries are
+illustrative, self-consistent stand-ins (chosen to satisfy v = H₀·d at
+H₀ ≈ 70 km/s/Mpc) rather than a specific literature citation — real
+measured distances and velocities for these clusters vary across
+sources and methods. They're there to give the diagram a physically
+reasonable sense of scale, from "practically next door" to "a
+meaningful fraction of the way to where the linear approximation
+starts to strain."
+
+<SimPostSchema
+  title="Hubble Law Calculator"
+  description="Solve the linear Hubble law v = H0·d for a nearby galaxy's recession velocity or distance, with an adjustable H0 (60–80 km/s/Mpc), a genuine Hubble diagram plotting your point on the v = H0·d line, and explicit caveats about where the linear approximation breaks down."
+  url="https://astrosyo.com/posts/hubble-law-calculator"
+  datePublished="2026-09-06"
+  authorName="Astrosyo"
+  keywords={["Hubble law calculator", "v = H0 d", "Hubble constant", "recession velocity distance", "Hubble tension", "Hubble diagram"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Hubble Law Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/hubble-law-calculator#calculator",
+    "description": "Interactive calculator that solves the linear Hubble law v = H0*d for recession velocity or distance, with an adjustable Hubble constant, a Hubble diagram visualization, and validity warnings for high-redshift inputs."
+  }}
+/>
+
+<ViewSource path="src/components/simulations/hubble-law-calculator/HubbleLawCalculator.jsx" />
+
+<Changelog entries={["2026-09-06: Published."]} />

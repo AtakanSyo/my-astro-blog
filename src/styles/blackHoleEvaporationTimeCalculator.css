@@ -1,0 +1,269 @@
+.bhe {
+  --bhe-accent: #ffb37b;
+  --bhe-bg: var(--card-bg, #0e0e12);
+  --bhe-bg-2: #08080a;
+  --bhe-border: var(--card-border, rgba(255, 255, 255, 0.1));
+  --bhe-text: var(--color-text, #e4e4e4);
+  --bhe-text-dim: rgba(228, 228, 228, 0.65);
+  --bhe-bad: #ff8a7e;
+
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  color: var(--bhe-text);
+  background: var(--bhe-bg);
+  border: 1px solid var(--bhe-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  font-variant-numeric: tabular-nums;
+}
+
+.bhe-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.bhe-title {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin: 0;
+  color: var(--bhe-text);
+}
+
+.bhe-presets {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.bhe-preset-btn {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--bhe-border);
+  background: var(--bhe-bg-2);
+  color: var(--bhe-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.bhe-preset-btn:hover,
+.bhe-preset-btn:focus-visible {
+  border-color: var(--bhe-accent);
+  color: var(--bhe-text);
+}
+
+.bhe-explainer {
+  font-size: 0.8rem;
+  color: var(--bhe-text-dim);
+  line-height: 1.5;
+  margin: 0 0 1rem;
+}
+
+.bhe-explainer code {
+  background: var(--bhe-bg-2);
+  border: 1px solid var(--bhe-border);
+  border-radius: 4px;
+  padding: 0.05rem 0.3rem;
+  font-size: 0.75rem;
+  color: var(--bhe-text);
+}
+
+.bhe-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.bhe-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.bhe-field label {
+  font-size: 0.78rem;
+  color: var(--bhe-text-dim);
+}
+
+.bhe-input-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.bhe-input {
+  flex: 1;
+  min-width: 0;
+  background: var(--bhe-bg-2);
+  border: 1px solid var(--bhe-border);
+  border-radius: 8px;
+  color: var(--bhe-text);
+  font-size: 1rem;
+  padding: 0.5rem 0.65rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.bhe-input:focus {
+  border-color: var(--bhe-accent);
+}
+
+.bhe-unit-select {
+  background: var(--bhe-bg-2);
+  border: 1px solid var(--bhe-border);
+  border-radius: 8px;
+  color: var(--bhe-text);
+  font-size: 0.85rem;
+  padding: 0.5rem 0.5rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.bhe-headline-card {
+  background: rgba(255, 179, 123, 0.08);
+  border: 1px solid var(--bhe-accent);
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  margin-bottom: 1.1rem;
+  text-align: center;
+}
+
+.bhe-headline {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--bhe-text);
+  margin-bottom: 0.4rem;
+}
+
+.bhe-headline-sub {
+  font-size: 0.8rem;
+  color: var(--bhe-text-dim);
+}
+
+.bhe-chart-wrap {
+  background: var(--bhe-bg-2);
+  border: 1px solid var(--bhe-border);
+  border-radius: 12px;
+  padding: 0.75rem 0.75rem 0.5rem;
+  margin-bottom: 1.1rem;
+}
+
+.bhe-curve-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.bhe-chart-gridline {
+  stroke: var(--bhe-border);
+  stroke-width: 1;
+}
+
+.bhe-chart-gridline--v {
+  stroke-dasharray: 2 3;
+}
+
+.bhe-chart-axis-line {
+  stroke: var(--bhe-text-dim);
+  stroke-width: 1;
+}
+
+.bhe-chart-axis-label {
+  fill: var(--bhe-text-dim);
+  font-size: 10px;
+}
+
+.bhe-ylabel {
+  writing-mode: vertical-rl;
+}
+
+.bhe-curve-line {
+  fill: none;
+  stroke: var(--bhe-accent);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+
+.bhe-age-line {
+  stroke: var(--bhe-bad);
+  stroke-width: 1.4;
+  stroke-dasharray: 5 4;
+}
+
+.bhe-age-line-label {
+  fill: var(--bhe-bad);
+}
+
+.bhe-ref-point {
+  fill: var(--bhe-bg-2);
+  stroke: var(--bhe-text-dim);
+  stroke-width: 1.5;
+}
+
+.bhe-ref-label {
+  fill: var(--bhe-text-dim);
+  font-size: 9px;
+  font-style: italic;
+}
+
+.bhe-user-point {
+  fill: var(--bhe-accent);
+  stroke: var(--bhe-bg-2);
+  stroke-width: 1.5;
+}
+
+.bhe-chart-caption {
+  font-size: 0.72rem;
+  color: var(--bhe-text-dim);
+  margin: 0.35rem 0 0;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.bhe-note {
+  font-size: 0.78rem;
+  color: var(--bhe-text-dim);
+  background: var(--bhe-bg-2);
+  border: 1px solid var(--bhe-border);
+  border-left: 3px solid var(--bhe-accent);
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  line-height: 1.45;
+  margin: 0 0 1rem;
+}
+
+.bhe-note--warn {
+  border-left-color: var(--bhe-bad);
+}
+
+.bhe-footer-row {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  row-gap: 0.5rem;
+}
+
+.bhe-copy-btn {
+  font-size: 0.78rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--bhe-border);
+  background: var(--bhe-bg-2);
+  color: var(--bhe-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.bhe-copy-btn:hover,
+.bhe-copy-btn:focus-visible {
+  border-color: var(--bhe-accent);
+  color: var(--bhe-text);
+}

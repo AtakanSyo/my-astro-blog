@@ -1,0 +1,297 @@
+.htc {
+  --htc-accent: #c79bff;
+  --htc-bg: var(--card-bg, #1b1d22);
+  --htc-bg-2: #17191e;
+  --htc-border: var(--card-border, rgba(255, 255, 255, 0.1));
+  --htc-text: var(--color-text, #e4e4e4);
+  --htc-text-dim: rgba(228, 228, 228, 0.65);
+  --htc-bad: #ff8a7e;
+  --htc-cold: #7ec8ff;
+  --htc-hot: #ff9d5c;
+
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  color: var(--htc-text);
+  background: var(--htc-bg);
+  border: 1px solid var(--htc-border);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  font-variant-numeric: tabular-nums;
+}
+
+.htc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.htc-title {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin: 0;
+  color: var(--htc-text);
+}
+
+.htc-presets {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.htc-preset-btn {
+  font-size: 0.75rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid var(--htc-border);
+  background: var(--htc-bg-2);
+  color: var(--htc-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.htc-preset-btn:hover,
+.htc-preset-btn:focus-visible {
+  border-color: var(--htc-accent);
+  color: var(--htc-text);
+}
+
+.htc-explainer {
+  font-size: 0.8rem;
+  color: var(--htc-text-dim);
+  line-height: 1.5;
+  margin: 0 0 1rem;
+}
+
+.htc-explainer code {
+  background: var(--htc-bg-2);
+  border: 1px solid var(--htc-border);
+  border-radius: 4px;
+  padding: 0.05rem 0.3rem;
+  font-size: 0.75rem;
+  color: var(--htc-text);
+}
+
+.htc-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.htc-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.htc-field label {
+  font-size: 0.78rem;
+  color: var(--htc-text-dim);
+}
+
+.htc-input-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.htc-input {
+  flex: 1;
+  min-width: 0;
+  background: var(--htc-bg-2);
+  border: 1px solid var(--htc-border);
+  border-radius: 8px;
+  color: var(--htc-text);
+  font-size: 1rem;
+  padding: 0.5rem 0.65rem;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.htc-input:focus {
+  border-color: var(--htc-accent);
+}
+
+.htc-unit-select {
+  background: var(--htc-bg-2);
+  border: 1px solid var(--htc-border);
+  border-radius: 8px;
+  color: var(--htc-text);
+  font-size: 0.85rem;
+  padding: 0.5rem 0.5rem;
+  outline: none;
+  cursor: pointer;
+}
+
+.htc-headline-card {
+  background: rgba(199, 155, 255, 0.08);
+  border: 1px solid var(--htc-accent);
+  border-radius: 12px;
+  padding: 0.9rem 1rem;
+  margin-bottom: 1.1rem;
+  text-align: center;
+}
+
+.htc-headline {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--htc-text);
+  margin-bottom: 0.4rem;
+}
+
+.htc-headline-sub {
+  font-size: 0.8rem;
+  color: var(--htc-text-dim);
+  margin-top: 0.2rem;
+}
+
+.htc-cmb-tag {
+  display: inline-block;
+  margin-top: 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.3rem 0.6rem;
+  border-radius: 999px;
+  line-height: 1.4;
+}
+
+.htc-cmb-tag--cold {
+  background: rgba(126, 200, 255, 0.12);
+  color: var(--htc-cold);
+  border: 1px solid rgba(126, 200, 255, 0.35);
+}
+
+.htc-cmb-tag--hot {
+  background: rgba(255, 157, 92, 0.12);
+  color: var(--htc-hot);
+  border: 1px solid rgba(255, 157, 92, 0.35);
+}
+
+.htc-chart-wrap {
+  background: var(--htc-bg-2);
+  border: 1px solid var(--htc-border);
+  border-radius: 12px;
+  padding: 0.75rem 0.75rem 0.5rem;
+  margin-bottom: 1.1rem;
+}
+
+.htc-chart-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.htc-chart-gridline {
+  stroke: var(--htc-border);
+  stroke-width: 1;
+}
+
+.htc-chart-axis-line {
+  stroke: var(--htc-text-dim);
+  stroke-width: 1;
+}
+
+.htc-chart-axis-label {
+  fill: var(--htc-text-dim);
+  font-size: 10px;
+}
+
+.htc-ylabel {
+  writing-mode: vertical-rl;
+}
+
+.htc-curve-line {
+  fill: none;
+  stroke: var(--htc-accent);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+}
+
+.htc-cmb-line {
+  stroke: var(--htc-cold);
+  stroke-width: 1.5;
+  stroke-dasharray: 5 4;
+}
+
+.htc-cmb-label {
+  fill: var(--htc-cold);
+  font-size: 10px;
+}
+
+.htc-ref-dot {
+  fill: var(--htc-bg-2);
+  stroke: var(--htc-text-dim);
+  stroke-width: 1.5;
+}
+
+.htc-ref-label {
+  fill: var(--htc-text-dim);
+  font-size: 9px;
+}
+
+.htc-current-dot {
+  fill: var(--htc-hot);
+  stroke: #14151a;
+  stroke-width: 1.5;
+}
+
+.htc-current-halo {
+  fill: none;
+  stroke: var(--htc-hot);
+  stroke-width: 1.5;
+  opacity: 0.5;
+}
+
+.htc-chart-caption {
+  font-size: 0.72rem;
+  color: var(--htc-text-dim);
+  margin: 0.35rem 0 0;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.htc-note {
+  font-size: 0.78rem;
+  color: var(--htc-text-dim);
+  background: var(--htc-bg-2);
+  border: 1px solid var(--htc-border);
+  border-left: 3px solid var(--htc-accent);
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  line-height: 1.45;
+  margin: 0 0 1rem;
+}
+
+.htc-note--warn {
+  border-left-color: var(--htc-bad);
+}
+
+.htc-footer-row {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  row-gap: 0.5rem;
+}
+
+.htc-copy-btn {
+  font-size: 0.78rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--htc-border);
+  background: var(--htc-bg-2);
+  color: var(--htc-text-dim);
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.htc-copy-btn:hover,
+.htc-copy-btn:focus-visible {
+  border-color: var(--htc-accent);
+  color: var(--htc-text);
+}

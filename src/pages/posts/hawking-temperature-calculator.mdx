@@ -1,0 +1,134 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Hawking Temperature Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-09-06'
+description: "Calculate the Hawking temperature of a Schwarzschild black hole, T_H = ħc³/(8π G M k_B), from its mass in solar masses, Earth masses, or kilograms — with a log-log plot of temperature versus mass spanning Planck-scale hypotheticals to supermassive giants, and a CMB reference line marking the boundary between net-absorbing and net-evaporating."
+postColor: rgba(60, 20, 70, 1)
+slug: hawking-temperature-calculator
+keywords:
+  - Hawking temperature calculator
+  - Hawking radiation formula
+  - black hole temperature
+  - Schwarzschild black hole temperature
+  - black hole evaporation
+  - Sgr A* temperature
+  - primordial black hole temperature
+  - CMB black hole evaporation
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
+import Changelog from "../../components/Changelog.astro";
+import HawkingTemperatureCalculator from "../../components/simulations/hawking-temperature-calculator/HawkingTemperatureCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <HawkingTemperatureCalculator client:load />
+</figure>
+
+A black hole isn't perfectly black. Quantum effects near its event horizon
+mean it should emit a faint thermal glow — Hawking radiation — at a
+temperature fixed entirely by its mass. Because the relationship runs
+backward from intuition (heavier black holes are *colder*, not hotter),
+it produces one of the strangest and most illuminating curves in
+astrophysics.
+
+## The formula
+
+$$
+T_H = \frac{\hbar c^3}{8\pi G M k_B}
+$$
+
+Every symbol here is a fixed constant of nature except one: the mass
+$M$. Temperature is inversely proportional to mass, so this single
+relation ranges over dozens of orders of magnitude depending on what
+kind of black hole you plug in — from imperceptibly cold for anything
+astrophysical, to blisteringly hot for anything hypothetically tiny.
+
+## Why real black holes are almost unimaginably cold
+
+A black hole with the Sun's mass has a Hawking temperature of only
+about **6.17 × 10⁻⁸ K** — forty million times colder than the cosmic
+microwave background (CMB), the 2.725 K afterglow of the Big Bang that
+fills all of space. Sgr A*, the supermassive black hole at the center
+of the Milky Way (about 4.3 million solar masses), is colder still —
+its Hawking temperature is roughly **1.4 × 10⁻¹⁴ K**, a number with
+barely any physical meaning left in it except "far colder than
+anything else in the observable universe."
+
+This matters for a very concrete reason: **the CMB itself has a
+temperature of 2.725 K**, and every black hole we know of has a Hawking
+temperature dramatically below that. That means every astrophysical
+black hole is currently bathed in — and absorbing — far more radiation
+from the CMB than it emits as Hawking radiation. Net evaporation cannot
+begin for any of them until the universe expands and cools enough that
+the CMB drops below their (already unimaginably low) Hawking
+temperature — many trillions of years from now, long after star
+formation itself has ended.
+
+## Why hypothetical tiny black holes are the opposite extreme
+
+Flip the mass around and the picture flips completely. A hypothetical
+black hole with the mass of a small asteroid — around 10¹² kg — would
+have a Hawking temperature of roughly **1.2 × 10¹¹ K**, far hotter than
+the core of any star. Such an object would be radiating so intensely
+that it would be evaporating rapidly, losing mass (and therefore
+climbing to ever higher temperatures) in a runaway process that ends in
+a final burst. No black hole this small has ever been observed — this
+is a regime that would only be populated by "primordial" black holes,
+if any formed in the extreme densities of the very early universe, or
+by microscopic black holes under speculative high-energy physics
+scenarios. The calculator's mass field accepts values this small
+specifically so the contrast with a real, astrophysical black hole is
+visible directly on the same chart.
+
+## The one number that separates the two regimes
+
+**T_H < 2.725 K (the CMB temperature)** is the dividing line. Above it,
+a black hole is a net emitter and is genuinely evaporating today. Below
+it, a black hole is a net absorber, gaining more energy from the CMB
+than it loses to Hawking radiation, no matter how long you wait — until
+the universe itself cools further. Every known astrophysical black
+hole, from the smallest confirmed stellar-mass remnants (roughly 3
+solar masses) up to the largest supermassive giants, sits enormously
+far below this line.
+
+## Reading the chart
+
+Both axes are logarithmic, which is the only way to fit a relationship
+spanning roughly fifty orders of magnitude onto one picture. Because
+$T_H \propto 1/M$ is a pure power law, it appears as a single straight
+line in log-log space — no curve fitting needed, just the two
+endpoints of the domain shown. Three fixed reference points mark a
+Sun-mass black hole, Sgr A*, and the smallest known stellar-mass black
+holes; a highlighted dot tracks whatever mass you enter; and a dashed
+horizontal line marks the CMB temperature, the boundary described
+above.
+
+<SimPostSchema
+  title="Hawking Temperature Calculator"
+  description="Calculate the Hawking temperature of a Schwarzschild black hole, T_H = ħc³/(8π G M k_B), from its mass in solar masses, Earth masses, or kilograms — with a log-log plot of temperature versus mass spanning Planck-scale hypotheticals to supermassive giants, and a CMB reference line marking the boundary between net-absorbing and net-evaporating."
+  url="https://astrosyo.com/posts/hawking-temperature-calculator"
+  datePublished="2026-09-06"
+  authorName="Astrosyo"
+  keywords={["Hawking temperature calculator", "Hawking radiation formula", "black hole temperature", "Schwarzschild black hole temperature", "black hole evaporation"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Hawking Temperature Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/hawking-temperature-calculator#calculator",
+    "description": "Interactive calculator that computes the Hawking temperature of a Schwarzschild black hole from its mass, with a log-log plot of temperature versus mass and a cosmic microwave background reference line."
+  }}
+/>
+
+<ViewSource path="src/components/simulations/hawking-temperature-calculator/HawkingTemperatureCalculator.jsx" />
+
+<Changelog entries={["2026-09-06: Published."]} />
