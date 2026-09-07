@@ -1,0 +1,148 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Gravitational Wave Chirp Mass Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-09-07'
+description: >-
+  Calculate the chirp mass of a merging compact binary — the single
+  combination of two masses that a gravitational-wave detector measures
+  most precisely — along with total mass, mass ratio, and an ISCO
+  merger-frequency estimate, visualized as the real upward-sweeping
+  frequency "chirp."
+postColor: rgba(45, 15, 60, 1)
+slug: gravitational-wave-chirp-mass-calculator
+keywords:
+  - gravitational wave chirp mass calculator
+  - chirp mass formula
+  - GW150914 chirp mass
+  - GW170817 chirp mass
+  - LIGO frequency sweep
+  - ISCO frequency estimate
+  - symmetric mass ratio
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
+import Changelog from "../../components/Changelog.astro";
+import Katex from "../../components/Katex.astro";
+import GravitationalWaveChirpMassCalculator from "../../components/simulations/gravitational-wave-chirp-mass-calculator/GravitationalWaveChirpMassCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <GravitationalWaveChirpMassCalculator client:load />
+</figure>
+
+When two black holes or neutron stars spiral together, the gravitational
+waves they radiate sweep upward in frequency right up until merger — the
+"chirp" that gives these signals their name. Buried in the shape of that
+sweep is one specific combination of the two masses that a detector like
+LIGO or Virgo can pin down far more precisely than either mass on its
+own: the chirp mass.
+
+## The formula
+
+$$
+M_c = \frac{(M_1 M_2)^{3/5}}{(M_1+M_2)^{1/5}}
+$$
+
+<Katex tex="M_1" /> and <Katex tex="M_2" /> are the two component masses. From the same pair, this calculator also reports the total mass <Katex tex="M_1+M_2" />, the mass ratio <Katex tex="q = M_2/M_1" />, and the symmetric mass ratio:
+
+$$
+\eta = \frac{M_1 M_2}{(M_1+M_2)^2}
+$$
+
+(which ranges from 0 for a wildly unequal pair up to a maximum of 0.25
+for two equal masses), and the reduced mass <Katex tex="\mu = M_1 M_2/(M_1+M_2)" />.
+
+## Why chirp mass, specifically?
+
+To leading (Newtonian-quadrupole) order, the rate at which the
+gravitational-wave frequency rises depends on the two masses *only*
+through <Katex tex="M_c" />:
+
+$$
+f(t) = \frac{1}{\pi}\left(\frac{5}{256\,(t_c-t)}\right)^{3/8}\left(\frac{G M_c}{c^3}\right)^{-5/8}
+$$
+
+where <Katex tex="t_c" /> is the time of coalescence and <Katex tex="t" /> counts down toward it. Because this sweep rate is directly observable in the data (it's literally the
+shape of the signal), the chirp mass comes out of a detection with a
+far smaller uncertainty than the total mass or the individual masses —
+both of which depend on higher-order post-Newtonian terms and are
+consequently measured far less precisely. This is exactly why LIGO/Virgo
+papers always quote chirp mass first, and to many more significant
+figures than anything else about the source.
+
+## Two real events worth knowing
+
+- **GW150914** (September 2015), the first direct detection: two black
+  holes of roughly 36 and 29 solar masses merged, radiating a chirp mass
+  around 28 M☉. A simplified, commonly used stand-in for the same event
+  — two 30 M☉ black holes — reproduces a chirp mass of about 26.1 M☉,
+  close to the same ballpark and a useful round illustrative pairing.
+- **GW170817** (August 2017), the first (and so far only confirmed)
+  neutron star merger seen in gravitational waves: component masses
+  around 1.17–1.60 M☉ gave a chirp mass of 1.188 M☉ (+0.004/−0.002) —
+  one of the most precisely measured chirp masses of any
+  gravitational-wave event, and a striking demonstration of just how
+  tightly this one parameter can be pinned down.
+
+## Reading the two visuals
+
+- **The frequency-sweep chart** plots the actual leading-order chirp —
+  gravitational-wave frequency rising as the two masses spiral together
+  over roughly the final second or so before merger, using the current
+  chirp mass. The curve's characteristic upward-curving shape, steepening
+  dramatically in the last moments, is the real physics behind the name
+  "chirp." A marker shows an ISCO-frequency estimate of where the signal
+  is expected to roughly end.
+- **The waveform sketch** below it is a stylized strain plot built from
+  the same frequency sweep — oscillating faster and growing in amplitude
+  toward merger, the recognizable shape from real LIGO strain plots.
+
+## An honest caveat about the merger frequency
+
+The "≈ merger" marker on the chart comes from the innermost stable
+circular orbit (ISCO) for the *total* mass — treating the merger, very
+roughly, as a test particle reaching the last stable orbit around a
+single Schwarzschild black hole of that mass:
+
+$$
+f_{\rm ISCO} \approx \frac{c^3}{6^{3/2}\,\pi\, G\, M_{\rm total}}
+$$
+
+This is a genuinely useful order-of-magnitude "where it roughly ends"
+marker — not a precise numerical-relativity merger frequency. Real
+merger simulations, which account for the strong-field two-body dynamics
+this estimate ignores entirely, find the true merger happens a little
+later and at a somewhat higher frequency than this simple ISCO estimate
+suggests. Likewise, the frequency-sweep formula itself is the leading
+post-Newtonian term — accurate through the early-to-mid inspiral, but
+not the final few orbits immediately before merger, where higher-order
+relativistic corrections start to matter.
+
+<SimPostSchema
+  title="Gravitational Wave Chirp Mass Calculator"
+  description="Calculate the gravitational-wave chirp mass M_c = (M1 M2)^(3/5)/(M1+M2)^(1/5) of a merging compact binary, along with total mass, mass ratio, symmetric mass ratio, reduced mass, and an ISCO merger-frequency estimate — visualized as the real upward-sweeping frequency chirp and a stylized strain waveform."
+  url="https://astrosyo.com/posts/gravitational-wave-chirp-mass-calculator"
+  datePublished="2026-09-07"
+  authorName="Astrosyo"
+  keywords={["gravitational wave chirp mass calculator", "chirp mass formula", "GW150914 chirp mass", "GW170817 chirp mass", "LIGO frequency sweep"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Gravitational Wave Chirp Mass Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/gravitational-wave-chirp-mass-calculator#calculator",
+    "description": "Interactive calculator that computes the chirp mass, total mass, mass ratio, symmetric mass ratio, reduced mass, and an ISCO merger-frequency estimate for a compact binary, and visualizes the gravitational-wave frequency sweep and strain waveform toward merger."
+  }}
+/>
+
+<ViewSource path="src/components/simulations/gravitational-wave-chirp-mass-calculator/GravitationalWaveChirpMassCalculator.jsx" />
+
+<Changelog entries={["2026-09-07: Published."]} />

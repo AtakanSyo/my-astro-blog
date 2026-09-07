@@ -1,0 +1,186 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Habitable Zone Boundary Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-09-07'
+description: >-
+  Calculate a star's conservative and optimistic habitable zone boundaries
+  in AU using the real Kopparapu et al. (2013) empirical formulation, and
+  see whether a candidate planet's orbit falls inside it.
+postColor: rgba(20, 70, 45, 1)
+slug: habitable-zone-boundary-calculator
+keywords:
+  - habitable zone calculator
+  - Kopparapu habitable zone
+  - circumstellar habitable zone
+  - conservative habitable zone
+  - TRAPPIST-1 habitable zone
+  - habitable zone formula
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
+import Changelog from "../../components/Changelog.astro";
+import Katex from "../../components/Katex.astro";
+import HabitableZoneBoundaryCalculator from "../../components/simulations/habitable-zone-boundary-calculator/HabitableZoneBoundaryCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <HabitableZoneBoundaryCalculator client:load />
+</figure>
+
+The "habitable zone" is the range of distances from a star where a
+rocky planet, with an Earth-like atmosphere, could sustain liquid water
+on its surface. It's one of the first things anyone checks when a new
+exoplanet is announced — and it's also one of the most misunderstood
+terms in popular astronomy, so it's worth being precise about what it
+actually claims.
+
+## The formula
+
+This calculator uses the real, empirically-derived formulation from
+Kopparapu, R. K., et al. (2013), *"Habitable Zones Around Main-Sequence
+Stars: New Estimates,"* ApJ, 765, 131 — not a simplified
+<Katex tex="\sqrt{L}" /> scaling. The paper fits radiative-convective
+climate models to define, for each of several physically distinct
+boundaries, a normalized effective solar flux as a quartic function of
+stellar effective temperature:
+
+$$
+S_{\rm eff} = S_{\rm eff\odot} + aT_\star + bT_\star^2 + cT_\star^3 + dT_\star^4
+$$
+
+where <Katex tex="T_\star = T_{\rm eff} - 5780\,{\rm K}" />, valid for
+stars with <Katex tex="T_{\rm eff}" /> between 2600 K and 7200 K. Once
+<Katex tex="S_{\rm eff}" /> is known, it converts to a boundary distance
+by the inverse-square law:
+
+$$
+d = \sqrt{\frac{L}{S_{\rm eff}}}
+$$
+
+with <Katex tex="d" /> in AU and <Katex tex="L" /> in solar luminosities.
+
+## Five boundaries, two zones
+
+The paper defines five named boundaries, each with its own fitted
+coefficients:
+
+- **Recent Venus** — the flux at which Venus's own oceans (if it ever
+  had them) would have been lost, used as the innermost defensible edge.
+- **Runaway Greenhouse** — the flux beyond which a planet's oceans
+  boil away entirely in a runaway feedback, similar to Venus's real
+  history.
+- **Moist Greenhouse** — a related, slightly more conservative inner
+  limit where the stratosphere becomes water-saturated and slow
+  hydrogen escape sets in.
+- **Maximum Greenhouse** — the outer edge where a CO₂ atmosphere,
+  however thick, can no longer keep a planet's surface above freezing.
+- **Early Mars** — the flux at which Mars's own early surface water (if
+  it existed) would have frozen out, used as the outermost defensible edge.
+
+This calculator combines them into the two bands you'll see quoted
+throughout the exoplanet literature:
+
+- The **conservative habitable zone** — Runaway Greenhouse (inner) to
+  Maximum Greenhouse (outer) — the narrower, higher-confidence zone most
+  often meant by "the" habitable zone.
+- The **optimistic habitable zone** — Recent Venus (inner) to Early Mars
+  (outer) — a wider, more liberal zone, useful for not prematurely ruling
+  a planet out.
+
+The conservative zone always sits strictly inside the optimistic one, by
+construction — Recent Venus is always closer in than Runaway Greenhouse,
+and Early Mars is always farther out than Maximum Greenhouse.
+
+## Sanity check: the Sun and Earth
+
+Plugging in the Sun's own parameters (<Katex tex="T_{\rm eff} \approx 5778" /> K,
+<Katex tex="L = 1\,L_\odot" />) into this formula reproduces the paper's
+own worked example almost exactly: a conservative habitable zone of
+roughly 0.98-1.71 AU. Earth's real 1 AU orbit sits comfortably inside
+it — which is exactly what a correctly-implemented version of this
+formula should show, and is the first thing this calculator's own
+"Tests" popup checks.
+
+## TRAPPIST-1: a real, famous edge case
+
+TRAPPIST-1 is an ultracool red dwarf about 40 light-years away, with a
+real effective temperature around 2566 K and a luminosity of only about
+0.00055 <Katex tex="L_\odot" /> — roughly a twentieth of a percent of the
+Sun's. Its seven known rocky planets orbit so close in that the whole
+system would fit inside Mercury's orbit around the Sun. Plugging its real
+parameters into this same formula gives a conservative habitable zone of
+roughly 0.024-0.049 AU, closely matching the figures published alongside
+its 2017 discovery — and planet e, at about 0.029 AU, lands right inside
+that zone, one of the reasons it's frequently named among the most
+promising known habitable-zone candidates.
+
+One honest caveat: TRAPPIST-1's real temperature sits just below
+Kopparapu et al. (2013)'s own calibrated range (2600-7200 K), so this is
+a small, commonly-accepted extrapolation rather than a value the original
+climate models were run at directly — this calculator flags it
+explicitly whenever a star's temperature falls outside that range.
+
+## What "habitable zone" doesn't mean
+
+This is the part worth being explicit about: landing inside the
+habitable zone is a *necessary* condition for surface liquid water on an
+Earth-like world, not a *sufficient* one, and it says nothing at all
+about whether a planet is actually inhabited or even habitable in
+practice. A planet's real surface conditions also depend on its actual
+atmospheric composition and greenhouse effect (a thin atmosphere like
+Mars's undershoots the models here; a thick one like Venus's overshoots
+them), its albedo and cloud cover, its rotation and whether it's tidally
+locked to a close-in star (a real concern for planets orbiting stars as
+faint as TRAPPIST-1), its geological activity and carbon cycle, and
+plenty else this idealized flux calculation deliberately leaves out. This
+site's own equilibrium temperature calculator covers the atmosphere-free
+energy balance side of that picture in more detail — the habitable zone
+and equilibrium temperature are two different, complementary
+simplifications of the same underlying question, and neither one alone
+is a verdict on habitability.
+
+## Reading the two visuals
+
+- **The orbital diagram** draws the star at the center, the optimistic
+  habitable zone as a wide, lighter band, and the conservative habitable
+  zone nested inside it as a narrower, more saturated band — with the
+  candidate planet's orbit drawn as a dashed circle at its actual scaled
+  distance, colored by which zone it falls into.
+- **The temperature-sweep chart** holds the current luminosity fixed and
+  sweeps stellar effective temperature across (at least) Kopparapu et
+  al.'s own calibrated 2600-7200 K range, showing how both bands shift
+  for hotter and cooler stars. Real main-sequence stars also get far more
+  luminous as they get hotter, which pushes their *actual* habitable
+  zones outward much more than this fixed-luminosity view alone shows —
+  a caveat repeated in the chart's own caption.
+
+<SimPostSchema
+  title="Habitable Zone Boundary Calculator"
+  description="Calculate a star's conservative and optimistic habitable zone boundaries in AU using the real Kopparapu et al. (2013) empirical formulation (S_eff = S_eff☉ + aT★ + bT★² + cT★³ + dT★⁴, d = sqrt(L/S_eff)), and see whether a candidate planet's orbit falls inside it — with an orbital diagram and a temperature-sweep chart."
+  url="https://astrosyo.com/posts/habitable-zone-boundary-calculator"
+  datePublished="2026-09-07"
+  authorName="Astrosyo"
+  keywords={["habitable zone calculator", "Kopparapu habitable zone", "circumstellar habitable zone", "conservative habitable zone", "TRAPPIST-1 habitable zone"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Habitable Zone Boundary Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/habitable-zone-boundary-calculator#calculator",
+    "description": "Interactive calculator that computes a star's conservative and optimistic circumstellar habitable zone boundaries using the Kopparapu et al. (2013) empirical formulation, compares a candidate planet's orbital distance against them, and visualizes the zone with an orbital diagram and a temperature-sweep chart."
+  }}
+/>
+
+<ViewSource path="src/components/simulations/habitable-zone-boundary-calculator/HabitableZoneBoundaryCalculator.jsx" />
+
+<Changelog entries={[
+  "2026-09-07: Published."
+]} />

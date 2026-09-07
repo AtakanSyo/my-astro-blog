@@ -1,0 +1,144 @@
+---
+layout: ../../layouts/simLayout.astro
+title: "Tidal Disruption Radius Calculator"
+category: simulation
+writer: Astrosyo
+pubDate: '2026-09-07'
+description: >-
+  Calculate how close a star can orbit a black hole before tidal forces
+  shred it apart — and find the black hole mass above which the star is
+  swallowed whole instead, producing no observable flare.
+postColor: rgba(70, 10, 10, 1)
+slug: tidal-disruption-radius-calculator
+keywords:
+  - tidal disruption radius calculator
+  - tidal disruption event
+  - star shredded by black hole
+  - Schwarzschild radius comparison
+  - Sagittarius A* tidal disruption
+  - swallowed whole black hole
+  - TDE flare
+lang: en
+---
+
+import SimPostSchema from "../../components/SimPostSchema.astro";
+import ViewSource from "../../components/ViewSource.astro";
+import Changelog from "../../components/Changelog.astro";
+import Katex from "../../components/Katex.astro";
+import TidalDisruptionRadiusCalculator from "../../components/simulations/tidal-disruption-radius-calculator/TidalDisruptionRadiusCalculator.jsx";
+
+<figure class="post-figure post-figure-md" id="calculator">
+  <TidalDisruptionRadiusCalculator client:load />
+</figure>
+
+A star that wanders too close to a black hole doesn't just fall in quietly.
+Long before it reaches the black hole, the difference in gravitational pull
+across the star's near and far sides — the tidal force — can grow strong
+enough to overcome the star's own self-gravity, stretching it into a long
+stream of debris in a matter of minutes. Some of that debris falls onto the
+black hole and lights up as a brilliant flare; the rest is flung away. This
+violent event is called a tidal disruption event, or TDE, and the distance
+at which it happens is the tidal disruption radius.
+
+## The formula
+
+The simple, non-relativistic estimate used here:
+
+$$
+r_t = R_\star \left(\frac{M_{\rm BH}}{M_\star}\right)^{1/3}
+$$
+
+<Katex tex="R_\star" /> and <Katex tex="M_\star" /> are the star's radius and mass; <Katex tex="M_{\rm BH}" /> is the
+black hole's mass. This is the same functional form as a Roche-limit-style
+estimate (see this site's Roche Limit calculator), applied to a star and a
+point-mass disruptor. More careful treatments add structure-dependent
+factors of a few, but this simple form captures the right scaling and order
+of magnitude, and it's the standard back-of-envelope figure quoted in TDE
+literature and popular explainers.
+
+## The single most interesting thing about this formula
+
+Here's the twist that makes tidal disruption events astrophysically
+strange: <Katex tex="r_t" /> only grows as the <strong>cube root</strong> of
+black hole mass, while the black hole's own event horizon — its
+Schwarzschild radius,
+
+$$
+r_s = \frac{2GM_{\rm BH}}{c^2}
+$$
+
+— grows <strong>linearly</strong> with mass. A linear function eventually
+overtakes a cube-root function no matter how far behind it starts. So for
+small and moderate black hole masses, <Katex tex="r_t" /> comfortably
+exceeds <Katex tex="r_s" />: the star gets torn apart in plain view, well
+outside the horizon, and the resulting flare is observable from Earth.
+
+But push the black hole mass high enough, and <Katex tex="r_s" /> catches up
+to and overtakes <Katex tex="r_t" />. Past that crossover, the star would
+be tidally shredded only *inside* the event horizon — which is physically
+meaningless, because nothing that happens inside the horizon is
+observable, and the star has already fallen through it, whole, before
+tides ever got the chance to act. The result: the black hole simply
+swallows the star intact. No debris stream forms outside the horizon, no
+disk lights up, no flare. This is a genuine, well-known limit on TDE
+detectability discussed in the astrophysical literature, commonly quoted
+at roughly <Katex tex="M_{\rm BH} \gtrsim 10^8\ M_\odot" /> for a
+Sun-like star — this calculator derives that crossover mass directly from
+the algebra (solving <Katex tex="r_t(M) = r_s(M)" /> exactly) for whatever
+star you enter, rather than hard-coding the commonly cited figure.
+
+## Real observed tidal disruption events
+
+Real TDEs have been caught by wide-field sky surveys and X-ray telescopes
+for decades now. **ASASSN-14li** (2014) was one of the best-studied
+optical/UV/X-ray TDEs, discovered by the All-Sky Automated Survey for
+SuperNovae around a supermassive black hole roughly a few million solar
+masses — squarely in the regime this calculator would call a real,
+observable disruption. **Swift J1644+57** (2011) was a much more exotic
+case: a relativistic jet launched by a TDE, bright enough in gamma rays to
+initially be mistaken for a gamma-ray burst, and one of the events that
+helped establish TDEs with jets as a distinct phenomenon. Both are real,
+named, well-studied events — cited here as illustrative context for what
+this simplified formula is describing, not as exact numerical matches to
+its output.
+
+## Reading the two visuals
+
+- **The disruption diagram** draws the black hole's Schwarzschild radius
+  as a solid dark event-horizon disk and the tidal disruption radius as a
+  dashed boundary around it. When the tidal radius sits outside the
+  horizon, the star is drawn stretched into a debris stream right at that
+  boundary — a real, observable disruption. When the tidal radius would
+  fall inside the horizon, the star is instead drawn intact, disappearing
+  straight into the black disk — swallowed whole.
+- **The mass-vs-radius chart** plots both <Katex tex="r_t" /> and
+  <Katex tex="r_s" /> against black hole mass on log-log axes, for your
+  current star. Because each is a pure power law with a different
+  exponent, both are straight lines — and they cross exactly once, at the
+  swallowed-whole threshold mass, labeled directly on the chart.
+
+<SimPostSchema
+  title="Tidal Disruption Radius Calculator"
+  description="Calculate the tidal disruption radius r_t = R★(M_BH/M★)^(1/3) at which a black hole's tidal force shreds a star apart, compare it against the black hole's Schwarzschild radius, and find the mass above which the star is swallowed whole instead — with a disruption diagram and a log-log r_t vs. r_s chart."
+  url="https://astrosyo.com/posts/tidal-disruption-radius-calculator"
+  datePublished="2026-09-07"
+  authorName="Astrosyo"
+  keywords={["tidal disruption radius calculator", "tidal disruption event", "star shredded by black hole", "Schwarzschild radius comparison", "Sagittarius A* tidal disruption"]}
+  articleSection="Astronomy Tools"
+  isAccessibleForFree={true}
+  publisherName="Astrosyo"
+  publisherLogo="/images/shared/logo.svg"
+  hasPart={{
+    "@type": "SoftwareApplication",
+    "name": "Tidal Disruption Radius Calculator",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "browserRequirements": "Requires modern browser",
+    "url": "https://astrosyo.com/posts/tidal-disruption-radius-calculator#calculator",
+    "description": "Interactive calculator that computes the tidal disruption radius for a star near a black hole, compares it against the black hole's Schwarzschild radius, and flags the 'swallowed whole, no visible flare' regime with a disruption diagram and a log-log chart."
+  }}
+/>
+
+<ViewSource path="src/components/simulations/tidal-disruption-radius-calculator/TidalDisruptionRadiusCalculator.jsx" />
+
+<Changelog entries={["2026-09-07: Published."]} />
